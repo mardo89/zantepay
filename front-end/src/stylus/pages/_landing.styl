@@ -1,0 +1,456 @@
+.header-lp
+  padding-bottom 260px
+  @media screen and (max-width: 1400px)
+    padding-bottom 210px
+  @media screen and (max-width: 1199px)
+    padding-bottom 170px
+  @media screen and (max-width: 575px)
+    padding-bottom 100px
+    
+.main-lp
+  background $bg-color-light
+
+.countdown
+  min-height 105px
+  
+.countdown-group
+  display inline-block
+  vertical-align top
+  width 75px
+  @media screen and (max-width: 575px)
+    width 60px
+
+.countdown-txt-lg
+  font-size 48px
+  display block
+  font-weight 300
+  @media screen and (max-width: 575px)
+    font-size 40px
+
+.countdown-txt-sm
+  font-size 18px
+  display block
+  margin-top 25px
+  @media screen and (max-width: 575px)
+    font-size 15px
+    margin-top 15px
+
+.countdown-dots
+  font-size 48px
+  display inline-block
+  vertical-align top
+  line-height 1
+  margin 0 25px
+  @media screen and (max-width: 575px)
+    font-size 40px
+    margin 0px
+
+.lp-section-one
+  padding-top 85px
+  padding-bottom 65px
+  background $bg-color-dark
+  position relative
+  z-index
+  &:before
+    content ''
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    top 0
+    background url('../images/squares-1-2.png') no-repeat center top
+    animation glowing1 1.5s ease-in-out infinite alternate
+    // transform translateZ(0)
+  & > div
+    position relative
+    z-index 10
+
+.lp-section-two
+  background $bg-color-dark;
+  padding 170px 0 130px
+  position relative
+  z-index 1
+  @media screen and (max-width: 1400px)
+    padding 130px 0 110px
+  @media screen and (max-width: 1199px)
+    padding 110px 0 100px
+  @media screen and (max-width: 767px)
+    padding 20px 0 80px
+  // &:after
+  //   background inherit
+  //   content ''
+  //   display block
+  //   height 50%
+  //   left 0
+  //   position absolute
+  //   right 0
+  //   z-index -1
+  //   -webkit-backface-visibility hidden
+  //   bottom 0
+  //   transform skewY(-1.1deg)
+  //   transform-origin 100%
+  //   box-shadow 0 2px 10px rgba(#000, .3)
+  &:before
+    content ''
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    top 0
+    background url('../images/squares-1-3.png') no-repeat center top
+    animation glowing1 1.5s ease-in-out infinite alternate
+    // transform translateZ(0)
+  & > div
+    position relative
+    z-index 10
+
+.lp-progress-wrap
+  position relative
+  display inline-block
+  margin-bottom 25px
+  @media screen and (max-width: 767px)
+    transform scale(0.8)
+    margin-bottom 0
+
+.lp-progress-blured
+  filter blur(6px)
+
+.lp-progress-top
+  position absolute
+  top 4px
+  left 0
+  right 0
+
+.lp-progress-text
+  position absolute
+  top 50%
+  left 50%
+  font-weight 300
+  font-size 48px
+  text-align center
+  transform translateX(-50%) translateY(-50%)
+  span
+    display block
+    font-size 24px
+
+.lp-section-two-btn
+  margin 140px 0 0
+  text-align center
+  @media screen and (max-width: 1199px)
+    margin 100px 0 0
+  @media screen and (max-width: 767px)
+    margin 40px 0 0
+
+.lp-section-three
+  padding 150px 0 150px
+  position relative
+  z-index 1
+  @media screen and (max-width: 1199px)
+    padding 140px 0 130px
+  .lp-row-1
+    @media screen and (max-width: 1400px)
+      padding-top 50px
+  &:before
+    content ''
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    top 0
+    background url('../images/squares-3.png') no-repeat center
+    animation glowing1 1.5s ease-in-out infinite alternate
+    // transform translateZ(0)
+  & > div
+    position relative
+    z-index 10
+  img
+    @media screen and (max-width: 767px)
+      margin-bottom 30px
+  .col-md-6
+    @media screen and (max-width: 767px)
+      justify-content center
+
+.lp-content-col
+  text-align left
+  max-width 400px
+  display inline-block
+
+.lp-section-four
+  padding 140px 0 165px
+  box-shadow 0 2px 10px rgba(#000, .3)
+  background $bg-color-dark
+  position relative
+  z-index 1
+  @media screen and (max-width: 1199px)
+    padding 120px 0 125px
+  &:before
+    content ''
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    top 0
+    background url('../images/squares-1-4.png') no-repeat center
+    animation glowing1 1.5s ease-in-out infinite alternate
+    // transform translateZ(0)
+  & > div
+    position relative
+    z-index 10
+  .lp-row-1
+    padding-bottom 115px
+    @media screen and (max-width: 575px)
+      padding-bottom 45px
+    .col-sm-6
+      @media screen and (max-width: 575px)
+        margin-bottom 80px
+    .headline
+      display inline-block
+      text-align left
+    img
+      margin 80px 0 75px
+      @media screen and (max-width: 1199px)
+        margin 60px 0 55px
+      @media screen and (max-width: 575px)
+        margin 30px 0 25px
+  .border-right-image
+    @media screen and (max-width: 767px)
+      margin-bottom 30px
+
+.lp-bg-1
+  position relative
+  z-index 1
+  &:before
+    content ''
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    top 0
+    background url('../images/squares-5.png') no-repeat center
+    animation glowing1 1.5s ease-in-out infinite alternate
+    // transform translateZ(0)
+  & > section
+    position relative
+    z-index 10
+
+.lp-section-five
+  padding 150px 0 60px
+  @media screen and (max-width: 1199px)
+    padding 120px 0 40px
+
+.lp-section-sixth
+  padding 60px 0 140px
+  @media screen and (max-width: 1199px)
+    padding 60px 0 120px
+  .lp-row-1
+    padding-bottom 115px
+    @media screen and (max-width: 1199px)
+      padding-bottom 95px
+    @media screen and (max-width: 991px)
+      padding-bottom 45px
+    .btn
+      margin 35px 0
+    .col-lg-5
+      @media screen and (max-width: 767px)
+        margin-bottom 50px
+  .lp-row-2
+    padding-bottom 45px
+  .lp-row-3
+    .btn
+      margin-top 50px
+
+.lp-znx-wrap
+  display flex
+  align-items center
+  @media screen and (max-width: 991px)
+    justify-content center
+    margin-top 50px
+  @media screen and (max-width: 420px)
+    display block
+    text-align center
+
+.lp-znx-img
+  width 230px
+  height 230px
+  margin-right 30px
+  background url('../images/ellipse@2x.png') no-repeat center;
+  background-size contain
+  position relative
+  @media screen and (max-width: 1400px)
+    width 200px
+    height 200px
+  @media screen and (max-width: 991px)
+    width 180px
+    height 180px
+  @media screen and (max-width: 420px)
+    display inline-block
+    margin-bottom 10px
+    margin-right 0
+
+.lp-znx-txt
+  position absolute
+  top 50%
+  left 50%
+  transform translateX(-50%) translateY(-50%)
+  font-size 30px
+  text-align center
+  @media screen and (max-width: 1400px)
+    font-size 27px
+  @media screen and (max-width: 991px)
+    font-size 24px
+  span
+    color $primary-color
+    margin-bottom 5px
+    font-weight 300
+    font-size 68px
+    @media screen and (max-width: 1400px)
+      font-size 62px
+    @media screen and (max-width: 991px)
+      font-size 55px
+
+.lp-znx-list
+  clearlist()
+  font-size 28px
+  @media screen and (max-width: 1400px)
+    font-size 27px
+  @media screen and (max-width: 1199px)
+    font-size 24px
+  @media screen and (max-width: 991px)
+    font-size 21px
+  span
+    color $primary-color
+
+.lp-section-seventh
+  background $bg-color-dark
+  padding 150px 0
+  position relative
+  z-index 1
+  @media screen and (max-width: 1199px)
+    padding 120px 0
+  @media screen and (max-width: 991px)
+    padding 100px 0
+  &:before
+    content ''
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    top 0
+    background url('../images/squares-1-5.png') no-repeat center
+    animation glowing1 1.5s ease-in-out infinite alternate
+    // transform translateZ(0)
+  & > div
+    position relative
+    z-index 10
+  .lp-row-1
+    padding-bottom 130px
+    @media screen and (max-width: 991px)
+      padding-bottom 90px
+
+.lp-coin-value
+  display flex
+  align-items center
+  max-width 420px
+  width 100%
+  @media screen and (max-width: 767px)
+    margin-bottom 30px
+
+.lp-coin-img
+  padding 15px 0 5px
+  border-left 1px solid $primary-color
+
+.lp-coin-text
+  padding-right 35px
+  font-size 48px
+  font-weight 300
+  text-align right
+  span
+    line-height 1.9
+    margin-top 5px
+    display block
+    color $primary-color
+    font-weight 500
+    @media screen and (max-width: 991px)
+      line-height 1.6
+
+.lp-section-eight
+  padding 140px 0 0
+  @media screen and (max-width: 1199px)
+    padding 120px 0 0
+  .lp-row-1
+    padding-bottom 60px
+    .headline
+      display inline-block
+      text-align left
+
+.lp-table-group
+  margin-bottom 75px
+  .headline
+    margin-bottom 30px
+    @media screen and (max-width: 991px)
+      margin-bottom 20px
+
+.lp-image-container
+  display inline-block
+  @media screen and (max-width: 1400px)
+    max-width 350px
+  @media screen and (max-width: 991px)
+    max-width 320px
+
+.lp-image-container2
+  display inline-block
+  @media screen and (max-width: 1400px)
+    max-width 390px
+  & + .pt-40
+    @media screen and (max-width: 767px)
+      padding-top 0
+
+.lp-image-container3
+  display inline-block
+  @media screen and (max-width: 1400px)
+    max-width 320px
+  @media screen and (max-width: 991px)
+    max-width 290px
+
+.lp-image-container4
+  display inline-block
+  @media screen and (max-width: 1400px)
+    max-width 420px
+  @media screen and (max-width: 1199px)
+    max-width 390px
+  @media screen and (max-width: 575px)
+    max-width 300px
+    display block
+    margin auto
+
+.lp-pre-ico-col
+  @media screen and (max-width: 767px)
+    text-align center
+  .headline
+    @media screen and (max-width: 767px)
+      display inline-block
+      text-align left
+      margin-bottom 20px
+
+.lp-section-nineth
+  text-align center
+  padding 85px 0 140px
+  @media screen and (max-width: 1199px)
+    padding 85px 0 110px
+  @media screen and (max-width: 991px)
+    padding 45px 0 60px
+  .h2
+    display inline-block
+  .lp-row-1
+    margin-bottom 75px
+  img
+    margin-bottom 35px
+    @media screen and (max-width: 991px)
+      margin-bottom 20px
+  .h4
+    margin-bottom 30px
+    @media screen and (max-width: 991px)
+      margin-bottom 15px
+  .row > div
+    @media screen and (max-width: 991px)
+      margin-bottom 50px

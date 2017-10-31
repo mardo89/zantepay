@@ -1,0 +1,133 @@
+fl--v-top()
+  align-items flex-start
+  align-content flex-start
+
+
+fl--v-center()
+  align-items center
+  align-content center
+
+
+fl--v-bottom()
+  align-items flex-end
+  align-content flex-end
+
+
+fl--v-space-between()
+  align-items flex-start
+  align-content space-between
+
+
+fl--h-left()
+  justify-content flex-start
+
+
+fl--h-center()
+  justify-content center
+
+
+fl--h-right()
+  justify-content flex-end
+
+
+fl--h-space-between()
+  justify-content space-between
+
+
+flex--center--top()
+  display flex
+  fl--h-center()
+  fl--v-top()
+
+
+flex--center--center()
+  display flex
+  fl--h-center()
+  fl--v-center()
+
+
+flex--center--bottom()
+  display flex
+  fl--h-center()
+  fl--v-bottom()
+
+
+flex--center--space-between()
+  display flex
+  flex-wrap wrap
+  align-items flex-start
+  align-content space-between
+  fl--h-center()
+
+
+flex--space-between--top()
+  display flex
+  fl--h-space-between()
+  fl--v-top()
+
+
+flex--space-between--center()
+  display flex
+  fl--h-space-between()
+  fl--v-center()
+
+
+flex--space-between--bottom()
+  display flex
+  fl--h-space-between()
+  fl--v-bottom()
+
+
+flex--left--top()
+  display flex
+  fl--v-top()
+
+
+flex--left--center()
+  display flex
+  fl--v-center()
+
+
+flex--left--bottom()
+  display flex
+  fl--v-bottom()
+
+
+flex--right--top()
+  display flex
+  fl--h-right()
+  fl--v-top()
+
+
+flex--right--center()
+  display flex
+  fl--h-right()
+  fl--v-center()
+
+
+flex--right--bottom()
+  display flex
+  fl--h-right()
+  fl--v-bottom()
+
+
+flex--stretch()
+  display flex
+  align-content stretch
+  align-items stretch
+
+
+flex--vertical-space-between()
+  display flex
+  flex-wrap wrap
+  align-items stretch
+  align-content space-between
+
+
+sec()
+  display flex
+  max-width 100%
+  flex-wrap wrap
+  flex-basis 100%
+  flex--center--top()
+

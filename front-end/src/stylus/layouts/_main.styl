@@ -1,0 +1,84 @@
+.main-dashboard
+  padding 50px 0 100px
+
+.dashboard-row
+  display flex
+  align-items flex-start
+  align-self flex-start
+  flex-wrap wrap
+
+.dashboard-left
+  width 55%
+  flex 0 0 55%
+  padding-right 35px
+  position relative
+  @media screen and (max-width: 1199px)
+    width 100%
+    flex 0 0 100%
+    padding 0
+    order 2
+  &:before
+    content ''
+    position absolute
+    right -1px
+    top -20px
+    bottom -20px
+    width 1px
+    background #cfcfcf
+    @media screen and (max-width: 1199px)
+      display none
+
+.dashboard-right
+  width 45%
+  flex: 0 0 45%
+  padding-left 55px
+  position relative
+  @media screen and (max-width: 1199px)
+    width 100%
+    flex 0 0 100%
+    padding 0
+    order 1
+    margin-bottom 50px
+  &:before
+    content ''
+    position absolute
+    left 0px
+    top -20px
+    bottom -20px
+    width 1px
+    background #cfcfcf
+    @media screen and (max-width: 1199px)
+      display none
+
+.dashboard-group
+  margin-bottom 40px
+
+.dashboard-group-md
+  margin-bottom 30px
+
+.dashboard-group-sm
+  margin-bottom 20px
+
+.border-right-image
+  padding-right 30px
+  position relative
+  &:before
+    content ''
+    position absolute
+    right 0
+    width 6px
+    top 0 
+    bottom 0
+    background $primary-color
+    box-shadow 0 0 10px rgba($primary-color, .8)
+
+.thumb-60
+  width 60px
+  display inline-block
+  border-radius 50%
+  box-shadow 1px 1px 5px rgba(#000,.3)
+  overflow hidden
+
+.dashboard-social
+  @media screen and (max-width: 991px)
+    margin-bottom 40px
