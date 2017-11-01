@@ -163,11 +163,16 @@
   border-radius 10px
   padding 30px 25px 35px
   margin 8px 0
+  &.dragable
+    border-color $primary-color
+    .drag-drop-container
+      opacity .2
 
 .drag-drop-container
   max-width 275px
   margin auto
   text-align center
+  transition opacity .2s
   input[type="file"]
     display none
 
@@ -176,3 +181,40 @@
   font-size 12px
   line-height 1.8
   margin 10px 0
+
+.checkbox
+  label
+    display inline-block
+    cursor pointer
+    position relative
+    padding 7px 0 7px 40px
+    &:before
+      content ''
+      position absolute
+      left 0
+      top 50%
+      transform translateY(-50%)
+      width 27px
+      border-radius 5px
+      height 27px
+      border 1px solid #bfbfbf
+      box-shadow 0 2px 8px rgba(#000, .2) inset
+    &:after
+      content ''
+      position absolute
+      top 50%
+      left 10px
+      width 8px
+      height 16px
+      margin-top -2px
+      border-bottom 2px solid $primary-color
+      border-right 2px solid $primary-color
+      transform translateY(-50%) rotate(45deg) scale(0)
+      opacity 0
+      transition all .3s
+  input[type="checkbox"]
+    display none
+    &:checked
+      & + label:after
+        transform translateY(-50%) rotate(45deg) scale(1)
+        opacity 1
