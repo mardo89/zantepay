@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zantepay</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+  <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    <header class="header">
+      <div class="masthead">
+        <div class="container">
+          <div class="masthead__row">
+            <div class="masthead__left">
+              <a href="/" class="logo" title="Zantepay">
+                <img src="images/logo-large.png" alt="Zantepay Logo">
+              </a>
+            </div>
+            
+            <div class="hamburger hamburger--slider">
+              <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+              </div>
+            </div>
+
+            <div class="masthead__menu">
+              <nav class="navigation">
+                <ul>
+                  <li><a href="profile.html">Profile</a></li>
+                  <li><a href="refer-a-friend.html">Refer a Friend</a></li>
+                  <li><a href="wallet.html">Wallet</a></li>
+                  <li class="current-menu-item"><a href="debit-card.html">Zantepay Debit Card</a></li>
+                </ul>
+              </nav>
+
+              <div class="masthead__right">
+                <a  href="#" class="btn btn--small btn--shadowed-dark">Logout</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </header>
+
+    <main class="main main-dashboard">
+      <div class="container">
+        <div class="card-steps-wrap">
+          <h2 class="h4">Pre-order Zantepay debit card</h2>
+          <div class="card-steps">
+            <ul>
+              <li class="current-step">
+                <span>Select a design</span>
+                <div class="right-triangle"></div>
+              </li>
+              <li>
+                <div class="left-triangle"></div>
+                <span>Upload documents</span>
+                <div class="right-triangle"></div>
+              </li>
+              <li>
+                <div class="left-triangle"></div>
+                <span>Verify address</span>
+                <div class="right-triangle"></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <form action="debit-card-step2.html">
+          <div class="row">
+            <div class="col-md-6 col-xl-5 offset-xl-1">
+              <div class="card-wrap">
+                <div class="radio-button">
+                  <input type="radio" name="card-type" value="white" id="radio1" checked>
+                  <label for="radio1">
+                    <img src="images/wh-card.jpg" srcset="images/wh-card@2x.jpg 2x" alt="White Visa Debit Card">
+                  </label>
+                </div>
+              </div>
+              <div class="card-text-wrap">
+                <ul class="triangle-list">
+                  <li>Pre-order bonus: 60 ZNX</li>
+                  <li>20% cashback in ZNX</li>
+                  <li>FREE DEBIT CARD</li>
+                  <li>Exchange fee: BTC to EUR 1%, Altcoin to EUR 1,5%</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-5">
+              <div class="card-wrap">
+                <div class="radio-button">
+                  <input type="radio" name="card-type" value="red" id="radio2">
+                  <label for="radio2">
+                    <img src="images/red-card.jpg" srcset="images/red-card@2x.jpg 2x" alt="Red Visa Debit Card">
+                  </label>
+                </div>
+              </div>
+              <div class="card-text-wrap">
+                <table class="table-gray">
+                  <thead>
+                    <tr>
+                      <th class="col-left" colspan="2">Fees</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="col-left" width="50%">Monthly fee</td>
+                      <td class="col-right" width="50%">1€ (first year FREE)</td>
+                    </tr>
+                    <tr>
+                      <td class="col-left">Annual fee</td>
+                      <td class="col-right">None</td>
+                    </tr>
+                    <tr>
+                      <td class="col-left">Delivery fee</td>
+                      <td class="col-right">None</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-submit">
+            <div class="card-submit-wrap">
+              <input class="btn btn--shadowed-light btn--medium btn--160" type="submit" value="Next">
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+  </body>
+</html>

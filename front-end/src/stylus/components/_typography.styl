@@ -155,3 +155,22 @@ p
   
 .text-xs
   font-size 12px
+
+.triangle-list
+  clearlist()
+  li
+    position relative
+    padding 5px 0px 5px 50px
+    font-size 16px 
+    color #232323
+    margin-bottom 23px
+    &:before
+      content ''
+      position absolute
+      left 5px
+      top 50%
+      width 20px
+      height 20px
+      background #797979
+      transform rotate(45deg) translateY(-50%)
+      transform-origin top center
