@@ -14,11 +14,11 @@
   min-height calc(100vh - 88px)
 
 .dashboard-left
-  width 55%
-  flex 0 0 55%
+  width 50%
+  flex 0 0 50%
   padding-right 35px
   position relative
-  @media screen and (max-width: 1199px)
+  @media screen and (max-width: 991px)
     width 100%
     flex 0 0 100%
     padding 0
@@ -31,7 +31,7 @@
     bottom -20px
     width 1px
     background #cfcfcf
-    @media screen and (max-width: 1199px)
+    @media screen and (max-width: 991px)
       display none
 
 .dashboard-left-wrap
@@ -45,11 +45,11 @@
     padding 50px 0 0
 
 .dashboard-right
-  width 45%
-  flex: 0 0 45%
-  padding-left 55px
+  width 50%
+  flex: 0 0 50%
+  padding-left 30px
   position relative
-  @media screen and (max-width: 1199px)
+  @media screen and (max-width: 991px)
     width 100%
     flex 0 0 100%
     padding 0
@@ -63,7 +63,7 @@
     bottom -20px
     width 1px
     background #cfcfcf
-    @media screen and (max-width: 1199px)
+    @media screen and (max-width: 991px)
       display none
 
 .dashboard-right-wrap
@@ -103,6 +103,17 @@
 
 .dashboard-group
   margin-bottom 40px
+  .countdown-dots
+    color $primary-color
+    @media screen and (max-width: 1199px)
+      margin 0 15px
+    @media screen and (max-width: 575px)
+      margin 0
+
+  .countdown-txt-sm
+    color #232323
+  .countdown-group
+    text-align center
 
 .dashboard-group-md
   margin-bottom 30px
@@ -140,7 +151,8 @@
   display flex
   justify-content center
   align-items center
-  flex-wrap wrap
+  @media screen and (max-width: 767px)
+    flex-wrap wrap
   li
     width (100% / 3)
     display flex
@@ -162,3 +174,38 @@
       @media screen and (max-width: 450px)
         display block
         margin-left 0
+
+.countdown
+  min-height 105px
+  
+.countdown-group
+  display inline-block
+  vertical-align top
+  width 75px
+  @media screen and (max-width: 575px)
+    width 60px
+
+.countdown-txt-lg
+  font-size 48px
+  display block
+  font-weight 300
+  @media screen and (max-width: 575px)
+    font-size 40px
+
+.countdown-txt-sm
+  font-size 18px
+  display block
+  margin-top 25px
+  @media screen and (max-width: 575px)
+    font-size 15px
+    margin-top 15px
+
+.countdown-dots
+  font-size 48px
+  display inline-block
+  vertical-align top
+  line-height 1
+  margin 0 25px
+  @media screen and (max-width: 575px)
+    font-size 40px
+    margin 0px
