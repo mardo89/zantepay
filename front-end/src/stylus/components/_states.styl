@@ -98,3 +98,28 @@
 
 .error-field
   border-color $primary-color !important
+
+.error-message,
+.info-message,
+.danger-message,
+.success-message
+  margin 20px 0
+  border-radius 5px
+  font-size 16px
+  padding 10px 15px 12px
+
+.success-message
+  background #c7eab9
+  color #3c763d
+
+.info-message
+  background-color #d9edf7
+  color #31708f
+
+.error-message
+  background-color lighten($primary-color, 70%)
+  color darken($primary-color, 40%)
+  
+.danger-message
+  background-color #fde5b8
+  color darken($primary-color, 50%)

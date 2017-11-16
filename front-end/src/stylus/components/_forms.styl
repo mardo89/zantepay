@@ -228,5 +228,21 @@
         transform translateY(-50%) rotate(45deg) scale(1)
         opacity 1
 
-// .logon-group .checkbox
-//   font-size 18px
+.form-error
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="url"],
+  input[type="date"],
+  input[type="search"],
+  textarea,
+  select
+    border-color $error-color
+  .radio-button
+    label:before
+      border-color $error-color
+  .checkbox
+    label:before
+      border-color $error-color
