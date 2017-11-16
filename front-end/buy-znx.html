@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zantepay</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+  <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    <header class="header">
+      <div class="masthead">
+        <div class="container">
+          <div class="masthead__row">
+            <div class="masthead__left">
+              <a href="/" class="logo" title="Zantepay">
+                <img src="images/logo-large.png" alt="Zantepay Logo">
+              </a>
+            </div>
+            
+            <div class="hamburger hamburger--slider">
+              <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+              </div>
+            </div>
+
+            <div class="masthead__menu">
+              <nav class="navigation">
+                <ul>
+                  <li><a href="index.html#about-us">About Us</a></li>
+                  <li><a href="index.html#vision">Vision</a></li>
+                  <li><a href="index.html#ico">ICO</a></li>
+                  <li><a href="index.html#team">Team</a></li>
+                  <li><a href="">FAQ</a></li>
+                  <li><a href="index.html#contacts">Contacts</a></li>
+                </ul>
+              </nav>
+
+              <div class="masthead__right">
+                <div class="logon-btns">
+                  <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign In</a>
+                  <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </header>
+
+    <main class="main main-dashboard">
+      <div class="container">
+        <div class="dashboard-row">
+          <div class="dashboard-left text-regular">
+            <div class="row">
+              <div class="col-xl-11">
+                <h2 class="h4 headline-mb">Purchase ZNX tokens</h2>
+                <p>Thank you for your interest in purchasing ZNX tokens. You can purchase them at the rates shown in the table below.</p>
+                <p>To continue please <a class="js-popup-link" href="#sign-in-modal">log in</a> to your Zantepay account or <a class="js-popup-link" href="#sign-up-modal">sign up.</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-right">
+            <h2 class="h4 headline-mb">Pre-sale starts in:</h2>
+            <div class="countdown">
+              <span class="js-countdown" data-date="2017/12/12 12:34:00"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-t-30">
+          <h2 class="h4 headline-mb">Token rates:</h2>
+          <div class="table-responsive-500">
+            <table class="table table-black table-black-col">
+              <thead>
+                <tr>
+                  <th width="145"></th>
+                  <th>Dates</th>
+                  <th width="20%">EUR</th>
+                  <th width="20%">BTC</th>
+                  <th width="20%">ETH</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pre-ICO</td>
+                  <td>Jan 1, 0:00 AM - Jan 31, 11:59 PM</td>
+                  <td>0,05</td>
+                  <td>0,00001</td>
+                  <td>0,0018</td>
+                </tr>
+                <tr>
+                  <td>ICO Part I</td>
+                  <td>Feb 1, 0:00 AM - Feb 28, 11:59 PM</td>
+                  <td>0,1</td>
+                  <td>0,00002</td>
+                  <td>0,0036</td>
+                </tr>
+                <tr>
+                  <td>ICO Part II</td>
+                  <td>Mar 1, 0:00 AM - Mar 31, 11:59 PM</td>
+                  <td>0,14</td>
+                  <td>0,000028</td>
+                  <td>0,0044</td>
+                </tr>
+                <tr>
+                  <td>ICO Part III</td>
+                  <td>Apr 1, 0:00 AM - Apr 29, 11:59 PM</td>
+                  <td>0,25</td>
+                  <td>0,000045</td>
+                  <td>0,009</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    
+    <!-- popups -->
+
+    <!-- sign in -->
+    <div class="logon-modal mfp-hide" id="sign-in-modal">
+      <div class="logon-modal-container">
+        <h3 class="h4">SIGN IN</h3>
+        <div class="social-btns">
+          <a href="" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
+          <a href="" class="btn btn--google"><i></i> Sign In With Google</a>
+        </div>
+
+        <div class="or-horizontal">or</div>
+        <form action="">
+          <div class="logon-group">
+            <input class="logon-field" type="email" name="email" placeholder="Email">
+          </div>
+          <div class="logon-group">
+            <input class="logon-field" type="password" name="password" placeholder="Password">
+          </div>
+          <div class="logon-submit">
+            <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
+          </div>
+          <a href="#sign-up-modal" class="js-popup-link logon-link">Sign Up</a>
+        </form>
+        
+      </div>
+    </div>
+
+    <!-- sing up -->
+    <div class="logon-modal mfp-hide" id="sign-up-modal">
+      <div class="logon-modal-container">
+        <h3 class="h4">SIGN UP</h3>
+        <div class="social-btns">
+          <a href="" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
+          <a href="" class="btn btn--google"><i></i> Sign In With Google</a>
+        </div>
+
+        <div class="or-horizontal">or</div>
+        <form action="">
+          <div class="logon-group">
+            <input class="logon-field" type="email" name="email" placeholder="Email">
+          </div>
+          <div class="logon-group">
+            <input class="logon-field" type="password" name="password" placeholder="Password">
+          </div>
+          <div class="logon-group">
+            <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password">
+          </div>
+          <div class="logon-submit">
+            <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">
+          </div>
+          <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
+        </form>
+        
+      </div>
+    </div>
+    
+    <!-- END popups -->
+
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+  </body>
+</html>

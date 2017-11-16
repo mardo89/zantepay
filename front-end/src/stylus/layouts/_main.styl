@@ -1,6 +1,16 @@
 .main-dashboard
   padding 50px 0 100px
   overflow hidden
+  .countdown-dots
+    color $primary-color
+    @media screen and (max-width: 1199px)
+      margin 0 15px
+    @media screen and (max-width: 575px)
+      margin 0
+  .countdown-txt-sm
+    color #232323
+  .countdown-group
+    text-align center
 
 .dashboard-row
   display flex
@@ -22,7 +32,7 @@
     width 100%
     flex 0 0 100%
     padding 0
-    order 2
+    margin-bottom 50px
   &:before
     content ''
     position absolute
@@ -53,8 +63,6 @@
     width 100%
     flex 0 0 100%
     padding 0
-    order 1
-    margin-bottom 50px
   &:before
     content ''
     position absolute
@@ -103,17 +111,6 @@
 
 .dashboard-group
   margin-bottom 40px
-  .countdown-dots
-    color $primary-color
-    @media screen and (max-width: 1199px)
-      margin 0 15px
-    @media screen and (max-width: 575px)
-      margin 0
-
-  .countdown-txt-sm
-    color #232323
-  .countdown-group
-    text-align center
 
 .dashboard-group-md
   margin-bottom 30px
