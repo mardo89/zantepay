@@ -94,6 +94,15 @@
         &:after
           opacity 1
 
+.inline-radio
+  .radio-button
+    display inline-block
+    & + .radio-button
+      margin-left 30px
+
+.logon-inline-radio
+  margin 25px 0 30px
+
 .field-label
   display inline-block
   margin-bottom 10px
@@ -218,3 +227,6 @@
       & + label:after
         transform translateY(-50%) rotate(45deg) scale(1)
         opacity 1
+
+// .logon-group .checkbox
+//   font-size 18px

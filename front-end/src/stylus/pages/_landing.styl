@@ -46,7 +46,7 @@
     margin 0px
 
 .lp-section-one
-  padding-top 85px
+  padding-top 0
   padding-bottom 65px
   background $bg-color-dark
   position relative
@@ -61,6 +61,12 @@
     background url('../images/squares-1-2.png') no-repeat center top
     animation glowing1 1.5s ease-in-out infinite alternate
     // transform translateZ(0)
+  .horizontal-icons
+    max-width 750px
+    margin 75px auto
+    text-align left
+  .headline
+    display inline-block
   & > div
     position relative
     z-index 10
@@ -441,6 +447,7 @@
     padding 45px 0 60px
   .h2
     display inline-block
+    text-align left
   .lp-row-1
     margin-bottom 75px
   img
@@ -454,3 +461,39 @@
   .row > div
     @media screen and (max-width: 991px)
       margin-bottom 50px
+
+.lp-dsc-wrap
+  display flex
+  align-items center
+  text-align center
+
+.lp-dsc
+  max-width 185px
+  span
+    color $primary-color
+    display inline-block
+    margin-top 25px
+  @media screen and (max-width: 1199px)
+    max-width 145px
+  @media screen and (max-width:  767px)
+    max-width 185px
+    margin 0 auto 30px
+
+.lp-dsc-arrow
+  flex 1
+  @media screen and (max-width: 991px)
+    display none
+  img
+    margin-left 10px
+
+.lp-center-iph
+  padding-left 0
+  padding-right 0
+  @media screen and (max-width: 767px)
+    text-align center
+  img
+    margin-left -40px
+    max-width calc(100% + 40px)
+    @media screen and (max-width: 767px)
+      margin-left 0
+      max-width 100%
