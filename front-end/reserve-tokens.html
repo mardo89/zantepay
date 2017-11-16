@@ -107,11 +107,11 @@
               <h2 class="h4 headline-mb">Select your payment method:</h2>
               <div class="row">
                 <div class="col-6 col-sm-6">
-                  <a href="#deposit-btc" class="mb-10 btn btn--shadowed-light btn--medium">Deposit BTC</a>
+                  <a href="#deposit-btc" class="js-popup-link mb-10 btn btn--shadowed-light btn--medium">Deposit BTC</a>
                   <div class="text-sm text-gray">Minimum 0,02 BTC</div>
                 </div>
                 <div class="col-6 col-sm-6">
-                  <a href="#deposit-eth" class="mb-10 btn btn--shadowed-light btn--medium">Deposit ETH</a>
+                  <a href="#deposit-eth" class="js-popup-link mb-10 btn btn--shadowed-light btn--medium">Deposit ETH</a>
                   <div class="text-sm text-gray">Minimum 0,2 ETH</div>
                 </div>
               </div>
@@ -234,9 +234,78 @@
         </div>
       </div>
     </main>
+    
 
+    <!-- popups -->
+
+    <!-- Deposit ETH -->
+    <div class="logon-modal mfp-hide logon-modal--450" id="deposit-eth">
+      <div class="logon-modal-container">
+        <h3 class="h4">DEPOSIT ETH</h3>
+        <p class="text-regular break-word">0x9A833f93884D2D47F821d43B0dd51416FA6BA9e4</p>
+        
+        <img src="images/eth-qr-code.png" alt="ETH QR">
+        <div class="text-gray text-sm">Minimum 0,2 ETH</div>
+
+        <div class="row mt-35 vertical-middle-col deposit-modal-row">
+          <div class="col-5 col-sm-5 text-left">
+            <div class="form-group">
+              <label class="field-label" for="field8">Purchase amount:</label>
+              <input class="input-field" type="text" name="ETH" id="field8">
+              <span class="sub-field-label">ETH</span>
+            </div>
+          </div>
+          <div class="col-2 col-sm-2">
+            <div class="mb-20">or</div>
+          </div>
+          <div class="col-5 col-sm-5 text-left">
+            <div class="form-group">
+              <label class="field-label" for="field9">Receive:</label>
+              <input class="input-field" type="text" name="ZNX" id="field9">
+              <span class="sub-field-label">ZNX</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-20">To receive tokens, please send us the screenshot of the payment together with your email address to support@zantepay.com.</div>
+      </div>
+    </div>
+
+    <!-- Deposit BTC -->
+    <div class="logon-modal mfp-hide logon-modal--450" id="deposit-btc">
+      <div class="logon-modal-container">
+        <h3 class="h4">DEPOSIT BTC</h3>
+        <p class="text-regular break-word">33vvLqhAPeD2h8P965uFstz5cC8Lo3t27d</p>
+        
+        <img src="images/btc-qr-code.png" alt="ETH QR">
+        <div class="text-gray text-sm">Minimum 0,02 BTC</div>
+
+        <div class="row mt-35 vertical-middle-col deposit-modal-row">
+          <div class="col-5 col-sm-5 text-left">
+            <div class="form-group">
+              <label class="field-label" for="field10">Purchase amount:</label>
+              <input class="input-field" type="text" name="BTC" id="field10">
+              <span class="sub-field-label">BTC</span>
+            </div>
+          </div>
+          <div class="col-2 col-sm-2">
+            <div class="mb-20">or</div>
+          </div>
+          <div class="col-5 col-sm-5 text-left">
+            <div class="form-group">
+              <label class="field-label" for="field11">Receive:</label>
+              <input class="input-field" type="text" name="ZNX" id="field11">
+              <span class="sub-field-label">ZNX</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-20">To receive tokens, please send us the screenshot of the payment together with your email address to support@zantepay.com.</div>
+      </div>
+    </div>
+    
+    <!-- END popups -->
     
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/magnific-popup/dist/jquery.magnific-popup.js"></script>
     <script src="bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
     <script src="js/main.js" type="text/javascript"></script>
   </body>
