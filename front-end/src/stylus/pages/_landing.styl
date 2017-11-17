@@ -10,43 +10,8 @@
 .main-lp
   background $bg-color-light
 
-.countdown
-  min-height 105px
-  
-.countdown-group
-  display inline-block
-  vertical-align top
-  width 75px
-  @media screen and (max-width: 575px)
-    width 60px
-
-.countdown-txt-lg
-  font-size 48px
-  display block
-  font-weight 300
-  @media screen and (max-width: 575px)
-    font-size 40px
-
-.countdown-txt-sm
-  font-size 18px
-  display block
-  margin-top 25px
-  @media screen and (max-width: 575px)
-    font-size 15px
-    margin-top 15px
-
-.countdown-dots
-  font-size 48px
-  display inline-block
-  vertical-align top
-  line-height 1
-  margin 0 25px
-  @media screen and (max-width: 575px)
-    font-size 40px
-    margin 0px
-
 .lp-section-one
-  padding-top 85px
+  padding-top 0
   padding-bottom 65px
   background $bg-color-dark
   position relative
@@ -61,6 +26,12 @@
     background url('../images/squares-1-2.png') no-repeat center top
     animation glowing1 1.5s ease-in-out infinite alternate
     // transform translateZ(0)
+  .horizontal-icons
+    max-width 750px
+    margin 75px auto
+    text-align left
+  .headline
+    display inline-block
   & > div
     position relative
     z-index 10
@@ -441,6 +412,7 @@
     padding 45px 0 60px
   .h2
     display inline-block
+    text-align left
   .lp-row-1
     margin-bottom 75px
   img
@@ -454,3 +426,41 @@
   .row > div
     @media screen and (max-width: 991px)
       margin-bottom 50px
+    p
+      text-align justify
+
+.lp-dsc-wrap
+  display flex
+  align-items center
+  text-align center
+
+.lp-dsc
+  max-width 185px
+  span
+    color $primary-color
+    display inline-block
+    margin-top 25px
+  @media screen and (max-width: 1199px)
+    max-width 145px
+  @media screen and (max-width:  767px)
+    max-width 185px
+    margin 0 auto 30px
+
+.lp-dsc-arrow
+  flex 1
+  @media screen and (max-width: 991px)
+    display none
+  img
+    margin-left 10px
+
+.lp-center-iph
+  padding-left 0
+  padding-right 0
+  @media screen and (max-width: 767px)
+    text-align center
+  img
+    margin-left -40px
+    max-width calc(100% + 40px)
+    @media screen and (max-width: 767px)
+      margin-left 0
+      max-width 100%

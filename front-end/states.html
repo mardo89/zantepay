@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zantepay</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+  <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    
+    <div style="padding: 100px 0">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h2 class="mb-20">error states</h2>
+            <form action="">
+              <div class="form-group form-error">
+                <label class="field-label" for="field1">First name:</label>
+                <input class="input-field" type="text" name="" id="field1">
+                <span class="error-text">This field is required</span>
+              </div>
+              <div class="form-group form-error">
+                <label class="field-label" for="field2">Email:</label>
+                <input class="input-field" type="email" name="" id="field2" >
+                <span class="error-text">This field is required</span>
+              </div>
+              <div class="form-group form-error">
+                <label class="field-label">State / County:</label>
+                <select name="contry" class="input-field">
+                  <option disabled="" selected=""></option>
+                  <option value="">state 1</option>
+                  <option value="">state 2</option>
+                </select>
+              </div>
+              <div class="form-group form-error">
+                <div class="radio-button mb-15">
+                  <input type="radio" name="pay-method" value="btc" id="radio1"><label for="radio1">BTC</label>
+                </div>
+              </div>
+              <div class="form-group form-error">
+                <div class="radio-button mb-15">
+                  <input type="radio" name="pay-method" value="eth" id="radio2"><label for="radio2">ETH</label>
+                </div>
+              </div>
+              <div class="form-group form-error">
+                <div class="checkbox">
+                  <input type="checkbox" name="confirm" id="check1"><label for="check1" class="text-sm">Hereby I confirm that I am the owner of this acount</label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn--shadowed-light btn--160">Submit</button>
+              <div class="info-message">INFO MESSAGE Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</div>
+              <div class="success-message">SUCESS MESSAGE Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</div>
+              <div class="error-message">ERROR MESSAGE Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</div>
+              <div class="danger-message">DANGER MESSAGE Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</div>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <h2 class="mb-20">spinners</h2>
+            <div style="height: 100px; margin: 20px 0; background: #ccc" class="spinner-container">
+              <div class="spinner"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div style="height: 100px; margin: 20px 0; background: #ccc" class="spinner-container">
+              <div class="spinner spinner--80"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div style="height: 100px; margin: 20px 0; background: #ccc" class="spinner-container">
+              <div class="spinner spinner--50"><div></div><div></div><div></div><div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

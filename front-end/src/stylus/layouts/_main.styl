@@ -1,6 +1,16 @@
 .main-dashboard
   padding 50px 0 100px
   overflow hidden
+  .countdown-dots
+    color $primary-color
+    @media screen and (max-width: 1199px)
+      margin 0 15px
+    @media screen and (max-width: 575px)
+      margin 0
+  .countdown-txt-sm
+    color #232323
+  .countdown-group
+    text-align center
 
 .dashboard-row
   display flex
@@ -14,15 +24,15 @@
   min-height calc(100vh - 88px)
 
 .dashboard-left
-  width 55%
-  flex 0 0 55%
+  width 50%
+  flex 0 0 50%
   padding-right 35px
   position relative
-  @media screen and (max-width: 1199px)
+  @media screen and (max-width: 991px)
     width 100%
     flex 0 0 100%
     padding 0
-    order 2
+    margin-bottom 50px
   &:before
     content ''
     position absolute
@@ -31,7 +41,7 @@
     bottom -20px
     width 1px
     background #cfcfcf
-    @media screen and (max-width: 1199px)
+    @media screen and (max-width: 991px)
       display none
 
 .dashboard-left-wrap
@@ -45,16 +55,14 @@
     padding 50px 0 0
 
 .dashboard-right
-  width 45%
-  flex: 0 0 45%
-  padding-left 55px
+  width 50%
+  flex: 0 0 50%
+  padding-left 30px
   position relative
-  @media screen and (max-width: 1199px)
+  @media screen and (max-width: 991px)
     width 100%
     flex 0 0 100%
     padding 0
-    order 1
-    margin-bottom 50px
   &:before
     content ''
     position absolute
@@ -63,7 +71,7 @@
     bottom -20px
     width 1px
     background #cfcfcf
-    @media screen and (max-width: 1199px)
+    @media screen and (max-width: 991px)
       display none
 
 .dashboard-right-wrap
@@ -133,3 +141,88 @@
 .dashboard-social
   @media screen and (max-width: 991px)
     margin-bottom 40px
+
+.horizontal-icons
+  clearlist()
+  clearfix()
+  display flex
+  justify-content center
+  align-items center
+  @media screen and (max-width: 767px)
+    flex-wrap wrap
+  li
+    width (100% / 3)
+    display flex
+    align-items center
+    @media screen and (max-width: 767px)
+      width 50%
+    @media screen and (max-width: 450px)
+      width 100%
+      margin-bottom 20px
+      display block
+      text-align center
+    img
+      display inline-block
+      vertical-align middle
+    span
+      display inline-block
+      vertical-align middle
+      margin-left 15px
+      @media screen and (max-width: 450px)
+        display block
+        margin-left 0
+
+.countdown
+  min-height 105px
+  
+.countdown-group
+  display inline-block
+  vertical-align top
+  width 75px
+  @media screen and (max-width: 575px)
+    width 60px
+
+.countdown-txt-lg
+  font-size 48px
+  display block
+  font-weight 300
+  @media screen and (max-width: 575px)
+    font-size 40px
+
+.countdown-txt-sm
+  font-size 18px
+  display block
+  margin-top 25px
+  @media screen and (max-width: 575px)
+    font-size 15px
+    margin-top 15px
+
+.countdown-dots
+  font-size 48px
+  display inline-block
+  vertical-align top
+  line-height 1
+  margin 0 25px
+  @media screen and (max-width: 575px)
+    font-size 40px
+    margin 0px
+
+.main-inv
+  min-height 100vh
+  background #fff url('../images/logomark.png') no-repeat center
+  background-size auto 105%
+  padding 150px 0 250px
+  position relative
+
+.invitation-wrap
+  max-width 990px
+  margin auto
+  p
+    line-height 1.5
+
+.inv-form
+  max-width 340px
+  display block
+  margin-top 30px
+  hr
+    margin 40px 0
