@@ -185,12 +185,12 @@ $(document).ready(function () {
             qs.stringify(credentials)
         )
             .then(
-                () => {
+                response => {
                     showSpin(false);
 
                     $.magnificPopup.close();
 
-                    window.location.href = '/profile';
+                    window.location.pathname = response.data.userPage;
                 }
             )
             .catch(
@@ -254,29 +254,6 @@ $(document).ready(function () {
         );
 
 
-    });
-
-    // Log out
-    $("#btn_logout").on('click', function (event) {
-
-        showSpin(true);
-
-        $.ajax({
-            data: {
-                submitStr: 'logoutSubmit'
-            },
-            method: "POST",
-            url: "src/login/userAccount.php",
-            success: function (response) {
-                var result = JSON.parse(response);
-
-                window.location.href = 'index.php';
-
-                showSpin(false);
-            }
-        });
-
-        //event.preventDefault();
     });
 
     //Sing up

@@ -1,0 +1,111 @@
+.footer
+  background $bg-color-dark
+  position relative
+  z-index 1
+  &:before
+    content ''
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    top 0
+    background url('../images/squares-1-6.png') no-repeat center
+    animation glowing1 1.5s ease-in-out infinite alternate
+    transform translateZ(0)
+  & > div
+    position relative
+    z-index 10
+
+.footer-lp
+  padding 160px 0 0
+  @media screen and (max-width: 1199px)
+    padding-top 120px
+.footer-cont-row
+  margin-bottom 65px
+  .headline
+    max-width 310px
+    width 100%
+    padding-right 15px
+    display inline-block
+    vertical-align middle
+    @media screen and (max-width: 1199px)
+      width 270px
+  .footer-cont-text
+    max-width 310px
+    width 100%
+    display inline-block
+    vertical-align middle
+    line-height 1.8
+    @media screen and (max-width: 991px)
+      margin-top 30px
+    a
+      font-size 24px
+
+.footer-logo
+  text-align center
+  padding 210px 0 45px
+  @media screen and (max-width: 1199px)
+    padding 150px 0 25px
+  @media screen and (max-width: 991px)
+    padding 100px 0 15px
+  a
+    display inline-block
+    max-width 365px
+    vertical-align bottom
+    @media screen and (max-width: 991px)
+      max-width 295px
+.copyright
+  margin 0
+  padding 35px 0
+  text-align center
+  font-size 16px
+
+.copyright-ico
+  display inline-block
+  width 20px
+  height 20px
+  margin-right 12px
+  vertical-align middle
+  background url('../images/copyright_icon@2x.png') no-repeat center
+  background-size contain
+
+.footer-social
+  text-align center
+  margin 30px 0 40px
+  .h4
+    margin-bottom 30px
+
+.social-list
+  clearlist()
+  clearfix()
+  display inline-block
+  li
+    float left
+    margin 0 7px
+  a
+    display inline-block
+    width 42px
+    height 42px
+    line-height 38px
+    text-align center
+    vertical-align bottom
+    border 1px solid
+    border-radius 50%
+    font-size 23px
+    color #fff
+    &:hover
+      color $primary-color
+
+.footer-menu
+  text-align center
+  margin 40px 0 15px
+  ul
+    display inline-block
+    clearfix()
+    clearlist()
+    li
+      float left
+      margin 0 14px
+      a
+        font-size 14px
+        color #fff
