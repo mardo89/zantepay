@@ -1,17 +1,58 @@
 require('./bootstrap');
 
 //Spin function
-showSpin = visible => {
+const showSpin = visible => {
     if (visible)
         $('#spin').show();
     else
         $('#spin').hide();
 }
 
+const updateStates = country => {
+    axios.get(
+        '/user/states',
+        {
+            params: {
+                country
+            }
+        }
+    )
+        .then(
+            response => {
+
+                $('select[name="state"]').html(
+                    response.data.map(
+                        state => $('<option />').val(state.id).text(state.name)
+                    )
+                )
+
+            }
+        )
+
+}
+
 $(document).ready(function () {
     // Datepicker
     if ($('[data-toggle="datepicker"]').length) {
         $('[data-toggle="datepicker"]').datepicker();
+    }
+
+    // Popups
+    if ($('.js-popup-link').length) {
+        $('.js-popup-link').magnificPopup({
+            type: 'inline',
+            midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+            mainClass: 'mfp-fade',
+            fixedContentPos: false,
+            callbacks: {
+                open: function () {
+                    $('body').addClass('noscroll');
+                },
+                close: function () {
+                    $('body').removeClass('noscroll');
+                }
+            }
+        });
     }
 
     // Logout
@@ -37,6 +78,7 @@ $(document).ready(function () {
             )
     });
 
+    // Profile
     $('#user-profile').on('submit', function (event) {
         event.preventDefault();
 
@@ -66,12 +108,24 @@ $(document).ready(function () {
                 response => {
                     showSpin(false);
 
-                    alert('Saved');
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#profile-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: false
+                        }
+                    );
                 }
             )
 
     });
 
+    // States update
+    $('select[name="country"]').on('change', function (event) {
+        updateStates($(this).val());
+    });
 
 });
 

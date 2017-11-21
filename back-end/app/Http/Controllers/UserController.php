@@ -64,7 +64,9 @@ class UserController extends Controller
         }
 
         $countries = Country::all();
-        $states = $userProfile['country_id'] === 0 ? [] : State::where('country_id', $userProfile['country_id']);
+        $states = $userProfile['country_id'] === 0
+            ? []
+            : State::where('country_id', $userProfile['country_id'])->orderBy('name', 'asc')->get();
 
         return view(
             'profile',
@@ -148,4 +150,21 @@ class UserController extends Controller
         return response()->json([]);
     }
 
+    /**
+     * Get states list for country
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    protected function getStates(Request $request)
+    {
+        $this->validate($request, [
+            'country' => 'numeric'
+        ]);
+
+        $states = State::where('country_id', $request->country)->orderBy('name', 'asc')->get();
+
+        return response()->json($states);
+    }
 }

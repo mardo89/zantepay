@@ -29903,14 +29903,45 @@ module.exports = __webpack_require__(41);
 __webpack_require__(9);
 
 //Spin function
-showSpin = function showSpin(visible) {
+var showSpin = function showSpin(visible) {
     if (visible) $('#spin').show();else $('#spin').hide();
+};
+
+var updateStates = function updateStates(country) {
+    axios.get('/user/states', {
+        params: {
+            country: country
+        }
+    }).then(function (response) {
+
+        $('select[name="state"]').html(response.data.map(function (state) {
+            return $('<option />').val(state.id).text(state.name);
+        }));
+    });
 };
 
 $(document).ready(function () {
     // Datepicker
     if ($('[data-toggle="datepicker"]').length) {
         $('[data-toggle="datepicker"]').datepicker();
+    }
+
+    // Popups
+    if ($('.js-popup-link').length) {
+        $('.js-popup-link').magnificPopup({
+            type: 'inline',
+            midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+            mainClass: 'mfp-fade',
+            fixedContentPos: false,
+            callbacks: {
+                open: function open() {
+                    $('body').addClass('noscroll');
+                },
+                close: function close() {
+                    $('body').removeClass('noscroll');
+                }
+            }
+        });
     }
 
     // Logout
@@ -29928,6 +29959,7 @@ $(document).ready(function () {
         });
     });
 
+    // Profile
     $('#user-profile').on('submit', function (event) {
         event.preventDefault();
 
@@ -29952,8 +29984,19 @@ $(document).ready(function () {
         axios.post('/user/profile', qs.stringify(profile)).then(function (response) {
             showSpin(false);
 
-            alert('Saved');
+            $.magnificPopup.open({
+                items: {
+                    src: '#profile-modal'
+                },
+                type: 'inline',
+                closeOnBgClick: false
+            });
         });
+    });
+
+    // States update
+    $('select[name="country"]').on('change', function (event) {
+        updateStates($(this).val());
     });
 });
 

@@ -133,4 +133,15 @@
             </form>
         </div>
     </main>
+
+    <!-- Save profile confirmation -->
+    <div class="logon-modal mfp-hide" id="profile-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">SAVED!</h3>
+            <div class="logon-modal-text">
+                <p>Your profile successfully saved.</p>
+            </div>
+        </div>
+    </div>
+
 @endsection

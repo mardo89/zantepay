@@ -32,6 +32,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'user'], function () {
     Route::get('profile', 'UserController@profile');
     Route::post('profile', 'UserController@saveProfile');
+    Route::get('states', 'UserController@getStates');
 });
 
 //Route::get('/test-email', function () {
