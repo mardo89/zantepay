@@ -23,7 +23,7 @@ class IsAuthenticated
 
         $user = Auth::user();
 
-        if ($user->status !== USER_STATUS_ACTIVE) {
+        if ($user->status != USER_STATUS_ACTIVE) {
             return redirect('/');
         }
 

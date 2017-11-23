@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class IcoRegistration extends Model
 {
-    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'uid', 'status', 'fbid', 'gid', 'referrer'
+        'email', 'currency', 'amount'
     ];
 
     /**
@@ -24,6 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'uid', 'password', 'remember_token', 'role'
+
     ];
+
 }

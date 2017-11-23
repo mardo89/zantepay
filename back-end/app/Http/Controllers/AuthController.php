@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
 use Mockery\Exception;
 
 
@@ -24,7 +26,7 @@ class AuthController extends Controller
      *
      * @return mixed
      */
-    protected function register(Request $request)
+    public function register(Request $request)
     {
         $this->validate($request, [
             'email' => 'required|string|email|max:255|unique:users',
@@ -33,7 +35,7 @@ class AuthController extends Controller
 
         try {
 
-            $userInfo = User::create(
+            $userInfo = $this->createUser(
                 [
                     'email' => $request->email,
                     'password' => bcrypt($request->password),
@@ -68,7 +70,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function activate(Request $request)
+    public function activate(Request $request)
     {
         $userID = $request->input('uid', '');
 
@@ -147,7 +149,7 @@ class AuthController extends Controller
 
             if (!$user) {
                 // register a new User
-                $userInfo = User::create(
+                $userInfo = $this->createUser(
                     [
                         'email' => $email,
                         'password' => bcrypt(uniqid()),
@@ -155,6 +157,7 @@ class AuthController extends Controller
                         'status' => USER_STATUS_ACTIVE,
                         'fbid' => $fbID
                     ]
+
                 );
 
                 $userID = $userInfo['id'];
@@ -214,7 +217,7 @@ class AuthController extends Controller
 
             if (!$user) {
                 // register a new User
-                $userInfo = User::create(
+                $userInfo = $this->createUser(
                     [
                         'email' => $email,
                         'password' => bcrypt(uniqid()),
@@ -283,6 +286,23 @@ class AuthController extends Controller
     }
 
     /**
+     * Create user
+     *
+     * @param array $userInfo
+     *
+     * @return array
+     */
+    protected function createUser($userInfo) {
+        $referrer = Session::get('referrer');
+
+        if (!is_null($referrer)) {
+            $userInfo['referrer'] = $referrer;
+        }
+
+        return User::create($userInfo);
+    }
+
+    /**
      * Return user home page
      *
      * @param int $userRole
@@ -302,4 +322,33 @@ class AuthController extends Controller
                 return '/';
         }
     }
+
+
+
+
+
+    public function toFacebookProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function FacebookProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+
+        dd($user);
+    }
+
+    public function toGoogleProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function GoogleProviderCallback()
+    {
+        $user = Socialite::driver('google')->user();
+
+        dd($user);
+    }
+
 }

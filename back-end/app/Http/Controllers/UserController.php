@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\Invite;
 use App\Models\Profile;
 use App\Models\State;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\StaticText;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 
@@ -22,11 +24,11 @@ class UserController extends Controller
     }
 
     /**
-     * Register users
+     * User profile
      *
      * @return View
      */
-    protected function profile()
+    public function profile()
     {
         $user = Auth::user();
 
@@ -79,11 +81,11 @@ class UserController extends Controller
     }
 
     /**
-     * Register users
+     * Save user profile
      *
      * @return View
      */
-    protected function saveProfile(Request $request)
+    public function saveProfile(Request $request)
     {
         $user = Auth::user();
 
@@ -151,20 +153,93 @@ class UserController extends Controller
     }
 
     /**
-     * Get states list for country
+     * Invite friends
+     *
+     * @return View
+     */
+    public function invite()
+    {
+        $user = Auth::user();
+
+        $invites = Invite::where('user_id', $user->id)->get();
+
+        $userReferrals = [];
+
+        foreach ($invites as $invite) {
+
+            $invite->statusMessage = StaticText::getInvitationStatus($invite->status);
+            $invite->avatar = '/images/avatar.png';
+
+            if ($invite->status === INVITATION_STATUS_COMPLETE) {
+                $friend = User::where('email', $invite->email)->first();
+
+                if ($friend && !is_null($friend->avatar)) {
+                    $invite->avatar = '/images/' . $friend->avatar;
+                }
+            }
+
+            $userReferrals[] = $invite;
+        }
+
+        return view(
+            'invite-friend',
+            [
+                'referralLink' => action('IndexController@main', ['ref' => $user->uid]),
+                'referrals' => $userReferrals
+            ]
+        );
+    }
+
+    /**
+     * Save invitation
      *
      * @param Request $request
      *
-     * @return mixed
+     * @return View
      */
-    protected function getStates(Request $request)
+    public function saveInvitation(Request $request)
     {
-        $this->validate($request, [
-            'country' => 'numeric'
-        ]);
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|string|email|max:255'
+            ]
+        );
 
-        $states = State::where('country_id', $request->country)->orderBy('name', 'asc')->get();
+        $user = Auth::user();
+        $email = $request->email;
 
-        return response()->json($states);
+        $invite = Invite::where('user_id', $user->id)->where('email', $email)->first();
+
+        try {
+
+            if (!$invite) {
+                $invite = Invite::create(
+                    [
+                        'user_id' => $user->id,
+                        'email' => $email
+                    ]
+                );
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'errorMessage' => 'Invitation failed',
+                    'errors' => ['Error sending invitation']
+                ],
+                422
+            );
+
+        }
+
+        return response()->json(
+            [
+                'email' => $invite['email'],
+                'status' => StaticText::getInvitationStatus($invite['status'])
+            ]
+        );
     }
+
 }

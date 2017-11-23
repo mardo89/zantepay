@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('uid', 100);
             $table->string('fbid', 100)->unique()->nullable();
             $table->string('gid', 100)->unique()->nullable();
-            $table->string('referral', 100)->nullable();
+            $table->integer('referrer')->nullable();
             $table->boolean('status')->default(USER_STATUS_INACTIVE);
             $table->smallInteger('role')->default(USER_ROLE_USER);
             $table->rememberToken();

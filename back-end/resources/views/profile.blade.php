@@ -1,5 +1,12 @@
 @extends('layouts.user')
 
+@section('main-menu')
+    <li class="current-menu-item"><a href="profile">Profile</a></li>
+    <li><a href="invite-friend">Refer a Friend</a></li>
+    <li><a href="wallet">Wallet</a></li>
+    <li><a href="debit-card">Zantepay Debit Card</a></li>
+@endsection
+
 @section('content')
 
     <main class="main main-dashboard">

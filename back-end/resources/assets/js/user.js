@@ -31,6 +31,18 @@ const updateStates = country => {
 
 }
 
+// Send activation email
+const sendInvitationEmail = email => {
+    axios.post(
+        '/mail/invite-friend',
+        qs.stringify(
+            {
+                email
+            }
+        )
+    )
+}
+
 $(document).ready(function () {
     // Datepicker
     if ($('[data-toggle="datepicker"]').length) {
@@ -127,6 +139,93 @@ $(document).ready(function () {
         updateStates($(this).val());
     });
 
+    // Copy link
+    $('#copy-link').on('click', function () {
+        const refLink = $('input[name="referral"]').val();
+
+        let tmpEl = $('<input />').val(refLink);
+
+        $('body').append(tmpEl);
+
+        tmpEl.select();
+
+        document.execCommand("copy");
+
+        tmpEl.remove();
+    })
+
+    // Invite
+    $('#invite-friend').on('click', function (event) {
+        event.preventDefault();
+
+        showSpin(true);
+
+        const invite = {
+            'email': $('input[name="email"]').val()
+        }
+
+        axios.post(
+            '/user/invite-friend',
+            qs.stringify(invite)
+        )
+            .then(
+                response => {
+                    showSpin(false);
+
+                    $('input[name="email"]').val('');
+
+                    sendInvitationEmail(response.data.email);
+
+                    $('#invites-list tbody')
+                        .prepend(
+                            $('<tr />')
+                                .append(
+                                    $('<td />').css('width', '100').addClass('col-center')
+                                        .append(
+                                            $('<div />').addClass('thumb-60')
+                                                .append(
+                                                    $('<img />')
+                                                        .attr('src', '/images/avatar.png')
+                                                        .attr('alt', response.data.email)
+                                                )
+                                        )
+                                )
+                                .append(
+                                    $('<td />').text(response.data.email)
+                                )
+                                .append(
+                                    $('<td />')
+                                        .append(
+                                            $('<span />')
+                                                .addClass('primary-color')
+                                                .text(response.data.status)
+                                        )
+                                )
+                                .append(
+                                    $('<td />').text('')
+                                )
+                                .append(
+                                    $('<td />').css('width', '160').addClass('col-center')
+                                        .append(
+                                            $('<a />')
+                                                .attr('href', '')
+                                                .addClass('send-link resend-invitation')
+                                                .text('Resend')
+                                        )
+                                )
+                        )
+                }
+            )
+
+    });
+
+    $('#invites-list').on('click', '.resend-invitation', function (event) {
+        event.preventDefault();
+
+        const email = $(this).parents('tr').find('td:eq(1)').text();
+
+        sendInvitationEmail(email);
+    });
 });
 
 

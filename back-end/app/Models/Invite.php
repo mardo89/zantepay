@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Invite extends Model
 {
-    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'uid', 'status', 'fbid', 'gid', 'referrer'
+        'user_id', 'email'
     ];
 
     /**
@@ -24,6 +21,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'uid', 'password', 'remember_token', 'role'
+        'status'
     ];
 }

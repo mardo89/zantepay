@@ -66,13 +66,13 @@
             </div>
             <h1 class="h2 header__title text-uppercase">Spend 50+ cryptocurrencies in real life with just one card</h1>
             <div class="horizontal-btns">
-                <a href="/Zantepay_Whitepaper.pdf" target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
+                <a href={{ asset('storage/Zantepay_Whitepaper.pdf') }} target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
                 <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
                 <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260">Register For Pre-ICO</a>
             </div>
             <h3 class="h4 text-uppercase">Pre-sale starts in</h3>
             <div class="countdown">
-                <span class="js-countdown" data-date="2017/12/12 12:34:00"></span>
+                <span class="js-countdown" data-date="2018/01/01 00:00:00"></span>
             </div>
         </div>
     </div>
@@ -717,7 +717,7 @@
             <p>The actual opening date for the Zantecoins’s public Token Sale is on January 1-st, 2018. To participate in ZanteCoin’s Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
         </div>
 
-        <form action="">
+        <form id="frm_ico_registration">
             <div class="logon-group">
                 <input class="logon-field" type="email" name="email" placeholder="Email">
             </div>
@@ -725,18 +725,18 @@
                 <p>The payment will be made in:</p>
                 <div class="logon-group inline-radio">
                     <div class="radio-button">
-                        <input type="radio" name="pay-method" value="btc" id="radio1" checked><label for="radio1">BTC</label>
+                        <input id="radio1" type="radio" name="pay-method" value={{ CURRENCY_TYPE_BTC }} checked><label for="radio1">BTC</label>
                     </div>
                     <div class="radio-button">
-                        <input type="radio" name="pay-method" value="eth" id="radio2"><label for="radio2">ETH</label>
+                        <input id="radio2" type="radio" name="pay-method" value={{ CURRENCY_TYPE_ETH }}><label for="radio2">ETH</label>
                     </div>
                 </div>
             </div>
             <div class="logon-group">
-                <input class="logon-field" type="text" name="amount" placeholder="Estimated Amount">
+                <input class="logon-field" type="text" name="amount" placeholder="Estimated Amount (optional)">
             </div>
             <div class="logon-submit">
-                <input class="btn btn--shadowed-light btn--260" type="submit" value="Submit">
+                <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe">
             </div>
         </form>
     </div>

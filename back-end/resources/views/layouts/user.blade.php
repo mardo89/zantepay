@@ -39,10 +39,7 @@
                 <div class="masthead__menu">
                     <nav class="navigation">
                         <ul>
-                            <li class="current-menu-item"><a href="profile">Profile</a></li>
-                            <li><a href="refer-frend">Refer a Friend</a></li>
-                            <li><a href="wallet">Wallet</a></li>
-                            <li><a href="debit-card">Zantepay Debit Card</a></li>
+                            @yield('main-menu')
                         </ul>
                     </nav>
 

@@ -13,7 +13,7 @@ const showSignupErr = (errorMessage, errorsList) => {
 }
 
 // Login Err
-showLoginErr = (result, show) => {
+const showLoginErr = (result, show) => {
     $('#login_err').text(result.type);
     $('#login_err_msg').text(result.msg);
     if (show)
@@ -23,7 +23,7 @@ showLoginErr = (result, show) => {
 }
 
 //Spin function
-showSpin = visible => {
+const showSpin = visible => {
     if (visible)
         $('#spin').show();
     else
@@ -31,7 +31,7 @@ showSpin = visible => {
 }
 
 // Send activation email
-sendActivationEmail = uid => {
+const sendActivationEmail = uid => {
     axios.post(
         '/mail/activate-account',
         qs.stringify(
@@ -63,6 +63,20 @@ gLogin = (id, email) => {
             {
                 id,
                 email
+            }
+        )
+    )
+}
+
+// Send activation email
+const sendIcoRegistrationEmail = (email, currency, amount) => {
+    axios.post(
+        '/mail/ico-registration',
+        qs.stringify(
+            {
+                email,
+                currency,
+                amount
             }
         )
     )
@@ -306,6 +320,38 @@ $(document).ready(function () {
                 )
         }
     );
+
+    $('#frm_ico_registration').on('submit', function (event) {
+        event.preventDefault();
+
+        showSpin(true);
+
+        const registration = {
+            'email': $('#frm_ico_registration input[name="email"]').val(),
+            'currency': $('#frm_ico_registration input[name="pay-method"]:checked').val(),
+            'amount': +$('#frm_ico_registration input[name="amount"]').val()
+        }
+
+        axios.post(
+            '/ico-registration',
+            qs.stringify(registration)
+        )
+            .then(
+                response => {
+                    showSpin(false);
+
+                    $('#frm_ico_registration input[name="email"]').val('');
+                    $('#frm_ico_registration input[name="pay-method"]').val('');
+                    $('#frm_ico_registration input[name="amount"]').val('');
+
+                    $.magnificPopup.close();
+
+                    sendIcoRegistrationEmail(response.data.email, response.data.currency, response.data.amount);
+                }
+            )
+
+    });
+
 });
 
 
