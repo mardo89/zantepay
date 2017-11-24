@@ -44,7 +44,7 @@
                     </nav>
 
                     <div class="masthead__right">
-                        <a  id="logout-btn" href="" class="btn btn--small btn--shadowed-dark">Logout</a>
+                        <a id="logout-btn" href="" class="btn btn--small btn--shadowed-dark">Logout</a>
                     </div>
                 </div>
             </div>

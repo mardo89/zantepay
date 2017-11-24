@@ -42,41 +42,13 @@ const sendActivationEmail = uid => {
     )
 }
 
-// FB login
-fbLogin = (id, email) => {
-    axios.post(
-        '/auth/fb-login',
-        qs.stringify(
-            {
-                id,
-                email
-            }
-        )
-    )
-}
-
-// Google login
-gLogin = (id, email) => {
-    axios.post(
-        '/auth/g-login',
-        qs.stringify(
-            {
-                id,
-                email
-            }
-        )
-    )
-}
-
 // Send activation email
-const sendIcoRegistrationEmail = (email, currency, amount) => {
+const sendIcoRegistrationEmail = email => {
     axios.post(
         '/mail/ico-registration',
         qs.stringify(
             {
                 email,
-                currency,
-                amount
             }
         )
     )
@@ -218,58 +190,6 @@ $(document).ready(function () {
             )
     });
 
-    $('.fb_signin').on('click', function (event) {
-        event.preventDefault();
-
-        FB.getLoginStatus(
-            response => {
-                let credentials = {
-                    id: 0,
-                    email: '',
-                };
-
-                if (response.status === 'connected') {
-                    FB.api(
-                        '/me?fields=email',
-                        response => fbLogin(response.id, response.email)
-                    );
-                } else {
-                    FB.login(
-                        () => {
-                            FB.api(
-                                '/me?fields=email',
-                                response => fbLogin(response.id, response.email)
-                            );
-                        },
-                        {
-                            scope: 'email'
-                        }
-                    );
-                }
-            }
-        );
-    });
-
-    $('.g_signin').on('click', function (event) {
-        event.preventDefault();
-
-        gapi.load(
-            'client:auth2',
-            () => {
-                gapi.client.init({
-                    'apiKey': 'AIzaSyDTxK1GiXU-EUONddFh2tlpPL_JcrJ3I2c',
-                    'clientId': '837606368945-5gj2gfd2fsbgeh94qa1tec738vhiq1u7.apps.googleusercontent.com',
-                    'scope': 'profile'
-                }).then(function () {
-                    console.log('Yo');
-                });
-
-            }
-        );
-
-
-    });
-
     //Sing up
     $("#frm_signup").on('submit', function (event) {
             event.preventDefault();
@@ -321,6 +241,7 @@ $(document).ready(function () {
         }
     );
 
+    // PRE-ICO registration
     $('#frm_ico_registration').on('submit', function (event) {
         event.preventDefault();
 
@@ -346,12 +267,11 @@ $(document).ready(function () {
 
                     $.magnificPopup.close();
 
-                    sendIcoRegistrationEmail(response.data.email, response.data.currency, response.data.amount);
+                    sendIcoRegistrationEmail(response.data.email);
                 }
             )
 
     });
-
 });
 
 

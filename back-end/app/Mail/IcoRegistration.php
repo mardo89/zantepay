@@ -12,29 +12,19 @@ class IcoRegistration extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * @var string User email
+     * @var string Pre order link
      */
-    public $email;
-
-    /**
-     * @var string Currency
-     */
-    public $currency;
-
-    /**
-     * @var float Amount
-     */
-    public $amount;
+    public $link;
 
     /**
      * Create a new message instance.
      *
+     * @param string $link
+     *
      */
-    public function __construct($email, $currency, $amount)
+    public function __construct($link)
     {
-        $this->email = $email;
-        $this->currency = $currency;
-        $this->amount = $amount;
+        $this->link = $link;
     }
 
     /**
@@ -45,7 +35,7 @@ class IcoRegistration extends Mailable
     public function build()
     {
         return $this->subject('PRE-ICO Registration')
-            ->from('info@zantepay.com')
-            ->replyTo($this->email)->view('emails.ico-registration');
+            ->from(env('CONTACT_EMAIL'))
+            ->view('emails.ico-registration');
     }
 }

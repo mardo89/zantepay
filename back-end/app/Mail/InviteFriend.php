@@ -24,6 +24,9 @@ class InviteFriend extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param string $userEmail
+     * @param string $referralLink
+     *
      */
     public function __construct($userEmail, $referralLink)
     {
@@ -39,7 +42,7 @@ class InviteFriend extends Mailable
     public function build()
     {
         return $this->subject('Account activation')
-            ->from('info@zantepay.com')
+            ->from(env('CONTACT_EMAIL'))
             ->replyTo($this->userEmail)->view('emails.invite-friend');
     }
 }

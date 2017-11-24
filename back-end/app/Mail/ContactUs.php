@@ -29,6 +29,10 @@ class ContactUs extends Mailable
     /**
      * Create a new message instance.
      *
+     * @param string $userName
+     * @param string $userEmail
+     * @param string $userMessage
+     *
      */
     public function __construct($userName, $userEmail, $userMessage)
     {

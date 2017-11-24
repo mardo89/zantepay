@@ -646,8 +646,8 @@
     <div class="logon-modal-container">
         <h3 class="h4">SIGN IN</h3>
         <div class="social-btns">
-            <a href="" class="btn btn--facebook fb_signin"><i></i> Sign In With Facebook</a>
-            <a href="" class="btn btn--google g_signin"><i></i> Sign In With Google</a>
+            <a href="/auth/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
+            <a href="/auth/google" class="btn btn--google"><i></i> Sign In With Google</a>
         </div>
 
         <div class="or-horizontal">or</div>
@@ -672,8 +672,8 @@
     <div class="logon-modal-container">
         <h3 class="h4">SIGN UP</h3>
         <div class="social-btns">
-            <a href="" class="btn btn--facebook fb_signin"><i></i> Sign In With Facebook</a>
-            <a href="" class="btn btn--google g_signin"><i></i> Sign In With Google</a>
+            <a href="/auth/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
+            <a href="/auth/google" class="btn btn--google"><i></i> Sign In With Google</a>
         </div>
 
         <div class="or-horizontal">or</div>
@@ -780,31 +780,6 @@
     </div>
 </div>
 <!-- END popups -->
-
-
-<!-- FB functionality -->
-<script>
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '1716934895046928',
-            xfbml      : true,
-            version    : 'v2.11'
-        });
-        FB.AppEvents.logPageView();
-    };
-
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
-
-
-<!-- Google functionality -->
-<script src="https://apis.google.com/js/api.js"></script>
 
 
 <!-- JS scripts -->

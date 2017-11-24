@@ -107,16 +107,13 @@ class MailController extends Controller
             $request,
             [
                 'email' => 'required|string|email|max:255',
-                'currency' => 'required|string',
-                'amount' => 'numeric'
             ]
         );
 
         $email = $request->email;
-        $currency = $request->currency;
-        $amount = $request->amount;
+        $link = action('IndexController@main');
 
-        Mail::to(env('CONTACT_EMAIL'))->send(new IcoRegistration($email, $currency, $amount));
+        Mail::to($email)->send(new IcoRegistration($link));
 
         return response()->json(
             []

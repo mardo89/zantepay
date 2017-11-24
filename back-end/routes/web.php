@@ -18,13 +18,13 @@ Route::group(['prefix' => 'mail'], function () {
     Route::post('ico-registration', 'MailController@icoRegistration');
 });
 
+
 /**
  * AUTHORIZATION
  */
 Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
-    Route::post('fb-login', 'AuthController@fbLogin');
     Route::post('logout', 'AuthController@logout');
     Route::get('activate', 'AuthController@activate');
 
@@ -35,6 +35,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('google/callback', 'AuthController@GoogleProviderCallback');
 
 });
+
 
 /**
  * USER
@@ -48,5 +49,5 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 //Route::get('/test-email', function () {
-//    return new App\Mail\ActivateAccount('http://test-link?user=92837927492847');
+//    return new App\Mail\IcoRegistration('http://zantepay');
 //});

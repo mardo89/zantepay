@@ -127,139 +127,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Login user with Facebook
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function fbLogin(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|string|email|max:255',
-            'id' => 'required|string|max:255'
-        ]);
-
-        $email = $request->email;
-        $fbID = $request->id;
-
-
-        try {
-            $user = User::where('email', $email)->first();
-
-            if (!$user) {
-                // register a new User
-                $userInfo = $this->createUser(
-                    [
-                        'email' => $email,
-                        'password' => bcrypt(uniqid()),
-                        'uid' => uniqid(),
-                        'status' => USER_STATUS_ACTIVE,
-                        'fbid' => $fbID
-                    ]
-
-                );
-
-                $userID = $userInfo['id'];
-            } else {
-                $userID = $user->id;
-
-                if (is_null($user->fbid)) {
-                    $user->fbid = $fbID;
-                    $user->save();
-                }
-            }
-
-            $isAuthorized = Auth::loginUsingId($userID);
-
-            if (!$isAuthorized) {
-                throw new Exception('Authentification failed.');
-            }
-
-        } catch (\Exception $e) {
-
-            return response()->json(
-                [
-                    'errorMessage' => $e->getMessage(),
-                    'errors' => ['Can not authorize with Facebook']
-                ],
-                422
-            );
-        }
-
-        return response()->json(
-            [
-                'userPage' => $this->getUserPage(Auth::user()->role)
-            ]
-        );
-    }
-
-    /**
-     * Login user with Google
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function gLogin(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|string|email|max:255',
-            'id' => 'required|string|max:255'
-        ]);
-
-        $email = $request->email;
-        $fbID = $request->id;
-
-
-        try {
-            $user = User::where('email', $email)->first();
-
-            if (!$user) {
-                // register a new User
-                $userInfo = $this->createUser(
-                    [
-                        'email' => $email,
-                        'password' => bcrypt(uniqid()),
-                        'uid' => uniqid(),
-                        'status' => USER_STATUS_ACTIVE,
-                        'gid' => $fbID
-                    ]
-                );
-
-                $userID = $userInfo['id'];
-            } else {
-                $userID = $user->id;
-
-                if (is_null($user->gid)) {
-                    $user->fbid = $fbID;
-                    $user->save();
-                }
-            }
-
-            $isAuthorized = Auth::loginUsingId($userID);
-
-            if (!$isAuthorized) {
-                throw new Exception('Authentification failed.');
-            }
-
-        } catch (\Exception $e) {
-
-            return response()->json(
-                [
-                    'errorMessage' => $e->getMessage(),
-                    'errors' => ['Can not authorize with Google']
-                ],
-                422
-            );
-        }
-
-        return response()->json(
-            []
-        );
-    }
-
-    /**
      * Logout user
      */
     public function logout()
@@ -323,20 +190,68 @@ class AuthController extends Controller
         }
     }
 
-
-
-
-
+    /**
+     * @return redirect to FB page
+     */
     public function toFacebookProvider()
     {
         return Socialite::driver('facebook')->redirect();
     }
 
+    /**
+     * Provide callback from facebook
+     */
     public function FacebookProviderCallback()
     {
         $user = Socialite::driver('facebook')->user();
 
-        dd($user);
+        $email = $user->email;
+        $fbID = $user->id;
+
+        try {
+            $user = User::where('email', $email)->first();
+
+            if (!$user) {
+                // register a new User
+                $userInfo = $this->createUser(
+                    [
+                        'email' => $email,
+                        'password' => bcrypt(uniqid()),
+                        'uid' => uniqid(),
+                        'status' => USER_STATUS_ACTIVE,
+                        'fbid' => bcrypt($fbID),
+                    ]
+
+                );
+
+                $userID = $userInfo['id'];
+            } else {
+                $userID = $user->id;
+
+                if (is_null($user->fbid)) {
+                    $user->fbid = bcrypt($fbID);
+                    $user->save();
+                }
+            }
+
+            $isAuthorized = Auth::loginUsingId($userID);
+
+            if (!$isAuthorized) {
+                throw new Exception('Authentification failed.');
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'errorMessage' => $e->getMessage(),
+                    'errors' => ['Can not authorize with Facebook']
+                ],
+                422
+            );
+        }
+
+        return redirect()->action('UserController@profile');
     }
 
     public function toGoogleProvider()
@@ -348,7 +263,53 @@ class AuthController extends Controller
     {
         $user = Socialite::driver('google')->user();
 
-        dd($user);
+        $email = $user->email;
+        $gID = $user->id;
+
+        try {
+            $user = User::where('email', $email)->first();
+
+            if (!$user) {
+                // register a new User
+                $userInfo = $this->createUser(
+                    [
+                        'email' => $email,
+                        'password' => bcrypt(uniqid()),
+                        'uid' => uniqid(),
+                        'status' => USER_STATUS_ACTIVE,
+                        'gid' => bcrypt($gID),
+                    ]
+
+                );
+
+                $userID = $userInfo['id'];
+            } else {
+                $userID = $user->id;
+
+                if (is_null($user->fbid)) {
+                    $user->gid = bcrypt($gID);
+                    $user->save();
+                }
+            }
+
+            $isAuthorized = Auth::loginUsingId($userID);
+
+            if (!$isAuthorized) {
+                throw new Exception('Authentification failed.');
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'errorMessage' => $e->getMessage(),
+                    'errors' => ['Can not authorize with Facebook']
+                ],
+                422
+            );
+        }
+
+        return redirect()->action('UserController@profile');
     }
 
 }

@@ -92,9 +92,7 @@ class IndexController extends Controller
 
         return response()->json(
             [
-                'email' => $registration['email'],
-                'currency' => StaticText::getCurrencyType($registration['currency']),
-                'amount' => $registration['amount'],
+                'email' => $registration['email']
             ]
         );
     }
