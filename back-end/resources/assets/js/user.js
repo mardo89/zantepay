@@ -10,7 +10,7 @@ const showSpin = visible => {
 
 const updateStates = country => {
     axios.get(
-        '/user/states',
+        '/states',
         {
             params: {
                 country

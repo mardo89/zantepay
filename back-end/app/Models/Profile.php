@@ -13,7 +13,6 @@ class Profile extends Model
      */
     protected $fillable = [
         'user_id',
-        'first_name', 'last_name', 'phone_number',
         'country_id', 'state_id', 'city', 'address', 'postcode',
         'passport_id', 'passport_expiration_date', 'birth_date'
     ];

@@ -105,20 +105,24 @@ class UserController extends Controller
             'birth_country' => 'string|max:50|nullable',
         ]);
 
-        $profile = Profile::where('user_id', $user->id)->first();
+        // Update user main info
+        $user->email = $request->email;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->phone_number = $request->phone_number;
 
-        // Update email
-        if ($user->email !== $request->email) {
-            $user->email = $request->email;
+        $isUserUpdated = $user->email != $user->getOriginal('email')
+            || $user->first_name != $user->getOriginal('first_name')
+            || $user->last_name != $user->getOriginal('last_name')
+            || $user->phone_number != $user->getOriginal('phone_number');
+
+        if ($isUserUpdated) {
             $user->save();
         }
 
         // Update profile
         $userProfile = [
             'user_id' => $user->id,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'phone_number' => $request->phone_number,
             'country_id' => $request->country,
             'state_id' => $request->state,
             'city' => $request->city,
@@ -129,6 +133,8 @@ class UserController extends Controller
             'birth_date' => date('Y-m-d H:i:s', strtotime($request->birth_date)),
             'birth_country' => $request->birth_country
         ];
+
+        $profile = Profile::where('user_id', $user->id)->first();
 
         try {
             if (!$profile) {
@@ -166,19 +172,26 @@ class UserController extends Controller
         $userReferrals = [];
 
         foreach ($invites as $invite) {
+            $userReferrals[$invite->email] = [
+                'name' => $invite->email,
+                'avatar' => '/images/avatar.png',
+                'status' => StaticText::getInvitationStatus(INVITATION_STATUS_PENDING)
+            ];
+        }
 
-            $invite->statusMessage = StaticText::getInvitationStatus($invite->status);
-            $invite->avatar = '/images/avatar.png';
+        $referrals = User::where('referrer', $user->id)->get();
 
-            if ($invite->status === INVITATION_STATUS_COMPLETE) {
-                $friend = User::where('email', $invite->email)->first();
 
-                if ($friend && !is_null($friend->avatar)) {
-                    $invite->avatar = '/images/' . $friend->avatar;
-                }
-            }
+        foreach ($referrals as $referral) {
+            $userName = ($referral->first_name != '' && $referral->last_name != '')
+                ? $referral->first_name . ' ' . $referral->last_name
+                : $referral->email;
 
-            $userReferrals[] = $invite;
+            $userReferrals[$referral->email] = [
+                'name' => $userName,
+                'avatar' => !is_null($referral->avatar) ? $referral->avatar : '/images/avatar.png',
+                'status' => StaticText::getInvitationStatus(INVITATION_STATUS_VERIFYING)
+            ];
         }
 
         return view(

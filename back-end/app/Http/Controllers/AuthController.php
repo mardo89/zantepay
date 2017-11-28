@@ -81,9 +81,7 @@ class AuthController extends Controller
             $user->save();
         }
 
-
-        // return page about successful activation
-        return response()->json([]);
+        return view('confirm-email');
     }
 
     /**
@@ -203,35 +201,30 @@ class AuthController extends Controller
      */
     public function FacebookProviderCallback()
     {
-        $user = Socialite::driver('facebook')->user();
-
-        $email = $user->email;
-        $fbID = $user->id;
+        $snUser = Socialite::driver('facebook')->user();
 
         try {
-            $user = User::where('email', $email)->first();
+            $user = User::where('email', $snUser->email)->first();
 
             if (!$user) {
+                list($lastName, $firstName) = explode($snUser->name, ' ');
+
                 // register a new User
                 $userInfo = $this->createUser(
                     [
-                        'email' => $email,
+                        'email' => $snUser->email,
                         'password' => bcrypt(uniqid()),
                         'uid' => uniqid(),
                         'status' => USER_STATUS_ACTIVE,
-                        'fbid' => bcrypt($fbID),
+                        'first_name' => $firstName,
+                        'last_name' => $lastName,
+                        'avatar' => $snUser->avatar,
                     ]
-
                 );
 
                 $userID = $userInfo['id'];
             } else {
                 $userID = $user->id;
-
-                if (is_null($user->fbid)) {
-                    $user->fbid = bcrypt($fbID);
-                    $user->save();
-                }
             }
 
             $isAuthorized = Auth::loginUsingId($userID);
@@ -261,35 +254,30 @@ class AuthController extends Controller
 
     public function GoogleProviderCallback()
     {
-        $user = Socialite::driver('google')->user();
-
-        $email = $user->email;
-        $gID = $user->id;
+        $snUser = Socialite::driver('google')->user();
 
         try {
-            $user = User::where('email', $email)->first();
+            $user = User::where('email', $snUser->email)->first();
 
             if (!$user) {
+                list($firstName, $lastName) = explode($snUser->name, ' ');
+
                 // register a new User
                 $userInfo = $this->createUser(
                     [
-                        'email' => $email,
+                        'email' => $snUser->email,
                         'password' => bcrypt(uniqid()),
                         'uid' => uniqid(),
                         'status' => USER_STATUS_ACTIVE,
-                        'gid' => bcrypt($gID),
+                        'first_name' => $firstName,
+                        'last_name' => $lastName,
+                        'avatar' => $snUser->avatar,
                     ]
-
                 );
 
                 $userID = $userInfo['id'];
             } else {
                 $userID = $user->id;
-
-                if (is_null($user->fbid)) {
-                    $user->gid = bcrypt($gID);
-                    $user->save();
-                }
             }
 
             $isAuthorized = Auth::loginUsingId($userID);

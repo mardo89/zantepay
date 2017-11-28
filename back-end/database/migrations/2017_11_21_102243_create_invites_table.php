@@ -17,7 +17,6 @@ class CreateInvitesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('email');
-            $table->smallInteger('status')->default(INVITATION_STATUS_PENDING);
             $table->timestamps();
         });
     }

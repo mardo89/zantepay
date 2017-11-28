@@ -7,7 +7,7 @@ return [
     'port' => env('MAIL_PORT', 587),
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'support@zantepay.com '),
-        'name' => env('MAIL_FROM_NAME', 'Zentapay'),
+        'name' => env('MAIL_FROM_NAME', 'ZANTEPAY'),
     ],
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),
     'username' => env('MAIL_USERNAME'),

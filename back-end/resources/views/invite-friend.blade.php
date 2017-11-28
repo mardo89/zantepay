@@ -4,7 +4,7 @@
     <li><a href="profile">Profile</a></li>
     <li class="current-menu-item"><a href="invite-friend">Refer a Friend</a></li>
     <li><a href="wallet">Wallet</a></li>
-    <li><a href="debit-card">Zantepay Debit Card</a></li>
+    <li><a href="debit-card">ZANTEPAY Debit Card</a></li>
 @endsection
 
 @section('content')
@@ -89,14 +89,14 @@
                         <tr>
                             <td width="100" class="col-center">
                                 <div class="thumb-60">
-                                    <img src={{ $referral->avatar }} alt={{ $referral->email }}>
+                                    <img src={{ $referral['avatar'] }} alt={{ $referral['name'] }}>
                                 </div>
                             </td>
-                            <td> {{ $referral->email }} </td>
+                            <td> {{ $referral['name'] }} </td>
                             <td>
-                                <span class="primary-color">{{ $referral->statusMessage }}</span>
+                                <span class="primary-color">{{ $referral['status'] }}</span>
                             </td>
-                            <td></td>
+                            <td style="min-width: 100px"></td>
                             <td width="160" class="col-center"><a href="" class="send-link resend-invitation">Resend</a></td>
                         </tr>
                     @endforeach

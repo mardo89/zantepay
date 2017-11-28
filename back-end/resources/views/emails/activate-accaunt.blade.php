@@ -97,7 +97,7 @@
                                                         <a href="#" target="_blank" style="outline: none; border: 0;"><img
                                                                     src={{ url('/') . "/images/logo.png"}} width="214" height="29"
                                                                     style="display:block;outline:0;border:0;width:214px;height:29px"
-                                                                    alt="Zantepay"></a>
+                                                                    alt="ZANTEPAY"></a>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -114,7 +114,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        Please confirm that you would like to&nbsp;create an&nbsp;account with Zantepay by&nbsp;verifying
+                                                        Please confirm that you would like to&nbsp;create an&nbsp;account with ZANTEPAY by&nbsp;verifying
                                                         your email address below. Once it&nbsp;is&nbsp;done, you will be&nbsp;able to&nbsp;log
                                                         in&nbsp;and start using the cryptocurrency wallet of&nbsp;the future!
                                                     </td>
@@ -273,7 +273,7 @@
                                                                          alt="Copyright ico">
                                                                 </td>
                                                                 <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #f92112; line-height: 21px; font-weight: normal;">
-                                                                    2017 Zantepay
+                                                                    2017 ZANTEPAY
                                                                 </td>
                                                             </tr>
                                                         </table>
