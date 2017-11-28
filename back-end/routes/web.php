@@ -5,6 +5,8 @@
  */
 Route::get('/', 'IndexController@main');
 Route::get('states', 'IndexController@getStates');
+Route::get('confirmation', 'IndexController@confirmation');
+Route::get('invitation', 'IndexController@invitation');
 Route::post('ico-registration', 'IndexController@saveRegistration');
 
 
@@ -26,7 +28,6 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
-    Route::get('activate', 'AuthController@activate');
 
     Route::get('fb', 'AuthController@toFacebookProvider');
     Route::get('fb/callback', 'AuthController@FacebookProviderCallback');

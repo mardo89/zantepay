@@ -30101,6 +30101,52 @@ $(document).ready(function () {
         });
     });
 
+    //Sing up via invite
+    $("#frm_invite_signup").on('submit', function (event) {
+        event.preventDefault();
+
+        showSpin(true);
+
+        var credentials = {
+            email: $('#signup_email').val(),
+            password: $('#signup_pwd').val(),
+            password_confirmation: $('#signup_cnf_pwd').val()
+        };
+
+        axios.post('/auth/register', qs.stringify(credentials)).then(function (response) {
+            sendActivationEmail(response.data.uid);
+
+            showSpin(false);
+
+            $.magnificPopup.close();
+
+            $.magnificPopup.open({
+                items: {
+                    src: '#confirm-modal'
+                },
+                type: 'inline',
+                closeOnBgClick: false
+            });
+
+            $('.mfp-close').on('click', function (event) {
+                window.location = '/';
+            });
+
+            $('#resend-registration-email').on('click', function (event) {
+                sendActivationEmail(response.data.uid);
+            });
+        }).catch(function (error) {
+            showSpin(false);
+
+            var _error$response$data3 = error.response.data,
+                message = _error$response$data3.message,
+                errors = _error$response$data3.errors;
+
+
+            showSignupErr(message, errors);
+        });
+    });
+
     // PRE-ICO registration
     $('#frm_ico_registration').on('submit', function (event) {
         event.preventDefault();

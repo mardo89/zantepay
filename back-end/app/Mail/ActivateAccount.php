@@ -19,12 +19,12 @@ class ActivateAccount extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $activationLink
+     * @param string $uid
      *
      */
-    public function __construct($activationLink)
+    public function __construct($uid)
     {
-        $this->activationLink = $activationLink;
+        $this->activationLink = action('IndexController@confirmation', ['uid' => $uid]);
     }
 
     /**

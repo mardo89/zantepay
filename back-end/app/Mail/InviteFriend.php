@@ -25,13 +25,13 @@ class InviteFriend extends Mailable
      * Create a new message instance.
      *
      * @param string $userEmail
-     * @param string $referralLink
+     * @param string $uid
      *
      */
-    public function __construct($userEmail, $referralLink)
+    public function __construct($userEmail, $uid)
     {
         $this->userEmail = $userEmail;
-        $this->referralLink = $referralLink;
+        $this->referralLink = action('IndexController@invitation', ['ref' => $uid]);
     }
 
     /**

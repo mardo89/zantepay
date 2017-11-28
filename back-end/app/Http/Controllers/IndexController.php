@@ -18,13 +18,7 @@ class IndexController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function main(Request $request) {
-        if (!is_null($request->ref)) {
-            $user = User::where('uid', $request->ref)->first();
-
-            if (!is_null($user)) {
-                Session::put('referrer', $user->id);
-            }
-        }
+        $this->checkReferrer($request->ref);
 
         return view('index');
     }
@@ -97,4 +91,53 @@ class IndexController extends Controller
         );
     }
 
+    /**
+     * Confirm user activation
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function confirmation(Request $request)
+    {
+        $userID = $request->input('uid', '');
+
+        $user = User::where('uid', $userID)->first();;
+
+        if ($user) {
+            $user->status = USER_STATUS_ACTIVE;
+            $user->save();
+        }
+
+        return view('confirm-email');
+    }
+
+    /**
+     * Confirm user invitation
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function invitation(Request $request)
+    {
+        $this->checkReferrer($request->ref);
+
+        return view('confirm-invitation');
+    }
+
+    /**
+     * Check if referrer exist and store him to the Session
+     *
+     * @param string $referrer
+     */
+    protected function checkReferrer($referrer) {
+        if (!is_null($referrer)) {
+            $user = User::where('uid', $referrer)->first();
+
+            if (!is_null($user)) {
+                Session::put('referrer', $user->id);
+            }
+        }
+    }
 }

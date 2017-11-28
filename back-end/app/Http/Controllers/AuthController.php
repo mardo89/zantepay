@@ -64,27 +64,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Send activation email to the user
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function activate(Request $request)
-    {
-        $userID = $request->input('uid', '');
-
-        $user = User::where('uid', $userID)->first();;
-
-        if ($user) {
-            $user->status = USER_STATUS_ACTIVE;
-            $user->save();
-        }
-
-        return view('confirm-email');
-    }
-
-    /**
      * Login user
      *
      * @param Request $request

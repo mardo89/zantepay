@@ -30,9 +30,7 @@ class MailController extends Controller
 
         if ($user) {
 
-            $activationLink = action('AuthController@activate', ['uid' => $user->uid]);
-
-            Mail::to($user->email)->send(new ActivateAccount($activationLink));
+            Mail::to($user->email)->send(new ActivateAccount($user->uid));
         }
 
         return response()->json(
@@ -84,9 +82,7 @@ class MailController extends Controller
         $user = Auth::user();
 
         if ($user) {
-            $link = action('IndexController@main', ['ref' => $user->uid]);
-
-            Mail::to($request->email)->send(new InviteFriend($user->email, $link));
+            Mail::to($request->email)->send(new InviteFriend($user->email, $user->uid));
         }
 
         return response()->json(
