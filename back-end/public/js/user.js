@@ -29907,6 +29907,7 @@ var showSpin = function showSpin(visible) {
     if (visible) $('#spin').show();else $('#spin').hide();
 };
 
+// Update states
 var updateStates = function updateStates(country) {
     axios.get('/states', {
         params: {
@@ -29925,6 +29926,18 @@ var sendInvitationEmail = function sendInvitationEmail(email) {
     axios.post('/mail/invite-friend', qs.stringify({
         email: email
     }));
+};
+
+// Validate file
+var validateFile = function validateFile(file) {
+    var isValidType = file.type.match(/(.png)|(.jpeg)|(.jpg)|(.pdf)$/i);
+    var isValidSize = file.size.toFixed(0) < 4194304;
+
+    if (isValidType && isValidSize) {
+        return true;
+    }
+
+    return false;
 };
 
 $(document).ready(function () {
@@ -30048,6 +30061,95 @@ $(document).ready(function () {
         var email = $(this).parents('tr').find('td:eq(1)').text();
 
         sendInvitationEmail(email);
+    });
+
+    // Debit Card
+    $('#dc_design').on('submit', function (event) {
+        event.preventDefault();
+
+        showSpin(true);
+
+        var card = {
+            'design': $('input[name="card-type"]:checked').val()
+        };
+
+        axios.post('/user/debit-card', qs.stringify(card)).then(function (response) {
+            showSpin(false);
+
+            window.location = response.data.nextStep;
+        });
+    });
+
+    $('#dc_documents').on('submit', function (event) {
+        event.preventDefault();
+
+        showSpin(true);
+
+        var card = new FormData();
+
+        if ($('input[name="confirm"]').prop('checked')) {
+            card.append('verify_later', 1);
+        } else {
+            card.append('verify_later', 0);
+
+            var isFilesValid = true;
+
+            $.each($('#document-files')[0].files, function (index, file) {
+                if (!validateFile(file)) {
+                    isFilesValid = false;
+
+                    return false;
+                }
+
+                card.append('document_files[]', file);
+            });
+
+            if (!isFilesValid) {
+                return false;
+            }
+        }
+
+        axios.post('/user/debit-card-documents', card).then(function (response) {
+            showSpin(false);
+
+            window.location = response.data.nextStep;
+        });
+    });
+
+    $('#dc_address').on('submit', function (event) {
+        event.preventDefault();
+
+        showSpin(true);
+
+        var card = new FormData();
+
+        if ($('input[name="confirm"]').prop('checked')) {
+            card.append('verify_later', 1);
+        } else {
+            card.append('verify_later', 0);
+
+            var isFilesValid = true;
+
+            $.each($('#address-files')[0].files, function (index, file) {
+                if (!validateFile(file)) {
+                    isFilesValid = false;
+
+                    return false;
+                }
+
+                card.append('address_files[]', file);
+            });
+
+            if (!isFilesValid) {
+                return false;
+            }
+        }
+
+        axios.post('/user/debit-card-address', card).then(function (response) {
+            showSpin(false);
+
+            window.location = response.data.nextStep;
+        });
     });
 });
 

@@ -47,6 +47,17 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::get('invite-friend', 'UserController@invite');
     Route::post('invite-friend', 'UserController@saveInvitation');
+
+    Route::get('debit-card', 'UserController@debitCard');
+    Route::post('debit-card', 'UserController@saveDebitCard');
+
+    Route::get('debit-card-documents', 'UserController@debitCardDocuments');
+    Route::post('debit-card-documents', 'UserController@saveDebitCardDocuments');
+
+    Route::get('debit-card-address', 'UserController@debitCardAddress');
+    Route::post('debit-card-address', 'UserController@saveDebitCardAddress');
+
+    Route::get('debit-card-success', 'UserController@debitCardSuccess');
 });
 
 //Route::get('/test-email', function () {

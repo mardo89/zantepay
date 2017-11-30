@@ -253,17 +253,17 @@
                             <img src="images/iPhone-debit.jpg" srcset="images/iPhone-debit@2x.jpg 2x" alt="ZanteWallet">
                         </div>
                         <div class="col-md-5 vertical-middle-col">
-                            <h2 class="h2 headline">What is <span>ZanteWallet</span></h2>
+                            <h2 class="h2 headline">What is <span>ZANTEPAY wallet</span></h2>
                             <ul class="styl-list">
-                                <li>The ZanteWallet application will let you purchase, sell, send, receive and exchange your ZanteCoins in the
+                                <li>The ZANTEPAY wallet application will let you purchase, sell, send, receive and exchange your ZanteCoins in the
                                     simplest and safest way possible.
                                 </li>
                                 <li>Its beauty and its ease of use.</li>
-                                <li>Your latest ZanteCard transactions or your exchange history.</li>
-                                <li>You will also have the option to manage 50+ cryptocurrencies directly from your ZanteWallet and assign your
-                                    wallets to your ZanteCard according to the selected preferences.
+                                <li>Your latest ZANTEPAY card transactions or your exchange history.</li>
+                                <li>You will also have the option to manage 50+ cryptocurrencies directly from your ZANTEPAY wallet and assign your
+                                    wallets to your ZANTEPAY card according to the selected preferences.
                                 </li>
-                                <li>Send or receive money with ZanteWallet users in seconds and at no cost.</li>
+                                <li>Send or receive money with ZANTEPAY wallet users in seconds and at no cost.</li>
                             </ul>
                         </div>
                     </div>
@@ -285,12 +285,12 @@
                             </div>
                         </div>
                         <div class="col-md-6 offset-lg-1">
-                            <h2 class="h2 headline">Zante <span>debit card</span></h2>
+                            <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
                                 <li>According to the selected preferences, 50+ cryptocurrencies will let you purchase via Debit card everywhere
                                     in the world.
                                 </li>
-                                <li>Directly connected to your ZanteWallet.</li>
+                                <li>Directly connected to your ZANTEPAY wallet.</li>
                                 <li>A multitude of management options will be available to you.</li>
                                 <li>Automatic highest trading price. BTC to EUR 1%. <br> Altcoin to EUR 1,5%.</li>
                                 <li>20% cashback in ZanteCoins.</li>
@@ -357,10 +357,10 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <h3 class="h2 headline">Earn ZanteCoins with every <br> swipe of your ZanteCard</h3>
+                        <h3 class="h2 headline">Earn ZanteCoins with every <br> swipe of your ZANTEPAY card</h3>
                         <ul class="styl-list">
-                            <li>Get 20% ZNX cashback on all purchases via Zante debit card</li>
-                            <li>Spend ZNX as the local currency with ZanteCard</li>
+                            <li>Get 20% ZNX cashback on all purchases via ZANTEPAY debit card</li>
+                            <li>Spend ZNX as the local currency with ZANTEPAY card</li>
                             <li>Exchange for Bitcoin and other cryptocurrencies</li>
                         </ul>
                     </div>
