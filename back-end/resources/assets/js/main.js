@@ -317,7 +317,7 @@ $(document).ready(function () {
                     showSpin(false);
 
                     $('#frm_ico_registration input[name="email"]').val('');
-                    $('#frm_ico_registration input[name="pay-method"]').val('');
+                    $('#frm_ico_registration input[name="pay-method"]:first').prop('checked', true);
                     $('#frm_ico_registration input[name="amount"]').val('');
 
                     $.magnificPopup.close();

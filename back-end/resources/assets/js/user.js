@@ -8,6 +8,7 @@ const showSpin = visible => {
         $('#spin').hide();
 }
 
+// Update states
 const updateStates = country => {
     axios.get(
         '/states',
@@ -41,6 +42,18 @@ const sendInvitationEmail = email => {
             }
         )
     )
+}
+
+// Validate file
+const validateFile = file => {
+    const isValidType = file.type.match(/(.png)|(.jpeg)|(.jpg)|(.pdf)$/i);
+    const isValidSize = (file.size).toFixed(0) < 4194304;
+
+    if (isValidType && isValidSize) {
+        return true;
+    }
+
+    return false;
 }
 
 $(document).ready(function () {
@@ -226,6 +239,122 @@ $(document).ready(function () {
 
         sendInvitationEmail(email);
     });
+
+    // Debit Card
+    $('#dc_design').on('submit', function (event) {
+        event.preventDefault();
+
+        showSpin(true);
+
+        const card = {
+            'design': $('input[name="card-type"]:checked').val()
+        }
+
+        axios.post(
+            '/user/debit-card',
+            qs.stringify(card)
+        )
+            .then(
+                response => {
+                    showSpin(false);
+
+                    window.location = response.data.nextStep
+                }
+            )
+
+    });
+
+    $('#dc_documents').on('submit', function (event) {
+        event.preventDefault();
+
+        showSpin(true);
+
+        let card = new FormData();
+
+        if ($('input[name="confirm"]').prop('checked')) {
+            card.append('verify_later', 1);
+        } else {
+            card.append('verify_later', 0);
+
+            let isFilesValid = true;
+
+            $.each(
+                $('#document-files')[0].files,
+                (index, file) => {
+                    if (!validateFile(file)) {
+                        isFilesValid = false;
+
+                        return false;
+                    }
+
+                    card.append('document_files[]', file);
+                }
+            )
+
+            if (!isFilesValid) {
+                return false;
+            }
+        }
+
+        axios.post(
+            '/user/debit-card-documents',
+            card
+        )
+            .then(
+                response => {
+                    showSpin(false);
+
+                    window.location = response.data.nextStep
+                }
+            )
+    });
+
+    $('#dc_address').on('submit', function (event) {
+        event.preventDefault();
+
+        showSpin(true);
+
+        let card = new FormData();
+
+        if ($('input[name="confirm"]').prop('checked')) {
+            card.append('verify_later', 1);
+        } else {
+            card.append('verify_later', 0);
+
+            let isFilesValid = true;
+
+            $.each(
+                $('#address-files')[0].files,
+                (index, file) => {
+                    if (!validateFile(file)) {
+                        isFilesValid = false;
+
+                        return false;
+                    }
+
+                    card.append('address_files[]', file);
+                }
+            )
+
+            if (!isFilesValid) {
+                return false;
+            }
+        }
+
+        axios.post(
+            '/user/debit-card-address',
+            card
+        )
+            .then(
+                response => {
+                    showSpin(false);
+
+                    window.location = response.data.nextStep
+                }
+            )
+
+    });
+
 });
 
 

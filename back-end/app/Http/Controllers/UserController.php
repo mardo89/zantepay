@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\DebitCard;
+use App\Models\Document;
 use App\Models\Invite;
 use App\Models\Profile;
 use App\Models\State;
@@ -10,7 +12,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\StaticText;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Mockery\Exception;
+use Symfony\Component\VarDumper\Caster\DOMCaster;
 
 
 class UserController extends Controller
@@ -155,7 +160,9 @@ class UserController extends Controller
 
         }
 
-        return response()->json([]);
+        return response()->json(
+            []
+        );
     }
 
     /**
@@ -197,7 +204,7 @@ class UserController extends Controller
         return view(
             'invite-friend',
             [
-                'referralLink' => action('IndexController@main', ['ref' => $user->uid]),
+                'referralLink' => action('IndexController@invitation', ['ref' => $user->uid]),
                 'referrals' => $userReferrals
             ]
         );
@@ -254,5 +261,323 @@ class UserController extends Controller
             ]
         );
     }
+
+    /**
+     * Debit card design
+     *
+     * @return View
+     */
+    public function debitCard()
+    {
+        $user = Auth::user();
+
+        $card = DebitCard::where('user_id', $user->id)->first();
+
+        $userDebitCard = [
+            'design' => is_null($card) ? DebitCard::DESIGN_WHITE : $card->design
+        ];
+
+        return view(
+            'debit-card-design',
+            [
+                'debitCard' => $userDebitCard
+            ]
+        );
+    }
+
+    /**
+     * Save debit card design
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function saveDebitCard(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate(
+            $request,
+            [
+                'design' => 'required|integer'
+            ]
+        );
+
+        $userDebitCard = [
+            'user_id' => $user->id,
+            'design' => $request->design
+        ];
+
+        $card = DebitCard::where('user_id', $user->id)->first();
+
+        try {
+            if (!$card) {
+                DebitCard::create($userDebitCard);
+            } else {
+                DebitCard::where('user_id', $user->id)->update($userDebitCard);
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'errorMessage' => $e->getMessage(),
+                    'errors' => ['An error occurred']
+                ],
+                422
+            );
+
+        }
+
+        return response()->json(
+            [
+                'nextStep' => action('UserController@debitCardDocuments')
+            ]
+        );
+    }
+
+    /**
+     * Debit card documents
+     *
+     * @return View
+     */
+    public function debitCardDocuments()
+    {
+        return view(
+            'debit-card-documents'
+        );
+    }
+
+    /**
+     * Save debit card id documents
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function saveDebitCardDocuments(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate(
+            $request,
+            [
+                'verify_later' => 'required|boolean',
+                'document_files' => 'required_if:verify_later,0'
+            ],
+            [
+                'document_files.required_if' => 'Please select files to download',
+            ]
+
+        );
+
+        if ($request->verify_later == 1) {
+            return response()->json(
+                [
+                    'nextStep' => action('UserController@debitCardAddress')
+                ]
+            );
+        }
+
+        $files = new \stdClass();
+        $files->data = [];
+        $files->rules = [];
+
+        foreach ($request->document_files as $index => $file) {
+            $fileName = 'user_' . $user->id . '_' . $index;
+
+            $files->data[$fileName] = $file;
+            $files->rules[$fileName] = 'file|max:4096|mimetypes:image/jpeg,image/png,application/pdf';
+        }
+
+        $isFailed = Validator::make($files->data, $files->rules)->fails();
+
+        if ($isFailed) {
+            return response()->json(
+                [
+                    'errorMessage' => 'Error uploading documents',
+                    'errors' => ['Incorrect files format']
+                ],
+                422
+            );
+        }
+
+        try {
+            $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ID)->get();
+
+            // delete old files
+            foreach ($oldDocuments as $document) {
+                if (Storage::exists($document->file_name)) {
+                    Storage::delete($document->file_name);
+                }
+            }
+
+            // Empty DB records
+            Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ID)->delete();
+
+            // insert new files
+            foreach ($files->data as $fileName => $file) {
+                $newFileName = $fileName . '.' . $file->getClientOriginalExtension();
+
+                $pathToFile = $file->storeAs('documents/id', $newFileName);
+
+                Document::create(
+                    [
+                        'user_id' => $user->id,
+                        'document_type' => Document::DOCUMENT_TYPE_ID,
+                        'file_path' => $pathToFile
+                    ]
+                );
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'errorMessage' => $e->getMessage(),
+                    'errors' => ['Error uploading file']
+                ],
+                422
+            );
+
+        }
+
+        return response()->json(
+            [
+                'nextStep' => action('UserController@debitCardAddress')
+            ]
+        );
+    }
+
+    /**
+     * Debit card address
+     *
+     * @return View
+     */
+    public function debitCardAddress()
+    {
+        return view(
+            'debit-card-address'
+        );
+    }
+
+    /**
+     * Save debit card address documents
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function saveDebitCardAddress(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate(
+            $request,
+            [
+                'verify_later' => 'required|boolean',
+                'address_files' => 'required_if:verify_later,0'
+            ],
+            [
+                'address_files.required_if' => 'Please select files to download',
+            ]
+
+        );
+
+        if ($request->verify_later == 1) {
+            return response()->json(
+                [
+                    'nextStep' => action('UserController@debitCardSuccess')
+                ]
+            );
+        }
+
+        $files = new \stdClass();
+        $files->data = [];
+        $files->rules = [];
+
+        foreach ($request->address_files as $index => $file) {
+            $fileName = 'user_' . $user->id . '_' . $index;
+
+            $files->data[$fileName] = $file;
+            $files->rules[$fileName] = 'file|max:4096|mimetypes:image/jpeg,image/png,application/pdf';
+        }
+
+        $isFailed = Validator::make($files->data, $files->rules)->fails();
+
+        if ($isFailed) {
+            return response()->json(
+                [
+                    'errorMessage' => 'Error uploading documents',
+                    'errors' => ['Incorrect files format']
+                ],
+                422
+            );
+        }
+
+        try {
+            $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->get();
+
+            // delete old files
+            foreach ($oldDocuments as $document) {
+                if (Storage::exists($document->file_name)) {
+                    Storage::delete($document->file_name);
+                }
+            }
+
+            // Empty DB records
+            Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->delete();
+
+            // insert new files
+            foreach ($files->data as $fileName => $file) {
+                $newFileName = $fileName . '.' . $file->getClientOriginalExtension();
+
+                $pathToFile = $file->storeAs('documents/address', $newFileName);
+
+                Document::create(
+                    [
+                        'user_id' => $user->id,
+                        'document_type' => Document::DOCUMENT_TYPE_ADDRESS,
+                        'file_path' => $pathToFile
+                    ]
+                );
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'errorMessage' => $e->getMessage(),
+                    'errors' => ['Error uploading file']
+                ],
+                422
+            );
+
+        }
+
+        return response()->json(
+            [
+                'nextStep' => action('UserController@debitCardSuccess')
+            ]
+        );
+    }
+
+    /**
+     * Invite friends
+     *
+     * @return View
+     */
+    public function debitCardSuccess()
+    {
+        $user = Auth::user();
+
+        return view(
+            'debit-card-success',
+            [
+                'referralLink' => action('IndexController@invitation', ['ref' => $user->uid]),
+            ]
+        );
+    }
+
 
 }
