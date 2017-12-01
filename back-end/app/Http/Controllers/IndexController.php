@@ -17,10 +17,19 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function main(Request $request) {
+    public function main(Request $request)
+    {
         $this->checkReferrer($request->ref);
 
-        return view('index');
+        return view(
+            'index',
+            [
+                'currency' => [
+                    'btc' => IcoRegistration::CURRENCY_TYPE_BTC,
+                    'eth' => IcoRegistration::CURRENCY_TYPE_ETH,
+                ]
+            ]
+        );
     }
 
 
@@ -76,7 +85,7 @@ class IndexController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => 'Registration failed',
+                    'message' => 'Registration failed',
                     'errors' => ['An error occurred']
                 ],
                 422
@@ -131,7 +140,8 @@ class IndexController extends Controller
      *
      * @param string $referrer
      */
-    protected function checkReferrer($referrer) {
+    protected function checkReferrer($referrer)
+    {
         if (!is_null($referrer)) {
             $user = User::where('uid', $referrer)->first();
 

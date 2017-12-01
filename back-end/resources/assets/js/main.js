@@ -1,34 +1,36 @@
 require('./bootstrap');
 
-// Signup Err
-const showSignupErr = (errorMessage, errorsList) => {
-    console.error(errorMessage);
+//Spinner
+const getSpinner = size => {
 
-    const errors = _.flatMap(
-        errorsList,
-        error => error
-    );
-
-    console.table(errors);
+    return $('<div />').addClass('spinner-container').css('height', size + 'px')
+        .append(
+            $('<div />').addClass('spinner spinner--' + size)
+                .append(
+                    $('<div />')
+                )
+                .append(
+                    $('<div />')
+                )
+                .append(
+                    $('<div />')
+                )
+                .append(
+                    $('<div />')
+                )
+        );
 }
 
-// Login Err
-const showLoginErr = (result, show) => {
-    $('#login_err').text(result.type);
-    $('#login_err_msg').text(result.msg);
-    if (show)
-        $('.login_err').show();
-    else
-        $('.login_err').hide();
+const showSpinner = (element, size) => {
+    element.hide();
+    element.after(getSpinner(size));
 }
 
-//Spin function
-const showSpin = visible => {
-    if (visible)
-        $('#spin').show();
-    else
-        $('#spin').hide();
+const hideSpinner = (element) => {
+    element.show();
+    $('.spinner-container').remove();
 }
+
 
 // Send activation email
 const sendActivationEmail = uid => {
@@ -142,6 +144,10 @@ $(document).ready(function () {
     $('#frm_contact').on('submit', function (event) {
         event.preventDefault();
 
+        $('.form-error').removeClass('form-error');
+
+        // showSpinner($('#frm_contact').find('input[type="submit"]'), 50);
+
         axios.post(
             '/mail/contact-us',
             qs.stringify(
@@ -152,6 +158,29 @@ $(document).ready(function () {
                 }
             )
         )
+            .then(
+                () => {
+                    // hideSpinner($('#frm_contact').find('input[type="submit"]'));
+
+                    $('#user-name').val('');
+                    $('#user-email').val('');
+                    $('#user-message').val('');
+                }
+            )
+            .catch(
+                error => {
+                    // hideSpinner($('#frm_contact').find('input[type="submit"]'));
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#user-' + field).parents('.form-group').addClass('form-error');
+                        }
+                    )
+                }
+            )
 
     });
 
@@ -159,12 +188,13 @@ $(document).ready(function () {
     $("#frm_signin").on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
-
         const credentials = {
             email: $('#signin_email').val(),
             password: $('#signin_pwd').val()
         };
+
+        $('.form-error').removeClass('form-error');
+        $('.error-text').remove();
 
         axios.post(
             '/auth/login',
@@ -172,7 +202,6 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    showSpin(false);
 
                     $.magnificPopup.close();
 
@@ -181,11 +210,14 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    showSpin(false);
+                    const {message} = error.response.data;
 
-                    const {message, errors} = error.response.data;
+                    $('#signin_email').parent().addClass('form-error');
+                    $('#signin_pwd').parent().addClass('form-error');
 
-                    showLoginErr(message, errors);
+                    $('#signin_pwd').after(
+                        $('<span />').addClass('error-text').text(message)
+                    );
                 }
             )
     });
@@ -194,7 +226,8 @@ $(document).ready(function () {
     $("#frm_signup").on('submit', function (event) {
             event.preventDefault();
 
-            showSpin(true);
+            $('.form-error').removeClass('form-error');
+            $('.error-text').remove();
 
             const credentials = {
                 email: $('#signup_email').val(),
@@ -210,7 +243,6 @@ $(document).ready(function () {
                     response => {
                         sendActivationEmail(response.data.uid);
 
-                        showSpin(false);
 
                         $.magnificPopup.close();
 
@@ -231,11 +263,17 @@ $(document).ready(function () {
                 )
                 .catch(
                     error => {
-                        showSpin(false);
-
                         const {message, errors} = error.response.data;
 
-                        showSignupErr(message, errors);
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('#frm_signup input[name="' + field + '"]').parent().addClass('form-error');
+                                $('#frm_signup input[name="' + field + '"]').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
                     }
                 )
         }
@@ -245,7 +283,6 @@ $(document).ready(function () {
     $("#frm_invite_signup").on('submit', function (event) {
             event.preventDefault();
 
-            showSpin(true);
 
             const credentials = {
                 email: $('#signup_email').val(),
@@ -261,7 +298,6 @@ $(document).ready(function () {
                     response => {
                         sendActivationEmail(response.data.uid);
 
-                        showSpin(false);
 
                         $.magnificPopup.close();
 
@@ -275,7 +311,7 @@ $(document).ready(function () {
                             }
                         );
 
-                        $('.mfp-close').on('click', function(event) {
+                        $('.mfp-close').on('click', function (event) {
                             window.location = '/';
                         });
 
@@ -286,7 +322,6 @@ $(document).ready(function () {
                 )
                 .catch(
                     error => {
-                        showSpin(false);
 
                         const {message, errors} = error.response.data;
 
@@ -300,7 +335,7 @@ $(document).ready(function () {
     $('#frm_ico_registration').on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        $('.form-error').removeClass('form-error');
 
         const registration = {
             'email': $('#frm_ico_registration input[name="email"]').val(),
@@ -314,7 +349,6 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    showSpin(false);
 
                     $('#frm_ico_registration input[name="email"]').val('');
                     $('#frm_ico_registration input[name="pay-method"]:first').prop('checked', true);
@@ -323,6 +357,18 @@ $(document).ready(function () {
                     $.magnificPopup.close();
 
                     sendIcoRegistrationEmail(response.data.email);
+                }
+            )
+            .catch(
+                error => {
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#frm_ico_registration input[name="' + field + '"]').parent().addClass('form-error');
+                        }
+                    )
                 }
             )
 

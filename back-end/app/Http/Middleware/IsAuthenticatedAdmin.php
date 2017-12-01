@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,7 @@ class IsAuthenticatedAdmin
 
         $user = Auth::user();
 
-        if ($user->role == USER_ROLE_USER || $user->status != USER_STATUS_ACTIVE) {
+        if ($user->role !== User::USER_ROLE_ADMIN || $user->status != User::USER_STATUS_ACTIVE) {
             return redirect('/');
         }
 

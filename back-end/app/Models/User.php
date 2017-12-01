@@ -10,6 +10,19 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * User roles
+     */
+    const USER_ROLE_ADMIN = 0;
+    const USER_ROLE_MANAGER = 1;
+    const USER_ROLE_USER = 2;
+
+    /**
+     * User statuses
+     */
+    const USER_STATUS_INACTIVE = 0;
+    const USER_STATUS_ACTIVE = 1;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

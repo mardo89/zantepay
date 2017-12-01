@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class IcoRegistration extends Model
 {
     /**
+     * Currency types
+     */
+    const CURRENCY_TYPE_BTC = 0;
+    const CURRENCY_TYPE_ETH = 1;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -23,5 +29,17 @@ class IcoRegistration extends Model
     protected $hidden = [
 
     ];
+
+    /**
+     * Get currency
+     *
+     * @param int $currency
+     *
+     * @return string
+     */
+    public static function getCurrency($currency) {
+        switch ($currency) {
+        }
+    }
 
 }

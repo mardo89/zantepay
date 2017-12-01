@@ -736,11 +736,11 @@
                     <p>The payment will be made in:</p>
                     <div class="logon-group inline-radio">
                         <div class="radio-button">
-                            <input id="radio1" type="radio" name="pay-method" value={{ CURRENCY_TYPE_BTC }} checked><label
+                            <input id="radio1" type="radio" name="pay-method" value={{ $currency['btc'] }} checked><label
                                     for="radio1">BTC</label>
                         </div>
                         <div class="radio-button">
-                            <input id="radio2" type="radio" name="pay-method" value={{ CURRENCY_TYPE_ETH }}><label for="radio2">ETH</label>
+                            <input id="radio2" type="radio" name="pay-method" value={{ $currency['eth'] }}><label for="radio2">ETH</label>
                         </div>
                     </div>
                 </div>

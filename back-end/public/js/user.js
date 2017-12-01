@@ -29941,6 +29941,12 @@ var validateFile = function validateFile(file) {
 };
 
 $(document).ready(function () {
+    //hamburger
+    $(document).on('click', '.hamburger', function () {
+        $('.masthead__menu').slideToggle();
+        $('.hamburger').toggleClass('is-active');
+    });
+
     // Datepicker
     if ($('[data-toggle="datepicker"]').length) {
         $('[data-toggle="datepicker"]').datepicker();
@@ -30009,7 +30015,7 @@ $(document).ready(function () {
                     src: '#profile-modal'
                 },
                 type: 'inline',
-                closeOnBgClick: false
+                closeOnBgClick: true
             });
         });
     });

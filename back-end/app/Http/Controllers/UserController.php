@@ -152,7 +152,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => $e->getMessage(),
+                    'message' => $e->getMessage(),
                     'errors' => ['An error occurred']
                 ],
                 422
@@ -182,7 +182,8 @@ class UserController extends Controller
             $userReferrals[$invite->email] = [
                 'name' => $invite->email,
                 'avatar' => '/images/avatar.png',
-                'status' => StaticText::getInvitationStatus(INVITATION_STATUS_PENDING)
+                'status' => Invite::getStatus(Invite::INVITATION_STATUS_PENDING)
+
             ];
         }
 
@@ -197,7 +198,7 @@ class UserController extends Controller
             $userReferrals[$referral->email] = [
                 'name' => $userName,
                 'avatar' => !is_null($referral->avatar) ? $referral->avatar : '/images/avatar.png',
-                'status' => StaticText::getInvitationStatus(INVITATION_STATUS_VERIFYING)
+                'status' => Invite::getStatus(Invite::INVITATION_STATUS_VERIFYING)
             ];
         }
 
@@ -246,7 +247,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => 'Invitation failed',
+                    'message' => 'Invitation failed',
                     'errors' => ['Error sending invitation']
                 ],
                 422
@@ -321,7 +322,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => $e->getMessage(),
+                    'message' => $e->getMessage(),
                     'errors' => ['An error occurred']
                 ],
                 422
@@ -395,7 +396,7 @@ class UserController extends Controller
         if ($isFailed) {
             return response()->json(
                 [
-                    'errorMessage' => 'Error uploading documents',
+                    'message' => 'Error uploading documents',
                     'errors' => ['Incorrect files format']
                 ],
                 422
@@ -434,7 +435,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => $e->getMessage(),
+                    'message' => $e->getMessage(),
                     'errors' => ['Error uploading file']
                 ],
                 422
@@ -508,7 +509,7 @@ class UserController extends Controller
         if ($isFailed) {
             return response()->json(
                 [
-                    'errorMessage' => 'Error uploading documents',
+                    'message' => 'Error uploading documents',
                     'errors' => ['Incorrect files format']
                 ],
                 422
@@ -547,7 +548,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => $e->getMessage(),
+                    'message' => $e->getMessage(),
                     'errors' => ['Error uploading file']
                 ],
                 422

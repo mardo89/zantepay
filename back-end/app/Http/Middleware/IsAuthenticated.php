@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,7 @@ class IsAuthenticated
 
         $user = Auth::user();
 
-        if ($user->status != USER_STATUS_ACTIVE) {
+        if ($user->status != User::USER_STATUS_ACTIVE) {
             return redirect('/');
         }
 

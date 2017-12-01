@@ -47,7 +47,7 @@ class AuthController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => 'Error creating user',
+                    'message' => 'Error creating user',
                     'errors' => ['An error occurred']
                 ],
                 422
@@ -77,7 +77,7 @@ class AuthController extends Controller
                 [
                     'email' => $request->email,
                     'password' => $request->password,
-                    'status' => USER_STATUS_ACTIVE
+                    'status' => User::USER_STATUS_ACTIVE
                 ]
             );
 
@@ -89,7 +89,7 @@ class AuthController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => $e->getMessage(),
+                    'message' => $e->getMessage(),
                     'errors' => ['Login or password incorrect']
                 ],
                 422
@@ -114,7 +114,7 @@ class AuthController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => 'Can not log out current user',
+                    'message' => 'Can not log out current user',
                     'errors' => ['Error while logging out']
                 ],
                 422
@@ -156,10 +156,10 @@ class AuthController extends Controller
     protected function getUserPage($userRole)
     {
         switch ($userRole) {
-            case USER_ROLE_ADMIN:
+            case User::USER_ROLE_ADMIN:
                 return '/admin';
 
-            case USER_ROLE_USER:
+            case User::USER_ROLE_USER:
                 return '/user/profile';
 
             default:
@@ -194,7 +194,7 @@ class AuthController extends Controller
                         'email' => $snUser->email,
                         'password' => bcrypt(uniqid()),
                         'uid' => uniqid(),
-                        'status' => USER_STATUS_ACTIVE,
+                        'status' => User::USER_STATUS_ACTIVE,
                         'first_name' => $firstName,
                         'last_name' => $lastName,
                         'avatar' => $snUser->avatar,
@@ -216,7 +216,7 @@ class AuthController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => $e->getMessage(),
+                    'message' => $e->getMessage(),
                     'errors' => ['Can not authorize with Facebook']
                 ],
                 422
@@ -247,7 +247,7 @@ class AuthController extends Controller
                         'email' => $snUser->email,
                         'password' => bcrypt(uniqid()),
                         'uid' => uniqid(),
-                        'status' => USER_STATUS_ACTIVE,
+                        'status' => User::USER_STATUS_ACTIVE,
                         'first_name' => $firstName,
                         'last_name' => $lastName,
                         'avatar' => $snUser->avatar,
@@ -269,7 +269,7 @@ class AuthController extends Controller
 
             return response()->json(
                 [
-                    'errorMessage' => $e->getMessage(),
+                    'message' => $e->getMessage(),
                     'errors' => ['Can not authorize with Facebook']
                 ],
                 422
