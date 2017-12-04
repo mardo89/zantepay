@@ -146,7 +146,7 @@ $(document).ready(function () {
 
         $('.form-error').removeClass('form-error');
 
-        // showSpinner($('#frm_contact').find('input[type="submit"]'), 50);
+        showSpinner($('#frm_contact').find('input[type="submit"]'), 50);
 
         axios.post(
             '/mail/contact-us',
@@ -160,7 +160,7 @@ $(document).ready(function () {
         )
             .then(
                 () => {
-                    // hideSpinner($('#frm_contact').find('input[type="submit"]'));
+                    hideSpinner($('#frm_contact').find('input[type="submit"]'));
 
                     $('#user-name').val('');
                     $('#user-email').val('');
@@ -169,7 +169,7 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    // hideSpinner($('#frm_contact').find('input[type="submit"]'));
+                    hideSpinner($('#frm_contact').find('input[type="submit"]'));
 
                     const {errors} = error.response.data;
 
@@ -196,12 +196,15 @@ $(document).ready(function () {
         $('.form-error').removeClass('form-error');
         $('.error-text').remove();
 
+        showSpinner($('#frm_signin').find('input[type="submit"]'), 50);
+
         axios.post(
             '/auth/login',
             qs.stringify(credentials)
         )
             .then(
                 response => {
+                    hideSpinner($('#frm_signin').find('input[type="submit"]'));
 
                     $.magnificPopup.close();
 
@@ -210,6 +213,8 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
+                    hideSpinner($('#frm_signin').find('input[type="submit"]'));
+
                     const {message} = error.response.data;
 
                     $('#signin_email').parent().addClass('form-error');
@@ -224,118 +229,134 @@ $(document).ready(function () {
 
     //Sing up
     $("#frm_signup").on('submit', function (event) {
-            event.preventDefault();
+        event.preventDefault();
 
-            $('.form-error').removeClass('form-error');
-            $('.error-text').remove();
+        $('.form-error').removeClass('form-error');
+        $('.error-text').remove();
 
-            const credentials = {
-                email: $('#signup_email').val(),
-                password: $('#signup_pwd').val(),
-                password_confirmation: $('#signup_cnf_pwd').val()
-            };
+        showSpinner($('#frm_signup').find('input[type="submit"]'), 50);
 
-            axios.post(
-                '/auth/register',
-                qs.stringify(credentials)
+        const credentials = {
+            email: $('#signup_email').val(),
+            password: $('#signup_pwd').val(),
+            password_confirmation: $('#signup_cnf_pwd').val()
+        };
+
+        axios.post(
+            '/auth/register',
+            qs.stringify(credentials)
+        )
+            .then(
+                response => {
+                    hideSpinner($('#frm_signup').find('input[type="submit"]'));
+
+                    sendActivationEmail(response.data.uid);
+
+                    $.magnificPopup.close();
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#confirm-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: false
+                        }
+                    );
+
+                    $('#resend-registration-email').on('click', function (event) {
+                        sendActivationEmail(response.data.uid)
+                    });
+                }
             )
-                .then(
-                    response => {
-                        sendActivationEmail(response.data.uid);
+            .catch(
+                error => {
+                    hideSpinner($('#frm_signup').find('input[type="submit"]'));
 
+                    const {message, errors} = error.response.data;
 
-                        $.magnificPopup.close();
-
-                        $.magnificPopup.open(
-                            {
-                                items: {
-                                    src: '#confirm-modal'
-                                },
-                                type: 'inline',
-                                closeOnBgClick: false
-                            }
-                        );
-
-                        $('#resend-registration-email').on('click', function (event) {
-                            sendActivationEmail(response.data.uid)
-                        });
-                    }
-                )
-                .catch(
-                    error => {
-                        const {message, errors} = error.response.data;
-
-                        $.each(
-                            errors,
-                            (field, error) => {
-                                $('#frm_signup input[name="' + field + '"]').parent().addClass('form-error');
-                                $('#frm_signup input[name="' + field + '"]').after(
-                                    $('<span />').addClass('error-text').text(error)
-                                );
-                            }
-                        )
-                    }
-                )
-        }
-    );
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#frm_signup input[name="' + field + '"]').parent().addClass('form-error');
+                            $('#frm_signup input[name="' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+    });
 
     //Sing up via invite
     $("#frm_invite_signup").on('submit', function (event) {
-            event.preventDefault();
+        event.preventDefault();
 
+        showSpinner($('#frm_invite_signup').find('input[type="submit"]'), 50);
 
-            const credentials = {
-                email: $('#signup_email').val(),
-                password: $('#signup_pwd').val(),
-                password_confirmation: $('#signup_cnf_pwd').val()
-            };
+        const credentials = {
+            email: $('#signup_email').val(),
+            password: $('#signup_pwd').val(),
+            password_confirmation: $('#signup_cnf_pwd').val()
+        };
 
-            axios.post(
-                '/auth/register',
-                qs.stringify(credentials)
+        axios.post(
+            '/auth/register',
+            qs.stringify(credentials)
+        )
+            .then(
+                response => {
+                    hideSpinner($('#frm_invite_signup').find('input[type="submit"]'));
+
+                    sendActivationEmail(response.data.uid);
+
+                    $.magnificPopup.close();
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#confirm-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: false
+                        }
+                    );
+
+                    $('.mfp-close').on('click', function (event) {
+                        window.location = '/';
+                    });
+
+                    $('#resend-registration-email').on('click', function (event) {
+                        sendActivationEmail(response.data.uid)
+                    });
+                }
             )
-                .then(
-                    response => {
-                        sendActivationEmail(response.data.uid);
+            .catch(
+                error => {
+                    hideSpinner($('#frm_invite_signup').find('input[type="submit"]'));
 
+                    const {errors} = error.response.data;
 
-                        $.magnificPopup.close();
-
-                        $.magnificPopup.open(
-                            {
-                                items: {
-                                    src: '#confirm-modal'
-                                },
-                                type: 'inline',
-                                closeOnBgClick: false
-                            }
-                        );
-
-                        $('.mfp-close').on('click', function (event) {
-                            window.location = '/';
-                        });
-
-                        $('#resend-registration-email').on('click', function (event) {
-                            sendActivationEmail(response.data.uid)
-                        });
-                    }
-                )
-                .catch(
-                    error => {
-
-                        const {message, errors} = error.response.data;
-
-                        showSignupErr(message, errors);
-                    }
-                )
-        }
-    );
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#frm_invite_signup input[name="' + field + '"]').parent().addClass('form-error');
+                            $('#frm_invite_signup input[name="' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+    });
 
     // PRE-ICO registration
     $('#frm_ico_registration').on('submit', function (event) {
         event.preventDefault();
 
         $('.form-error').removeClass('form-error');
+
+        showSpinner($('#frm_ico_registration').find('input[type="submit"]'), 50);
 
         const registration = {
             'email': $('#frm_ico_registration input[name="email"]').val(),
@@ -349,6 +370,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
+                    hideSpinner($('#frm_ico_registration').find('input[type="submit"]'));
 
                     $('#frm_ico_registration input[name="email"]').val('');
                     $('#frm_ico_registration input[name="pay-method"]:first').prop('checked', true);
@@ -356,11 +378,24 @@ $(document).ready(function () {
 
                     $.magnificPopup.close();
 
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#confirm-sign-up-preico'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: false
+                        }
+                    );
+
                     sendIcoRegistrationEmail(response.data.email);
                 }
             )
             .catch(
                 error => {
+
+                    hideSpinner($('#frm_ico_registration').find('input[type="submit"]'));
+
                     const {errors} = error.response.data;
 
                     $.each(

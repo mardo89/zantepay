@@ -4879,6 +4879,9 @@ p {
 .files-list .cross-ico:hover {
   color: #f92112;
 }
+.text-lg {
+  font-size: 19px;
+}
 .text-regular {
   font-size: 16px;
 }

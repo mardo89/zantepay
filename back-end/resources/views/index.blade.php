@@ -279,9 +279,9 @@
                             </div>
                             <div class="text-center">
                                 <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Verify & Pre-order a FREE Debit Card</a>
-                                <p>Pre-order free debit card and receive 600ZNX!</p>
-                                <p>Invite a friend to pre-order debit card. <br> RECEIVE 600ZNX WHEN PREORDER IS FINISHED! <br> Your friend gets
-                                    400ZNX.</p>
+                                <p class="text-lg">(currently under testing, pre-order opening soon)</p>
+                                <p class="text-regular">Pre-order free debit card and receive 400ZNX!</p>
+                                <p class="text-regular">Invite a friend to pre-order debit card. <br> RECEIVE 600ZNX WHEN PREORDER IS FINISHED! <br> Your friend gets 400ZNX.</p>
                             </div>
                         </div>
                         <div class="col-md-6 offset-lg-1">
