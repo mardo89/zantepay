@@ -10,12 +10,9 @@ use App\Models\Profile;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\StaticText;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Mockery\Exception;
-use Symfony\Component\VarDumper\Caster\DOMCaster;
 
 
 class UserController extends Controller
@@ -41,9 +38,9 @@ class UserController extends Controller
 
         $userProfile = [
             'email' => $user->email,
-            'first_name' => '',
-            'last_name' => '',
-            'phone_number' => '',
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'phone_number' => $user->phone_number,
             'country_id' => 0,
             'state_id' => 0,
             'city' => '',
@@ -56,9 +53,6 @@ class UserController extends Controller
         ];
 
         if (!is_null($profile)) {
-            $userProfile['first_name'] = $profile->first_name;
-            $userProfile['last_name'] = $profile->last_name;
-            $userProfile['phone_number'] = $profile->phone_number;
             $userProfile['country_id'] = $profile->country_id;
             $userProfile['state_id'] = $profile->state_id;
             $userProfile['city'] = $profile->city;
@@ -76,7 +70,7 @@ class UserController extends Controller
             : State::where('country_id', $userProfile['country_id'])->orderBy('name', 'asc')->get();
 
         return view(
-            'profile',
+            'user.profile',
             [
                 'profile' => $userProfile,
                 'countries' => $countries,
@@ -87,6 +81,8 @@ class UserController extends Controller
 
     /**
      * Save user profile
+     *
+     * @param Request $request
      *
      * @return View
      */
@@ -203,7 +199,7 @@ class UserController extends Controller
         }
 
         return view(
-            'invite-friend',
+            'user.invite-friend',
             [
                 'referralLink' => action('IndexController@invitation', ['ref' => $user->uid]),
                 'referrals' => $userReferrals
@@ -258,7 +254,7 @@ class UserController extends Controller
         return response()->json(
             [
                 'email' => $invite['email'],
-                'status' => StaticText::getInvitationStatus($invite['status'])
+                'status' => Invite::getStatus($invite['status'])
             ]
         );
     }
@@ -279,7 +275,7 @@ class UserController extends Controller
         ];
 
         return view(
-            'debit-card-design',
+            'user.debit-card-design',
             [
                 'debitCard' => $userDebitCard
             ]
@@ -345,7 +341,7 @@ class UserController extends Controller
     public function debitCardDocuments()
     {
         return view(
-            'debit-card-documents'
+            'user.debit-card-documents'
         );
     }
 
@@ -404,7 +400,7 @@ class UserController extends Controller
         }
 
         try {
-            $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ID)->get();
+            $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->get();
 
             // delete old files
             foreach ($oldDocuments as $document) {
@@ -414,7 +410,7 @@ class UserController extends Controller
             }
 
             // Empty DB records
-            Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ID)->delete();
+            Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->delete();
 
             // insert new files
             foreach ($files->data as $fileName => $file) {
@@ -425,7 +421,8 @@ class UserController extends Controller
                 Document::create(
                     [
                         'user_id' => $user->id,
-                        'document_type' => Document::DOCUMENT_TYPE_ID,
+                        'document_type' => Document::DOCUMENT_TYPE_IDENTITY,
+                        'did' => uniqid(),
                         'file_path' => $pathToFile
                     ]
                 );
@@ -458,7 +455,7 @@ class UserController extends Controller
     public function debitCardAddress()
     {
         return view(
-            'debit-card-address'
+            'user.debit-card-address'
         );
     }
 
@@ -539,6 +536,7 @@ class UserController extends Controller
                     [
                         'user_id' => $user->id,
                         'document_type' => Document::DOCUMENT_TYPE_ADDRESS,
+                        'did' => uniqid(),
                         'file_path' => $pathToFile
                     ]
                 );
@@ -573,7 +571,7 @@ class UserController extends Controller
         $user = Auth::user();
 
         return view(
-            'debit-card-success',
+            'user.debit-card-success',
             [
                 'referralLink' => action('IndexController@invitation', ['ref' => $user->uid]),
             ]

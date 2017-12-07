@@ -1,11 +1,40 @@
 require('./bootstrap');
 
-//Spin function
-const showSpin = visible => {
-    if (visible)
-        $('#spin').show();
-    else
-        $('#spin').hide();
+// Spinner
+const getSpinner = size => {
+
+    return $('<div />').addClass('spinner-container').css('height', size + 'px').css('width', '160px')
+        .append(
+            $('<div />').addClass('spinner spinner--50')
+                .append(
+                    $('<div />')
+                )
+                .append(
+                    $('<div />')
+                )
+                .append(
+                    $('<div />')
+                )
+                .append(
+                    $('<div />')
+                )
+        );
+}
+
+const showSpinner = (element, size) => {
+    element.hide();
+    element.after(getSpinner(size));
+}
+
+const hideSpinner = (element) => {
+    element.show();
+    $('.spinner-container').remove();
+}
+
+// Errors
+const clearErrors = () => {
+    $('.form-error').removeClass('form-error');
+    $('.error-text').remove();
 }
 
 // Update states
@@ -58,7 +87,7 @@ const validateFile = file => {
 
 $(document).ready(function () {
     //hamburger
-    $(document).on('click', '.hamburger', function() {
+    $(document).on('click', '.hamburger', function () {
         $('.masthead__menu').slideToggle();
         $('.hamburger').toggleClass('is-active');
     });
@@ -90,8 +119,6 @@ $(document).ready(function () {
     $('#logout-btn').on('click', function (event) {
         event.preventDefault();
 
-        showSpin(true);
-
         axios.post(
             '/auth/logout',
             qs.stringify(
@@ -100,9 +127,7 @@ $(document).ready(function () {
         )
             .then(
                 () => {
-                    showSpin(false);
-
-                    $.magnificPopup.close();
+                    // $.magnificPopup.close();
 
                     window.location.pathname = '/';
                 }
@@ -113,7 +138,7 @@ $(document).ready(function () {
     $('#user-profile').on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#user-profile').find('button[type="submit"]'), 38);
 
         const profile = {
             'first_name': $('input[name="f-name"]').val(),
@@ -137,7 +162,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    showSpin(false);
+                    hideSpinner($('#user-profile').find('button[type="submit"]'));
 
                     $.magnificPopup.open(
                         {
@@ -148,6 +173,20 @@ $(document).ready(function () {
                             closeOnBgClick: true
                         }
                     );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner($('#user-profile').find('button[type="submit"]'));
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#contact-' + field).parents('.form-group').addClass('form-error');
+                        }
+                    )
                 }
             )
 
@@ -177,10 +216,11 @@ $(document).ready(function () {
     $('#invite-friend').on('click', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#invite-friend'), 50);
+        clearErrors();
 
         const invite = {
-            'email': $('input[name="email"]').val()
+            'email': $('#friend-email').val()
         }
 
         axios.post(
@@ -189,7 +229,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    showSpin(false);
+                    hideSpinner($('#invite-friend'));
 
                     $('input[name="email"]').val('');
 
@@ -235,6 +275,13 @@ $(document).ready(function () {
                         )
                 }
             )
+            .catch(
+                error => {
+                    hideSpinner($('#invite-friend'));
+
+                    $('#friend-email').parent().addClass('form-error');
+                }
+            )
 
     });
 
@@ -250,7 +297,7 @@ $(document).ready(function () {
     $('#dc_design').on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#dc_design').find('input[type="submit"]'), 38);
 
         const card = {
             'design': $('input[name="card-type"]:checked').val()
@@ -262,7 +309,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    showSpin(false);
+                    hideSpinner($('#dc_design').find('input[type="submit"]'));
 
                     window.location = response.data.nextStep
                 }
@@ -273,7 +320,7 @@ $(document).ready(function () {
     $('#dc_documents').on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#dc_documents').find('input[type="submit"]'), 38);
 
         let card = new FormData();
 
@@ -308,7 +355,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    showSpin(false);
+                    hideSpinner($('#dc_documents').find('input[type="submit"]'));
 
                     window.location = response.data.nextStep
                 }
@@ -318,7 +365,7 @@ $(document).ready(function () {
     $('#dc_address').on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#dc_address').find('input[type="submit"]'), 38);
 
         let card = new FormData();
 
@@ -353,12 +400,11 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    showSpin(false);
-
                     window.location = response.data.nextStep
+
+                    hideSpinner($('#dc_address').find('input[type="submit"]'));
                 }
             )
-
     });
 
 });

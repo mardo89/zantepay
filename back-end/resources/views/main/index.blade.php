@@ -31,7 +31,7 @@
 
                         <div class="masthead__right">
                             <div class="logon-btns">
-                                <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign In</a>
+                                <a  href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign In</a>
                                 <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                 </div>
                 <h1 class="h2 header__title text-uppercase">Spend 50+ cryptocurrencies in real life with just one card</h1>
                 <div class="horizontal-btns">
-                    <a href={{ asset('storage/Zantepay_Whitepaper.pdf') }} target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
+                    <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
                     <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260">Register For Pre-ICO</a>
                 </div>
@@ -65,7 +65,7 @@
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">
-                    <h3 class="h2 headline">What is a <br> ZanteCoin</h3>
+                    <h3 class="h2 headline">What is a <br> ZANTECOIN</h3>
                 </div>
                 <div class="text-center">
                     <ul class="horizontal-icons">
@@ -99,8 +99,7 @@
                         <img src="images/iPhone-debit.png" srcset="images/iPhone-debit@2x.png 2x" alt="iPhone Debit card">
                     </div>
                     <div class="col-md-4">
-                        With the DSC keys you have full control of your digital assets. You can adjust security settings at any time with the
-                        smart contracts. From choice of currency, spending limits, spending history to withdrawal settings, etc.
+                        With the DSC keys you have full control of your digital assets. You can adjust security settings at any time with the smart contracts. From choice of currency, spending limits, spending history to withdrawal settings, etc.
                     </div>
                 </div>
             </div>
@@ -146,7 +145,7 @@
                     </div>
                     <div class="col-md-6 vertical-middle-col content-center">
                         <div class="lp-content-col">
-                            <h3 class="h2 headline">Beginning of the ZanteCoin pre-sale <span>January 1st</span></h2>
+                            <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>January 1st</span></h2>
                                 <p>Token distribution Debit Card pre-ordering start.</p>
                         </div>
                     </div>
@@ -160,7 +159,7 @@
                     </div>
                     <div class="col-md-6 vertical-middle-col">
                         <div class="lp-content-col">
-                            <h3 class="h2 headline">ICO I part - ICO III part <span>January - March</span></h2>
+                            <h3 class="h2 headline">Pre-ICO - ICO III Part <span>January - April</span></h2>
                         </div>
                     </div>
                 </div>
@@ -174,8 +173,7 @@
                     <div class="col-md-6 vertical-middle-col content-center">
                         <div class="lp-content-col">
                             <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q2</span></h2>
-                                <p>Visa debit card launch. 50+ currencies integration with Debit card and Wallet. Automatic highest exchange
-                                    rate.</p>
+                                <p>Visa debit card launch. 50+ currencies integration with Debit card and Wallet.</p>
                         </div>
                     </div>
                 </div>
@@ -189,8 +187,7 @@
                     <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0">
                         <div class="lp-content-col">
                             <h3 class="h2 headline">Visa debit card launch <span>2018 Q3</span></h2>
-                                <p>Visa debit card launch. 50+ currencies integration with Debit card and Wallet. Automatic highest exchange
-                                    rate.</p>
+                                <p>Visa debit card launch. 50+ currencies integration with Debit card and Wallet.</p>
                         </div>
                     </div>
                 </div>
@@ -204,7 +201,7 @@
                     <div class="col-md-6 vertical-middle-col content-center">
                         <div class="lp-content-col">
                             <h3 class="h2 headline">Biggest cryptocurrency wallet worldwide! <span>2019</span></h2>
-                                <p>Become the bigest cryptocurrency wallet worldwide! Join today!</p>
+                                <p>Become the biggest cryptocurrency wallet worldwide! Join today!</p>
                         </div>
                     </div>
                 </div>
@@ -219,7 +216,7 @@
                         <div class="lp-image-container4">
                             <img src="images/ICO.png" alt="ICO">
                         </div>
-                        <a href={{ asset('storage/Zantepay_Whitepaper.pdf') }} target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
+                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
                     </div>
                     <div class="col-sm-6 text-center">
                         <h3 class="h2 headline">Token <br> distribution</h3>
@@ -238,8 +235,7 @@
                     </div>
                     <div class="col-md-5 vertical-middle-col">
                         <h3 class="h2 headline">Refer a friend for a <span>20% commission</span></h2>
-                            <p>Each holder of ZanteCoin (ZNX) tokens will be entitled to a referral commission, paid weekly; this will be
-                                constituted of 20% net transaction revenue.</p>
+                            <p>Each holder of ZANTECOIN (ZNX) tokens will be entitled to a referral commission, paid weekly; this will be constituted of 20% net transaction revenue.</p>
                     </div>
                     </h3>
                 </div>
@@ -255,14 +251,10 @@
                         <div class="col-md-5 vertical-middle-col">
                             <h2 class="h2 headline">What is <span>ZANTEPAY wallet</span></h2>
                             <ul class="styl-list">
-                                <li>The ZANTEPAY wallet application will let you purchase, sell, send, receive and exchange your ZanteCoins in the
-                                    simplest and safest way possible.
-                                </li>
+                                <li>The ZANTEPAY wallet application will let you purchase, sell, send, receive and exchange your ZANTECOINs in the simplest and safest way possible.</li>
                                 <li>Its beauty and its ease of use.</li>
                                 <li>Your latest ZANTEPAY card transactions or your exchange history.</li>
-                                <li>You will also have the option to manage 50+ cryptocurrencies directly from your ZANTEPAY wallet and assign your
-                                    wallets to your ZANTEPAY card according to the selected preferences.
-                                </li>
+                                <li>You will also have the option to manage 50+ cryptocurrencies directly from your ZANTEPAY wallet and assign your wallets to your ZANTEPAY card according to the selected preferences.</li>
                                 <li>Send or receive money with ZANTEPAY wallet users in seconds and at no cost.</li>
                             </ul>
                         </div>
@@ -287,13 +279,11 @@
                         <div class="col-md-6 offset-lg-1">
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
-                                <li>According to the selected preferences, 50+ cryptocurrencies will let you purchase via Debit card everywhere
-                                    in the world.
-                                </li>
-                                <li>Directly connected to your ZANTEPAY wallet.</li>
+                                <li>According to the selected preferences, 50+ cryptocurrencies will let you purchase via Debit card everywhere in the world.</li>
+                                <li>Directly connected  to your ZANTEPAY wallet.</li>
                                 <li>A multitude of management options will be available to you.</li>
                                 <li>Automatic highest trading price. BTC to EUR 1%. <br> Altcoin to EUR 1,5%.</li>
-                                <li>20% cashback in ZanteCoins.</li>
+                                <li>20% cashback in ZANTECOINs.</li>
                             </ul>
                         </div>
                     </div>
@@ -349,19 +339,18 @@
                 <div class="row lp-row-2">
                     <div class="col-md-6 vertical-middle-col content-center">
                         <div class="lp-coin-value">
-                            <div class="lp-coin-text"> 20% <span class="h4">ZanteCoins cashback <br> on all purchases <br> via Debit card</span>
-                            </div>
+                            <div class="lp-coin-text"> 20% <span class="h4">ZANTECOINs cashback <br> on all purchases <br> via Debit card</span></div>
                             <div class="lp-coin-img">
                                 <img src="images/Coin.png" srcset="images/Coin@2x.png 2x" alt="ZANTEPAY Coin">
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <h3 class="h2 headline">Earn ZanteCoins with every <br> swipe of your ZANTEPAY card</h3>
+                        <h3 class="h2 headline">Earn ZANTECOINs with every <br> swipe of your ZANTEPAY card</h3>
                         <ul class="styl-list">
-                            <li>Get 20% ZNX cashback on all purchases via ZANTEPAY debit card</li>
+                            <li>Get 20% ZNX cashback on all purchases via ZANTEPAY debit card  </li>
                             <li>Spend ZNX as the local currency with ZANTEPAY card</li>
-                            <li>Exchange for Bitcoin and other cryptocurrencies</li>
+                            <li>Exchange  for Bitcoin and other cryptocurrencies</li>
                         </ul>
                     </div>
                 </div>
@@ -455,29 +444,29 @@
                             <tr>
                                 <td>75000-100000</td>
                                 <td>25000</td>
-                                <td>50</td>
-                                <td>2,5</td>
-                                <td>5</td>
-                                <td>7</td>
-                                <td>12,5</td>
+                                <td>80</td>
+                                <td>4</td>
+                                <td>8</td>
+                                <td>11,2</td>
+                                <td>20</td>
                             </tr>
                             <tr>
                                 <td>100k - 1 mln</td>
                                 <td>900000</td>
-                                <td>50</td>
-                                <td>2,5</td>
-                                <td>5</td>
-                                <td>7</td>
-                                <td>12,5</td>
+                                <td>80</td>
+                                <td>4</td>
+                                <td>8</td>
+                                <td>11,2</td>
+                                <td>20</td>
                             </tr>
                             <tr>
-                                <td>1 - 5 mln</td>
+                                <td>1 mln - 5 mln</td>
                                 <td>4000000</td>
-                                <td>40</td>
-                                <td>2</td>
-                                <td>4</td>
-                                <td>5,6</td>
-                                <td>10</td>
+                                <td>60</td>
+                                <td>3</td>
+                                <td>6</td>
+                                <td>8,4</td>
+                                <td>15</td>
                             </tr>
                             </tbody>
                         </table>
@@ -499,55 +488,55 @@
                             <td>1 - 1 mln</td>
                             <td>1000000</td>
                             <td>20%</td>
-                            <td>2.000.000</td>
+                            <td>2000000</td>
                         </tr>
                         <tr>
                             <td>1 mln - 10 mln</td>
-                            <td>10000000</td>
+                            <td>9000000</td>
                             <td>15%</td>
-                            <td>15.000.000</td>
+                            <td>13500000</td>
                         </tr>
                         <tr>
                             <td>10 mln - 20 mln</td>
                             <td>10000000</td>
                             <td>12%</td>
-                            <td>12.000.000</td>
+                            <td>12000000</td>
                         </tr>
                         <tr>
                             <td>20 mln - 50 mln</td>
                             <td>30000000</td>
                             <td>5%</td>
-                            <td>15.000.000</td>
+                            <td>15000000</td>
                         </tr>
                         <tr>
                             <td>50 mln - 100 mln</td>
                             <td>50000000</td>
                             <td>5%</td>
-                            <td>25.000.000</td>
+                            <td>25000000</td>
                         </tr>
                         <tr>
                             <td>100 mln - 200 mln</td>
                             <td>100000000</td>
                             <td>3%</td>
-                            <td>30.000.000</td>
+                            <td>30000000</td>
                         </tr>
                         <tr>
                             <td>200 mln - 300 mln</td>
                             <td>100000000</td>
                             <td>3%</td>
-                            <td>30.000.000</td>
+                            <td>30000000</td>
                         </tr>
                         <tr>
                             <td>300 mln - 500 mln</td>
-                            <td>300000000</td>
+                            <td>200000000</td>
                             <td>2%</td>
-                            <td>60.000.000</td>
+                            <td>40000000</td>
                         </tr>
                         <tr>
                             <td>500 mln - 1 bln</td>
                             <td>500000000</td>
                             <td>2%</td>
-                            <td>100.000.000</td>
+                            <td>100000000</td>
                         </tr>
                         </tbody>
                     </table>
@@ -564,25 +553,17 @@
                     <div class="col-lg-4">
                         <img src="images/mardo.jpg" srcset="images/mardo@2x.jpg 2x" alt="Mardo Soo">
                         <h3 class="h4">Mardo Soo <span>Founder</span></h3>
-                        <p>Mardo is a visionary, investor and entrepreneur, his expertise in sales and marketing is more than 10 years. He ran
-                            couple of successful web projects in Estonia. His latest passion is blockchain and cryptocurrency. Mardo`s talent is
-                            to find and recognize the best people for the job to make something great. He believes cryptocurrency and AI is the
-                            the next big thing.</p>
+                        <p>Mardo is a visionary, investor and entrepreneur, his expertise in sales and marketing is more than 10 years. He ran couple of successful web projects in Estonia. His latest passion is blockchain and cryptocurrency. Mardo`s talent is to find and recognize the best people for the job to make something great. He believes cryptocurrency and AI is the the next big thing.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/lena.jpg" srcset="images/lena@2x.jpg 2x" alt="Lena Elvbakken">
                         <h3 class="h4">Lena Elvbakken <span>Co-Founder</span></h3>
-                        <p>Lena, BAA, has an impressive global product marketing and sales background. Previously worked in media, technology
-                            and telecom branch for the brands like HP and Nokia. She then moved on to online-based consulting business and
-                            recently into the fin tech branch. Lena believes that her corporate experience, leadership and passion for the
-                            technology make her a valuable asset for the team.</p>
+                        <p>Lena, BAA, has an impressive global product marketing and sales background. Previously worked in media, technology and telecom branch for the brands like HP and Nokia. Then she moved on to online-based consulting business and recently into the fin tech branch. Lena believes that her corporate experience, leadership and passion for the technology make her a valuable asset for the team.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/dev-team.png" srcset="images/dev-team@2x.png 2x" alt="Mardo Soo">
                         <h3 class="h4">Development Team <span>&nbsp;</span></h3>
-                        <p>ZANTEPAY development team consists of high skilled and driven developers, coders and designers. Our goal is to
-                            understand our customer's needs and deliver the best product. We engage with the open source community and welcome
-                            any feedback. We believe in crypto currencies, blockchain and the huge potential of the industry.</p>
+                        <p>ZANTEPAY development team consists of high skilled and driven developers, coders and designers. Our goal is to understand our customer's needs and deliver the best product. We engage with the open source community and welcome any feedback. We believe in crypto currencies, blockchain and the huge potential of the industry.</p>
                     </div>
                 </div>
             </div>
@@ -597,25 +578,23 @@
                 <div class="col-md-8 offset-md-2">
                     <div class="footer-cont-row">
                         <h2 class="h2 headline">Contact <br> details</h2>
-                        <div class="footer-cont-text">For any questions please reach us at <a href="mailto:support@zantepay.com">support@zantepay.com</a>
-                            <br> or fill out the form below:
-                        </div>
+                        <div class="footer-cont-text">For any questions please reach us at <a href="mailto:support@zantepay.com">support@zantepay.com</a> <br> or fill out the form below:</div>
                     </div>
                     <form id="frm_contact">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <input id="user-name" class="lp-form-input" type="text" name="name" placeholder="Name">
+                                    <input id="contact-name" class="lp-form-input" type="text" name="name" placeholder="Name">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <input id="user-email" class="lp-form-input" type="email" name="email" placeholder="Email">
+                                    <input id="contact-email" class="lp-form-input" type="email" name="email" placeholder="Email">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <textarea id="user-message" class="lp-form-textarea" rows="5" name="message" placeholder="Your message"></textarea>
+                            <textarea id="contact-message" class="lp-form-textarea" rows="5" name="message" placeholder="Your message"></textarea>
                         </div>
                         <div class="text-center">
                             <input class="btn btn--shadowed-dark btn--160" type="submit" value="Send">
@@ -686,13 +665,13 @@
             <div class="or-horizontal">or</div>
             <form id="frm_signup">
                 <div class="logon-group">
-                    <input id="signup_email" class="logon-field" type="email" name="email" placeholder="Email">
+                    <input class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="logon-group">
-                    <input id="signup_pwd" class="logon-field" type="password" name="password" placeholder="Password">
+                    <input class="logon-field" type="password" name="password" placeholder="Password">
                 </div>
                 <div class="logon-group">
-                    <input id="signup_cnf_pwd" class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password">
+                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">
@@ -708,8 +687,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">RIGHT ON!</h3>
             <div class="logon-modal-text">
-                <p>Thank you for registering with ZANTEPAY. By now you should have received a confirmation email from us. To activate your
-                    account please click the link in the email.</p>
+                <p>Thank you for registering with ZANTEPAY. By now you should have received a confirmation email from us. To activate your account please click the link  in the email.</p>
             </div>
 
             <a href="" id="resend-registration-email" class="btn btn--shadowed-light btn--260">Resend Email</a>
@@ -721,11 +699,8 @@
         <div class="logon-modal-container">
             <h3 class="h4">REGISTER FOR PRE-ICO</h3>
             <div class="logon-modal-text">
-                <p>ZanteCoin’s Token Pre-ICO is created for investors with prior cryptocurrency experience. Please pay attention that the
-                    minimum transaction amount is 0,2BTC or 3 ETH. For investors from US min investment amount is 5 BTC or 100 ETH. To apply,
-                    please contact <a href="mailto:support@zantepay.com">support@zantepay.com</a>. </p>
-                <p>The actual opening date for the Zantecoins’s public Token Sale is on January 1-st, 2018. To participate in ZanteCoin’s Token
-                    Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
+                <p>ZANTECOIN’s Token Pre-ICO is created for investors with prior cryptocurrency experience. Please pay attention that the minimum transaction amount is 0,2BTC  or 3 ETH. For investors from US min investment amount is 5 BTC or 100 ETH. To apply, please contact <a href="mailto:support@zantepay.com">support@zantepay.com</a>. </p>
+                <p>The actual opening date for the ZANTECOINs’s public Token Sale is on January 1-st, 2018. To participate in ZANTECOIN’s Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
             </div>
 
             <form id="frm_ico_registration">
@@ -736,16 +711,15 @@
                     <p>The payment will be made in:</p>
                     <div class="logon-group inline-radio">
                         <div class="radio-button">
-                            <input id="radio1" type="radio" name="pay-method" value={{ $currency['btc'] }} checked><label
-                                    for="radio1">BTC</label>
+                            <input type="radio" name="pay-method" value="{{ $currency['btc'] }}" id="radio1" checked><label for="radio1">BTC</label>
                         </div>
                         <div class="radio-button">
-                            <input id="radio2" type="radio" name="pay-method" value={{ $currency['eth'] }}><label for="radio2">ETH</label>
+                            <input type="radio" name="pay-method" value="{{ $currency['eth'] }}" id="radio2"><label for="radio2">ETH</label>
                         </div>
                     </div>
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="text" name="amount" placeholder="Estimated Amount (optional)">
+                    <input class="logon-field" type="text" name="amount" placeholder="Estimated Amount">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe">
@@ -759,8 +733,18 @@
         <div class="logon-modal-container">
             <h3 class="h4">THANK YOU!</h3>
             <div class="logon-modal-text">
-                <p>Your application has been submitted. Once the ZanteCoin pre-ICO starts, you'll get a personal invitation to participate in
-                    it.</p>
+                <p>Your application has been submitted. Once the ZANTECOIN pre-ICO starts, you'll get a personal invitation to participate in it.</p>
+                <div>Enjoy your day!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- contact us confirmation -->
+    <div class="logon-modal mfp-hide" id="confirm-contact-us">
+        <div class="logon-modal-container">
+            <h3 class="h4">THANK YOU!</h3>
+            <div class="logon-modal-text">
+                <p>Your message has been sent.</p>
                 <div>Enjoy your day!</div>
             </div>
         </div>
@@ -773,19 +757,17 @@
             <form action="">
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check1"><label for="check1">I’ve read, understood and agree with the <a {{ asset('storage/Zantepay_Whitepaper.pdf') }} target="_blank">Whitepaper</a></label>
+                        <input type="checkbox" name="" id="check1"><label for="check1">I’ve read, understood and agree with the <a href="#">Whitepaper</a></label>
                     </div>
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood the <a href="#">Referral Terms &
-                                Conditions</a></label>
+                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood the <a href="#">Referral Terms & Conditions</a></label>
                     </div>
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check3"><label for="check3">I’ve read, understood and agree with the <a href="#">Privacy
-                                Terms</a></label>
+                        <input type="checkbox" name="" id="check3"><label for="check3">I’ve read, understood and agree with the <a href="#">Privacy Terms</a></label>
                     </div>
                 </div>
                 <div class="logon-submit">

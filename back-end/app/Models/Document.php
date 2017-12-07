@@ -7,13 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     /**
-     * Passport documents
+     * Document types
      */
-    const DOCUMENT_TYPE_ID = 0;
+    const DOCUMENT_TYPE_IDENTITY = 0;
 
-    /**
-     * Red esign
-     */
     const DOCUMENT_TYPE_ADDRESS = 1;
 
     /**
@@ -22,7 +19,7 @@ class Document extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'document_type', 'file_path'
+        'user_id', 'document_type', 'did','file_path'
     ];
 
     /**

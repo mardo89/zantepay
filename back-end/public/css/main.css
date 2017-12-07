@@ -7213,12 +7213,13 @@ table td.col-center {
   background: #f9f9f9;
 }
 .lp-section-one {
-  padding-top: 0;
+  padding-top: 70px;
+  margin-top: -70px;
   padding-bottom: 65px;
   background: #0c1015;
   position: relative;
+  z-index: 10;
 }
-.lp-section-one z-index,
 .lp-section-one:before {
   content: '';
   position: absolute;

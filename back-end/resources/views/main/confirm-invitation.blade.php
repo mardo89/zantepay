@@ -54,7 +54,7 @@
                 <ul>
                     <li><a href="">Referral Terms & Conditions</a></li>
                     <li><a href="">Privacy Terms</a></li>
-                    <li><a href={{ asset('storage/Zantepay_Whitepaper.pdf') }} target="_blank">Whitepaper</a></li>
+                    <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank">Whitepaper</a></li>
                 </ul>
             </div>
         </footer>

@@ -22,7 +22,7 @@ class IndexController extends Controller
         $this->checkReferrer($request->ref);
 
         return view(
-            'index',
+            'main.index',
             [
                 'currency' => [
                     'btc' => IcoRegistration::CURRENCY_TYPE_BTC,
@@ -114,11 +114,11 @@ class IndexController extends Controller
         $user = User::where('uid', $userID)->first();;
 
         if ($user) {
-            $user->status = USER_STATUS_ACTIVE;
+            $user->status = User::USER_STATUS_NOT_VERIFIED;
             $user->save();
         }
 
-        return view('confirm-email');
+        return view('main.confirm-email');
     }
 
     /**
@@ -132,7 +132,7 @@ class IndexController extends Controller
     {
         $this->checkReferrer($request->ref);
 
-        return view('confirm-invitation');
+        return view('main.confirm-invitation');
     }
 
     /**

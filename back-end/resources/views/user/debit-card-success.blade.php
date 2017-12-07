@@ -31,7 +31,7 @@
                         <div class="col-md-7">
                             <div class="field-group">
                                 <label class="field-label" for="field2">Referral link:</label>
-                                <input class="input-field" type="text" name="referral" id="field2" placeholder="https://zantepay.com/en/registration/567..." value={{ $referralLink }} readonly="">
+                                <input class="input-field" type="text" name="referral" id="field2" placeholder="https://zantepay.com/en/registration/567..." value="{{ $referralLink }}" readonly="">
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-5">

@@ -22,8 +22,8 @@
                             <div class="row row-bottom dashboard-group-md">
                                 <div class="col-xl-8 col-md-7">
                                     <div class="field-group">
-                                        <label class="field-label" for="field1">Invite via email:</label>
-                                        <input class="input-field" type="email" name="email" id="field1"
+                                        <label class="field-label" for="friend-email">Invite via email:</label>
+                                        <input class="input-field" type="email" name="email" id="friend-email"
                                                placeholder="Add email addresses...">
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                 <div class="col-xl-8 col-md-7">
                                     <div class="field-group">
                                         <label class="field-label" for="field2">Referral link:</label>
-                                        <input class="input-field" type="text" name="referral" value={{ $referralLink }} readonly>
+                                        <input class="input-field" type="text" name="referral" value="{{ $referralLink }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-md-5">
@@ -89,7 +89,7 @@
                         <tr>
                             <td width="100" class="col-center">
                                 <div class="thumb-60">
-                                    <img src={{ $referral['avatar'] }} alt={{ $referral['name'] }}>
+                                    <img src="{{ $referral['avatar'] }}" alt={{ $referral['name'] }}>
                                 </div>
                             </td>
                             <td> {{ $referral['name'] }} </td>

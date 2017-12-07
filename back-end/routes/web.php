@@ -60,6 +60,17 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('debit-card-success', 'UserController@debitCardSuccess');
 });
 
+/**
+ * ADMIN
+ */
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('users', 'AdminController@users');
+    Route::get('profile', 'AdminController@profile');
+    Route::post('profile', 'AdminController@saveProfile');
+    Route::get('document', 'AdminController@document');
+    Route::post('document', 'AdminController@approveDocument');
+});
+
 //Route::get('/test-email', function () {
 //    return new App\Mail\IcoRegistration('http://zantepay');
 //});

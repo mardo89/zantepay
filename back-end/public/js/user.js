@@ -29902,9 +29902,26 @@ module.exports = __webpack_require__(41);
 
 __webpack_require__(9);
 
-//Spin function
-var showSpin = function showSpin(visible) {
-    if (visible) $('#spin').show();else $('#spin').hide();
+// Spinner
+var getSpinner = function getSpinner(size) {
+
+    return $('<div />').addClass('spinner-container').css('height', size + 'px').css('width', '160px').append($('<div />').addClass('spinner spinner--50').append($('<div />')).append($('<div />')).append($('<div />')).append($('<div />')));
+};
+
+var showSpinner = function showSpinner(element, size) {
+    element.hide();
+    element.after(getSpinner(size));
+};
+
+var hideSpinner = function hideSpinner(element) {
+    element.show();
+    $('.spinner-container').remove();
+};
+
+// Errors
+var clearErrors = function clearErrors() {
+    $('.form-error').removeClass('form-error');
+    $('.error-text').remove();
 };
 
 // Update states
@@ -29974,12 +29991,8 @@ $(document).ready(function () {
     $('#logout-btn').on('click', function (event) {
         event.preventDefault();
 
-        showSpin(true);
-
         axios.post('/auth/logout', qs.stringify({})).then(function () {
-            showSpin(false);
-
-            $.magnificPopup.close();
+            // $.magnificPopup.close();
 
             window.location.pathname = '/';
         });
@@ -29989,7 +30002,7 @@ $(document).ready(function () {
     $('#user-profile').on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#user-profile').find('button[type="submit"]'), 38);
 
         var profile = {
             'first_name': $('input[name="f-name"]').val(),
@@ -30008,7 +30021,7 @@ $(document).ready(function () {
         };
 
         axios.post('/user/profile', qs.stringify(profile)).then(function (response) {
-            showSpin(false);
+            hideSpinner($('#user-profile').find('button[type="submit"]'));
 
             $.magnificPopup.open({
                 items: {
@@ -30016,6 +30029,15 @@ $(document).ready(function () {
                 },
                 type: 'inline',
                 closeOnBgClick: true
+            });
+        }).catch(function (error) {
+            hideSpinner($('#user-profile').find('button[type="submit"]'));
+
+            var errors = error.response.data.errors;
+
+
+            $.each(errors, function (field, error) {
+                $('#contact-' + field).parents('.form-group').addClass('form-error');
             });
         });
     });
@@ -30044,20 +30066,25 @@ $(document).ready(function () {
     $('#invite-friend').on('click', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#invite-friend'), 50);
+        clearErrors();
 
         var invite = {
-            'email': $('input[name="email"]').val()
+            'email': $('#friend-email').val()
         };
 
         axios.post('/user/invite-friend', qs.stringify(invite)).then(function (response) {
-            showSpin(false);
+            hideSpinner($('#invite-friend'));
 
             $('input[name="email"]').val('');
 
             sendInvitationEmail(response.data.email);
 
             $('#invites-list tbody').prepend($('<tr />').append($('<td />').css('width', '100').addClass('col-center').append($('<div />').addClass('thumb-60').append($('<img />').attr('src', '/images/avatar.png').attr('alt', response.data.email)))).append($('<td />').text(response.data.email)).append($('<td />').append($('<span />').addClass('primary-color').text(response.data.status))).append($('<td />').text('')).append($('<td />').css('width', '160').addClass('col-center').append($('<a />').attr('href', '').addClass('send-link resend-invitation').text('Resend'))));
+        }).catch(function (error) {
+            hideSpinner($('#invite-friend'));
+
+            $('#friend-email').parent().addClass('form-error');
         });
     });
 
@@ -30073,14 +30100,14 @@ $(document).ready(function () {
     $('#dc_design').on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#dc_design').find('input[type="submit"]'), 38);
 
         var card = {
             'design': $('input[name="card-type"]:checked').val()
         };
 
         axios.post('/user/debit-card', qs.stringify(card)).then(function (response) {
-            showSpin(false);
+            hideSpinner($('#dc_design').find('input[type="submit"]'));
 
             window.location = response.data.nextStep;
         });
@@ -30089,7 +30116,7 @@ $(document).ready(function () {
     $('#dc_documents').on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#dc_documents').find('input[type="submit"]'), 38);
 
         var card = new FormData();
 
@@ -30116,7 +30143,7 @@ $(document).ready(function () {
         }
 
         axios.post('/user/debit-card-documents', card).then(function (response) {
-            showSpin(false);
+            hideSpinner($('#dc_documents').find('input[type="submit"]'));
 
             window.location = response.data.nextStep;
         });
@@ -30125,7 +30152,7 @@ $(document).ready(function () {
     $('#dc_address').on('submit', function (event) {
         event.preventDefault();
 
-        showSpin(true);
+        showSpinner($('#dc_address').find('input[type="submit"]'), 38);
 
         var card = new FormData();
 
@@ -30152,9 +30179,9 @@ $(document).ready(function () {
         }
 
         axios.post('/user/debit-card-address', card).then(function (response) {
-            showSpin(false);
-
             window.location = response.data.nextStep;
+
+            hideSpinner($('#dc_address').find('input[type="submit"]'));
         });
     });
 });

@@ -17,6 +17,7 @@ class CreateDocumentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('document_type');
+            $table->string('did', 100);
             $table->string('file_path');
             $table->timestamps();
         });

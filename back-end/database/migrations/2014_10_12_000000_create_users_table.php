@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('uid', 100);
             $table->integer('referrer')->nullable();
-            $table->boolean('status')->default(\App\Models\User::USER_STATUS_INACTIVE);
+            $table->tinyInteger('status')->default(\App\Models\User::USER_STATUS_INACTIVE);
             $table->smallInteger('role')->default(\App\Models\User::USER_ROLE_USER);
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();

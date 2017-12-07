@@ -37,8 +37,17 @@ class IcoRegistration extends Model
      *
      * @return string
      */
-    public static function getCurrency($currency) {
+    public static function getCurrency($currency)
+    {
         switch ($currency) {
+            case self::CURRENCY_TYPE_BTC:
+                return 'BTC';
+
+            case self::CURRENCY_TYPE_ETH:
+                return 'ETH';
+
+            default:
+                return '';
         }
     }
 

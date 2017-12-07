@@ -77,7 +77,7 @@ class AuthController extends Controller
                 [
                     'email' => $request->email,
                     'password' => $request->password,
-                    'status' => User::USER_STATUS_ACTIVE
+                    'status' => User::USER_STATUS_NOT_VERIFIED
                 ]
             );
 
@@ -157,7 +157,10 @@ class AuthController extends Controller
     {
         switch ($userRole) {
             case User::USER_ROLE_ADMIN:
-                return '/admin';
+                return '/admin/users';
+
+            case User::USER_ROLE_MANAGER:
+                return '/admin/users';
 
             case User::USER_ROLE_USER:
                 return '/user/profile';
@@ -194,7 +197,7 @@ class AuthController extends Controller
                         'email' => $snUser->email,
                         'password' => bcrypt(uniqid()),
                         'uid' => uniqid(),
-                        'status' => User::USER_STATUS_ACTIVE,
+                        'status' => User::USER_STATUS_NOT_VERIFIED,
                         'first_name' => $firstName,
                         'last_name' => $lastName,
                         'avatar' => $snUser->avatar,
@@ -247,7 +250,7 @@ class AuthController extends Controller
                         'email' => $snUser->email,
                         'password' => bcrypt(uniqid()),
                         'uid' => uniqid(),
-                        'status' => User::USER_STATUS_ACTIVE,
+                        'status' => User::USER_STATUS_NOT_VERIFIED,
                         'first_name' => $firstName,
                         'last_name' => $lastName,
                         'avatar' => $snUser->avatar,
