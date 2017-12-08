@@ -8,7 +8,7 @@
 
     <main class="main main-dashboard">
         <div class="container">
-            <input type="hidden" id="user-profile-id" value="{{ $profile['id'] }}">
+            <input type="hidden" id="user-profile-id" value="{{ $profile['uid'] }}">
 
             <form id="user-profile">
                 <div class="dashboard-group-sm">

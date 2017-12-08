@@ -4,13 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DebitCard;
 use App\Models\Document;
-use App\Models\Invite;
-use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use PhpParser\Comment\Doc;
 
 
 class AdminController extends Controller
@@ -104,7 +99,7 @@ class AdminController extends Controller
 
         // USER Profile
         $userProfile = [
-            'id' => $user->id,
+            'uid' => $user->uid,
             'email' => $user->email,
             'name' => $user->first_name . ' ' . $user->last_name,
             'role' => $user->role
@@ -188,11 +183,11 @@ class AdminController extends Controller
     public function saveProfile(Request $request)
     {
         $this->validate($request, [
-            'user' => 'required|integer',
+            'uid' => 'required|string',
             'role' => 'required|integer',
         ]);
 
-        $user = User::find($request->user);
+        $user = User::where('uid', $request->uid)->first();
 
         if (is_null($user)) {
             return response()->json(
@@ -226,7 +221,7 @@ class AdminController extends Controller
             'type' => 'required|integer',
         ]);
 
-        $user = User::where('uid', $request->uid);
+        $user = User::where('uid', $request->uid)->first();
 
         if (is_null($user)) {
             return response()->json(
@@ -238,20 +233,20 @@ class AdminController extends Controller
             );
         }
 
-        if ($request->type === Document::DOCUMENT_TYPE_IDENTITY) {
-            if ($user->status === User::USER_STATUS_NOT_VERIFIED) {
+        if ($request->type == Document::DOCUMENT_TYPE_IDENTITY) {
+            if ($user->status == User::USER_STATUS_NOT_VERIFIED) {
                 $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
             }
 
-            if ($user->status === User::USER_STATUS_ADDRESS_VERIFIED) {
+            if ($user->status == User::USER_STATUS_ADDRESS_VERIFIED) {
                 $user->status = User::USER_STATUS_VERIFIED;
             }
         } else {
-            if ($user->status === User::USER_STATUS_NOT_VERIFIED) {
+            if ($user->status == User::USER_STATUS_NOT_VERIFIED) {
                 $user->status = User::USER_STATUS_ADDRESS_VERIFIED;
             }
 
-            if ($user->status === User::USER_STATUS_IDENTITY_VERIFIED) {
+            if ($user->status == User::USER_STATUS_IDENTITY_VERIFIED) {
                 $user->status = User::USER_STATUS_VERIFIED;
             }
         }
