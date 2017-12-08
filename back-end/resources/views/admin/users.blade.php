@@ -51,7 +51,7 @@
                         <div class="col-lg-2 col-sm-4">
                             <div class="form-group">
                                 <div class="checkbox">
-                                    <input type="checkbox" name="referrer-filter" id="re1" value="0" checked>
+                                    <input type="checkbox" name="referrer-filter" id="re1" value="1" checked>
                                     <label for="re1" class="text-sm">YES</label>
                                 </div>
                             </div>
@@ -60,8 +60,8 @@
                         <div class="col-lg-2 col-sm-4">
                             <div class="form-group">
                                 <div class="checkbox">
-                                    <input type="checkbox" name="referrer-filter" id="re1" value="1" checked>
-                                    <label for="re1" class="text-sm">NO</label>
+                                    <input type="checkbox" name="referrer-filter" id="re2" value="0" checked>
+                                    <label for="re2" class="text-sm">NO</label>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
 
 
             <div class="table-responsive-500">
-                <table class="table table-black">
+                <table id="users-list" class="table table-black">
                     <thead>
                     <tr>
                         <th></th>

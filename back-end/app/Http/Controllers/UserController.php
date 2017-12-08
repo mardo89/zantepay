@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 
 class UserController extends Controller
@@ -504,6 +505,7 @@ class UserController extends Controller
         $isFailed = Validator::make($files->data, $files->rules)->fails();
 
         if ($isFailed) {
+            ValidationException::withMessages('sdafasfsadf');
             return response()->json(
                 [
                     'message' => 'Error uploading documents',

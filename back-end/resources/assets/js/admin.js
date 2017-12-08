@@ -89,10 +89,11 @@ $(document).ready(function () {
     $('#user-profile').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#user-profile').find('input[type="submit"]'), 50);
+        showSpinner($('#user-profile').find('button[type="submit"]'), 50);
+        clearErrors();
 
         const user = {
-            'user': $('#user-profile-id').val(),
+            'uid': $('#user-profile-id').val(),
             'role': $('#user-profile select[name="role"]').val(),
         }
 
@@ -102,7 +103,7 @@ $(document).ready(function () {
         )
             .then(
                 () => {
-                    hideSpinner($('#user-profile').find('input[type="submit"]'));
+                    hideSpinner($('#user-profile').find('button[type="submit"]'));
 
                     $.magnificPopup.open(
                         {
@@ -117,7 +118,7 @@ $(document).ready(function () {
             )
             .catch(
                 () => {
-                    hideSpinner($('#user-profile').find('input[type="submit"]'));
+                    hideSpinner($('#user-profile').find('button[type="submit"]'));
 
                     $('#user-profile select[name="role"]').parents('.form-group').addClass('form-error');
                 }
@@ -129,10 +130,11 @@ $(document).ready(function () {
     $('.user-documents').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($(this).find('input[type="submit"]'), 50);
+        showSpinner($(this).find('button[type="submit"]'), 50);
+        clearErrors();
 
         const document = {
-            'user': $('#user-profile-id').val(),
+            'uid': $('#user-profile-id').val(),
             'type': $(this).find('input[name="document-type"]').val(),
         }
 
@@ -142,7 +144,7 @@ $(document).ready(function () {
         )
             .then(
                 () => {
-                    hideSpinner($(this).find('input[type="submit"]'));
+                    hideSpinner($(this).find('button[type="submit"]'));
 
                     $.magnificPopup.open(
                         {
@@ -157,10 +159,76 @@ $(document).ready(function () {
             )
             .catch(
                 () => {
-                    hideSpinner($(this).find('input[type="submit"]'));
+                    hideSpinner($(this).find('button[type="submit"]'));
                 }
             )
 
+    });
+
+    // Filters
+    $('input[name="search-by-email"]').on('keyup', function(event) {
+        const filterText = $(this).val();
+
+        $('#users-list tbody tr').each(function(index, element) {
+            const userEmail = $(element).find('td:eq(1)').text();
+
+            if (filterText.trim().length !== 0 && userEmail.indexOf(filterText) === -1) {
+                $(this).hide()
+            } else {
+                $(this).show();
+            }
+        });
+    });
+
+    $('input[name="referrer-filter"]').on('change', function(event) {
+        const refFilter = $(this).val();
+        const isVisible = $(this).prop('checked');
+
+        $('#users-list tbody tr').each(function(index, element) {
+            const hasReferrer = $(element).find('td:eq(5)').text().trim().length === 0 ? 0 : 1;
+
+            if (refFilter == hasReferrer) {
+                if (isVisible) {
+                    $(this).show();
+                } else {
+                    $(this).hide()
+                }
+            }
+        });
+    });
+
+    $('input[name="status-filter"]').on('change', function(event) {
+        const refFilter = $(this).val();
+        const isVisible = $(this).prop('checked');
+
+        $('#users-list tbody tr').each(function(index, element) {
+            const userStatus = $(element).find('td:eq(4)').text().trim();
+
+            if (refFilter == userStatus) {
+                if (isVisible) {
+                    $(this).show();
+                } else {
+                    $(this).hide()
+                }
+            }
+        });
+    });
+
+    $('input[name="role-filter"]').on('change', function(event) {
+        const refFilter = $(this).val();
+        const isVisible = $(this).prop('checked');
+
+        $('#users-list tbody tr').each(function(index, element) {
+            const userRole = $(element).find('td:eq(3)').text().trim();
+
+            if (refFilter == userRole) {
+                if (isVisible) {
+                    $(this).show();
+                } else {
+                    $(this).hide()
+                }
+            }
+        });
     });
 
 });
