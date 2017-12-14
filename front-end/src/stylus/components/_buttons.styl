@@ -102,6 +102,19 @@
     @media screen and (max-width 767px)
       width auto
       min-width 150px
+  &.is-loading
+    position relative
+    cursor not-allowed
+    &.btn--shadowed-light
+      text-decoration none
+      color rgba($primary-color, 0)
+      background rgba($primary-color, 0.8)
+    &.btn--shadowed-dark
+      color rgba($primary-color, 0)
+      text-decoration none
+      background rgba($primary-color, 0.6)
+    .spinner > div
+      border-color #fff transparent transparent transparent
 
 .logon-btns
   clearfix()
