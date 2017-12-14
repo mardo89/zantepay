@@ -50,9 +50,9 @@
                     <tr><td height="50" style="line-height:50px; font-size: 0;">&nbsp;</td></tr>
                     <tr><td height="5" style="line-height:5px; font-size: 0;">&nbsp;</td></tr>
                     <tr>
-                        <td align="center" valign="top" height="800" background={{ url('/') . "/images/bg2.png"}} bgcolor="#ffffff" style="height:800px; background-image:url({{ url('/') . '/images/bg2.png'}});background-position: 50% 0%; background-repeat: no-repeat;background-size:contain;box-shadow: 0px 3px 5px 0px rgba(0, 0, 1, 0.3);border-radius: 10px;border:1px solid #e1e1e1;background-color: #ffffff;">
+                        <td align="center" valign="top" height="800" background="{{ url('/') . "/images/bg2.png"}}" bgcolor="#ffffff" style="height:800px; background-image:url('{{ url('/') . '/images/bg2.png'}}');background-position: 50% 0%; background-repeat: no-repeat;background-size:contain;box-shadow: 0px 3px 5px 0px rgba(0, 0, 1, 0.3);border-radius: 10px;border:1px solid #e1e1e1;background-color: #ffffff;">
                             <!--[if gte mso 9]>
-                            <v:image xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style=" border: 0;display: inline-block; width: 600px; height: 800px;" src={{ url('/') . "/images/bg2.png"}} />
+                            <v:image xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style=" border: 0;display: inline-block; width: 600px; height: 800px;" src="{{ url('/') . "/images/bg2.png"}}"/>
                             <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style=" border: 0;display: inline-block;position: absolute; width: 600px; height: 800px;">
                                 <v:fill  opacity="0%" color="#ffffff"  />
                                 <v:textbox inset="0,0,0,0">
@@ -75,7 +75,7 @@
                                                 <tr><td height="74" style="line-height:74px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top">
-                                                        <a href="#" target="_blank" style="outline: none; border: 0;"><img src={{ url('/') . "/images/logo.png"}} width="214" height="29" style="display:block;outline:0;border:0;width:214px;height:29px" alt="ZANTEPAY"></a>
+                                                        <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/logo.png"}}" width="214" height="29" style="display:block;outline:0;border:0;width:214px;height:29px" alt="ZANTEPAY"></a>
                                                     </td>
                                                 </tr>
                                                 <tr><td height="60" style="line-height:60px; font-size: 0;">&nbsp;</td></tr>
@@ -123,7 +123,7 @@
                                                 <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        You can pre-order your debit card <a href={{ $link }} style="color:#f92112; outline: none; border: 0;text-decoration: none;">here</a>.
+                                                        You can pre-order your debit card <a href="{{ $link }}" style="color:#f92112; outline: none; border: 0;text-decoration: none;">here</a>.
                                                     </td>
                                                 </tr>
                                                 <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
@@ -178,16 +178,16 @@
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:230px;">
                                                             <tr>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src={{ url('/') . "/images/Fb.png"}} width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Facebook"></a>
+                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/Fb.png"}}" width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Facebook"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src={{ url('/') . "/images/Tw.png"}} width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Twitter"></a>
+                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/Tw.png"}}" width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Twitter"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src={{ url('/') . "/images/Email.png"}} width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Email"></a>
+                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/Email.png"}}" width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Email"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src={{ url('/') . "/images/Bit.png"}} width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Bitcoin"></a>
+                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/Bit.png"}}" width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Bitcoin"></a>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -234,7 +234,7 @@
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:140px;">
                                                             <tr>
                                                                 <td align="left" valign="top" width="30">
-                                                                    <img src={{ url('/') . "/images/Copy.png" }} width="20" height="20" style="display:block;outline:0;border:0;width:20px;height:20px" alt="Copyright ico">
+                                                                    <img src="{{ url('/') . "/images/Copy.png" }}" width="20" height="20" style="display:block;outline:0;border:0;width:20px;height:20px" alt="Copyright ico">
                                                                 </td>
                                                                 <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #f92112; line-height: 21px; font-weight: normal;">
                                                                     2017 ZANTEPAY

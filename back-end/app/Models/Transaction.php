@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class IcoRegistration extends Model
+class Transaction extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class IcoRegistration extends Model
      * @var array
      */
     protected $fillable = [
-        'email', 'currency', 'amount'
+        'wallet_id', 'currency', 'amount', 'user_id'
     ];
 
     /**
@@ -20,7 +20,5 @@ class IcoRegistration extends Model
      *
      * @var array
      */
-    protected $hidden = [
-
-    ];
+    protected $hidden = [];
 }

@@ -24,7 +24,7 @@
                                     <div class="field-group">
                                         <label class="field-label" for="friend-email">Invite via email:</label>
                                         <input class="input-field" type="email" name="email" id="friend-email"
-                                               placeholder="Add email addresses...">
+                                               placeholder="Add email address...">
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-md-5">

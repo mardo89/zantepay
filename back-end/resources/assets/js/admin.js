@@ -3,7 +3,7 @@ require('./bootstrap');
 // Spinner
 const getSpinner = size => {
 
-    return $('<div />').addClass('spinner-container').css('height', size + 'px')
+    return $('<div />').addClass('spinner-container').css('height', size + 'px').css('width', '160px')
         .append(
             $('<div />').addClass('spinner spinner--50')
                 .append(
@@ -37,6 +37,22 @@ const clearErrors = () => {
     $('.error-text').remove();
 }
 
+const showError = errorMessage => {
+    $.magnificPopup.open(
+        {
+            items: {
+                src: '#error-modal'
+            },
+            type: 'inline',
+            closeOnBgClick: true,
+            callbacks: {
+                elementParse: function(item) {
+                    $(item.src).find('#error-message').text(errorMessage);
+                }
+            }
+        }
+    );
+}
 
 $(document).ready(function () {
     //hamburger
@@ -89,7 +105,7 @@ $(document).ready(function () {
     $('#user-profile').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#user-profile').find('button[type="submit"]'), 50);
+        // showSpinner($('#user-profile').find('button[type="submit"]'), 38);
         clearErrors();
 
         const user = {
@@ -103,7 +119,7 @@ $(document).ready(function () {
         )
             .then(
                 () => {
-                    hideSpinner($('#user-profile').find('button[type="submit"]'));
+                    // hideSpinner($('#user-profile').find('button[type="submit"]'));
 
                     $.magnificPopup.open(
                         {
@@ -117,10 +133,14 @@ $(document).ready(function () {
                 }
             )
             .catch(
-                () => {
-                    hideSpinner($('#user-profile').find('button[type="submit"]'));
+                error => {
+                    // hideSpinner($('#user-profile').find('button[type="submit"]'));
 
                     $('#user-profile select[name="role"]').parents('.form-group').addClass('form-error');
+
+                    const {message} = error.response.data;
+
+                    showError(message)
                 }
             )
 
@@ -130,7 +150,7 @@ $(document).ready(function () {
     $('.user-documents').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($(this).find('button[type="submit"]'), 50);
+        // showSpinner($(this).find('button[type="submit"]'), 38);
         clearErrors();
 
         const document = {
@@ -144,7 +164,9 @@ $(document).ready(function () {
         )
             .then(
                 () => {
-                    hideSpinner($(this).find('button[type="submit"]'));
+                    // hideSpinner($(this).find('button[type="submit"]'));
+
+                    $(this).find('button[type="submit"]').remove();
 
                     $.magnificPopup.open(
                         {
@@ -158,8 +180,12 @@ $(document).ready(function () {
                 }
             )
             .catch(
-                () => {
-                    hideSpinner($(this).find('button[type="submit"]'));
+                error => {
+                    // hideSpinner($(this).find('button[type="submit"]'));
+
+                    const {message} = error.response.data;
+
+                    showError(message)
                 }
             )
 
@@ -178,6 +204,12 @@ $(document).ready(function () {
                 $(this).show();
             }
         });
+    });
+
+    $('.search-cross').on('click', function(event) {
+        event.preventDefault();
+
+        $('input[name="search-by-email"]').val('').trigger('keyup');
     });
 
     $('input[name="referrer-filter"]').on('change', function(event) {

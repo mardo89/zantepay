@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
+use App\Mail\IcoRegistration as IcoRegistrationMail;
+use App\Models\Currency;
 use App\Models\IcoRegistration;
 use App\Models\State;
-use App\Models\StaticText;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
+
 
 class IndexController extends Controller
 {
@@ -25,8 +29,8 @@ class IndexController extends Controller
             'main.index',
             [
                 'currency' => [
-                    'btc' => IcoRegistration::CURRENCY_TYPE_BTC,
-                    'eth' => IcoRegistration::CURRENCY_TYPE_ETH,
+                    'btc' => Currency::CURRENCY_TYPE_BTC,
+                    'eth' => Currency::CURRENCY_TYPE_ETH,
                 ]
             ]
         );
@@ -46,7 +50,21 @@ class IndexController extends Controller
             'country' => 'numeric'
         ]);
 
-        $states = State::where('country_id', $request->country)->orderBy('name', 'asc')->get();
+        $dbStates = State::where('country_id', $request->country)->orderBy('name', 'asc')->get();
+
+        $states = [];
+
+        foreach ($dbStates as $dbState) {
+            $states[] = [
+                'id' => (int) $dbState->id,
+                'name' => $dbState->name
+            ];
+        }
+
+        $states[] = [
+            'id' => 0,
+            'name' => 'Other state'
+        ];
 
         return response()->json($states);
     }
@@ -72,7 +90,7 @@ class IndexController extends Controller
 
         try {
 
-            $registration = IcoRegistration::create(
+            IcoRegistration::create(
                 [
                     'email' => $request->email,
                     'currency' => $request->currency,
@@ -93,10 +111,16 @@ class IndexController extends Controller
 
         }
 
+        $email = $request->email;
+        $currency = IcoRegistration::getCurrency($request->currency);
+        $amount = $request->amount;
+        $link = action('IndexController@main');
+
+        Mail::to($email)->send(new IcoRegistrationMail($link));
+        Mail::send(new IcoRegistrationAdminMail($email, $currency, $amount));
+
         return response()->json(
-            [
-                'email' => $registration['email']
-            ]
+            []
         );
     }
 

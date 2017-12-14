@@ -24,7 +24,7 @@ class IsAuthenticatedAdmin
 
         $user = Auth::user();
 
-        if ($user->role !== User::USER_ROLE_ADMIN || $user->status = User::USER_STATUS_INACTIVE) {
+        if ($user->role != User::USER_ROLE_ADMIN || $user->status = User::USER_STATUS_INACTIVE) {
             return redirect('/');
         }
 

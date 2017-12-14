@@ -29907,7 +29907,7 @@ __webpack_require__(9);
 // Spinner
 var getSpinner = function getSpinner(size) {
 
-    return $('<div />').addClass('spinner-container').css('height', size + 'px').append($('<div />').addClass('spinner spinner--50').append($('<div />')).append($('<div />')).append($('<div />')).append($('<div />')));
+    return $('<div />').addClass('spinner-container').css('height', size + 'px').css('width', '160px').append($('<div />').addClass('spinner spinner--50').append($('<div />')).append($('<div />')).append($('<div />')).append($('<div />')));
 };
 
 var showSpinner = function showSpinner(element, size) {
@@ -29924,6 +29924,21 @@ var hideSpinner = function hideSpinner(element) {
 var clearErrors = function clearErrors() {
     $('.form-error').removeClass('form-error');
     $('.error-text').remove();
+};
+
+var showError = function showError(errorMessage) {
+    $.magnificPopup.open({
+        items: {
+            src: '#error-modal'
+        },
+        type: 'inline',
+        closeOnBgClick: true,
+        callbacks: {
+            elementParse: function elementParse(item) {
+                $(item.src).find('#error-message').text(errorMessage);
+            }
+        }
+    });
 };
 
 $(document).ready(function () {
@@ -29969,7 +29984,7 @@ $(document).ready(function () {
     $('#user-profile').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#user-profile').find('button[type="submit"]'), 50);
+        // showSpinner($('#user-profile').find('button[type="submit"]'), 38);
         clearErrors();
 
         var user = {
@@ -29978,7 +29993,7 @@ $(document).ready(function () {
         };
 
         axios.post('/admin/profile', qs.stringify(user)).then(function () {
-            hideSpinner($('#user-profile').find('button[type="submit"]'));
+            // hideSpinner($('#user-profile').find('button[type="submit"]'));
 
             $.magnificPopup.open({
                 items: {
@@ -29987,10 +30002,15 @@ $(document).ready(function () {
                 type: 'inline',
                 closeOnBgClick: true
             });
-        }).catch(function () {
-            hideSpinner($('#user-profile').find('button[type="submit"]'));
+        }).catch(function (error) {
+            // hideSpinner($('#user-profile').find('button[type="submit"]'));
 
             $('#user-profile select[name="role"]').parents('.form-group').addClass('form-error');
+
+            var message = error.response.data.message;
+
+
+            showError(message);
         });
     });
 
@@ -30000,7 +30020,7 @@ $(document).ready(function () {
 
         event.preventDefault();
 
-        showSpinner($(this).find('button[type="submit"]'), 50);
+        // showSpinner($(this).find('button[type="submit"]'), 38);
         clearErrors();
 
         var document = {
@@ -30009,7 +30029,9 @@ $(document).ready(function () {
         };
 
         axios.post('/admin/document', qs.stringify(document)).then(function () {
-            hideSpinner($(_this).find('button[type="submit"]'));
+            // hideSpinner($(this).find('button[type="submit"]'));
+
+            $(_this).find('button[type="submit"]').remove();
 
             $.magnificPopup.open({
                 items: {
@@ -30018,8 +30040,13 @@ $(document).ready(function () {
                 type: 'inline',
                 closeOnBgClick: true
             });
-        }).catch(function () {
-            hideSpinner($(_this).find('button[type="submit"]'));
+        }).catch(function (error) {
+            // hideSpinner($(this).find('button[type="submit"]'));
+
+            var message = error.response.data.message;
+
+
+            showError(message);
         });
     });
 
@@ -30036,6 +30063,12 @@ $(document).ready(function () {
                 $(this).show();
             }
         });
+    });
+
+    $('.search-cross').on('click', function (event) {
+        event.preventDefault();
+
+        $('input[name="search-by-email"]').val('').trigger('keyup');
     });
 
     $('input[name="referrer-filter"]').on('change', function (event) {

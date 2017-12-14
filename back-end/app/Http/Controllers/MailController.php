@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
-
     /**
      * Send activation email to the user
      *
@@ -84,32 +83,6 @@ class MailController extends Controller
         if ($user) {
             Mail::to($request->email)->send(new InviteFriend($user->email, $user->uid));
         }
-
-        return response()->json(
-            []
-        );
-    }
-
-    /**
-     * Send invitation
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function icoRegistration(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'email' => 'required|string|email|max:255',
-            ]
-        );
-
-        $email = $request->email;
-        $link = action('IndexController@main');
-
-        Mail::to($email)->send(new IcoRegistration($link));
 
         return response()->json(
             []

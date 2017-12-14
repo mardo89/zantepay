@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 
 @section('main-menu')
-    <li class="current-menu-item"><a href="users-list">Users</a></li>
+    <li class="current-menu-item"><a href="users">Users</a></li>
+    <li><a href="wallets">Wallets</a></li>
 @endsection
 
 @section('content')
@@ -10,25 +11,26 @@
         <div class="container">
             <input type="hidden" id="user-profile-id" value="{{ $profile['uid'] }}">
 
-            <form id="user-profile">
-                <div class="dashboard-group-sm">
-                    <h2 class="h4 headline-mb">Profile:</h2>
+            <div class="dashboard-group">
+                <h2 class="h4 headline-mb">Profile:</h2>
+
+                <form id="user-profile">
                     <div class="row">
-                        <div class="col-lg-4 col-sm-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="field-label" for="field1">Email:</label>
-                                <input class="input-field" type="text" name="email" value="{{ $profile['email'] }}" readonly>
+                                <label class="field-label" for="field2">Email:</label>
+                                <input class="input-field" type="email" name="email" id="field2" value="{{ $profile['email'] }}" readonly>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-sm-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="field-label" for="field2">Name:</label>
-                                <input class="input-field" type="text" name="name" value="{{ $profile['name'] }}" readonly>
+                                <label class="field-label" for="field1">Name:</label>
+                                <input class="input-field" type="text" name="f-name" id="field1" value="{{ $profile['name'] }}" readonly>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-sm-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="field-label" for="field2">Role:</label>
+                                <label class="field-label">Role:</label>
                                 <select name="role" class="input-field">
                                     @foreach($userRoles as $userRole)
                                         <option
@@ -44,111 +46,107 @@
                             </div>
                         </div>
                     </div>
+                    <button type="submit" class="btn btn--shadowed-light btn--medium btn--160 mt-15">Save</button>
+                </form>
+            </div>
 
-                </div>
-
-                <button type="submit" class="btn btn--shadowed-light btn--medium btn--160">Save</button>
-            </form>
-
-            <div class="dashboard-group-sm">
+            <div class="dashboard-group">
                 <h2 class="h4 headline-mb">Referrer:</h2>
-                <div class="row">
-                    @if(is_null($referrer))
-                        <div class="col-lg-4 col-sm-6">
-                            This user has no referrer
-                        </div>
-                    @else
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="form-group">
-                                <label class="field-label" for="field1">Email:</label>
-                                <input class="input-field" type="text" name="email" value="{{ $referrer['email'] }}" readonly>
+                <form action="">
+                    @if(!is_null($referrer))
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="field-label" for="field3">Email:</label>
+                                    <input class="input-field" type="email" name="email" id="field3" value="{{ $referrer['email'] }}"
+                                           readonly>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="form-group">
-                                <label class="field-label" for="field2">Name:</label>
-                                <input class="input-field" type="text" name="name" value="{{ $referrer['name'] }}" readonly>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="field-label" for="field4">Name:</label>
+                                    <input class="input-field" type="text" name="f-name" id="field4" value="{{ $referrer['name'] }}"
+                                           readonly>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="form-group">
-                                <label class="field-label" for="field2">Role:</label>
-                                <input class="input-field" type="text" name="name" value="{{ $referrer['role'] }}" readonly>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="field-label" for="field5">Role:</label>
+                                    <input class="input-field" type="text" name="role" id="field5" value="{{ $referrer['role'] }}" readonly>
+                                </div>
                             </div>
                         </div>
                     @endif
-                </div>
+                </form>
             </div>
 
-            <div class="dashboard-group-sm">
+            <div class="dashboard-group">
                 <h2 class="h4 headline-mb">Referals:</h2>
-                <div class="table-responsive-500">
-                    <table id="invites-list" class="inv-table table-black">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($referrals as $referral)
+                @if(count($referrals) > 0)
+                    <div class="table-responsive-500">
+                        <table class="table-black table">
+                            <thead>
                             <tr>
-                                <td> {{ $referral['name'] }} </td>
-                                <td> {{ $referral['status'] }} </td>
+                                <th width="50%" class="col-left">Name</th>
+                                <th width="50%" class="col-left">Status</th>
                             </tr>
-                        @endforeach
+                            </thead>
+                            <tbody class="no-borders no-hover">
+                            @foreach($referrals as $referral)
+                                <tr>
+                                    <td class="col-left">
+                                        {{ $referral['name'] }}
+                                    </td>
+                                    <td class="col-left">
+                                        {{ $referral['status'] }}
+                                    </td>
+                                </tr>
+
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            </div>
+
+            <div class="dashboard-group">
+                <h2 class="h4 headline-mb">Uploaded Documents:</h2>
+                <div class="table-responsive-500">
+                    <table class="table-black table">
+                        <tbody class="no-borders no-hover">
+                        <td class="col-left">
+                            @if(count($idDocuments) > 0)
+                                <form class="user-documents">
+                                    <input type="hidden" name="document-type" value="{{ \App\Models\Document::DOCUMENT_TYPE_IDENTITY }}">
+
+                                    @foreach($idDocuments as $document)
+                                        <p><a href="{{ $document }}" target="_blank"> View </a></p>
+                                    @endforeach
+
+                                    @if(!$idDocumentsApproved)
+                                        <button type="submit" class="btn btn--shadowed-light btn--medium btn--160">Approve</button>
+                                    @endif
+                                </form>
+                            @endif
+                        </td>
+
+                        <td class="col-left">
+                            @if(count($addressDocuments) > 0)
+                                <form class="user-documents">
+                                    <input type="hidden" name="document-type" value="{{ \App\Models\Document::DOCUMENT_TYPE_ADDRESS }}">
+
+                                    @foreach($addressDocuments as $document)
+                                        <p><a href="{{ $document }}" target="_blank"> View </a></p>
+                                    @endforeach
+
+                                    @if(!$addressDocumentsApproved)
+                                        <button type="submit" class="btn btn--shadowed-light btn--medium btn--160">Approve</button>
+                                    @endif
+                                </form>
+                            @endif
+                        </td>
                         </tbody>
                     </table>
-                </div>
-            </div>
-
-            <div class="dashboard-group-sm">
-                <h2 class="h4 headline-mb">Debit card:</h2>
-                <div class="row">
-                    <div class="col-lg-6 col-sm-6">
-                        @if ($debitCard === \App\Models\DebitCard::DESIGN_WHITE)
-                            <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x" alt="White Visa Debit Card">
-                        @elseif($debitCard === \App\Models\DebitCard::DESIGN_RED)
-                            <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x" alt="Red Visa Debit Card">
-                        @else
-                            No Debit Card selected
-                        @endif
-                    </div>
-                    <div class="col-lg-6 col-sm-6">
-                        Wallet
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="dashboard-group-sm">
-                <h2 class="h4 headline-mb">Uploaded documents:</h2>
-                <div class="row">
-
-                    <div class="col-lg-6 col-sm-6">
-                        <form class="user-documents">
-                            <input type="hidden" name="document-type" value="{{ \App\Models\Document::DOCUMENT_TYPE_IDENTITY }}">
-
-                            @foreach($idDocuments as $document)
-                                <p><a href="{{ $document }}" target="_blank"> View </a></p>
-                            @endforeach
-
-                            <button type="submit" class="btn btn--shadowed-light btn--medium btn--160">Approve</button>
-                        </form>
-                    </div>
-
-                    <div class="col-lg-6 col-sm-6">
-                        <form class="user-documents">
-                            <input type="hidden" name="document-type" value="{{ \App\Models\Document::DOCUMENT_TYPE_ADDRESS }}">
-
-                            @foreach($addressDocuments as $document)
-                                <p><a href="{{ $document }}" target="_blank"> View </a></p>
-                            @endforeach
-
-                            <button type="submit" class="btn btn--shadowed-light btn--medium btn--160">Approve</button>
-                        </form>
-                    </div>
-
                 </div>
             </div>
 
@@ -169,11 +167,22 @@
         </div>
     </div>
 
+    <!-- Approve documents -->
     <div class="logon-modal mfp-hide" id="document-modal">
         <div class="logon-modal-container">
-            <h3 class="h4">SAVED!</h3>
+            <h3 class="h4">Approved!</h3>
             <div class="logon-modal-text">
-                <p>Documents successfully confirmed.</p>
+                <p>Documents approved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error saving profile confirmation -->
+    <div class="logon-modal mfp-hide" id="error-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4 error-message">ERROR!</h3>
+            <div class="logon-modal-text">
+                <p id="error-message"></p>
             </div>
         </div>
     </div>

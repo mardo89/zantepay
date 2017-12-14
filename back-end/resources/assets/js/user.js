@@ -37,40 +37,21 @@ const clearErrors = () => {
     $('.error-text').remove();
 }
 
-// Update states
-const updateStates = country => {
-    axios.get(
-        '/states',
+const showError = errorMessage => {
+    $.magnificPopup.open(
         {
-            params: {
-                country
+            items: {
+                src: '#error-modal'
+            },
+            type: 'inline',
+            closeOnBgClick: true,
+            callbacks: {
+                elementParse: function (item) {
+                    $(item.src).find('#error-message').text(errorMessage);
+                }
             }
         }
-    )
-        .then(
-            response => {
-
-                $('select[name="state"]').html(
-                    response.data.map(
-                        state => $('<option />').val(state.id).text(state.name)
-                    )
-                )
-
-            }
-        )
-
-}
-
-// Send activation email
-const sendInvitationEmail = email => {
-    axios.post(
-        '/mail/invite-friend',
-        qs.stringify(
-            {
-                email
-            }
-        )
-    )
+    );
 }
 
 // Validate file
@@ -179,14 +160,16 @@ $(document).ready(function () {
                 error => {
                     hideSpinner($('#user-profile').find('button[type="submit"]'));
 
-                    const {errors} = error.response.data;
+                    const {errors, message} = error.response.data;
 
                     $.each(
                         errors,
                         (field, error) => {
-                            $('#contact-' + field).parents('.form-group').addClass('form-error');
+                            $('.profile_' + field).addClass('form-error');
                         }
                     )
+
+                    showError(message);
                 }
             )
 
@@ -194,7 +177,34 @@ $(document).ready(function () {
 
     // States update
     $('select[name="country"]').on('change', function (event) {
-        updateStates($(this).val());
+        const country = $(this).val();
+
+        axios.get(
+            '/states',
+            {
+                params: {
+                    country
+                }
+            }
+        )
+            .then(
+                response => {
+
+                    $('select[name="state"]').html(
+                        response.data.map(
+                            state => $('<option />').val(state.id).text(state.name).attr('selected', (state.id == 0 ? 'selected' : ''))
+                        )
+                    )
+
+                }
+            )
+            .catch(
+                () => {
+                    $('select[name="state"]').html(
+                        $('<option />').val(0).text('Other state').attr('selected', 'selected')
+                    )
+                }
+            )
     });
 
     // Copy link
@@ -280,9 +290,12 @@ $(document).ready(function () {
                     hideSpinner($('#invite-friend'));
 
                     $('#friend-email').parent().addClass('form-error');
+
+                    const {message} = error.response.data;
+
+                    showError(message);
                 }
             )
-
     });
 
     $('#invites-list').on('click', '.resend-invitation', function (event) {
@@ -290,7 +303,22 @@ $(document).ready(function () {
 
         const email = $(this).parents('tr').find('td:eq(1)').text();
 
-        sendInvitationEmail(email);
+        axios.post(
+            '/mail/invite-friend',
+            qs.stringify(
+                {
+                    email
+                }
+            )
+        )
+            .catch(
+                error => {
+
+                    const {message} = error.response.data;
+
+                    showError(message);
+                }
+            )
     });
 
     // Debit Card
@@ -314,13 +342,19 @@ $(document).ready(function () {
                     window.location = response.data.nextStep
                 }
             )
+            .catch(
+                error => {
+                    hideSpinner($('#dc_design').find('input[type="submit"]'));
 
+                    const {message} = error.response.data;
+
+                    showError(message);
+                }
+            )
     });
 
     $('#dc_documents').on('submit', function (event) {
         event.preventDefault();
-
-        showSpinner($('#dc_documents').find('input[type="submit"]'), 38);
 
         let card = new FormData();
 
@@ -345,9 +379,13 @@ $(document).ready(function () {
             )
 
             if (!isFilesValid) {
+                showError('Incorrect files format.');
+
                 return false;
             }
         }
+
+        showSpinner($('#dc_documents').find('input[type="submit"]'), 38);
 
         axios.post(
             '/user/debit-card-documents',
@@ -360,12 +398,20 @@ $(document).ready(function () {
                     window.location = response.data.nextStep
                 }
             )
+            .catch(
+                error => {
+                    hideSpinner($('#dc_documents').find('input[type="submit"]'));
+
+                    const {message} = error.response.data;
+
+                    showError(message);
+                }
+            )
+
     });
 
     $('#dc_address').on('submit', function (event) {
         event.preventDefault();
-
-        showSpinner($('#dc_address').find('input[type="submit"]'), 38);
 
         let card = new FormData();
 
@@ -390,9 +436,13 @@ $(document).ready(function () {
             )
 
             if (!isFilesValid) {
+                showError('Incorrect files format.');
+
                 return false;
             }
         }
+
+        showSpinner($('#dc_address').find('input[type="submit"]'), 38);
 
         axios.post(
             '/user/debit-card-address',
@@ -400,11 +450,21 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    window.location = response.data.nextStep
-
                     hideSpinner($('#dc_address').find('input[type="submit"]'));
+
+                    window.location = response.data.nextStep
                 }
             )
+            .catch(
+                error => {
+                    hideSpinner($('#dc_address').find('input[type="submit"]'));
+
+                    const {message} = error.response.data;
+
+                    showError(message);
+                }
+            )
+
     });
 
 });

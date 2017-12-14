@@ -69,6 +69,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('profile', 'AdminController@saveProfile');
     Route::get('document', 'AdminController@document');
     Route::post('document', 'AdminController@approveDocument');
+    Route::get('wallets', 'AdminController@wallets');
+    Route::get('wallet', 'AdminController@wallet');
+    Route::post('wallet', 'AdminController@updateWallet');
+
 });
 
 //Route::get('/test-email', function () {

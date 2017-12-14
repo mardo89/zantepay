@@ -54,19 +54,19 @@ class User extends Authenticatable
     public static function getStatus($status) {
         switch ($status) {
             case self::USER_STATUS_INACTIVE:
-                return 'IN-ACTIVE';
+                return 'In-Active';
 
             case self::USER_STATUS_NOT_VERIFIED:
-                return 'NOT VERIFIED';
+                return 'Not Verified';
 
             case self::USER_STATUS_IDENTITY_VERIFIED:
-                return 'IDENTITY VERIFIED';
+                return 'Identity Verified';
 
             case self::USER_STATUS_ADDRESS_VERIFIED:
-                return 'ADDRESS VERIFIED';
+                return 'Address Verified';
 
             case self::USER_STATUS_VERIFIED:
-                return 'VERIFIED';
+                return 'Verified';
 
             default:
                 return '';
@@ -83,13 +83,13 @@ class User extends Authenticatable
     public static function getRole($role) {
         switch ($role) {
             case self::USER_ROLE_ADMIN:
-                return 'ADMIN';
+                return 'Admin';
 
             case self::USER_ROLE_MANAGER:
-                return 'MANAGER';
+                return 'Manager';
 
             case self::USER_ROLE_USER:
-                return 'USER';
+                return 'User';
 
             default:
                 return '';
@@ -123,4 +123,19 @@ class User extends Authenticatable
     public function referrals() {
         return $this->hasMany('App\Models\User', 'referrer', 'id');
     }
+
+    /**
+     * Get user's Wallet
+     */
+    public function wallet() {
+        return $this->hasOne('App\Models\Wallet', 'user_id', 'id');
+    }
+
+    /**
+     * Get user's Wallet
+     */
+    public function profile() {
+        return $this->hasOne('App\Models\Profile', 'user_id', 'id');
+    }
+
 }

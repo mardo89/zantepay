@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InviteFriend;
 use App\Models\Country;
 use App\Models\DebitCard;
 use App\Models\Document;
@@ -11,9 +12,12 @@ use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use PHPUnit\Runner\Exception;
 
 
 class UserController extends Controller
@@ -37,38 +41,69 @@ class UserController extends Controller
 
         $profile = Profile::where('user_id', $user->id)->first();
 
+        if (!$profile) {
+            return redirect('/');
+        }
+
+        $passportExpDate = is_null($profile->passport_expiration_date)
+            ? date('m/d/Y')
+            : date('m/d/Y', strtotime($profile->passport_expiration_date));
+
+        $birthDate = is_null($profile->birth_date)
+            ? date('m/d/Y')
+            : date('m/d/Y', strtotime($profile->birth_date));
+
         $userProfile = [
             'email' => $user->email,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
             'phone_number' => $user->phone_number,
-            'country_id' => 0,
-            'state_id' => 0,
-            'city' => '',
-            'address' => '',
-            'postcode' => '',
-            'passport_id' => '',
-            'passport_expiration_date' => date('m/d/Y'),
-            'birth_date' => date('m/d/Y'),
-            'birth_country' => ''
+            'country_id' => $profile->country_id,
+            'state_id' => $profile->state_id,
+            'city' => $profile->city,
+            'address' => $profile->address,
+            'postcode' => $profile->postcode,
+            'passport_id' => $profile->passport_id,
+            'passport_expiration_date' => $passportExpDate,
+            'birth_date' => $birthDate,
+            'birth_country' => $profile->birth_country
         ];
 
-        if (!is_null($profile)) {
-            $userProfile['country_id'] = $profile->country_id;
-            $userProfile['state_id'] = $profile->state_id;
-            $userProfile['city'] = $profile->city;
-            $userProfile['address'] = $profile->address;
-            $userProfile['postcode'] = $profile->postcode;
-            $userProfile['passport_id'] = $profile->passport_id;
-            $userProfile['passport_expiration_date'] = date('m/d/Y', strtotime($profile->passport_expiration_date));
-            $userProfile['birth_date'] = date('m/d/Y', strtotime($profile->birth_date));
-            $userProfile['birth_country'] = $profile->birth_country;
+        // Countries List
+        $dbCountries = Country::all();
+
+        $countries = [];
+
+        foreach ($dbCountries as $dbCountry) {
+            $countries[] = [
+                'id' => (int)$dbCountry->id,
+                'name' => $dbCountry->name
+            ];
         }
 
-        $countries = Country::all();
-        $states = $userProfile['country_id'] === 0
+        $countries[] = [
+            'id' => 0,
+            'name' => 'Other country'
+        ];
+
+        // States List
+        $dbStates = $userProfile['country_id'] === 0
             ? []
             : State::where('country_id', $userProfile['country_id'])->orderBy('name', 'asc')->get();
+
+        $states = [];
+
+        foreach ($dbStates as $dbState) {
+            $states[] = [
+                'id' => (int)$dbState->id,
+                'name' => $dbState->name
+            ];
+        }
+
+        $states[] = [
+            'id' => 0,
+            'name' => 'Other state'
+        ];
 
         return view(
             'user.profile',
@@ -107,55 +142,54 @@ class UserController extends Controller
             'birth_country' => 'string|max:50|nullable',
         ]);
 
-        // Update user main info
-        $user->email = $request->email;
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->phone_number = $request->phone_number;
-
-        $isUserUpdated = $user->email != $user->getOriginal('email')
-            || $user->first_name != $user->getOriginal('first_name')
-            || $user->last_name != $user->getOriginal('last_name')
-            || $user->phone_number != $user->getOriginal('phone_number');
-
-        if ($isUserUpdated) {
-            $user->save();
-        }
-
-        // Update profile
-        $userProfile = [
-            'user_id' => $user->id,
-            'country_id' => $request->country,
-            'state_id' => $request->state,
-            'city' => $request->city,
-            'address' => $request->address,
-            'postcode' => $request->postcode,
-            'passport_id' => $request->passport,
-            'passport_expiration_date' => date('Y-m-d H:i:s', strtotime($request->expiration_date)),
-            'birth_date' => date('Y-m-d H:i:s', strtotime($request->birth_date)),
-            'birth_country' => $request->birth_country
-        ];
-
         $profile = Profile::where('user_id', $user->id)->first();
 
+        if (!$profile) {
+            return response()->json(
+                [
+                    'message' => 'Error updating profile',
+                    'errors' => ['Profile not found']
+                ],
+                422
+            );
+        }
+
+        DB::beginTransaction();
+
         try {
-            if (!$profile) {
-                Profile::create($userProfile);
-            } else {
-                Profile::where('user_id', $user->id)->update($userProfile);
-            }
+            // Update user main info
+            $user->email = $request->email;
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->phone_number = $request->phone_number;
+            $user->save();
+
+            // Update profile
+            $profile->country_id = $request->country;
+            $profile->state_id = $request->state;
+            $profile->city = $request->city;
+            $profile->address = $request->address;
+            $profile->postcode = $request->postcode;
+            $profile->passport_id = $request->passport;
+            $profile->passport_expiration_date = date('Y-m-d H:i:s', strtotime($request->expiration_date));
+            $profile->birth_date = date('Y-m-d H:i:s', strtotime($request->birth_date));
+            $profile->birth_country = $request->birth_country;
+            $profile->save();
 
         } catch (\Exception $e) {
+            DB::rollback();
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),
+                    'message' => 'Error updating profile',
                     'errors' => ['An error occurred']
                 ],
                 422
             );
 
         }
+
+        DB::commit();
 
         return response()->json(
             []
@@ -252,6 +286,8 @@ class UserController extends Controller
 
         }
 
+        Mail::to($email)->send(new InviteFriend($user->email, $user->uid));
+
         return response()->json(
             [
                 'email' => $invite['email'],
@@ -309,6 +345,7 @@ class UserController extends Controller
         $card = DebitCard::where('user_id', $user->id)->first();
 
         try {
+
             if (!$card) {
                 DebitCard::create($userDebitCard);
             } else {
@@ -319,7 +356,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),
+                    'message' => 'Error ordering Debit Card',
                     'errors' => ['An error occurred']
                 ],
                 422
@@ -433,7 +470,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),
+                    'message' => 'Error uploading files',
                     'errors' => ['Error uploading file']
                 ],
                 422
@@ -505,7 +542,6 @@ class UserController extends Controller
         $isFailed = Validator::make($files->data, $files->rules)->fails();
 
         if ($isFailed) {
-            ValidationException::withMessages('sdafasfsadf');
             return response()->json(
                 [
                     'message' => 'Error uploading documents',
@@ -548,7 +584,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),
+                    'message' => 'Error uploading files',
                     'errors' => ['Error uploading file']
                 ],
                 422

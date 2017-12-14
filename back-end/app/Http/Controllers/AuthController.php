@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ActivateAccount;
+use App\Models\Profile;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 use Mockery\Exception;
@@ -33,6 +38,8 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
+        DB::beginTransaction();
+
         try {
 
             $userInfo = $this->createUser(
@@ -44,6 +51,7 @@ class AuthController extends Controller
             );
 
         } catch (\Exception $e) {
+            DB::rollback();
 
             return response()->json(
                 [
@@ -54,6 +62,10 @@ class AuthController extends Controller
             );
 
         }
+
+        DB::commit();
+
+        Mail::to($userInfo['email'])->send(new ActivateAccount($userInfo['uid']));
 
         return response()->json(
             [
@@ -77,12 +89,15 @@ class AuthController extends Controller
                 [
                     'email' => $request->email,
                     'password' => $request->password,
-                    'status' => User::USER_STATUS_NOT_VERIFIED
                 ]
             );
 
             if (!$isAuthorized) {
                 throw new Exception('Authentification failed!');
+            }
+
+            if (Auth::user()->status === User::USER_STATUS_INACTIVE) {
+                throw new Exception('Your account is disabled!');
             }
 
         } catch (\Exception $e) {
@@ -130,20 +145,35 @@ class AuthController extends Controller
     }
 
     /**
-     * Create user
+     * Create user with profile and wallet
      *
      * @param array $userInfo
      *
      * @return array
      */
-    protected function createUser($userInfo) {
+    protected function createUser($userInfo)
+    {
         $referrer = Session::get('referrer');
 
         if (!is_null($referrer)) {
             $userInfo['referrer'] = $referrer;
         }
 
-        return User::create($userInfo);
+        $user = User::create($userInfo);
+
+        Profile::create(
+            [
+                'user_id' => $user['id']
+            ]
+        );
+
+        Wallet::create(
+            [
+                'user_id' => $user['id']
+            ]
+        );
+
+        return $user;
     }
 
     /**

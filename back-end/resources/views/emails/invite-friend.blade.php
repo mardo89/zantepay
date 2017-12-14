@@ -11,6 +11,6 @@
 
 <body>
 <div class="container">
-    <a href={{ $referralLink }}> Go to ZANTEPAY </a>
+    <a href="{{ $referralLink }}"> Go to ZANTEPAY </a>
 </div>
 </body>

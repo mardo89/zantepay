@@ -29923,13 +29923,6 @@ var sendActivationEmail = function sendActivationEmail(uid) {
     }));
 };
 
-// Send activation email
-var sendIcoRegistrationEmail = function sendIcoRegistrationEmail(email) {
-    axios.post('/mail/ico-registration', qs.stringify({
-        email: email
-    }));
-};
-
 // Errors
 var clearErrors = function clearErrors() {
     $('.form-error').removeClass('form-error');
@@ -30115,8 +30108,6 @@ $(document).ready(function () {
         axios.post('/auth/register', qs.stringify(credentials)).then(function (response) {
             hideSpinner($('#frm_signup').find('input[type="submit"]'));
 
-            sendActivationEmail(response.data.uid);
-
             $.magnificPopup.close();
 
             $.magnificPopup.open({
@@ -30128,6 +30119,8 @@ $(document).ready(function () {
             });
 
             $('#resend-registration-email').on('click', function (event) {
+                event.preventDefault();
+
                 sendActivationEmail(response.data.uid);
             });
         }).catch(function (error) {
@@ -30215,8 +30208,6 @@ $(document).ready(function () {
                 type: 'inline',
                 closeOnBgClick: true
             });
-
-            sendIcoRegistrationEmail(response.data.email);
         }).catch(function (error) {
             hideSpinner($('#frm_ico_registration').find('input[type="submit"]'));
 

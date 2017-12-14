@@ -29924,25 +29924,19 @@ var clearErrors = function clearErrors() {
     $('.error-text').remove();
 };
 
-// Update states
-var updateStates = function updateStates(country) {
-    axios.get('/states', {
-        params: {
-            country: country
+var showError = function showError(errorMessage) {
+    $.magnificPopup.open({
+        items: {
+            src: '#error-modal'
+        },
+        type: 'inline',
+        closeOnBgClick: true,
+        callbacks: {
+            elementParse: function elementParse(item) {
+                $(item.src).find('#error-message').text(errorMessage);
+            }
         }
-    }).then(function (response) {
-
-        $('select[name="state"]').html(response.data.map(function (state) {
-            return $('<option />').val(state.id).text(state.name);
-        }));
     });
-};
-
-// Send activation email
-var sendInvitationEmail = function sendInvitationEmail(email) {
-    axios.post('/mail/invite-friend', qs.stringify({
-        email: email
-    }));
 };
 
 // Validate file
@@ -30033,18 +30027,35 @@ $(document).ready(function () {
         }).catch(function (error) {
             hideSpinner($('#user-profile').find('button[type="submit"]'));
 
-            var errors = error.response.data.errors;
+            var _error$response$data = error.response.data,
+                errors = _error$response$data.errors,
+                message = _error$response$data.message;
 
 
             $.each(errors, function (field, error) {
-                $('#contact-' + field).parents('.form-group').addClass('form-error');
+                $('.profile_' + field).addClass('form-error');
             });
+
+            showError(message);
         });
     });
 
     // States update
     $('select[name="country"]').on('change', function (event) {
-        updateStates($(this).val());
+        var country = $(this).val();
+
+        axios.get('/states', {
+            params: {
+                country: country
+            }
+        }).then(function (response) {
+
+            $('select[name="state"]').html(response.data.map(function (state) {
+                return $('<option />').val(state.id).text(state.name).attr('selected', state.id == 0 ? 'selected' : '');
+            }));
+        }).catch(function () {
+            $('select[name="state"]').html($('<option />').val(0).text('Other state').attr('selected', 'selected'));
+        });
     });
 
     // Copy link
@@ -30085,6 +30096,11 @@ $(document).ready(function () {
             hideSpinner($('#invite-friend'));
 
             $('#friend-email').parent().addClass('form-error');
+
+            var message = error.response.data.message;
+
+
+            showError(message);
         });
     });
 
@@ -30093,7 +30109,14 @@ $(document).ready(function () {
 
         var email = $(this).parents('tr').find('td:eq(1)').text();
 
-        sendInvitationEmail(email);
+        axios.post('/mail/invite-friend', qs.stringify({
+            email: email
+        })).catch(function (error) {
+            var message = error.response.data.message;
+
+
+            showError(message);
+        });
     });
 
     // Debit Card
@@ -30110,13 +30133,18 @@ $(document).ready(function () {
             hideSpinner($('#dc_design').find('input[type="submit"]'));
 
             window.location = response.data.nextStep;
+        }).catch(function (error) {
+            hideSpinner($('#dc_design').find('input[type="submit"]'));
+
+            var message = error.response.data.message;
+
+
+            showError(message);
         });
     });
 
     $('#dc_documents').on('submit', function (event) {
         event.preventDefault();
-
-        showSpinner($('#dc_documents').find('input[type="submit"]'), 38);
 
         var card = new FormData();
 
@@ -30138,21 +30166,30 @@ $(document).ready(function () {
             });
 
             if (!isFilesValid) {
+                showError('Incorrect files format.');
+
                 return false;
             }
         }
+
+        showSpinner($('#dc_documents').find('input[type="submit"]'), 38);
 
         axios.post('/user/debit-card-documents', card).then(function (response) {
             hideSpinner($('#dc_documents').find('input[type="submit"]'));
 
             window.location = response.data.nextStep;
+        }).catch(function (error) {
+            hideSpinner($('#dc_documents').find('input[type="submit"]'));
+
+            var message = error.response.data.message;
+
+
+            showError(message);
         });
     });
 
     $('#dc_address').on('submit', function (event) {
         event.preventDefault();
-
-        showSpinner($('#dc_address').find('input[type="submit"]'), 38);
 
         var card = new FormData();
 
@@ -30174,14 +30211,25 @@ $(document).ready(function () {
             });
 
             if (!isFilesValid) {
+                showError('Incorrect files format.');
+
                 return false;
             }
         }
 
-        axios.post('/user/debit-card-address', card).then(function (response) {
-            window.location = response.data.nextStep;
+        showSpinner($('#dc_address').find('input[type="submit"]'), 38);
 
+        axios.post('/user/debit-card-address', card).then(function (response) {
             hideSpinner($('#dc_address').find('input[type="submit"]'));
+
+            window.location = response.data.nextStep;
+        }).catch(function (error) {
+            hideSpinner($('#dc_address').find('input[type="submit"]'));
+
+            var message = error.response.data.message;
+
+
+            showError(message);
         });
     });
 });

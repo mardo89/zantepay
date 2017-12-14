@@ -48,10 +48,6 @@ class AdminController extends Controller
 
         $statusesList = [
             [
-                'id' => User::USER_STATUS_INACTIVE,
-                'name' => User::getStatus(User::USER_STATUS_INACTIVE)
-            ],
-            [
                 'id' => User::USER_STATUS_NOT_VERIFIED,
                 'name' => User::getStatus(User::USER_STATUS_NOT_VERIFIED)
             ],
@@ -66,6 +62,10 @@ class AdminController extends Controller
             [
                 'id' => User::USER_STATUS_VERIFIED,
                 'name' => User::getStatus(User::USER_STATUS_VERIFIED)
+            ],
+            [
+                'id' => User::USER_STATUS_INACTIVE,
+                'name' => User::getStatus(User::USER_STATUS_INACTIVE)
             ],
         ];
 
@@ -128,7 +128,7 @@ class AdminController extends Controller
 
             $userReferrals[] = [
                 'name' => $userName,
-                'status' => '',
+                'status' => User::getStatus($referral->status),
             ];
         }
 
@@ -167,7 +167,9 @@ class AdminController extends Controller
                 'referrals' => $userReferrals,
                 'debitCard' => $userDebitCard,
                 'idDocuments' => $userIDDocuments,
+                'idDocumentsApproved' => $user->status === User::USER_STATUS_IDENTITY_VERIFIED || $user->status === User::USER_STATUS_VERIFIED,
                 'addressDocuments' => $userAddressDocuments,
+                'addressDocumentsApproved' => $user->status === User::USER_STATUS_ADDRESS_VERIFIED || $user->status === User::USER_STATUS_VERIFIED,
                 'userRoles' => $rolesList
             ]
         );
@@ -280,6 +282,91 @@ class AdminController extends Controller
         }
 
         return response()->download(storage_path('app/' . $document->file_path));
+    }
+
+    /**
+     * Wallets list
+     *
+     * @return View
+     */
+    public function wallets()
+    {
+        $usersList = [];
+
+        $users = User::where('role', User::USER_ROLE_USER)->get();
+
+        foreach ($users as $user) {
+            $debitCard = DebitCard::where('user_id', $user->id)->first();
+
+            $wallet = $user->wallet;
+
+            $dcDesign = DebitCard::getDesign(DebitCard::DESIGN_NOT_SELECTED);
+
+            if (!is_null($debitCard)) {
+               $dcDesign = DebitCard::getDesign($debitCard->design);
+            }
+
+            $usersList[] = [
+                'id' => $user->id,
+                'email' => $user->email,
+                'debitCard' => $dcDesign,
+                'ztx' => $wallet->ztx_amount,
+                'walletLink' => action('AdminController@wallet', ['uid' => $user->uid]),
+            ];
+        }
+
+        $dcList = DebitCard::getCardsList();
+
+        return view(
+            'admin.wallets',
+            [
+                'users' => $usersList,
+                'debitCards' => $dcList
+            ]
+        );
+    }
+
+    /**
+     * User wallet
+     *
+     * @param Request $request
+     *
+     * @return View
+     */
+    public function wallet(Request $request)
+    {
+        $userID = $request->uid;
+
+        $user = User::where('uid', $userID)->first();
+
+        if (!$user) {
+            return redirect('admin/wallets');
+        }
+
+        // USER Profile
+        $userProfile = [
+            'uid' => $user->uid,
+            'email' => $user->email,
+            'name' => $user->first_name . ' ' . $user->last_name,
+            'status' => User::getStatus($user->status)
+        ];
+
+        // Debit Card
+        $debitCard = DebitCard::where('user_id', $user->id)->first();
+
+        $dcDesign = DebitCard::DESIGN_NOT_SELECTED;
+
+        if (!is_null($debitCard)) {
+            $dcDesign = $debitCard->design;
+        }
+
+        return view(
+            'admin.wallet',
+            [
+                'profile' => $userProfile,
+                'debitCard' => $dcDesign,
+            ]
+        );
     }
 
 }

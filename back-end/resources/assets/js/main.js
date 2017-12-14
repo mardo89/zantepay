@@ -43,18 +43,6 @@ const sendActivationEmail = uid => {
     )
 }
 
-// Send activation email
-const sendIcoRegistrationEmail = email => {
-    axios.post(
-        '/mail/ico-registration',
-        qs.stringify(
-            {
-                email,
-            }
-        )
-    )
-}
-
 // Errors
 const clearErrors = () => {
     $('.form-error').removeClass('form-error');
@@ -273,8 +261,6 @@ $(document).ready(function () {
                 response => {
                     hideSpinner($('#frm_signup').find('input[type="submit"]'));
 
-                    sendActivationEmail(response.data.uid);
-
                     $.magnificPopup.close();
 
                     $.magnificPopup.open(
@@ -288,6 +274,8 @@ $(document).ready(function () {
                     );
 
                     $('#resend-registration-email').on('click', function (event) {
+                        event.preventDefault();
+
                         sendActivationEmail(response.data.uid)
                     });
                 }
@@ -405,8 +393,6 @@ $(document).ready(function () {
                             closeOnBgClick: true
                         }
                     );
-
-                    sendIcoRegistrationEmail(response.data.email);
                 }
             )
             .catch(
