@@ -57,8 +57,10 @@
                             </div>
                             <div class="card-submit">
                                 <div class="card-submit-wrap">
-                                    <a href="debit-card.html" class="card-back">Back</a>
-                                    <input class="btn btn--shadowed-light btn--medium btn--160" type="submit" value="Next">
+                                    <a href="/user/debit-card" class="card-back">Back</a>
+                                    <button class="btn btn--shadowed-light btn--medium btn--160" type="submit">
+                                        Next
+                                    </button>
                                 </div>
                             </div>
                         </div>

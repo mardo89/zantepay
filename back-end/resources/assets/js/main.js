@@ -153,7 +153,8 @@ $(document).ready(function () {
     $('#frm_contact').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_contact').find('input[type="submit"]'), 50);
+        const button = $('#frm_contact').find('input[type="submit"]');
+        showSpinner(button, 50);
         clearErrors();
 
         axios.post(
@@ -168,7 +169,7 @@ $(document).ready(function () {
         )
             .then(
                 () => {
-                    hideSpinner($('#frm_contact').find('input[type="submit"]'));
+                    hideSpinner(button);
                     clearForm($('#frm_contact'));
 
                     $.magnificPopup.open(
@@ -185,7 +186,7 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    hideSpinner($('#frm_contact').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     const {errors} = error.response.data;
 
@@ -203,7 +204,8 @@ $(document).ready(function () {
     $('#frm_signin').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_signin').find('input[type="submit"]'), 50);
+        const button = $('#frm_signin').find('input[type="submit"]');
+        showSpinner(button, 50);
         clearErrors();
 
         const credentials = {
@@ -217,7 +219,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    hideSpinner($('#frm_signin').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     $.magnificPopup.close();
 
@@ -226,7 +228,7 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    hideSpinner($('#frm_signin').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     const {message} = error.response.data;
 
@@ -244,7 +246,8 @@ $(document).ready(function () {
     $('#frm_signup').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_signup').find('input[type="submit"]'), 50);
+        const button = $('#frm_signup').find('input[type="submit"]');
+        showSpinner(button, 50);
         clearErrors();
 
         const credentials = {
@@ -259,7 +262,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    hideSpinner($('#frm_signup').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     $.magnificPopup.close();
 
@@ -282,7 +285,7 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    hideSpinner($('#frm_signup').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     const {errors} = error.response.data;
 
@@ -303,7 +306,9 @@ $(document).ready(function () {
     $("#frm_invite_signup").on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_invite_signup').find('input[type="submit"]'), 50);
+        const button = $('#frm_invite_signup').find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
 
         const credentials = {
             email: $('#frm_invite_signup input[name="email"]').val(),
@@ -317,9 +322,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    hideSpinner($('#frm_invite_signup').find('input[type="submit"]'));
-
-                    sendActivationEmail(response.data.uid);
+                    hideSpinner(button);
 
                     $.magnificPopup.close();
 
@@ -344,7 +347,7 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    hideSpinner($('#frm_invite_signup').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     const {errors} = error.response.data;
 
@@ -365,7 +368,8 @@ $(document).ready(function () {
     $('#frm_ico_registration').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_ico_registration').find('input[type="submit"]'), 50);
+        const button = $('#frm_ico_registration').find('input[type="submit"]');
+        showSpinner(button, 50);
         clearErrors();
 
         const registration = {
@@ -380,7 +384,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    hideSpinner($('#frm_ico_registration').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     $.magnificPopup.close();
 
@@ -397,7 +401,7 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    hideSpinner($('#frm_ico_registration').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     const {errors} = error.response.data;
 

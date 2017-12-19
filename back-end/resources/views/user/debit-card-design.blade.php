@@ -90,7 +90,9 @@
 
                 <div class="card-submit">
                     <div class="card-submit-wrap">
-                        <input class="btn btn--shadowed-light btn--medium btn--160" type="submit" value="Next">
+                        <button class="btn btn--shadowed-light btn--medium btn--160" type="submit">
+                            Next
+                        </button>
                     </div>
                 </div>
             </form>

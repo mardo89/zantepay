@@ -55,6 +55,7 @@ class MailController extends Controller
             ]
         );
 
+        sleep(10);
         Mail::to(env('CONTACT_EMAIL'))->send(new ContactUs($request->name, $request->email, $request->message));
 
         return response()->json(

@@ -57,6 +57,17 @@
 
 @yield('popups')
 
+<!-- Error saving profile confirmation -->
+<div class="logon-modal mfp-hide" id="error-modal">
+    <div class="logon-modal-container">
+        <h3 class="h4 primary-color">ERROR!</h3>
+        <div class="logon-modal-text">
+            <p id="error-message"></p>
+        </div>
+    </div>
+</div>
+
+
 <!-- JS scripts -->
 <script src="/js/admin.js" type="text/javascript"></script>
 <script src="/js/components/jquery.magnific-popup.min.js"></script>

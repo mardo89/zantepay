@@ -30031,7 +30031,8 @@ $(document).ready(function () {
     $('#frm_contact').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_contact').find('input[type="submit"]'), 50);
+        var button = $('#frm_contact').find('input[type="submit"]');
+        showSpinner(button, 50);
         clearErrors();
 
         axios.post('/mail/contact-us', qs.stringify({
@@ -30039,7 +30040,7 @@ $(document).ready(function () {
             'email': $('#contact-email').val(),
             'message': $('#contact-message').val()
         })).then(function () {
-            hideSpinner($('#frm_contact').find('input[type="submit"]'));
+            hideSpinner(button);
             clearForm($('#frm_contact'));
 
             $.magnificPopup.open({
@@ -30050,7 +30051,7 @@ $(document).ready(function () {
                 closeOnBgClick: true
             });
         }).catch(function (error) {
-            hideSpinner($('#frm_contact').find('input[type="submit"]'));
+            hideSpinner(button);
 
             var errors = error.response.data.errors;
 
@@ -30065,7 +30066,8 @@ $(document).ready(function () {
     $('#frm_signin').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_signin').find('input[type="submit"]'), 50);
+        var button = $('#frm_signin').find('input[type="submit"]');
+        showSpinner(button, 50);
         clearErrors();
 
         var credentials = {
@@ -30074,13 +30076,13 @@ $(document).ready(function () {
         };
 
         axios.post('/auth/login', qs.stringify(credentials)).then(function (response) {
-            hideSpinner($('#frm_signin').find('input[type="submit"]'));
+            hideSpinner(button);
 
             $.magnificPopup.close();
 
             window.location.pathname = response.data.userPage;
         }).catch(function (error) {
-            hideSpinner($('#frm_signin').find('input[type="submit"]'));
+            hideSpinner(button);
 
             var message = error.response.data.message;
 
@@ -30096,7 +30098,8 @@ $(document).ready(function () {
     $('#frm_signup').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_signup').find('input[type="submit"]'), 50);
+        var button = $('#frm_signup').find('input[type="submit"]');
+        showSpinner(button, 50);
         clearErrors();
 
         var credentials = {
@@ -30106,7 +30109,7 @@ $(document).ready(function () {
         };
 
         axios.post('/auth/register', qs.stringify(credentials)).then(function (response) {
-            hideSpinner($('#frm_signup').find('input[type="submit"]'));
+            hideSpinner(button);
 
             $.magnificPopup.close();
 
@@ -30124,7 +30127,7 @@ $(document).ready(function () {
                 sendActivationEmail(response.data.uid);
             });
         }).catch(function (error) {
-            hideSpinner($('#frm_signup').find('input[type="submit"]'));
+            hideSpinner(button);
 
             var errors = error.response.data.errors;
 
@@ -30140,7 +30143,9 @@ $(document).ready(function () {
     $("#frm_invite_signup").on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_invite_signup').find('input[type="submit"]'), 50);
+        var button = $('#frm_invite_signup').find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
 
         var credentials = {
             email: $('#frm_invite_signup input[name="email"]').val(),
@@ -30149,9 +30154,7 @@ $(document).ready(function () {
         };
 
         axios.post('/auth/register', qs.stringify(credentials)).then(function (response) {
-            hideSpinner($('#frm_invite_signup').find('input[type="submit"]'));
-
-            sendActivationEmail(response.data.uid);
+            hideSpinner(button);
 
             $.magnificPopup.close();
 
@@ -30171,7 +30174,7 @@ $(document).ready(function () {
                 sendActivationEmail(response.data.uid);
             });
         }).catch(function (error) {
-            hideSpinner($('#frm_invite_signup').find('input[type="submit"]'));
+            hideSpinner(button);
 
             var errors = error.response.data.errors;
 
@@ -30187,7 +30190,8 @@ $(document).ready(function () {
     $('#frm_ico_registration').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#frm_ico_registration').find('input[type="submit"]'), 50);
+        var button = $('#frm_ico_registration').find('input[type="submit"]');
+        showSpinner(button, 50);
         clearErrors();
 
         var registration = {
@@ -30197,7 +30201,7 @@ $(document).ready(function () {
         };
 
         axios.post('/ico-registration', qs.stringify(registration)).then(function (response) {
-            hideSpinner($('#frm_ico_registration').find('input[type="submit"]'));
+            hideSpinner(button);
 
             $.magnificPopup.close();
 
@@ -30209,7 +30213,7 @@ $(document).ready(function () {
                 closeOnBgClick: true
             });
         }).catch(function (error) {
-            hideSpinner($('#frm_ico_registration').find('input[type="submit"]'));
+            hideSpinner(button);
 
             var errors = error.response.data.errors;
 

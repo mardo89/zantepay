@@ -1,34 +1,30 @@
 require('./bootstrap');
 
-// Spinner
 const getSpinner = size => {
 
-    return $('<div />').addClass('spinner-container').css('height', size + 'px').css('width', '160px')
+    return $('<div />').addClass('spinner spinner--' + size)
         .append(
-            $('<div />').addClass('spinner spinner--50')
-                .append(
-                    $('<div />')
-                )
-                .append(
-                    $('<div />')
-                )
-                .append(
-                    $('<div />')
-                )
-                .append(
-                    $('<div />')
-                )
+            $('<div />')
+        )
+        .append(
+            $('<div />')
+        )
+        .append(
+            $('<div />')
+        )
+        .append(
+            $('<div />')
         );
 }
 
-const showSpinner = (element, size) => {
-    element.hide();
-    element.after(getSpinner(size));
+const showSpinner = element => {
+    element.addClass('is-loading').prop('disabled', true);
+    element.append(getSpinner(30));
 }
 
 const hideSpinner = (element) => {
-    element.show();
-    $('.spinner-container').remove();
+    element.removeClass('is-loading').prop('disabled', false);
+    element.find('.spinner').remove();
 }
 
 // Errors
@@ -119,7 +115,8 @@ $(document).ready(function () {
     $('#user-profile').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#user-profile').find('button[type="submit"]'), 38);
+        const button = $('#user-profile').find('button[type="submit"]');
+        showSpinner(button);
 
         const profile = {
             'first_name': $('input[name="f-name"]').val(),
@@ -143,7 +140,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    hideSpinner($('#user-profile').find('button[type="submit"]'));
+                    hideSpinner(button);
 
                     $.magnificPopup.open(
                         {
@@ -158,7 +155,7 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    hideSpinner($('#user-profile').find('button[type="submit"]'));
+                    hideSpinner(button);
 
                     const {errors, message} = error.response.data;
 
@@ -226,7 +223,8 @@ $(document).ready(function () {
     $('#invite-friend').on('click', function (event) {
         event.preventDefault();
 
-        showSpinner($('#invite-friend'), 50);
+        const button = $('#invite-friend');
+        showSpinner(button);
         clearErrors();
 
         const invite = {
@@ -239,7 +237,7 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    hideSpinner($('#invite-friend'));
+                    hideSpinner(button);
 
                     $('input[name="email"]').val('');
 
@@ -287,7 +285,7 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    hideSpinner($('#invite-friend'));
+                    hideSpinner(button);
 
                     $('#friend-email').parent().addClass('form-error');
 
@@ -325,7 +323,8 @@ $(document).ready(function () {
     $('#dc_design').on('submit', function (event) {
         event.preventDefault();
 
-        showSpinner($('#dc_design').find('input[type="submit"]'), 38);
+        const button = $('#dc_design').find('button[type="submit"]');
+        showSpinner(button);
 
         const card = {
             'design': $('input[name="card-type"]:checked').val()
@@ -337,14 +336,14 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    hideSpinner($('#dc_design').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     window.location = response.data.nextStep
                 }
             )
             .catch(
                 error => {
-                    hideSpinner($('#dc_design').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     const {message} = error.response.data;
 
@@ -385,7 +384,8 @@ $(document).ready(function () {
             }
         }
 
-        showSpinner($('#dc_documents').find('input[type="submit"]'), 38);
+        const button = $('#dc_documents').find('button[type="submit"]');
+        showSpinner(button);
 
         axios.post(
             '/user/debit-card-documents',
@@ -393,14 +393,14 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    hideSpinner($('#dc_documents').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     window.location = response.data.nextStep
                 }
             )
             .catch(
                 error => {
-                    hideSpinner($('#dc_documents').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     const {message} = error.response.data;
 
@@ -442,7 +442,8 @@ $(document).ready(function () {
             }
         }
 
-        showSpinner($('#dc_address').find('input[type="submit"]'), 38);
+        const button = $('#dc_address').find('button[type="submit"]');
+        showSpinner(button);
 
         axios.post(
             '/user/debit-card-address',
@@ -450,14 +451,14 @@ $(document).ready(function () {
         )
             .then(
                 response => {
-                    hideSpinner($('#dc_address').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     window.location = response.data.nextStep
                 }
             )
             .catch(
                 error => {
-                    hideSpinner($('#dc_address').find('input[type="submit"]'));
+                    hideSpinner(button);
 
                     const {message} = error.response.data;
 

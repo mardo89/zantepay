@@ -18,14 +18,29 @@
                                 @foreach($debitCards as $debitCard)
                                     <div class="col-lg-4">
                                         <div class="checkbox">
-                                            <input type="checkbox" name="dc-filter" id="{{ "dc" . $debitCard['id'] }}" value="{{ $debitCard['name'] }}" checked>
+                                            <input type="checkbox" name="dc-filter" id="{{ "dc" . $debitCard['id'] }}"
+                                                   value="{{ $debitCard['name'] }}" checked>
                                             <label for="{{ "dc" . $debitCard['id'] }}">{{ $debitCard['name'] }}</label>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
+                    </div>
                 </div>
+
+                <div class="dashboard-group-sm">
+                    <h2 class="h4 headline-mb">Search by email:</h2>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <input class="input-field search-field wallets-search" type="text" name="search-by-email" id="field1">
+                                <a href="" class="search-cross"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </form>
 
             <div class="table-responsive-500">
@@ -33,8 +48,8 @@
                     <thead>
                     <tr>
                         <th>Email</th>
-                        <th width="110">Debit Card</th>
-                        <th width="110">ZTX</th>
+                        <th width="200">Debit Card</th>
+                        <th width="200">ZTX</th>
                     </tr>
                     </thead>
                     <tbody>

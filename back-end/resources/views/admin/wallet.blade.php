@@ -36,6 +36,7 @@
                         </div>
                     </div>
                 </form>
+
             </div>
 
             <div>
@@ -55,7 +56,7 @@
                             <td class="col-left">
                                 @if($debitCard === \App\Models\DebitCard::DESIGN_WHITE)
                                     <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x" alt="ZANTEPAY Card">
-                                    @elseif($debitCard === \App\Models\DebitCard::DESIGN_RED)
+                                @elseif($debitCard === \App\Models\DebitCard::DESIGN_RED)
                                     <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x" alt="ZANTEPAY Card">
                                 @else
                                     Debit Card not selected
@@ -116,14 +117,41 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input class="input-field" type="text" name="ztx-amount" id="field4" placeholder="ZNX amount">
+                                <input class="input-field" type="text" name="znx-amount" id="field4" placeholder="ZNX amount">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button type="button" class="btn btn--shadowed-light btn--medium btn--160">Add to wallet</button>
+                            <button type="submit" class="btn btn--shadowed-light btn--medium btn--160">Add to wallet</button>
                         </div>
                     </div>
                 </form>
+            </div>
+
+            <div class="dashboard-group">
+                <h2 class="h4 headline-mb">Transactions:</h2>
+
+                <div class="table-responsive-500">
+                    <table id="wallet-transactions" class="table-black table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Currency</th>
+                            <th>Amount</th>
+                            <th>Manager</th>
+                        </tr>
+                        </thead>
+                        <tbody class="no-borders no-hover">
+                        @foreach($transactions as $transaction)
+                            <tr>
+                                <td>{{ $transaction['date'] }}</td>
+                                <td>{{ $transaction['currency'] }}</td>
+                                <td>{{ $transaction['amount'] }}</td>
+                                <td>{{ $transaction['manager'] }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>
@@ -153,12 +181,12 @@
         </div>
     </div>
 
-    <!-- Error saving profile confirmation -->
-    <div class="logon-modal mfp-hide" id="error-modal">
+    <!-- Update wallet confirmation -->
+    <div class="logon-modal mfp-hide" id="wallet-modal">
         <div class="logon-modal-container">
-            <h3 class="h4 error-message">ERROR!</h3>
+            <h3 class="h4">COMPLETED!</h3>
             <div class="logon-modal-text">
-                <p id="error-message"></p>
+                <p>User wallet successfully updated.</p>
             </div>
         </div>
     </div>

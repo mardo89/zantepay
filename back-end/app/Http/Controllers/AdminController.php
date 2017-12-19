@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Currency;
 use App\Models\DebitCard;
 use App\Models\Document;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Mockery\Exception;
 
 
 class AdminController extends Controller
@@ -150,9 +156,15 @@ class AdminController extends Controller
 
         foreach ($documents as $document) {
             if ($document->document_type === Document::DOCUMENT_TYPE_IDENTITY) {
-                $userIDDocuments[] = action('AdminController@document', ['did' => $document->did]);
+                $userIDDocuments[] = [
+                    'src' => action('AdminController@document', ['did' => $document->did]),
+                    'type' => Storage::mimeType($document->file_path)
+                ];
             } else {
-                $userAddressDocuments[] = action('AdminController@document', ['did' => $document->did]);
+                $userAddressDocuments[] = [
+                    'src' => action('AdminController@document', ['did' => $document->did]),
+                    'type' => Storage::mimeType($document->file_path)
+                ];
             }
         }
 
@@ -281,7 +293,12 @@ class AdminController extends Controller
             return redirect('admin/users');
         }
 
-        return response()->download(storage_path('app/' . $document->file_path));
+        $mimeType = Storage::mimeType($document->file_path);
+
+        return response()->file(
+            storage_path('app/' . $document->file_path),
+            ['Content-Type' => $mimeType]
+        );
     }
 
     /**
@@ -310,7 +327,7 @@ class AdminController extends Controller
                 'id' => $user->id,
                 'email' => $user->email,
                 'debitCard' => $dcDesign,
-                'ztx' => $wallet->ztx_amount,
+                'ztx' => $wallet->znx_amount,
                 'walletLink' => action('AdminController@wallet', ['uid' => $user->uid]),
             ];
         }
@@ -360,11 +377,96 @@ class AdminController extends Controller
             $dcDesign = $debitCard->design;
         }
 
+        $wallet = $user->wallet;
+
+        $walletTransactions = Transaction::where('wallet_id', $wallet->id)->orderBy('created_on', 'desc')->get();
+
+        $transactions = [];
+
+        foreach ($walletTransactions as $walletTransaction) {
+            $manager = User::find($walletTransaction->user_id);
+
+            $transactions[] = [
+                'date' => date('m-d-Y H:i:s', strtotime($walletTransaction->created_on)),
+                'currency' => Currency::getCurrency($walletTransaction->currency),
+                'amount' => $walletTransaction->amount,
+                'manager' => $manager->email
+            ];
+        }
+
         return view(
             'admin.wallet',
             [
                 'profile' => $userProfile,
                 'debitCard' => $dcDesign,
+                'transactions' => $transactions
+            ]
+        );
+    }
+
+    /**
+     * Update ZNX amount
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function updateZNXWallet(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'uid' => 'required|string',
+                'amount' => 'required|numeric'
+            ]
+        );
+
+        $userID = $request->uid;
+
+        $user = User::where('uid', $userID)->first();
+
+        if (!$user) {
+            return redirect('admin/wallets');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $wallet = $user->wallet;
+            $wallet->znx_amount += $request->amount;
+            $wallet->save();
+
+            $transactionInfo = Transaction::create(
+                [
+                    'wallet_id' => $wallet->id,
+                    'currency' => Currency::CURRENCY_TYPE_ZNX,
+                    'amount' => $request->amount,
+                    'user_id' => Auth::user()->id
+                ]
+            );
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => $e->getMessage(),//'Error updating ZNX amount',
+                    'errors' => ['An error occurred']
+                ],
+                422
+            );
+
+        }
+
+        DB::commit();
+
+        $walletTransaction = Transaction::find($transactionInfo['id']);
+
+        return response()->json(
+            [
+                'date' => date('m-d-Y H:i:s', strtotime($walletTransaction->created_on)),
+                'currency' => Currency::getCurrency($walletTransaction->currency),
+                'amount' => $walletTransaction->amount,
+                'manager' => Auth::user()->email
             ]
         );
     }

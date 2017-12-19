@@ -60,7 +60,7 @@
 <!-- Error saving profile confirmation -->
 <div class="logon-modal mfp-hide" id="error-modal">
     <div class="logon-modal-container">
-        <h3 class="h4 error-message">ERROR!</h3>
+        <h3 class="h4 primary-color">ERROR!</h3>
         <div class="logon-modal-text">
             <p id="error-message"></p>
         </div>

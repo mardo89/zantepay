@@ -120,7 +120,11 @@
                                     <input type="hidden" name="document-type" value="{{ \App\Models\Document::DOCUMENT_TYPE_IDENTITY }}">
 
                                     @foreach($idDocuments as $document)
-                                        <p><a href="{{ $document }}" target="_blank"> View </a></p>
+                                        @if($document['type'] == 'application/pdf')
+                                            <object width="500px" height="500px" type="application/pdf" data="{{ $document['src'] }}"/>
+                                        @else
+                                            <img width="500px" src="{{ $document['src'] }}"/>
+                                        @endif
                                     @endforeach
 
                                     @if(!$idDocumentsApproved)
@@ -136,7 +140,11 @@
                                     <input type="hidden" name="document-type" value="{{ \App\Models\Document::DOCUMENT_TYPE_ADDRESS }}">
 
                                     @foreach($addressDocuments as $document)
-                                        <p><a href="{{ $document }}" target="_blank"> View </a></p>
+                                        @if($document['type'] == 'application/pdf')
+                                            <object width="500px" height="500px" type="application/pdf" data="{{ $document['src'] }}"/>
+                                        @else
+                                            <img width="500px" src="{{ $document['src'] }}"/>
+                                        @endif
                                     @endforeach
 
                                     @if(!$addressDocumentsApproved)
