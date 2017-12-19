@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZANTEPAY</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+  <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    <header class="header">
+      <div class="masthead">
+        <div class="container">
+          <div class="masthead__row">
+            <div class="masthead__left">
+              <a href="/" class="logo" title="ZANTEPAY">
+                <img src="images/logo-large.png" alt="ZANTEPAY Logo">
+              </a>
+            </div>
+            
+            <div class="hamburger hamburger--slider">
+              <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+              </div>
+            </div>
+
+            <div class="masthead__menu">
+              <nav class="navigation">
+                <ul>
+                  <li class="current-menu-item"><a href="profile.html">Profile</a></li>
+                  <li><a href="refer-a-friend.html">Refer a Friend</a></li>
+                  <li><a href="wallet.html">Wallet</a></li>
+                  <li><a href="debit-card.html">ZANTEPAY Debit Card</a></li>
+                </ul>
+              </nav>
+
+              <div class="masthead__right">
+                <a  href="#" class="btn btn--small btn--shadowed-dark">Logout</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </header>
+
+    <main class="main main-dashboard">
+      <div class="container">
+        <form action="">
+          <div class="dashboard-group">
+            <div class="row">
+              <div class="col-lg-5 col-sm-4 mb-20">
+                <h2 class="h4 headline-mb">User role:</h2>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="checkbox">
+                      <input type="checkbox" name="confirm" id="check1"><label for="check1">Admin</label>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="checkbox">
+                      <input type="checkbox" name="confirm" id="check2"><label for="check2">Manager</label>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="checkbox">
+                      <input type="checkbox" name="confirm" id="check3"><label for="check3">User</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-lg-3 col-sm-4 mb-20 col-vertical-line-right">
+                <h2 class="h4 headline-mb">Is referrer:</h2>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="checkbox">
+                      <input type="checkbox" name="confirm" id="check6"><label for="check6">Yes</label>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="checkbox">
+                      <input type="checkbox" name="confirm" id="check7"><label for="check7">No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-group-lg">
+            <h2 class="h4 headline-mb">User status:</h2>
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="checkbox">
+                  <input type="checkbox" name="confirm" id="check8"><label for="check8">Not Verified</label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="checkbox">
+                  <input type="checkbox" name="confirm" id="check9"><label for="check9">Identify Verified</label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="checkbox">
+                  <input type="checkbox" name="confirm" id="check10"><label for="check10">Address Verified</label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="checkbox">
+                  <input type="checkbox" name="confirm" id="check11"><label for="check11">Verified</label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="checkbox">
+                  <input type="checkbox" name="confirm" id="check12"><label for="check12">In-Active</label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="checkbox">
+                  <input type="checkbox" name="confirm" id="check13"><label for="check13">Withdraw BTC</label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="checkbox">
+                  <input type="checkbox" name="confirm" id="check14"><label for="check14">Withdraw ETH</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="table-responsive-500">
+          <table class="inv-table table-black">
+            <thead>
+              <tr>
+                <th colspan="2">Name</th>
+                <th>Status</th>
+                <th colspan="2">Bonus (ZNX)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td width="100" class="col-center">
+                  <div class="thumb-60">
+                    <img src="images/avatar.png" alt="dagcoin.co@gmail.com">
+                  </div>
+                </td>
+                <td>dagcoin.co@gmail.com</td>
+                <td><span class="primary-color">Invitation pending</span></td>
+                <td></td>
+                <td width="160" class="col-center"><a href="" class="send-link">Resend</a></td>
+              </tr>
+              <tr>
+                <td width="100" class="col-center">
+                  <div class="thumb-60">
+                    <img src="images/sandor.png" alt="Sandor Pitskar">
+                  </div>
+                </td>
+                <td>Sandor Pitskar</td>
+                <td><span class="primary-color">Verification not finished</span></td>
+                <td>600 (unlock when verification is finished)</td>
+                <td width="160" class="col-center"><a href="" class="send-link">Resend</a></td>
+              </tr>
+              <tr>
+                <td width="100" class="col-center">
+                  <div class="thumb-60">
+                    <img src="images/sandra.png" alt="Sandra Punchuk">
+                  </div>
+                </td>
+                <td>Sandra Punchuk</td>
+                <td>Signed up!</td>
+                <td>600</td>
+                <td width="160" class="col-center"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+  </body>
+</html>

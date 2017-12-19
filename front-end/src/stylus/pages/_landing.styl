@@ -37,6 +37,38 @@
     position relative
     z-index 10
 
+.lp-section-artifical
+  background $bg-color-dark
+  padding-bottom 150px
+  .headline
+    margin-bottom 70px
+
+.lp-head
+  text-align center
+  position relative
+  &-lines
+    position absolute
+    right -58px
+    top 11px
+    @media screen and (max-width 991px)
+      max-width 200px
+    @media screen and (max-width 767px)
+      display none
+  &-img
+    position relative
+    z-index 10
+
+.lp-features-list
+  max-width 320px
+  display block
+  margin: -15px 50px 80px;
+  @media screen and (max-width 767px)
+    margin 60px auto
+  li
+    margin-bottom 17px
+    display flex
+    justify-content space-between
+
 .lp-section-two
   background $bg-color-dark;
   padding 170px 0 130px

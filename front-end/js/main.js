@@ -207,6 +207,20 @@ $(document).ready(function() {
     //event.preventDefault();
   });
 
+  //tabs
+  $(document).on('click', '.tabs-head a', function(e) {
+    e.preventDefault();
+    var thisHref = $(this).attr('href');
+    $('.tabs-head li').removeClass('is-active');
+    $('.tab-body').removeClass('is-active');
+    $(this).parent().addClass('is-active');
+    $(thisHref).addClass('is-active');
+    if ( thisHref != '#profile') {
+      $('.dashboard-top-panel-row .form-group').hide();
+    } else {
+      $('.dashboard-top-panel-row .form-group').show();
+    }
+  });
 
 
 });

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZANTEPAY</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+  <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    <header class="header">
+      <div class="masthead">
+        <div class="container">
+          <div class="masthead__row">
+            <div class="masthead__left">
+              <a href="/" class="logo" title="ZANTEPAY">
+                <img src="images/logo-large.png" alt="ZANTEPAY Logo">
+              </a>
+            </div>
+            
+            <div class="hamburger hamburger--slider">
+              <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+              </div>
+            </div>
+
+            <div class="masthead__menu">
+              <nav class="navigation">
+                <ul>
+                  <li class="current-menu-item"><a href="profile.html">Profile</a></li>
+                  <li><a href="refer-a-friend.html">Refer a Friend</a></li>
+                  <li><a href="wallet.html">Wallet</a></li>
+                  <li><a href="debit-card.html">ZANTEPAY Debit Card</a></li>
+                </ul>
+              </nav>
+
+              <div class="masthead__right">
+                <a  href="#" class="btn btn--small btn--shadowed-dark">Logout</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </header>
+
+    <main class="main main-dashboard">
+      <div class="container">
+        <form action="">
+          <div class="dashboard-top-panel">
+            <a href="" class="back-arrow"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back</a>
+            <div class="dashboard-top-panel-row">
+              <ul class="tabs-head">
+                <li class="is-active">
+                  <a href="#profile">Profile</a>
+                </li>
+                <li>
+                  <a href="#documents">Documents</a>
+                </li>
+                <li>
+                  <a href="#account-wallets">Account & Wallets</a>
+                </li>
+              </ul>
+              <div class="form-group">
+                <label class="field-label">Role:</label>
+                <select name="contry" class="input-field">
+                  <option value="">User</option>
+                  <option value="">Manager</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="tabs-wrap">
+            <!-- tab Profile -->
+            <div class="tab-body is-active" id="profile">
+              <div class="dashboard-group-sm">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="field-label" for="field3">First Name:</label>
+                      <input class="input-field" type="text" name="f-name" id="field3">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="field-label" for="field4">Last Name:</label>
+                      <input class="input-field" type="text" name="l-name" id="field4">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="field-label" for="field5">Email:</label>
+                      <input class="input-field" type="email" name="email" id="field5">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="field-label" for="field5">Phone Number:</label>
+                      <input class="input-field" type="text" name="phone" id="field5">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dashboard-group-sm">
+                <h2 class="h4 headline-mb">Address:</h2>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="field-label">Country:</label>
+                      <select name="country" class="input-field">
+                        <option selected disabled></option>
+                        <option value="">Country 1</option>
+                        <option value="">Country 2</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="field-label">State / Country:</label>
+                      <select name="state" class="input-field">
+                        <option selected disabled></option>
+                        <option value="">Country 1</option>
+                        <option value="">Country 2</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="field-label" for="field6">City:</label>
+                      <input class="input-field" type="text" name="city" id="field6">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="field-label" for="field7">Address:</label>
+                      <input class="input-field" type="text" name="address" id="field7">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="field-label" for="field8">Postcode:</label>
+                      <input class="input-field" type="text" name="postcode" id="field8">
+                    </div>
+                  </div>
+                </div>
+                <input class="mt-20 btn btn--medium btn--shadowed-light" type="submit" value="Delete User">
+              </div>
+            </div>
+            <!-- END tab Profile -->
+
+            <!-- tab Documents -->
+            <div class="tab-body" id="documents">
+              <div class="dashboard-group">
+                <h2 class="h4 headline-mb primary-color">Identification:</h2>
+                <div class="row">
+                  <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                      <label class="field-label" for="field9">Passport/ID/Driver's license:</label>
+                      <input class="input-field" type="text" name="government" id="field9">
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                      <label class="field-label" for="field10">Passport / ID expiry date:</label>
+                      <div class="date-picker-wrap">
+                        <input class="input-field date-picker-inp" type="text" name="expiry" id="field10" data-toggle="datepicker">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                      <label class="field-label" for="field11">Date of birth:</label>
+                      <div class="date-picker-wrap">
+                        <input class="input-field date-picker-inp" type="text" name="birth" id="field11" data-toggle="datepicker">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-sm-6">
+                    <div class="form-group">
+                      <label class="field-label" for="field12">Country of birth:</label>
+                      <input class="input-field" type="text" name="country-birth" id="field12">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dashboard-group-lg">
+                <h2 class="h4 headline-mb">Passport/ID/Driver's license:</h2>
+                <div class="row">
+                  <div class="col-md-5">
+                    <img src="images/id.jpg" alt="Verification Doc">
+                  </div>
+                  <div class="col-md-3 col-sm-4 col-5 text-center mb-20">
+                    <button type="button" class="mt-40 mb-20 btn btn--medium btn--shadowed-light btn--full-w">Decline</button>
+                    <button type="button" class="mb-20 btn btn--medium btn--shadowed-light btn--full-w">Approve</button>
+                    <a href="" class="text-lg">View</a>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="field-label" for="field12">Reason:</label>
+                      <input class="input-field" type="text" name="reason" id="field12">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dashboard-group">
+                <h2 class="h4 headline-mb">Proof of address:</h2>
+                <div class="row">
+                  <div class="col-md-5">
+                    <img src="images/proof-address.jpg" alt="Verification Doc">
+                  </div>
+                  <div class="col-md-3 col-sm-4 col-5 text-center mb-20">
+                    <button type="button" class="mt-40 mb-20 btn btn--medium btn--shadowed-light btn--full-w">Decline</button>
+                    <button type="button" class="mb-20 btn btn--medium btn--shadowed-light btn--full-w">Approve</button>
+                    <a href="" class="text-lg">View</a>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="field-label" for="field13">Reason:</label>
+                      <input class="input-field" type="text" name="reason" id="field13">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END tab Documents -->
+
+            <!-- tab Account & Wallets -->
+            <div class="tab-body" id="account-wallets">
+              <div class="dashboard-row dashboard-group-lg">
+                <div class="dashboard-left">
+                  <div class="dashboard-group">
+                    <div class="table-responsive-500">
+                      <table class="table-transparent">
+                        <thead>
+                          <tr>
+                            <th width="25%">Total ZNX</th>
+                            <th width="25%">Referal bonus (ZNX)</th>
+                            <th width="25%">Commission (BTC)</th>
+                            <th width="25%">Commission (ETH)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="dashboard-right">
+                  <div class="dashboard-group">
+                    <div class="table-responsive-500">
+                      <table class="table-transparent">
+                        <thead>
+                          <tr>
+                            <th width="33.333%">ZNX bonus - Referral signup</th>
+                            <th width="33.333%">Referral transactions</th>
+                            <th width="33.333%">Debit card pre-order</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="field-label" for="field28">Referrer:</label>
+                    <input class="input-field" type="text" name="" id="field28" readonly value="lorem ipsum">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="dashboard-group-sm">
+                    <label for="field23" class="field-label">Ethereum Wallet:</label>
+                    <div class="row row-middle">
+                      <div class="col-lg-7 col-md-7">
+                        <div class="field-group">
+                          <input class="input-field" type="text" name="purchase" id="field23">
+                        </div>
+                      </div>
+                      <div class="col-lg-5 col-md-5">
+                        <button type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">Change Address</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="dashboard-group-sm">
+                    <label for="field24" class="field-label">Bitcoin Wallet:</label>
+                    <div class="row row-middle">
+                      <div class="col-lg-7 col-md-7">
+                        <div class="field-group">
+                          <input class="input-field" type="text" name="purchase" id="field24">
+                        </div>
+                      </div>
+                      <div class="col-lg-5 col-md-5">
+                        <button type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">Change Address</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="dashboard-group-sm">
+                    <label for="field25" class="field-label">Zantecoin Wallet:</label>
+                    <div class="row row-middle">
+                      <div class="col-lg-7 col-md-7">
+                        <div class="field-group">
+                          <input class="input-field" type="text" name="purchase" id="field25">
+                        </div>
+                      </div>
+                      <div class="col-lg-5 col-md-5">
+                        <button type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">Change Address</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- END tab Account & Wallets -->
+          </div>
+        </form>
+
+      </div>
+    </main>
+
+    
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+  </body>
+</html>

@@ -46,7 +46,14 @@
     left -5px
   &:after
     right -5px
-  
+
+.col-vertical-line-right
+  padding-left 60px
+  border-left 1px solid $primary-color
+  @media screen and (max-width 575px)
+    padding-left 15px
+    border-left none
+
 .noscroll
   @media screen and (min-width 768px)
     overflow-y hidden !important
