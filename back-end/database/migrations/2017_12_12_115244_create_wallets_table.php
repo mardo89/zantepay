@@ -17,6 +17,12 @@ class CreateWalletsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->float('znx_amount', 8, 2)->default(0);
+            $table->float('rs_bonus', 8, 2)->default(0);
+            $table->float('rt_bonus', 8, 2)->default(0);
+            $table->float('dc_bonus', 8, 2)->default(0);
+            $table->string('btc_wallet', 150)->nullable();
+            $table->string('eth_wallet', 150)->nullable();
+            $table->string('znx_wallet', 150)->nullable();
             $table->timestamps();
         });
     }

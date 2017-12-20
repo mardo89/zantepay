@@ -81,6 +81,21 @@ $(document).ready(function () {
         });
     }
 
+    // Tabs
+    $(document).on('click', '.tabs-head a', function(e) {
+        e.preventDefault();
+        var thisHref = $(this).attr('href');
+        $('.tabs-head li').removeClass('is-active');
+        $('.tab-body').removeClass('is-active');
+        $(this).parent().addClass('is-active');
+        $(thisHref).addClass('is-active');
+        if ( thisHref != '#profile') {
+            $('.dashboard-top-panel-row .form-group').hide();
+        } else {
+            $('.dashboard-top-panel-row .form-group').show();
+        }
+    });
+
     // Logout
     $('#logout-btn').on('click', function (event) {
         event.preventDefault();
@@ -98,31 +113,27 @@ $(document).ready(function () {
             )
     });
 
-    // Change role
-    $('#user-profile').on('submit', function (event) {
+    // Change user role
+    $('select[name="user-role"]').on('change', function (event) {
         event.preventDefault();
 
-        const button = $('#user-profile').find('button[type="submit"]');
-        showSpinner(button);
         clearErrors();
 
-        const user = {
+        const userInfo = {
             'uid': $('#user-profile-id').val(),
-            'role': $('#user-profile select[name="role"]').val(),
+            'role': $(this).val(),
         }
 
         axios.post(
             '/admin/profile',
-            qs.stringify(user)
+            qs.stringify(userInfo)
         )
             .then(
                 () => {
-                    hideSpinner(button);
-
                     $.magnificPopup.open(
                         {
                             items: {
-                                src: '#profile-modal'
+                                src: '#save-profile-modal'
                             },
                             type: 'inline',
                             closeOnBgClick: true
@@ -132,33 +143,77 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    hideSpinner(button);
-
-                    $('#user-profile select[name="role"]').parents('.form-group').addClass('form-error');
+                    $('#user-profile select[name="user-role"]').parents('.form-group').addClass('form-error');
 
                     const {message} = error.response.data;
 
                     showError(message)
                 }
             )
-
     });
 
-    // Approve document
-    $('.user-documents').on('submit', function (event) {
+    // Delete user
+    $('#remove-user').on('click', function (event) {
         event.preventDefault();
 
-        const button = $(this).find('button[type="submit"]');
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const userInfo = {
+            'uid': $('#user-profile-id').val(),
+        }
+
+        axios.post(
+            '/admin/profile/remove',
+            qs.stringify(userInfo)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#remove-profile-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true,
+                            callbacks: {
+                                close: function() {
+                                    window.location.pathname = '/admin/users'
+                                }
+                            }
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
+    });
+
+    // Approve documents
+    $('.approve-documents').on('click', function (event) {
+        event.preventDefault();
+
+        const button = $(this);
         showSpinner(button);
         clearErrors();
 
         const document = {
             'uid': $('#user-profile-id').val(),
-            'type': $(this).find('input[name="document-type"]').val(),
+            'type': $(this).parent().find('input[name="document-type"]').val(),
         }
 
         axios.post(
-            '/admin/document',
+            'document/approve',
             qs.stringify(document)
         )
             .then(
@@ -170,7 +225,54 @@ $(document).ready(function () {
                     $.magnificPopup.open(
                         {
                             items: {
-                                src: '#document-modal'
+                                src: '#approve-documents-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
+
+    });
+
+    // Decline documents
+    $('.decline-documents').on('click', function (event) {
+        event.preventDefault();
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const document = {
+            'uid': $('#user-profile-id').val(),
+            'type': $(this).parent().find('input[name="document-type"]').val(),
+            'reason': $(this).parents('.row').find('input[name="decline-reason"]').val()
+        }
+
+        axios.post(
+            'document/decline',
+            qs.stringify(document)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $(this).find('button[type="submit"]').remove();
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#decline-documents-modal'
                             },
                             type: 'inline',
                             closeOnBgClick: true

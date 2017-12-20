@@ -65,13 +65,17 @@ Route::group(['prefix' => 'user'], function () {
  */
 Route::group(['prefix' => 'admin'], function () {
     Route::get('users', 'AdminController@users');
+
     Route::get('profile', 'AdminController@profile');
     Route::post('profile', 'AdminController@saveProfile');
+    Route::post('profile/remove', 'AdminController@removeProfile');
+
     Route::get('document', 'AdminController@document');
-    Route::post('document', 'AdminController@approveDocument');
-    Route::get('wallets', 'AdminController@wallets');
-    Route::get('wallet', 'AdminController@wallet');
-    Route::post('wallet', 'AdminController@updateZNXWallet');
+    Route::post('document/approve', 'AdminController@approveDocument');
+    Route::post('document/decline', 'AdminController@declineDocument');
+//    Route::get('wallets', 'AdminController@wallets');
+//    Route::get('wallet', 'AdminController@wallet');
+//    Route::post('wallet', 'AdminController@updateZNXWallet');
 
 });
 

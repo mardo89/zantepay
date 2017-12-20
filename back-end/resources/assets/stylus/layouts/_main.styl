@@ -112,6 +112,9 @@
 .dashboard-group
   margin-bottom 40px
 
+.dashboard-group-lg
+  margin-bottom 60px
+
 .dashboard-group-md
   margin-bottom 30px
 
@@ -226,3 +229,49 @@
   margin-top 30px
   hr
     margin 40px 0
+
+.dashboard-top-panel
+  position relative
+  margin-bottom 70px
+  .back-arrow
+    position absolute
+    top 50%
+    transform translateY(-50%)
+    left -90px
+    @media screen and (max-width 1320px)
+      position static
+      margin-bottom 20px
+      transform none
+  .form-group
+    margin 0
+    width 100%
+    max-width 200px
+    @media screen and (max-width 767px)
+      margin-top 30px
+
+.dashboard-top-panel-row
+  display flex
+  min-height 82px
+  align-items center
+  justify-content space-between
+  @media screen and (max-width 767px)
+    display block
+    margin-top 30px
+
+.tabs-head
+  clearlist()
+  clearfix()
+  display inline-block
+  li
+    float left
+    padding-right 40px
+    a
+      color $font-color
+    &.is-active
+      a
+        color $primary-color
+
+.tab-body
+  display none
+  &.is-active
+    display block

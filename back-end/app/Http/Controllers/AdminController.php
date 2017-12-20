@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Currency;
 use App\Models\DebitCard;
 use App\Models\Document;
+use App\Models\Invite;
+use App\Models\Profile;
+use App\Models\State;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Verification;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Mockery\Exception;
+use Psy\Util\Json;
 
 
 class AdminController extends Controller
@@ -85,7 +92,6 @@ class AdminController extends Controller
         );
     }
 
-
     /**
      * User profile
      *
@@ -103,50 +109,45 @@ class AdminController extends Controller
             return redirect('admin/users');
         }
 
-        // USER Profile
-        $userProfile = [
-            'uid' => $user->uid,
-            'email' => $user->email,
-            'name' => $user->first_name . ' ' . $user->last_name,
-            'role' => $user->role
-        ];
+        $profile = $user->profile;
 
-        // USER Referrer
-        $referrer = User::find($user->referrer);
+        $profile->passportExpDate = is_null($profile->passport_expiration_date)
+            ? ''
+            : date('m/d/Y', strtotime($profile->passport_expiration_date));
 
-        if (!is_null($referrer)) {
-            $userReferrer = [
-                'email' => $referrer->email,
-                'name' => $referrer->first_name . ' ' . $referrer->last_name,
-                'role' => User::getRole($referrer->role)
-            ];
-        } else {
-            $userReferrer = null;
-        }
+        $profile->birthDate = is_null($profile->birth_date)
+            ? ''
+            : date('m/d/Y', strtotime($profile->birth_date));
 
-        // USER Referrals
-        $userReferrals = [];
+        $country = Country::find($profile->country_id);
+        $profile->countryName = !is_null($country) ? $country->name : '';
 
-        foreach ($user->referrals as $referral) {
-            $userName = ($referral->first_name != '' && $referral->last_name != '')
-                ? $referral->first_name . ' ' . $referral->last_name
-                : $referral->email;
+        $state = State::find($profile->state_id);
+        $profile->stateName = !is_null($state) ? $state->name : '';
 
-            $userReferrals[] = [
-                'name' => $userName,
-                'status' => User::getStatus($referral->status),
-            ];
-        }
+        $verification = $user->verification;
 
-        // Debit Card
-        $debitCard = DebitCard::where('user_id', $user->id)->first();
+        $verification->idStatusName = $verification->id_documents_status != Verification::DOCUMENTS_DECLINED
+            ? Verification::getStatus($verification->id_documents_status)
+            : Verification::getStatus($verification->id_documents_status) . ' - ' . $verification->id_decline_reason;
 
-        if (!is_null($debitCard)) {
-            $userDebitCard = $debitCard->design;
-        } else {
-            $userDebitCard = null;
-        }
+        $verification->addressStatusName = $verification->address_documents_status != Verification::DOCUMENTS_DECLINED
+            ? Verification::getStatus($verification->address_documents_status)
+            : Verification::getStatus($verification->address_documents_status) . ' - ' . $verification->address_decline_reason;
 
+//        // USER Referrals
+//        $userReferrals = [];
+//
+//        foreach ($user->referrals as $referral) {
+//            $userName = ($referral->first_name != '' && $referral->last_name != '')
+//                ? $referral->first_name . ' ' . $referral->last_name
+//                : $referral->email;
+//
+//            $userReferrals[] = [
+//                'name' => $userName,
+//                'status' => User::getStatus($referral->status),
+//            ];
+//        }
 
         // Documents
         $userIDDocuments = [];
@@ -168,20 +169,40 @@ class AdminController extends Controller
             }
         }
 
+        // USER Referrer
+        $referrerEmail = '';
+
+        if (!is_null($user->referrer)) {
+            $referrer = User::find($user->referrer);
+
+            $referrerEmail = is_null($referrer) ? 'User deleted' : $referrer->email;
+        }
+
+        // Debit Card
+        $debitCard = DebitCard::where('user_id', $user->id)->first();
+
+        if (!is_null($debitCard)) {
+            $userDebitCard = $debitCard->design;
+        } else {
+            $userDebitCard = null;
+        }
+
+        $wallet = $user->wallet;
+
         // Roles list
         $rolesList = User::getRolesList();
 
         return view(
             'admin.profile',
             [
-                'profile' => $userProfile,
-                'referrer' => $userReferrer,
-                'referrals' => $userReferrals,
-                'debitCard' => $userDebitCard,
+                'user' => $user,
+                'profile' => $profile,
+                'verification' => $verification,
                 'idDocuments' => $userIDDocuments,
-                'idDocumentsApproved' => $user->status === User::USER_STATUS_IDENTITY_VERIFIED || $user->status === User::USER_STATUS_VERIFIED,
                 'addressDocuments' => $userAddressDocuments,
-                'addressDocumentsApproved' => $user->status === User::USER_STATUS_ADDRESS_VERIFIED || $user->status === User::USER_STATUS_VERIFIED,
+                'referrer' => $referrerEmail,
+                'debitCard' => $userDebitCard,
+                'wallet' => $wallet,
                 'userRoles' => $rolesList
             ]
         );
@@ -221,12 +242,74 @@ class AdminController extends Controller
         );
     }
 
+
     /**
-     * Save user profile
+     * Remove user with all data
      *
      * @param Request $request
      *
      * @return View
+     */
+    public function removeProfile(Request $request)
+    {
+        $this->validate($request, [
+            'uid' => 'required|string',
+        ]);
+
+        $user = User::where('uid', $request->uid)->first();
+
+        if (is_null($user)) {
+            return response()->json(
+                [
+                    'message' => 'User does not exist',
+                    'errors' => ['Error deleting user']
+                ],
+                422
+            );
+        }
+
+        DB::beginTransaction();
+
+        try {
+            Profile::where('user_id', $user->id)->delete();
+            Invite::where('user_id', $user->id)->delete();
+            DebitCard::where('user_id', $user->id)->delete();
+            Document::where('user_id', $user->id)->delete();
+            Verification::where('user_id', $user->id)->delete();
+
+            $wallet = $user->wallet;
+            Transaction::where('wallet_id', $wallet->id)->delete();
+            Wallet::where('user_id', $user->id)->delete();
+
+            $user->delete();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error deleting user',
+                    'errors' => ['An error occurred']
+                ],
+                422
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
+        );
+    }
+
+
+    /**
+     * Approve document
+     *
+     * @param Request $request
+     *
+     * @return Json
      */
     public function approveDocument(Request $request)
     {
@@ -247,25 +330,125 @@ class AdminController extends Controller
             );
         }
 
-        if ($request->type == Document::DOCUMENT_TYPE_IDENTITY) {
-            if ($user->status == User::USER_STATUS_NOT_VERIFIED) {
-                $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
-            }
+        DB::beginTransaction();
 
-            if ($user->status == User::USER_STATUS_ADDRESS_VERIFIED) {
-                $user->status = User::USER_STATUS_VERIFIED;
-            }
-        } else {
-            if ($user->status == User::USER_STATUS_NOT_VERIFIED) {
+        try {
+            $verification = $user->verification;
+
+            if ($request->type == Document::DOCUMENT_TYPE_IDENTITY) {
+                $verification->id_documents_status = Verification::DOCUMENTS_APPROVED;
+                $verification->id_decline_reason = '';
+
+                $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
+            } else {
+                $verification->address_documents_status = Verification::DOCUMENTS_APPROVED;
+                $verification->address_decline_reason = '';
+
                 $user->status = User::USER_STATUS_ADDRESS_VERIFIED;
             }
 
-            if ($user->status == User::USER_STATUS_IDENTITY_VERIFIED) {
+            $verification->save();
+
+            $verificationComplete = $verification->id_documents_status == Verification::DOCUMENTS_APPROVED
+                && $verification->address_documents_status == Verification::DOCUMENTS_APPROVED;
+
+            if ($verificationComplete) {
                 $user->status = User::USER_STATUS_VERIFIED;
             }
+
+            $user->save();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error approving documents',
+                    'errors' => ['Error approving documents']
+                ],
+                422
+            );
+
         }
 
-        $user->save();
+        DB::commit();
+
+        return response()->json(
+            [
+                'status' => $user->status
+            ]
+        );
+    }
+
+    /**
+     * Decline document
+     *
+     * @param Request $request
+     *
+     * @return Json
+     */
+    public function declineDocument(Request $request)
+    {
+        $this->validate($request, [
+            'uid' => 'required|string',
+            'type' => 'required|integer',
+            'reason' => 'string|nullable',
+        ]);
+
+        $user = User::where('uid', $request->uid)->first();
+
+        if (is_null($user)) {
+            return response()->json(
+                [
+                    'message' => 'User does not exist',
+                    'errors' => ['Error approving documents.']
+                ],
+                422
+            );
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $verification = $user->verification;
+
+            if ($request->type == Document::DOCUMENT_TYPE_IDENTITY) {
+                $verification->id_documents_status = Verification::DOCUMENTS_DECLINED;
+                $verification->id_decline_reason = $request->reason;
+
+                $user->status = User::USER_STATUS_ADDRESS_VERIFIED;
+            } else {
+                $verification->address_documents_status = Verification::DOCUMENTS_DECLINED;
+                $verification->address_decline_reason = $request->reason;
+
+                $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
+            }
+
+            $verification->save();
+
+            $verificationComplete = $verification->id_documents_status != Verification::DOCUMENTS_APPROVED
+                && $verification->address_documents_status != Verification::DOCUMENTS_APPROVED;
+
+            if ($verificationComplete) {
+                $user->status = User::USER_STATUS_NOT_VERIFIED;
+            }
+
+            $user->save();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error approving documents',
+                    'errors' => ['Error approving documents']
+                ],
+                422
+            );
+
+        }
+
+        DB::commit();
 
         return response()->json(
             [
@@ -320,7 +503,7 @@ class AdminController extends Controller
             $dcDesign = DebitCard::getDesign(DebitCard::DESIGN_NOT_SELECTED);
 
             if (!is_null($debitCard)) {
-               $dcDesign = DebitCard::getDesign($debitCard->design);
+                $dcDesign = DebitCard::getDesign($debitCard->design);
             }
 
             $usersList[] = [

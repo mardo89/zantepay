@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ActivateAccount;
 use App\Models\Profile;
+use App\Models\Verification;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -162,6 +163,12 @@ class AuthController extends Controller
         $user = User::create($userInfo);
 
         Profile::create(
+            [
+                'user_id' => $user['id']
+            ]
+        );
+
+        Verification::create(
             [
                 'user_id' => $user['id']
             ]

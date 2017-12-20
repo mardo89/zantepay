@@ -62,6 +62,36 @@
 
 @section('main')
     <main class="main main-lp">
+        <section class="lp-section-artifical white-content">
+            <div class="container">
+                <h3 class="h2 headline">Artificial intelligence <span>at core</span></h3>
+                <div class="row">
+                    <div class="col-lg-7 col-md-6">
+                        <div class="lp-head">
+                            <img class="lp-head-img" src="images/head.png" srcset="images/head@2x.png 2x" alt="Artificial intelligence at core">
+                            <img class="lp-head-lines" src="images/head-lines.png" srcset="images/head-lines@2x.png 2x" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6 lp-head-text">
+                        <ul class="lp-features-list styl-list">
+                            <li><span>Live chat</span><i class="sprite sprite-chat-icon"></i></li>
+                            <li><span>Facebook messenger</span><i class="sprite sprite-messenger-icon"></i></li>
+                            <li><span>FAQ</span><i class="sprite sprite-faq-icon"></i></li>
+                            <li><span>KYC</span><i class="sprite sprite-kyc-icon"></i></li>
+                            <li><span>Email</span><i class="sprite sprite-email-icon"></i></li>
+                            <li><span>Marketing analysis</span><i class="sprite sprite-analysis-icon"></i></li>
+                            <li><span>Twitter</span><i class="sprite sprite-twitter-icon"></i></li>
+                        </ul>
+                        <p>
+                            <span class="h4 primary-color text-uppercase">OUR ULTIMATE GOAL IS</span>
+                            <br />
+                            To build the multiwallet where all <br/> the processes are managed by AI
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">

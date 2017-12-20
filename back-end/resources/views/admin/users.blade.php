@@ -10,7 +10,7 @@
     <main class="main main-dashboard">
         <div class="container">
             <form action="">
-                <div class="dashboard-group-sm">
+                <div class="dashboard-group">
                     <div class="row">
                         <div class="col-lg-5 col-sm-4 mb-20">
                             <h2 class="h4 headline-mb">User role:</h2>
@@ -26,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-sm-4 mb-20">
+                        <div class="col-lg-3 col-sm-4 mb-20 col-vertical-line-right">
                             <h2 class="h4 headline-mb">Is referrer:</h2>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -46,14 +46,14 @@
                     </div>
                 </div>
 
-                <div class="dashboard-group-sm">
+                <div class="dashboard-group">
                     <div class="row">
 
                         <div class="col-lg-12 col-sm-4 mb-20">
                             <h2 class="h4 headline-mb">User status:</h2>
                             <div class="row">
                                 @foreach($statuses as $status)
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="checkbox">
                                             <input type="checkbox" name="status-filter" id="{{ "sf" . $status['id'] }}" value="{{ $status['name'] }}" checked>
                                             <label for="{{ "sf" . $status['id'] }}">{{ $status['name'] }}</label>
@@ -80,14 +80,13 @@
             </form>
 
             <div class="table-responsive-500">
-                <table id="users-list" class="table-black table">
+                <table id="users-list" class="inv-table table-black">
                     <thead>
                     <tr>
-                        <th></th>
-                        <th>Email</th>
+                        <th colspan="2">Email</th>
                         <th>Name</th>
-                        <th width="110">Role</th>
-                        <th width="110">Status</th>
+                        <th>Role</th>
+                        <th>Status</th>
                         <th width="100">Referrer</th>
                     </tr>
                     </thead>
@@ -100,14 +99,14 @@
                                 </div>
                             </td>
                             <td>
-                                <a class="primary-color" href="{{ $user['profileLink'] }}" target="_blank">{{ $user['email'] }}</a>
+                                <a class="primary-color" href="{{ $user['profileLink'] }}">{{ $user['email'] }}</a>
                             </td>
                             <td> {{ $user['name'] }} </td>
                             <td> {{ $user['role'] }} </td>
                             <td> {{ $user['status'] }} </td>
                             <td>
                                 @if ($user['referrerLink'] != '')
-                                    <a class="primary-color" href="{{ $user['referrerLink'] }}" target="_blank">{{ $user['referrerEmail'] }}</a>
+                                    <a class="primary-color" href="{{ $user['referrerLink'] }}">{{ $user['referrerEmail'] }}</a>
                                 @endif
                             </td>
                         </tr>
