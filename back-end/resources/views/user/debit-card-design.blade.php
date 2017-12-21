@@ -38,7 +38,7 @@
                     <div class="col-md-6 col-xl-5 offset-xl-1">
                         <div class="card-wrap">
                             <div class="radio-button">
-                                <input type="radio" name="card-type" value="0" id="radio1" checked>
+                                <input type="radio" name="card-type" value="{{ \App\Models\DebitCard::DESIGN_WHITE }}" id="radio1" checked>
                                 <label for="radio1">
                                     <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x" alt="White Visa Debit Card">
                                 </label>
@@ -56,7 +56,7 @@
                     <div class="col-md-6 col-xl-5">
                         <div class="card-wrap">
                             <div class="radio-button">
-                                <input type="radio" name="card-type" value="1" id="radio2">
+                                <input type="radio" name="card-type" value="{{ \App\Models\DebitCard::DESIGN_RED }}" id="radio2">
                                 <label for="radio2">
                                     <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x" alt="Red Visa Debit Card">
                                 </label>

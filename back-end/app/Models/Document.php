@@ -10,7 +10,6 @@ class Document extends Model
      * Document types
      */
     const DOCUMENT_TYPE_IDENTITY = 0;
-
     const DOCUMENT_TYPE_ADDRESS = 1;
 
     /**

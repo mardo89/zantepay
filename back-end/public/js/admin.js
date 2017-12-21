@@ -29971,6 +29971,21 @@ $(document).ready(function () {
         });
     }
 
+    // Tabs
+    $(document).on('click', '.tabs-head a', function (e) {
+        e.preventDefault();
+        var thisHref = $(this).attr('href');
+        $('.tabs-head li').removeClass('is-active');
+        $('.tab-body').removeClass('is-active');
+        $(this).parent().addClass('is-active');
+        $(thisHref).addClass('is-active');
+        if (thisHref != '#profile') {
+            $('.dashboard-top-panel-row .form-group').hide();
+        } else {
+            $('.dashboard-top-panel-row .form-group').show();
+        }
+    });
+
     // Logout
     $('#logout-btn').on('click', function (event) {
         event.preventDefault();
@@ -29980,33 +29995,27 @@ $(document).ready(function () {
         });
     });
 
-    // Change role
-    $('#user-profile').on('submit', function (event) {
+    // Change user role
+    $('select[name="user-role"]').on('change', function (event) {
         event.preventDefault();
 
-        var button = $('#user-profile').find('button[type="submit"]');
-        showSpinner(button);
         clearErrors();
 
-        var user = {
+        var userInfo = {
             'uid': $('#user-profile-id').val(),
-            'role': $('#user-profile select[name="role"]').val()
+            'role': $(this).val()
         };
 
-        axios.post('/admin/profile', qs.stringify(user)).then(function () {
-            hideSpinner(button);
-
+        axios.post('/admin/profile', qs.stringify(userInfo)).then(function () {
             $.magnificPopup.open({
                 items: {
-                    src: '#profile-modal'
+                    src: '#save-profile-modal'
                 },
                 type: 'inline',
                 closeOnBgClick: true
             });
         }).catch(function (error) {
-            hideSpinner(button);
-
-            $('#user-profile select[name="role"]').parents('.form-group').addClass('form-error');
+            $('#user-profile select[name="user-role"]').parents('.form-group').addClass('form-error');
 
             var message = error.response.data.message;
 
@@ -30015,29 +30024,104 @@ $(document).ready(function () {
         });
     });
 
-    // Approve document
-    $('.user-documents').on('submit', function (event) {
+    // Delete user
+    $('#remove-user').on('click', function (event) {
+        event.preventDefault();
+
+        var button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        var userInfo = {
+            'uid': $('#user-profile-id').val()
+        };
+
+        axios.post('/admin/profile/remove', qs.stringify(userInfo)).then(function () {
+            hideSpinner(button);
+
+            $.magnificPopup.open({
+                items: {
+                    src: '#remove-profile-modal'
+                },
+                type: 'inline',
+                closeOnBgClick: true,
+                callbacks: {
+                    close: function close() {
+                        window.location.pathname = '/admin/users';
+                    }
+                }
+            });
+        }).catch(function (error) {
+            hideSpinner(button);
+
+            var message = error.response.data.message;
+
+
+            showError(message);
+        });
+    });
+
+    // Approve documents
+    $('.approve-documents').on('click', function (event) {
         var _this = this;
 
         event.preventDefault();
 
-        var button = $(this).find('button[type="submit"]');
+        var button = $(this);
         showSpinner(button);
         clearErrors();
 
         var document = {
             'uid': $('#user-profile-id').val(),
-            'type': $(this).find('input[name="document-type"]').val()
+            'type': $(this).parent().find('input[name="document-type"]').val()
         };
 
-        axios.post('/admin/document', qs.stringify(document)).then(function () {
+        axios.post('document/approve', qs.stringify(document)).then(function () {
             hideSpinner(button);
 
             $(_this).find('button[type="submit"]').remove();
 
             $.magnificPopup.open({
                 items: {
-                    src: '#document-modal'
+                    src: '#approve-documents-modal'
+                },
+                type: 'inline',
+                closeOnBgClick: true
+            });
+        }).catch(function (error) {
+            hideSpinner(button);
+
+            var message = error.response.data.message;
+
+
+            showError(message);
+        });
+    });
+
+    // Decline documents
+    $('.decline-documents').on('click', function (event) {
+        var _this2 = this;
+
+        event.preventDefault();
+
+        var button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        var document = {
+            'uid': $('#user-profile-id').val(),
+            'type': $(this).parent().find('input[name="document-type"]').val(),
+            'reason': $(this).parents('.row').find('input[name="decline-reason"]').val()
+        };
+
+        axios.post('document/decline', qs.stringify(document)).then(function () {
+            hideSpinner(button);
+
+            $(_this2).find('button[type="submit"]').remove();
+
+            $.magnificPopup.open({
+                items: {
+                    src: '#decline-documents-modal'
                 },
                 type: 'inline',
                 closeOnBgClick: true
@@ -30143,11 +30227,11 @@ $(document).ready(function () {
         });
     });
 
-    // Update ZNX wallet
-    $('#user-wallet').on('submit', function (event) {
+    // Add ZNX ammount
+    $('#add-znx').on('click', function (event) {
         event.preventDefault();
 
-        var button = $('#user-profile').find('button[type="submit"]');
+        var button = $(this);
         showSpinner(button);
         clearErrors();
 
@@ -30156,16 +30240,15 @@ $(document).ready(function () {
             'amount': $('input[name="znx-amount"]').val()
         };
 
-        axios.post('/admin/wallet', qs.stringify(user)).then(function (response) {
+        axios.post('/admin/wallet/znx', qs.stringify(user)).then(function (response) {
             hideSpinner(button);
 
             $('input[name="znx-amount"]').val('');
-
-            $('#wallet-transactions tbody').prepend($('<tr />').append($('<td>').html(response.data.date)).append($('<td>').html(response.data.currency)).append($('<td>').html(response.data.amount)).append($('<td>').html(response.data.manager)));
+            $('#total-znx-amount').html(response.data.totalAmount);
 
             $.magnificPopup.open({
                 items: {
-                    src: '#wallet-modal'
+                    src: '#add-znx-modal'
                 },
                 type: 'inline',
                 closeOnBgClick: true
@@ -30174,6 +30257,44 @@ $(document).ready(function () {
             hideSpinner(button);
 
             $('input[name="znx-amount"]').parent().addClass('form-error');
+
+            var message = error.response.data.message;
+
+
+            showError(message);
+        });
+    });
+
+    // Update Wallet address
+    $('.update-wallet').on('click', function (event) {
+        var _this3 = this;
+
+        event.preventDefault();
+
+        var button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        var wallet = {
+            'uid': $('#user-profile-id').val(),
+            'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
+            'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val()
+        };
+
+        axios.post('/admin/wallet', qs.stringify(wallet)).then(function () {
+            hideSpinner(button);
+
+            $.magnificPopup.open({
+                items: {
+                    src: '#wallet-address-modal'
+                },
+                type: 'inline',
+                closeOnBgClick: true
+            });
+        }).catch(function (error) {
+            hideSpinner(button);
+
+            $(_this3).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
 
             var message = error.response.data.message;
 

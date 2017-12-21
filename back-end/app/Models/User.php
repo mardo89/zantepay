@@ -132,10 +132,17 @@ class User extends Authenticatable
     }
 
     /**
-     * Get user's Wallet
+     * Get user's Profile
      */
     public function profile() {
         return $this->hasOne('App\Models\Profile', 'user_id', 'id');
+    }
+
+    /**
+     * Get user's Verification info
+     */
+    public function verification() {
+        return $this->hasOne('App\Models\Verification', 'user_id', 'id');
     }
 
 }

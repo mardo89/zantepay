@@ -10,6 +10,7 @@ use App\Models\Invite;
 use App\Models\Profile;
 use App\Models\State;
 use App\Models\User;
+use App\Models\Verification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -46,11 +47,11 @@ class UserController extends Controller
         }
 
         $passportExpDate = is_null($profile->passport_expiration_date)
-            ? date('m/d/Y')
+            ? ''
             : date('m/d/Y', strtotime($profile->passport_expiration_date));
 
         $birthDate = is_null($profile->birth_date)
-            ? date('m/d/Y')
+            ? ''
             : date('m/d/Y', strtotime($profile->birth_date));
 
         $userProfile = [
@@ -437,6 +438,8 @@ class UserController extends Controller
             );
         }
 
+        DB::beginTransaction();
+
         try {
             $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->get();
 
@@ -466,7 +469,14 @@ class UserController extends Controller
                 );
             }
 
+            // Verification
+            $verification = $user->verification;
+            $verification->id_documents_status = Verification::DOCUMENTS_UPLOADED;
+            $verification->id_decline_reason = '';
+            $verification->save();
+
         } catch (\Exception $e) {
+            DB::rollback();
 
             return response()->json(
                 [
@@ -477,6 +487,8 @@ class UserController extends Controller
             );
 
         }
+
+        DB::commit();
 
         return response()->json(
             [
@@ -551,6 +563,8 @@ class UserController extends Controller
             );
         }
 
+        DB::beginTransaction();
+
         try {
             $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->get();
 
@@ -580,7 +594,14 @@ class UserController extends Controller
                 );
             }
 
+            // Verification
+            $verification = $user->verification;
+            $verification->address_documents_status = Verification::DOCUMENTS_UPLOADED;
+            $verification->address_decline_reason = '';
+            $verification->save();
+
         } catch (\Exception $e) {
+            DB::rollback();
 
             return response()->json(
                 [
@@ -591,6 +612,8 @@ class UserController extends Controller
             );
 
         }
+
+        DB::commit();
 
         return response()->json(
             [
