@@ -2,7 +2,6 @@
 
 @section('main-menu')
     <li class="current-menu-item"><a href="users">Users</a></li>
-    <li><a href="wallets">Wallets</a></li>
 @endsection
 
 @section('content')
@@ -107,6 +106,8 @@
                             <td>
                                 @if ($user['referrerLink'] != '')
                                     <a class="primary-color" href="{{ $user['referrerLink'] }}">{{ $user['referrerEmail'] }}</a>
+                                    @else
+                                    {{ $user['referrerEmail'] }}
                                 @endif
                             </td>
                         </tr>

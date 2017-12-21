@@ -73,9 +73,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('document', 'AdminController@document');
     Route::post('document/approve', 'AdminController@approveDocument');
     Route::post('document/decline', 'AdminController@declineDocument');
-//    Route::get('wallets', 'AdminController@wallets');
-//    Route::get('wallet', 'AdminController@wallet');
-//    Route::post('wallet', 'AdminController@updateZNXWallet');
+
+    Route::post('wallet/znx', 'AdminController@addZNX');
+    Route::post('wallet', 'AdminController@updateWallet');
 
 });
 

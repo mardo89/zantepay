@@ -472,6 +472,7 @@ class UserController extends Controller
             // Verification
             $verification = $user->verification;
             $verification->id_documents_status = Verification::DOCUMENTS_UPLOADED;
+            $verification->id_decline_reason = '';
             $verification->save();
 
         } catch (\Exception $e) {
@@ -596,6 +597,7 @@ class UserController extends Controller
             // Verification
             $verification = $user->verification;
             $verification->address_documents_status = Verification::DOCUMENTS_UPLOADED;
+            $verification->address_decline_reason = '';
             $verification->save();
 
         } catch (\Exception $e) {

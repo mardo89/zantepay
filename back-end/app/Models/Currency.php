@@ -10,7 +10,7 @@ class Currency
      */
     const CURRENCY_TYPE_BTC = 0;
     const CURRENCY_TYPE_ETH = 1;
-    const CURRENCY_TYPE_ZNX = 3;
+    const CURRENCY_TYPE_ZNX = 2;
 
     /**
      * Get currency

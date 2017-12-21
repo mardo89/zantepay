@@ -45,6 +45,7 @@
                 </div>
 
                 <div class="tabs-wrap">
+                    <!-- tab Profile -->
                     <div class="tab-body is-active" id="profile">
                         <div class="dashboard-group-sm">
                             <div class="row">
@@ -125,6 +126,7 @@
                             <input id="remove-user" class="mt-20 btn btn--medium btn--shadowed-light" type="button" value="Delete User">
                         </div>
                     </div>
+                    <!-- END tab Profile -->
 
                     <!-- tab Documents -->
                     <div class="tab-body" id="documents">
@@ -269,7 +271,7 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td>{{ $wallet->znx_amount }}</td>
+                                                <td id="total-znx-amount">{{ $wallet->znx_amount }}</td>
                                                 <td>0</td>
                                                 <td>0</td>
                                             </tr>
@@ -286,11 +288,13 @@
                                                 <div class="row row-middle">
                                                     <div class="col-lg-7 col-md-7">
                                                         <div class="field-group">
-                                                            <input class="input-field" type="text" name="znx-amount" id="field24" placeholder="ZNX amount">
+                                                            <input class="input-field" type="text" name="znx-amount" id="field24"
+                                                                   placeholder="ZNX amount">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5">
-                                                        <button id="add-znx" type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
+                                                        <button id="add-znx" type="button"
+                                                                class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
                                                             Add ZNX
                                                         </button>
                                                     </div>
@@ -343,49 +347,61 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="dashboard-group-sm">
+                                <div class="dashboard-group-sm wallet-address-group">
                                     <label for="field24" class="field-label">Bitcoin Wallet:</label>
                                     <div class="row row-middle">
+                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Currency::CURRENCY_TYPE_BTC }}">
+
                                         <div class="col-lg-7 col-md-7">
                                             <div class="field-group">
-                                                <input class="input-field" type="text" name="purchase" id="field24">
+                                                <input class="input-field" type="text" name="wallet-address" id="field24"
+                                                       value="{{ $wallet->btc_wallet }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-5 col-md-5">
-                                            <button type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">Change
-                                                Address
+                                            <button type="button"
+                                                    class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">
+                                                Change Address
                                             </button>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="dashboard-group-sm">
+                                <div class="dashboard-group-sm wallet-address-group">
                                     <label for="field23" class="field-label">Ethereum Wallet:</label>
                                     <div class="row row-middle">
+                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Currency::CURRENCY_TYPE_ETH }}">
+
                                         <div class="col-lg-7 col-md-7">
                                             <div class="field-group">
-                                                <input class="input-field" type="text" name="purchase" id="field23">
+                                                <input class="input-field" type="text" name="wallet-address" id="field23"
+                                                       value="{{ $wallet->eth_wallet }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-5 col-md-5">
-                                            <button type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">Change
-                                                Address
+                                            <button type="button"
+                                                    class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">
+                                                Change Address
                                             </button>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="dashboard-group-sm">
+                                <div class="dashboard-group-sm wallet-address-group">
                                     <label for="field25" class="field-label">Zantecoin Wallet:</label>
                                     <div class="row row-middle">
+                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Currency::CURRENCY_TYPE_ZNX }}">
+
                                         <div class="col-lg-7 col-md-7">
                                             <div class="field-group">
-                                                <input class="input-field" type="text" name="purchase" id="field25">
+                                                <input class="input-field" type="text" name="wallet-address" id="field25"
+                                                       value="{{ $wallet->znx_wallet }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-5 col-md-5">
-                                            <button type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">Change
-                                                Address
+                                            <button type="button"
+                                                    class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">
+                                                Change Address
                                             </button>
                                         </div>
                                     </div>
@@ -444,12 +460,22 @@
         </div>
     </div>
 
-    <!-- Error saving profile confirmation -->
-    <div class="logon-modal mfp-hide" id="error-modal">
+    <!-- Add ZNX amount -->
+    <div class="logon-modal mfp-hide" id="add-znx-modal">
         <div class="logon-modal-container">
-            <h3 class="h4 error-message">ERROR!</h3>
+            <h3 class="h4">Added!</h3>
             <div class="logon-modal-text">
-                <p id="error-message"></p>
+                <p>You ZNX Wallet was successfully updated.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Wallet Address-->
+    <div class="logon-modal mfp-hide" id="wallet-address-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">Changed!</h3>
+            <div class="logon-modal-text">
+                <p>Your Wallet address was successfully changed.</p>
             </div>
         </div>
     </div>

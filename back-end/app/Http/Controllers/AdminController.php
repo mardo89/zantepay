@@ -41,7 +41,17 @@ class AdminController extends Controller
         $usersList = [];
 
         foreach (User::all() as $user) {
-            $referrer = User::find($user->referrer);
+            // USER Referrer
+            $referrerEmail = '';
+            $referrerLink = '';
+
+            if (!is_null($user->referrer)) {
+                $referrer = User::find($user->referrer);
+
+                $referrerEmail = is_null($referrer) ? 'User deleted' : $referrer->email;
+                $referrerLink = is_null($referrer) ? '' : action('AdminController@profile', ['uid' => $referrer->uid]);
+            }
+
 
             $usersList[] = [
                 'id' => $user->id,
@@ -52,8 +62,8 @@ class AdminController extends Controller
                 'role' => User::getRole($user->role),
                 'referrer' => $user->referrer,
                 'profileLink' => action('AdminController@profile', ['uid' => $user->uid]),
-                'referrerEmail' => !is_null($referrer) ? $referrer->email : '',
-                'referrerLink' => !is_null($referrer) ? action('AdminController@profile', ['uid' => $referrer->uid]) : '',
+                'referrerEmail' => $referrerEmail,
+                'referrerLink' => $referrerLink,
             ];
         }
 
@@ -109,6 +119,7 @@ class AdminController extends Controller
             return redirect('admin/users');
         }
 
+        // Profile
         $profile = $user->profile;
 
         $profile->passportExpDate = is_null($profile->passport_expiration_date)
@@ -125,6 +136,7 @@ class AdminController extends Controller
         $state = State::find($profile->state_id);
         $profile->stateName = !is_null($state) ? $state->name : '';
 
+        // Verification
         $verification = $user->verification;
 
         $verification->idStatusName = $verification->id_documents_status != Verification::DOCUMENTS_DECLINED
@@ -134,20 +146,6 @@ class AdminController extends Controller
         $verification->addressStatusName = $verification->address_documents_status != Verification::DOCUMENTS_DECLINED
             ? Verification::getStatus($verification->address_documents_status)
             : Verification::getStatus($verification->address_documents_status) . ' - ' . $verification->address_decline_reason;
-
-//        // USER Referrals
-//        $userReferrals = [];
-//
-//        foreach ($user->referrals as $referral) {
-//            $userName = ($referral->first_name != '' && $referral->last_name != '')
-//                ? $referral->first_name . ' ' . $referral->last_name
-//                : $referral->email;
-//
-//            $userReferrals[] = [
-//                'name' => $userName,
-//                'status' => User::getStatus($referral->status),
-//            ];
-//        }
 
         // Documents
         $userIDDocuments = [];
@@ -380,6 +378,7 @@ class AdminController extends Controller
         );
     }
 
+
     /**
      * Decline document
      *
@@ -457,6 +456,7 @@ class AdminController extends Controller
         );
     }
 
+
     /**
      * Show user document
      *
@@ -484,108 +484,6 @@ class AdminController extends Controller
         );
     }
 
-    /**
-     * Wallets list
-     *
-     * @return View
-     */
-    public function wallets()
-    {
-        $usersList = [];
-
-        $users = User::where('role', User::USER_ROLE_USER)->get();
-
-        foreach ($users as $user) {
-            $debitCard = DebitCard::where('user_id', $user->id)->first();
-
-            $wallet = $user->wallet;
-
-            $dcDesign = DebitCard::getDesign(DebitCard::DESIGN_NOT_SELECTED);
-
-            if (!is_null($debitCard)) {
-                $dcDesign = DebitCard::getDesign($debitCard->design);
-            }
-
-            $usersList[] = [
-                'id' => $user->id,
-                'email' => $user->email,
-                'debitCard' => $dcDesign,
-                'ztx' => $wallet->znx_amount,
-                'walletLink' => action('AdminController@wallet', ['uid' => $user->uid]),
-            ];
-        }
-
-        $dcList = DebitCard::getCardsList();
-
-        return view(
-            'admin.wallets',
-            [
-                'users' => $usersList,
-                'debitCards' => $dcList
-            ]
-        );
-    }
-
-    /**
-     * User wallet
-     *
-     * @param Request $request
-     *
-     * @return View
-     */
-    public function wallet(Request $request)
-    {
-        $userID = $request->uid;
-
-        $user = User::where('uid', $userID)->first();
-
-        if (!$user) {
-            return redirect('admin/wallets');
-        }
-
-        // USER Profile
-        $userProfile = [
-            'uid' => $user->uid,
-            'email' => $user->email,
-            'name' => $user->first_name . ' ' . $user->last_name,
-            'status' => User::getStatus($user->status)
-        ];
-
-        // Debit Card
-        $debitCard = DebitCard::where('user_id', $user->id)->first();
-
-        $dcDesign = DebitCard::DESIGN_NOT_SELECTED;
-
-        if (!is_null($debitCard)) {
-            $dcDesign = $debitCard->design;
-        }
-
-        $wallet = $user->wallet;
-
-        $walletTransactions = Transaction::where('wallet_id', $wallet->id)->orderBy('created_on', 'desc')->get();
-
-        $transactions = [];
-
-        foreach ($walletTransactions as $walletTransaction) {
-            $manager = User::find($walletTransaction->user_id);
-
-            $transactions[] = [
-                'date' => date('m-d-Y H:i:s', strtotime($walletTransaction->created_on)),
-                'currency' => Currency::getCurrency($walletTransaction->currency),
-                'amount' => $walletTransaction->amount,
-                'manager' => $manager->email
-            ];
-        }
-
-        return view(
-            'admin.wallet',
-            [
-                'profile' => $userProfile,
-                'debitCard' => $dcDesign,
-                'transactions' => $transactions
-            ]
-        );
-    }
 
     /**
      * Update ZNX amount
@@ -594,7 +492,7 @@ class AdminController extends Controller
      *
      * @return JSON
      */
-    public function updateZNXWallet(Request $request)
+    public function addZNX(Request $request)
     {
         $this->validate(
             $request,
@@ -619,7 +517,7 @@ class AdminController extends Controller
             $wallet->znx_amount += $request->amount;
             $wallet->save();
 
-            $transactionInfo = Transaction::create(
+            Transaction::create(
                 [
                     'wallet_id' => $wallet->id,
                     'currency' => Currency::CURRENCY_TYPE_ZNX,
@@ -642,15 +540,77 @@ class AdminController extends Controller
 
         DB::commit();
 
-        $walletTransaction = Transaction::find($transactionInfo['id']);
-
         return response()->json(
             [
-                'date' => date('m-d-Y H:i:s', strtotime($walletTransaction->created_on)),
-                'currency' => Currency::getCurrency($walletTransaction->currency),
-                'amount' => $walletTransaction->amount,
-                'manager' => Auth::user()->email
+                'totalAmount' => $wallet->znx_amount
             ]
+        );
+    }
+
+    /**
+     * Update wallet link
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function updateWallet(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'uid' => 'required|string',
+                'currency' => 'required|numeric',
+                'address' => 'string|nullable',
+            ]
+        );
+
+        $userID = $request->uid;
+
+        $user = User::where('uid', $userID)->first();
+
+        if (!$user) {
+            return redirect('admin/users');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $wallet = $user->wallet;
+
+            switch ($request->currency) {
+                case Currency::CURRENCY_TYPE_BTC:
+                    $wallet->btc_wallet = $request->address;
+                    break;
+
+                case Currency::CURRENCY_TYPE_ETH:
+                    $wallet->eth_wallet = $request->address;
+                    break;
+
+                case Currency::CURRENCY_TYPE_ZNX:
+                    $wallet->znx_wallet = $request->address;
+                    break;
+            }
+
+            $wallet->save();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => $e->getMessage(),//'Error updating ZNX amount',
+                    'errors' => ['An error occurred']
+                ],
+                422
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
         );
     }
 
