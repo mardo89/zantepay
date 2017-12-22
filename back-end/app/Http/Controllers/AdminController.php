@@ -41,17 +41,9 @@ class AdminController extends Controller
         $usersList = [];
 
         foreach (User::all() as $user) {
-            // USER Referrer
-            $referrerEmail = '';
-            $referrerLink = '';
 
-            if (!is_null($user->referrer)) {
-                $referrer = User::find($user->referrer);
-
-                $referrerEmail = is_null($referrer) ? 'User deleted' : $referrer->email;
-                $referrerLink = is_null($referrer) ? '' : action('AdminController@profile', ['uid' => $referrer->uid]);
-            }
-
+            // Referrals
+            $isReferrer = User::where('referrer', $user->id)->count() != 0;
 
             $usersList[] = [
                 'id' => $user->id,
@@ -60,10 +52,8 @@ class AdminController extends Controller
                 'avatar' => !is_null($user->avatar) ? $user->avatar : '/images/avatar.png',
                 'status' => User::getStatus($user->status),
                 'role' => User::getRole($user->role),
-                'referrer' => $user->referrer,
+                'isReferrer' => $isReferrer,
                 'profileLink' => action('AdminController@profile', ['uid' => $user->uid]),
-                'referrerEmail' => $referrerEmail,
-                'referrerLink' => $referrerLink,
             ];
         }
 
@@ -188,7 +178,7 @@ class AdminController extends Controller
         $wallet = $user->wallet;
 
         // Roles list
-        $rolesList = User::getRolesList();
+        $rolesList = ($user->id == Auth::user()->id) ? [] : User::getRolesList();
 
         return view(
             'admin.profile',

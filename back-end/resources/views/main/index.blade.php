@@ -139,7 +139,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-5 offset-lg-2 offset-md-1 lp-pre-ico-col">
-                        <h2 class="h2 headline">Pre - ICO Part I <span>1 ZNX=0.05€</span></h2>
+                        <h2 class="h2 headline">Pre - ICO Part I <span>1 ZNX=0.05€</span><span>1 ZNX = 0.00007ETH</span></h2>
                     </div>
                     <div class="col-md-5 text-center">
                         <div class="lp-progress-wrap">
@@ -175,7 +175,7 @@
                     </div>
                     <div class="col-md-6 vertical-middle-col content-center">
                         <div class="lp-content-col">
-                            <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>January 1st</span></h2>
+                            <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15th</span></h2>
                                 <p>Token distribution Debit Card pre-ordering start.</p>
                         </div>
                     </div>
@@ -188,8 +188,8 @@
                         </div>
                     </div>
                     <div class="col-md-6 vertical-middle-col">
-                        <div class="lp-content-col">
-                            <h3 class="h2 headline">Pre-ICO - ICO III Part <span>January - April</span></h2>
+                        <div class="lp-content-col" style="max-width: 450px;">
+                            <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - May 15th</span></h2>
                         </div>
                     </div>
                 </div>
@@ -749,7 +749,7 @@
                     </div>
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="text" name="amount" placeholder="Estimated Amount">
+                    <input class="logon-field" type="text" name="amount" placeholder="Estimated Amount (optional)">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe">

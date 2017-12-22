@@ -104,10 +104,8 @@
                             <td> {{ $user['role'] }} </td>
                             <td> {{ $user['status'] }} </td>
                             <td>
-                                @if ($user['referrerLink'] != '')
-                                    <a class="primary-color" href="{{ $user['referrerLink'] }}">{{ $user['referrerEmail'] }}</a>
-                                    @else
-                                    {{ $user['referrerEmail'] }}
+                                @if ($user['isReferrer'])
+                                    YES
                                 @endif
                             </td>
                         </tr>

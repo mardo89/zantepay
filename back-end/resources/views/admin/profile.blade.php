@@ -26,21 +26,23 @@
                                 <a href="#account-wallets">Account & Wallets</a>
                             </li>
                         </ul>
-                        <div class="form-group">
-                            <label class="field-label">Role:</label>
-                            <select name="user-role" class="input-field">
-                                @foreach($userRoles as $userRole)
-                                    <option
-                                            value="{{ $userRole['id'] }}"
-                                            @if($userRole['id'] == $user->role)
-                                            selected
-                                            @endif
-                                    >
-                                        {{ $userRole['name'] }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                        @if(count($userRoles) > 0)
+                            <div class="form-group">
+                                <label class="field-label">Role:</label>
+                                <select name="user-role" class="input-field">
+                                    @foreach($userRoles as $userRole)
+                                        <option
+                                                value="{{ $userRole['id'] }}"
+                                                @if($userRole['id'] == $user->role)
+                                                selected
+                                                @endif
+                                        >
+                                            {{ $userRole['name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
