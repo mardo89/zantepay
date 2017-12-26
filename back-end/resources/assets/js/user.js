@@ -92,6 +92,21 @@ $(document).ready(function () {
         });
     }
 
+    // Tabs
+    $(document).on('click', '.tabs-head a', function (e) {
+        e.preventDefault();
+        var thisHref = $(this).attr('href');
+        $('.tabs-head li').removeClass('is-active');
+        $('.tab-body').removeClass('is-active');
+        $(this).parent().addClass('is-active');
+        $(thisHref).addClass('is-active');
+        if (thisHref != '#profile') {
+            $('.dashboard-top-panel-row .form-group').hide();
+        } else {
+            $('.dashboard-top-panel-row .form-group').show();
+        }
+    });
+
     // Logout
     $('#logout-btn').on('click', function (event) {
         event.preventDefault();
@@ -112,10 +127,10 @@ $(document).ready(function () {
     });
 
     // Profile
-    $('#user-profile').on('submit', function (event) {
+    $('#save-profile').on('click', function (event) {
         event.preventDefault();
 
-        const button = $('#user-profile').find('button[type="submit"]');
+        const button = $(this);
         showSpinner(button);
 
         const profile = {
@@ -139,7 +154,7 @@ $(document).ready(function () {
             qs.stringify(profile)
         )
             .then(
-                response => {
+                () => {
                     hideSpinner(button);
 
                     $.magnificPopup.open(
@@ -169,7 +184,289 @@ $(document).ready(function () {
                     showError(message);
                 }
             )
+    });
 
+    // Profile Settings
+    $('.remove-document').on('click', function (event) {
+        event.preventDefault();
+
+        const file = {
+            'did': $(this).parents('li').attr('id'),
+        }
+
+        axios.post(
+            '/user/remove-document',
+            qs.stringify(file)
+        )
+            .then(
+                () => {
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#remove-document-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true,
+                            callbacks: {
+                                close: function () {
+                                    window.location.reload();
+                                }
+                            }
+
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    const {message} = error.response.data;
+
+                    showError(message);
+                }
+            )
+    });
+
+    $('#upload-identity-documents').on('submit', function (event) {
+        event.preventDefault();
+
+        let documents = new FormData();
+
+        let isFilesValid = true;
+
+        $.each(
+            $('#document-files')[0].files,
+            (index, file) => {
+                if (!validateFile(file)) {
+                    isFilesValid = false;
+
+                    return false;
+                }
+
+                documents.append('document_files[]', file);
+            }
+        )
+
+        if (!isFilesValid) {
+            showError('Incorrect files format.');
+
+            return false;
+        }
+
+        const button = $('#upload-identity-documents').find('button[type="submit"]');
+        showSpinner(button);
+
+        axios.post(
+            '/user/profile-settings/upload-identity-documents',
+            documents
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#upload-documents-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true,
+                            callbacks: {
+                                close: function () {
+                                    window.location.reload();
+                                }
+                            }
+
+                        }
+                    );
+
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message);
+                }
+            )
+
+    });
+
+    $('#upload-address-documents').on('submit', function (event) {
+        event.preventDefault();
+
+        let documents = new FormData();
+
+        let isFilesValid = true;
+
+        $.each(
+            $('#address-files')[0].files,
+            (index, file) => {
+                if (!validateFile(file)) {
+                    isFilesValid = false;
+
+                    return false;
+                }
+
+                documents.append('address_files[]', file);
+            }
+        )
+
+        if (!isFilesValid) {
+            showError('Incorrect files format.');
+
+            return false;
+        }
+
+        const button = $('#upload-identity-documents').find('button[type="submit"]');
+        showSpinner(button);
+
+        axios.post(
+            '/user/profile-settings/upload-address-documents',
+            documents
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#upload-documents-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true,
+                            callbacks: {
+                                close: function () {
+                                    window.location.reload();
+                                }
+                            }
+
+                        }
+                    );
+
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message);
+                }
+            )
+
+    });
+
+    $('.update-wallet').on('click', function (event) {
+        event.preventDefault();
+
+        const confirmed = $(this).parents('.wallet-address-group').find('.owner-confirm').prop('checked');
+
+        if (!confirmed) {
+            showError('Please, confirm that you are the owner of this account');
+            return false;
+        }
+
+        const wallet = {
+            'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
+            'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val(),
+        }
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        axios.post(
+            '/user/profile-settings/update-wallet',
+            qs.stringify(wallet)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $(this).parents('.wallet-address-group').find('.owner-confirm').prop('checked', false);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#wallet-address-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
+    });
+
+    $('#change-password').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $(this).find('input[type="submit"]');
+        showSpinner(button);
+        clearErrors();
+
+        const password = {
+            'password_current': $(this).find('input[name="current-password"]').val(),
+            'password': $(this).find('input[name="password"]').val(),
+            'password_confirmation': $(this).find('input[name="confirm-password"]').val(),
+        }
+
+
+        axios.post(
+            '/user/profile-settings/change-password',
+            qs.stringify(password)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $('#change-password input[type="password"]').val('');
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#change-password-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors, message} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#change-password input[name="' + field + '"]').parent().addClass('form-error');
+                            $('#change-password input[name="' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+
+                    showError(message)
+                }
+            )
     });
 
     // States update

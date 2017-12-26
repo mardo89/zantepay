@@ -175,6 +175,7 @@ class AdminController extends Controller
             $userDebitCard = null;
         }
 
+        // Wallet
         $wallet = $user->wallet;
 
         // Roles list
@@ -259,12 +260,22 @@ class AdminController extends Controller
         DB::beginTransaction();
 
         try {
+
             Profile::where('user_id', $user->id)->delete();
             Invite::where('user_id', $user->id)->delete();
             DebitCard::where('user_id', $user->id)->delete();
-            Document::where('user_id', $user->id)->delete();
             Verification::where('user_id', $user->id)->delete();
 
+            // Documents
+            $documents = Document::where('user_id', $user->id)->get();
+            foreach ($documents as $document) {
+                if (Storage::exists($document->file_path)) {
+                    Storage::delete($document->file_path);
+                }
+            }
+            Document::where('user_id', $user->id)->delete();
+
+            // Wallet
             $wallet = $user->wallet;
             Transaction::where('wallet_id', $wallet->id)->delete();
             Wallet::where('user_id', $user->id)->delete();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\InviteFriend;
 use App\Models\Country;
+use App\Models\Currency;
 use App\Models\DebitCard;
 use App\Models\Document;
 use App\Models\Invite;
@@ -17,8 +18,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
-use PHPUnit\Runner\Exception;
 
 
 class UserController extends Controller
@@ -38,78 +37,32 @@ class UserController extends Controller
      */
     public function profile()
     {
+        // User
         $user = Auth::user();
 
-        $profile = Profile::where('user_id', $user->id)->first();
+        // Profile
+        $profile = $user->profile;
 
-        if (!$profile) {
-            return redirect('/');
-        }
-
-        $passportExpDate = is_null($profile->passport_expiration_date)
-            ? ''
+        $profile->passportExpDate = is_null($profile->passport_expiration_date)
+            ? date('m/d/Y')
             : date('m/d/Y', strtotime($profile->passport_expiration_date));
 
-        $birthDate = is_null($profile->birth_date)
-            ? ''
+        $profile->birthDate = is_null($profile->birth_date)
+            ? date('m/d/Y')
             : date('m/d/Y', strtotime($profile->birth_date));
 
-        $userProfile = [
-            'email' => $user->email,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
-            'phone_number' => $user->phone_number,
-            'country_id' => $profile->country_id,
-            'state_id' => $profile->state_id,
-            'city' => $profile->city,
-            'address' => $profile->address,
-            'postcode' => $profile->postcode,
-            'passport_id' => $profile->passport_id,
-            'passport_expiration_date' => $passportExpDate,
-            'birth_date' => $birthDate,
-            'birth_country' => $profile->birth_country
-        ];
-
         // Countries List
-        $dbCountries = Country::all();
-
-        $countries = [];
-
-        foreach ($dbCountries as $dbCountry) {
-            $countries[] = [
-                'id' => (int)$dbCountry->id,
-                'name' => $dbCountry->name
-            ];
-        }
-
-        $countries[] = [
-            'id' => 0,
-            'name' => 'Other country'
-        ];
+        $countries = Country::getCountriesList();
 
         // States List
-        $dbStates = $userProfile['country_id'] === 0
-            ? []
-            : State::where('country_id', $userProfile['country_id'])->orderBy('name', 'asc')->get();
+        $states = State::getStatesList($profile->country_id);
 
-        $states = [];
-
-        foreach ($dbStates as $dbState) {
-            $states[] = [
-                'id' => (int)$dbState->id,
-                'name' => $dbState->name
-            ];
-        }
-
-        $states[] = [
-            'id' => 0,
-            'name' => 'Other state'
-        ];
 
         return view(
             'user.profile',
             [
-                'profile' => $userProfile,
+                'user' => $user,
+                'profile' => $profile,
                 'countries' => $countries,
                 'states' => $states
             ]
@@ -196,6 +149,204 @@ class UserController extends Controller
             []
         );
     }
+
+    /**
+     * User profile settings
+     *
+     * @return View
+     */
+    public function profileSettings()
+    {
+        // User
+        $user = Auth::user();
+        $user->accountVerified = $user->status == User::USER_STATUS_VERIFIED;
+
+        // Verification
+        $verification = $user->verification;
+        $verification->idStatus = Verification::getStatus($verification->id_documents_status);
+        $verification->addressStatus = Verification::getStatus($verification->address_documents_status);
+
+        // Documents
+        $userIDDocuments = [];
+        $userAddressDocuments = [];
+
+        $documents = Document::where('user_id', $user->id)->get();
+
+        foreach ($documents as $document) {
+            if ($document->document_type === Document::DOCUMENT_TYPE_IDENTITY) {
+                $userIDDocuments[] = [
+                    'did' => $document->did,
+                    'name' => basename($document->file_path)
+                ];
+            } else {
+                $userAddressDocuments[] = [
+                    'did' => $document->did,
+                    'name' => basename($document->file_path)
+                ];
+            }
+        }
+
+        // Wallet
+        $wallet = $user->wallet;
+
+        return view(
+            'user.profile-settings',
+            [
+                'user' => $user,
+                'verification' => $verification,
+                'idDocuments' => $userIDDocuments,
+                'addressDocuments' => $userAddressDocuments,
+                'wallet' => $wallet,
+            ]
+        );
+    }
+
+    /**
+     * Remove document
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function removeDocument(Request $request)
+    {
+        $user = Auth::user();
+
+        $document = Document::where('did', $request->did)->where('user_id', $user->id)->first();
+
+        if (!$document) {
+            return response()->json(
+                [
+                    'message' => 'File not found',
+                    'errors' => ['Error deleting file']
+                ],
+                422
+            );
+        }
+
+        if (Storage::exists($document->file_path)) {
+            Storage::delete($document->file_path);
+        }
+
+        Document::destroy($document->id);
+
+        // Verification
+        $verification = $user->verification;
+
+        $idDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY);
+
+        if ($idDocuments->count() === 0) {
+            $verification->id_documents_status = Verification::DOCUMENTS_NOT_UPLOADED;
+            $verification->id_decline_reason = '';
+        }
+
+        $addressDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS);
+
+        if ($addressDocuments->count() === 0) {
+            $verification->address_documents_status = Verification::DOCUMENTS_NOT_UPLOADED;
+            $verification->address_decline_reason = '';
+        }
+
+        $verification->save();
+
+        return response()->json(
+            []
+        );
+    }
+
+    /**
+     * Update wallet link
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function updateWallet(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate(
+            $request,
+            [
+                'currency' => 'required|numeric',
+                'address' => 'string|nullable',
+            ]
+        );
+
+        DB::beginTransaction();
+
+        try {
+            $wallet = $user->wallet;
+
+            switch ($request->currency) {
+                case Currency::CURRENCY_TYPE_BTC:
+                    $wallet->btc_wallet = $request->address;
+                    break;
+
+                case Currency::CURRENCY_TYPE_ETH:
+                    $wallet->eth_wallet = $request->address;
+                    break;
+
+            }
+
+            $wallet->save();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error updating wallet',
+                    'errors' => ['An error occurred']
+                ],
+                422
+            );
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
+        );
+    }
+
+
+    /**
+     * Change password
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate($request, [
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        if (User::checkPassword($request->password_current, $user->password) === false) {
+            return response()->json(
+                [
+                    'message' => 'Error changing password',
+                    'errors' => [
+                        'current-password' => 'Wrong password'
+                    ]
+                ],
+                422
+            );
+        }
+
+        $user->password = User::hashPassword($request->password);
+
+        $user->save();
+
+        return response()->json(
+            []
+        );
+    }
+
 
     /**
      * Invite friends
@@ -367,7 +518,7 @@ class UserController extends Controller
 
         return response()->json(
             [
-                'nextStep' => action('UserController@debitCardDocuments')
+                'nextStep' => action('UserController@debitCardIdentityDocuments')
             ]
         );
     }
@@ -377,7 +528,7 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function debitCardDocuments()
+    public function debitCardIdentityDocuments()
     {
         return view(
             'user.debit-card-documents'
@@ -391,10 +542,8 @@ class UserController extends Controller
      *
      * @return json
      */
-    public function saveDebitCardDocuments(Request $request)
+    public function uploadDCIdentityDocuments(Request $request)
     {
-        $user = Auth::user();
-
         $this->validate(
             $request,
             [
@@ -415,65 +564,11 @@ class UserController extends Controller
             );
         }
 
-        $files = new \stdClass();
-        $files->data = [];
-        $files->rules = [];
-
-        foreach ($request->document_files as $index => $file) {
-            $fileName = 'user_' . $user->id . '_' . $index;
-
-            $files->data[$fileName] = $file;
-            $files->rules[$fileName] = 'file|max:4096|mimetypes:image/jpeg,image/png,application/pdf';
-        }
-
-        $isFailed = Validator::make($files->data, $files->rules)->fails();
-
-        if ($isFailed) {
-            return response()->json(
-                [
-                    'message' => 'Error uploading documents',
-                    'errors' => ['Incorrect files format']
-                ],
-                422
-            );
-        }
-
         DB::beginTransaction();
 
         try {
-            $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->get();
 
-            // delete old files
-            foreach ($oldDocuments as $document) {
-                if (Storage::exists($document->file_name)) {
-                    Storage::delete($document->file_name);
-                }
-            }
-
-            // Empty DB records
-            Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->delete();
-
-            // insert new files
-            foreach ($files->data as $fileName => $file) {
-                $newFileName = $fileName . '.' . $file->getClientOriginalExtension();
-
-                $pathToFile = $file->storeAs('documents/id', $newFileName);
-
-                Document::create(
-                    [
-                        'user_id' => $user->id,
-                        'document_type' => Document::DOCUMENT_TYPE_IDENTITY,
-                        'did' => uniqid(),
-                        'file_path' => $pathToFile
-                    ]
-                );
-            }
-
-            // Verification
-            $verification = $user->verification;
-            $verification->id_documents_status = Verification::DOCUMENTS_UPLOADED;
-            $verification->id_decline_reason = '';
-            $verification->save();
+            $this->uploadIdentityFiles($request);
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -492,7 +587,7 @@ class UserController extends Controller
 
         return response()->json(
             [
-                'nextStep' => action('UserController@debitCardAddress')
+                'nextStep' => action('UserController@debitCardAddressDocuments')
             ]
         );
     }
@@ -502,7 +597,7 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function debitCardAddress()
+    public function debitCardAddressDocuments()
     {
         return view(
             'user.debit-card-address'
@@ -516,10 +611,8 @@ class UserController extends Controller
      *
      * @return json
      */
-    public function saveDebitCardAddress(Request $request)
+    public function uploadDCAddressDocuments(Request $request)
     {
-        $user = Auth::user();
-
         $this->validate(
             $request,
             [
@@ -540,65 +633,12 @@ class UserController extends Controller
             );
         }
 
-        $files = new \stdClass();
-        $files->data = [];
-        $files->rules = [];
-
-        foreach ($request->address_files as $index => $file) {
-            $fileName = 'user_' . $user->id . '_' . $index;
-
-            $files->data[$fileName] = $file;
-            $files->rules[$fileName] = 'file|max:4096|mimetypes:image/jpeg,image/png,application/pdf';
-        }
-
-        $isFailed = Validator::make($files->data, $files->rules)->fails();
-
-        if ($isFailed) {
-            return response()->json(
-                [
-                    'message' => 'Error uploading documents',
-                    'errors' => ['Incorrect files format']
-                ],
-                422
-            );
-        }
 
         DB::beginTransaction();
 
         try {
-            $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->get();
 
-            // delete old files
-            foreach ($oldDocuments as $document) {
-                if (Storage::exists($document->file_name)) {
-                    Storage::delete($document->file_name);
-                }
-            }
-
-            // Empty DB records
-            Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->delete();
-
-            // insert new files
-            foreach ($files->data as $fileName => $file) {
-                $newFileName = $fileName . '.' . $file->getClientOriginalExtension();
-
-                $pathToFile = $file->storeAs('documents/address', $newFileName);
-
-                Document::create(
-                    [
-                        'user_id' => $user->id,
-                        'document_type' => Document::DOCUMENT_TYPE_ADDRESS,
-                        'did' => uniqid(),
-                        'file_path' => $pathToFile
-                    ]
-                );
-            }
-
-            // Verification
-            $verification = $user->verification;
-            $verification->address_documents_status = Verification::DOCUMENTS_UPLOADED;
-            $verification->address_decline_reason = '';
-            $verification->save();
+            $this->uploadAddressFiles($request);
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -639,5 +679,198 @@ class UserController extends Controller
         );
     }
 
+
+    /**
+     * Upload identity documents
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function uploadIdentityDocuments(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $this->uploadIdentityFiles($request);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error uploading files',
+                    'errors' => ['Error uploading file']
+                ],
+                422
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
+        );
+    }
+
+    /**
+     * Upload address documents
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function uploadAddressDocuments(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $this->uploadAddressFiles($request);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error uploading files',
+                    'errors' => ['Error uploading file']
+                ],
+                422
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
+        );
+    }
+
+
+    /**
+     * Upload identity files
+     *
+     * @param Request $request
+     *
+     * @throws \Exception
+     */
+    protected function uploadIdentityFiles($request) {
+        $user = Auth::user();
+
+        $files = new \stdClass();
+        $files->data = [];
+        $files->rules = [];
+
+        foreach ($request->document_files as $index => $file) {
+            $fileName = 'document_' . $user->uid . '_' . $index;
+
+            $files->data[$fileName] = $file;
+            $files->rules[$fileName] = 'file|max:4096|mimetypes:image/jpeg,image/png,application/pdf';
+        }
+
+        if (Validator::make($files->data, $files->rules)->fails()) {
+            throw new \Exception('Error uploading files');
+        }
+
+        $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->get();
+
+        // delete old files
+        foreach ($oldDocuments as $document) {
+            if (Storage::exists($document->file_path)) {
+                Storage::delete($document->file_path);
+            }
+        }
+
+        // Empty DB records
+        Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->delete();
+
+        // insert new files
+        foreach ($files->data as $fileName => $file) {
+            $newFileName = $fileName . '.' . $file->getClientOriginalExtension();
+
+            $pathToFile = $file->storeAs('documents/id', $newFileName);
+
+            Document::create(
+                [
+                    'user_id' => $user->id,
+                    'document_type' => Document::DOCUMENT_TYPE_IDENTITY,
+                    'did' => uniqid(),
+                    'file_path' => $pathToFile
+                ]
+            );
+        }
+
+        // Verification
+        $verification = $user->verification;
+        $verification->id_documents_status = Verification::DOCUMENTS_UPLOADED;
+        $verification->id_decline_reason = '';
+        $verification->save();
+
+    }
+
+
+    /**
+     * Upload address files
+     *
+     * @param Request $request
+     *
+     * @throws \Exception
+     */
+    protected function uploadAddressFiles($request) {
+        $user = Auth::user();
+
+        $files = new \stdClass();
+        $files->data = [];
+        $files->rules = [];
+
+        foreach ($request->address_files as $index => $file) {
+            $fileName = 'document_' . $user->uid . '_' . $index;
+
+            $files->data[$fileName] = $file;
+            $files->rules[$fileName] = 'file|max:4096|mimetypes:image/jpeg,image/png,application/pdf';
+        }
+
+        if (Validator::make($files->data, $files->rules)->fails()) {
+            throw new \Exception('Error uploading files');
+        }
+
+        $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->get();
+
+        // delete old files
+        foreach ($oldDocuments as $document) {
+            if (Storage::exists($document->file_path)) {
+                Storage::delete($document->file_path);
+            }
+        }
+
+        // Empty DB records
+        Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->delete();
+
+        // insert new files
+        foreach ($files->data as $fileName => $file) {
+            $newFileName = $fileName . '.' . $file->getClientOriginalExtension();
+
+            $pathToFile = $file->storeAs('documents/address', $newFileName);
+
+            Document::create(
+                [
+                    'user_id' => $user->id,
+                    'document_type' => Document::DOCUMENT_TYPE_ADDRESS,
+                    'did' => uniqid(),
+                    'file_path' => $pathToFile
+                ]
+            );
+        }
+
+        // Verification
+        $verification = $user->verification;
+        $verification->address_documents_status = Verification::DOCUMENTS_UPLOADED;
+        $verification->address_decline_reason = '';
+        $verification->save();
+    }
 
 }

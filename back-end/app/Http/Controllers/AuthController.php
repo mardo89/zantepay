@@ -46,7 +46,7 @@ class AuthController extends Controller
             $userInfo = $this->createUser(
                 [
                     'email' => $request->email,
-                    'password' => bcrypt($request->password),
+                    'password' => User::hashPassword($request->password),
                     'uid' => uniqid()
                 ]
             );
@@ -232,7 +232,7 @@ class AuthController extends Controller
                 $userInfo = $this->createUser(
                     [
                         'email' => $snUser->email,
-                        'password' => bcrypt(uniqid()),
+                        'password' => User::hashPassword(uniqid()),
                         'uid' => uniqid(),
                         'status' => User::USER_STATUS_NOT_VERIFIED,
                         'first_name' => $firstName,
@@ -285,7 +285,7 @@ class AuthController extends Controller
                 $userInfo = $this->createUser(
                     [
                         'email' => $snUser->email,
-                        'password' => bcrypt(uniqid()),
+                        'password' => User::hashPassword(uniqid()),
                         'uid' => uniqid(),
                         'status' => User::USER_STATUS_NOT_VERIFIED,
                         'first_name' => $firstName,

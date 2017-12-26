@@ -45,7 +45,7 @@ class Verification extends Model
                 return 'Documents not uploaded';
 
             case self::DOCUMENTS_UPLOADED:
-                return 'Documents uploaded';
+                return 'Pending approval';
 
             case self::DOCUMENTS_APPROVED:
                 return 'Documents approved';

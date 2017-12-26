@@ -145,4 +145,27 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Verification', 'user_id', 'id');
     }
 
+    /**
+     * Generate password hash
+     *
+     * @param string $password
+     *
+     * @return string
+     */
+    public static function hashPassword($password) {
+        return bcrypt($password);
+    }
+
+    /**
+     * Check password with existing hash
+     *
+     * @param string $password
+     * @param string $hash
+     *
+     * @return bool
+     */
+    public static function checkPassword($password, $hash) {
+        return password_verify($password, $hash);
+    }
+
 }

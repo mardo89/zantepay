@@ -137,10 +137,12 @@ class IndexController extends Controller
 
         $user = User::where('uid', $userID)->first();;
 
-        if ($user) {
-            $user->status = User::USER_STATUS_NOT_VERIFIED;
-            $user->save();
+        if (!$user || $user->status != User::USER_STATUS_INACTIVE) {
+            return redirect('/');
         }
+
+        $user->status = User::USER_STATUS_NOT_VERIFIED;
+        $user->save();
 
         return view('main.confirm-email');
     }
