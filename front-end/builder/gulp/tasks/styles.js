@@ -23,7 +23,7 @@ gulp.task('styles', function () {
         this.emit('end');
       }
     }))
-    .pipe(sourcemaps.init())
+    // .pipe(sourcemaps.init())
     .pipe(stylus({
       errors: true,
       compress: true
