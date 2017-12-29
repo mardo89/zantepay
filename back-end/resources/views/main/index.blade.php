@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('header')
+
     <header class="header header-lp">
         <div class="masthead">
             <div class="container">
@@ -58,9 +59,11 @@
             </div>
         </div>
     </header>
+
 @endsection
 
 @section('main')
+
     <main class="main main-lp">
         <section class="lp-section-artifical white-content">
             <div class="container">
@@ -599,9 +602,11 @@
             </div>
         </div>
     </main>
+
 @endsection
 
 @section('footer')
+
     <footer class="footer footer-lp white-content" id="contacts">
         <div class="container">
             <div class="row">
@@ -654,9 +659,11 @@
             <p class="copyright"><span class="copyright-ico"></span> 2017 ZANTEPAY</p>
         </div>
     </footer>
+
 @endsection
 
 @section('popups')
+
     <!-- sign in -->
     <div class="logon-modal mfp-hide" id="sign-in-modal">
         <div class="logon-modal-container">
@@ -677,9 +684,38 @@
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
                 </div>
+
                 <a href="#sign-up-modal" class="js-popup-link logon-link">Sign Up</a>
+                <br>
+                <a href="#forgot-password" class="js-popup-link logon-link mt-10">Forgot password ?</a>
             </form>
 
+        </div>
+    </div>
+
+    <!-- forgot password -->
+    <div class="logon-modal mfp-hide" id="forgot-password">
+        <div class="logon-modal-container">
+            <h3 class="h4">Forgot Password?</h3><br>
+            <form id="frm_forgot_password">
+                <div class="logon-group">
+                    <input class="logon-field" type="email" name="email" placeholder="Email">
+                </div>
+                <div class="logon-submit mt-35">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Reset Password">
+                </div>
+                <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- reset confirmation -->
+    <div class="logon-modal mfp-hide" id="reset-confirm-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">RIGHT ON!</h3>
+            <div class="logon-modal-text">
+                <p>By now you should have received an email from us. To reset your account password please click the link  in the email.</p>
+            </div>
         </div>
     </div>
 
@@ -806,4 +842,5 @@
             </form>
         </div>
     </div>
+
 @endsection

@@ -112,7 +112,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         axios.post(
-            '/auth/logout',
+            '/account/logout',
             qs.stringify(
                 {}
             )
@@ -195,7 +195,7 @@ $(document).ready(function () {
         }
 
         axios.post(
-            '/user/remove-document',
+            '/user/profile-settings/remove-document',
             qs.stringify(file)
         )
             .then(
@@ -537,8 +537,6 @@ $(document).ready(function () {
                     hideSpinner(button);
 
                     $('input[name="email"]').val('');
-
-                    sendInvitationEmail(response.data.email);
 
                     $('#invites-list tbody')
                         .prepend(

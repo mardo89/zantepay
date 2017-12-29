@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
 use App\Mail\IcoRegistration as IcoRegistrationMail;
+use App\Mail\ResetPassword;
 use App\Models\Currency;
 use App\Models\IcoRegistration;
+use App\Models\PasswordReset;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 
@@ -50,21 +54,7 @@ class IndexController extends Controller
             'country' => 'numeric'
         ]);
 
-        $dbStates = State::where('country_id', $request->country)->orderBy('name', 'asc')->get();
-
-        $states = [];
-
-        foreach ($dbStates as $dbState) {
-            $states[] = [
-                'id' => (int) $dbState->id,
-                'name' => $dbState->name
-            ];
-        }
-
-        $states[] = [
-            'id' => 0,
-            'name' => 'Other state'
-        ];
+        $states = State::getStatesList();
 
         return response()->json($states);
     }
@@ -131,7 +121,7 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function confirmation(Request $request)
+    public function confirmActivation(Request $request)
     {
         $userID = $request->input('uid', '');
 
@@ -154,11 +144,60 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function invitation(Request $request)
+    public function confirmInvitation(Request $request)
     {
         $this->checkReferrer($request->ref);
 
-        return view('main.confirm-invitation');
+        return view(
+            'main.confirm-invitation',
+            [
+                'referralToken' => $request->ref,
+            ]
+        );
+    }
+
+    /**
+     * Reset user password
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetPassword(Request $request)
+    {
+        $resetToken = $request->input('rt', '');
+
+        $resetInfo = PasswordReset::where('token', $resetToken)
+            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 15 MINUTE)'))
+            ->first();
+
+        // Check for expiration date
+        if (is_null($resetInfo)) {
+            return view('main.reset-password-fail');
+        }
+
+        $resetEmail = $resetInfo->email;
+
+        $lastResetInfo = PasswordReset::where('email', $resetEmail)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        // Check if there is no other tokens after current
+        if (is_null($lastResetInfo) || $lastResetInfo->token !== $resetToken) {
+            return view('main.reset-password-fail');
+        }
+
+        return view(
+            'main.reset-password-success',
+            [
+                'resetToken' => $resetToken
+            ]
+        );
+    }
+
+    public function confirmPasswordReset(Request $request)
+    {
+        return view('main.reset-password-complete');
     }
 
     /**

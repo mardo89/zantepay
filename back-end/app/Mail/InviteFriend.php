@@ -31,7 +31,7 @@ class InviteFriend extends Mailable
     public function __construct($userEmail, $uid)
     {
         $this->userEmail = $userEmail;
-        $this->referralLink = action('IndexController@invitation', ['ref' => $uid]);
+        $this->referralLink = action('IndexController@confirmInvitation', ['ref' => $uid]);
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ActivateAccount;
+use App\Mail\ResetPassword;
+use App\Models\PasswordReset;
 use App\Models\Profile;
 use App\Models\Verification;
 use App\Models\Wallet;
@@ -16,10 +18,10 @@ use Laravel\Socialite\Facades\Socialite;
 use Mockery\Exception;
 
 
-class AuthController extends Controller
+class AccountController extends Controller
 {
     /**
-     * AuthController constructor.
+     * AccountController constructor.
      */
     public function __construct()
     {
@@ -56,7 +58,7 @@ class AuthController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error creating user',
+                    'message' => $e->getMessage(),//'Error creating user',
                     'errors' => ['An error occurred']
                 ],
                 422
@@ -146,6 +148,118 @@ class AuthController extends Controller
     }
 
     /**
+     * Send email with password reset link
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function resetPassword(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|string|email|max:255',
+        ]);
+
+        $email = $request->email;
+
+        DB::beginTransaction();
+
+        try {
+            $resetInfo = PasswordReset::create(
+                [
+                    'email' => $email,
+                    'token' => uniqid()
+                ]
+            );
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Can not restore password',
+                    'errors' => ['An error occurred']
+                ],
+                422
+            );
+
+        }
+
+        DB::commit();
+
+        Mail::to($request->email)->send(new ResetPassword($resetInfo['token']));
+
+        return response()->json(
+            []
+        );
+
+    }
+
+    /**
+     * Save new user password
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function savePassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|string|min:6|confirmed',
+            'token' => 'required|string'
+        ]);
+
+        $resetInfo = PasswordReset::where('token', $request->token)
+            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 15 MINUTE)'))
+            ->first();
+
+        if (is_null($resetInfo)) {
+            return response()->json(
+                [
+                    'nextStep' => action('IndexController@resetPassword')
+                ]
+            );
+        }
+
+        $user = User::where('email', $resetInfo->email)->first();
+
+        if (is_null($user)) {
+            return response()->json(
+                [
+                    'nextStep' => action('IndexController@resetPassword')
+                ]
+            );
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            $user->password = User::hashPassword($request->password);
+            $user->save();
+
+            PasswordReset::where('email', $user->email)->delete();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'nextStep' => action('IndexController@resetPassword')
+                ]
+            );
+        }
+
+        DB::commit();
+
+        return response()->json(
+            [
+                'nextStep' => action('IndexController@confirmPasswordReset')
+            ]
+        );
+    }
+
+    /**
      * Create user with profile and wallet
      *
      * @param array $userInfo
@@ -208,7 +322,8 @@ class AuthController extends Controller
     }
 
     /**
-     * @return redirect to FB page
+     * Redirect to Facebook
+     * @return redirect
      */
     public function toFacebookProvider()
     {
@@ -216,7 +331,10 @@ class AuthController extends Controller
     }
 
     /**
-     * Provide callback from facebook
+     * Provide callback from Facebook
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     *
      */
     public function FacebookProviderCallback()
     {
@@ -266,11 +384,21 @@ class AuthController extends Controller
         return redirect()->action('UserController@profile');
     }
 
+    /**
+     * Redirect to Google
+     *
+     * @return redirect
+     */
     public function toGoogleProvider()
     {
         return Socialite::driver('google')->redirect();
     }
 
+    /**
+     * Provide callback from Google
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function GoogleProviderCallback()
     {
         $snUser = Socialite::driver('google')->user();

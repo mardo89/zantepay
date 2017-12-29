@@ -5,8 +5,10 @@
  */
 Route::get('/', 'IndexController@main');
 Route::get('states', 'IndexController@getStates');
-Route::get('confirmation', 'IndexController@confirmation');
-Route::get('invitation', 'IndexController@invitation');
+Route::get('confirmation', 'IndexController@confirmActivation');
+Route::get('invitation', 'IndexController@confirmInvitation');
+Route::get('reset-password', 'IndexController@resetPassword');
+Route::get('password', 'IndexController@confirmPasswordReset');
 Route::post('ico-registration', 'IndexController@saveRegistration');
 
 
@@ -22,18 +24,20 @@ Route::group(['prefix' => 'mail'], function () {
 
 
 /**
- * AUTHORIZATION
+ * Account
  */
-Route::group(['prefix' => 'auth'], function () {
-    Route::post('register', 'AuthController@register');
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
+Route::group(['prefix' => 'account'], function () {
+    Route::post('register', 'AccountController@register');
+    Route::post('login', 'AccountController@login');
+    Route::post('logout', 'AccountController@logout');
+    Route::post('reset-password', 'AccountController@resetPassword');
+    Route::post('save-password', 'AccountController@savePassword');
 
-    Route::get('fb', 'AuthController@toFacebookProvider');
-    Route::get('fb/callback', 'AuthController@FacebookProviderCallback');
+    Route::get('fb', 'AccountController@toFacebookProvider');
+    Route::get('fb/callback', 'AccountController@FacebookProviderCallback');
 
-    Route::get('google', 'AuthController@toGoogleProvider');
-    Route::get('google/callback', 'AuthController@GoogleProviderCallback');
+    Route::get('google', 'AccountController@toGoogleProvider');
+    Route::get('google/callback', 'AccountController@GoogleProviderCallback');
 
 });
 
@@ -46,6 +50,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('profile', 'UserController@saveProfile');
 
     Route::get('profile-settings', 'UserController@profileSettings');
+    Route::post('profile-settings/remove-document', 'UserController@removeDocument');
     Route::post('profile-settings/update-wallet', 'UserController@updateWallet');
     Route::post('profile-settings/change-password', 'UserController@changePassword');
     Route::post('profile-settings/upload-identity-documents', 'UserController@uploadIdentityDocuments');
@@ -54,19 +59,16 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('invite-friend', 'UserController@invite');
     Route::post('invite-friend', 'UserController@saveInvitation');
 
+    Route::get('wallet', 'UserController@wallet');
+
     Route::get('debit-card', 'UserController@debitCard');
     Route::post('debit-card', 'UserController@saveDebitCard');
-
     Route::get('debit-card-documents', 'UserController@debitCardIdentityDocuments');
     Route::post('debit-card-documents', 'UserController@uploadDCIdentityDocuments');
-
     Route::get('debit-card-address', 'UserController@debitCardAddressDocuments');
     Route::post('debit-card-address', 'UserController@uploadDCAddressDocuments');
-
     Route::get('debit-card-success', 'UserController@debitCardSuccess');
 
-    Route::post('remove-document', 'UserController@removeDocument');
-    Route::post('change-password', 'UserController@changePassword');
 });
 
 /**
@@ -88,6 +90,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 });
 
-//Route::get('/test-email', function () {
-//    return new App\Mail\IcoRegistration('http://zantepay');
-//});
+Route::get('/test-email', function () {
+    return new App\Mail\ResetPassword('1234567890');
+});

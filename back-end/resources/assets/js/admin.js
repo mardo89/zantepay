@@ -101,7 +101,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         axios.post(
-            '/auth/logout',
+            '/account/logout',
             qs.stringify(
                 {}
             )

@@ -26,27 +26,16 @@
                     </div>
                     <div class="col-md-6">
                         <h2 class="h4 headline-mb">Hi there!</h2>
-                        <p>You’ve been invited to join and pre-order ZANTEPAY debit card. You’ll get 400 ZNX as a bonus.</p>
-                        <form id="frm_invite_signup" class="inv-form">
+                        <p>Password successfully changed.</p>
+                        <form id="frm_signin" class="inv-form">
                             <div class="form-group">
-                                <input id="signup_email" class="input-field" type="email" name="email" placeholder="Email">
+                                <input id="signin_email" class="input-field" type="email" name="email" placeholder="Email">
                             </div>
                             <div class="form-group">
-                                <input id="signup_pwd" class="input-field" type="password" name="password" placeholder="Password">
+                                <input id="signin_pwd" class="input-field" type="password" name="password" placeholder="Password">
                             </div>
-                            <div class="form-group">
-                                <input id="signup_cnf_pwd" class="input-field" type="password" name="confirm-password"
-                                       placeholder="Confirm Password">
-                            </div>
-                            <div class="form-group">
-                                <input class="input-field" type="text" name="referral" value="{{ $referralToken }}" readonly>
-                            </div>
-                            <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Sign Up</button>
+                            <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Sign In</button>
                             <hr>
-                            <div class="social-btns">
-                                <a href="/auth/fb" class="btn btn--facebook"><i></i> Sign Up With Facebook</a>
-                                <a href="/auth/google" class="btn btn--google"><i></i> Sign Up With Google</a>
-                            </div>
                         </form>
                     </div>
                 </div>

@@ -7,24 +7,24 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ActivateAccount extends Mailable
+class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * @var string Activation link
      */
-    public $activationLink;
+    public $resetLink;
 
     /**
      * Create a new message instance.
      *
-     * @param string $uid
+     * @param string $resetToken
      *
      */
-    public function __construct($uid)
+    public function __construct($resetToken)
     {
-        $this->activationLink = action('IndexController@confirmActivation', ['uid' => $uid]);
+        $this->resetLink = action('IndexController@resetPassword', ['rt' => $resetToken]);
     }
 
     /**
@@ -34,9 +34,9 @@ class ActivateAccount extends Mailable
      */
     public function build()
     {
-        return $this->subject('Account activation')
+        return $this->subject('Reset password')
             ->from(env('CONTACT_EMAIL'))
             ->replyTo(env('CONTACT_EMAIL'))
-            ->view('emails.activate-accaunt');
+            ->view('emails.reset-password');
     }
 }
