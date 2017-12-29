@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     /**
-     * AuthController constructor.
+     * UserController constructor.
      */
     public function __construct()
     {
@@ -388,7 +388,7 @@ class UserController extends Controller
         return view(
             'user.invite-friend',
             [
-                'referralLink' => action('IndexController@invitation', ['ref' => $user->uid]),
+                'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
                 'referrals' => $userReferrals
             ]
         );
@@ -674,7 +674,7 @@ class UserController extends Controller
         return view(
             'user.debit-card-success',
             [
-                'referralLink' => action('IndexController@invitation', ['ref' => $user->uid]),
+                'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
             ]
         );
     }
@@ -871,6 +871,25 @@ class UserController extends Controller
         $verification->address_documents_status = Verification::DOCUMENTS_UPLOADED;
         $verification->address_decline_reason = '';
         $verification->save();
+    }
+
+    /**
+     * User wallet
+     *
+     * @return View
+     */
+    public function wallet()
+    {
+        $user = Auth::user();
+        $wallet = $user->wallet;
+
+        return view(
+            'user.wallet',
+            [
+                'wallet' => $wallet,
+                'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
+            ]
+        );
     }
 
 }

@@ -24,7 +24,7 @@ use Psy\Util\Json;
 class AdminController extends Controller
 {
     /**
-     * AuthController constructor.
+     * AdminController constructor.
      */
     public function __construct()
     {
@@ -265,6 +265,7 @@ class AdminController extends Controller
             Invite::where('user_id', $user->id)->delete();
             DebitCard::where('user_id', $user->id)->delete();
             Verification::where('user_id', $user->id)->delete();
+            PasswordReset::where('email', $user->email)->delete();
 
             // Documents
             $documents = Document::where('user_id', $user->id)->get();

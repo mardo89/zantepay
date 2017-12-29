@@ -214,7 +214,7 @@ $(document).ready(function () {
         };
 
         axios.post(
-            '/auth/login',
+            '/account/login',
             qs.stringify(credentials)
         )
             .then(
@@ -257,7 +257,7 @@ $(document).ready(function () {
         };
 
         axios.post(
-            '/auth/register',
+            '/account/register',
             qs.stringify(credentials)
         )
             .then(
@@ -302,6 +302,101 @@ $(document).ready(function () {
             )
     });
 
+    //Forgot password
+    $('#frm_forgot_password').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $('#frm_forgot').find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        const credentials = {
+            email: $('#frm_forgot_password input[name="email"]').val(),
+        };
+
+        axios.post(
+            '/account/reset-password',
+            qs.stringify(credentials)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.close();
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#reset-confirm-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: false
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#frm_forgot_password input[name="' + field + '"]').parent().addClass('form-error');
+                            $('#frm_forgot_password input[name="' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+    });
+    $('#frm_change_password').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $('#frm_change_password').find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        const credentials = {
+            token: $('#frm_change_password input[name="reset-token"]').val(),
+            password: $('#frm_change_password input[name="password"]').val(),
+            password_confirmation: $('#frm_change_password input[name="confirm-password"]').val()
+        };
+
+        axios.post(
+            '/account/save-password',
+            qs.stringify(credentials)
+        )
+            .then(
+                response => {
+                    hideSpinner(button);
+
+                    window.location = response.data.nextStep
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#frm_change_password input[name="' + field + '"]').parent().addClass('form-error');
+                            $('#frm_change_password input[name="' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+
+    });
+
     //Sing up via invite
     $("#frm_invite_signup").on('submit', function (event) {
         event.preventDefault();
@@ -317,7 +412,7 @@ $(document).ready(function () {
         };
 
         axios.post(
-            '/auth/register',
+            '/account/register',
             qs.stringify(credentials)
         )
             .then(
