@@ -10,6 +10,7 @@ Route::get('invitation', 'IndexController@confirmInvitation');
 Route::get('reset-password', 'IndexController@resetPassword');
 Route::get('password', 'IndexController@confirmPasswordReset');
 Route::post('ico-registration', 'IndexController@saveRegistration');
+Route::post('seed-investor', 'IndexController@saveInvestor');
 
 
 /**

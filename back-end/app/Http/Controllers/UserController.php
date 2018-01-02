@@ -80,21 +80,24 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        $this->validate($request, [
-            'first_name' => 'string|max:100|nullable',
-            'last_name' => 'string|max:100|nullable',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id . ',id',
-            'phone_number' => 'string|max:20|nullable',
-            'country' => 'numeric',
-            'state' => 'numeric',
-            'city' => 'string|max:100|nullable',
-            'address' => 'string|nullable',
-            'postcode' => 'string|max:10|nullable',
-            'passport' => 'string|max:50|nullable',
-            'expiration_date' => 'date',
-            'birth_date' => 'date',
-            'birth_country' => 'string|max:50|nullable',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'first_name' => 'string|max:100|nullable',
+                'last_name' => 'string|max:100|nullable',
+                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id . ',id',
+                'phone_number' => 'string|max:20|nullable',
+                'country' => 'numeric',
+                'state' => 'numeric',
+                'city' => 'string|max:100|nullable',
+                'address' => 'string|nullable',
+                'postcode' => 'string|max:10|nullable',
+                'passport' => 'string|max:50|nullable',
+                'expiration_date' => 'date',
+                'birth_date' => 'date',
+                'birth_country' => 'string|max:50|nullable',
+            ]
+        );
 
         $profile = Profile::where('user_id', $user->id)->first();
 
@@ -322,9 +325,12 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        $this->validate($request, [
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'password' => 'required|string|min:6|confirmed',
+            ]
+        );
 
         if (User::checkPassword($request->password_current, $user->password) === false) {
             return response()->json(
@@ -553,7 +559,6 @@ class UserController extends Controller
             [
                 'document_files.required_if' => 'Please select files to download',
             ]
-
         );
 
         if ($request->verify_later == 1) {
@@ -758,7 +763,8 @@ class UserController extends Controller
      *
      * @throws \Exception
      */
-    protected function uploadIdentityFiles($request) {
+    protected function uploadIdentityFiles($request)
+    {
         $user = Auth::user();
 
         $files = new \stdClass();
@@ -820,7 +826,8 @@ class UserController extends Controller
      *
      * @throws \Exception
      */
-    protected function uploadAddressFiles($request) {
+    protected function uploadAddressFiles($request)
+    {
         $user = Auth::user();
 
         $files = new \stdClass();

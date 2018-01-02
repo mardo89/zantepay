@@ -31,6 +31,7 @@
 
 <!-- JS scripts -->
 <script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/components/particles.min.js"></script>
 <script src="/js/components/jquery.magnific-popup.min.js"></script>
 <script src="/js/components/circle-progress.min.js"></script>
 <script src="/js/components/jquery.countdown.min.js"></script>

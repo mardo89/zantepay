@@ -7,6 +7,7 @@ use App\Mail\IcoRegistration as IcoRegistrationMail;
 use App\Mail\ResetPassword;
 use App\Models\Currency;
 use App\Models\IcoRegistration;
+use App\Models\Investor;
 use App\Models\PasswordReset;
 use App\Models\State;
 use App\Models\User;
@@ -61,7 +62,7 @@ class IndexController extends Controller
 
 
     /**
-     * Save pre-ico registration
+     * Save registration for Pre-Ico
      *
      * @param Request $request
      *
@@ -73,7 +74,6 @@ class IndexController extends Controller
             $request,
             [
                 'email' => 'required|string|email|max:255',
-                'currency' => 'required|integer',
                 'amount' => 'numeric'
             ]
         );
@@ -83,7 +83,7 @@ class IndexController extends Controller
             IcoRegistration::create(
                 [
                     'email' => $request->email,
-                    'currency' => $request->currency,
+                    'currency' => Currency::CURRENCY_TYPE_ETH,
                     'amount' => $request->amount,
 
                 ]
@@ -102,12 +102,64 @@ class IndexController extends Controller
         }
 
         $email = $request->email;
-        $currency = IcoRegistration::getCurrency($request->currency);
+        $currency = Currency::getCurrency(Currency::CURRENCY_TYPE_ETH);
         $amount = $request->amount;
         $link = action('IndexController@main');
 
         Mail::to($email)->send(new IcoRegistrationMail($link));
         Mail::send(new IcoRegistrationAdminMail($email, $currency, $amount));
+
+        return response()->json(
+            []
+        );
+    }
+
+    /**
+     * Save investor
+     *
+     * @param Request $request
+     *
+     * @return View
+     */
+    public function saveInvestor(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|string|email|max:255|unique:investors',
+                'skype_id' => 'string|max:100|unique:investors',
+                'first_name' => 'string|max:100',
+                'last_name' => 'string|max:100',
+            ],
+            [
+                'email.unique' => 'Investor with such Email already registered.',
+                'skype_id.unique' => 'Investor with such Skype ID already registered.',
+            ]
+
+        );
+
+        try {
+
+            Investor::create(
+                [
+                    'email' => $request->email,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'skype_id' => $request->skype_id,
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Registration failed',
+                    'errors' => ['An error occurred']
+                ],
+                422
+            );
+
+        }
 
         return response()->json(
             []
