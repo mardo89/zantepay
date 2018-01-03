@@ -852,13 +852,13 @@
 
             <form id="frm_investor">
                 <div class="logon-group">
-                    <input class="logon-field" type="text" name="first_name" placeholder="First Name">
+                    <input class="logon-field" type="text" name="first-name" placeholder="First Name">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="text" name="last_name" placeholder="Last Name">
+                    <input class="logon-field" type="text" name="last-name" placeholder="Last Name">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="text" name="skype_id" placeholder="Skype ID">
+                    <input class="logon-field" type="text" name="skype-id" placeholder="Skype ID">
                 </div>
                 <div class="logon-group">
                     <input class="logon-field" type="email" name="email" placeholder="Email">

@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
 use App\Mail\IcoRegistration as IcoRegistrationMail;
-use App\Mail\ResetPassword;
 use App\Models\Currency;
 use App\Models\IcoRegistration;
 use App\Models\Investor;
 use App\Models\PasswordReset;
 use App\Models\State;
 use App\Models\User;
+use App\Validators\ValidationMessages;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
@@ -55,7 +54,9 @@ class IndexController extends Controller
             'country' => 'numeric'
         ]);
 
-        $states = State::getStatesList();
+        $country = $request->input('country');
+
+        $states = State::getStatesList($country);
 
         return response()->json($states);
     }
@@ -74,40 +75,56 @@ class IndexController extends Controller
             $request,
             [
                 'email' => 'required|string|email|max:255',
-                'amount' => 'numeric'
-            ]
+                'amount' => 'nullable|numeric'
+            ],
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                    'amount' => 'Amount'
+                ]
+            )
         );
+
+        $email = $request->input('email');
+        $amount = $request->input('amount', 0);
+        $currencyType = Currency::CURRENCY_TYPE_ETH;
+        $currency = Currency::getCurrency($currencyType);
+
+        DB::beginTransaction();
 
         try {
 
             IcoRegistration::create(
                 [
-                    'email' => $request->email,
-                    'currency' => Currency::CURRENCY_TYPE_ETH,
-                    'amount' => $request->amount,
-
+                    'email' => $email,
+                    'currency' => $currencyType,
+                    'amount' => $amount,
                 ]
             );
 
+            $link = action('IndexController@main');
+
+            Mail::to($email)->send(new IcoRegistrationMail($link));
+            Mail::send(new IcoRegistrationAdminMail($email, $currency, $amount));
+
         } catch (\Exception $e) {
+
+            DB::rollback();
 
             return response()->json(
                 [
                     'message' => 'Registration failed',
-                    'errors' => ['An error occurred']
+                    'errors' => [
+                        'email' => '',
+                        'amount' => 'Registration failed'
+                    ]
                 ],
                 422
             );
 
         }
 
-        $email = $request->email;
-        $currency = Currency::getCurrency(Currency::CURRENCY_TYPE_ETH);
-        $amount = $request->amount;
-        $link = action('IndexController@main');
-
-        Mail::to($email)->send(new IcoRegistrationMail($link));
-        Mail::send(new IcoRegistrationAdminMail($email, $currency, $amount));
+        DB::commit();
 
         return response()->json(
             []
@@ -127,39 +144,62 @@ class IndexController extends Controller
             $request,
             [
                 'email' => 'required|string|email|max:255|unique:investors',
-                'skype_id' => 'string|max:100|unique:investors',
-                'first_name' => 'string|max:100',
-                'last_name' => 'string|max:100',
+                'skype-id' => 'required|string|max:100|unique:investors,skype_id',
+                'first-name' => 'required|string|max:100',
+                'last-name' => 'required|string|max:100',
             ],
-            [
-                'email.unique' => 'Investor with such Email already registered.',
-                'skype_id.unique' => 'Investor with such Skype ID already registered.',
-            ]
-
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                    'skype-id' => 'Skype ID',
+                    'first-name' => 'First NAme',
+                    'last-name' => 'Last Name',
+                ],
+                [
+                    'email.unique' => 'Investor with such Email already registered.',
+                    'skype-id.unique' => 'Investor with such Skype ID already registered.',
+                ]
+            )
         );
+
+        $email = $request->input('email');
+        $skype = $request->input('skype-id');
+        $firstName = $request->input('first-name');
+        $lastName = $request->input('last-name');
+
+        DB::beginTransaction();
 
         try {
 
             Investor::create(
                 [
-                    'email' => $request->email,
-                    'first_name' => $request->first_name,
-                    'last_name' => $request->last_name,
-                    'skype_id' => $request->skype_id,
+                    'email' => $email,
+                    'skype_id' => $skype,
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
                 ]
             );
 
         } catch (\Exception $e) {
 
+            DB::rollback();
+
             return response()->json(
                 [
                     'message' => 'Registration failed',
-                    'errors' => ['An error occurred']
+                    'errors' => [
+                        'skype-id' => '',
+                        'first-name' => '',
+                        'last-name' => '',
+                        'email' => 'Registration failed'
+                    ]
                 ],
                 422
             );
 
         }
+
+        DB::commit();
 
         return response()->json(
             []
@@ -247,7 +287,12 @@ class IndexController extends Controller
         );
     }
 
-    public function confirmPasswordReset(Request $request)
+    /**
+     * Confirm password changing
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function confirmPasswordReset()
     {
         return view('main.reset-password-complete');
     }

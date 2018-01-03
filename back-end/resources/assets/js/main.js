@@ -556,6 +556,8 @@ $(document).ready(function () {
                     });
 
                     $('#resend-registration-email').on('click', function (event) {
+                        event.preventDefault();
+
                         sendActivationEmail(response.data.uid)
                     });
                 }
@@ -624,6 +626,9 @@ $(document).ready(function () {
                         errors,
                         (field, error) => {
                             $('#frm_ico_registration input[name="' + field + '"]').parent().addClass('form-error');
+                            $('#frm_ico_registration input[name="' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
                         }
                     )
                 }
@@ -641,9 +646,9 @@ $(document).ready(function () {
 
         const registration = {
             'email': $('#frm_investor input[name="email"]').val(),
-            'first_name': $('#frm_investor input[name="first_name"]').val(),
-            'last_name': $('#frm_investor input[name="last_name"]').val(),
-            'skype_id': $('#frm_investor input[name="skype_id"]').val(),
+            'first-name': $('#frm_investor input[name="first-name"]').val(),
+            'last-name': $('#frm_investor input[name="last-name"]').val(),
+            'skype-id': $('#frm_investor input[name="skype-id"]').val(),
         }
 
         axios.post(
