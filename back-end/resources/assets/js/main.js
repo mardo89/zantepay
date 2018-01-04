@@ -61,6 +61,7 @@ const clearForm = form => {
 }
 
 $(document).ready(function () {
+
     // Count down
     if ($('.js-countdown').length) {
         var date = $('.js-countdown').data('date');
@@ -150,123 +151,125 @@ $(document).ready(function () {
     }
 
     //hp shapes
-    particlesJS(
-        'particles-js',
-        {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#f92112"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    },
-                    "image": {
-                        "src": "img/github.svg",
-                        "width": 100,
-                        "height": 100
-                    }
-                },
-                "opacity": {
-                    "value": 0.7,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 3,
-                        "opacity_min": 0.2,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 5,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 6,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.5,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 4,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": false,
-                    },
-                    "onclick": {
-                        "enable": false,
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
+    if ($('#particles-js').length) {
+        particlesJS(
+            'particles-js',
+            {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
                         }
                     },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 5
+                    "color": {
+                        "value": "#f92112"
                     },
-                    "repulse": {
-                        "distance": 200
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        },
+                        "image": {
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
+                        }
                     },
-                    "push": {
-                        "particles_nb": 4
+                    "opacity": {
+                        "value": 0.7,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 3,
+                            "opacity_min": 0.2,
+                            "sync": false
+                        }
                     },
-                    "remove": {
-                        "particles_nb": 2
+                    "size": {
+                        "value": 5,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 6,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.5,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 4,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
                     }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": false,
+                        },
+                        "onclick": {
+                            "enable": false,
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 5
+                        },
+                        "repulse": {
+                            "distance": 200
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true,
+                "config_demo": {
+                    "hide_card": false,
+                    "background_color": "#b61924",
+                    "background_image": "",
+                    "background_position": "50% 50%",
+                    "background_repeat": "no-repeat",
+                    "background_size": "cover"
                 }
-            },
-            "retina_detect": true,
-            "config_demo": {
-                "hide_card": false,
-                "background_color": "#b61924",
-                "background_image": "",
-                "background_position": "50% 50%",
-                "background_repeat": "no-repeat",
-                "background_size": "cover"
             }
-        }
-    );
+        );
+    }
 
     // Contact us
     $('#frm_contact').on('submit', function (event) {
@@ -349,14 +352,18 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    const {message} = error.response.data;
+                    const {errors} = error.response.data;
 
-                    $('#signin_email').parent().addClass('form-error');
-                    $('#signin_pwd').parent().addClass('form-error');
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#frm_signin input[name="' + field + '"]').parent().addClass('form-error');
+                            $('#frm_signin input[name="' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
 
-                    $('#signin_pwd').after(
-                        $('<span />').addClass('error-text').text(message)
-                    );
                 }
             )
     });
@@ -421,102 +428,6 @@ $(document).ready(function () {
             )
     });
 
-    //Forgot password
-    $('#frm_forgot_password').on('submit', function (event) {
-        event.preventDefault();
-
-        const button = $('#frm_forgot').find('input[type="submit"]');
-        showSpinner(button, 50);
-        clearErrors();
-
-        const credentials = {
-            email: $('#frm_forgot_password input[name="email"]').val(),
-        };
-
-        axios.post(
-            '/account/reset-password',
-            qs.stringify(credentials)
-        )
-            .then(
-                () => {
-                    hideSpinner(button);
-
-                    $.magnificPopup.close();
-
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#reset-confirm-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: false
-                        }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {errors} = error.response.data;
-
-                    $.each(
-                        errors,
-                        (field, error) => {
-                            $('#frm_forgot_password input[name="' + field + '"]').parent().addClass('form-error');
-                            $('#frm_forgot_password input[name="' + field + '"]').after(
-                                $('<span />').addClass('error-text').text(error)
-                            );
-                        }
-                    )
-                }
-            )
-    });
-
-    $('#frm_change_password').on('submit', function (event) {
-        event.preventDefault();
-
-        const button = $('#frm_change_password').find('input[type="submit"]');
-        showSpinner(button, 50);
-        clearErrors();
-
-        const credentials = {
-            token: $('#frm_change_password input[name="reset-token"]').val(),
-            password: $('#frm_change_password input[name="password"]').val(),
-            password_confirmation: $('#frm_change_password input[name="confirm-password"]').val()
-        };
-
-        axios.post(
-            '/account/save-password',
-            qs.stringify(credentials)
-        )
-            .then(
-                response => {
-                    hideSpinner(button);
-
-                    window.location = response.data.nextStep
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {errors} = error.response.data;
-
-                    $.each(
-                        errors,
-                        (field, error) => {
-                            $('#frm_change_password input[name="' + field + '"]').parent().addClass('form-error');
-                            $('#frm_change_password input[name="' + field + '"]').after(
-                                $('<span />').addClass('error-text').text(error)
-                            );
-                        }
-                    )
-                }
-            )
-
-    });
-
     //Sing up via invite
     $("#frm_invite_signup").on('submit', function (event) {
         event.preventDefault();
@@ -579,6 +490,103 @@ $(document).ready(function () {
                     )
                 }
             )
+    });
+
+    //Forgot password
+    $('#frm_forgot_password').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $('#frm_forgot').find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        const credentials = {
+            email: $('#frm_forgot_password input[name="email"]').val(),
+        };
+
+        axios.post(
+            '/account/reset-password',
+            qs.stringify(credentials)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.close();
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#reset-confirm-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: false
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#frm_forgot_password input[name="' + field + '"]').parent().addClass('form-error');
+                            $('#frm_forgot_password input[name="' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+    });
+
+    // Change password
+    $('#frm_change_password').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $('#frm_change_password').find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        const credentials = {
+            token: $('#frm_change_password input[name="reset-token"]').val(),
+            password: $('#frm_change_password input[name="password"]').val(),
+            password_confirmation: $('#frm_change_password input[name="confirm-password"]').val()
+        };
+
+        axios.post(
+            '/account/save-password',
+            qs.stringify(credentials)
+        )
+            .then(
+                response => {
+                    hideSpinner(button);
+
+                    window.location = response.data.nextStep
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#frm_change_password input[name="' + field + '"]').parent().addClass('form-error');
+                            $('#frm_change_password input[name="' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+
     });
 
     // PRE-ICO registration

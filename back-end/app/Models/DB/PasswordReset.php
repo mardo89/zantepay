@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class PasswordReset extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-        'wallet_id', 'currency', 'amount', 'user_id'
+        'email', 'token'
     ];
 
     /**
@@ -20,7 +20,8 @@ class Transaction extends Model
      *
      * @var array
      */
-    protected $hidden = [];
+    protected $hidden = [
+    ];
 
     public $timestamps = false;
 }

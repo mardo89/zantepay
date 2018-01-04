@@ -1,11 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Wallet extends Model
+class Profile extends Model
 {
+    /**
+     * Identification status
+     */
+    const IDENTIFICATION_NOT_APPROVED = 0;
+
+    const IDENTIFICATION_APPROVED = 1;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +28,7 @@ class Wallet extends Model
      * @var array
      */
     protected $hidden = [
-
+        'country_id', 'state_id', 'city', 'address', 'postcode',
+        'passport_id', 'passport_expiration_date', 'birth_date'
     ];
 }

@@ -31,6 +31,26 @@ class UserController extends Controller
     }
 
     /**
+     * Get states list for country
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function getStates(Request $request)
+    {
+        $this->validate($request, [
+            'country' => 'numeric'
+        ]);
+
+        $country = $request->input('country');
+
+        $states = State::getStatesList($country);
+
+        return response()->json($states);
+    }
+
+    /**
      * User profile
      *
      * @return View

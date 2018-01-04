@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
 use App\Mail\IcoRegistration as IcoRegistrationMail;
 use App\Models\Currency;
-use App\Models\IcoRegistration;
-use App\Models\Investor;
-use App\Models\PasswordReset;
-use App\Models\State;
-use App\Models\User;
-use App\Validators\ValidationMessages;
+use App\Models\DB\IcoRegistration;
+use App\Models\DB\Investor;
+use App\Models\DB\PasswordReset;
+use App\Models\DB\State;
+use App\Models\DB\User;
+use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -39,28 +39,6 @@ class IndexController extends Controller
             ]
         );
     }
-
-
-    /**
-     * Get states list for country
-     *
-     * @param Request $request
-     *
-     * @return mixed
-     */
-    public function getStates(Request $request)
-    {
-        $this->validate($request, [
-            'country' => 'numeric'
-        ]);
-
-        $country = $request->input('country');
-
-        $states = State::getStatesList($country);
-
-        return response()->json($states);
-    }
-
 
     /**
      * Save registration for Pre-Ico
@@ -156,8 +134,8 @@ class IndexController extends Controller
                     'last-name' => 'Last Name',
                 ],
                 [
-                    'email.unique' => 'Investor with such Email already registered.',
-                    'skype-id.unique' => 'Investor with such Skype ID already registered.',
+                    'email.unique' => 'Investor with such Email already registered',
+                    'skype-id.unique' => 'Investor with such Skype ID already registered',
                 ]
             )
         );

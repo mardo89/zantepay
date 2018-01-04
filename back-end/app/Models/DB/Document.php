@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Document extends Model
 {
     /**
-     * Identification status
+     * Document types
      */
-    const IDENTIFICATION_NOT_APPROVED = 0;
-
-    const IDENTIFICATION_APPROVED = 1;
+    const DOCUMENT_TYPE_IDENTITY = 0;
+    const DOCUMENT_TYPE_ADDRESS = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +18,7 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id'
+        'user_id', 'document_type', 'did','file_path'
     ];
 
     /**
@@ -28,7 +27,7 @@ class Profile extends Model
      * @var array
      */
     protected $hidden = [
-        'country_id', 'state_id', 'city', 'address', 'postcode',
-        'passport_id', 'passport_expiration_date', 'birth_date'
+
     ];
+
 }

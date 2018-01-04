@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validators;
+namespace App\Models\Validation;
 
 
 class ValidationMessages
@@ -9,12 +9,14 @@ class ValidationMessages
      * @var array List of validation messages
      */
     private static $defaultMessages = [
-        'required' => '%s field is required',
-        'string' => '%s field must be a string',
-        'email' => '%s field must contain correct email',
-        'max' => '%s field is to long',
-        'unique' => '%s field must be unique',
-        'numeric' => 'Amount field must be a numeric',
+        'required' => 'The %s field is required',
+        'string' => 'The %s field must be a string',
+        'email' => 'The %s field must contain correct email',
+        'max' => 'The %s field is to long',
+        'min' => 'The %s field is to short',
+        'unique' => 'The %s field must be unique',
+        'numeric' => 'The %s field must be a numeric',
+        'confirmed' => 'The %s confirmation does not match'
     ];
 
     /**

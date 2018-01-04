@@ -4,7 +4,6 @@
  * Main Page
  */
 Route::get('/', 'IndexController@main');
-Route::get('states', 'IndexController@getStates');
 Route::get('confirmation', 'IndexController@confirmActivation');
 Route::get('invitation', 'IndexController@confirmInvitation');
 Route::get('reset-password', 'IndexController@resetPassword');
@@ -20,7 +19,6 @@ Route::group(['prefix' => 'mail'], function () {
     Route::post('activate-account', 'MailController@activateAccount');
     Route::post('contact-us', 'MailController@contactUs');
     Route::post('invite-friend', 'MailController@inviteFriend');
-    Route::post('ico-registration', 'MailController@icoRegistration');
 });
 
 
@@ -47,6 +45,7 @@ Route::group(['prefix' => 'account'], function () {
  * USER
  */
 Route::group(['prefix' => 'user'], function () {
+    Route::get('states', 'IndexController@getStates');
     Route::get('profile', 'UserController@profile');
     Route::post('profile', 'UserController@saveProfile');
 

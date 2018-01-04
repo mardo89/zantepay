@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PasswordReset extends Model
+class Investor extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class PasswordReset extends Model
      * @var array
      */
     protected $fillable = [
-        'email', 'token'
+        'email', 'first_name', 'last_name', 'skype_id'
     ];
 
     /**
@@ -20,8 +20,6 @@ class PasswordReset extends Model
      *
      * @var array
      */
-    protected $hidden = [
-    ];
+    protected $hidden = [];
 
-    public $timestamps = false;
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Investor extends Model
+class Wallet extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Investor extends Model
      * @var array
      */
     protected $fillable = [
-        'email', 'first_name', 'last_name', 'skype_id'
+        'user_id'
     ];
 
     /**
@@ -20,6 +20,7 @@ class Investor extends Model
      *
      * @var array
      */
-    protected $hidden = [];
+    protected $hidden = [
 
+    ];
 }

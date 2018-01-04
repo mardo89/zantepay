@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Mail\ActivateAccount;
 use App\Mail\ResetPassword;
-use App\Models\PasswordReset;
-use App\Models\Profile;
-use App\Models\Verification;
-use App\Models\Wallet;
+use App\Models\DB\PasswordReset;
+use App\Models\DB\Profile;
+use App\Models\DB\Verification;
+use App\Models\DB\Wallet;
+use App\Models\DB\User;
+use App\Models\Validation\ValidationMessages;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -36,10 +38,27 @@ class AccountController extends Controller
      */
     public function register(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+            ],
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                    'password' => 'Password'
+                ],
+                [
+                    'email.unique' => 'User with such Email already registered',
+                    'password.min' => 'The Password field must be at least 6 characters',
+                    'password.confirmed' => 'The Password confirmation does not match',
+                ]
+            )
+        );
+
+        $email = $request->input('email');
+        $password = $request->input('password');
 
         DB::beginTransaction();
 
@@ -47,19 +66,26 @@ class AccountController extends Controller
 
             $userInfo = $this->createUser(
                 [
-                    'email' => $request->email,
-                    'password' => User::hashPassword($request->password),
+                    'email' => $email,
+                    'password' => User::hashPassword($password),
                     'uid' => uniqid()
                 ]
             );
 
+            Mail::to($userInfo['email'])->send(new ActivateAccount($userInfo['uid']));
+
         } catch (\Exception $e) {
+
             DB::rollback();
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),//'Error creating user',
-                    'errors' => ['An error occurred']
+                    'message' => 'Error creating user',
+                    'errors' => [
+                        'email' => '',
+                        'password' => '',
+                        'confirm-password' => 'Registration failed'
+                    ]
                 ],
                 422
             );
@@ -67,8 +93,6 @@ class AccountController extends Controller
         }
 
         DB::commit();
-
-        Mail::to($userInfo['email'])->send(new ActivateAccount($userInfo['uid']));
 
         return response()->json(
             [
@@ -87,28 +111,37 @@ class AccountController extends Controller
      */
     public function login(Request $request)
     {
+
+        $email = $request->input('email', '');
+        $password = $request->input('password', '');
+
         try {
             $isAuthorized = Auth::attempt(
                 [
-                    'email' => $request->email,
-                    'password' => $request->password,
+                    'email' => $email,
+                    'password' => $password,
                 ]
             );
 
             if (!$isAuthorized) {
-                throw new Exception('Authentification failed!');
+                throw new AuthenticationException('Login or password incorrect');
             }
 
             if (Auth::user()->status === User::USER_STATUS_INACTIVE) {
-                throw new Exception('Your account is disabled!');
+                throw new AuthenticationException('Your account is disabled');
             }
 
         } catch (\Exception $e) {
 
+            $message = ($e instanceof AuthenticationException) ? $e->getMessage() : 'Authentification failed';
+
             return response()->json(
                 [
-                    'message' => $e->getMessage(),
-                    'errors' => ['Login or password incorrect']
+                    'message' => $message,
+                    'errors' => [
+                        'email' => '',
+                        'password' => $message
+                    ]
                 ],
                 422
             );
@@ -127,16 +160,19 @@ class AccountController extends Controller
     public function logout()
     {
         try {
+
             Auth::logout();
+
         } catch (\Exception $e) {
 
             return response()->json(
                 [
                     'message' => 'Can not log out current user',
-                    'errors' => ['Error while logging out']
+                    'errors' => []
                 ],
                 422
             );
+
         }
 
         return response()->json(
@@ -156,15 +192,24 @@ class AccountController extends Controller
      */
     public function resetPassword(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|string|email|max:255',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|string|email|max:255',
+            ],
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                ]
+            )
+        );
 
-        $email = $request->email;
+        $email = $request->input('email');
 
         DB::beginTransaction();
 
         try {
+
             $resetInfo = PasswordReset::create(
                 [
                     'email' => $email,
@@ -172,13 +217,18 @@ class AccountController extends Controller
                 ]
             );
 
+            Mail::to($resetInfo['email'])->send(new ResetPassword($resetInfo['token']));
+
         } catch (\Exception $e) {
+
             DB::rollback();
 
             return response()->json(
                 [
                     'message' => 'Can not restore password',
-                    'errors' => ['An error occurred']
+                    'errors' => [
+                        'email' => 'Error restoring password'
+                    ]
                 ],
                 422
             );
@@ -186,8 +236,6 @@ class AccountController extends Controller
         }
 
         DB::commit();
-
-        Mail::to($request->email)->send(new ResetPassword($resetInfo['token']));
 
         return response()->json(
             []
@@ -204,10 +252,23 @@ class AccountController extends Controller
      */
     public function savePassword(Request $request)
     {
-        $this->validate($request, [
-            'password' => 'required|string|min:6|confirmed',
-            'token' => 'required|string'
-        ]);
+        $this->validate(
+            $request,
+            [
+                'password' => 'required|string|min:6|confirmed',
+                'token' => 'required|string'
+            ],
+            ValidationMessages::getList(
+                [
+                    'password' => 'Password',
+                    'token' => 'Token',
+                ],
+                [
+                    'password.min' => 'The Password field must be at least 6 characters',
+                    'password.confirmed' => 'The Password confirmation does not match',
+                ]
+            )
+        );
 
         $resetInfo = PasswordReset::where('token', $request->token)
             ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 15 MINUTE)'))
@@ -241,6 +302,7 @@ class AccountController extends Controller
             PasswordReset::where('email', $user->email)->delete();
 
         } catch (\Exception $e) {
+
             DB::rollback();
 
             return response()->json(

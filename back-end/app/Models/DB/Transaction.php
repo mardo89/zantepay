@@ -1,24 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class Transaction extends Model
 {
-    /**
-     * Document types
-     */
-    const DOCUMENT_TYPE_IDENTITY = 0;
-    const DOCUMENT_TYPE_ADDRESS = 1;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id', 'document_type', 'did','file_path'
+        'wallet_id', 'currency', 'amount', 'user_id'
     ];
 
     /**
@@ -26,8 +20,7 @@ class Document extends Model
      *
      * @var array
      */
-    protected $hidden = [
+    protected $hidden = [];
 
-    ];
-
+    public $timestamps = false;
 }
