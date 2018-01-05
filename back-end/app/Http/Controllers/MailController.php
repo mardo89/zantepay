@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactUs;
-use App\Mail\IcoRegistration;
-use App\Mail\InviteFriend;
-use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\DB\User;
+use App\Models\Validation\ValidationMessages;
 use App\Mail\ActivateAccount;
-use Illuminate\Support\Facades\Auth;
+use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 
 
 class MailController extends Controller
@@ -25,11 +23,21 @@ class MailController extends Controller
     {
         $userID = $request->input('uid', '');
 
-        $user = User::where('uid', $userID)->first();;
+        try {
 
-        if ($user) {
+            $user = User::where('uid', $userID)->first();;
 
-            Mail::to($user->email)->send(new ActivateAccount($user->uid));
+            if ($user) {
+
+                Mail::to($user->email)->send(new ActivateAccount($user->uid));
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                []
+            );
+
         }
 
         return response()->json(
@@ -52,41 +60,35 @@ class MailController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
                 'message' => 'required'
-            ]
+            ],
+            ValidationMessages::getList(
+                [
+                    'name' => 'NAme',
+                    'email' => 'Email',
+                    'message' => 'Message',
+                ]
+            )
+
         );
 
-        Mail::to(env('CONTACT_EMAIL'))->send(new ContactUs($request->name, $request->email, $request->message));
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $message = $request->input('message');
 
-        return response()->json(
-            []
-        );
-    }
+        try {
 
-    /**
-     * Send invitation
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function inviteFriend(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'email' => 'required|string|email|max:255'
-            ]
-        );
+            Mail::to(env('CONTACT_EMAIL'))->send(new ContactUs($name, $email, $message));
 
-        $user = Auth::user();
+        } catch (\Exception $e) {
 
-        if ($user) {
-            Mail::to($request->email)->send(new InviteFriend($user->email, $user->uid));
+            return response()->json(
+                []
+            );
+
         }
 
         return response()->json(
             []
         );
     }
-
 }

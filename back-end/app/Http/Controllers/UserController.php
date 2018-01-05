@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InviteFriend;
-use App\Models\Country;
 use App\Models\Currency;
-use App\Models\DebitCard;
-use App\Models\Document;
-use App\Models\Invite;
-use App\Models\Profile;
-use App\Models\State;
-use App\Models\User;
-use App\Models\Verification;
+use App\Models\DB\Country;
+use App\Models\DB\DebitCard;
+use App\Models\DB\Document;
+use App\Models\DB\Invite;
+use App\Models\DB\Profile;
+use App\Models\DB\State;
+use App\Models\DB\User;
+use App\Models\DB\Verification;
+use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 
 
 class UserController extends Controller
@@ -77,7 +79,6 @@ class UserController extends Controller
         // States List
         $states = State::getStatesList($profile->country_id);
 
-
         return view(
             'user.profile',
             [
@@ -103,37 +104,61 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'first_name' => 'string|max:100|nullable',
-                'last_name' => 'string|max:100|nullable',
+                'first_name' => 'alpha|max:100|nullable',
+                'last_name' => 'alpha|max:100|nullable',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $user->id . ',id',
-                'phone_number' => 'string|max:20|nullable',
+                'phone_number' => 'numeric|max:20|nullable',
                 'country' => 'numeric',
                 'state' => 'numeric',
-                'city' => 'string|max:100|nullable',
+                'city' => 'alpha|max:100|nullable',
                 'address' => 'string|nullable',
                 'postcode' => 'string|max:10|nullable',
                 'passport' => 'string|max:50|nullable',
                 'expiration_date' => 'date',
                 'birth_date' => 'date',
-                'birth_country' => 'string|max:50|nullable',
-            ]
-        );
-
-        $profile = Profile::where('user_id', $user->id)->first();
-
-        if (!$profile) {
-            return response()->json(
+                'birth_country' => 'alpha|max:50|nullable',
+            ],
+            ValidationMessages::getList(
                 [
-                    'message' => 'Error updating profile',
-                    'errors' => ['Profile not found']
+                    'first_name' => 'First Name',
+                    'last_name' => 'Last Name',
+                    'email' => 'Email',
+                    'phone_number' => 'Phone Number',
+                    'country' => 'Country',
+                    'state' => 'State',
+                    'city' => 'City',
+                    'address' => 'Address',
+                    'postcode' => 'Postcode',
+                    'passport' => 'Passport / Government ID',
+                    'expiration_date' => 'Passport / ID expiry Date',
+                    'birth_date' => 'Birth Date',
+                    'birth_country' => 'Birth Country',
                 ],
-                422
-            );
-        }
+                [
+                    'email.unique' => 'User with such Email already registered',
+                    'country' => 'Unknown Country',
+                    'state' => 'Unknown State',
+                    'expiration_date' => 'Incorrect date format',
+                    'expiration_date' => 'Incorrect date format',
+                ]
+            )
+        );
 
         DB::beginTransaction();
 
         try {
+            $profile = Profile::where('user_id', $user->id)->first();
+
+            if (!$profile) {
+                return response()->json(
+                    [
+                        'message' => 'Error updating profile',
+                        'errors' => []
+                    ],
+                    500
+                );
+            }
+
             // Update user main info
             $user->email = $request->email;
             $user->first_name = $request->first_name;
@@ -154,14 +179,15 @@ class UserController extends Controller
             $profile->save();
 
         } catch (\Exception $e) {
+
             DB::rollback();
 
             return response()->json(
                 [
                     'message' => 'Error updating profile',
-                    'errors' => ['An error occurred']
+                    'errors' => []
                 ],
-                422
+                500
             );
 
         }
@@ -233,44 +259,61 @@ class UserController extends Controller
      */
     public function removeDocument(Request $request)
     {
-        $user = Auth::user();
 
-        $document = Document::where('did', $request->did)->where('user_id', $user->id)->first();
+        try {
 
-        if (!$document) {
+            $user = Auth::user();
+
+            $document = Document::where('did', $request->did)->where('user_id', $user->id)->first();
+
+            if (!$document) {
+                return response()->json(
+                    [
+                        'message' => 'File not found',
+                        'errors' => []
+                    ],
+                    422
+                );
+            }
+
+            if (Storage::exists($document->file_path)) {
+                Storage::delete($document->file_path);
+            }
+
+            Document::destroy($document->id);
+
+            // Verification
+            $verification = $user->verification;
+
+            $idDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY);
+
+            if ($idDocuments->count() === 0) {
+                $verification->id_documents_status = Verification::DOCUMENTS_NOT_UPLOADED;
+                $verification->id_decline_reason = '';
+            }
+
+            $addressDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS);
+
+            if ($addressDocuments->count() === 0) {
+                $verification->address_documents_status = Verification::DOCUMENTS_NOT_UPLOADED;
+                $verification->address_decline_reason = '';
+            }
+
+            $verification->save();
+
+
+        } catch (\Exception $e) {
+
             return response()->json(
                 [
-                    'message' => 'File not found',
-                    'errors' => ['Error deleting file']
+                    'message' => 'Error deleting file',
+                    'errors' => []
                 ],
-                422
+                500
             );
+
         }
 
-        if (Storage::exists($document->file_path)) {
-            Storage::delete($document->file_path);
-        }
-
-        Document::destroy($document->id);
-
-        // Verification
-        $verification = $user->verification;
-
-        $idDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY);
-
-        if ($idDocuments->count() === 0) {
-            $verification->id_documents_status = Verification::DOCUMENTS_NOT_UPLOADED;
-            $verification->id_decline_reason = '';
-        }
-
-        $addressDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS);
-
-        if ($addressDocuments->count() === 0) {
-            $verification->address_documents_status = Verification::DOCUMENTS_NOT_UPLOADED;
-            $verification->address_decline_reason = '';
-        }
-
-        $verification->save();
 
         return response()->json(
             []
@@ -293,7 +336,13 @@ class UserController extends Controller
             [
                 'currency' => 'required|numeric',
                 'address' => 'string|nullable',
-            ]
+            ],
+            ValidationMessages::getList(
+                [
+                    'currency' => 'Currency Type',
+                    'address' => 'Wallet Address',
+                ]
+            )
         );
 
         DB::beginTransaction();
@@ -315,14 +364,15 @@ class UserController extends Controller
             $wallet->save();
 
         } catch (\Exception $e) {
+
             DB::rollback();
 
             return response()->json(
                 [
                     'message' => 'Error updating wallet',
-                    'errors' => ['An error occurred']
+                    'errors' => []
                 ],
-                422
+                500
             );
         }
 
@@ -332,7 +382,6 @@ class UserController extends Controller
             []
         );
     }
-
 
     /**
      * Change password
@@ -348,31 +397,57 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
+                'current-password' => 'required|string',
                 'password' => 'required|string|min:6|confirmed',
-            ]
+            ],
+            ValidationMessages::getList(
+                [
+                    'current-password' => 'Current Password',
+                    'password' => 'Password'
+                ],
+                [
+                    'password.min' => 'The Password field must be at least 6 characters',
+                    'password.confirmed' => 'The Password confirmation does not match',
+                ]
+            )
         );
 
-        if (User::checkPassword($request->password_current, $user->password) === false) {
+        $currentPassword = $request->input('current-password');
+        $newPassword = $request->input('password');
+
+        try {
+            if (User::checkPassword($currentPassword, $user->password) === false) {
+                return response()->json(
+                    [
+                        'message' => 'Error changing password',
+                        'errors' => [
+                            'current-password' => 'Wrong Current Password'
+                        ]
+                    ],
+                    422
+                );
+            }
+
+            $user->password = User::hashPassword($newPassword);
+
+            $user->save();
+
+        } catch (\Exception $e) {
+
             return response()->json(
                 [
                     'message' => 'Error changing password',
-                    'errors' => [
-                        'current-password' => 'Wrong password'
-                    ]
+                    'errors' => []
                 ],
-                422
+                500
             );
+
         }
-
-        $user->password = User::hashPassword($request->password);
-
-        $user->save();
 
         return response()->json(
             []
         );
     }
-
 
     /**
      * Invite friends
@@ -433,15 +508,20 @@ class UserController extends Controller
             $request,
             [
                 'email' => 'required|string|email|max:255'
-            ]
+            ],
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                ]
+            )
         );
 
-        $user = Auth::user();
-        $email = $request->email;
-
-        $invite = Invite::where('user_id', $user->id)->where('email', $email)->first();
-
         try {
+            $user = Auth::user();
+
+            $email = $request->email;
+
+            $invite = Invite::where('user_id', $user->id)->where('email', $email)->first();
 
             if (!$invite) {
                 $invite = Invite::create(
@@ -450,6 +530,8 @@ class UserController extends Controller
                         'email' => $email
                     ]
                 );
+
+                Mail::to($email)->send(new InviteFriend($user->email, $user->uid));
             }
 
         } catch (\Exception $e) {
@@ -457,14 +539,12 @@ class UserController extends Controller
             return response()->json(
                 [
                     'message' => 'Invitation failed',
-                    'errors' => ['Error sending invitation']
+                    'errors' => []
                 ],
-                422
+                500
             );
 
         }
-
-        Mail::to($email)->send(new InviteFriend($user->email, $user->uid));
 
         return response()->json(
             [
@@ -506,8 +586,6 @@ class UserController extends Controller
      */
     public function saveDebitCard(Request $request)
     {
-        $user = Auth::user();
-
         $this->validate(
             $request,
             [
@@ -515,14 +593,15 @@ class UserController extends Controller
             ]
         );
 
-        $userDebitCard = [
-            'user_id' => $user->id,
-            'design' => $request->design
-        ];
-
-        $card = DebitCard::where('user_id', $user->id)->first();
-
         try {
+            $user = Auth::user();
+
+            $userDebitCard = [
+                'user_id' => $user->id,
+                'design' => $request->design
+            ];
+
+            $card = DebitCard::where('user_id', $user->id)->first();
 
             if (!$card) {
                 DebitCard::create($userDebitCard);
@@ -535,9 +614,9 @@ class UserController extends Controller
             return response()->json(
                 [
                     'message' => 'Error ordering Debit Card',
-                    'errors' => ['An error occurred']
+                    'errors' => []
                 ],
-                422
+                500
             );
 
         }
@@ -576,39 +655,47 @@ class UserController extends Controller
                 'verify_later' => 'required|boolean',
                 'document_files' => 'required_if:verify_later,0'
             ],
-            [
-                'document_files.required_if' => 'Please select files to download',
-            ]
+            ValidationMessages::getList(
+                [
+                    'verify_later' => 'Verify Later',
+                    'document_files' => 'Document Files'
+                ],
+                [
+                    'document_files.required_if' => 'Please select files to download',
+                ]
+            )
         );
 
-        if ($request->verify_later == 1) {
-            return response()->json(
-                [
-                    'nextStep' => action('UserController@debitCardAddress')
-                ]
-            );
+        if ($request->verify_later != 1) {
+
+            DB::beginTransaction();
+
+            try {
+
+                $this->uploadIdentityFiles($request);
+
+            } catch (\Exception $e) {
+
+                DB::rollback();
+
+                $code = $e->getCode();
+
+                $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
+                $errors = $code == 422 ? [$e->getMessage()] : [];
+
+                return response()->json(
+                    [
+                        'message' => $message,
+                        'errors' => $errors
+                    ],
+                    $code == 422 ? 422 : 500
+                );
+
+            }
+
+            DB::commit();
+
         }
-
-        DB::beginTransaction();
-
-        try {
-
-            $this->uploadIdentityFiles($request);
-
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            return response()->json(
-                [
-                    'message' => 'Error uploading files',
-                    'errors' => ['Error uploading file']
-                ],
-                422
-            );
-
-        }
-
-        DB::commit();
 
         return response()->json(
             [
@@ -644,41 +731,46 @@ class UserController extends Controller
                 'verify_later' => 'required|boolean',
                 'address_files' => 'required_if:verify_later,0'
             ],
-            [
-                'address_files.required_if' => 'Please select files to download',
-            ]
-
+            ValidationMessages::getList(
+                [
+                    'verify_later' => 'Verify Later',
+                    'address_files' => 'Address Files'
+                ],
+                [
+                    'address_files.required_if' => 'Please select files to download',
+                ]
+            )
         );
 
-        if ($request->verify_later == 1) {
-            return response()->json(
-                [
-                    'nextStep' => action('UserController@debitCardSuccess')
-                ]
-            );
+        if ($request->verify_later != 1) {
+
+            DB::beginTransaction();
+
+            try {
+
+                $this->uploadAddressFiles($request);
+
+            } catch (\Exception $e) {
+
+                DB::rollback();
+
+                $code = $e->getCode();
+
+                $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
+                $errors = $code == 422 ? [$e->getMessage()] : [];
+
+                return response()->json(
+                    [
+                        'message' => $message,
+                        'errors' => $errors
+                    ],
+                    $code == 422 ? 422 : 500
+                );
+            }
+
+            DB::commit();
+
         }
-
-
-        DB::beginTransaction();
-
-        try {
-
-            $this->uploadAddressFiles($request);
-
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            return response()->json(
-                [
-                    'message' => 'Error uploading files',
-                    'errors' => ['Error uploading file']
-                ],
-                422
-            );
-
-        }
-
-        DB::commit();
 
         return response()->json(
             [
@@ -704,7 +796,6 @@ class UserController extends Controller
         );
     }
 
-
     /**
      * Upload identity documents
      *
@@ -714,6 +805,21 @@ class UserController extends Controller
      */
     public function uploadIdentityDocuments(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'document_files' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'document_files' => 'Document Files'
+                ],
+                [
+                    'document_files.required' => 'Please select files to download',
+                ]
+            )
+        );
+
         DB::beginTransaction();
 
         try {
@@ -723,12 +829,17 @@ class UserController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
 
+            $code = $e->getCode();
+
+            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
+            $errors = $code == 422 ? [$e->getMessage()] : [];
+
             return response()->json(
                 [
-                    'message' => 'Error uploading files',
-                    'errors' => ['Error uploading file']
+                    'message' => $message,
+                    'errors' => $errors
                 ],
-                422
+                $code == 422 ? 422 : 500
             );
 
         }
@@ -749,6 +860,21 @@ class UserController extends Controller
      */
     public function uploadAddressDocuments(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'address_files' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'address_files' => 'Address Files'
+                ],
+                [
+                    'address_files.required' => 'Please select files to download',
+                ]
+            )
+        );
+
         DB::beginTransaction();
 
         try {
@@ -756,14 +882,20 @@ class UserController extends Controller
             $this->uploadAddressFiles($request);
 
         } catch (\Exception $e) {
+
             DB::rollback();
+
+            $code = $e->getCode();
+
+            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
+            $errors = $code == 422 ? [$e->getMessage()] : [];
 
             return response()->json(
                 [
-                    'message' => 'Error uploading files',
-                    'errors' => ['Error uploading file']
+                    'message' => $message,
+                    'errors' => $errors
                 ],
-                422
+                $code == 422 ? 422 : 500
             );
 
         }
@@ -774,7 +906,6 @@ class UserController extends Controller
             []
         );
     }
-
 
     /**
      * Upload identity files
@@ -799,7 +930,7 @@ class UserController extends Controller
         }
 
         if (Validator::make($files->data, $files->rules)->fails()) {
-            throw new \Exception('Error uploading files');
+            throw new \Exception('Incorrect files format', 422);
         }
 
         $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->get();
@@ -838,7 +969,6 @@ class UserController extends Controller
 
     }
 
-
     /**
      * Upload address files
      *
@@ -862,7 +992,7 @@ class UserController extends Controller
         }
 
         if (Validator::make($files->data, $files->rules)->fails()) {
-            throw new \Exception('Error uploading files');
+            throw new \Exception('Incorrect files format', 422);
         }
 
         $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->get();

@@ -184,7 +184,7 @@
                                     @endforeach
                                 </div>
 
-                                @if($verification->id_documents_status == \App\Models\Verification::DOCUMENTS_UPLOADED)
+                                @if($verification->id_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
                                     <div class="col-md-3 col-sm-4 col-5 text-center mb-20">
                                         <input type="hidden" name="document-type"
                                                value="{{ \App\Models\Document::DOCUMENT_TYPE_IDENTITY }}">
@@ -227,7 +227,7 @@
                                     @endforeach
                                 </div>
 
-                                @if($verification->address_documents_status == \App\Models\Verification::DOCUMENTS_UPLOADED)
+                                @if($verification->address_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
                                     <div class="col-md-3 col-sm-4 col-5 text-center mb-20">
                                         <input type="hidden" name="document-type" value="{{ \App\Models\Document::DOCUMENT_TYPE_ADDRESS }}">
 
@@ -339,9 +339,9 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                @if($debitCard === \App\Models\DebitCard::DESIGN_WHITE)
+                                @if($debitCard === \App\Models\DB\DebitCard::DESIGN_WHITE)
                                     <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x" alt="ZANTEPAY Card">
-                                @elseif($debitCard === \App\Models\DebitCard::DESIGN_RED)
+                                @elseif($debitCard === \App\Models\DB\DebitCard::DESIGN_RED)
                                     <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x" alt="ZANTEPAY Card">
                                 @else
                                     Debit Card not selected

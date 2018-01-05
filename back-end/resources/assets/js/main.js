@@ -316,6 +316,10 @@ $(document).ready(function () {
                         errors,
                         (field, error) => {
                             $('#contact-' + field).parents('.form-group').addClass('form-error');
+                            $('#contact-' + field).after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+
                         }
                     )
                 }

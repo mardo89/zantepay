@@ -16,9 +16,9 @@ class CreateVerificationsTable extends Migration
         Schema::create('verifications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->tinyInteger('id_documents_status')->default(\App\Models\Verification::DOCUMENTS_NOT_UPLOADED);
+            $table->tinyInteger('id_documents_status')->default(\App\Models\DB\Verification::DOCUMENTS_NOT_UPLOADED);
             $table->string('id_decline_reason', 150)->default('');
-            $table->tinyInteger('address_documents_status')->default(\App\Models\Verification::DOCUMENTS_NOT_UPLOADED);
+            $table->tinyInteger('address_documents_status')->default(\App\Models\DB\Verification::DOCUMENTS_NOT_UPLOADED);
             $table->string('address_decline_reason', 150)->default('');
             $table->timestamps();
         });

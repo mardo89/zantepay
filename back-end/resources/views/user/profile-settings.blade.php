@@ -27,7 +27,7 @@
                         </h2>
                         <div class="row">
                             <div class="col-md-6">
-                                @if($verification->id_documents_status == \App\Models\Verification::DOCUMENTS_NOT_UPLOADED)
+                                @if($verification->id_documents_status == \App\Models\DB\Verification::DOCUMENTS_NOT_UPLOADED)
                                     <div>Your passport / ID / driver’s license:</div>
 
                                     <form id="upload-identity-documents">
@@ -70,7 +70,7 @@
 
 
                             <div class="col-md-6">
-                                @if($verification->address_documents_status == \App\Models\Verification::DOCUMENTS_NOT_UPLOADED)
+                                @if($verification->address_documents_status == \App\Models\DB\Verification::DOCUMENTS_NOT_UPLOADED)
                                     <div>Your address proof documents:</div>
 
                                     <form id="upload-address-documents">

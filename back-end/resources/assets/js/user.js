@@ -132,6 +132,7 @@ $(document).ready(function () {
 
         const button = $(this);
         showSpinner(button);
+        clearErrors();
 
         const profile = {
             'first_name': $('input[name="f-name"]').val(),
@@ -174,14 +175,21 @@ $(document).ready(function () {
 
                     const {errors, message} = error.response.data;
 
-                    $.each(
-                        errors,
-                        (field, error) => {
-                            $('.profile_' + field).addClass('form-error');
-                        }
-                    )
+                    if (error.response.status == 422) {
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('.profile_' + field).addClass('form-error');
+                                $('.profile_' + field).after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
 
-                    showError(message);
+                    } else {
+                        showError(message);
+                    }
+
                 }
             )
     });
@@ -295,6 +303,7 @@ $(document).ready(function () {
 
     $('#upload-address-documents').on('submit', function (event) {
         event.preventDefault();
+        clearErrors();
 
         let documents = new FormData();
 
@@ -314,7 +323,9 @@ $(document).ready(function () {
         )
 
         if (!isFilesValid) {
-            showError('Incorrect files format.');
+            $('.drag-drop-area').after(
+                $('<div />').addClass('error-text').text('Incorrect files format.')
+            );
 
             return false;
         }
@@ -352,9 +363,22 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    const {message} = error.response.data;
+                    const {message, errors} = error.response.data;
 
-                    showError(message);
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('.drag-drop-area').after(
+                                    $('<div />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
                 }
             )
 
@@ -404,11 +428,13 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
-
                     const {message} = error.response.data;
 
-                    showError(message)
+                    if (error.response.status == 422) {
+                        $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+                    } else {
+                        showError(message)
+                    }
                 }
             )
     });
@@ -421,7 +447,7 @@ $(document).ready(function () {
         clearErrors();
 
         const password = {
-            'password_current': $(this).find('input[name="current-password"]').val(),
+            'current-password': $(this).find('input[name="current-password"]').val(),
             'password': $(this).find('input[name="password"]').val(),
             'password_confirmation': $(this).find('input[name="confirm-password"]').val(),
         }
@@ -454,17 +480,21 @@ $(document).ready(function () {
 
                     const {errors, message} = error.response.data;
 
-                    $.each(
-                        errors,
-                        (field, error) => {
-                            $('#change-password input[name="' + field + '"]').parent().addClass('form-error');
-                            $('#change-password input[name="' + field + '"]').after(
-                                $('<span />').addClass('error-text').text(error)
-                            );
-                        }
-                    )
+                    if (error.response.status == 422) {
 
-                    showError(message)
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('#change-password input[name="' + field + '"]').parent().addClass('form-error');
+                                $('#change-password input[name="' + field + '"]').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message)
+                    }
                 }
             )
     });
@@ -474,7 +504,7 @@ $(document).ready(function () {
         const country = $(this).val();
 
         axios.get(
-            '/states',
+            '/user/states',
             {
                 params: {
                     country
@@ -582,11 +612,23 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    $('#friend-email').parent().addClass('form-error');
+                    const {message, errors} = error.response.data;
 
-                    const {message} = error.response.data;
+                    if (error.response.status == 422) {
 
-                    showError(message);
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('#friend-email').parent().addClass('form-error');
+                                $('#friend-email').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
                 }
             )
     });
@@ -649,6 +691,7 @@ $(document).ready(function () {
 
     $('#dc_documents').on('submit', function (event) {
         event.preventDefault();
+        clearErrors();
 
         let card = new FormData();
 
@@ -673,7 +716,9 @@ $(document).ready(function () {
             )
 
             if (!isFilesValid) {
-                showError('Incorrect files format.');
+                $('.drag-drop-area').after(
+                    $('<div />').addClass('error-text').text('Incorrect files format.')
+                );
 
                 return false;
             }
@@ -697,9 +742,23 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    const {message} = error.response.data;
+                    const {message, errors} = error.response.data;
 
-                    showError(message);
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('.drag-drop-area').after(
+                                    $('<div />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
+
                 }
             )
 
@@ -707,6 +766,7 @@ $(document).ready(function () {
 
     $('#dc_address').on('submit', function (event) {
         event.preventDefault();
+        clearErrors();
 
         let card = new FormData();
 
@@ -731,7 +791,9 @@ $(document).ready(function () {
             )
 
             if (!isFilesValid) {
-                showError('Incorrect files format.');
+                $('.drag-drop-area').after(
+                    $('<div />').addClass('error-text').text('Incorrect files format.')
+                );
 
                 return false;
             }
@@ -755,9 +817,22 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    const {message} = error.response.data;
+                    const {message, errors} = error.response.data;
 
-                    showError(message);
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('.drag-drop-area').after(
+                                    $('<div />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
                 }
             )
 

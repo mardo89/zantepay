@@ -18,7 +18,6 @@ Route::post('seed-investor', 'IndexController@saveInvestor');
 Route::group(['prefix' => 'mail'], function () {
     Route::post('activate-account', 'MailController@activateAccount');
     Route::post('contact-us', 'MailController@contactUs');
-    Route::post('invite-friend', 'MailController@inviteFriend');
 });
 
 
@@ -45,7 +44,7 @@ Route::group(['prefix' => 'account'], function () {
  * USER
  */
 Route::group(['prefix' => 'user'], function () {
-    Route::get('states', 'IndexController@getStates');
+    Route::get('states', 'UserController@getStates');
     Route::get('profile', 'UserController@profile');
     Route::post('profile', 'UserController@saveProfile');
 

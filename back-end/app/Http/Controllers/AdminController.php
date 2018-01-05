@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
 use App\Models\Currency;
-use App\Models\DebitCard;
-use App\Models\Document;
-use App\Models\Invite;
-use App\Models\Profile;
-use App\Models\State;
-use App\Models\Transaction;
-use App\Models\User;
-use App\Models\Verification;
+use App\Models\DB\Country;
+use App\Models\DB\DebitCard;
+use App\Models\DB\Document;
+use App\Models\DB\Invite;
+use App\Models\DB\Profile;
+use App\Models\DB\State;
+use App\Models\DB\Transaction;
+use App\Models\DB\User;
+use App\Models\DB\Verification;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Mockery\Exception;
-use Psy\Util\Json;
 
 
 class AdminController extends Controller

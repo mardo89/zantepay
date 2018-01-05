@@ -121,28 +121,28 @@ class User extends Authenticatable
      * Get list of user referrals
      */
     public function referrals() {
-        return $this->hasMany('App\Models\User', 'referrer', 'id');
+        return $this->hasMany('App\Models\DB\User', 'referrer', 'id');
     }
 
     /**
      * Get user's Wallet
      */
     public function wallet() {
-        return $this->hasOne('App\Models\Wallet', 'user_id', 'id');
+        return $this->hasOne('App\Models\DB\Wallet', 'user_id', 'id');
     }
 
     /**
      * Get user's Profile
      */
     public function profile() {
-        return $this->hasOne('App\Models\Profile', 'user_id', 'id');
+        return $this->hasOne('App\Models\DB\Profile', 'user_id', 'id');
     }
 
     /**
      * Get user's Verification info
      */
     public function verification() {
-        return $this->hasOne('App\Models\Verification', 'user_id', 'id');
+        return $this->hasOne('App\Models\DB\Verification', 'user_id', 'id');
     }
 
     /**

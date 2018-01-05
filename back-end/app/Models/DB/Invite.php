@@ -27,9 +27,7 @@ class Invite extends Model
      *
      * @var array
      */
-    protected $hidden = [
-
-    ];
+    protected $hidden = [];
 
     /**
      * Get status

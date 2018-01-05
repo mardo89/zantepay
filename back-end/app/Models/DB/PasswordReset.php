@@ -20,8 +20,10 @@ class PasswordReset extends Model
      *
      * @var array
      */
-    protected $hidden = [
-    ];
+    protected $hidden = [];
 
+    /**
+     * @var bool Disable timestamps
+     */
     public $timestamps = false;
 }

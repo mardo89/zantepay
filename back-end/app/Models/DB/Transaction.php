@@ -22,5 +22,8 @@ class Transaction extends Model
      */
     protected $hidden = [];
 
+    /**
+     * @var bool Disable timestamps
+     */
     public $timestamps = false;
 }
