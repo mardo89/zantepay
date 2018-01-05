@@ -12,6 +12,7 @@ use App\Models\DB\State;
 use App\Models\DB\Transaction;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
+use App\Models\Validation\ValidationMessages;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -204,25 +205,43 @@ class AdminController extends Controller
      */
     public function saveProfile(Request $request)
     {
-        $this->validate($request, [
-            'uid' => 'required|string',
-            'role' => 'required|integer',
-        ]);
+        $this->validate(
+            $request, [
+                'uid' => 'required|string',
+                'role' => 'required|integer',
+            ],
+            ValidationMessages::getList(
+                [
+                    'role' => 'User Role'
+                ],
+                [
+                    'role.integer' => 'Unknown User Role',
+                ]
+            )
+        );
 
-        $user = User::where('uid', $request->uid)->first();
+        try {
 
-        if (is_null($user)) {
+            $user = User::where('uid', $request->uid)->first();
+
+            if (is_null($user)) {
+                throw new \Exception('User does not exist');
+            }
+
+            $user->role = $request->role;
+            $user->save();
+
+        } catch (\Exception $e) {
+
             return response()->json(
                 [
-                    'message' => 'User does not exist',
-                    'errors' => ['Error saving user role']
+                    'message' => 'Error changing role',
+                    'errors' => []
                 ],
-                422
+                500
             );
-        }
 
-        $user->role = $request->role;
-        $user->save();
+        }
 
         return response()->json(
             []
@@ -243,21 +262,14 @@ class AdminController extends Controller
             'uid' => 'required|string',
         ]);
 
-        $user = User::where('uid', $request->uid)->first();
-
-        if (is_null($user)) {
-            return response()->json(
-                [
-                    'message' => 'User does not exist',
-                    'errors' => ['Error deleting user']
-                ],
-                422
-            );
-        }
-
         DB::beginTransaction();
 
         try {
+            $user = User::where('uid', $request->uid)->first();
+
+            if (is_null($user)) {
+                throw new \Exception('User does not exist');
+            }
 
             Profile::where('user_id', $user->id)->delete();
             Invite::where('user_id', $user->id)->delete();
@@ -287,9 +299,9 @@ class AdminController extends Controller
             return response()->json(
                 [
                     'message' => 'Error deleting user',
-                    'errors' => ['An error occurred']
+                    'errors' => []
                 ],
-                422
+                500
             );
 
         }
@@ -316,21 +328,15 @@ class AdminController extends Controller
             'type' => 'required|integer',
         ]);
 
-        $user = User::where('uid', $request->uid)->first();
-
-        if (is_null($user)) {
-            return response()->json(
-                [
-                    'message' => 'User does not exist',
-                    'errors' => ['Error approving documents.']
-                ],
-                422
-            );
-        }
-
         DB::beginTransaction();
 
         try {
+            $user = User::where('uid', $request->uid)->first();
+
+            if (is_null($user)) {
+                throw new \Exception('User does not exist');
+            }
+
             $verification = $user->verification;
 
             if ($request->type == Document::DOCUMENT_TYPE_IDENTITY) {
@@ -357,14 +363,15 @@ class AdminController extends Controller
             $user->save();
 
         } catch (\Exception $e) {
+
             DB::rollback();
 
             return response()->json(
                 [
                     'message' => 'Error approving documents',
-                    'errors' => ['Error approving documents']
+                    'errors' => []
                 ],
-                422
+                500
             );
 
         }
@@ -394,21 +401,15 @@ class AdminController extends Controller
             'reason' => 'string|nullable',
         ]);
 
-        $user = User::where('uid', $request->uid)->first();
-
-        if (is_null($user)) {
-            return response()->json(
-                [
-                    'message' => 'User does not exist',
-                    'errors' => ['Error approving documents.']
-                ],
-                422
-            );
-        }
-
         DB::beginTransaction();
 
         try {
+            $user = User::where('uid', $request->uid)->first();
+
+            if (is_null($user)) {
+                throw new \Exception('User does not exist');
+            }
+
             $verification = $user->verification;
 
             if ($request->type == Document::DOCUMENT_TYPE_IDENTITY) {
@@ -439,10 +440,10 @@ class AdminController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error approving documents',
-                    'errors' => ['Error approving documents']
+                    'message' => 'Error declining documents',
+                    'errors' => []
                 ],
-                422
+                500
             );
 
         }
@@ -499,20 +500,27 @@ class AdminController extends Controller
             [
                 'uid' => 'required|string',
                 'amount' => 'required|numeric'
-            ]
+            ],
+            ValidationMessages::getList(
+                [
+                    'amount' => 'Amount',
+                ]
+            )
         );
 
-        $userID = $request->uid;
-
-        $user = User::where('uid', $userID)->first();
-
-        if (!$user) {
-            return redirect('admin/wallets');
-        }
 
         DB::beginTransaction();
 
         try {
+
+            $userID = $request->input('uid', '');
+
+            $user = User::where('uid', $userID)->first();
+
+            if (!$user) {
+                throw new \Exception('User does not exist');
+            }
+
             $wallet = $user->wallet;
             $wallet->znx_amount += $request->amount;
             $wallet->save();
@@ -530,10 +538,10 @@ class AdminController extends Controller
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),//'Error updating ZNX amount',
-                    'errors' => ['An error occurred']
+                    'message' => 'Error updating ZNX amount',
+                    'errors' => []
                 ],
-                422
+                500
             );
 
         }
@@ -562,20 +570,27 @@ class AdminController extends Controller
                 'uid' => 'required|string',
                 'currency' => 'required|numeric',
                 'address' => 'string|nullable',
-            ]
+            ],
+            ValidationMessages::getList(
+                [
+                    'currency' => 'Currency',
+                    'address' => 'Wallet Address',
+                ]
+            )
         );
-
-        $userID = $request->uid;
-
-        $user = User::where('uid', $userID)->first();
-
-        if (!$user) {
-            return redirect('admin/users');
-        }
 
         DB::beginTransaction();
 
         try {
+
+            $userID = $request->input('uid', '');
+
+            $user = User::where('uid', $userID)->first();
+
+            if (!$user) {
+                throw new \Exception('User does not exist');
+            }
+
             $wallet = $user->wallet;
 
             switch ($request->currency) {
@@ -595,14 +610,15 @@ class AdminController extends Controller
             $wallet->save();
 
         } catch (\Exception $e) {
+
             DB::rollback();
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),//'Error updating ZNX amount',
-                    'errors' => ['An error occurred']
+                    'message' => 'Error updating Wallet Address',
+                    'errors' => []
                 ],
-                422
+                500
             );
 
         }

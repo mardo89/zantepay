@@ -143,12 +143,26 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    $('#user-profile select[name="user-role"]').parents('.form-group').addClass('form-error');
 
-                    const {message} = error.response.data;
+                    const {message, errors} = error.response.data;
 
-                    showError(message)
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('#user-profile select[name="user-role"]').parents('.form-group').addClass('form-error');
+                                $('#user-profile select[name="user-role"]').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
                 }
+
             )
     });
 
@@ -220,7 +234,7 @@ $(document).ready(function () {
                 () => {
                     hideSpinner(button);
 
-                    $(this).find('button[type="submit"]').remove();
+                    $(this).find('button[type="button"]').remove();
 
                     $.magnificPopup.open(
                         {
@@ -422,11 +436,23 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    $('input[name="znx-amount"]').parent().addClass('form-error');
+                    const {message, errors} = error.response.data;
 
-                    const {message} = error.response.data;
+                    if (error.response.status == 422) {
 
-                    showError(message)
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('input[name="znx-amount"]').parent().addClass('form-error');
+                                $('input[name="znx-amount"]').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
                 }
             )
     });
@@ -468,11 +494,23 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+                    const {message, errors} = error.response.data;
 
-                    const {message} = error.response.data;
+                    if (error.response.status == 422) {
 
-                    showError(message)
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+                                $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
                 }
             )
     });

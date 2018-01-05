@@ -8,7 +8,7 @@
 
     <main class="main main-dashboard">
         <div class="container">
-            <form id="user-info">
+            <form id="user-profile">
 
                 <input type="hidden" id="user-profile-id" value="{{ $user->uid }}">
 
@@ -187,7 +187,7 @@
                                 @if($verification->id_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
                                     <div class="col-md-3 col-sm-4 col-5 text-center mb-20">
                                         <input type="hidden" name="document-type"
-                                               value="{{ \App\Models\Document::DOCUMENT_TYPE_IDENTITY }}">
+                                               value="{{ \App\Models\DB\Document::DOCUMENT_TYPE_IDENTITY }}">
 
                                         <button type="button"
                                                 class="mt-40 mb-20 btn btn--medium btn--shadowed-light btn--full-w decline-documents">
@@ -229,7 +229,7 @@
 
                                 @if($verification->address_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
                                     <div class="col-md-3 col-sm-4 col-5 text-center mb-20">
-                                        <input type="hidden" name="document-type" value="{{ \App\Models\Document::DOCUMENT_TYPE_ADDRESS }}">
+                                        <input type="hidden" name="document-type" value="{{ \App\Models\DB\Document::DOCUMENT_TYPE_ADDRESS }}">
 
                                         <button type="button"
                                                 class="mt-40 mb-20 btn btn--medium btn--shadowed-light btn--full-w decline-documents">
