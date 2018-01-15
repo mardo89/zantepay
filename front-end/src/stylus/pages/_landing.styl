@@ -440,7 +440,7 @@
   background #F9F9F9
   z-index 10
   position relative
-  padding 85px 0 140px
+  padding 85px 0 90px
   @media screen and (max-width: 1199px)
     padding 85px 0 110px
   @media screen and (max-width: 991px)
@@ -455,14 +455,19 @@
     @media screen and (max-width: 991px)
       margin-bottom 20px
   .h4
-    margin-bottom 30px
+    margin-bottom 35px
     @media screen and (max-width: 991px)
       margin-bottom 15px
-  .row > div
-    @media screen and (max-width: 991px)
+    span
+      height 29px
+      @media screen and (max-width: 991px)
+        height auto
+  .row 
+    justify-content center
+    & > div
       margin-bottom 50px
-    p
-      text-align justify
+      p
+        text-align justify
 
 .lp-dsc-wrap
   display flex
