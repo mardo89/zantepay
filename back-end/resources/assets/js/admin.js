@@ -231,10 +231,17 @@ $(document).ready(function () {
             qs.stringify(document)
         )
             .then(
-                () => {
+                response => {
                     hideSpinner(button);
 
-                    $(this).find('button[type="button"]').remove();
+                    let parentRow = $(this).parents('.row');
+
+                    parentRow.find('.document-actions').before(
+                        $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
+                   );
+
+                    parentRow.find('.document-actions').remove();
+                    parentRow.find('.document-reason').remove();
 
                     $.magnificPopup.open(
                         {
@@ -278,10 +285,17 @@ $(document).ready(function () {
             qs.stringify(document)
         )
             .then(
-                () => {
+                response => {
                     hideSpinner(button);
 
-                    $(this).find('button[type="submit"]').remove();
+                    let parentRow = $(this).parents('.row');
+
+                    parentRow.find('.document-actions').before(
+                        $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
+                    );
+
+                    parentRow.find('.document-actions').remove();
+                    parentRow.find('.document-reason').remove();
 
                     $.magnificPopup.open(
                         {
@@ -298,9 +312,23 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    const {message} = error.response.data;
+                    const {message, errors} = error.response.data;
 
-                    showError(message)
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $(this).parents('.row').find('input[name="decline-reason"]').parent().addClass('form-error');
+                                $(this).parents('.row').find('input[name="decline-reason"]').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
                 }
             )
 

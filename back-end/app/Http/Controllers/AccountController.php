@@ -6,6 +6,7 @@ use App\Mail\ActivateAccount;
 use App\Mail\ResetPassword;
 use App\Models\DB\PasswordReset;
 use App\Models\DB\Profile;
+use App\Models\DB\SocialNetworkAccount;
 use App\Models\DB\Verification;
 use App\Models\DB\Wallet;
 use App\Models\DB\User;
@@ -170,7 +171,7 @@ class AccountController extends Controller
                     'message' => 'Can not log out current user',
                     'errors' => []
                 ],
-                422
+                500
             );
 
         }
@@ -400,13 +401,16 @@ class AccountController extends Controller
      */
     public function FacebookProviderCallback()
     {
-        $snUser = Socialite::driver('facebook')->user();
 
         try {
-            $user = User::where('email', $snUser->email)->first();
 
-            if (!$user) {
-                list($lastName, $firstName) = explode($snUser->name, ' ');
+            $snUser = Socialite::driver('facebook')->user();
+
+            $snAccount = SocialNetworkAccount::where('user_token', $snUser->token)
+                ->where('social_network_id', SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK)
+                ->first();
+
+            if (!$snAccount) {
 
                 // register a new User
                 $userInfo = $this->createUser(
@@ -415,15 +419,25 @@ class AccountController extends Controller
                         'password' => User::hashPassword(uniqid()),
                         'uid' => uniqid(),
                         'status' => User::USER_STATUS_NOT_VERIFIED,
-                        'first_name' => $firstName,
-                        'last_name' => $lastName,
                         'avatar' => $snUser->avatar,
                     ]
                 );
 
+                //create social network account
+                SocialNetworkAccount::create(
+                    [
+                        'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK,
+                        'user_token' => $snUser->token,
+                        'user_id' => $userInfo['id']
+                    ]
+                );
+
                 $userID = $userInfo['id'];
+
             } else {
-                $userID = $user->id;
+
+                $userID = $snAccount->user()->id;
+
             }
 
             $isAuthorized = Auth::loginUsingId($userID);
@@ -434,13 +448,8 @@ class AccountController extends Controller
 
         } catch (\Exception $e) {
 
-            return response()->json(
-                [
-                    'message' => $e->getMessage(),
-                    'errors' => ['Can not authorize with Facebook']
-                ],
-                422
-            );
+            return redirect()->action('IndexController@main');
+
         }
 
         return redirect()->action('UserController@profile');
@@ -463,13 +472,16 @@ class AccountController extends Controller
      */
     public function GoogleProviderCallback()
     {
-        $snUser = Socialite::driver('google')->user();
 
         try {
-            $user = User::where('email', $snUser->email)->first();
 
-            if (!$user) {
-                list($firstName, $lastName) = explode($snUser->name, ' ');
+            $snUser = Socialite::driver('google')->user();
+
+            $snAccount = SocialNetworkAccount::where('user_token', $snUser->token)
+                ->where('social_network_id', SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE)
+                ->first();
+
+            if (!$snAccount) {
 
                 // register a new User
                 $userInfo = $this->createUser(
@@ -478,15 +490,25 @@ class AccountController extends Controller
                         'password' => User::hashPassword(uniqid()),
                         'uid' => uniqid(),
                         'status' => User::USER_STATUS_NOT_VERIFIED,
-                        'first_name' => $firstName,
-                        'last_name' => $lastName,
                         'avatar' => $snUser->avatar,
                     ]
                 );
 
+                //create social network account
+                SocialNetworkAccount::create(
+                    [
+                        'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE,
+                        'user_token' => $snUser->token,
+                        'user_id' => $userInfo['id']
+                    ]
+                );
+
                 $userID = $userInfo['id'];
+
             } else {
-                $userID = $user->id;
+
+                $userID = $snAccount->user()->id;
+
             }
 
             $isAuthorized = Auth::loginUsingId($userID);
@@ -497,13 +519,8 @@ class AccountController extends Controller
 
         } catch (\Exception $e) {
 
-            return response()->json(
-                [
-                    'message' => $e->getMessage(),
-                    'errors' => ['Can not authorize with Facebook']
-                ],
-                422
-            );
+            return redirect()->action('IndexController@main');
+
         }
 
         return redirect()->action('UserController@profile');

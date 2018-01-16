@@ -63,7 +63,7 @@ class MailController extends Controller
             ],
             ValidationMessages::getList(
                 [
-                    'name' => 'NAme',
+                    'name' => 'Name',
                     'email' => 'Email',
                     'message' => 'Message',
                 ]

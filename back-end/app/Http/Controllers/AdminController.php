@@ -7,13 +7,15 @@ use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
 use App\Models\DB\Document;
 use App\Models\DB\Invite;
+use App\Models\DB\PasswordReset;
 use App\Models\DB\Profile;
+use App\Models\DB\SocialNetworkAccount;
 use App\Models\DB\State;
 use App\Models\DB\Transaction;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
+use App\Models\DB\Wallet;
 use App\Models\Validation\ValidationMessages;
-use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -207,9 +209,9 @@ class AdminController extends Controller
     {
         $this->validate(
             $request, [
-                'uid' => 'required|string',
-                'role' => 'required|integer',
-            ],
+            'uid' => 'required|string',
+            'role' => 'required|integer',
+        ],
             ValidationMessages::getList(
                 [
                     'role' => 'User Role'
@@ -276,6 +278,7 @@ class AdminController extends Controller
             DebitCard::where('user_id', $user->id)->delete();
             Verification::where('user_id', $user->id)->delete();
             PasswordReset::where('email', $user->email)->delete();
+            SocialNetworkAccount::where('user_id', $user->id)->delete();
 
             // Documents
             $documents = Document::where('user_id', $user->id)->get();
@@ -323,15 +326,28 @@ class AdminController extends Controller
      */
     public function approveDocument(Request $request)
     {
-        $this->validate($request, [
-            'uid' => 'required|string',
-            'type' => 'required|integer',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'uid' => 'required|string',
+                'type' => 'required|integer',
+            ],
+            ValidationMessages::getList(
+                [
+                    'uid' => 'User ID',
+                    'type' => 'Document Type',
+                ]
+            )
+        );
+
+        $userID = $request->input('uid');
+        $documentType = $request->input('type');
 
         DB::beginTransaction();
 
         try {
-            $user = User::where('uid', $request->uid)->first();
+
+            $user = User::where('uid', $userID)->first();
 
             if (is_null($user)) {
                 throw new \Exception('User does not exist');
@@ -339,16 +355,20 @@ class AdminController extends Controller
 
             $verification = $user->verification;
 
-            if ($request->type == Document::DOCUMENT_TYPE_IDENTITY) {
+            if ($documentType == Document::DOCUMENT_TYPE_IDENTITY) {
                 $verification->id_documents_status = Verification::DOCUMENTS_APPROVED;
                 $verification->id_decline_reason = '';
 
                 $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
+
+                $verificationStatus = Verification::getStatus($verification->id_documents_status);
             } else {
                 $verification->address_documents_status = Verification::DOCUMENTS_APPROVED;
                 $verification->address_decline_reason = '';
 
                 $user->status = User::USER_STATUS_ADDRESS_VERIFIED;
+
+                $verificationStatus = Verification::getStatus($verification->id_documents_status);
             }
 
             $verification->save();
@@ -380,7 +400,7 @@ class AdminController extends Controller
 
         return response()->json(
             [
-                'status' => $user->status
+                'status' => $verificationStatus
             ]
         );
     }
@@ -395,16 +415,30 @@ class AdminController extends Controller
      */
     public function declineDocument(Request $request)
     {
-        $this->validate($request, [
-            'uid' => 'required|string',
-            'type' => 'required|integer',
-            'reason' => 'string|nullable',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'uid' => 'required|string',
+                'type' => 'required|integer',
+                'reason' => 'required|string',
+            ],
+            ValidationMessages::getList(
+                [
+                    'uid' => 'User ID',
+                    'type' => 'Document Type',
+                    'reason' => 'Decline Reason',
+                ]
+            )
+        );
+
+        $userID = $request->input('uid');
+        $documentType = $request->input('type');
+        $declineReason = $request->input('reason', '');
 
         DB::beginTransaction();
 
         try {
-            $user = User::where('uid', $request->uid)->first();
+            $user = User::where('uid', $userID)->first();
 
             if (is_null($user)) {
                 throw new \Exception('User does not exist');
@@ -412,16 +446,20 @@ class AdminController extends Controller
 
             $verification = $user->verification;
 
-            if ($request->type == Document::DOCUMENT_TYPE_IDENTITY) {
+            if ($documentType == Document::DOCUMENT_TYPE_IDENTITY) {
                 $verification->id_documents_status = Verification::DOCUMENTS_DECLINED;
-                $verification->id_decline_reason = $request->reason;
+                $verification->id_decline_reason = $declineReason;
 
                 $user->status = User::USER_STATUS_ADDRESS_VERIFIED;
+
+                $verificationStatus = Verification::getStatus($verification->id_documents_status) . ' - ' . $declineReason;
             } else {
                 $verification->address_documents_status = Verification::DOCUMENTS_DECLINED;
-                $verification->address_decline_reason = $request->reason;
+                $verification->address_decline_reason = $declineReason;
 
                 $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
+
+                $verificationStatus = Verification::getStatus($verification->address_documents_status) . ' - ' . $declineReason;
             }
 
             $verification->save();
@@ -440,7 +478,7 @@ class AdminController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error declining documents',
+                    'message' => $e->getMessage(),//'Error declining documents',
                     'errors' => []
                 ],
                 500
@@ -452,7 +490,7 @@ class AdminController extends Controller
 
         return response()->json(
             [
-                'status' => $user->status
+                'status' => $verificationStatus
             ]
         );
     }

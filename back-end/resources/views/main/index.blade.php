@@ -200,53 +200,70 @@
                     </div>
                     <div class="col-md-6 vertical-middle-col">
                         <div class="lp-content-col" style="max-width: 450px;">
-                            <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - May 15th</span></h3>
+                            <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - June 15th</span></h3>
                         </div>
                     </div>
                 </div>
 
                 <div class="row p-tb-40">
                     <div class="col-md-6 content-center">
-                        <div class="lp-image-container">
-                            <img src="images/iPhone.jpg" srcset="images/iPhone@2x.jpg 2x" alt="ZANTEPAY wallet">
+                        <div class="lp-image-container3">
+                            <img src="images/vote.jpg" srcset="images/vote@2x.jpg 2x" alt="Vote">
                         </div>
                     </div>
                     <div class="col-md-6 vertical-middle-col content-center">
-                        <div class="lp-content-col">
-                            <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q2</span></h3>
-                            <p>Visa debit card launch. 50+ currencies integration with Debit card and Wallet.</p>
+                        <div class="lp-content-col" style="max-width: 450px;">
+                            <h3 class="h2 headline">Voting center <span>Q3</span></h2>
+                                <p>ZANTEPAY token holders will be able to vote on upcoming updates and protocol changes.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="row row-revert p-tb-40">
                     <div class="col-md-6 content-center">
-                        <div class="lp-image-container2">
-                            <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" alt="ZANTEPAY VISA">
+                        <div class="lp-image-container">
+                            <img src="images/iPhone.jpg" srcset="images/iPhone@2x.jpg 2x" alt="ZANTEPAY wallet">
                         </div>
                     </div>
-                    <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0">
+                    <div class="col-md-6 vertical-middle-col">
                         <div class="lp-content-col">
-                            <h3 class="h2 headline">Visa debit card launch <span>2018 Q3</span></h3>
-                            <p>Visa debit card launch. 50+ currencies integration with Debit card and Wallet.</p>
+                            <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q3</span></h2>
+                                <p>Debit card launch. 50+ currencies integration with Debit card and Wallet.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="row lp-row-1">
+
+                <div class="row p-tb-40">
+                    <div class="col-md-6 content-center">
+                        <div class="lp-image-container2">
+                            <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" alt="ZANTEPAY VISA">
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0 content-center">
+                        <div class="lp-content-col">
+                            <h3 class="h2 headline">Visa debit card launch <span>2018 Q4</span></h2>
+                                <p>Debit card launch. 50+ currencies integration with Debit card and Wallet.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row row-revert lp-row-1">
                     <div class="col-md-6 content-center">
                         <div class="lp-image-container">
                             <img src="images/rocket-image.jpg" srcset="images/rocket-image@2x.jpg 2x" alt="Rocket Image">
                         </div>
                     </div>
-                    <div class="col-md-6 vertical-middle-col content-center">
+                    <div class="col-md-6 vertical-middle-col">
                         <div class="lp-content-col">
-                            <h3 class="h2 headline">Biggest cryptocurrency wallet worldwide! <span>2019</span></h3>
-                            <p>Become the biggest cryptocurrency wallet worldwide! Join today!</p>
+                            <h3 class="h2 headline">Biggest cryptocurrency wallet worldwide! <span>2019</span></h2>
+                                <p>Become the biggest cryptocurrency wallet worldwide! Join today!</p>
                         </div>
                     </div>
                 </div>
             </div>
+
         </section>
 
         <section class="lp-section-four white-content" id="ico">
@@ -604,25 +621,37 @@
                     <div class="col-lg-4">
                         <img src="images/mardo.jpg" srcset="images/mardo@2x.jpg 2x" alt="Mardo Soo">
                         <h3 class="h4">Mardo Soo <span>Founder</span></h3>
-                        <p>Mardo is a visionary, investor and entrepreneur, his expertise in sales and marketing is more than 10 years. He
-                            ran couple of successful web projects in Estonia. His latest passion is blockchain and cryptocurrency. Mardo`s
-                            talent is to find and recognize the best people for the job to make something great. He believes cryptocurrency
-                            and AI is the the next big thing.</p>
+                        <p>Mardo is a visionary, investor and entrepreneur, his expertise in sales and marketing is more than 10 years. He ran couple of successful web projects in Estonia. His latest passion is blockchain and cryptocurrency. Mardo`s talent is to find and recognize the best people for the job to make something great. He believes cryptocurrency and AI is the the next big thing.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/lena.jpg" srcset="images/lena@2x.jpg 2x" alt="Lena Elvbakken">
                         <h3 class="h4">Lena Elvbakken <span>Co-Founder</span></h3>
-                        <p>Lena, BAA, has an impressive global product marketing and sales background. Previously worked in media,
-                            technology and telecom branch for the brands like HP and Nokia. Then she moved on to online-based consulting
-                            business and recently into the fin tech branch. Lena believes that her corporate experience, leadership and
-                            passion for the technology make her a valuable asset for the team.</p>
+                        <p>Lena, BAA, has an impressive global product marketing and sales background. Previously worked in media, technology and telecom branch for the brands like HP and Nokia. Then she moved on to online-based consulting business and recently into the fin tech branch. Lena believes that her corporate experience, leadership and passion for the technology make her a valuable asset for the team.</p>
                     </div>
                     <div class="col-lg-4">
-                        <img src="images/dev-team.png" srcset="images/dev-team@2x.png 2x" alt="Mardo Soo">
-                        <h3 class="h4">Development Team <span>&nbsp;</span></h3>
-                        <p>ZANTEPAY development team consists of high skilled and driven developers, coders and designers. Our goal is to
-                            understand our customer's needs and deliver the best product. We engage with the open source community and
-                            welcome any feedback. We believe in crypto currencies, blockchain and the huge potential of the industry.</p>
+                        <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">
+                        <h3 class="h4">Stanislav Ivashchenko <span>User Experience and Product Design Lead</span></h3>
+                        <p>Stanislav delivers a beautiful design and graphics to ZANTEPAY. He possesses more than 10 years of experience in design and usability across all mediums and has a passion for bringing brands to life through great visual design.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/alex.jpg" srcset="images/alex@2x.jpg 2x" alt="Alexey Fedorenko">
+                        <h3 class="h4">Alexey Fedorenko <span>Front-End Team Lead</span></h3>
+                        <p>Alexey makes a great addition to our team with his commercial experience in front-end development, producing high-quality websites and exceptional user experience.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/pavel.jpg" srcset="images/pavel@2x.jpg 2x" alt="Pavel Boyko">
+                        <h3 class="h4">Pavel Boyko <span>Backend Team Lead</span></h3>
+                        <p>Pavel runs Advanced Software Development LTD (ASD), a Fintech software vendor. Pavel and his team has more than 10 year experience in delivering the variety of web applications, software engineering solutions, big data analytics, mastering the hardest design, UX/UI tasks. Pavel believes in blockchain and the huge potential of the industry.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/alexander.jpg" srcset="images/alexander@2x.jpg 2x" alt="Alexander Harutunian ">
+                        <h3 class="h4">Alexander Harutunian <span>Smart Contracts / Project Manager</span></h3>
+                        <p>Corporate finance and economics professional, specializing in Fintech. Previously, Alexander had a senior auditor role at KPMG, led retail and banking sector engagements. He has MBA from American University of Armenia. </p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/levon.jpg" srcset="images/levon@2x.jpg 2x" alt="Levon Hayrapetyan">
+                        <h3 class="h4">Levon Hayrapetyan <span>Smart Contracts Developer</span></h3>
+                        <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
                     </div>
                 </div>
             </div>

@@ -185,7 +185,7 @@
                                 </div>
 
                                 @if($verification->id_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
-                                    <div class="col-md-3 col-sm-4 col-5 text-center mb-20">
+                                    <div class="col-md-3 col-sm-4 col-5 text-center mb-20 document-actions">
                                         <input type="hidden" name="document-type"
                                                value="{{ \App\Models\DB\Document::DOCUMENT_TYPE_IDENTITY }}">
 
@@ -200,7 +200,7 @@
                                         </button>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 document-reason">
                                         <div class="form-group">
                                             <label class="field-label" for="field12">Reason:</label>
                                             <input class="input-field" type="text" name="decline-reason" id="field12"
@@ -208,7 +208,9 @@
                                         </div>
                                     </div>
                                 @else
-                                    {{ $verification->idStatusName }}
+                                    <div class="col-md-3 col-sm-4 col-5 mb-20 document-status">
+                                        {{ $verification->idStatusName }}
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -228,8 +230,9 @@
                                 </div>
 
                                 @if($verification->address_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
-                                    <div class="col-md-3 col-sm-4 col-5 text-center mb-20">
-                                        <input type="hidden" name="document-type" value="{{ \App\Models\DB\Document::DOCUMENT_TYPE_ADDRESS }}">
+                                    <div class="col-md-3 col-sm-4 col-5 text-center mb-20 document-actions">
+                                        <input type="hidden" name="document-type"
+                                               value="{{ \App\Models\DB\Document::DOCUMENT_TYPE_ADDRESS }}">
 
                                         <button type="button"
                                                 class="mt-40 mb-20 btn btn--medium btn--shadowed-light btn--full-w decline-documents">
@@ -242,7 +245,7 @@
                                         </button>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 document-reason">
                                         <div class="form-group">
                                             <label class="field-label" for="field13">Reason:</label>
                                             <input class="input-field" type="text" name="decline-reason" id="field13"
@@ -250,7 +253,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    {{ $verification->addressStatusName }}
+                                        {{ $verification->addressStatusName }}
                                 @endif
                             </div>
                         </div>

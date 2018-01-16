@@ -15,8 +15,9 @@ class ValidationMessages
         'max' => 'The %s field is to long',
         'min' => 'The %s field is to short',
         'unique' => 'The %s field must be unique',
-        'numeric' => 'The %s field may only contain digits',
-        'alpha' => 'The %s field may only contain letters',
+        'numeric' => 'The %s field may contain only  digits',
+        'integer' => 'The %s field may contain only digits',
+        'alpha' => 'The %s field may contain only letters',
         'confirmed' => 'The %s confirmation does not match',
         'required_if' => 'The %s field is required'
     ];
