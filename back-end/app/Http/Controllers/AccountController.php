@@ -377,7 +377,7 @@ class AccountController extends Controller
                 return '/admin/users';
 
             case User::USER_ROLE_USER:
-                return '/user/profile';
+                return '/user/wallet';
 
             default:
                 return '/';

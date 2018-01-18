@@ -107,7 +107,7 @@ class UserController extends Controller
                 'first_name' => 'alpha|max:100|nullable',
                 'last_name' => 'alpha|max:100|nullable',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $user->id . ',id',
-                'phone_number' => 'numeric|max:20|nullable',
+                'phone_number' => 'digits_between:5,20|nullable',
                 'country' => 'numeric',
                 'state' => 'numeric',
                 'city' => 'alpha|max:100|nullable',
@@ -136,10 +136,9 @@ class UserController extends Controller
                 ],
                 [
                     'email.unique' => 'User with such Email already registered',
-                    'country' => 'Unknown Country',
-                    'state' => 'Unknown State',
-                    'expiration_date' => 'Incorrect date format',
-                    'expiration_date' => 'Incorrect date format',
+                    'country.numeric' => 'Unknown Country',
+                    'state.numeric' => 'Unknown State',
+                    'phone_number.digits_between' => 'Incorrect phone number format',
                 ]
             )
         );

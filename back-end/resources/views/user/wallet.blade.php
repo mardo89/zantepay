@@ -21,7 +21,7 @@
                             <table class="table-transparent">
                                 <thead>
                                 <tr>
-                                    <th width="25%">Commission (BTC)</th>
+                                    {{--<th width="25%">Commission (BTC)</th>--}}
                                     <th width="25%">Commission (ETH)</th>
                                     <th width="25%">Total ZNX</th>
                                     <th width="25%">Referal bonus (ZNX)</th>
@@ -29,7 +29,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>0</td>
+                                    {{--<td>0</td>--}}
                                     <td>0</td>
                                     <td>{{ $wallet->znx_amount }}</td>
                                     <td>0</td>
@@ -51,11 +51,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="col-left">Bitcoin</td>
-                                    <td>BTC</td>
-                                    <td>0,0001</td>
-                                </tr>
+                                {{--<tr>--}}
+                                    {{--<td class="col-left">Bitcoin</td>--}}
+                                    {{--<td>BTC</td>--}}
+                                    {{--<td>0,0001</td>--}}
+                                {{--</tr>--}}
                                 <tr>
                                     <td class="col-left">Etherium</td>
                                     <td>ETH</td>
@@ -69,10 +69,10 @@
                     <div class="dashboard-group">
                         <h2 class="h4 headline-mb">Select your payment method:</h2>
                         <div class="row">
-                            <div class="col-6 col-sm-6">
-                                <a href="#deposit-btc" class="js-popup-link mb-10 btn btn--shadowed-light btn--medium">Deposit BTC</a>
-                                <div class="text-sm text-gray">Minimum 0,02 BTC</div>
-                            </div>
+                            {{--<div class="col-6 col-sm-6">--}}
+                                {{--<a href="#deposit-btc" class="js-popup-link mb-10 btn btn--shadowed-light btn--medium">Deposit BTC</a>--}}
+                                {{--<div class="text-sm text-gray">Minimum 0,02 BTC</div>--}}
+                            {{--</div>--}}
                             <div class="col-6 col-sm-6">
                                 <a href="#deposit-eth" class="js-popup-link mb-10 btn btn--shadowed-light btn--medium">Deposit ETH</a>
                                 <div class="text-sm text-gray">Minimum 0,2 ETH</div>
@@ -106,22 +106,22 @@
                         <h2 class="h4 headline-mb">Withdraw / trasfer:</h2>
                         <div class="row">
                             <div class="col-12 col-sm-2 mb-20">Type:</div>
-                            <div class="col-6 col-sm-5">
-                                <ul class="radio-list text-regular">
-                                    <li>
-                                        <div class="radio-button">
-                                            <input type="radio" name="pay-method" value="btc-znx" id="radio1" checked><label for="radio1">Transfer
-                                                BTC to ZNX</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="radio-button">
-                                            <input type="radio" name="pay-method" value="btc" id="radio2"><label for="radio2">Withdraw
-                                                BTC</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                            {{--<div class="col-6 col-sm-5">--}}
+                                {{--<ul class="radio-list text-regular">--}}
+                                    {{--<li>--}}
+                                        {{--<div class="radio-button">--}}
+                                            {{--<input type="radio" name="pay-method" value="btc-znx" id="radio1" checked><label for="radio1">Transfer--}}
+                                                {{--BTC to ZNX</label>--}}
+                                        {{--</div>--}}
+                                    {{--</li>--}}
+                                    {{--<li>--}}
+                                        {{--<div class="radio-button">--}}
+                                            {{--<input type="radio" name="pay-method" value="btc" id="radio2"><label for="radio2">Withdraw--}}
+                                                {{--BTC</label>--}}
+                                        {{--</div>--}}
+                                    {{--</li>--}}
+                                {{--</ul>--}}
+                            {{--</div>--}}
                             <div class="col-5 col-sm-5">
                                 <ul class="radio-list text-regular">
                                     <li>

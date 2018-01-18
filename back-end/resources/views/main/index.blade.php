@@ -237,12 +237,12 @@
                 <div class="row p-tb-40">
                     <div class="col-md-6 content-center">
                         <div class="lp-image-container2">
-                            <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" alt="ZANTEPAY VISA">
+                            <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" alt="ZANTEPAY DEBIT CARD">
                         </div>
                     </div>
                     <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0 content-center">
                         <div class="lp-content-col">
-                            <h3 class="h2 headline">Visa debit card launch <span>2018 Q4</span></h2>
+                            <h3 class="h2 headline">Debit card launch <span>2018 Q4</span></h2>
                                 <p>Debit card launch. 50+ currencies integration with Debit card and Wallet.</p>
                         </div>
                     </div>
@@ -318,7 +318,7 @@
                                 <li>You will also have the option to manage 50+ cryptocurrencies directly from your ZANTEPAY wallet and
                                     assign your wallets to your ZANTEPAY card according to the selected preferences.
                                 </li>
-                                <li>Send or receive money with ZANTEPAY wallet users in seconds and at no cost.</li>
+                                <li>Buy BTC and altcoins with SEPA payment or with debit/credit card.</li>
                             </ul>
                         </div>
                     </div>
@@ -349,7 +349,7 @@
                                 </li>
                                 <li>Directly connected to your ZANTEPAY wallet.</li>
                                 <li>A multitude of management options will be available to you.</li>
-                                <li>Automatic highest trading price. BTC to EUR 1%. <br> Altcoin to EUR 1,5%.</li>
+                                <li>Automatic highest trading price from partner exchanges. Fee 1%. No hidden fees added.</li>
                                 <li>20% cashback in ZANTECOINs.</li>
                             </ul>
                         </div>

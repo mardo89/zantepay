@@ -8,7 +8,6 @@ use App\Models\Currency;
 use App\Models\DB\IcoRegistration;
 use App\Models\DB\Investor;
 use App\Models\DB\PasswordReset;
-use App\Models\DB\State;
 use App\Models\DB\User;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
@@ -130,7 +129,7 @@ class IndexController extends Controller
                 [
                     'email' => 'Email',
                     'skype-id' => 'Skype ID',
-                    'first-name' => 'First NAme',
+                    'first-name' => 'First Name',
                     'last-name' => 'Last Name',
                 ],
                 [

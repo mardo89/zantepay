@@ -77,11 +77,11 @@
                                 </tr>
                                 <tr>
                                     <td class="col-left">Annual fee</td>
-                                    <td class="col-right">None</td>
+                                    <td class="col-right">FREE</td>
                                 </tr>
                                 <tr>
                                     <td class="col-left">Delivery fee</td>
-                                    <td class="col-right">None</td>
+                                    <td class="col-right">FREE</td>
                                 </tr>
                                 </tbody>
                             </table>
