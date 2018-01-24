@@ -224,7 +224,7 @@ $(document).ready(function() {
 
   //hp shapes
   if ( $('#particles-js').length ) {
-    var lineColor = $('.particles-js-black') ? '#000' : '#fff';
+    var lineColor = $('.particles-js-black').length ? '#000' : '#fff';
     particlesJS('particles-js',
     
       {
