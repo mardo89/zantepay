@@ -54,6 +54,9 @@
     padding-left 15px
     border-left none
 
+.nowrap
+  white-space nowrap
+  
 .noscroll
   @media screen and (min-width 768px)
     overflow-y hidden !important
@@ -88,6 +91,9 @@
 .mb-20
   margin-bottom 20px
 
+.mb-30
+  margin-bottom 30px
+
 .mt-25
   margin-top 25px
 
@@ -101,6 +107,9 @@
   @media screen and (max-width: 767px)
     margin-top 15px
 
+.mb-md-30
+  @media screen and (max-width: 991px)
+    margin-bottom 30px
 
 .error-text
   font-size 14px
@@ -133,3 +142,13 @@
 .danger-message
   background-color #fde5b8
   color darken($primary-color, 50%)
+
+.row-max-w-200
+  display inline-block
+  vertical-align middle
+  max-width 200px
+  overflow hidden
+  text-overflow ellipsis
+
+.wordwrap
+  word-wrap break-word
