@@ -12,7 +12,10 @@
     text-align center
 
 .main-panel-layout
-  background #ededed
+  background transparent
+
+.particles-js-black#particles-js
+  background-color #ededed
 
 .dashboard-row
   display flex
@@ -203,6 +206,8 @@
     margin-top 15px
 
 .panel
+  position relative
+  z-index 10
   .countdown
     min-height 82px
   .countdown-txt-sm
