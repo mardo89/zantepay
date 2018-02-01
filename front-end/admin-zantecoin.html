@@ -1,0 +1,181 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZANTEPAY - ZanteCoin Page</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    <header class="header">
+      <div class="masthead">
+        <div class="container">
+          <div class="masthead__row">
+            <div class="masthead__left">
+              <a href="/" class="logo" title="ZANTEPAY">
+                <img src="images/logo-large.png" alt="ZANTEPAY Logo">
+              </a>
+            </div>
+            
+            <div class="hamburger hamburger--slider">
+              <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+              </div>
+            </div>
+
+            <div class="masthead__menu">
+              <nav class="navigation">
+                <!-- <ul>
+                  <li class="current-menu-item"><a href="profile.html">Profile</a></li>
+                  <li><a href="refer-a-friend.html">Refer a Friend</a></li>
+                  <li><a href="wallet.html">Wallet</a></li>
+                  <li><a href="debit-card.html">ZANTEPAY Debit Card</a></li>
+                </ul> -->
+              </nav>
+
+              <div class="masthead__right">
+                <a  href="#" class="btn btn--small btn--shadowed-dark">Logout</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </header>
+
+    <main class="main main-dashboard">
+      <div class="container">
+        <div class="dashboard-top-panel">
+          <div class="dashboard-top-panel-row">
+            <ul class="tabs-head">
+              <li class="is-active">
+                <a href="admin-zantecoin.html">ZanteCoin</a>
+              </li>
+              <li>
+                <a href="admin-crowdsale.html">Crowdsale</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="metamask_missing"></div>
+        <div class="row">
+          <div class="col-md-7 dashboard-group">
+            <h2 class="h4 headline-mb">Transfer ownership</h2>
+            <p> <b>Current owner address: </b> <span id="current_owner"></span></p>
+            <div class="row row-middle mt-20">
+              <div class="col col-sm-auto">
+                <div class="form-group text-regular"><label for="new_owner_address">Set new owner:</label></div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input class="input-field" type="text" id="new_owner_address" placeholder="Fill new owner address">
+                </div>
+              </div>
+              <div class="col col-sm-auto">
+                <button class="form-group btn btn--medium btn--shadowed-light" type="submit" id="set_new_owner"> Submit </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 dashboard-group">
+            <h2 class="h4 headline-mb">Accept ownership</h2>
+            <p class="mb-25"> <b>Proposed new owner address pending to accept ownership:</b> <span id="pending_owner_address"></span></p>
+            <button class="form-group btn btn--medium btn--shadowed-light" type="submit" id="accept_ownership"> Accept ownership </button>
+          </div>
+        </div>
+
+        <div class="dashboard-group">
+          <!-- TODO: this part is demo. Need to connect user wallet addresses database -->
+          <h2 class="h4 headline-mb">Issue ICO coins</h2>
+          <p> <b>Click Issue Token button to send tokens to participant</b></p>
+          <table id="ico-participants" class="table table-black">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Proxy address</th>
+                <th><span id="symbol"></span></th>
+                <th>Issue tokens</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tiger Nixon</td>
+                <td>0x3E96dadD4caE102F7fA4cff012F218449Ad5d5d8</td>
+                <td >100000</td>
+                <td><button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token</button></td>
+              </tr>
+              <tr>
+                <td>Garrett Winters</td>
+                <td>0x79791E2b5934eA0556C707dc8faB80DCD3BF06C2</td>
+                <td >200000</td>
+                <td><button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token</button></td>
+              </tr>
+              <tr>
+                <td>Ashton Cox</td>
+                <td>0x8f3FbdeE15F51c38A057688275d2B91652E0132C</td>
+                <td>300000</td>
+                <td><button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="dashboard-group">
+          <h2 class="h4 headline-mb">Grant Marketing Coins</h2>
+          <p><b>Fill beneficiary address and amount in ZNX to grant marketing coins</b></p>
+          <p>Curently available: <span id="grant_marketing_available"></span>  out of <span id="total_grant_marketing_supply"></span> ZNX</p>
+          <div class="row row-middle mt-20">
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="text-regular mb-10"><label for="grant_marketing_address">Beneficiary addres</label></div>
+                <input class="input-field" type="text" id="grant_marketing_address" placeholder="Set beneficiary address">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="text-regular mb-10"><label for="grant_marketing_amount">Number of ZNX to grant</label></div>
+                <input class="input-field" type="text" id="grant_marketing_amount" placeholder="Set amount to grant">
+              </div>
+            </div>
+            <div class="col col-sm-auto">
+              <button class=" mt-10 btn btn--medium btn--shadowed-light" type="submit" id="grant_marketing_coins"> Grant Coins </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="h4 headline-mb">Grant Company Coins</h2>
+          <p><b>Fill beneficiary address and amount in ZNX to Grant Company coins</b></p>
+          <p>Curently available: <span id="grant_company_available"></span>(<span id="total_grant_company_supply"></span>) ZNX</p>
+          <div class="row row-middle mt-20">
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="text-regular mb-10"><label for="grant_company_address">Beneficiary address</label></div>
+                <input class="input-field" type="text" id="grant_company_address" placeholder="Set beneficiary address">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="text-regular mb-10"><label for="grant_company_amount">Number of ZNX to grant</label></div>
+                <input class="input-field" type="text" id="grant_company_amount" placeholder="Set amount to grant">
+              </div>
+            </div>
+            <div class="col col-sm-auto">
+              <button class=" mt-10 btn btn--medium btn--shadowed-light"  type="submit" id="grant_company_coins"> Grant Coins </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/zantecoin.js"></script>
+  </body>
+</html>
