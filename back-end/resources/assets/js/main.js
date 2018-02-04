@@ -152,6 +152,8 @@ $(document).ready(function () {
 
     //hp shapes
     if ($('#particles-js').length) {
+        var lineColor = $('.particles-js-black').length ? '#000' : '#fff';
+
         particlesJS(
             'particles-js',
             {
@@ -204,7 +206,7 @@ $(document).ready(function () {
                     "line_linked": {
                         "enable": true,
                         "distance": 150,
-                        "color": "#ffffff",
+                        "color": lineColor,
                         "opacity": 0.5,
                         "width": 1
                     },

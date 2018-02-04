@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Currency;
+use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
 use App\Models\DB\Document;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
 use App\Mail\IcoRegistration as IcoRegistrationMail;
-use App\Models\Currency;
+use App\Models\Wallet\Currency;
 use App\Models\DB\IcoRegistration;
 use App\Models\DB\Investor;
 use App\Models\DB\PasswordReset;

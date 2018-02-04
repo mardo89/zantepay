@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InviteFriend;
-use App\Models\Currency;
+use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
 use App\Models\DB\Document;
@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Mockery\Exception;
 
 
 class UserController extends Controller

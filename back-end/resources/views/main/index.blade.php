@@ -24,7 +24,7 @@
                         <nav class="navigation">
                             <ul>
                                 <li><a href="#about-us">About Us</a></li>
-                                <li><a href="#vision">Vision</a></li>
+                                <li><a href="#roadmap">Roadmap</a></li>
                                 <li><a href="#ico">ICO</a></li>
                                 <li><a href="#team">Team</a></li>
                                 <li><a href="">FAQ</a></li>
@@ -48,7 +48,7 @@
                 <div class="center-logo pos-r">
                     <img src="images/logo-large.png" alt="ZANTEPAY Logo">
                 </div>
-                <h1 class="h2 header__title text-uppercase">Spend 50+ cryptocurrencies in real life with just one card</h1>
+                <h1 class="h2 header__title text-uppercase">Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one card</h1>
                 <div class="horizontal-btns">
                     <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
@@ -58,7 +58,7 @@
                     <h3 class="h4 text-uppercase">We are looking for seed investors</h3>
                     <a href="#become-our-seed-investors" class="js-popup-link btn btn--shadowed-dark btn--260">Become An Investor</a>
                 </div>
-                <h3 class="h4 text-uppercase">Pre-sale starts in</h3>
+                <h3 class="h4 text-uppercase">Pre-sale starts in <br><br> 1 ETH = 14300 ZNX</h3>
                 <div class="countdown">
                     <span class="js-countdown" data-date="2018/02/15 00:00:00"></span>
                 </div>
@@ -94,8 +94,8 @@
                         </ul>
                         <p>
                             <span class="h4 primary-color text-uppercase">OUR ULTIMATE GOAL IS</span>
-                            <br/>
-                            To build the multiwallet where all <br/> the processes are managed by AI
+                            <br>
+                            To build the multiwallet where all <br> the processes are managed by AI
                         </p>
                     </div>
                 </div>
@@ -139,8 +139,7 @@
                         <img src="images/iPhone-debit.png" srcset="images/iPhone-debit@2x.png 2x" alt="iPhone Debit card">
                     </div>
                     <div class="col-md-4">
-                        With the DSC keys you have full control of your digital assets. You can adjust security settings at any time with
-                        the smart contracts. From choice of currency, spending limits, spending history to withdrawal settings, etc.
+                        With the DSC keys you have full control of your digital assets. From choice of currency, spending limits, spending history to withdrawal settings, etc.
                     </div>
                 </div>
             </div>
@@ -169,101 +168,100 @@
             </div>
         </div>
 
-        <section class="lp-section-three" id="vision">
+        <section class="lp-section-three" id="roadmap">
             <div class="container">
                 <div class="row p-b-60">
-                    <div class="offset-md-2 col-md-3 vertical-middle-col"><span class="h2 primary-color text-uppercase">Vision</span></div>
+                    <div class="offset-md-2 col-md-3 vertical-middle-col"><span class="h2 primary-color text-uppercase">Roadmap</span></div>
                     <div class="col-md-6">
                         <h2 class="headline h2">More than 1 million people to use ZANTEPAY debit card by 2020</h2>
                     </div>
                 </div>
 
-                <div class="row p-tb-40">
-                    <div class="col-md-6 content-center">
-                        <div class="lp-image-container">
-                            <img src="images/rocket-picture.jpg" srcset="images/rocket-picture@2x.jpg 2x" alt="Rocket Image">
+                <div class="hp-roadmap">
+                    <div class="row p-tb-40">
+                        <div class="col-md-6 content-center">
+                            <div class="lp-image-container">
+                                <img src="images/rocket-picture.jpg" srcset="images/rocket-picture@2x.jpg 2x" alt="Rocket Image">
+                            </div>
+                        </div>
+                        <div class="col-md-6 vertical-middle-col content-center">
+                            <div class="lp-content-col">
+                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15th</span></h2>
+                                    <p>Token distribution Debit Card pre-ordering start.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 vertical-middle-col content-center">
-                        <div class="lp-content-col">
-                            <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15th</span></h3>
-                            <p>Token distribution Debit Card pre-ordering start.</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row row-revert p-tb-40">
-                    <div class="col-md-6 content-center">
-                        <div class="lp-image-container3">
-                            <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" alt="Rocket Image">
+                    <div class="row row-revert p-tb-40">
+                        <div class="col-md-6 content-center">
+                            <div class="lp-image-container3">
+                                <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" alt="Rocket Image">
+                            </div>
+                        </div>
+                        <div class="col-md-6 vertical-middle-col">
+                            <div class="lp-content-col">
+                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - May 15th</span></h2>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 vertical-middle-col">
-                        <div class="lp-content-col" style="max-width: 450px;">
-                            <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - June 15th</span></h3>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row p-tb-40">
-                    <div class="col-md-6 content-center">
-                        <div class="lp-image-container3">
-                            <img src="images/vote.jpg" srcset="images/vote@2x.jpg 2x" alt="Vote">
+                    <div class="row p-tb-40">
+                        <div class="col-md-6 content-center">
+                            <div class="lp-image-container3">
+                                <img src="images/vote.jpg" srcset="images/vote@2x.jpg 2x" alt="Vote">
+                            </div>
+                        </div>
+                        <div class="col-md-6 vertical-middle-col content-center">
+                            <div class="lp-content-col">
+                                <h3 class="h2 headline">Voting center <span>Q3</span></h2>
+                                    <p>ZANTEPAY token holders will be able to vote on upcoming updates and protocol changes.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 vertical-middle-col content-center">
-                        <div class="lp-content-col" style="max-width: 450px;">
-                            <h3 class="h2 headline">Voting center <span>Q3</span></h2>
-                                <p>ZANTEPAY token holders will be able to vote on upcoming updates and protocol changes.</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row row-revert p-tb-40">
-                    <div class="col-md-6 content-center">
-                        <div class="lp-image-container">
-                            <img src="images/iPhone.jpg" srcset="images/iPhone@2x.jpg 2x" alt="ZANTEPAY wallet">
+                    <div class="row row-revert p-tb-40">
+                        <div class="col-md-6 content-center">
+                            <div class="lp-image-container">
+                                <img src="images/iPhone.jpg" srcset="images/iPhone@2x.jpg 2x" alt="ZANTEPAY wallet">
+                            </div>
+                        </div>
+                        <div class="col-md-6 vertical-middle-col">
+                            <div class="lp-content-col">
+                                <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q2</span></h2>
+                                    <p>Visa debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 vertical-middle-col">
-                        <div class="lp-content-col">
-                            <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q3</span></h2>
-                                <p>Debit card launch. 50+ currencies integration with Debit card and Wallet.</p>
-                        </div>
-                    </div>
-                </div>
 
-
-                <div class="row p-tb-40">
-                    <div class="col-md-6 content-center">
-                        <div class="lp-image-container2">
-                            <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" alt="ZANTEPAY DEBIT CARD">
+                    <div class="row p-tb-40">
+                        <div class="col-md-6 content-center">
+                            <div class="lp-image-container2">
+                                <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" width="480px" alt="ZANTEPAY VISA">
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0 content-center">
+                            <div class="lp-content-col">
+                                <h3 class="h2 headline">Visa debit card launch <span>2018 Q3</span></h2>
+                                    <p>Visa debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0 content-center">
-                        <div class="lp-content-col">
-                            <h3 class="h2 headline">Debit card launch <span>2018 Q4</span></h2>
-                                <p>Debit card launch. 50+ currencies integration with Debit card and Wallet.</p>
-                        </div>
-                    </div>
-                </div>
 
-
-                <div class="row row-revert lp-row-1">
-                    <div class="col-md-6 content-center">
-                        <div class="lp-image-container">
-                            <img src="images/rocket-image.jpg" srcset="images/rocket-image@2x.jpg 2x" alt="Rocket Image">
+                    <div class="row row-revert lp-row-1">
+                        <div class="col-md-6 content-center">
+                            <div class="lp-image-container">
+                                <img src="images/rocket-image.jpg" srcset="images/rocket-image@2x.jpg 2x" alt="Rocket Image">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 vertical-middle-col">
-                        <div class="lp-content-col">
-                            <h3 class="h2 headline">Biggest cryptocurrency wallet worldwide! <span>2019</span></h2>
-                                <p>Become the biggest cryptocurrency wallet worldwide! Join today!</p>
+                        <div class="col-md-6 vertical-middle-col">
+                            <div class="lp-content-col">
+                                <h3 class="h2 headline">Biggest cryptocurrency wallet worldwide! <span>2019</span></h2>
+                                    <p>Become the biggest cryptocurrency wallet worldwide! Join today!</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </section>
 
         <section class="lp-section-four white-content" id="ico">
@@ -315,9 +313,7 @@
                                 </li>
                                 <li>Its beauty and its ease of use.</li>
                                 <li>Your latest ZANTEPAY card transactions or your exchange history.</li>
-                                <li>You will also have the option to manage 50+ cryptocurrencies directly from your ZANTEPAY wallet and
-                                    assign your wallets to your ZANTEPAY card according to the selected preferences.
-                                </li>
+                                <li>You will also have the option to manage Bitcoin, Litecoin, Ethereum and Zantecoin directly from your ZANTEPAY wallet and assign your wallets to your ZANTEPAY card according to the selected preferences.</li>
                                 <li>Buy BTC and altcoins with SEPA payment or with debit/credit card.</li>
                             </ul>
                         </div>
@@ -344,9 +340,7 @@
                         <div class="col-md-6 offset-lg-1">
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
-                                <li>According to the selected preferences, 50+ cryptocurrencies will let you purchase via Debit card
-                                    everywhere in the world.
-                                </li>
+                                <li>According to the selected preferences, Bitcoin, Litecoin, Ethereum and Zantecoin will let you purchase via Debit card everywhere in the world.</li>
                                 <li>Directly connected to your ZANTEPAY wallet.</li>
                                 <li>A multitude of management options will be available to you.</li>
                                 <li>Automatic highest trading price from partner exchanges. Fee 1%. No hidden fees added.</li>
@@ -620,18 +614,18 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <img src="images/mardo.jpg" srcset="images/mardo@2x.jpg 2x" alt="Mardo Soo">
-                        <h3 class="h4">Mardo Soo <span>Founder</span></h3>
+                        <h3 class="h4">Mardo Soo <span>Founder</span> <a target="_blank" href="https://www.linkedin.com/in/mardo-soo-00a05ab0/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a> </h3>
                         <p>Mardo is a visionary, investor and entrepreneur, his expertise in sales and marketing is more than 10 years. He ran couple of successful web projects in Estonia. His latest passion is blockchain and cryptocurrency. Mardo`s talent is to find and recognize the best people for the job to make something great. He believes cryptocurrency and AI is the the next big thing.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/lena.jpg" srcset="images/lena@2x.jpg 2x" alt="Lena Elvbakken">
-                        <h3 class="h4">Lena Elvbakken <span>Co-Founder</span></h3>
+                        <h3 class="h4">Lena Elvbakken <span>Co-Founder</span> <a target="_blank" href="https://www.linkedin.com/in/lena-elvbakken-8a238a56/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Lena, BAA, has an impressive global product marketing and sales background. Previously worked in media, technology and telecom branch for the brands like HP and Nokia. Then she moved on to online-based consulting business and recently into the fin tech branch. Lena believes that her corporate experience, leadership and passion for the technology make her a valuable asset for the team.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">
                         <h3 class="h4">Stanislav Ivashchenko <span>User Experience and Product Design Lead</span></h3>
-                        <p>Stanislav delivers a beautiful design and graphics to ZANTEPAY. He possesses more than 10 years of experience in design and usability across all mediums and has a passion for bringing brands to life through great visual design.</p>
+                        <p>Stanislav shapes visual appearance of ZANTEPAY. He possesses more than 6 years of experience in graphic design and usability across all media and has a passion for bringing brands to life through great user-centered design.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/alex.jpg" srcset="images/alex@2x.jpg 2x" alt="Alexey Fedorenko">
