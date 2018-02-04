@@ -64,11 +64,13 @@
           </div>
         </div>
 
-        <div id="metamask_missing"></div>
+        <p id="metamask_missing"></p>
         <div class="row">
           <div class="col-md-7 dashboard-group">
             <h2 class="h4 headline-mb">Transfer ownership</h2>
-            <p> <b>Current owner address: </b> <span id="current_owner"></span></p>
+            <p> <b>Current owner address: </b> <span id="current_owner"></span>
+              <br> &nbsp;
+            </p>
             <div class="row row-middle mt-20">
               <div class="col col-sm-auto">
                 <div class="form-group text-regular"><label for="new_owner_address">Set new owner:</label></div>
@@ -94,36 +96,38 @@
           <!-- TODO: this part is demo. Need to connect user wallet addresses database -->
           <h2 class="h4 headline-mb">Issue ICO coins</h2>
           <p> <b>Click Issue Token button to send tokens to participant</b></p>
-          <table id="ico-participants" class="table table-black">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Proxy address</th>
-                <th><span id="symbol"></span></th>
-                <th>Issue tokens</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Tiger Nixon</td>
-                <td>0x3E96dadD4caE102F7fA4cff012F218449Ad5d5d8</td>
-                <td >100000</td>
-                <td><button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token</button></td>
-              </tr>
-              <tr>
-                <td>Garrett Winters</td>
-                <td>0x79791E2b5934eA0556C707dc8faB80DCD3BF06C2</td>
-                <td >200000</td>
-                <td><button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token</button></td>
-              </tr>
-              <tr>
-                <td>Ashton Cox</td>
-                <td>0x8f3FbdeE15F51c38A057688275d2B91652E0132C</td>
-                <td>300000</td>
-                <td><button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token</button></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive-500">
+            <table id="ico-participants" class="table table-black">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Proxy address</th>
+                  <th><span id="symbol"></span></th>
+                  <th>Issue tokens</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Tiger Nixon</td>
+                  <td>0x3E96dadD4caE102F7fA4cff012F218449Ad5d5d8</td>
+                  <td >100000</td>
+                  <td><button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token</button></td>
+                </tr>
+                <tr>
+                  <td>Garrett Winters</td>
+                  <td>0x79791E2b5934eA0556C707dc8faB80DCD3BF06C2</td>
+                  <td >200000</td>
+                  <td><button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token</button></td>
+                </tr>
+                <tr>
+                  <td>Ashton Cox</td>
+                  <td>0x8f3FbdeE15F51c38A057688275d2B91652E0132C</td>
+                  <td>300000</td>
+                  <td><button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div class="dashboard-group">
