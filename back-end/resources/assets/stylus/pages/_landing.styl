@@ -451,13 +451,22 @@
   .lp-row-1
     margin-bottom 75px
   img
-    margin-bottom 35px
-    @media screen and (max-width: 991px)
-      margin-bottom 20px
+    margin-bottom 40px
+    // @media screen and (max-width: 991px)
+    //   margin-bottom 20px
   .h4
     margin-bottom 35px
+    position relative
     @media screen and (max-width: 991px)
       margin-bottom 15px
+    .soc-icon
+      position absolute
+      top -30px
+      left 50%
+      transform translateX(-50%)
+      color #007bb6
+      &:hover
+        color #00547d
     span
       height 29px
       @media screen and (max-width: 991px)
@@ -521,3 +530,57 @@
   width 100%
   height 100%
   background $bg-color-dark
+
+.hp-roadmap
+  position relative
+  &:before
+    content ''
+    position absolute
+    width 1px 
+    background $primary-color
+    top 250px
+    bottom 250px
+    left 50%
+    transform translateX(-50%)
+    @media screen and (max-width 1400px)
+      top 210px
+      // bottom 210px
+    @media screen and (max-width 991px)
+      display none
+  .row
+    position relative
+    &:before
+      content ''
+      position absolute
+      left 50%
+      top 50%
+      transform translateX(-50%) translateY(-50%)
+      width 18px
+      height 18px
+      background #fff
+      border 1px solid $primary-color
+      border-radius 50%
+      @media screen and (max-width 991px)
+        display none
+    &:after
+      content ''
+      position absolute
+      left 50%
+      top 50%
+      transform translateX(-50%) translateY(-50%)
+      width 6px
+      height 6px
+      background #000
+      border-radius 50%
+      @media screen and (max-width 991px)
+        display none
+    &:nth-of-type(5)
+      &:before,
+      &:after
+        margin-top -40px
+      .lp-image-container2
+        display block
+        text-align left
+        @media screen and (max-width 767px)
+          display inline-block
+          text-align center

@@ -107,6 +107,129 @@ $(document).ready(function () {
         }
     });
 
+    //hp shapes
+    if ($('#particles-js').length) {
+        var lineColor = $('.particles-js-black').length ? '#000' : '#fff';
+
+        particlesJS(
+            'particles-js',
+            {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#f92112"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        },
+                        "image": {
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.7,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 3,
+                            "opacity_min": 0.2,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 5,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 6,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": lineColor,
+                        "opacity": 0.5,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 4,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": false,
+                        },
+                        "onclick": {
+                            "enable": false,
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 5
+                        },
+                        "repulse": {
+                            "distance": 200
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true,
+                "config_demo": {
+                    "hide_card": false,
+                    "background_color": "#b61924",
+                    "background_image": "",
+                    "background_position": "50% 50%",
+                    "background_repeat": "no-repeat",
+                    "background_size": "cover"
+                }
+            }
+        );
+    }
+
     // Logout
     $('#logout-btn').on('click', function (event) {
         event.preventDefault();
@@ -384,61 +507,6 @@ $(document).ready(function () {
 
     });
 
-    $('.update-wallet').on('click', function (event) {
-        event.preventDefault();
-
-        const confirmed = $(this).parents('.wallet-address-group').find('.owner-confirm').prop('checked');
-
-        if (!confirmed) {
-            showError('Please, confirm that you are the owner of this account');
-            return false;
-        }
-
-        const wallet = {
-            'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
-            'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val(),
-        }
-
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        axios.post(
-            '/user/profile-settings/update-wallet',
-            qs.stringify(wallet)
-        )
-            .then(
-                () => {
-                    hideSpinner(button);
-
-                    $(this).parents('.wallet-address-group').find('.owner-confirm').prop('checked', false);
-
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#wallet-address-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
-                        }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {message} = error.response.data;
-
-                    if (error.response.status == 422) {
-                        $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
-                    } else {
-                        showError(message)
-                    }
-                }
-            )
-    });
-
     $('#change-password').on('submit', function (event) {
         event.preventDefault();
 
@@ -652,6 +720,68 @@ $(document).ready(function () {
                     const {message} = error.response.data;
 
                     showError(message);
+                }
+            )
+    });
+
+    // Wallet
+    $('#copy-address').on('click', function (e) {
+        e.preventDefault();
+
+        const address = $(this).parents('.wallet').find('.address').text();
+
+        let tmpEl = $('<input />').val(address);
+
+        $('body').append(tmpEl);
+
+        tmpEl.select();
+
+        document.execCommand("copy");
+
+        tmpEl.remove();
+    })
+
+    $('.create-address').on('click', function (event) {
+        event.preventDefault();
+
+        const wallet = {
+            'currency': $(this).parents('.wallet').find('input[name="currency"]').val(),
+        }
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        axios.post(
+            '/user/wallet/address',
+            qs.stringify(wallet)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#wallet-address-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    if (error.response.status == 422) {
+                        $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+                    } else {
+                        showError(message)
+                    }
                 }
             )
     });

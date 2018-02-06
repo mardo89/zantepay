@@ -151,7 +151,7 @@
                         <div class="row">
                             <div class="col-lg-11 wallet-address-group">
                                 <form action="">
-                                    <input type="hidden" name="wallet-currency" value="{{ \App\Models\Currency::CURRENCY_TYPE_ETH }}"/>
+                                    <input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ETH }}"/>
 
                                     <div class="row mb-15">
                                         <div class="col-xl-8 col-lg-7 col-md-8">

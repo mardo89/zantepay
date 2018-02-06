@@ -13,6 +13,7 @@ use App\Models\DB\State;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
 use App\Models\Validation\ValidationMessages;
+use App\Models\Wallet\EtheriumApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -318,6 +319,26 @@ class UserController extends Controller
         );
     }
 
+
+    /**
+     * User wallet
+     *
+     * @return View
+     */
+    public function wallet()
+    {
+        $user = Auth::user();
+        $wallet = $user->wallet;
+
+        return view(
+            'user.wallet',
+            [
+                'wallet' => $wallet,
+                'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
+            ]
+        );
+    }
+
     /**
      * Update wallet link
      *
@@ -325,7 +346,7 @@ class UserController extends Controller
      *
      * @return JSON
      */
-    public function updateWallet(Request $request)
+    public function createWalletAddress(Request $request)
     {
         $user = Auth::user();
 
@@ -333,12 +354,10 @@ class UserController extends Controller
             $request,
             [
                 'currency' => 'required|numeric',
-                'address' => 'string|nullable',
             ],
             ValidationMessages::getList(
                 [
                     'currency' => 'Currency Type',
-                    'address' => 'Wallet Address',
                 ]
             )
         );
@@ -349,15 +368,16 @@ class UserController extends Controller
             $wallet = $user->wallet;
 
             switch ($request->currency) {
-                case Currency::CURRENCY_TYPE_BTC:
-                    $wallet->btc_wallet = $request->address;
-                    break;
+//                case Currency::CURRENCY_TYPE_BTC:
+//                    $wallet->eth_wallet = EtheriumApi::getAddress($user->uid);
+//                    break;
 
                 case Currency::CURRENCY_TYPE_ETH:
-                    $wallet->eth_wallet = $request->address;
+                    $wallet->eth_wallet = EtheriumApi::createAddress($user->uid);
                     break;
 
             }
+
 
             $wallet->save();
 
@@ -367,7 +387,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error updating wallet',
+                    'message' => 'Error creating Wallet address',
                     'errors' => []
                 ],
                 500
@@ -1026,25 +1046,6 @@ class UserController extends Controller
         $verification->address_documents_status = Verification::DOCUMENTS_UPLOADED;
         $verification->address_decline_reason = '';
         $verification->save();
-    }
-
-    /**
-     * User wallet
-     *
-     * @return View
-     */
-    public function wallet()
-    {
-        $user = Auth::user();
-        $wallet = $user->wallet;
-
-        return view(
-            'user.wallet',
-            [
-                'wallet' => $wallet,
-                'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
-            ]
-        );
     }
 
 }

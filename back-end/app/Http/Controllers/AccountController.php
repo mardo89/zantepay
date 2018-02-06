@@ -406,7 +406,7 @@ class AccountController extends Controller
 
             $snUser = Socialite::driver('facebook')->user();
 
-            $snAccount = SocialNetworkAccount::where('user_token', $snUser->token)
+            $snAccount = SocialNetworkAccount::where('user_token', $snUser->getId())
                 ->where('social_network_id', SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK)
                 ->first();
 
@@ -427,7 +427,7 @@ class AccountController extends Controller
                 SocialNetworkAccount::create(
                     [
                         'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK,
-                        'user_token' => $snUser->token,
+                        'user_token' => $snUser->getId(),
                         'user_id' => $userInfo['id']
                     ]
                 );

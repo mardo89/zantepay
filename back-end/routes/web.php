@@ -50,7 +50,6 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::get('profile-settings', 'UserController@profileSettings');
     Route::post('profile-settings/remove-document', 'UserController@removeDocument');
-    Route::post('profile-settings/update-wallet', 'UserController@updateWallet');
     Route::post('profile-settings/change-password', 'UserController@changePassword');
     Route::post('profile-settings/upload-identity-documents', 'UserController@uploadIdentityDocuments');
     Route::post('profile-settings/upload-address-documents', 'UserController@uploadAddressDocuments');
@@ -59,6 +58,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('invite-friend', 'UserController@saveInvitation');
 
     Route::get('wallet', 'UserController@wallet');
+    Route::post('wallet/address', 'UserController@createWalletAddress');
 
     Route::get('debit-card', 'UserController@debitCard');
     Route::post('debit-card', 'UserController@saveDebitCard');

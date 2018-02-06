@@ -10,205 +10,226 @@
 
 @section('content')
 
-    <main class="main main-dashboard">
+    <main class="main main-dashboard main-panel-layout">
+        <div id="particles-js" class="particles-js-black"></div>
         <div class="container">
-            <div class="dashboard-row">
-
-                <div class="dashboard-left">
-
-                    <div class="dashboard-group">
-                        <div class="table-responsive-500">
-                            <table class="table-transparent">
-                                <thead>
-                                <tr>
-                                    {{--<th width="25%">Commission (BTC)</th>--}}
-                                    <th width="25%">Commission (ETH)</th>
-                                    <th width="25%">Total ZNX</th>
-                                    <th width="25%">Referal bonus (ZNX)</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    {{--<td>0</td>--}}
-                                    <td>0</td>
-                                    <td>{{ $wallet->znx_amount }}</td>
-                                    <td>0</td>
-                                </tr>
-                                </tbody>
-                            </table>
+            <div class="panel">
+                <div class="mb-20">
+                    <h2 class="h4 headline-mb">Buy ZNX tokens now:</h2>
+                    <div class="row row-middle">
+                        <div class="col col-md-3 col-lg-auto">
+                            <div class="form-group text-regular">You will get</div>
                         </div>
-                    </div>
-
-                    <div class="dashboard-group">
-                        <h2 class="h4 headline-mb">ZANTECOIN (ZNX) price:</h2>
-                        <div class="table-responsive-500">
-                            <table class="table-black table-3-cols">
-                                <thead>
-                                <tr>
-                                    <th>Cryptocurrency</th>
-                                    <th>Abbreviation</th>
-                                    <th>Price</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {{--<tr>--}}
-                                    {{--<td class="col-left">Bitcoin</td>--}}
-                                    {{--<td>BTC</td>--}}
-                                    {{--<td>0,0001</td>--}}
-                                {{--</tr>--}}
-                                <tr>
-                                    <td class="col-left">Etherium</td>
-                                    <td>ETH</td>
-                                    <td>0,0018</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="dashboard-group">
-                        <h2 class="h4 headline-mb">Select your payment method:</h2>
-                        <div class="row">
-                            {{--<div class="col-6 col-sm-6">--}}
-                                {{--<a href="#deposit-btc" class="js-popup-link mb-10 btn btn--shadowed-light btn--medium">Deposit BTC</a>--}}
-                                {{--<div class="text-sm text-gray">Minimum 0,02 BTC</div>--}}
-                            {{--</div>--}}
-                            <div class="col-6 col-sm-6">
-                                <a href="#deposit-eth" class="js-popup-link mb-10 btn btn--shadowed-light btn--medium">Deposit ETH</a>
-                                <div class="text-sm text-gray">Minimum 0,2 ETH</div>
+                        <div class="col-lg-4 col-md-9">
+                            <div class="input-group form-group">
+                                <label for="field10">ZNX tokens</label>
+                                <input class="input-field" type="text" name="znx" id="field10" placeholder="Enter amount">
                             </div>
                         </div>
-                    </div>
-
-                    <div>
-                        <h2 class="h4 headline-mb">Refer a friend for a 20% commission:</h2>
-                        <div class="row row-middle">
-                            <div class="col-md-2">
-                                <label for="field3" class="field-label">Referral link:</label>
-                            </div>
-                            <div class="col-lg-6 col-md-5">
-                                <div class="field-group">
-                                    <input class="input-field" type="text" name="referral" id="field3"
-                                           value="{{ $referralLink }}" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-5">
-                                <button id="copy-link" type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">Copy Link</button>
-                            </div>
+                        <div class="col col-md-3 col-lg-auto">
+                            <div class="form-group text-regular">For</div>
                         </div>
-                    </div>
-
-                </div>
-
-                <div class="dashboard-right">
-
-                    <div class="dashboard-group">
-                        <h2 class="h4 headline-mb">Withdraw / trasfer:</h2>
-                        <div class="row">
-                            <div class="col-12 col-sm-2 mb-20">Type:</div>
-                            {{--<div class="col-6 col-sm-5">--}}
-                                {{--<ul class="radio-list text-regular">--}}
-                                    {{--<li>--}}
-                                        {{--<div class="radio-button">--}}
-                                            {{--<input type="radio" name="pay-method" value="btc-znx" id="radio1" checked><label for="radio1">Transfer--}}
-                                                {{--BTC to ZNX</label>--}}
-                                        {{--</div>--}}
-                                    {{--</li>--}}
-                                    {{--<li>--}}
-                                        {{--<div class="radio-button">--}}
-                                            {{--<input type="radio" name="pay-method" value="btc" id="radio2"><label for="radio2">Withdraw--}}
-                                                {{--BTC</label>--}}
-                                        {{--</div>--}}
-                                    {{--</li>--}}
-                                {{--</ul>--}}
-                            {{--</div>--}}
-                            <div class="col-5 col-sm-5">
-                                <ul class="radio-list text-regular">
-                                    <li>
-                                        <div class="radio-button">
-                                            <input type="radio" name="pay-method" value="eth-znx" id="radio5"><label for="radio5">Transfer
-                                                ETH
-                                                to ZNX</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="radio-button">
-                                            <input type="radio" name="pay-method" value="eth" id="radio6"><label for="radio6">Withdraw
-                                                ETH</label>
-                                        </div>
-                                    </li>
-                                </ul>
+                        <div class="col-lg-4 col-md-9">
+                            <div class="input-group form-group">
+                                <label for="field11">ETH</label>
+                                <input class="input-field" type="text" name="eth" id="field11" placeholder="Enter amount">
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="dashboard-group">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-12 mt-10 mb-15">Amount:</div>
-                            <div class="col-md-4 col-sm-5">
-                                <div class="field-group">
-                                    <input class="input-field" type="text" name="eth" id="field1">
-                                    <span class="sub-field-label">ETH</span>
-                                </div>
-                            </div>
-                            <div class="col-md-1 text-center field-or col-sm-2 mt-10">or</div>
-                            <div class="col-md-4 col-sm-5">
-                                <div class="field-group">
-                                    <input class="input-field" type="text" name="znx" id="field2">
-                                    <span class="sub-field-label">ZNX</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="dashboard-group">
-                        <div class="row">
-                            <div class="col-md-3 col-lg-4 mt-10 mb-15">Wallet address:</div>
-                            <div class="col-md-9 col-lg-8">
-                                <div class="field-group mb-20">
-                                    <input class="input-field" type="text" name="spend" id="field3">
-                                </div>
-                                <button type="button" class="btn btn--shadowed-light btn--medium mb-10">Withdraw</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="dashboard-group">
-                        <h2 class="h4 headline-mb">Pre-sale starts in:</h2>
-                        <div class="countdown">
-                            <span class="js-countdown" data-date="2017/12/12 12:34:00"></span>
                         </div>
                     </div>
                 </div>
+                <div>
+                    <div class="mb-20 text-regular">Your personal Ethereum address to fund this account:</div>
+                    <div class="row row-middle wallet">
+                        <input type="hidden" name="currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ETH }}"/>
+                        @if($wallet->eth_wallet)
+                            <div class="col col-sm-auto text-lg wordwrap address">{{ $wallet->eth_wallet }}</div>
 
+                            <div class="col col-md-3">
+                                <a id="copy-address" href="" class="btn btn--shadowed-light btn--medium btn--130 mt-sm-15">Copy</a>
+                            </div>
+                        @else
+                            <div class="col col-md-3">
+                                <a href="" class="btn btn--shadowed-light btn--medium mt-sm-15 create-address">Create Address</a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
 
-            <div class="mt-40 p-t-30">
-                <h2 class="h4 headline-mb">Withdawal / transfer history:</h2>
+            <div class="row">
+                <div class="col-sm-12 col-xl-6">
+                    <div class="panel">
+                        <div class="dashboard-group">
+                            <h2 class="h4 headline-mb">Wallet:</h2>
+                            <div class="table-responsive-500">
+                                <table class="table-transparent table-3-cols">
+                                    <thead>
+                                    <tr>
+                                        <th>Commission (ETH)</th>
+                                        <th>Total ZNX</th>
+                                        <th>Referal bonus (ZNX)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="h4 headline-mb">Refer a friend for a 20% commission:</h2>
+                            <div class="row row-middle">
+                                <div class="col-md-2">
+                                    <label for="field3" class="field-label">Referral link:</label>
+                                </div>
+                                <div class="col-lg-6 col-md-5">
+                                    <div class="field-group">
+                                        <input class="input-field" type="text" name="referral" id="field3" value="{{ $referralLink }}"
+                                               readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-5">
+                                    <button id="copy-link" type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
+                                        Copy Link
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6">
+                    <div class="panel">
+                        <div class="dashboard-group">
+                            <h2 class="h4 headline-mb">ZANTECOIN (ZNX) price:</h2>
+                            <div class="table-responsive-500">
+                                <table class="table-black table-3-cols">
+                                    <thead>
+                                    <tr>
+                                        <th>Cryptocurrency</th>
+                                        <th>Coin</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="col-left">Etherium</td>
+                                        <td>ETH</td>
+                                        <td>0,0007</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="h4 mb-20">Pre-sale starts in:</h2>
+                            <div class="countdown">
+                                <span class="js-countdown" data-date="2018/03/12 12:34:00"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <h2 class="h4 mb-20">Bonuses:</h2>
+                <div class="row">
+                    <div class="col-lg-6 mb-md-30">
+                        <h2 class="h4 headline-mb">Transfer ETH to ZNX:</h2>
+                        <div class="row row-middle mt-40">
+                            <div class="col-lg-2 col-md-3">
+                                <div class="form-group text-regular"><label for="field14">Amount:</label></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input id="field14" class="input-field" type="text" name="eth" placeholder="ETH">
+                                </div>
+                            </div>
+                            <div class="col col-sm-auto">
+                                <div class="form-group text-regular"><label for="field15">to</label></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input id="field15" class="input-field" type="text" name="znx" placeholder="ZNX">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-8 offset-md-3 offset-lg-2">
+                                <a href="" class="btn btn--shadowed-light btn--medium btn--130">Transfer</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h2 class="h4 headline-mb">Withdraw ETH:</h2>
+                        <div class="row row-middle mt-40">
+                            <div class="col-md-3 pr-0">
+                                <div class="form-group text-regular"><label for="field16">Wallet address:</label></div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <input id="field16" class="input-field" type="text" name="eth" placeholder="Paste address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-8 offset-md-3">
+                                <a href="" class="btn btn--shadowed-light btn--medium btn--130">Withdraw</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="panel">
+                <h2 class="h4 mb-20">Transfer:</h2>
+                <div class="text-regular mb-20">Available for transfer: <span class="primary-color text-lg">2500 ZNX tokens</span></div>
+                <div class="text-regular">You will be able to withdraw your ERC20 tokens to Ethereum Network after the end of the ICO.</div>
+            </div>
+
+            <div class="panel">
+                <!-- toggle class .is-active for .update-icon while loadding proccess -->
+                <h2 class="h4 headline-mb">Transactions history: &nbsp; <a href="" class="update-icon is-active"></a></h2>
                 <div class="table-responsive-500">
-                    <table class="table table-black table-3-cols">
+                    <table class="table-black">
                         <thead>
                         <tr>
-                            <th>Time</th>
-                            <th>Description</th>
-                            <th>Status</th>
+                            <th width="105">Date</th>
+                            <th width="115">Time</th>
+                            <th width="70">Type</th>
+                            <th>From</th>
+                            <th width="220">To</th>
+                            <th width="150">Amount</th>
+                            <th width="110">Status</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td class="col-left">Lorem ipsum</td>
-                            <td class="col-left">Lorem ipsum</td>
-                            <td class="col-left">Lorem ipsum</td>
+                            <td>19.01.2018</td>
+                            <td>07:50 GMT</td>
+                            <td>In</td>
+                            <td>...</td>
+                            <td>0x4c7a8ae80c18e48cgh...</td>
+                            <td class="nowrap">0,1412644 ETH</td>
+                            <td>Pending</td>
                         </tr>
                         <tr>
-                            <td class="col-left">Status</td>
-                            <td class="col-left">Lorem ipsum</td>
-                            <td class="col-left">Lorem ipsum</td>
+                            <td>19.01.2018</td>
+                            <td>07:50 GMT</td>
+                            <td>Out</td>
+                            <td>...</td>
+                            <td>0x4c7a8ae80c18e48cgh...</td>
+                            <td class="nowrap">0,1412644 ETH</td>
+                            <td>Success</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="row-bellow-panel text-center">If you have any questions, suggestions or comments on the wallet’s work, feel free to reach us at
+                <a href="mailto:support@zantepay.com">support@zantepay.com</a>
             </div>
         </div>
     </main>
@@ -223,7 +244,7 @@
             <h3 class="h4">DEPOSIT ETH</h3>
             <p class="text-regular break-word">0x9A833f93884D2D47F821d43B0dd51416FA6BA9e4</p>
 
-            <img src="images/eth-qr-code.png" alt="ETH QR">
+            <img src="/images/eth-qr-code.png" alt="ETH QR">
             <div class="text-gray text-sm">Minimum 0,2 ETH</div>
 
             <div class="row mt-35 vertical-middle-col deposit-modal-row">
@@ -257,7 +278,7 @@
             <h3 class="h4">DEPOSIT BTC</h3>
             <p class="text-regular break-word">33vvLqhAPeD2h8P965uFstz5cC8Lo3t27d</p>
 
-            <img src="images/btc-qr-code.png" alt="ETH QR">
+            <img src="/images/btc-qr-code.png" alt="ETH QR">
             <div class="text-gray text-sm">Minimum 0,02 BTC</div>
 
             <div class="row mt-35 vertical-middle-col deposit-modal-row">

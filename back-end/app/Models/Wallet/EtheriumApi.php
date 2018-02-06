@@ -6,7 +6,7 @@ namespace App\Models\Wallet;
 class EtheriumApi
 {
 
-    const API_URL = 'http://172.26.14.50';
+    const API_URL = 'https://test.ethereum.node.zantepay.com';
     const ACCOUNT_ID = 0;
     const ACCOUNT_PASSWORD = 'pa$$w0rd';
     const ACCOUNT_PORT = 443;
@@ -22,6 +22,7 @@ class EtheriumApi
     public static function createAddress($userID)
     {
         $apiResponse = self::sendPostRequest(
+            '/proxy',
             [
                 'userId' => $userID,
                 'adminAccount' => [
@@ -43,7 +44,10 @@ class EtheriumApi
      */
     public static function getAddress($operationID)
     {
-        $apiResponse = self::sendGetRequest('/proxy?operationId=' . $operationID);
+        $apiResponse = self::sendGetRequest(
+            '/proxy',
+            'operationId=' . $operationID
+        );
 
         return isset($apiResponse->address) ? $apiResponse->address : null;
     }
@@ -58,7 +62,10 @@ class EtheriumApi
      */
     public static function getContributions($token, $count)
     {
-        $apiResponse = self::sendGetRequest('contributions?start=' . $token . '&count=' . $count);
+        $apiResponse = self::sendGetRequest(
+            '/contributions',
+            'start=' . $token . '&count=' . $count
+        );
 
         return isset($apiResponse->contributions) ? $apiResponse->contributions : null;
     }
@@ -66,15 +73,17 @@ class EtheriumApi
     /**
      * Send GET request
      *
-     * @param $params
+     * @param string $endpoint
+     * @param string $params
      *
      * @return array|mixed
      */
-    protected static function sendGetRequest($params)
+    protected static function sendGetRequest($endpoint, $params)
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, self::API_URL . $params);
+        curl_setopt($ch, CURLOPT_URL, self::API_URL . $endpoint . '?' . $params);
+        curl_setopt($ch, CURLOPT_PORT, self::ACCOUNT_PORT);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -95,26 +104,27 @@ class EtheriumApi
     /**
      * Send POST request
      *
+     * @param string $endpoint
      * @param array $params
      *
      * @return mixed
      */
-    protected static function sendPostRequest($params)
+    protected static function sendPostRequest($endpoint, $params)
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, self::API_URL . '/proxy');
+        curl_setopt($ch, CURLOPT_URL, self::API_URL . $endpoint);
+        curl_setopt($ch, CURLOPT_PORT, self::ACCOUNT_PORT);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
 
         $apiResponse = curl_exec($ch);
 
         curl_close($ch);
 
-        exit(var_dump($apiResponse));
         $result = json_decode($apiResponse);
 
         if (!$result) {

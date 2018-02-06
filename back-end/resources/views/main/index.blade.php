@@ -58,7 +58,7 @@
                     <h3 class="h4 text-uppercase">We are looking for seed investors</h3>
                     <a href="#become-our-seed-investors" class="js-popup-link btn btn--shadowed-dark btn--260">Become An Investor</a>
                 </div>
-                <h3 class="h4 text-uppercase">Pre-sale starts in <br><br> 1 ETH = 14300 ZNX</h3>
+                <h3 class="h4 text-uppercase"> 1 ETH = 14300 ZNX<br><br> Pre-sale starts in</h3>
                 <div class="countdown">
                     <span class="js-countdown" data-date="2018/02/15 00:00:00"></span>
                 </div>
@@ -198,7 +198,7 @@
                                 <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" alt="Rocket Image">
                             </div>
                         </div>
-                        <div class="col-md-6 vertical-middle-col">
+                        <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
                                 <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - May 15th</span></h2>
                             </div>
@@ -207,25 +207,11 @@
 
                     <div class="row p-tb-40">
                         <div class="col-md-6 content-center">
-                            <div class="lp-image-container3">
-                                <img src="images/vote.jpg" srcset="images/vote@2x.jpg 2x" alt="Vote">
-                            </div>
-                        </div>
-                        <div class="col-md-6 vertical-middle-col content-center">
-                            <div class="lp-content-col">
-                                <h3 class="h2 headline">Voting center <span>Q3</span></h2>
-                                    <p>ZANTEPAY token holders will be able to vote on upcoming updates and protocol changes.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row row-revert p-tb-40">
-                        <div class="col-md-6 content-center">
                             <div class="lp-image-container">
                                 <img src="images/iPhone.jpg" srcset="images/iPhone@2x.jpg 2x" alt="ZANTEPAY wallet">
                             </div>
                         </div>
-                        <div class="col-md-6 vertical-middle-col">
+                        <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
                                 <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q2</span></h2>
                                     <p>Visa debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
@@ -233,7 +219,7 @@
                         </div>
                     </div>
 
-                    <div class="row p-tb-40">
+                    <div class="row row-revert p-tb-40">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container2">
                                 <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" width="480px" alt="ZANTEPAY VISA">
@@ -247,13 +233,13 @@
                         </div>
                     </div>
 
-                    <div class="row row-revert lp-row-1">
+                    <div class="row lp-row-1">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container">
                                 <img src="images/rocket-image.jpg" srcset="images/rocket-image@2x.jpg 2x" alt="Rocket Image">
                             </div>
                         </div>
-                        <div class="col-md-6 vertical-middle-col">
+                        <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
                                 <h3 class="h2 headline">Biggest cryptocurrency wallet worldwide! <span>2019</span></h2>
                                     <p>Become the biggest cryptocurrency wallet worldwide! Join today!</p>
@@ -647,6 +633,11 @@
                         <h3 class="h4">Levon Hayrapetyan <span>Smart Contracts Developer</span></h3>
                         <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
                     </div>
+                    <div class="col-lg-4">
+                        <img src="images/ron.jpg" srcset="images/ron@2x.jpg 2x" alt="Ron Luvistsuk">
+                        <h3 class="h4">Ron Luvistsuk <span>CFO</span></h3>
+                        <p>Ron is bringing his experience from SEB Corporate banking. He has more than 20 years of experience in finance, deep understanding of risk, compliance and payment architecture in the EU. Ex CFO at Lukoil Baltic. As an independent financial advisor Ron has led over 600 projects, totaling in over $60m.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -696,8 +687,8 @@
             </div>
             <div class="footer-social">
                 <ul class="social-list">
-                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
                     <li><a href=""><i class="fa fa-envelope"></i></a></li>
                     <li><a href=""><i class="fa fa-bitcoin"></i></a></li>
                 </ul>
