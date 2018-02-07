@@ -1,200 +1,215 @@
 window.onload = function() {
- 
+
     if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
-    } 
+    }
     else {
         $("#metamask_missing").html('You need <a target="_blank" href="https://metamask.io/">MetaMask</a> browser plugin to run this');
         web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
     }
 }
 var CrowdSaleContract = web3.eth.contract([
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "newOwner",
-        "outputs": [
-            {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "name": "_from",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "name": "_to",
-                "type": "address"
-            }
-        ],
-        "name": "OwnershipTransferProposed",
-        "type": "event"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "withdrawFunds",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "name": "_from",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "name": "_to",
-                "type": "address"
-            }
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "name": "data",
-                "type": "bytes"
-            }
-        ],
-        "name": "UserDeposited",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "name": "userId",
-                "type": "bytes32"
-            },
-            {
-                "indexed": false,
-                "name": "proxy",
-                "type": "address"
-            }
-        ],
-        "name": "UserProxyCreated",
-        "type": "event"
-    },
-    {
-        "constant": false,
-        "inputs": [],
-        "name": "acceptOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "userId",
-                "type": "bytes32"
-            }
-        ],
-        "name": "createUserProxy",
-        "outputs": [
-            {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_newOwner",
-                "type": "address"
-            }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "fallback"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "newWallet",
-                "type": "address"
-            }
-        ],
-        "name": "setWallet",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    }
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "withdrawFunds",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "wallet",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "acceptOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "userId",
+				"type": "bytes32"
+			}
+		],
+		"name": "createUserProxy",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "newOwner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newWallet",
+				"type": "address"
+			}
+		],
+		"name": "setWallet",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "userId",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"name": "proxy",
+				"type": "address"
+			}
+		],
+		"name": "UserProxyCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "data",
+				"type": "bytes"
+			}
+		],
+		"name": "UserDeposited",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "_to",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferProposed",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "_to",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	}
 ]);
-var ContractAddress = "0xa34ec81c4185a9ecc5a2c00e1bf9ec546e87f5a1";
+var ContractAddress = "0xc5d2cee9ffa093c33aab29197f5896e48b93f312";
 var crowdSale = CrowdSaleContract.at(ContractAddress);
 // Current owner address
+
 crowdSale.owner( function (err, res) {
     if (err) {
         return;
@@ -212,12 +227,12 @@ $("#set_new_owner").click(function() {
 
 // New owner pending address
 crowdSale.newOwner( function (err, res) {
-    if (err) {	
+    if (err) {
         return;
     }
     $("#pending_owner_address").text(res);
 });
-        
+
 // Accept ownership
 $("#accept_ownership").click(function() {
     crowdSale.acceptOwnership((err, res) => {
@@ -235,14 +250,23 @@ $("#set_wallet").click(function() {
         }
     });
 });
+
+// Current Wallet address
+crowdSale.wallet( function (err, res) {
+    if (err) {
+        return;
+    }
+    $("#current_wallet").text(res);
+});
+
+
 // Contract address current balance
 web3.eth.getBalance(ContractAddress, function (err, res) {
     if (err) {
         return;
     }
-    var value = web3.fromWei(res, 'ether')
-    var valinEth = value.toFixed(2)
-    $("#address_balance").text(valinEth);
+    var value = web3.fromWei(res, 'Wei');
+    $("#address_balance").text(value);
 });
 
 // Withdraw funds wallet
@@ -254,5 +278,3 @@ $("#withdraw_funds").click(function() {
     }
     });
 });
-    
-        
