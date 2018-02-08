@@ -18,38 +18,58 @@ class EtheriumApi
      * @param string $userID
      *
      * @return mixed
+     * @throws \Exception
      */
     public static function createAddress($userID)
     {
+        // Get Operation ID
         $apiResponse = self::sendPostRequest(
             '/proxy',
             [
                 'userId' => $userID,
-                'adminAccount' => [
-                    'accountId' => self::ACCOUNT_ID,
-                    'password' => self::ACCOUNT_PASSWORD
-                ]
+            ],
+            [
+                'Content-Type: application/json',
+                'X-ZantePay-Admin-AccountId: ' . self::ACCOUNT_ID,
+                'X-ZantePay-Admin-Password: ' . self::ACCOUNT_PASSWORD,
             ]
         );
 
-        return isset($apiResponse->operationId) ? $apiResponse->operationId : null;
-    }
+        $operationID = $apiResponse['data']->operationId;
 
-    /**
-     * Get Etherium address
-     *
-     * @param string $operationID
-     *
-     * @return mixed
-     */
-    public static function getAddress($operationID)
-    {
-        $apiResponse = self::sendGetRequest(
-            '/proxy',
-            'operationId=' . $operationID
-        );
+        if (!isset($apiResponse['data']->operationId)) {
+            throw new \Exception('Error getting operative ID');
+        }
 
-        return isset($apiResponse->address) ? $apiResponse->address : null;
+        // Get Address
+        $address = '';
+        $requestsCount = 0;
+
+        while ($operationID == '' || $requestsCount < 20) {
+            $apiResponse = self::sendGetRequest(
+                '/proxy',
+                'operationId=' . $operationID
+            );
+
+            if ($apiResponse['status'] == 400) {
+                break;
+            }
+
+            if ($apiResponse['status'] == 201 && isset($apiResponse['data']->address)) {
+                $address = $apiResponse['data']->address;
+                break;
+            }
+
+            $requestsCount++;
+
+            sleep(10);
+        }
+
+        if ($address == '') {
+            throw new \Exception('Error getting address');
+        }
+
+        return $address;
     }
 
     /**
@@ -90,15 +110,21 @@ class EtheriumApi
 
         $apiResponse = curl_exec($ch);
 
+        $responseStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $responseData = json_decode($apiResponse);
+
         curl_close($ch);
 
-        $result = json_decode($apiResponse);
-
-        if (!$result) {
-            return [];
+        if (!$responseData) {
+            return [
+                'status' => 400
+            ];
         }
 
-        return $result;
+        return [
+            'status' => (int)$responseStatus,
+            'data' => $responseData
+        ];
     }
 
     /**
@@ -106,13 +132,13 @@ class EtheriumApi
      *
      * @param string $endpoint
      * @param array $params
+     * @param array $headers
      *
      * @return mixed
      */
-    protected static function sendPostRequest($endpoint, $params)
+    protected static function sendPostRequest($endpoint, $params, $headers = [])
     {
         $ch = curl_init();
-
         curl_setopt($ch, CURLOPT_URL, self::API_URL . $endpoint);
         curl_setopt($ch, CURLOPT_PORT, self::ACCOUNT_PORT);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
@@ -120,18 +146,26 @@ class EtheriumApi
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         $apiResponse = curl_exec($ch);
 
+        $responseStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        $responseData = json_decode($apiResponse);
+
         curl_close($ch);
 
-        $result = json_decode($apiResponse);
-
-        if (!$result) {
-            return [];
+        if (!$responseData) {
+            return [
+                'status' => 400
+            ];
         }
 
-        return $result;
+        return [
+            'status' => (int)$responseStatus,
+            'data' => $responseData
+        ];
     }
 
 }

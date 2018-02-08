@@ -350,34 +350,13 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        $this->validate(
-            $request,
-            [
-                'currency' => 'required|numeric',
-            ],
-            ValidationMessages::getList(
-                [
-                    'currency' => 'Currency Type',
-                ]
-            )
-        );
-
         DB::beginTransaction();
 
         try {
+
             $wallet = $user->wallet;
 
-            switch ($request->currency) {
-//                case Currency::CURRENCY_TYPE_BTC:
-//                    $wallet->eth_wallet = EtheriumApi::getAddress($user->uid);
-//                    break;
-
-                case Currency::CURRENCY_TYPE_ETH:
-                    $wallet->eth_wallet = EtheriumApi::createAddress($user->uid);
-                    break;
-
-            }
-
+            $wallet->eth_wallet = EtheriumApi::createAddress($user->uid);
 
             $wallet->save();
 
@@ -387,17 +366,21 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error creating Wallet address',
+                    'message' => 'Error creating Wallet Address',
                     'errors' => []
                 ],
                 500
             );
         }
 
+        sleep(5);
+
         DB::commit();
 
         return response()->json(
-            []
+            [
+                'address' => $wallet->eth_wallet
+            ]
         );
     }
 

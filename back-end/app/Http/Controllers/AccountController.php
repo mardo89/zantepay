@@ -436,7 +436,7 @@ class AccountController extends Controller
 
             } else {
 
-                $userID = $snAccount->user()->id;
+                $userID = $snAccount->user->id;
 
             }
 
@@ -507,7 +507,7 @@ class AccountController extends Controller
 
             } else {
 
-                $userID = $snAccount->user()->id;
+                $userID = $snAccount->user->id;
 
             }
 

@@ -725,7 +725,7 @@ $(document).ready(function () {
     });
 
     // Wallet
-    $('#copy-address').on('click', function (e) {
+    $('.wallet').on('click', '#copy-address',function (e) {
         e.preventDefault();
 
         const address = $(this).parents('.wallet').find('.address').text();
@@ -744,9 +744,6 @@ $(document).ready(function () {
     $('.create-address').on('click', function (event) {
         event.preventDefault();
 
-        const wallet = {
-            'currency': $(this).parents('.wallet').find('input[name="currency"]').val(),
-        }
 
         const button = $(this);
         showSpinner(button);
@@ -754,11 +751,39 @@ $(document).ready(function () {
 
         axios.post(
             '/user/wallet/address',
-            qs.stringify(wallet)
+            qs.stringify({})
         )
             .then(
-                () => {
+                response => {
                     hideSpinner(button);
+
+                    console.log(response);
+
+                    const wrapper = button.parent();
+
+                    wrapper
+                        .before(
+                            $('<div />')
+                                .addClass('col col-sm-auto text-lg wordwrap address')
+                                .text(response.data.address)
+                        )
+                        .before(
+                            $('<div />')
+                                .addClass('col col-md-3')
+                                .append(
+                                    $('<a />')
+                                        .addClass('btn btn--shadowed-light btn--medium btn--130 mt-sm-15')
+                                        .attr(
+                                            {
+                                                id: 'copy-address',
+                                                href: ''
+                                            }
+                                        )
+                                        .text('Copy')
+                                )
+                        );
+
+                    wrapper.remove();
 
                     $.magnificPopup.open(
                         {

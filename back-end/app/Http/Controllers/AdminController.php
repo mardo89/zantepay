@@ -668,4 +668,19 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * Wallets operations
+     *
+     * @return View
+     */
+    public function wallet()
+    {
+
+        return view(
+            'admin.wallet',
+            [
+            ]
+        );
+    }
+
 }
