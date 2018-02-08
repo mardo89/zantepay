@@ -29,8 +29,8 @@
         <hr>
 
         <div class="social-btns">
-            <a href="/auth/fb" class="btn btn--facebook"><i></i> Sign Up With Facebook</a>
-            <a href="/auth/google" class="btn btn--google"><i></i> Sign Up With Google</a>
+            <a href="/account/fb" class="btn btn--facebook"><i></i> Sign Up With Facebook</a>
+            <a href="/account/google" class="btn btn--google"><i></i> Sign Up With Google</a>
         </div>
     </form>
 

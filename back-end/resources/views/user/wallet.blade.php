@@ -40,7 +40,6 @@
                 <div>
                     <div class="mb-20 text-regular">Your personal Ethereum address to fund this account:</div>
                     <div class="row row-middle wallet">
-                        <input type="hidden" name="currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ETH }}"/>
                         @if($wallet->eth_wallet)
                             <div class="col col-sm-auto text-lg wordwrap address">{{ $wallet->eth_wallet }}</div>
 
@@ -305,5 +304,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Address confirmation -->
+    <div class="logon-modal mfp-hide" id="wallet-address-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">CREATED!</h3>
+            <div class="logon-modal-text">
+                <p>Your Etherium address successfully created.</p>
+            </div>
+        </div>
+    </div>
+
 
 @endsection

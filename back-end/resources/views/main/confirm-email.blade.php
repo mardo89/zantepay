@@ -23,8 +23,8 @@
         <hr>
 
         <div class="social-btns">
-            <a href="/auth/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
-            <a href="/auth/google" class="btn btn--google"><i></i> Sign In With Google</a>
+            <a href="/account/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
+            <a href="/account/google" class="btn btn--google"><i></i> Sign In With Google</a>
         </div>
     </form>
 

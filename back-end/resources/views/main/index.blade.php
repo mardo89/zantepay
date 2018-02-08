@@ -609,6 +609,11 @@
                         <p>Lena, BAA, has an impressive global product marketing and sales background. Previously worked in media, technology and telecom branch for the brands like HP and Nokia. Then she moved on to online-based consulting business and recently into the fin tech branch. Lena believes that her corporate experience, leadership and passion for the technology make her a valuable asset for the team.</p>
                     </div>
                     <div class="col-lg-4">
+                        <img src="images/ron.jpg" srcset="images/ron@2x.jpg 2x" alt="Ron Luvistsuk">
+                        <h3 class="h4">Ron Luvistsuk <span>CFO</span></h3>
+                        <p>Ron is bringing his experience from SEB Corporate banking. He has more than 20 years of experience in finance, deep understanding of risk, compliance and payment architecture in the EU. Ex CFO at Lukoil Baltic. As an independent financial advisor Ron has led over 600 projects, totaling in over $60m.</p>
+                    </div>
+                    <div class="col-lg-4">
                         <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">
                         <h3 class="h4">Stanislav Ivashchenko <span>User Experience and Product Design Lead</span></h3>
                         <p>Stanislav shapes visual appearance of ZANTEPAY. He possesses more than 6 years of experience in graphic design and usability across all media and has a passion for bringing brands to life through great user-centered design.</p>
@@ -632,11 +637,6 @@
                         <img src="images/levon.jpg" srcset="images/levon@2x.jpg 2x" alt="Levon Hayrapetyan">
                         <h3 class="h4">Levon Hayrapetyan <span>Smart Contracts Developer</span></h3>
                         <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <img src="images/ron.jpg" srcset="images/ron@2x.jpg 2x" alt="Ron Luvistsuk">
-                        <h3 class="h4">Ron Luvistsuk <span>CFO</span></h3>
-                        <p>Ron is bringing his experience from SEB Corporate banking. He has more than 20 years of experience in finance, deep understanding of risk, compliance and payment architecture in the EU. Ex CFO at Lukoil Baltic. As an independent financial advisor Ron has led over 600 projects, totaling in over $60m.</p>
                     </div>
                 </div>
             </div>
@@ -687,10 +687,9 @@
             </div>
             <div class="footer-social">
                 <ul class="social-list">
-                    <li><a href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href=""><i class="fa fa-envelope"></i></a></li>
-                    <li><a href=""><i class="fa fa-bitcoin"></i></a></li>
+                    <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
+                    <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
                 </ul>
             </div>
             <div class="footer-menu">

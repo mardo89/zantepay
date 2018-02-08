@@ -2,6 +2,7 @@
 
 @section('main-menu')
     <li class="current-menu-item"><a href="users">Users</a></li>
+    <li><a href="wallet">Wallet</a></li>
 @endsection
 
 @section('content')
@@ -355,7 +356,7 @@
                                 <div class="dashboard-group-sm wallet-address-group">
                                     <label for="field24" class="field-label">Bitcoin Wallet:</label>
                                     <div class="row row-middle">
-                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Currency::CURRENCY_TYPE_BTC }}">
+                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_BTC }}">
 
                                         <div class="col-lg-7 col-md-7">
                                             <div class="field-group">
@@ -375,7 +376,7 @@
                                 <div class="dashboard-group-sm wallet-address-group">
                                     <label for="field23" class="field-label">Ethereum Wallet:</label>
                                     <div class="row row-middle">
-                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Currency::CURRENCY_TYPE_ETH }}">
+                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ETH }}">
 
                                         <div class="col-lg-7 col-md-7">
                                             <div class="field-group">
@@ -395,7 +396,7 @@
                                 <div class="dashboard-group-sm wallet-address-group">
                                     <label for="field25" class="field-label">Zantecoin Wallet:</label>
                                     <div class="row row-middle">
-                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Currency::CURRENCY_TYPE_ZNX }}">
+                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ZNX }}">
 
                                         <div class="col-lg-7 col-md-7">
                                             <div class="field-group">
