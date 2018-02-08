@@ -60,7 +60,7 @@
                 </div>
                 <h3 class="h4 text-uppercase"> 1 ETH = 14300 ZNX<br><br> Pre-sale starts in</h3>
                 <div class="countdown">
-                    <span class="js-countdown" data-date="2018/02/15 00:00:00"></span>
+                    <span class="js-countdown" data-date="2018/03/15 00:00:00"></span>
                 </div>
             </div>
         </div>
@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15th</span></h2>
+                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15th</span></h3>
                                     <p>Token distribution Debit Card pre-ordering start.</p>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - May 15th</span></h2>
+                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - May 15th</span></h3>
                             </div>
                         </div>
                     </div>
@@ -213,8 +213,8 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q2</span></h2>
-                                    <p>Visa debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
+                                <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q2</span></h3>
+                                    <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
                             </div>
                         </div>
                     </div>
@@ -222,13 +222,13 @@
                     <div class="row row-revert p-tb-40">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container2">
-                                <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" width="480px" alt="ZANTEPAY VISA">
+                                <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" width="480px" alt="ZANTEPAY Debit Card">
                             </div>
                         </div>
                         <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0 content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Visa debit card launch <span>2018 Q3</span></h2>
-                                    <p>Visa debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
+                                <h3 class="h2 headline">Debit card launch <span>2018 Q3</span></h3>
+                                    <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
                             </div>
                         </div>
                     </div>
@@ -241,7 +241,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Biggest cryptocurrency wallet worldwide! <span>2019</span></h2>
+                                <h3 class="h2 headline">Biggest cryptocurrency wallet worldwide! <span>2019</span></h3>
                                     <p>Become the biggest cryptocurrency wallet worldwide! Join today!</p>
                             </div>
                         </div>
