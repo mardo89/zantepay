@@ -610,7 +610,7 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/ron.jpg" srcset="images/ron@2x.jpg 2x" alt="Ron Luvistsuk">
-                        <h3 class="h4">Ron Luvistsuk <span>CFO</span></h3>
+                        <h3 class="h4">Ron Luvistsuk <span>CFO</span> <a target="_blank" href="https://www.linkedin.com/in/ron-luvistsuk-a1065714/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Ron is bringing his experience from SEB Corporate banking. He has more than 20 years of experience in finance, deep understanding of risk, compliance and payment architecture in the EU. Ex CFO at Lukoil Baltic. As an independent financial advisor Ron has led over 600 projects, totaling in over $60m.</p>
                     </div>
                     <div class="col-lg-4">
