@@ -2,5 +2,13 @@
     "/js/main.js": "/js/main.js",
     "/css/main.css": "/css/main.css",
     "/js/user.js": "/js/user.js",
-    "/js/admin.js": "/js/admin.js"
+    "/js/admin.js": "/js/admin.js",
+    "/js/user_wallet.js": "/js/user_wallet.js",
+    "/js/user_refer_friend.js": "/js/user_refer_friend.js",
+    "/js/user_profile_settings.js": "/js/user_profile_settings.js",
+    "/js/user_profile.js": "/js/user_profile.js",
+    "/js/user_debit_card.js": "/js/user_debit_card.js",
+    "/js/admin_wallet.js": "/js/admin_wallet.js",
+    "/js/admin_users.js": "/js/admin_users.js",
+    "/js/admin_profile.js": "/js/admin_profile.js"
 }

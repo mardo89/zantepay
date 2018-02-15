@@ -7,10 +7,13 @@ class EtheriumApi
 {
 
     const API_URL = 'https://test.ethereum.node.zantepay.com';
-    const ACCOUNT_ID = 0;
-    const ACCOUNT_PASSWORD = 'pa$$w0rd';
-    const ACCOUNT_PORT = 443;
+    const API_PORT = 443;
 
+    const USER_ACCOUNT_ID = 0;
+    const USER_ACCOUNT_PASSWORD = 'pa$$w0rd';
+
+    const ADMIN_ACCOUNT_ID = 1;
+    const ADMIN_ACCOUNT_PASSWORD = 'C0inPa$$word';
 
     /**
      * Create Etherium address
@@ -30,16 +33,16 @@ class EtheriumApi
             ],
             [
                 'Content-Type: application/json',
-                'X-ZantePay-Admin-AccountId: ' . self::ACCOUNT_ID,
-                'X-ZantePay-Admin-Password: ' . self::ACCOUNT_PASSWORD,
+                'X-ZantePay-Admin-AccountId: ' . self::USER_ACCOUNT_ID,
+                'X-ZantePay-Admin-Password: ' . self::USER_ACCOUNT_PASSWORD,
             ]
         );
 
-        $operationID = $apiResponse['data']->operationId;
-
-        if (!isset($apiResponse['data']->operationId)) {
+        if (!isset($apiResponse['data']) || !isset($apiResponse['data']->operationId)) {
             throw new \Exception('Error getting operative ID');
         }
+
+        $operationID = $apiResponse['data']->operationId;
 
         // Get Address
         $address = '';
@@ -75,19 +78,28 @@ class EtheriumApi
     /**
      * Get Contributions
      *
-     * @param string $token
-     * @param int $count
+     * @param string $continuationToken
      *
-     * @return mixed
+     * @return array
+     * @throws \Exception
      */
-    public static function getContributions($token, $count)
+    public static function getContributions($continuationToken = null)
     {
+        $params = is_null($continuationToken) ? '' : 'start=' . $continuationToken;
+
         $apiResponse = self::sendGetRequest(
             '/contributions',
-            'start=' . $token . '&count=' . $count
+            $params
         );
 
-        return isset($apiResponse->contributions) ? $apiResponse->contributions : null;
+        if (!isset($apiResponse['data']) || !isset($apiResponse['data']->contributions) || !isset($apiResponse['data']->continuation_token)) {
+            throw new \Exception('Error receiving contributions');
+        }
+
+        return [
+            'contributions' => $apiResponse['data']->contributions,
+            'continuation_token' => $apiResponse['data']->continuation_token
+        ];
     }
 
     /**
@@ -103,7 +115,7 @@ class EtheriumApi
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, self::API_URL . $endpoint . '?' . $params);
-        curl_setopt($ch, CURLOPT_PORT, self::ACCOUNT_PORT);
+        curl_setopt($ch, CURLOPT_PORT, self::API_PORT);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
@@ -140,7 +152,7 @@ class EtheriumApi
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, self::API_URL . $endpoint);
-        curl_setopt($ch, CURLOPT_PORT, self::ACCOUNT_PORT);
+        curl_setopt($ch, CURLOPT_PORT, self::API_PORT);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);

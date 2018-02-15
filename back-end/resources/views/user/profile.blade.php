@@ -163,3 +163,7 @@
     </div>
 
 @endsection
+
+@section('scripts')
+    <script src="/js/user_profile.js" type="text/javascript"></script>
+@endsection

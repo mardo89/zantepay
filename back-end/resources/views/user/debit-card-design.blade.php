@@ -47,7 +47,7 @@
                         </div>
                         <div class="card-text-wrap">
                             <ul class="triangle-list">
-                                <li>Pre-order bonus: 60 ZNX</li>
+                                <li>Pre-order bonus: 500 ZNX</li>
                                 <li>20% cashback in ZNX</li>
                                 <li>FREE DEBIT CARD</li>
                                 <li>Exchange fee: BTC to EUR 1%, Altcoin to EUR 1,5%</li>
@@ -100,4 +100,8 @@
         </div>
     </main>
 
+@endsection
+
+@section('scripts')
+    <script src="/js/user_debit_card.js" type="text/javascript"></script>
 @endsection

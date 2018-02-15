@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InviteFriend;
+use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -14,6 +15,7 @@ use App\Models\DB\User;
 use App\Models\DB\Verification;
 use App\Models\Validation\ValidationMessages;
 use App\Models\Wallet\EtheriumApi;
+use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +33,7 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
+
 
     /**
      * Get states list for country
@@ -51,6 +54,7 @@ class UserController extends Controller
 
         return response()->json($states);
     }
+
 
     /**
      * User profile
@@ -89,6 +93,7 @@ class UserController extends Controller
             ]
         );
     }
+
 
     /**
      * Save user profile
@@ -198,6 +203,7 @@ class UserController extends Controller
         );
     }
 
+
     /**
      * User profile settings
      *
@@ -235,7 +241,7 @@ class UserController extends Controller
         }
 
         // Wallet
-        $wallet = $user->wallet;
+        $profile = $user->profile;
 
         return view(
             'user.profile-settings',
@@ -244,10 +250,11 @@ class UserController extends Controller
                 'verification' => $verification,
                 'idDocuments' => $userIDDocuments,
                 'addressDocuments' => $userAddressDocuments,
-                'wallet' => $wallet,
+                'profile' => $profile,
             ]
         );
     }
+
 
     /**
      * Remove document
@@ -321,44 +328,160 @@ class UserController extends Controller
 
 
     /**
-     * User wallet
-     *
-     * @return View
-     */
-    public function wallet()
-    {
-        $user = Auth::user();
-        $wallet = $user->wallet;
-
-        return view(
-            'user.wallet',
-            [
-                'wallet' => $wallet,
-                'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
-            ]
-        );
-    }
-
-    /**
-     * Update wallet link
+     * Upload identity documents
      *
      * @param Request $request
      *
-     * @return JSON
+     * @return json
      */
-    public function createWalletAddress(Request $request)
+    public function uploadIdentityDocuments(Request $request)
     {
-        $user = Auth::user();
+        $this->validate(
+            $request,
+            [
+                'document_files' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'document_files' => 'Document Files'
+                ],
+                [
+                    'document_files.required' => 'Please select files to download',
+                ]
+            )
+        );
 
         DB::beginTransaction();
 
         try {
 
-            $wallet = $user->wallet;
+            $this->uploadIdentityFiles($request);
 
-            $wallet->eth_wallet = EtheriumApi::createAddress($user->uid);
+        } catch (\Exception $e) {
+            DB::rollback();
 
-            $wallet->save();
+            $code = $e->getCode();
+
+            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
+            $errors = $code == 422 ? [$e->getMessage()] : [];
+
+            return response()->json(
+                [
+                    'message' => $message,
+                    'errors' => $errors
+                ],
+                $code == 422 ? 422 : 500
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
+        );
+    }
+
+
+    /**
+     * Upload address documents
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function uploadAddressDocuments(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'address_files' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'address_files' => 'Address Files'
+                ],
+                [
+                    'address_files.required' => 'Please select files to download',
+                ]
+            )
+        );
+
+        DB::beginTransaction();
+
+        try {
+
+            $this->uploadAddressFiles($request);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            $code = $e->getCode();
+
+            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
+            $errors = $code == 422 ? [$e->getMessage()] : [];
+
+            return response()->json(
+                [
+                    'message' => $message,
+                    'errors' => $errors
+                ],
+                $code == 422 ? 422 : 500
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
+        );
+    }
+
+
+    /**
+     * Update user wallet address
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function updateWallet(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate(
+            $request,
+            [
+                'currency' => 'required|numeric',
+                'address' => 'required|string',
+            ],
+            ValidationMessages::getList(
+                [
+                    'currency' => 'Currency Type',
+                    'address' => 'Wallet Address',
+                ]
+            )
+        );
+
+        DB::beginTransaction();
+
+        try {
+            $profile = $user->profile;
+
+            switch ($request->currency) {
+//                case Currency::CURRENCY_TYPE_BTC:
+//                    $profile->btc_wallet = $request->address;
+//                    break;
+
+                case Currency::CURRENCY_TYPE_ETH:
+                    $profile->eth_wallet = $request->address;
+                    break;
+
+            }
+
+            $profile->save();
 
         } catch (\Exception $e) {
 
@@ -366,23 +489,20 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error creating Wallet Address',
+                    'message' => 'Error updating wallet',
                     'errors' => []
                 ],
                 500
             );
         }
 
-        sleep(5);
-
         DB::commit();
 
         return response()->json(
-            [
-                'address' => $wallet->eth_wallet
-            ]
+            []
         );
     }
+
 
     /**
      * Change password
@@ -450,6 +570,7 @@ class UserController extends Controller
         );
     }
 
+
     /**
      * Invite friends
      *
@@ -495,6 +616,7 @@ class UserController extends Controller
             ]
         );
     }
+
 
     /**
      * Save invitation
@@ -555,6 +677,125 @@ class UserController extends Controller
         );
     }
 
+
+    /**
+     * User wallet
+     *
+     * @return View
+     */
+    public function wallet()
+    {
+        $user = Auth::user();
+
+        $wallet = $user->wallet;
+
+        $znxRate = RateCalculator::znxToEth(1);
+
+        return view(
+            'user.wallet',
+            [
+                'wallet' => $wallet,
+                'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
+                'znx_rate' => sprintf("%f", $znxRate)
+            ]
+        );
+    }
+
+
+    /**
+     * Update wallet link
+     *
+     * @return JSON
+     */
+    public function createWalletAddress()
+    {
+        $user = Auth::user();
+
+        DB::beginTransaction();
+
+        try {
+
+            $wallet = $user->wallet;
+
+            $wallet->eth_wallet = EtheriumApi::createAddress($user->uid);
+
+            $wallet->save();
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error creating Wallet Address',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
+        DB::commit();
+
+        return response()->json(
+            [
+                'address' => $wallet->eth_wallet
+            ]
+        );
+    }
+
+
+    /**
+     * Calculator
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function rateCalculator(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'znx_amount' => 'numeric|min:0|max:600000000|required_without:eth_amount',
+                'eth_amount' => 'numeric|min:0|max:43000000|required_without:znx_amount'
+            ],
+            ValidationMessages::getList(
+                [
+                    'znx_amount' => 'ZNX Amount',
+                    'eth_amount' => 'ETH Amount'
+                ]
+            )
+        );
+
+        try {
+            if (isset($request->znx_amount)) {
+                $balance = sprintf('%f', RateCalculator::znxToEth($request->znx_amount));
+            } else {
+                $balance = sprintf('%d', RateCalculator::ethToZnx($request->eth_amount));
+            }
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error calculating amount',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
+
+        return response()->json(
+            [
+                'balance' => $balance
+            ]
+        );
+    }
+
+
     /**
      * Debit card design
      *
@@ -577,6 +818,7 @@ class UserController extends Controller
             ]
         );
     }
+
 
     /**
      * Save debit card design
@@ -629,6 +871,7 @@ class UserController extends Controller
         );
     }
 
+
     /**
      * Debit card documents
      *
@@ -640,6 +883,7 @@ class UserController extends Controller
             'user.debit-card-documents'
         );
     }
+
 
     /**
      * Save debit card id documents
@@ -705,6 +949,7 @@ class UserController extends Controller
         );
     }
 
+
     /**
      * Debit card address
      *
@@ -716,6 +961,7 @@ class UserController extends Controller
             'user.debit-card-address'
         );
     }
+
 
     /**
      * Save debit card address documents
@@ -780,6 +1026,7 @@ class UserController extends Controller
         );
     }
 
+
     /**
      * Invite friends
      *
@@ -797,116 +1044,6 @@ class UserController extends Controller
         );
     }
 
-    /**
-     * Upload identity documents
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function uploadIdentityDocuments(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'document_files' => 'required'
-            ],
-            ValidationMessages::getList(
-                [
-                    'document_files' => 'Document Files'
-                ],
-                [
-                    'document_files.required' => 'Please select files to download',
-                ]
-            )
-        );
-
-        DB::beginTransaction();
-
-        try {
-
-            $this->uploadIdentityFiles($request);
-
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            $code = $e->getCode();
-
-            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
-            $errors = $code == 422 ? [$e->getMessage()] : [];
-
-            return response()->json(
-                [
-                    'message' => $message,
-                    'errors' => $errors
-                ],
-                $code == 422 ? 422 : 500
-            );
-
-        }
-
-        DB::commit();
-
-        return response()->json(
-            []
-        );
-    }
-
-    /**
-     * Upload address documents
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function uploadAddressDocuments(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'address_files' => 'required'
-            ],
-            ValidationMessages::getList(
-                [
-                    'address_files' => 'Address Files'
-                ],
-                [
-                    'address_files.required' => 'Please select files to download',
-                ]
-            )
-        );
-
-        DB::beginTransaction();
-
-        try {
-
-            $this->uploadAddressFiles($request);
-
-        } catch (\Exception $e) {
-
-            DB::rollback();
-
-            $code = $e->getCode();
-
-            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
-            $errors = $code == 422 ? [$e->getMessage()] : [];
-
-            return response()->json(
-                [
-                    'message' => $message,
-                    'errors' => $errors
-                ],
-                $code == 422 ? 422 : 500
-            );
-
-        }
-
-        DB::commit();
-
-        return response()->json(
-            []
-        );
-    }
 
     /**
      * Upload identity files
@@ -969,6 +1106,7 @@ class UserController extends Controller
         $verification->save();
 
     }
+
 
     /**
      * Upload address files

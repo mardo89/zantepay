@@ -4,15 +4,21 @@ namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Wallet extends Model
+class ContributionAction extends Model
 {
+    /**
+     * Action Types
+     */
+    const ACTION_TYPE_UPDATE = 0;
+    const ACTION_TYPE_CORRECT = 1;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id'
+        'action_type', 'continuation_token'
     ];
 
     /**
@@ -21,12 +27,5 @@ class Wallet extends Model
      * @var array
      */
     protected $hidden = [];
-
-    /**
-     * Get user
-     */
-    public function user() {
-        return $this->belongsTo('App\Models\DB\User', 'user_id', 'id');
-    }
 
 }

@@ -9,6 +9,8 @@
 
     <main class="main main-dashboard">
         <div class="container">
+            <p id="metamask_missing"></p>
+
             <div class="row">
                 <div class="col-md-7 dashboard-group">
                     <h2 class="h4 headline-mb">Transfer ownership</h2>
@@ -50,8 +52,6 @@
                         </li>
                     </ul>
                 </div>
-
-                <p id="metamask_missing"></p>
             </div>
 
             <div class="tabs-wrap">
@@ -212,4 +212,12 @@
 @section('popups')
 
 
+@endsection
+
+
+@section('scripts')
+    <script src="/js/components/web3.min.js"></script>
+    <script src="/js/components/zantecoin.js"></script>
+    <script src="/js/components/crowdsale.js"></script>
+    <script src="/js/admin_wallet.js" type="text/javascript"></script>
 @endsection

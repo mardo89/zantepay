@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,8 +70,8 @@
 "use strict";
 
 
-var bind = __webpack_require__(2);
-var isBuffer = __webpack_require__(16);
+var bind = __webpack_require__(3);
+var isBuffer = __webpack_require__(17);
 
 /*global toString:true*/
 
@@ -374,14 +374,15 @@ module.exports = {
 
 
 /***/ }),
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(19);
+var normalizeHeaderName = __webpack_require__(20);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -397,10 +398,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(3);
+    adapter = __webpack_require__(4);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(3);
+    adapter = __webpack_require__(4);
   }
   return adapter;
 }
@@ -471,10 +472,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -492,19 +493,19 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(20);
-var buildURL = __webpack_require__(22);
-var parseHeaders = __webpack_require__(23);
-var isURLSameOrigin = __webpack_require__(24);
-var createError = __webpack_require__(4);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(25);
+var settle = __webpack_require__(21);
+var buildURL = __webpack_require__(23);
+var parseHeaders = __webpack_require__(24);
+var isURLSameOrigin = __webpack_require__(25);
+var createError = __webpack_require__(5);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(26);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -601,7 +602,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(26);
+      var cookies = __webpack_require__(27);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -679,13 +680,13 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(21);
+var enhanceError = __webpack_require__(22);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -704,7 +705,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -716,7 +717,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -742,7 +743,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -951,7 +952,7 @@ exports.isBuffer = function isBuffer(obj) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -976,16 +977,16 @@ module.exports = {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(10);
+window._ = __webpack_require__(11);
 
 try {
-    window.$ = window.jQuery = __webpack_require__(13);
+    window.$ = window.jQuery = __webpack_require__(14);
 } catch (e) {}
 
-window.axios = __webpack_require__(14);
+window.axios = __webpack_require__(15);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -997,10 +998,10 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-window.qs = __webpack_require__(34);
+window.qs = __webpack_require__(35);
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18089,10 +18090,10 @@ window.qs = __webpack_require__(34);
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), __webpack_require__(12)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12), __webpack_require__(13)(module)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 var g;
@@ -18119,7 +18120,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -18147,7 +18148,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -28407,22 +28408,22 @@ return jQuery;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15);
+module.exports = __webpack_require__(16);
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(2);
-var Axios = __webpack_require__(17);
-var defaults = __webpack_require__(1);
+var bind = __webpack_require__(3);
+var Axios = __webpack_require__(18);
+var defaults = __webpack_require__(2);
 
 /**
  * Create an instance of Axios
@@ -28455,15 +28456,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(6);
-axios.CancelToken = __webpack_require__(32);
-axios.isCancel = __webpack_require__(5);
+axios.Cancel = __webpack_require__(7);
+axios.CancelToken = __webpack_require__(33);
+axios.isCancel = __webpack_require__(6);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(33);
+axios.spread = __webpack_require__(34);
 
 module.exports = axios;
 
@@ -28472,7 +28473,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 /*!
@@ -28499,18 +28500,18 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(1);
+var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(27);
-var dispatchRequest = __webpack_require__(28);
-var isAbsoluteURL = __webpack_require__(30);
-var combineURLs = __webpack_require__(31);
+var InterceptorManager = __webpack_require__(28);
+var dispatchRequest = __webpack_require__(29);
+var isAbsoluteURL = __webpack_require__(31);
+var combineURLs = __webpack_require__(32);
 
 /**
  * Create a new instance of Axios
@@ -28592,7 +28593,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -28782,7 +28783,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28801,13 +28802,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(4);
+var createError = __webpack_require__(5);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -28834,7 +28835,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28862,7 +28863,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28937,7 +28938,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28981,7 +28982,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29056,7 +29057,7 @@ module.exports = (
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29099,7 +29100,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29159,7 +29160,7 @@ module.exports = (
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29218,16 +29219,16 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(29);
-var isCancel = __webpack_require__(5);
-var defaults = __webpack_require__(1);
+var transformData = __webpack_require__(30);
+var isCancel = __webpack_require__(6);
+var defaults = __webpack_require__(2);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -29304,7 +29305,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29331,7 +29332,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29352,7 +29353,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29373,13 +29374,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(6);
+var Cancel = __webpack_require__(7);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -29437,7 +29438,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29471,15 +29472,15 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var stringify = __webpack_require__(35);
-var parse = __webpack_require__(36);
-var formats = __webpack_require__(8);
+var stringify = __webpack_require__(36);
+var parse = __webpack_require__(37);
+var formats = __webpack_require__(9);
 
 module.exports = {
     formats: formats,
@@ -29489,14 +29490,14 @@ module.exports = {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(7);
-var formats = __webpack_require__(8);
+var utils = __webpack_require__(8);
+var formats = __webpack_require__(9);
 
 var arrayPrefixGenerators = {
     brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
@@ -29706,13 +29707,13 @@ module.exports = function (object, opts) {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(7);
+var utils = __webpack_require__(8);
 
 var has = Object.prototype.hasOwnProperty;
 
@@ -29887,68 +29888,20 @@ module.exports = function (str, opts) {
 
 
 /***/ }),
-/* 37 */,
 /* 38 */,
 /* 39 */,
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(41);
-
-
-/***/ }),
+/* 40 */,
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(9);
+module.exports = __webpack_require__(42);
 
-var getSpinner = function getSpinner(size) {
 
-    return $('<div />').addClass('spinner spinner--' + size).append($('<div />')).append($('<div />')).append($('<div />')).append($('<div />'));
-};
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var showSpinner = function showSpinner(element) {
-    element.addClass('is-loading').prop('disabled', true);
-    element.append(getSpinner(30));
-};
-
-var hideSpinner = function hideSpinner(element) {
-    element.removeClass('is-loading').prop('disabled', false);
-    element.find('.spinner').remove();
-};
-
-// Errors
-var clearErrors = function clearErrors() {
-    $('.form-error').removeClass('form-error');
-    $('.error-text').remove();
-};
-
-var showError = function showError(errorMessage) {
-    $.magnificPopup.open({
-        items: {
-            src: '#error-modal'
-        },
-        type: 'inline',
-        closeOnBgClick: true,
-        callbacks: {
-            elementParse: function elementParse(item) {
-                $(item.src).find('#error-message').text(errorMessage);
-            }
-        }
-    });
-};
-
-// Validate file
-var validateFile = function validateFile(file) {
-    var isValidType = file.type.match(/(.png)|(.jpeg)|(.jpg)|(.pdf)$/i);
-    var isValidSize = file.size.toFixed(0) < 4194304;
-
-    if (isValidType && isValidSize) {
-        return true;
-    }
-
-    return false;
-};
+__webpack_require__(10);
 
 $(document).ready(function () {
     //hamburger
@@ -30126,266 +30079,6 @@ $(document).ready(function () {
         });
     });
 
-    // Profile
-    $('#save-profile').on('click', function (event) {
-        event.preventDefault();
-
-        var button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        var profile = {
-            'first_name': $('input[name="f-name"]').val(),
-            'last_name': $('input[name="l-name"]').val(),
-            'email': $('input[name="email"]').val(),
-            'phone_number': $('input[name="tel"]').val(),
-            'country': $('select[name="country"]').val(),
-            'state': $('select[name="state"]').val(),
-            'city': $('input[name="city"]').val(),
-            'address': $('input[name="address"]').val(),
-            'postcode': $('input[name="postcode"]').val(),
-            'passport': $('input[name="government"]').val(),
-            'expiration_date': $('input[name="expiry"]').val(),
-            'birth_date': $('input[name="birth"]').val(),
-            'birth_country': $('input[name="country-birth"]').val()
-        };
-
-        axios.post('/user/profile', qs.stringify(profile)).then(function () {
-            hideSpinner(button);
-
-            $.magnificPopup.open({
-                items: {
-                    src: '#profile-modal'
-                },
-                type: 'inline',
-                closeOnBgClick: true
-            });
-        }).catch(function (error) {
-            hideSpinner(button);
-
-            var _error$response$data = error.response.data,
-                errors = _error$response$data.errors,
-                message = _error$response$data.message;
-
-
-            if (error.response.status == 422) {
-                $.each(errors, function (field, error) {
-                    $('.profile_' + field).addClass('form-error');
-                    $('.profile_' + field).after($('<span />').addClass('error-text').text(error));
-                });
-            } else {
-                showError(message);
-            }
-        });
-    });
-
-    // Profile Settings
-    $('.remove-document').on('click', function (event) {
-        event.preventDefault();
-
-        var file = {
-            'did': $(this).parents('li').attr('id')
-        };
-
-        axios.post('/user/profile-settings/remove-document', qs.stringify(file)).then(function () {
-            $.magnificPopup.open({
-                items: {
-                    src: '#remove-document-modal'
-                },
-                type: 'inline',
-                closeOnBgClick: true,
-                callbacks: {
-                    close: function close() {
-                        window.location.reload();
-                    }
-                }
-
-            });
-        }).catch(function (error) {
-            var message = error.response.data.message;
-
-
-            showError(message);
-        });
-    });
-
-    $('#upload-identity-documents').on('submit', function (event) {
-        event.preventDefault();
-
-        var documents = new FormData();
-
-        var isFilesValid = true;
-
-        $.each($('#document-files')[0].files, function (index, file) {
-            if (!validateFile(file)) {
-                isFilesValid = false;
-
-                return false;
-            }
-
-            documents.append('document_files[]', file);
-        });
-
-        if (!isFilesValid) {
-            showError('Incorrect files format.');
-
-            return false;
-        }
-
-        var button = $('#upload-identity-documents').find('button[type="submit"]');
-        showSpinner(button);
-
-        axios.post('/user/profile-settings/upload-identity-documents', documents).then(function () {
-            hideSpinner(button);
-
-            $.magnificPopup.open({
-                items: {
-                    src: '#upload-documents-modal'
-                },
-                type: 'inline',
-                closeOnBgClick: true,
-                callbacks: {
-                    close: function close() {
-                        window.location.reload();
-                    }
-                }
-
-            });
-        }).catch(function (error) {
-            hideSpinner(button);
-
-            var message = error.response.data.message;
-
-
-            showError(message);
-        });
-    });
-
-    $('#upload-address-documents').on('submit', function (event) {
-        event.preventDefault();
-        clearErrors();
-
-        var documents = new FormData();
-
-        var isFilesValid = true;
-
-        $.each($('#address-files')[0].files, function (index, file) {
-            if (!validateFile(file)) {
-                isFilesValid = false;
-
-                return false;
-            }
-
-            documents.append('address_files[]', file);
-        });
-
-        if (!isFilesValid) {
-            $('.drag-drop-area').after($('<div />').addClass('error-text').text('Incorrect files format.'));
-
-            return false;
-        }
-
-        var button = $('#upload-identity-documents').find('button[type="submit"]');
-        showSpinner(button);
-
-        axios.post('/user/profile-settings/upload-address-documents', documents).then(function () {
-            hideSpinner(button);
-
-            $.magnificPopup.open({
-                items: {
-                    src: '#upload-documents-modal'
-                },
-                type: 'inline',
-                closeOnBgClick: true,
-                callbacks: {
-                    close: function close() {
-                        window.location.reload();
-                    }
-                }
-
-            });
-        }).catch(function (error) {
-            hideSpinner(button);
-
-            var _error$response$data2 = error.response.data,
-                message = _error$response$data2.message,
-                errors = _error$response$data2.errors;
-
-
-            if (error.response.status == 422) {
-
-                $.each(errors, function (field, error) {
-                    $('.drag-drop-area').after($('<div />').addClass('error-text').text(error));
-                });
-            } else {
-                showError(message);
-            }
-        });
-    });
-
-    $('#change-password').on('submit', function (event) {
-        event.preventDefault();
-
-        var button = $(this).find('input[type="submit"]');
-        showSpinner(button);
-        clearErrors();
-
-        var password = {
-            'current-password': $(this).find('input[name="current-password"]').val(),
-            'password': $(this).find('input[name="password"]').val(),
-            'password_confirmation': $(this).find('input[name="confirm-password"]').val()
-        };
-
-        axios.post('/user/profile-settings/change-password', qs.stringify(password)).then(function () {
-            hideSpinner(button);
-
-            $('#change-password input[type="password"]').val('');
-
-            $.magnificPopup.open({
-                items: {
-                    src: '#change-password-modal'
-                },
-                type: 'inline',
-                closeOnBgClick: true
-            });
-        }).catch(function (error) {
-            hideSpinner(button);
-
-            var _error$response$data3 = error.response.data,
-                errors = _error$response$data3.errors,
-                message = _error$response$data3.message;
-
-
-            if (error.response.status == 422) {
-
-                $.each(errors, function (field, error) {
-                    $('#change-password input[name="' + field + '"]').parent().addClass('form-error');
-                    $('#change-password input[name="' + field + '"]').after($('<span />').addClass('error-text').text(error));
-                });
-            } else {
-                showError(message);
-            }
-        });
-    });
-
-    // States update
-    $('select[name="country"]').on('change', function (event) {
-        var country = $(this).val();
-
-        axios.get('/user/states', {
-            params: {
-                country: country
-            }
-        }).then(function (response) {
-
-            $('select[name="state"]').html(response.data.map(function (state) {
-                return $('<option />').val(state.id).text(state.name).attr('selected', state.id == 0 ? 'selected' : '');
-            }));
-        }).catch(function () {
-            $('select[name="state"]').html($('<option />').val(0).text('Other state').attr('selected', 'selected'));
-        });
-    });
-
     // Copy link
     $('#copy-link').on('click', function () {
         var refLink = $('input[name="referral"]').val();
@@ -30399,257 +30092,6 @@ $(document).ready(function () {
         document.execCommand("copy");
 
         tmpEl.remove();
-    });
-
-    // Invite
-    $('#invite-friend').on('click', function (event) {
-        event.preventDefault();
-
-        var button = $('#invite-friend');
-        showSpinner(button);
-        clearErrors();
-
-        var invite = {
-            'email': $('#friend-email').val()
-        };
-
-        axios.post('/user/invite-friend', qs.stringify(invite)).then(function (response) {
-            hideSpinner(button);
-
-            $('input[name="email"]').val('');
-
-            $('#invites-list tbody').prepend($('<tr />').append($('<td />').css('width', '100').addClass('col-center').append($('<div />').addClass('thumb-60').append($('<img />').attr('src', '/images/avatar.png').attr('alt', response.data.email)))).append($('<td />').text(response.data.email)).append($('<td />').append($('<span />').addClass('primary-color').text(response.data.status))).append($('<td />').text('')).append($('<td />').css('width', '160').addClass('col-center').append($('<a />').attr('href', '').addClass('send-link resend-invitation').text('Resend'))));
-        }).catch(function (error) {
-            hideSpinner(button);
-
-            var _error$response$data4 = error.response.data,
-                message = _error$response$data4.message,
-                errors = _error$response$data4.errors;
-
-
-            if (error.response.status == 422) {
-
-                $.each(errors, function (field, error) {
-                    $('#friend-email').parent().addClass('form-error');
-                    $('#friend-email').after($('<span />').addClass('error-text').text(error));
-                });
-            } else {
-                showError(message);
-            }
-        });
-    });
-
-    $('#invites-list').on('click', '.resend-invitation', function (event) {
-        event.preventDefault();
-
-        var email = $(this).parents('tr').find('td:eq(1)').text();
-
-        axios.post('/mail/invite-friend', qs.stringify({
-            email: email
-        })).catch(function (error) {
-            var message = error.response.data.message;
-
-
-            showError(message);
-        });
-    });
-
-    // Wallet
-    $('.wallet').on('click', '#copy-address', function (e) {
-        e.preventDefault();
-
-        var address = $(this).parents('.wallet').find('.address').text();
-
-        var tmpEl = $('<input />').val(address);
-
-        $('body').append(tmpEl);
-
-        tmpEl.select();
-
-        document.execCommand("copy");
-
-        tmpEl.remove();
-    });
-
-    $('.create-address').on('click', function (event) {
-        var _this = this;
-
-        event.preventDefault();
-
-        var button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        axios.post('/user/wallet/address', qs.stringify({})).then(function (response) {
-            hideSpinner(button);
-
-            console.log(response);
-
-            var wrapper = button.parent();
-
-            wrapper.before($('<div />').addClass('col col-sm-auto text-lg wordwrap address').text(response.data.address)).before($('<div />').addClass('col col-md-3').append($('<a />').addClass('btn btn--shadowed-light btn--medium btn--130 mt-sm-15').attr({
-                id: 'copy-address',
-                href: ''
-            }).text('Copy')));
-
-            wrapper.remove();
-
-            $.magnificPopup.open({
-                items: {
-                    src: '#wallet-address-modal'
-                },
-                type: 'inline',
-                closeOnBgClick: true
-            });
-        }).catch(function (error) {
-            hideSpinner(button);
-
-            var message = error.response.data.message;
-
-
-            if (error.response.status == 422) {
-                $(_this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
-            } else {
-                showError(message);
-            }
-        });
-    });
-
-    // Debit Card
-    $('#dc_design').on('submit', function (event) {
-        event.preventDefault();
-
-        var button = $('#dc_design').find('button[type="submit"]');
-        showSpinner(button);
-
-        var card = {
-            'design': $('input[name="card-type"]:checked').val()
-        };
-
-        axios.post('/user/debit-card', qs.stringify(card)).then(function (response) {
-            hideSpinner(button);
-
-            window.location = response.data.nextStep;
-        }).catch(function (error) {
-            hideSpinner(button);
-
-            var message = error.response.data.message;
-
-
-            showError(message);
-        });
-    });
-
-    $('#dc_documents').on('submit', function (event) {
-        event.preventDefault();
-        clearErrors();
-
-        var card = new FormData();
-
-        if ($('input[name="confirm"]').prop('checked')) {
-            card.append('verify_later', 1);
-        } else {
-            card.append('verify_later', 0);
-
-            var isFilesValid = true;
-
-            $.each($('#document-files')[0].files, function (index, file) {
-                if (!validateFile(file)) {
-                    isFilesValid = false;
-
-                    return false;
-                }
-
-                card.append('document_files[]', file);
-            });
-
-            if (!isFilesValid) {
-                $('.drag-drop-area').after($('<div />').addClass('error-text').text('Incorrect files format.'));
-
-                return false;
-            }
-        }
-
-        var button = $('#dc_documents').find('button[type="submit"]');
-        showSpinner(button);
-
-        axios.post('/user/debit-card-documents', card).then(function (response) {
-            hideSpinner(button);
-
-            window.location = response.data.nextStep;
-        }).catch(function (error) {
-            hideSpinner(button);
-
-            var _error$response$data5 = error.response.data,
-                message = _error$response$data5.message,
-                errors = _error$response$data5.errors;
-
-
-            if (error.response.status == 422) {
-
-                $.each(errors, function (field, error) {
-                    $('.drag-drop-area').after($('<div />').addClass('error-text').text(error));
-                });
-            } else {
-                showError(message);
-            }
-        });
-    });
-
-    $('#dc_address').on('submit', function (event) {
-        event.preventDefault();
-        clearErrors();
-
-        var card = new FormData();
-
-        if ($('input[name="confirm"]').prop('checked')) {
-            card.append('verify_later', 1);
-        } else {
-            card.append('verify_later', 0);
-
-            var isFilesValid = true;
-
-            $.each($('#address-files')[0].files, function (index, file) {
-                if (!validateFile(file)) {
-                    isFilesValid = false;
-
-                    return false;
-                }
-
-                card.append('address_files[]', file);
-            });
-
-            if (!isFilesValid) {
-                $('.drag-drop-area').after($('<div />').addClass('error-text').text('Incorrect files format.'));
-
-                return false;
-            }
-        }
-
-        var button = $('#dc_address').find('button[type="submit"]');
-        showSpinner(button);
-
-        axios.post('/user/debit-card-address', card).then(function (response) {
-            hideSpinner(button);
-
-            window.location = response.data.nextStep;
-        }).catch(function (error) {
-            hideSpinner(button);
-
-            var _error$response$data6 = error.response.data,
-                message = _error$response$data6.message,
-                errors = _error$response$data6.errors;
-
-
-            if (error.response.status == 422) {
-
-                $.each(errors, function (field, error) {
-                    $('.drag-drop-area').after($('<div />').addClass('error-text').text(error));
-                });
-            } else {
-                showError(message);
-            }
-        });
     });
 });
 

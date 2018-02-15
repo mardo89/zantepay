@@ -118,3 +118,7 @@
     </main>
 
 @endsection
+
+@section('scripts')
+    <script src="/js/admin_users.js" type="text/javascript"></script>
+@endsection

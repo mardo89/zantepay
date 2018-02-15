@@ -58,7 +58,7 @@
                     <h3 class="h4 text-uppercase">We are looking for seed investors</h3>
                     <a href="#become-our-seed-investors" class="js-popup-link btn btn--shadowed-dark btn--260">Become An Investor</a>
                 </div>
-                <h3 class="h4 text-uppercase"> 1 ETH = 14300 ZNX<br><br> Pre-sale starts in</h3>
+                <h3 class="h4 text-uppercase"> 1 ETH = 14285 ZNX<br><br> Pre-sale starts in</h3>
                 <div class="countdown">
                     <span class="js-countdown" data-date="2018/03/15 00:00:00"></span>
                 </div>
@@ -318,9 +318,9 @@
                                 <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Verify & Pre-order a FREE Debit
                                     Card</a>
                                 <p class="text-lg">(currently under testing, pre-order opening soon)</p>
-                                <p class="text-regular">Pre-order free debit card and receive 400ZNX!</p>
-                                <p class="text-regular">Invite a friend to pre-order debit card. <br> RECEIVE 600ZNX WHEN PREORDER IS
-                                    FINISHED! <br> Your friend gets 400ZNX.</p>
+                                <p class="text-regular">Pre-order free debit card and receive 500ZNX!</p>
+                                <p class="text-regular">Invite a friend to pre-order debit card. <br> RECEIVE 500ZNX WHEN PREORDER IS
+                                    FINISHED! <br> Your friend gets 500ZNX.</p>
                             </div>
                         </div>
                         <div class="col-md-6 offset-lg-1">

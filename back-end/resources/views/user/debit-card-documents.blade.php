@@ -72,3 +72,7 @@
     </main>
 
 @endsection
+
+@section('scripts')
+    <script src="/js/user_debit_card.js" type="text/javascript"></script>
+@endsection

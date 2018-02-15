@@ -353,25 +353,25 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="dashboard-group-sm wallet-address-group">
-                                    <label for="field24" class="field-label">Bitcoin Wallet:</label>
-                                    <div class="row row-middle">
-                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_BTC }}">
+                                {{--<div class="dashboard-group-sm wallet-address-group">--}}
+                                    {{--<label for="field24" class="field-label">Bitcoin Wallet:</label>--}}
+                                    {{--<div class="row row-middle">--}}
+                                        {{--<input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_BTC }}">--}}
 
-                                        <div class="col-lg-7 col-md-7">
-                                            <div class="field-group">
-                                                <input class="input-field" type="text" name="wallet-address" id="field24"
-                                                       value="{{ $wallet->btc_wallet }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-5">
-                                            <button type="button"
-                                                    class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">
-                                                Change Address
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                        {{--<div class="col-lg-7 col-md-7">--}}
+                                            {{--<div class="field-group">--}}
+                                                {{--<input class="input-field" type="text" name="wallet-address" id="field24"--}}
+                                                       {{--value="{{ $wallet->btc_wallet }}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-lg-5 col-md-5">--}}
+                                            {{--<button type="button"--}}
+                                                    {{--class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">--}}
+                                                {{--Change Address--}}
+                                            {{--</button>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
 
                                 <div class="dashboard-group-sm wallet-address-group">
                                     <label for="field23" class="field-label">Ethereum Wallet:</label>
@@ -381,7 +381,7 @@
                                         <div class="col-lg-7 col-md-7">
                                             <div class="field-group">
                                                 <input class="input-field" type="text" name="wallet-address" id="field23"
-                                                       value="{{ $wallet->eth_wallet }}">
+                                                       value="{{ $profile->eth_wallet }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-5 col-md-5">
@@ -393,25 +393,25 @@
                                     </div>
                                 </div>
 
-                                <div class="dashboard-group-sm wallet-address-group">
-                                    <label for="field25" class="field-label">Zantecoin Wallet:</label>
-                                    <div class="row row-middle">
-                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ZNX }}">
+                                {{--<div class="dashboard-group-sm wallet-address-group">--}}
+                                    {{--<label for="field25" class="field-label">Zantecoin Wallet:</label>--}}
+                                    {{--<div class="row row-middle">--}}
+                                        {{--<input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ZNX }}">--}}
 
-                                        <div class="col-lg-7 col-md-7">
-                                            <div class="field-group">
-                                                <input class="input-field" type="text" name="wallet-address" id="field25"
-                                                       value="{{ $wallet->znx_wallet }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-5">
-                                            <button type="button"
-                                                    class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">
-                                                Change Address
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                        {{--<div class="col-lg-7 col-md-7">--}}
+                                            {{--<div class="field-group">--}}
+                                                {{--<input class="input-field" type="text" name="wallet-address" id="field25"--}}
+                                                       {{--value="{{ $wallet->znx_wallet }}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-lg-5 col-md-5">--}}
+                                            {{--<button type="button"--}}
+                                                    {{--class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">--}}
+                                                {{--Change Address--}}
+                                            {{--</button>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                             </div>
                         </div>
 
@@ -486,4 +486,8 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script src="/js/admin_profile.js" type="text/javascript"></script>
 @endsection

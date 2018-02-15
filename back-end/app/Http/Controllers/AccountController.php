@@ -406,6 +406,8 @@ class AccountController extends Controller
 
             $snUser = Socialite::driver('facebook')->user();
 
+            $userNameParts = explode(' ', $snUser->getName());
+
             $snAccount = SocialNetworkAccount::where('user_token', $snUser->getId())
                 ->where('social_network_id', SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK)
                 ->first();
@@ -419,6 +421,8 @@ class AccountController extends Controller
                         'password' => User::hashPassword(uniqid()),
                         'uid' => uniqid(),
                         'status' => User::USER_STATUS_NOT_VERIFIED,
+                        'first_name' => $userNameParts[1] ?? "",
+                        'last_name' => $userNameParts[0] ?? "",
                         'avatar' => $snUser->avatar,
                     ]
                 );
@@ -452,7 +456,11 @@ class AccountController extends Controller
 
         }
 
-        return redirect()->action('UserController@profile');
+        if (Auth::user()->role != User::USER_ROLE_USER) {
+            return redirect()->action('AdminController@users');
+        }
+
+        return redirect()->action('UserController@wallet');
     }
 
     /**
@@ -477,7 +485,9 @@ class AccountController extends Controller
 
             $snUser = Socialite::driver('google')->user();
 
-            $snAccount = SocialNetworkAccount::where('user_token', $snUser->token)
+            $userNameParts = explode(' ', $snUser->getName());
+
+            $snAccount = SocialNetworkAccount::where('user_token', $snUser->getId())
                 ->where('social_network_id', SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE)
                 ->first();
 
@@ -490,6 +500,8 @@ class AccountController extends Controller
                         'password' => User::hashPassword(uniqid()),
                         'uid' => uniqid(),
                         'status' => User::USER_STATUS_NOT_VERIFIED,
+                        'first_name' => $userNameParts[0] ?? "",
+                        'last_name' => $userNameParts[1] ?? "",
                         'avatar' => $snUser->avatar,
                     ]
                 );
@@ -498,7 +510,7 @@ class AccountController extends Controller
                 SocialNetworkAccount::create(
                     [
                         'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE,
-                        'user_token' => $snUser->token,
+                        'user_token' => $snUser->getId(),
                         'user_id' => $userInfo['id']
                     ]
                 );
@@ -523,7 +535,11 @@ class AccountController extends Controller
 
         }
 
-        return redirect()->action('UserController@profile');
+        if (Auth::user()->role != User::USER_ROLE_USER) {
+            return redirect()->action('AdminController@users');
+        }
+
+        return redirect()->action('UserController@wallet');
     }
 
 }

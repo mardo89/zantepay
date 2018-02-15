@@ -19,11 +19,11 @@
                             <div class="dashboard-group">
                                 <h2 class="h4 headline-mb">Success!</h2>
                                 <p class="text-regular">You have successfully pre-ordered your debit card! <br> We will notify you, once your card is ready.</p>
-                                <p class="primary-color">You have received a bonus of 60 ZNX! </p>
+                                <p class="primary-color">You have received a bonus of 500 ZNX! </p>
                             </div>
                             <div class="dashboard-group">
                                 <h2 class="h4 headline-mb">Invite friends to pre-order a card, too!</h2>
-                                <p class="text-regular">Invite your friends to pre-order a ZANTEPAY debit card. Once the pre-order is finished, you will receive additional 60 ZNX as a referral bonus and your friends will get 40 ZNX.</p>
+                                <p class="text-regular">Invite your friends to pre-order a ZANTEPAY debit card. Once the pre-order is finished, you will receive additional 500 ZNX as a referral bonus and your friends will get 500 ZNX.</p>
                                 <p class="text-uppercase">FIRST 1000 CARDS GET A BONUS OF 100 ZNX! </p>
                             </div>
                         </div>
@@ -69,4 +69,8 @@
         </div>
     </main>
 
+@endsection
+
+@section('scripts')
+    <script src="/js/user_debit_card.js" type="text/javascript"></script>
 @endsection

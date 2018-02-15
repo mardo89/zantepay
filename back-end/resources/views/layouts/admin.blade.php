@@ -73,6 +73,8 @@
 <script src="/js/components/jquery.magnific-popup.min.js"></script>
 <script src="/js/components/datepicker.js"></script>
 
+@yield('scripts')
+
 
 </body>
 

@@ -157,7 +157,7 @@
                                         <div class="col-xl-8 col-lg-7 col-md-8">
                                             <label class="field-label" for="field4">ETH wallet address:</label>
                                             <input class="input-field" type="text" name="wallet-address" id="field5"
-                                                   value="{{ $wallet->eth_wallet }}">
+                                                   value="{{ $profile->eth_wallet }}">
                                         </div>
 
                                         <div class="col-xl-4 col-lg-5 col-md-4">
@@ -246,4 +246,8 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script src="/js/user_profile_settings.js" type="text/javascript"></script>
 @endsection

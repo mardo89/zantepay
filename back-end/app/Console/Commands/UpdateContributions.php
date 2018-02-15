@@ -1,0 +1,109 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Models\DB\Contribution;
+use App\Models\DB\ContributionAction;
+use App\Models\DB\User;
+use App\Models\DB\Wallet;
+use App\Models\DB\ZantecoinTransaction;
+use App\Models\Wallet\Currency;
+use App\Models\Wallet\EtheriumApi;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+
+class UpdateContributions extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'contributions:update';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Update contributions list';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        $totalZNX = ZantecoinTransaction::all()->sum('amount');
+
+        $continuationToken = 0;
+
+        $lastContributionAction = ContributionAction::all()->last();
+
+        if (!is_null($lastContributionAction)) {
+            $continuationToken = $lastContributionAction->continuation_token;
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $contributions = EtheriumApi::getContributions($continuationToken);
+
+            // add contributions to the DB and update users balance
+            foreach ($contributions['contributions'] as $contribution) {
+                Contribution::create(
+                    [
+                        'operation_id' => $contribution->operationId,
+                        'proxy' => $contribution->proxy,
+                        'amount' => $contribution->amount
+                    ]
+                );
+
+                $rate = ZantecoinTransaction::getETHRate($totalZNX);
+                $znxAmount = floor($contribution->amount / (10000000000000000000 * $rate));
+                $userWallet = Wallet::where('eth_wallet', $contribution->proxy)->first();
+
+                if (!is_null($userWallet)) {
+                    ZantecoinTransaction::create(
+                        [
+                            'user_id' => $userWallet->user->id,
+                            'amount' => $znxAmount,
+                            'currency' => Currency::CURRENCY_TYPE_ETH
+                        ]
+                    );
+
+                    $userWallet->znx_amount += $znxAmount;
+                    $userWallet->save();
+
+                    $totalZNX += $znxAmount;
+                }
+            }
+
+            // Save Continuation Token
+            ContributionAction::create(
+                [
+                    'action_type' => ContributionAction::ACTION_TYPE_UPDATE,
+                    'continuation_token' => $contributions['continuation_token']
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+        }
+
+        DB::commit();
+    }
+}

@@ -118,3 +118,7 @@
     </div>
 
 @endsection
+
+@section('scripts')
+    <script src="/js/user_refer_friend.js" type="text/javascript"></script>
+@endsection

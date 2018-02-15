@@ -11,7 +11,6 @@ use App\Models\DB\PasswordReset;
 use App\Models\DB\Profile;
 use App\Models\DB\SocialNetworkAccount;
 use App\Models\DB\State;
-use App\Models\DB\Transaction;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
 use App\Models\DB\Wallet;
@@ -563,14 +562,15 @@ class AdminController extends Controller
             $wallet->znx_amount += $request->amount;
             $wallet->save();
 
-            Transaction::create(
-                [
-                    'wallet_id' => $wallet->id,
-                    'currency' => Currency::CURRENCY_TYPE_ZNX,
-                    'amount' => $request->amount,
-                    'user_id' => Auth::user()->id
-                ]
-            );
+//            Transaction::create(
+//                [
+//                    'wallet_id' => $wallet->id,
+//                    'currency' => Currency::CURRENCY_TYPE_ZNX,
+//                    'amount' => $request->amount,
+//                    'user_id' => Auth::user()->id
+//                ]
+//            );
+
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -629,23 +629,23 @@ class AdminController extends Controller
                 throw new \Exception('User does not exist');
             }
 
-            $wallet = $user->wallet;
+            $profile = $user->profile;
 
             switch ($request->currency) {
-                case Currency::CURRENCY_TYPE_BTC:
-                    $wallet->btc_wallet = $request->address;
-                    break;
+//                case Currency::CURRENCY_TYPE_BTC:
+//                    $profile->btc_wallet = $request->address;
+//                    break;
 
                 case Currency::CURRENCY_TYPE_ETH:
-                    $wallet->eth_wallet = $request->address;
+                    $profile->eth_wallet = $request->address;
                     break;
 
-                case Currency::CURRENCY_TYPE_ZNX:
-                    $wallet->znx_wallet = $request->address;
-                    break;
+//                case Currency::CURRENCY_TYPE_ZNX:
+//                    $wallet->znx_wallet = $request->address;
+//                    break;
             }
 
-            $wallet->save();
+            $profile->save();
 
         } catch (\Exception $e) {
 

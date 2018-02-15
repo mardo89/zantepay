@@ -25,6 +25,7 @@ class CreateProfilesTable extends Migration
             $table->date('passport_expiration_date')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('birth_country', 50)->nullable();
+            $table->string('eth_wallet', 150)->nullable();
             $table->timestamps();
         });
     }

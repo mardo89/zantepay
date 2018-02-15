@@ -16,14 +16,14 @@
             <div class="panel">
                 <div class="mb-20">
                     <h2 class="h4 headline-mb">Buy ZNX tokens now:</h2>
-                    <div class="row row-middle">
+                    <div class="row row-middle rate-calculator">
                         <div class="col col-md-3 col-lg-auto">
                             <div class="form-group text-regular">You will get</div>
                         </div>
                         <div class="col-lg-4 col-md-9">
                             <div class="input-group form-group">
                                 <label for="field10">ZNX tokens</label>
-                                <input class="input-field" type="text" name="znx" id="field10" placeholder="Enter amount">
+                                <input class="input-field" type="text" name="znx_amount" id="field10" placeholder="Enter amount">
                             </div>
                         </div>
                         <div class="col col-md-3 col-lg-auto">
@@ -32,7 +32,7 @@
                         <div class="col-lg-4 col-md-9">
                             <div class="input-group form-group">
                                 <label for="field11">ETH</label>
-                                <input class="input-field" type="text" name="eth" id="field11" placeholder="Enter amount">
+                                <input class="input-field" type="text" name="eth_amount" id="field11" placeholder="Enter amount">
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                     <tbody>
                                     <tr>
                                         <td>0</td>
-                                        <td>0</td>
+                                        <td>{{ $wallet->znx_amount }}</td>
                                         <td>0</td>
                                     </tr>
                                     </tbody>
@@ -117,7 +117,7 @@
                                     <tr>
                                         <td class="col-left">Etherium</td>
                                         <td>ETH</td>
-                                        <td>0,0007</td>
+                                        <td>{{ $znx_rate }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -184,7 +184,7 @@
 
             <div class="panel">
                 <h2 class="h4 mb-20">Transfer:</h2>
-                <div class="text-regular mb-20">Available for transfer: <span class="primary-color text-lg">2500 ZNX tokens</span></div>
+                <div class="text-regular mb-20">Available for transfer: <span class="primary-color text-lg">{{ $wallet->znx_amount }} ZNX tokens</span></div>
                 <div class="text-regular">You will be able to withdraw your ERC20 tokens to Ethereum Network after the end of the ICO.</div>
             </div>
 
@@ -316,4 +316,8 @@
     </div>
 
 
+@endsection
+
+@section('scripts')
+    <script src="/js/user_wallet.js" type="text/javascript"></script>
 @endsection

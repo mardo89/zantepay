@@ -4,7 +4,7 @@ namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Wallet extends Model
+class Contribution extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Wallet extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id'
+        'operation_id', 'proxy', 'amount'
     ];
 
     /**
@@ -21,12 +21,5 @@ class Wallet extends Model
      * @var array
      */
     protected $hidden = [];
-
-    /**
-     * Get user
-     */
-    public function user() {
-        return $this->belongsTo('App\Models\DB\User', 'user_id', 'id');
-    }
 
 }
