@@ -14,6 +14,7 @@ use App\Models\DB\State;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
 use App\Models\Validation\ValidationMessages;
+use App\Models\Wallet\CurrencyFormatter;
 use App\Models\Wallet\EtheriumApi;
 use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
@@ -689,14 +690,30 @@ class UserController extends Controller
 
         $wallet = $user->wallet;
 
-        $znxRate = RateCalculator::znxToEth(1);
+        $ethRate = RateCalculator::znxToEth(1);
+
+        $contributions = [];
+
+        foreach ($user->wallet->contributions as $contribution) {
+            $ethAmount = RateCalculator::weiToEth($contribution->amount);
+
+            $contributions[] = [
+                'date' => date('d.m.Y', strtotime($contribution->created_at)),
+                'time' => date('H:i:s', strtotime($contribution->created_at)),
+                'address' => $contribution->proxy,
+                'amount' => (new CurrencyFormatter($ethAmount))->ethFormat()->withSuffix('ETH')->get(),
+                'type' => 'In',
+                'status' => 'Pending'
+            ];
+        }
 
         return view(
             'user.wallet',
             [
                 'wallet' => $wallet,
                 'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
-                'znx_rate' => sprintf("%f", $znxRate)
+                'znx_rate' => (new CurrencyFormatter($ethRate))->ethFormat()->get(),
+                'contributions' => $contributions
             ]
         );
     }
@@ -757,7 +774,7 @@ class UserController extends Controller
             $request,
             [
                 'znx_amount' => 'numeric|min:0|max:600000000|required_without:eth_amount',
-                'eth_amount' => 'numeric|min:0|max:43000000|required_without:znx_amount'
+                'eth_amount' => 'numeric|min:0|max:156100|required_without:znx_amount'
             ],
             ValidationMessages::getList(
                 [
@@ -769,9 +786,13 @@ class UserController extends Controller
 
         try {
             if (isset($request->znx_amount)) {
-                $balance = sprintf('%f', RateCalculator::znxToEth($request->znx_amount));
+                $ethAmount = RateCalculator::znxToEth($request->znx_amount);
+
+                $balance = (new CurrencyFormatter($ethAmount))->ethFormat()->get();
             } else {
-                $balance = sprintf('%d', RateCalculator::ethToZnx($request->eth_amount));
+                $znxAmount = RateCalculator::ethToZnx($request->eth_amount);
+
+                $balance = (new CurrencyFormatter($znxAmount))->znxFormat()->get();
             }
 
         } catch (\Exception $e) {

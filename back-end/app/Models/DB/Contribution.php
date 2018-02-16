@@ -22,4 +22,11 @@ class Contribution extends Model
      */
     protected $hidden = [];
 
+    /**
+     * Get user wallet
+     */
+    public function wallet() {
+        return $this->belongsTo('App\Models\DB\Wallet', 'eth_wallet', 'proxy');
+    }
+
 }

@@ -4,11 +4,11 @@ namespace App\Console\Commands;
 
 use App\Models\DB\Contribution;
 use App\Models\DB\ContributionAction;
-use App\Models\DB\User;
 use App\Models\DB\Wallet;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\Wallet\EtheriumApi;
+use App\Models\Wallet\RateCalculator;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -70,8 +70,10 @@ class UpdateContributions extends Command
                     ]
                 );
 
-                $rate = ZantecoinTransaction::getETHRate($totalZNX);
-                $znxAmount = floor($contribution->amount / (10000000000000000000 * $rate));
+                $ethAmount = $contribution->amount / 10000000000000000000;
+
+                $znxAmount = RateCalculator::ethToZnx($ethAmount, $totalZNX);
+
                 $userWallet = Wallet::where('eth_wallet', $contribution->proxy)->first();
 
                 if (!is_null($userWallet)) {

@@ -179,8 +179,16 @@
                                         @if($document['type'] == 'application/pdf')
                                             <object width="100%" height="300px" type="application/pdf"
                                                     data="{{ $document['src'] }}"></object>
+
+                                            <a href="{{ $document['src'] }}" target="_blank" class="mt-40 mb-20 btn btn--small btn--shadowed-light">
+                                                View
+                                            </a>
                                         @else
                                             <img width="100%" src="{{ $document['src'] }}"/>
+
+                                            <a href="{{ $document['src'] }}" target="_blank" class="mt-40 mb-20 btn btn--small btn--shadowed-light">
+                                                View
+                                            </a>
                                         @endif
                                     @endforeach
                                 </div>
@@ -224,8 +232,16 @@
                                         @if($document['type'] == 'application/pdf')
                                             <object width="100%" height="300px" type="application/pdf"
                                                     data="{{ $document['src'] }}"></object>
+
+                                            <a href="{{ $document['src'] }}" target="_blank" class="mt-40 mb-20 btn btn--small btn--shadowed-light">
+                                                View
+                                            </a>
                                         @else
                                             <img width="500px" src="{{ $document['src'] }}"/>
+
+                                            <a href="{{ $document['src'] }}" target="_blank" class="mt-40 mb-20 btn btn--small btn--shadowed-light">
+                                                View
+                                            </a>
                                         @endif
                                     @endforeach
                                 </div>
@@ -254,7 +270,7 @@
                                         </div>
                                     </div>
                                 @else
-                                        {{ $verification->addressStatusName }}
+                                    {{ $verification->addressStatusName }}
                                 @endif
                             </div>
                         </div>
@@ -354,29 +370,30 @@
 
                             <div class="col-md-6">
                                 {{--<div class="dashboard-group-sm wallet-address-group">--}}
-                                    {{--<label for="field24" class="field-label">Bitcoin Wallet:</label>--}}
-                                    {{--<div class="row row-middle">--}}
-                                        {{--<input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_BTC }}">--}}
+                                {{--<label for="field24" class="field-label">Bitcoin Wallet:</label>--}}
+                                {{--<div class="row row-middle">--}}
+                                {{--<input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_BTC }}">--}}
 
-                                        {{--<div class="col-lg-7 col-md-7">--}}
-                                            {{--<div class="field-group">--}}
-                                                {{--<input class="input-field" type="text" name="wallet-address" id="field24"--}}
-                                                       {{--value="{{ $wallet->btc_wallet }}">--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-lg-5 col-md-5">--}}
-                                            {{--<button type="button"--}}
-                                                    {{--class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">--}}
-                                                {{--Change Address--}}
-                                            {{--</button>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
+                                {{--<div class="col-lg-7 col-md-7">--}}
+                                {{--<div class="field-group">--}}
+                                {{--<input class="input-field" type="text" name="wallet-address" id="field24"--}}
+                                {{--value="{{ $wallet->btc_wallet }}">--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-lg-5 col-md-5">--}}
+                                {{--<button type="button"--}}
+                                {{--class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">--}}
+                                {{--Change Address--}}
+                                {{--</button>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
                                 {{--</div>--}}
 
                                 <div class="dashboard-group-sm wallet-address-group">
                                     <label for="field23" class="field-label">Ethereum Wallet:</label>
                                     <div class="row row-middle">
-                                        <input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ETH }}">
+                                        <input type="hidden" name="wallet-currency"
+                                               value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ETH }}">
 
                                         <div class="col-lg-7 col-md-7">
                                             <div class="field-group">
@@ -394,23 +411,23 @@
                                 </div>
 
                                 {{--<div class="dashboard-group-sm wallet-address-group">--}}
-                                    {{--<label for="field25" class="field-label">Zantecoin Wallet:</label>--}}
-                                    {{--<div class="row row-middle">--}}
-                                        {{--<input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ZNX }}">--}}
+                                {{--<label for="field25" class="field-label">Zantecoin Wallet:</label>--}}
+                                {{--<div class="row row-middle">--}}
+                                {{--<input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ZNX }}">--}}
 
-                                        {{--<div class="col-lg-7 col-md-7">--}}
-                                            {{--<div class="field-group">--}}
-                                                {{--<input class="input-field" type="text" name="wallet-address" id="field25"--}}
-                                                       {{--value="{{ $wallet->znx_wallet }}">--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-lg-5 col-md-5">--}}
-                                            {{--<button type="button"--}}
-                                                    {{--class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">--}}
-                                                {{--Change Address--}}
-                                            {{--</button>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
+                                {{--<div class="col-lg-7 col-md-7">--}}
+                                {{--<div class="field-group">--}}
+                                {{--<input class="input-field" type="text" name="wallet-address" id="field25"--}}
+                                {{--value="{{ $wallet->znx_wallet }}">--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-lg-5 col-md-5">--}}
+                                {{--<button type="button"--}}
+                                {{--class="field-btn btn btn--shadowed-light btn--medium btn--full-w update-wallet">--}}
+                                {{--Change Address--}}
+                                {{--</button>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
                                 {{--</div>--}}
                             </div>
                         </div>

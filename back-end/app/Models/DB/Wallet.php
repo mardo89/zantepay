@@ -29,4 +29,11 @@ class Wallet extends Model
         return $this->belongsTo('App\Models\DB\User', 'user_id', 'id');
     }
 
+    /**
+     * Get contributions
+     */
+    public function contributions() {
+        return $this->hasMany('App\Models\DB\Contribution', 'proxy', 'eth_wallet');
+    }
+
 }
