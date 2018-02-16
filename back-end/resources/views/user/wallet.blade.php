@@ -184,13 +184,14 @@
 
             <div class="panel">
                 <h2 class="h4 mb-20">Transfer:</h2>
-                <div class="text-regular mb-20">Available for transfer: <span class="primary-color text-lg">{{ $wallet->znx_amount }} ZNX tokens</span></div>
+                <div class="text-regular mb-20">Available for transfer: <span class="primary-color text-lg"> {{ $wallet->znx_amount }} ZNX tokens</span>
+                </div>
                 <div class="text-regular">You will be able to withdraw your ERC20 tokens to Ethereum Network after the end of the ICO.</div>
             </div>
 
             <div class="panel">
                 <!-- toggle class .is-active for .update-icon while loadding proccess -->
-                <h2 class="h4 headline-mb">Transactions history: &nbsp; <a href="" class="update-icon is-active"></a></h2>
+                <h2 class="h4 headline-mb">Transactions history: </h2>
                 <div class="table-responsive-500">
                     <table class="table-black">
                         <thead>
@@ -205,29 +206,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>19.01.2018</td>
-                            <td>07:50 GMT</td>
-                            <td>In</td>
-                            <td>...</td>
-                            <td>0x4c7a8ae80c18e48cgh...</td>
-                            <td class="nowrap">0,1412644 ETH</td>
-                            <td>Pending</td>
-                        </tr>
-                        <tr>
-                            <td>19.01.2018</td>
-                            <td>07:50 GMT</td>
-                            <td>Out</td>
-                            <td>...</td>
-                            <td>0x4c7a8ae80c18e48cgh...</td>
-                            <td class="nowrap">0,1412644 ETH</td>
-                            <td>Success</td>
-                        </tr>
+                        @foreach($contributions as $contribution)
+                            <tr>
+                                <td> {{ $contribution['date'] }} </td>
+                                <td> {{ $contribution['time'] }} </td>
+                                <td>{{ $contribution['type'] }}</td>
+                                <td>...</td>
+                                <td>{{ $contribution['address'] }}</td>
+                                <td class="nowrap">{{ $contribution['amount'] }}</td>
+                                <td>{{ $contribution['status'] }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="row-bellow-panel text-center">If you have any questions, suggestions or comments on the wallet’s work, feel free to reach us at
+            <div class="row-bellow-panel text-center">If you have any questions, suggestions or comments on the wallet’s work, feel free to
+                reach us at
                 <a href="mailto:support@zantepay.com">support@zantepay.com</a>
             </div>
         </div>

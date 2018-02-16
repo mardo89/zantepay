@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
 use App\Mail\IcoRegistration as IcoRegistrationMail;
+use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\DB\IcoRegistration;
 use App\Models\DB\Investor;
@@ -27,6 +28,8 @@ class IndexController extends Controller
     public function main(Request $request)
     {
         $this->checkReferrer($request->ref);
+
+//        $totalZNX = ZantecoinTransaction::all()->sum('amount');
 
         return view(
             'main.index',

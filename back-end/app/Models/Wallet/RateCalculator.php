@@ -11,9 +11,9 @@ class RateCalculator
      * ZNX coins limits for Etherium
      */
     const ETH_LIMIT_ONE = 30000000;
-    const ETH_LIMIT_TWO = 70000000;
-    const ETH_LIMIT_THREE = 200000000;
-    const ETH_LIMIT_FOUR = 300000000;
+    const ETH_LIMIT_TWO = 100000000;
+    const ETH_LIMIT_THREE = 300000000;
+    const ETH_LIMIT_FOUR = 600000000;
 
 
     /**
@@ -47,7 +47,6 @@ class RateCalculator
         return $rate['balance'] + self::ethToZnx($leftEthAmount, $totalZnxCoins + $rate['balance']);
     }
 
-
     /**
      * Convert ETH to ZNX
      *
@@ -64,7 +63,42 @@ class RateCalculator
 
         $rate = self::getEthRate($totalZnxCoins);
 
-        return $amount * $rate['rate'];
+        if ($rate['balance'] == 0) {
+            return 0;
+        }
+
+        if ($amount <= $rate['balance']) {
+            return $amount * $rate['rate'];
+        }
+
+        $partEthAmount = $rate['balance'] * $rate['rate'];
+        $leftZnxAmount = $amount - $rate['balance'];
+
+        return $partEthAmount  + self::znxToEth($leftZnxAmount, $totalZnxCoins + $rate['balance']);
+    }
+
+    /**
+     * Convert ETH to Wei
+     *
+     * @param float $amount
+     *
+     * @return float
+     */
+    public static function ethToWei($amount)
+    {
+        return $amount * 1000000000000000000;
+    }
+
+    /**
+     * Convert Wei to ETH
+     *
+     * @param float $amount
+     *
+     * @return float
+     */
+    public static function weiToEth($amount)
+    {
+        return $amount / 1000000000000000000;
     }
 
     /**
@@ -76,40 +110,38 @@ class RateCalculator
      */
     public static function getEthRate($totalZnxCoins)
     {
-        $rate = [
-            'rate' => 0,
-            'balance' => 0
-        ];
-
         if (self::isPartOne($totalZnxCoins)) {
-            $rate = [
+            return [
                 'rate' => 0.00007,
                 'balance' => self::ETH_LIMIT_ONE - $totalZnxCoins
             ];
         }
 
         if (self::isPartTwo($totalZnxCoins)) {
-            $rate = [
+            return [
                 'rate' => 0.00014,
-                'balance' => self::ETH_LIMIT_ONE + self::ETH_LIMIT_TWO - $totalZnxCoins
+                'balance' => self::ETH_LIMIT_TWO - $totalZnxCoins
             ];
         }
 
         if (self::isPartThree($totalZnxCoins)) {
-            $rate = [
+            return [
                 'rate' => 0.000196,
-                'balance' => self::ETH_LIMIT_ONE + self::ETH_LIMIT_TWO + self::ETH_LIMIT_THREE - $totalZnxCoins
+                'balance' => self::ETH_LIMIT_THREE - $totalZnxCoins
             ];
         }
 
         if (self::isPartFour($totalZnxCoins)) {
-            $rate = [
+            return [
                 'rate' => 0.00035,
-                'balance' => self::ETH_LIMIT_ONE + self::ETH_LIMIT_TWO + self::ETH_LIMIT_THREE + self::ETH_LIMIT_FOUR - $totalZnxCoins
+                'balance' => self::ETH_LIMIT_FOUR - $totalZnxCoins
             ];
         }
 
-        return $rate;
+        return [
+            'rate' => 0,
+            'balance' => 0
+        ];
     }
 
     /**
@@ -133,10 +165,7 @@ class RateCalculator
      */
     protected static function isPartTwo($totalZnxCoins)
     {
-        return (
-            $totalZnxCoins >= self::ETH_LIMIT_ONE
-            && $totalZnxCoins < (self::ETH_LIMIT_ONE + self::ETH_LIMIT_TWO)
-        );
+        return $totalZnxCoins >= self::ETH_LIMIT_ONE && $totalZnxCoins < self::ETH_LIMIT_TWO;
     }
 
     /**
@@ -148,10 +177,7 @@ class RateCalculator
      */
     protected static function isPartThree($totalZnxCoins)
     {
-        return (
-            $totalZnxCoins >= (self::ETH_LIMIT_ONE + self::ETH_LIMIT_TWO)
-            && $totalZnxCoins < (self::ETH_LIMIT_ONE + self::ETH_LIMIT_TWO + self::ETH_LIMIT_THREE)
-        );
+        return $totalZnxCoins >= self::ETH_LIMIT_TWO && $totalZnxCoins < self::ETH_LIMIT_THREE;
     }
 
     /**
@@ -163,10 +189,7 @@ class RateCalculator
      */
     protected static function isPartFour($totalZnxCoins)
     {
-        return (
-            $totalZnxCoins >= (self::ETH_LIMIT_ONE + self::ETH_LIMIT_TWO + self::ETH_LIMIT_THREE)
-            && $totalZnxCoins < (self::ETH_LIMIT_ONE + self::ETH_LIMIT_TWO + self::ETH_LIMIT_THREE + self::ETH_LIMIT_FOUR)
-        );
+        return $totalZnxCoins >= self::ETH_LIMIT_THREE && $totalZnxCoins < self::ETH_LIMIT_FOUR;
     }
 
 }

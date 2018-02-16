@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15th</span></h3>
+                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15<sup>th</sup></span></h3>
                                     <p>Token distribution Debit Card pre-ordering start.</p>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - May 15th</span></h3>
+                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15<sup>th</sup> - May 15<sup>th</sup></span></h3>
                             </div>
                         </div>
                     </div>
@@ -588,7 +588,7 @@
                     <div class="col-lg-4">
                         <img src="images/mardo.jpg" srcset="images/mardo@2x.jpg 2x" alt="Mardo Soo">
                         <h3 class="h4">Mardo Soo <span>Founder</span> <a target="_blank" href="https://www.linkedin.com/in/mardo-soo-00a05ab0/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a> </h3>
-                        <p>Mardo is a visionary, investor and entrepreneur, his expertise in sales and marketing is more than 10 years. He ran couple of successful web projects in Estonia. His latest passion is blockchain and cryptocurrency. Mardo`s talent is to find and recognize the best people for the job to make something great. He believes cryptocurrency and AI is the the next big thing.</p>
+                        <p>Mardo is a visionary, investor and entrepreneur, his expertise in sales and marketing is more than 10 years. He ran couple of successful web projects in Estonia. His latest passion is blockchain and cryptocurrency. Mardo`s talent is to find and recognize the best people for the job to make something great. He believes cryptocurrency and AI is the next big thing.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/lena.jpg" srcset="images/lena@2x.jpg 2x" alt="Lena Elvbakken">
@@ -798,8 +798,7 @@
                 <p>ZANTECOIN’s Token Pre-ICO is created for investors with prior cryptocurrency experience. Please pay attention that the
                     minimum transaction amount is 0.1 ETH. For investors from the US the min investment amount is 10 ETH. To apply, please
                     contact <a href="mailto:support@zantepay.com">support@zantepay.com</a>. </p>
-                <p>The actual opening date for the ZANTECOIN’s public Token Sale is on March 15<sup>th</sup>, 2018. To participate in ZANTECOIN’s
-                    Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
+                <p>The actual opening date for the ZANTECOIN’s public Token Sale is on March 15<sup>th</sup>, 2018. To participate in ZANTECOIN’s Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
             </div>
 
             <form id="frm_ico_registration">
@@ -845,7 +844,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">BECOME OUR SEED INVESTOR</h3>
             <div class="logon-modal-text">
-                <p>We are starting with ZANTEPAY ICO on 15th of Feb. At the moment we are looking for seed investors, offering ZNX tokens at
+                <p>We are starting with ZANTEPAY ICO on 15<sup>th</sup> of March. At the moment we are looking for seed investors, offering ZNX tokens at
                     the discounted price. If you are interested to become a seed investor, please fill out the contact form and we will get
                     back to you.</p>
             </div>
