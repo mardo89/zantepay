@@ -336,29 +336,16 @@
                     </div>
 
                     <div class="row lp-row-2">
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 offset-lg-3">
                             <div class="lp-znx-wrap">
                                 <div class="lp-znx-img">
-                                    <div class="lp-znx-txt"><span>600</span> ZNX</div>
+                                    <div class="lp-znx-txt"><span>500</span> ZNX</div>
                                 </div>
                                 <ul class="lp-znx-list">
                                     <li>Pre-Sale value: <span>30€</span></li>
-                                    <li>ICO I value: <span>60€</span></li>
-                                    <li>ICO II value: <span>84€</span></li>
-                                    <li>ICO III value: <span>150€</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="lp-znx-wrap">
-                                <div class="lp-znx-img">
-                                    <div class="lp-znx-txt"><span>400</span> ZNX</div>
-                                </div>
-                                <ul class="lp-znx-list">
-                                    <li>Pre-Sale value: <span>20€</span></li>
-                                    <li>ICO I value: <span>40€</span></li>
-                                    <li>ICO II value: <span>56€</span></li>
-                                    <li>ICO III value: <span>100€</span></li>
+                                    <li>ICO I value: <span>50€</span></li>
+                                    <li>ICO II value: <span>70€</span></li>
+                                    <li>ICO III value: <span>125€</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -809,9 +796,9 @@
             <h3 class="h4">REGISTER FOR PRE-ICO</h3>
             <div class="logon-modal-text">
                 <p>ZANTECOIN’s Token Pre-ICO is created for investors with prior cryptocurrency experience. Please pay attention that the
-                    minimum transaction amount is 3 ETH. For investors from the US the min investment amount is 100 ETH. To apply, please
+                    minimum transaction amount is 0.1 ETH. For investors from the US the min investment amount is 10 ETH. To apply, please
                     contact <a href="mailto:support@zantepay.com">support@zantepay.com</a>. </p>
-                <p>The actual opening date for the ZANTECOIN’s public Token Sale is on February 15th, 2018. To participate in ZANTECOIN’s
+                <p>The actual opening date for the ZANTECOIN’s public Token Sale is on March 15<sup>th</sup>, 2018. To participate in ZANTECOIN’s
                     Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
             </div>
 
