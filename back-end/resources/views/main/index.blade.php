@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15th</span></h3>
+                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15<sup>th</sup></span></h3>
                                     <p>Token distribution Debit Card pre-ordering start.</p>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15th - May 15th</span></h3>
+                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15<sup>th</sup> - May 15<sup>th</sup></span></h3>
                             </div>
                         </div>
                     </div>
@@ -336,29 +336,16 @@
                     </div>
 
                     <div class="row lp-row-2">
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 offset-lg-3">
                             <div class="lp-znx-wrap">
                                 <div class="lp-znx-img">
-                                    <div class="lp-znx-txt"><span>600</span> ZNX</div>
+                                    <div class="lp-znx-txt"><span>500</span> ZNX</div>
                                 </div>
                                 <ul class="lp-znx-list">
                                     <li>Pre-Sale value: <span>30€</span></li>
-                                    <li>ICO I value: <span>60€</span></li>
-                                    <li>ICO II value: <span>84€</span></li>
-                                    <li>ICO III value: <span>150€</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="lp-znx-wrap">
-                                <div class="lp-znx-img">
-                                    <div class="lp-znx-txt"><span>400</span> ZNX</div>
-                                </div>
-                                <ul class="lp-znx-list">
-                                    <li>Pre-Sale value: <span>20€</span></li>
-                                    <li>ICO I value: <span>40€</span></li>
-                                    <li>ICO II value: <span>56€</span></li>
-                                    <li>ICO III value: <span>100€</span></li>
+                                    <li>ICO I value: <span>50€</span></li>
+                                    <li>ICO II value: <span>70€</span></li>
+                                    <li>ICO III value: <span>125€</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -811,8 +798,7 @@
                 <p>ZANTECOIN’s Token Pre-ICO is created for investors with prior cryptocurrency experience. Please pay attention that the
                     minimum transaction amount is 0.1 ETH. For investors from the US the min investment amount is 10 ETH. To apply, please
                     contact <a href="mailto:support@zantepay.com">support@zantepay.com</a>. </p>
-                <p>The actual opening date for the ZANTECOIN’s public Token Sale is on March 15th, 2018. To participate in ZANTECOIN’s
-                    Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
+                <p>The actual opening date for the ZANTECOIN’s public Token Sale is on March 15<sup>th</sup>, 2018. To participate in ZANTECOIN’s Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
             </div>
 
             <form id="frm_ico_registration">
@@ -858,7 +844,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">BECOME OUR SEED INVESTOR</h3>
             <div class="logon-modal-text">
-                <p>We are starting with ZANTEPAY ICO on 15th of March. At the moment we are looking for seed investors, offering ZNX tokens at
+                <p>We are starting with ZANTEPAY ICO on 15<sup>th</sup> of March. At the moment we are looking for seed investors, offering ZNX tokens at
                     the discounted price. If you are interested to become a seed investor, please fill out the contact form and we will get
                     back to you.</p>
             </div>
