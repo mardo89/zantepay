@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\SystemAlert;
 use App\Models\DB\Contribution;
 use App\Models\DB\ContributionAction;
 use App\Models\DB\Wallet;
@@ -11,6 +12,9 @@ use App\Models\Wallet\EtheriumApi;
 use App\Models\Wallet\RateCalculator;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+
+
 
 class UpdateContributions extends Command
 {
@@ -26,7 +30,7 @@ class UpdateContributions extends Command
      *
      * @var string
      */
-    protected $description = 'Update contributions list';
+    protected $description = 'Read contributions from API and add them to the DB';
 
     /**
      * Create a new command instance.
@@ -45,64 +49,70 @@ class UpdateContributions extends Command
      */
     public function handle()
     {
-        $totalZNX = ZantecoinTransaction::all()->sum('amount');
-
-        $continuationToken = 0;
-
-        $lastContributionAction = ContributionAction::all()->last();
-
-        if (!is_null($lastContributionAction)) {
-            $continuationToken = $lastContributionAction->continuation_token;
-        }
-
         DB::beginTransaction();
 
         try {
+            $totalZNX = ZantecoinTransaction::all()->sum('amount');
+
+            $continuationToken = 0;
+
+            $lastContributionAction = ContributionAction::all()->last();
+
+            if (!is_null($lastContributionAction)) {
+                $continuationToken = $lastContributionAction->continuation_token;
+            }
+
             $contributions = EtheriumApi::getContributions($continuationToken);
 
-            // add contributions to the DB and update users balance
-            foreach ($contributions['contributions'] as $contribution) {
-                Contribution::create(
-                    [
-                        'operation_id' => $contribution->operationId,
-                        'proxy' => $contribution->proxy,
-                        'amount' => $contribution->amount
-                    ]
-                );
+            if (count($contributions['contributions']) > 0) {
 
-                $ethAmount = $contribution->amount / 10000000000000000000;
-
-                $znxAmount = RateCalculator::ethToZnx($ethAmount, $totalZNX);
-
-                $userWallet = Wallet::where('eth_wallet', $contribution->proxy)->first();
-
-                if (!is_null($userWallet)) {
-                    ZantecoinTransaction::create(
+                // add contributions to the DB
+                foreach ($contributions['contributions'] as $contribution) {
+                    Contribution::create(
                         [
-                            'user_id' => $userWallet->user->id,
-                            'amount' => $znxAmount,
-                            'currency' => Currency::CURRENCY_TYPE_ETH
+                            'operation_id' => $contribution->operationId,
+                            'proxy' => $contribution->proxy,
+                            'amount' => $contribution->amount
                         ]
                     );
 
-                    $userWallet->znx_amount += $znxAmount;
-                    $userWallet->save();
+                    $ethAmount = $contribution->amount / 10000000000000000000;
 
-                    $totalZNX += $znxAmount;
+                    $znxAmount = RateCalculator::ethToZnx($ethAmount, $totalZNX);
+
+                    $userWallet = Wallet::where('eth_wallet', $contribution->proxy)->first();
+
+                    if (!is_null($userWallet)) {
+
+                        ZantecoinTransaction::create(
+                            [
+                                'user_id' => $userWallet->user->id,
+                                'amount' => $znxAmount,
+                                'currency' => Currency::CURRENCY_TYPE_ETH
+                            ]
+                        );
+
+                        $totalZNX += $znxAmount;
+                    }
                 }
-            }
 
-            // Save Continuation Token
-            ContributionAction::create(
-                [
-                    'action_type' => ContributionAction::ACTION_TYPE_UPDATE,
-                    'continuation_token' => $contributions['continuation_token']
-                ]
-            );
+                // Save Continuation Token
+                ContributionAction::create(
+                    [
+                        'action_type' => ContributionAction::ACTION_TYPE_UPDATE,
+                        'continuation_token' => $contributions['continuation_token']
+                    ]
+                );
+
+            }
 
         } catch (\Exception $e) {
 
             DB::rollback();
+
+            $errorMessage = $e->getMessage();
+
+            Mail::send(new SystemAlert('Update Contributions Error', $errorMessage));
 
         }
 

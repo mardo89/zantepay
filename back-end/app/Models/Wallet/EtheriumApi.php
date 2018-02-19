@@ -78,18 +78,22 @@ class EtheriumApi
     /**
      * Get Contributions
      *
-     * @param string $continuationToken
+     * @param string $continuationStartToken
+     * @param string $continuationEndToken
      *
      * @return array
      * @throws \Exception
      */
-    public static function getContributions($continuationToken = null)
+    public static function getContributions($continuationStartToken = null, $continuationEndToken = null)
     {
-        $params = is_null($continuationToken) ? '' : 'start=' . $continuationToken;
+        $params = [];
+
+        $params[] = is_null($continuationStartToken) ? '' : 'start=' . $continuationStartToken;
+        $params []= is_null($continuationEndToken) ? '' : 'end=' . $continuationEndToken;
 
         $apiResponse = self::sendGetRequest(
             '/contributions',
-            $params
+            implode('&', $params)
         );
 
         if (!isset($apiResponse['data']) || !isset($apiResponse['data']->contributions) || !isset($apiResponse['data']->continuation_token)) {

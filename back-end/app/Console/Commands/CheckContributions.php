@@ -2,9 +2,16 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\SystemAlert;
 use App\Models\DB\Contribution;
+use App\Models\DB\ContributionAction;
+use App\Models\DB\ZantecoinTransaction;
+use App\Models\Wallet\EtheriumApi;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+
+
 
 class CheckContributions extends Command
 {
@@ -20,7 +27,7 @@ class CheckContributions extends Command
      *
      * @var string
      */
-    protected $description = 'Check contributions status. Rebuild contributions table if necessary';
+    protected $description = 'Check contributions state. Truncate contribution table if state is incorrect';
 
     /**
      * Create a new command instance.
@@ -39,14 +46,22 @@ class CheckContributions extends Command
      */
     public function handle()
     {
+        $continuationToken = 0;
+
         DB::beginTransaction();
 
         try {
-            $allContributions = EtheriumApi::getContributions();
+            $lastContributionAction = ContributionAction::all()->last();
+
+            if (!is_null($lastContributionAction)) {
+                $continuationToken = $lastContributionAction->continuation_token;
+            }
+
+            $allContributions = EtheriumApi::getContributions(0, $continuationToken);
 
             $apiContributions = [];
 
-            foreach ($allContributions as $contribution) {
+            foreach ($allContributions['contributions'] as $contribution) {
                 if (!isset($apiContributions[$contribution->proxy])) {
                     $apiContributions[$contribution->proxy] = 0;
                 }
@@ -54,20 +69,47 @@ class CheckContributions extends Command
                 $apiContributions[$contribution->proxy] += $contribution->amount;
             }
 
-            $dbContributions = Contribution::groupBy('proxy')->get(['proxy', DB::Raw("SUM('amount') AS totlal_amount")]);
+            $dbContributions = Contribution::groupBy('proxy')
+                ->get(
+                    [
+                        'proxy', DB::Raw("SUM(amount) AS total_amount")
+                    ]
+                )
+                ->toArray();
 
             $isContributionsCorrect = true;
 
             foreach ($dbContributions as $dbContribution) {
-                if (!isset($apiContributions[$dbContribution->proxy]) || $apiContributions[$dbContribution->proxy] != $dbContribution->total_amount) {
+                $proxy = $dbContribution['proxy'];
+                $totalAmount = $dbContribution['total_amount'];
+
+                if (!isset($apiContributions[$proxy]) || $apiContributions[$proxy] != $totalAmount) {
                     $isContributionsCorrect = false;
                 }
             }
 
+            if (!$isContributionsCorrect) {
+
+                ZantecoinTransaction::truncate();
+
+                Contribution::truncate();
+
+                ContributionAction::create(
+                    [
+                        'action_type' => ContributionAction::ACTION_TYPE_CORRECT,
+                        'continuation_token' => 0
+                    ]
+                );
+
+            }
 
         } catch (\Exception $e) {
 
             DB::rollback();
+
+            $errorMessage = $e->getMessage();
+
+            Mail::send(new SystemAlert('Check Contributions Error', $errorMessage));
 
         }
 
