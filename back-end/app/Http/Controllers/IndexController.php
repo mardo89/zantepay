@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
 use App\Mail\IcoRegistration as IcoRegistrationMail;
+use App\Models\DB\ExternalRedirect;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\DB\IcoRegistration;
@@ -28,6 +29,8 @@ class IndexController extends Controller
     public function main(Request $request)
     {
         $this->checkReferrer($request->ref);
+
+        $this->checkExternals();
 
 //        $totalZNX = ZantecoinTransaction::all()->sum('amount');
 
@@ -80,6 +83,12 @@ class IndexController extends Controller
                     'currency' => $currencyType,
                     'amount' => $amount,
                 ]
+            );
+
+            ExternalRedirect::addLink(
+                Session::get('externalLink'),
+                $email,
+                ExternalRedirect::ACTION_TYPE_REGISTRATION_ICO
             );
 
             $link = action('IndexController@main');
@@ -158,6 +167,12 @@ class IndexController extends Controller
                     'first_name' => $firstName,
                     'last_name' => $lastName,
                 ]
+            );
+
+            ExternalRedirect::addLink(
+                Session::get('externalLink'),
+                $email,
+                ExternalRedirect::ACTION_TYPE_REGISTRATION_INVESTOR
             );
 
         } catch (\Exception $e) {
@@ -292,4 +307,16 @@ class IndexController extends Controller
             }
         }
     }
+
+    /**
+     * Check external redirect
+     *
+     */
+    protected function checkExternals()
+    {
+        $externalLink = $_SERVER['HTTP_REFERER'] ?? '';
+
+        Session::put('externalLink', $externalLink);
+    }
+
 }

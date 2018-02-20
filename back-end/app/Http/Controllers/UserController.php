@@ -828,6 +828,12 @@ class UserController extends Controller
 
         $card = DebitCard::where('user_id', $user->id)->first();
 
+        if (!is_null($card)) {
+            return redirect()->action(
+                'UserController@debitCardSuccess'
+            );
+        }
+
         $userDebitCard = [
             'design' => is_null($card) ? DebitCard::DESIGN_WHITE : $card->design
         ];
@@ -900,6 +906,16 @@ class UserController extends Controller
      */
     public function debitCardIdentityDocuments()
     {
+        $user = Auth::user();
+
+        $card = DebitCard::where('user_id', $user->id)->first();
+
+        if (!is_null($card)) {
+            return redirect()->action(
+                'UserController@debitCardSuccess'
+            );
+        }
+
         return view(
             'user.debit-card-documents'
         );
@@ -978,6 +994,16 @@ class UserController extends Controller
      */
     public function debitCardAddressDocuments()
     {
+        $user = Auth::user();
+
+        $card = DebitCard::where('user_id', $user->id)->first();
+
+        if (!is_null($card)) {
+            return redirect()->action(
+                'UserController@debitCardSuccess'
+            );
+        }
+
         return view(
             'user.debit-card-address'
         );
@@ -1057,10 +1083,20 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
+        // Debit Card
+        $debitCard = DebitCard::where('user_id', $user->id)->first();
+
+        if (!is_null($debitCard)) {
+            $userDebitCard = $debitCard->design;
+        } else {
+            $userDebitCard = null;
+        }
+
         return view(
             'user.debit-card-success',
             [
                 'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
+                'debitCard' => $userDebitCard
             ]
         );
     }

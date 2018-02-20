@@ -35,9 +35,7 @@ class DebitCard extends Model
      *
      * @var array
      */
-    protected $hidden = [
-
-    ];
+    protected $hidden = [];
 
     /**
      * Return card design name
@@ -46,7 +44,8 @@ class DebitCard extends Model
      *
      * @return string
      */
-    public static function getDesign($design) {
+    public static function getDesign($design)
+    {
         switch ($design) {
             case self::DESIGN_WHITE:
                 return 'White';
@@ -67,7 +66,8 @@ class DebitCard extends Model
      *
      * @return array
      */
-    public static function getCardsList() {
+    public static function getCardsList()
+    {
         return [
             [
                 'id' => self::DESIGN_NOT_SELECTED,

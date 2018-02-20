@@ -33,11 +33,18 @@
                         </nav>
 
                         <div class="masthead__right">
+                            @guest
                             <div class="logon-btns">
                                 <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign In</a>
                                 <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
                             </div>
+                            @endguest
+
+                                @auth
+                                    <a href="user/wallet" class="btn btn--small btn--shadowed-dark">Profile</a>
+                                @endauth
                         </div>
+
                     </div>
                 </div>
 

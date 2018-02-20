@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ActivateAccount;
 use App\Mail\ResetPassword;
+use App\Models\DB\ExternalRedirect;
 use App\Models\DB\PasswordReset;
 use App\Models\DB\Profile;
 use App\Models\DB\SocialNetworkAccount;
@@ -71,6 +72,12 @@ class AccountController extends Controller
                     'password' => User::hashPassword($password),
                     'uid' => uniqid()
                 ]
+            );
+
+            ExternalRedirect::addLink(
+                Session::get('externalLink'),
+                $email,
+                ExternalRedirect::ACTION_TYPE_REGISTRATION
             );
 
             Mail::to($userInfo['email'])->send(new ActivateAccount($userInfo['uid']));
