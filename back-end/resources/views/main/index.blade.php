@@ -29,6 +29,14 @@
                                 <li><a href="#team">Team</a></li>
                                 <li><a href="">FAQ</a></li>
                                 <li><a href="#contacts">Contacts</a></li>
+                                <li>
+                                  <a href="">Development</a>
+                                  <ul>
+                                    <li><a href="">Wallet Beta</a></li>
+                                    <li><a href="">App Beta</a></li>
+                                    <li><a href="">Development roadmap</a></li>
+                                  </ul>
+                                </li>
                             </ul>
                         </nav>
 
