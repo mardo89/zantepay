@@ -58,6 +58,33 @@
 
             </div>
         </div>
+        <div class="h-banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-7 col-md-8">
+                        The only official URL for Zantpay is <a href="//www.zantepay.com">www.zantepay.com</a>. If you recieve confirmation of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
+                    </div>
+                    <div class="col-xl-4 col-lg-5 col-md-4">
+                        <div class="row">
+                            <div class="col-lg">
+                                Official chanels: 
+                            </div>
+                            <div class="col-lg-8">
+                                <ul class="social-list">
+                                    <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
+                                    <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
+                                    <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
+                                    <!-- <li><a target="_blank" href="https://bitcointalk.org/"><i class="fa fa-bitcoin"></i></a></li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:void(0)" class="fa fa-close js-close-banner" title="Close"></a>
+            </div>
+        </div>
         <div class="header__content white-content">
             <div class="container">
                 <div class="center-logo pos-r">
@@ -201,7 +228,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>February 15<sup>th</sup></span></h3>
+                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>March 15<sup>th</sup></span></h3>
                                     <p>Token distribution Debit Card pre-ordering start.</p>
                             </div>
                         </div>
@@ -215,7 +242,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>February 15<sup>th</sup> - May 15<sup>th</sup></span></h3>
+                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>March 15<sup>th</sup> - May 15<sup>th</sup></span></h3>
                             </div>
                         </div>
                     </div>
@@ -228,7 +255,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q2</span></h3>
+                                <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q3</span></h3>
                                     <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
                             </div>
                         </div>
@@ -242,7 +269,7 @@
                         </div>
                         <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0 content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Debit card launch <span>2018 Q3</span></h3>
+                                <h3 class="h2 headline">Debit card launch <span>2018 Q4</span></h3>
                                     <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
                             </div>
                         </div>
@@ -692,6 +719,8 @@
                     <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
                     <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
+                    <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
+                    <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
                 </ul>
             </div>
             <div class="footer-menu">

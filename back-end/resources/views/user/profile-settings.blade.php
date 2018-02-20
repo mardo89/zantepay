@@ -10,7 +10,7 @@
 
 @section('content')
 
-    <main class="main">
+    <main class="main" style="overflow: hidden;">
         <div class="container">
             <div class="dashboard-container">
 
