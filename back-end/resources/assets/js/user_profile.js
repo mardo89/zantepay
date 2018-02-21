@@ -1,6 +1,7 @@
 require('./helpers');
 
 $(document).ready(function () {
+
     $('select[name="country"]').on('change', function (event) {
         const country = $(this).val();
 
@@ -16,8 +17,14 @@ $(document).ready(function () {
                 response => {
 
                     $('select[name="state"]').html(
-                        response.data.map(
+                        response.data.states.map(
                             state => $('<option />').val(state.id).text(state.name).attr('selected', (state.id == 0 ? 'selected' : ''))
+                        )
+                    )
+
+                    $('select[name="area-code"]').html(
+                        response.data.codes.map(
+                            areaCode => $('<option />').val(areaCode.id).text(areaCode.code).attr('selected', (areaCode.id == 0 ? 'selected' : ''))
                         )
                     )
 
@@ -44,15 +51,16 @@ $(document).ready(function () {
             'last_name': $('input[name="l-name"]').val(),
             'email': $('input[name="email"]').val(),
             'phone_number': $('input[name="tel"]').val(),
+            'area_code': $('select[name="area-code"]').val(),
             'country': $('select[name="country"]').val(),
             'state': $('select[name="state"]').val(),
             'city': $('input[name="city"]').val(),
             'address': $('input[name="address"]').val(),
-            'postcode': $('input[name="postcode"]').val(),
+            'postcode': $('input[name="post-code"]').val(),
             'passport': $('input[name="government"]').val(),
             'expiration_date': $('input[name="expiry"]').val(),
             'birth_date': $('input[name="birth"]').val(),
-            'birth_country': $('input[name="country-birth"]').val(),
+            'birth_country': $('select[name="country-birth"]').val(),
         }
 
         axios.post(

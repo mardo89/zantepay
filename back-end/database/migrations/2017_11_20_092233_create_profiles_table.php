@@ -20,11 +20,11 @@ class CreateProfilesTable extends Migration
             $table->bigInteger('state_id')->nullable();
             $table->string('city', 100)->nullable();
             $table->string('address')->nullable();
-            $table->string('postcode', 10)->nullable();
+            $table->string('post_code', 10)->nullable();
             $table->string('passport_id', 50)->nullable();
             $table->date('passport_expiration_date')->nullable();
             $table->date('birth_date')->nullable();
-            $table->string('birth_country', 50)->nullable();
+            $table->bigInteger('birth_country_id')->nullable();
             $table->string('eth_wallet', 150)->nullable();
             $table->timestamps();
         });

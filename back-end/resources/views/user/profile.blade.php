@@ -45,7 +45,18 @@
                         <div class="col-lg-3 col-sm-6">
                             <div class="form-group">
                                 <label class="field-label" for="field23">Area code:</label>
-                                <input class="input-field" type="text" name="area-code" id="field23">
+                                <select name="area-code" class="input-field">
+                                    @foreach($codes as $code)
+                                        <option
+                                                value="{{ $code['id'] }}"
+                                                @if($code['id'] == $user->area_code)
+                                                selected
+                                                @endif
+                                        >
+                                            {{ $code['code'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -103,7 +114,7 @@
                         <div class="col-lg-3 col-sm-6">
                             <div class="form-group profile_postcode">
                                 <label class="field-label" for="field7">Postcode:</label>
-                                <input class="input-field" type="text" name="postcode" maxlength="10"
+                                <input class="input-field" type="text" name="post-code" maxlength="10"
                                        value="{{ $profile->postcode }}">
                             </div>
                         </div>
@@ -141,8 +152,18 @@
                         <div class="col-lg-3 col-sm-6">
                             <div class="form-group profile_birth_country">
                                 <label class="field-label" for="field11">Country of birth:</label>
-                                <input class="input-field" type="text" name="country-birth" maxlength="50"
-                                       value="{{ $profile->birth_country }}">
+                                <select name="country-birth" class="input-field">
+                                    @foreach($countries as $country)
+                                        <option
+                                                value="{{ $country['id'] }}"
+                                                @if($country['id'] == $profile->birth_country_id)
+                                                selected
+                                                @endif
+                                        >
+                                            {{ $country['name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

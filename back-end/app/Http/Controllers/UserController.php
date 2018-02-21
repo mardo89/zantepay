@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\InviteFriend;
+use App\Models\DB\AreaCode;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
@@ -52,8 +53,14 @@ class UserController extends Controller
         $country = $request->input('country');
 
         $states = State::getStatesList($country);
+        $codes = AreaCode::getCodesList($country);
 
-        return response()->json($states);
+        return response()->json(
+            [
+                'states' => $states,
+                'codes' => $codes
+            ]
+        );
     }
 
 
@@ -84,13 +91,17 @@ class UserController extends Controller
         // States List
         $states = State::getStatesList($profile->country_id);
 
+        // Area Codes List
+        $codes = AreaCode::getCodesList($profile->country_id);
+
         return view(
             'user.profile',
             [
                 'user' => $user,
                 'profile' => $profile,
                 'countries' => $countries,
-                'states' => $states
+                'states' => $states,
+                'codes' => $codes
             ]
         );
     }
@@ -114,6 +125,7 @@ class UserController extends Controller
                 'last_name' => 'alpha|max:100|nullable',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $user->id . ',id',
                 'phone_number' => 'digits_between:5,20|nullable',
+                'area_code' => 'numeric',
                 'country' => 'numeric',
                 'state' => 'numeric',
                 'city' => 'alpha|max:100|nullable',
@@ -122,7 +134,7 @@ class UserController extends Controller
                 'passport' => 'string|max:50|nullable',
                 'expiration_date' => 'date',
                 'birth_date' => 'date',
-                'birth_country' => 'alpha|max:50|nullable',
+                'birth_country' => 'numeric',
             ],
             ValidationMessages::getList(
                 [
@@ -130,6 +142,7 @@ class UserController extends Controller
                     'last_name' => 'Last Name',
                     'email' => 'Email',
                     'phone_number' => 'Phone Number',
+                    'area_code' => 'Area Code',
                     'country' => 'Country',
                     'state' => 'State',
                     'city' => 'City',
@@ -169,6 +182,7 @@ class UserController extends Controller
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->phone_number = $request->phone_number;
+            $user->area_code = $request->area_code;
             $user->save();
 
             // Update profile
@@ -176,11 +190,11 @@ class UserController extends Controller
             $profile->state_id = $request->state;
             $profile->city = $request->city;
             $profile->address = $request->address;
-            $profile->postcode = $request->postcode;
+            $profile->post_code = $request->postcode;
             $profile->passport_id = $request->passport;
             $profile->passport_expiration_date = date('Y-m-d H:i:s', strtotime($request->expiration_date));
             $profile->birth_date = date('Y-m-d H:i:s', strtotime($request->birth_date));
-            $profile->birth_country = $request->birth_country;
+            $profile->birth_country_id = $request->birth_country;
             $profile->save();
 
         } catch (\Exception $e) {

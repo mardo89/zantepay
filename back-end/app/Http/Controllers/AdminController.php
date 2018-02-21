@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -278,6 +279,8 @@ class AdminController extends Controller
             Verification::where('user_id', $user->id)->delete();
             PasswordReset::where('email', $user->email)->delete();
             SocialNetworkAccount::where('user_id', $user->id)->delete();
+            ZantecoinTransaction::where('user_id', $user->id)->delete();
+            Wallet::where('user_id', $user->id)->delete();
 
             // Documents
             $documents = Document::where('user_id', $user->id)->get();
@@ -287,11 +290,6 @@ class AdminController extends Controller
                 }
             }
             Document::where('user_id', $user->id)->delete();
-
-            // Wallet
-            $wallet = $user->wallet;
-            Transaction::where('wallet_id', $wallet->id)->delete();
-            Wallet::where('user_id', $user->id)->delete();
 
             $user->delete();
 
