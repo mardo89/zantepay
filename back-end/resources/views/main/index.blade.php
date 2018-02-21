@@ -62,12 +62,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 col-lg-7 col-md-8">
-                        The only official URL for Zantpay is <a href="//www.zantepay.com">www.zantepay.com</a>. If you recieve confirmation of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
+                        The only official URL for Zantepay is <a href="//www.zantepay.com">www.zantepay.com</a>. If you receive confirmation of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
                     </div>
                     <div class="col-xl-4 col-lg-5 col-md-4">
                         <div class="row">
                             <div class="col-lg">
-                                Official chanels: 
+                                Official channels:
                             </div>
                             <div class="col-lg-8">
                                 <ul class="social-list">
@@ -242,7 +242,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>March 15<sup>th</sup> - May 15<sup>th</sup></span></h3>
+                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>March 15<sup>th</sup> - June 15<sup>th</sup></span></h3>
                             </div>
                         </div>
                     </div>
