@@ -16,9 +16,9 @@ class CreateZantecoinTransactionsTable extends Migration
         Schema::create('zantecoin_transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->bigInteger('amount')->default(0);
+            $table->bigInteger('amount');
             $table->integer('currency');
-            $table->timestamps();
+            $table->timestamp('transaction_date');
         });
     }
 

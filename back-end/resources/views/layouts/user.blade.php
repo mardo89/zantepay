@@ -17,7 +17,8 @@
 <body>
 
 <!--[if lt IE 10]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>
+    to improve your experience.</p>
 <![endif]-->
 
 <header class="header">
@@ -44,7 +45,14 @@
                     </nav>
 
                     <div class="masthead__right">
-                        <a id="logout-btn" href="" class="btn btn--small btn--shadowed-dark">Logout</a>
+                        @if(\Illuminate\Support\Facades\Auth::user()->role === \App\Models\DB\User::USER_ROLE_ADMIN)
+                            <div class="logon-btns">
+                                <a href="/admin/users" class="btn btn--small btn--shadowed-dark">Manage</a>
+                                <a id="logout-btn" href="" class="btn btn--small btn--shadowed-dark">Logout</a>
+                            </div>
+                        @else
+                            <a id="logout-btn" href="" class="btn btn--small btn--shadowed-dark">Logout</a>
+                        @endauth
                     </div>
                 </div>
             </div>

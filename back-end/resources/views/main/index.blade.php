@@ -30,27 +30,27 @@
                                 <li><a href="">FAQ</a></li>
                                 <li><a href="#contacts">Contacts</a></li>
                                 <li>
-                                  <a href="">Development</a>
-                                  <ul>
-                                    <li><a href="">Wallet Beta</a></li>
-                                    <li><a href="">App Beta</a></li>
-                                    <li><a href="">Development roadmap</a></li>
-                                  </ul>
+                                    <a href="">Development</a>
+                                    <ul>
+                                        <li><a href="">Wallet Beta</a></li>
+                                        <li><a href="">App Beta</a></li>
+                                        <li><a href="">Development roadmap</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </nav>
 
                         <div class="masthead__right">
                             @guest
-                            <div class="logon-btns">
-                                <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign In</a>
-                                <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
-                            </div>
+                                <div class="logon-btns">
+                                    <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign In</a>
+                                    <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
+                                </div>
                             @endguest
 
-                                @auth
-                                    <a href="user/wallet" class="btn btn--small btn--shadowed-dark">Profile</a>
-                                @endauth
+                            @auth
+                                <a href="user/wallet" class="btn btn--small btn--shadowed-dark">Profile</a>
+                            @endauth
                         </div>
 
                     </div>
@@ -62,7 +62,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 col-lg-7 col-md-8">
-                        The only official URL for Zantepay is <a href="//www.zantepay.com">www.zantepay.com</a>. If you receive confirmation of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
+                        The only official URL for Zantepay is <a href="//www.zantepay.com">www.zantepay.com</a>. If you receive confirmation
+                        of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
                     </div>
                     <div class="col-xl-4 col-lg-5 col-md-4">
                         <div class="row">
@@ -90,7 +91,8 @@
                 <div class="center-logo pos-r">
                     <img src="images/logo-large.png" alt="ZANTEPAY Logo">
                 </div>
-                <h1 class="h2 header__title text-uppercase">Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one card</h1>
+                <h1 class="h2 header__title text-uppercase">Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one
+                    card</h1>
                 <div class="horizontal-btns">
                     <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
@@ -181,7 +183,8 @@
                         <img src="images/iPhone-debit.png" srcset="images/iPhone-debit@2x.png 2x" alt="iPhone Debit card">
                     </div>
                     <div class="col-md-4">
-                        With the DSC keys you have full control of your digital assets. From choice of currency, spending limits, spending history to withdrawal settings, etc.
+                        With the DSC keys you have full control of your digital assets. From choice of currency, spending limits, spending
+                        history to withdrawal settings, etc.
                     </div>
                 </div>
             </div>
@@ -229,7 +232,7 @@
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
                                 <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>March 15<sup>th</sup></span></h3>
-                                    <p>Token distribution Debit Card pre-ordering start.</p>
+                                <p>Token distribution Debit Card pre-ordering start.</p>
                             </div>
                         </div>
                     </div>
@@ -242,7 +245,8 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>March 15<sup>th</sup> - July 15<sup>th</sup></span></h3>
+                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>March 15<sup>th</sup> - July 15<sup>th</sup></span>
+                                </h3>
                             </div>
                         </div>
                     </div>
@@ -256,7 +260,7 @@
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
                                 <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q3</span></h3>
-                                    <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
+                                <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
                             </div>
                         </div>
                     </div>
@@ -264,13 +268,14 @@
                     <div class="row row-revert p-tb-40">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container2">
-                                <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" width="480px" alt="ZANTEPAY Debit Card">
+                                <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" width="480px"
+                                     alt="ZANTEPAY Debit Card">
                             </div>
                         </div>
                         <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0 content-center">
                             <div class="lp-content-col">
                                 <h3 class="h2 headline">Debit card launch <span>2018 Q4</span></h3>
-                                    <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
+                                <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
                             </div>
                         </div>
                     </div>
@@ -284,7 +289,7 @@
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
                                 <h3 class="h2 headline">Biggest cryptocurrency wallet worldwide! <span>2019</span></h3>
-                                    <p>Become the biggest cryptocurrency wallet worldwide! Join today!</p>
+                                <p>Become the biggest cryptocurrency wallet worldwide! Join today!</p>
                             </div>
                         </div>
                     </div>
@@ -341,7 +346,9 @@
                                 </li>
                                 <li>Its beauty and its ease of use.</li>
                                 <li>Your latest ZANTEPAY card transactions or your exchange history.</li>
-                                <li>You will also have the option to manage Bitcoin, Litecoin, Ethereum and Zantecoin directly from your ZANTEPAY wallet and assign your wallets to your ZANTEPAY card according to the selected preferences.</li>
+                                <li>You will also have the option to manage Bitcoin, Litecoin, Ethereum and Zantecoin directly from your
+                                    ZANTEPAY wallet and assign your wallets to your ZANTEPAY card according to the selected preferences.
+                                </li>
                                 <li>Buy BTC and altcoins with SEPA payment or with debit/credit card.</li>
                             </ul>
                         </div>
@@ -368,7 +375,9 @@
                         <div class="col-md-6 offset-lg-1">
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
-                                <li>According to the selected preferences, Bitcoin, Litecoin, Ethereum and Zantecoin will let you purchase via Debit card everywhere in the world.</li>
+                                <li>According to the selected preferences, Bitcoin, Litecoin, Ethereum and Zantecoin will let you purchase
+                                    via Debit card everywhere in the world.
+                                </li>
                                 <li>Directly connected to your ZANTEPAY wallet.</li>
                                 <li>A multitude of management options will be available to you.</li>
                                 <li>Automatic highest trading price from partner exchanges. Fee 1%. No hidden fees added.</li>
@@ -629,43 +638,66 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <img src="images/mardo.jpg" srcset="images/mardo@2x.jpg 2x" alt="Mardo Soo">
-                        <h3 class="h4">Mardo Soo <span>Founder</span> <a target="_blank" href="https://www.linkedin.com/in/mardo-soo-00a05ab0/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a> </h3>
-                        <p>Mardo is a visionary, investor and entrepreneur, his expertise in sales and marketing is more than 10 years. He ran couple of successful web projects in Estonia. His latest passion is blockchain and cryptocurrency. Mardo`s talent is to find and recognize the best people for the job to make something great. He believes cryptocurrency and AI is the next big thing.</p>
+                        <h3 class="h4">Mardo Soo <span>Founder</span> <a target="_blank"
+                                                                         href="https://www.linkedin.com/in/mardo-soo-00a05ab0/"
+                                                                         class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
+                        <p>Mardo is a visionary, investor and entrepreneur, his expertise in sales and marketing is more than 10 years. He
+                            ran couple of successful web projects in Estonia. His latest passion is blockchain and cryptocurrency. Mardo`s
+                            talent is to find and recognize the best people for the job to make something great. He believes cryptocurrency
+                            and AI is the next big thing.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/lena.jpg" srcset="images/lena@2x.jpg 2x" alt="Lena Elvbakken">
-                        <h3 class="h4">Lena Elvbakken <span>Co-Founder</span> <a target="_blank" href="https://www.linkedin.com/in/lena-elvbakken-8a238a56/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
-                        <p>Lena, BAA, has an impressive global product marketing and sales background. Previously worked in media, technology and telecom branch for the brands like HP and Nokia. Then she moved on to online-based consulting business and recently into the fin tech branch. Lena believes that her corporate experience, leadership and passion for the technology make her a valuable asset for the team.</p>
+                        <h3 class="h4">Lena Elvbakken <span>Co-Founder</span> <a target="_blank"
+                                                                                 href="https://www.linkedin.com/in/lena-elvbakken-8a238a56/"
+                                                                                 class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
+                        </h3>
+                        <p>Lena, BAA, has an impressive global product marketing and sales background. Previously worked in media,
+                            technology and telecom branch for the brands like HP and Nokia. Then she moved on to online-based consulting
+                            business and recently into the fin tech branch. Lena believes that her corporate experience, leadership and
+                            passion for the technology make her a valuable asset for the team.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/ron.jpg" srcset="images/ron@2x.jpg 2x" alt="Ron Luvistsuk">
-                        <h3 class="h4">Ron Luvistsuk <span>CFO</span> <a target="_blank" href="https://www.linkedin.com/in/ron-luvistsuk-a1065714/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
-                        <p>Ron is bringing his experience from SEB Corporate banking. He has more than 20 years of experience in finance, deep understanding of risk, compliance and payment architecture in the EU. Ex CFO at Lukoil Baltic. As an independent financial advisor Ron has led over 600 projects, totaling in over $60m.</p>
+                        <h3 class="h4">Ron Luvistsuk <span>CFO</span> <a target="_blank"
+                                                                         href="https://www.linkedin.com/in/ron-luvistsuk-a1065714/"
+                                                                         class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
+                        <p>Ron is bringing his experience from SEB Corporate banking. He has more than 20 years of experience in finance,
+                            deep understanding of risk, compliance and payment architecture in the EU. Ex CFO at Lukoil Baltic. As an
+                            independent financial advisor Ron has led over 600 projects, totaling in over $60m.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">
                         <h3 class="h4">Stanislav Ivashchenko <span>User Experience and Product Design Lead</span></h3>
-                        <p>Stanislav shapes visual appearance of ZANTEPAY. He possesses more than 6 years of experience in graphic design and usability across all media and has a passion for bringing brands to life through great user-centered design.</p>
+                        <p>Stanislav shapes visual appearance of ZANTEPAY. He possesses more than 6 years of experience in graphic design
+                            and usability across all media and has a passion for bringing brands to life through great user-centered
+                            design.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/alex.jpg" srcset="images/alex@2x.jpg 2x" alt="Alexey Fedorenko">
                         <h3 class="h4">Alexey Fedorenko <span>Front-End Team Lead</span></h3>
-                        <p>Alexey makes a great addition to our team with his commercial experience in front-end development, producing high-quality websites and exceptional user experience.</p>
+                        <p>Alexey makes a great addition to our team with his commercial experience in front-end development, producing
+                            high-quality websites and exceptional user experience.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/pavel.jpg" srcset="images/pavel@2x.jpg 2x" alt="Pavel Boyko">
                         <h3 class="h4">Pavel Boyko <span>Backend Team Lead</span></h3>
-                        <p>Pavel runs Advanced Software Development LTD (ASD), a Fintech software vendor. Pavel and his team has more than 10 year experience in delivering the variety of web applications, software engineering solutions, big data analytics, mastering the hardest design, UX/UI tasks. Pavel believes in blockchain and the huge potential of the industry.</p>
+                        <p>Pavel runs Advanced Software Development LTD (ASD), a Fintech software vendor. Pavel and his team has more than
+                            10 year experience in delivering the variety of web applications, software engineering solutions, big data
+                            analytics, mastering the hardest design, UX/UI tasks. Pavel believes in blockchain and the huge potential of the
+                            industry.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/alexander.jpg" srcset="images/alexander@2x.jpg 2x" alt="Alexander Harutunian ">
                         <h3 class="h4">Alexander Harutunian <span>Smart Contracts / Project Manager</span></h3>
-                        <p>Corporate finance and economics professional, specializing in Fintech. Previously, Alexander had a senior auditor role at KPMG, led retail and banking sector engagements. He has MBA from American University of Armenia. </p>
+                        <p>Corporate finance and economics professional, specializing in Fintech. Previously, Alexander had a senior auditor
+                            role at KPMG, led retail and banking sector engagements. He has MBA from American University of Armenia. </p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/levon.jpg" srcset="images/levon@2x.jpg 2x" alt="Levon Hayrapetyan">
                         <h3 class="h4">Levon Hayrapetyan <span>Smart Contracts Developer</span></h3>
-                        <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
+                        <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in
+                            experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
                     </div>
                 </div>
             </div>
@@ -842,7 +874,8 @@
                 <p>ZANTECOIN’s Token Pre-ICO is created for investors with prior cryptocurrency experience. Please pay attention that the
                     minimum transaction amount is 0.1 ETH. For investors from the US the min investment amount is 10 ETH. To apply, please
                     contact <a href="mailto:support@zantepay.com">support@zantepay.com</a>. </p>
-                <p>The actual opening date for the ZANTECOIN’s public Token Sale is on March 15<sup>th</sup>, 2018. To participate in ZANTECOIN’s Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
+                <p>The actual opening date for the ZANTECOIN’s public Token Sale is on March 15<sup>th</sup>, 2018. To participate in
+                    ZANTECOIN’s Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
             </div>
 
             <form id="frm_ico_registration">
@@ -888,7 +921,8 @@
         <div class="logon-modal-container">
             <h3 class="h4">BECOME OUR SEED INVESTOR</h3>
             <div class="logon-modal-text">
-                <p>We are starting with ZANTEPAY ICO on 15<sup>th</sup> of March. At the moment we are looking for seed investors, offering ZNX tokens at
+                <p>We are starting with ZANTEPAY ICO on 15<sup>th</sup> of March. At the moment we are looking for seed investors, offering
+                    ZNX tokens at
                     the discounted price. If you are interested to become a seed investor, please fill out the contact form and we will get
                     back to you.</p>
             </div>

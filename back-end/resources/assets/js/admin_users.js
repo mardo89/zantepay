@@ -3,14 +3,20 @@ require('./helpers');
 $(document).ready(function () {
 
     $('input[name="search-by-email"]').on('keyup', function (event) {
-        const filterText = $(this).val();
-
-        const colToSearch = $(this).hasClass('wallets-search') ? 0 : 1;
+        const filterText = $(this).val().toLowerCase();
 
         $('#users-list tbody tr').each(function (index, element) {
-            const userEmail = $(element).find('td:eq(' + colToSearch + ')').text();
+            const userEmail = $(element).find('td:eq(1)').text().toLowerCase();
+            const userName = $(element).find('td:eq(2)').text().toLowerCase();
+            const userReferrer = $(element).find('td:eq(5)').text().toLowerCase();
 
-            if (filterText.trim().length !== 0 && userEmail.indexOf(filterText) === -1) {
+            const isNotMatch = (
+                userEmail.indexOf(filterText) === -1
+                && userName.indexOf(filterText) === -1
+                && userReferrer.indexOf(filterText) === -1
+            );
+
+            if (filterText.trim().length !== 0 && isNotMatch) {
                 $(this).hide()
             } else {
                 $(this).show();
@@ -22,23 +28,6 @@ $(document).ready(function () {
         event.preventDefault();
 
         $('input[name="search-by-email"]').val('').trigger('keyup');
-    });
-
-    $('input[name="referrer-filter"]').on('change', function (event) {
-        const refFilter = $(this).val();
-        const isVisible = $(this).prop('checked');
-
-        $('#users-list tbody tr').each(function (index, element) {
-            const hasReferrer = $(element).find('td:eq(5)').text().trim().length === 0 ? 0 : 1;
-
-            if (refFilter == hasReferrer) {
-                if (isVisible) {
-                    $(this).show();
-                } else {
-                    $(this).hide()
-                }
-            }
-        });
     });
 
     $('input[name="status-filter"]').on('change', function (event) {

@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="dashboard-group">
-                    <h2 class="h4 headline-mb">Search by email:</h2>
+                    <h2 class="h4 headline-mb">Search users:</h2>
                     <div class="row">
                         <div class="col-lg-5">
                             <div class="form-group">

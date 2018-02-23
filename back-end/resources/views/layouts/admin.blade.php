@@ -44,7 +44,10 @@
                     </nav>
 
                     <div class="masthead__right">
-                        <a id="logout-btn" href="" class="btn btn--small btn--shadowed-dark">Logout</a>
+                        <div class="logon-btns">
+                            <a href="/user/wallet" class="btn btn--small btn--shadowed-dark">Profile</a>
+                            <a id="logout-btn" href="" class="btn btn--small btn--shadowed-dark">Logout</a>
+                        </div>
                     </div>
                 </div>
             </div>

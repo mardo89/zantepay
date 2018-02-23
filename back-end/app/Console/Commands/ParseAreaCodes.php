@@ -39,33 +39,48 @@ class ParseAreaCodes extends Command
      */
     public function handle()
     {
+        $codesFile = fopen("d:/codes.csv", "r");
+
+        $areaCodes = [];
+
+        while (($data = fgetcsv($codesFile)) !== FALSE) {
+            $country = $data[0];
+            $countryCode = $data[1];
+            $areaName = $data[2];
+            $areaCode = $data[3];
+
+            if (trim($areaName) != '') {
+                $areaCodes[$countryCode][] = [
+                    'country' => $country,
+                    'country_code' => $countryCode,
+                    'area_name' => $areaName,
+                    'area_code' => preg_replace('/\(.*\)/', ' ', $areaCode),
+                ];
+            }
+        }
+
+        fclose($codesFile);
+
         $dbCountries = Country::all();
 
         foreach ($dbCountries as $dbCountry) {
 
             $this->info($dbCountry->name . ' ...');
 
-            $codesJson = file_get_contents('http://gomashup.com/json.php?fds=geo/international/areacodes/country/' . $dbCountry->name);
-
-            $codesJson[0] = ' ';
-            $codesJson[strlen($codesJson) - 1] = ' ';
-
-            $codes = json_decode(trim($codesJson));
-
-            if (!$codes) {
+            if (!isset($areaCodes[$dbCountry->phonecode])) {
                 $this->error('-----------------------------------------------------------------------');
+                $this->info('');
+                $this->info('');
                 continue;
             }
 
-            foreach ($codes->result as $code) {
-                $areaCode = preg_replace('/\(.*\)/', ' ', $code->AreaCode);
-
+            foreach ($areaCodes[$dbCountry->phonecode] as $code) {
                 AreaCode::create(
                     [
                         'country_id' => $dbCountry->id,
-                        'country_code' => $code->CountryCode,
-                        'area_code' => trim($areaCode),
-                        'area_name' => $code->Area
+                        'country_code' => $code['country_code'],
+                        'area_code' => trim($code['area_code']),
+                        'area_name' => $code['area_name']
                     ]
                 );
             }
