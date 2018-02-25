@@ -149,42 +149,21 @@
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">
-                    <h3 class="h2 headline">What is a <br> ZANTECOIN</h3>
+                    <h3 class="h2 headline text-left">ZANTECOIN - The Most <br> Valuable Coin </h3>
                 </div>
-                <div class="text-center">
-                    <ul class="horizontal-icons">
-                        <li>
-                            <img src="images/secure.png" srcset="images/secure@2x.png 2x" alt="Secure">
-                            <span>Secure</span>
-                        </li>
-                        <li>
-                            <img src="images/blockchain_icon.png" srcset="images/blockchain_icon@2x.png 2x" alt="Blockchain Technology">
-                            <span>Blockchain Technology</span>
-                        </li>
-                        <li>
-                            <img src="images/ethereum_icon.png" srcset="images/ethereum_icon@2x.png 2x" alt="Ethereum Token">
-                            <span>Ethereum Token</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="row vertical-middle-col">
-                    <div class="col-md-4">
-                        <div class="lp-dsc-wrap">
-                            <div class="lp-dsc">
-                                <img src="images/DSC-icon.png" srcset="images/DSC-icon@2x.png 2x" alt="DSC">
-                                <span class="h4">Decentralized Smart Contract</span>
-                            </div>
-                            <div class="lp-dsc-arrow">
-                                <img src="images/white-arrow.png" srcset="images/white-arrow@2x.png 2x" alt="">
-                            </div>
-                        </div>
+                <div class="row vertical-middle-col mt-40 p-t-30">
+                    <div class="text-center col-lg-3 col-sm-4 offset-lg-1">
+                        <img src="images/zantecoin2.png" srcset="images/zantecoin2@2x.png 2x" alt="Zantecoin">
                     </div>
-                    <div class="col-md-4 lp-center-iph">
-                        <img src="images/iPhone-debit.png" srcset="images/iPhone-debit@2x.png 2x" alt="iPhone Debit card">
-                    </div>
-                    <div class="col-md-4">
-                        With the DSC keys you have full control of your digital assets. From choice of currency, spending limits, spending
-                        history to withdrawal settings, etc.
+                    <div class="col-lg-7 col-sm-8 offset-lg-1">
+                        <ul class="styl-list">
+                            <li>New mainstream currency</li>
+                            <li>BTC, ETH, LTC free conversion to ZNX</li>
+                            <li>Mastercard - accepted everywhere</li>
+                            <li>Can be used to cover service fees in ZANTEPAY ecosystem</li>
+                            <li>50% discount on all services in ZANTEPAY ecosystem when using ZANTECOIN</li>
+                            <li>ERC 20 token</li>
+                        </ul>
                     </div>
                 </div>
             </div>
