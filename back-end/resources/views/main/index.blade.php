@@ -646,6 +646,16 @@
                             independent financial advisor Ron has led over 600 projects, totaling in over $60m.</p>
                     </div>
                     <div class="col-lg-4">
+                        <img src="images/michael.jpg" srcset="images/michael@2x.jpg 2x" alt="Michael Neumann">
+                        <h3 class="h4">Michael Neumann <span>Regional Sales Manager</span></h3>
+                        <p>Michael Neumann is a serial entrepreneur and investor of a global scale. Over past 20 years he has built numerous projects in Scandinavia, Eastern Europe, Russia and Asia. His latest venture reached turnover of $500m. Graduated from Handelhøyskolen BI, Michael´s strength is in grasping a business opportunity and scaling. He is also an inspiring role model and motivational speaker. Michael ´s role in the company is scaling ZANTEPAY to become one of the biggest players in the world.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/kristi.jpg" srcset="images/kristi@2x.jpg 2x" alt="Kristi Sild">
+                        <h3 class="h4">Kristi Sild <span>Legal <br> Attorney at Law/ Partner, LEXTAL</span></h3>
+                        <p>Kristi is an experienced attorney and leads the legal team of Zantepay project. Kristi is a partner in Lawfirm LEXTAL, one of the biggest lawfirms in Estonia, having also offices in Latvia and Lithuania. Kristi has wide legal experience in fintech field, including regulatory matters and other legal questions related to innovative financing and financial services. Her expertise also covers services related to crypto currencies and ICOs.</p>
+                    </div>
+                    <div class="col-lg-4">
                         <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">
                         <h3 class="h4">Stanislav Ivashchenko <span>User Experience and Product Design Lead</span></h3>
                         <p>Stanislav shapes visual appearance of ZANTEPAY. He possesses more than 6 years of experience in graphic design
