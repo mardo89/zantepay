@@ -51,13 +51,9 @@ class UpdateContributions extends Command
         DB::beginTransaction();
 
         try {
-            $actionDate = date('Y-m-d H:i:s');
-
             $ico = new Ico();
 
-            $lastContributionOperation = ContributionAction::where('action_status', '!=', ContributionAction::ACTION_STATUS_DECLINED)
-                ->get()
-                ->last();
+            $lastContributionOperation = ContributionAction::all()->last();
 
             $continuationToken = optional($lastContributionOperation)->continuation_token ?? 0;
 
@@ -103,9 +99,9 @@ class UpdateContributions extends Command
                 // Save information about contribution operation
                 ContributionAction::create(
                     [
-                        'action_date' => $actionDate,
+                        'contributions_found' => count($contributions['contributions']),
+                        'action_type' => ContributionAction::ACTION_TYPE_UPDATE,
                         'continuation_token' => $contributions['continuation_token'],
-                        'action_status' => ContributionAction::ACTION_STATUS_PENDING,
                     ]
                 );
 

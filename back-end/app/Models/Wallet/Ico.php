@@ -40,7 +40,7 @@ class Ico
         }
 
         if ($this->icoPartThree->isActive($currentDate)) {
-            return $this->icoPartTree;
+            return $this->icoPartThree;
         }
 
         if ($this->icoPartFour->isActive($currentDate)) {

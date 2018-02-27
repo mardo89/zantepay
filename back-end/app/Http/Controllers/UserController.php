@@ -707,7 +707,7 @@ class UserController extends Controller
 
         $ico = new Ico();
 
-        $ethRate = RateCalculator::znxToEth(1, time(), $ico);
+        $ethRate = optional($ico->getActivePart())->getEthRate() ?? 0;
 
         $contributions = [];
 

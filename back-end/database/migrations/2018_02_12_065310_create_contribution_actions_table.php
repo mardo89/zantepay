@@ -15,9 +15,9 @@ class CreateContributionActionsTable extends Migration
     {
         Schema::create('contribution_actions', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('action_date');
-            $table->integer('action_status');
-            $table->string('continuation_token', 50);
+            $table->integer('contributions_found');
+            $table->string('action_type', 100);
+            $table->string('continuation_token', 100);
             $table->timestamps();
         });
     }

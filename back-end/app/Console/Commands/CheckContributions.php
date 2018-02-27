@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Mail\SystemAlert;
 use App\Models\DB\Contribution;
 use App\Models\DB\ContributionAction;
+use App\Models\DB\Wallet;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\EtheriumApi;
 use Illuminate\Console\Command;
@@ -46,61 +47,47 @@ class CheckContributions extends Command
      */
     public function handle()
     {
-        $continuationToken = 0;
-
         DB::beginTransaction();
 
         try {
-            $lastContributionAction = ContributionAction::all()->last();
+            $lastContributionOperation = ContributionAction::all()->last();
 
-            if (!is_null($lastContributionAction)) {
-                $continuationToken = $lastContributionAction->continuation_token;
+            $continuationToken = optional($lastContributionOperation)->continuation_token ?? 0;
+
+            $apiContributions = EtheriumApi::getContributions(0, $continuationToken);
+
+            $wallets =  Wallet::all();
+
+            $dbContributions = [];
+
+            foreach (Contribution::all() as $contribution) {
+                $dbContributions[$contribution->proxy] = $contribution->amount;
             }
 
-            $allContributions = EtheriumApi::getContributions(0, $continuationToken);
+            $incorrectContributions = [];
 
-            $apiContributions = [];
+            foreach ($apiContributions['contributions'] as $contribution) {
+                $userWallet = $wallets->where('eth_wallet', $contribution->proxy)->first();
 
-            foreach ($allContributions['contributions'] as $contribution) {
-                if (!isset($apiContributions[$contribution->proxy])) {
-                    $apiContributions[$contribution->proxy] = 0;
+                if (!$userWallet) {
+                    continue;
                 }
 
-                $apiContributions[$contribution->proxy] += $contribution->amount;
-            }
+                $isContributionCorrect = isset($dbContributions[$contribution->proxy]) && $dbContributions[$contribution->proxy] == $contribution->amount;
 
-            $dbContributions = Contribution::groupBy('proxy')
-                ->get(
-                    [
-                        'proxy', DB::Raw("SUM(amount) AS total_amount")
-                    ]
-                )
-                ->toArray();
-
-            $isContributionsCorrect = true;
-
-            foreach ($dbContributions as $dbContribution) {
-                $proxy = $dbContribution['proxy'];
-                $totalAmount = $dbContribution['total_amount'];
-
-                if (!isset($apiContributions[$proxy]) || $apiContributions[$proxy] != $totalAmount) {
-                    $isContributionsCorrect = false;
+                if (!$isContributionCorrect) {
+                    $incorrectContributions[] = [
+                        'user_id' => $userWallet->user->id,
+                        'proxy' => $contribution->proxy,
+                        'date' => date('d-m-Y H:i:s', $contribution->timeStamp),
+                        'api_amount' => $contribution->amount,
+                        'db_amount' => isset($dbContributions[$contribution->proxy]) ? $dbContributions[$contribution->proxy] : 'NULL',
+                    ];
                 }
             }
 
-            if (!$isContributionsCorrect) {
-
-                ZantecoinTransaction::truncate();
-
-                Contribution::truncate();
-
-                ContributionAction::create(
-                    [
-                        'action_type' => ContributionAction::ACTION_TYPE_CORRECT,
-                        'continuation_token' => 0
-                    ]
-                );
-
+            if (count($incorrectContributions) > 0) {
+//                Mail::send(new SystemAlert('Contributions Check', 'Contributions table contain incorrect data.'));
             }
 
         } catch (\Exception $e) {
