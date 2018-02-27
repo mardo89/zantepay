@@ -17,7 +17,8 @@ class CreateContributionsTable extends Migration
             $table->increments('id');
             $table->string('operation_id', 100);
             $table->string('proxy', 100);
-            $table->bigInteger('amount');
+            $table->float('amount', 30, 0);
+            $table->bigInteger('time_stamp');
             $table->timestamps();
         });
     }

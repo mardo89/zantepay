@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class ContributionAction extends Model
 {
     /**
-     * Action Types
+     * Action statuses
      */
-    const ACTION_TYPE_UPDATE = 0;
-    const ACTION_TYPE_CORRECT = 1;
+    const ACTION_STATUS_PENDING = 0;
+    const ACTION_STATUS_CONFIRMED = 1;
+    const ACTION_STATUS_DECLINED = 2;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class ContributionAction extends Model
      * @var array
      */
     protected $fillable = [
-        'action_type', 'continuation_token'
+        'action_date', 'action_status', 'continuation_token'
     ];
 
     /**

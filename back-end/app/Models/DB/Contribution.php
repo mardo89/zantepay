@@ -12,7 +12,7 @@ class Contribution extends Model
      * @var array
      */
     protected $fillable = [
-        'operation_id', 'proxy', 'amount'
+        'operation_id', 'proxy', 'amount', 'time_stamp'
     ];
 
     /**

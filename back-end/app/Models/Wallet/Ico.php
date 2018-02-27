@@ -29,19 +29,49 @@ class Ico
      * @return mixed
      */
     public function getActivePart() {
-        if ($this->icoPartOne->isActive()) {
+        $currentDate = time();
+
+        if ($this->icoPartOne->isActive($currentDate)) {
             return $this->icoPartOne;
         }
 
-        if ($this->icoPartTwo->isActive()) {
+        if ($this->icoPartTwo->isActive($currentDate)) {
             return $this->icoPartTwo;
         }
 
-        if ($this->icoPartThree->isActive()) {
+        if ($this->icoPartThree->isActive($currentDate)) {
             return $this->icoPartTree;
         }
 
-        if ($this->icoPartFour->isActive()) {
+        if ($this->icoPartFour->isActive($currentDate)) {
+            return $this->icoPartFour;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get ICO part by date
+     *
+     * @param string $operationDate
+     *
+     * @return mixed
+     */
+    public function getPart($operationDate) {
+
+        if ($this->icoPartOne->isActive($operationDate)) {
+            return $this->icoPartOne;
+        }
+
+        if ($this->icoPartTwo->isActive($operationDate)) {
+            return $this->icoPartTwo;
+        }
+
+        if ($this->icoPartThree->isActive($operationDate)) {
+            return $this->icoPartThree;
+        }
+
+        if ($this->icoPartFour->isActive($operationDate)) {
             return $this->icoPartFour;
         }
 

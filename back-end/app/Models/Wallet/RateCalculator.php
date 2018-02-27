@@ -8,73 +8,106 @@ use App\Models\DB\ZantecoinTransaction;
 class RateCalculator
 {
     /**
-     * ZNX coins limits for Etherium
-     */
-    const ETH_LIMIT_ONE = 30000000;
-    const ETH_LIMIT_TWO = 100000000;
-    const ETH_LIMIT_THREE = 300000000;
-    const ETH_LIMIT_FOUR = 600000000;
-
-
-    /**
      * Convert ETH to ZNX
      *
-     * @param float $amount
-     * @param int $totalZnxCoins
+     * @param float $ethAmount
+     * @param string $operationDate
+     * @param Ico $ico
      *
-     * @return float
+     * @return array
      */
-    public static function ethToZnx($amount, $totalZnxCoins = null)
+    public static function ethToZnx($ethAmount, $operationDate, $ico)
     {
-        if (is_null($totalZnxCoins)) {
-            $totalZnxCoins = ZantecoinTransaction::all()->sum('amount');
+        $icoPart = $ico->getPart($operationDate);
+
+        if (!$icoPart) {
+            return [];
         }
 
-        $rate = self::getEthRate($totalZnxCoins);
+        $rate = $icoPart->getEthRate();
+        $balance = $icoPart->getBalance();
 
-        if ($rate['balance'] == 0) {
-            return 0;
+        $availableEthAmount = $rate * $balance;
+
+        $znx = [];
+
+        if ($availableEthAmount < $ethAmount) {
+            $icoPart->increaseAmount($balance);
+
+            $znx[] = [
+                'amount' => $balance,
+                'rate' => $rate,
+                'icoPart' => $icoPart->getID()
+            ];
+
+            return array_merge(
+                $znx,
+                self::ethToZnx($ethAmount - $availableEthAmount, $operationDate, $ico)
+            );
         }
 
-        $znxAmount = floor($amount / $rate['rate']);
+        $znxAmount = floor($ethAmount / $rate);
 
-        if ($znxAmount <= $rate['balance']) {
-            return $znxAmount;
-        }
+        $icoPart->increaseAmount($znxAmount);
 
-        $leftEthAmount = $amount - ($rate['balance'] * $rate['rate']);
+        $znx[] = [
+            'amount' => $znxAmount,
+            'rate' => $rate,
+            'icoPart' => $icoPart->getID()
+        ];
 
-        return $rate['balance'] + self::ethToZnx($leftEthAmount, $totalZnxCoins + $rate['balance']);
+        return $znx;
     }
 
     /**
      * Convert ETH to ZNX
      *
-     * @param float $amount
-     * @param int $totalZnxCoins
+     * @param int $znxAmount
+     * @param string $operationDate
+     * @param Ico $ico
      *
-     * @return float
+     * @return array
      */
-    public static function znxToEth($amount, $totalZnxCoins = null)
+    public static function znxToEth($znxAmount, $operationDate, $ico)
     {
-        if (is_null($totalZnxCoins)) {
-            $totalZnxCoins = ZantecoinTransaction::all()->sum('amount');
+        $icoPart = $ico->getPart($operationDate);
+
+        if (!$icoPart) {
+            return [];
         }
 
-        $rate = self::getEthRate($totalZnxCoins);
+        $rate = $icoPart->getEthRate();
+        $balance = $icoPart->getBalance();
 
-        if ($rate['balance'] == 0) {
-            return 0;
+        $eth = [];
+
+        if ($balance < $znxAmount) {
+            $icoPart->increaseAmount($balance);
+
+            $eth[] = [
+                'amount' => $balance * $rate,
+                'rate' => $rate,
+                'icoPart' => $icoPart->getID()
+            ];
+
+            return array_merge(
+                $eth,
+                self::znxToEth($znxAmount - $balance, $operationDate, $ico)
+            );
+
         }
 
-        if ($amount <= $rate['balance']) {
-            return $amount * $rate['rate'];
-        }
+        $ethAmount = $znxAmount * $rate;
 
-        $partEthAmount = $rate['balance'] * $rate['rate'];
-        $leftZnxAmount = $amount - $rate['balance'];
+        $icoPart->increaseAmount($znxAmount);
 
-        return $partEthAmount  + self::znxToEth($leftZnxAmount, $totalZnxCoins + $rate['balance']);
+        $eth[] = [
+            'amount' => $ethAmount,
+            'rate' => $rate,
+            'icoPart' => $icoPart->getID()
+        ];
+
+        return $eth;
     }
 
     /**
@@ -99,97 +132,6 @@ class RateCalculator
     public static function weiToEth($amount)
     {
         return $amount / 1000000000000000000;
-    }
-
-    /**
-     * Get ETH rate
-     *
-     * @param int $totalZnxCoins
-     *
-     * @return array
-     */
-    public static function getEthRate($totalZnxCoins)
-    {
-        if (self::isPartOne($totalZnxCoins)) {
-            return [
-                'rate' => 0.00007,
-                'balance' => self::ETH_LIMIT_ONE - $totalZnxCoins
-            ];
-        }
-
-        if (self::isPartTwo($totalZnxCoins)) {
-            return [
-                'rate' => 0.00014,
-                'balance' => self::ETH_LIMIT_TWO - $totalZnxCoins
-            ];
-        }
-
-        if (self::isPartThree($totalZnxCoins)) {
-            return [
-                'rate' => 0.000196,
-                'balance' => self::ETH_LIMIT_THREE - $totalZnxCoins
-            ];
-        }
-
-        if (self::isPartFour($totalZnxCoins)) {
-            return [
-                'rate' => 0.00035,
-                'balance' => self::ETH_LIMIT_FOUR - $totalZnxCoins
-            ];
-        }
-
-        return [
-            'rate' => 0,
-            'balance' => 0
-        ];
-    }
-
-    /**
-     * Check if current part is First Part
-     *
-     * @param int $totalZnxCoins
-     *
-     * @return bool
-     */
-    protected static function isPartOne($totalZnxCoins)
-    {
-        return $totalZnxCoins < self::ETH_LIMIT_ONE;
-    }
-
-    /**
-     * Check if current part is Second Part
-     *
-     * @param int $totalZnxCoins
-     *
-     * @return bool
-     */
-    protected static function isPartTwo($totalZnxCoins)
-    {
-        return $totalZnxCoins >= self::ETH_LIMIT_ONE && $totalZnxCoins < self::ETH_LIMIT_TWO;
-    }
-
-    /**
-     * Check if current part is Third Part
-     *
-     * @param int $totalZnxCoins
-     *
-     * @return bool
-     */
-    protected static function isPartThree($totalZnxCoins)
-    {
-        return $totalZnxCoins >= self::ETH_LIMIT_TWO && $totalZnxCoins < self::ETH_LIMIT_THREE;
-    }
-
-    /**
-     * Check if current part is Fourth Part
-     *
-     * @param int $totalZnxCoins
-     *
-     * @return bool
-     */
-    protected static function isPartFour($totalZnxCoins)
-    {
-        return $totalZnxCoins >= self::ETH_LIMIT_THREE && $totalZnxCoins < self::ETH_LIMIT_FOUR;
     }
 
 }

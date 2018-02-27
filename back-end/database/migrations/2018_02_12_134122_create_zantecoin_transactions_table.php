@@ -17,8 +17,10 @@ class CreateZantecoinTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->bigInteger('amount');
-            $table->integer('currency');
-            $table->timestamp('transaction_date');
+            $table->string('ico_part');
+            $table->integer('contribution_id');
+            $table->integer('transaction_type');
+            $table->timestamps();
         });
     }
 

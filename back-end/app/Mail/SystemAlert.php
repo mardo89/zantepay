@@ -41,7 +41,7 @@ class SystemAlert extends Mailable
     {
         return $this->subject($this->event)
             ->from(env('CONTACT_EMAIL'))
-            ->to(env('CONTACT_EMAIL'))
+            ->to(env('SERVICE_EMAIL'))
             ->view('emails.system-alert');
 
     }

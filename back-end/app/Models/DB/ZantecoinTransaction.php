@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class ZantecoinTransaction extends Model
 {
     /**
+     * Transaction types
+     */
+    const TRANSACTION_ETH_TO_ZNX = 0;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id', 'amount', 'currency'
+        'user_id', 'amount', 'ico_part', 'contribution_id', 'transaction_type'
     ];
 
     /**
@@ -22,8 +27,4 @@ class ZantecoinTransaction extends Model
      */
     protected $hidden = [];
 
-    /**
-     * @var bool Disable timestamps
-     */
-    public $timestamps = false;
 }

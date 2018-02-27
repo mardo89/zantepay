@@ -17,6 +17,7 @@ use App\Models\DB\Verification;
 use App\Models\Validation\ValidationMessages;
 use App\Models\Wallet\CurrencyFormatter;
 use App\Models\Wallet\EtheriumApi;
+use App\Models\Wallet\Ico;
 use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -704,7 +705,9 @@ class UserController extends Controller
 
         $wallet = $user->wallet;
 
-        $ethRate = RateCalculator::znxToEth(1);
+        $ico = new Ico();
+
+        $ethRate = RateCalculator::znxToEth(1, time(), $ico);
 
         $contributions = [];
 
@@ -712,8 +715,8 @@ class UserController extends Controller
             $ethAmount = RateCalculator::weiToEth($contribution->amount);
 
             $contributions[] = [
-                'date' => date('d.m.Y', strtotime($contribution->created_at)),
-                'time' => date('H:i:s', strtotime($contribution->created_at)),
+                'date' => date('d.m.Y', strtotime($contribution->operation_date)),
+                'time' => date('H:i:s', strtotime($contribution->operation_date)),
                 'address' => $contribution->proxy,
                 'amount' => (new CurrencyFormatter($ethAmount))->ethFormat()->withSuffix('ETH')->get(),
                 'type' => 'In',
@@ -788,7 +791,7 @@ class UserController extends Controller
             $request,
             [
                 'znx_amount' => 'numeric|min:0|max:600000000|required_without:eth_amount',
-                'eth_amount' => 'numeric|min:0|max:156100|required_without:znx_amount'
+                'eth_amount' => 'numeric|min:0|max:200000|required_without:znx_amount'
             ],
             ValidationMessages::getList(
                 [
@@ -799,12 +802,26 @@ class UserController extends Controller
         );
 
         try {
+            $ico = new Ico();
+
             if (isset($request->znx_amount)) {
-                $ethAmount = RateCalculator::znxToEth($request->znx_amount);
+                $ethAmountParts = RateCalculator::znxToEth($request->znx_amount, time(), $ico);
+
+                $ethAmount = 0;
+
+                foreach ($ethAmountParts as $ethAmountPart) {
+                    $ethAmount += $ethAmountPart['amount'];
+                }
 
                 $balance = (new CurrencyFormatter($ethAmount))->ethFormat()->get();
             } else {
-                $znxAmount = RateCalculator::ethToZnx($request->eth_amount);
+                $znxAmountParts = RateCalculator::ethToZnx($request->eth_amount, time(), $ico);
+
+                $znxAmount = 0;
+
+                foreach ($znxAmountParts as $znxAmountPart) {
+                    $znxAmount += $znxAmountPart['amount'];
+                }
 
                 $balance = (new CurrencyFormatter($znxAmount))->znxFormat()->get();
             }

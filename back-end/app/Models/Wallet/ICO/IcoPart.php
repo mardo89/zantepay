@@ -2,14 +2,49 @@
 
 namespace App\Models\Wallet\ICO;
 
+use App\Models\DB\Contribution;
+use App\Models\DB\ZantecoinTransaction;
 
-abstract class IcoPart
+class IcoPart
 {
+    /**
+     * @var string ICO part ID
+     */
+    protected $id;
+
+    /**
+     * @var string ICO part name
+     */
+    protected $name;
+
+    /**
+     * @var string ICO part start date
+     */
     protected $icoStartDate;
+
+    /**
+     * @var string ICO part end date
+     */
     protected $icoEndDate;
+
+    /**
+     * @var int ICO coins limit
+     */
     protected $icoZnxLimit;
+
+    /**
+     * @var int ICO current coins amount
+     */
     protected $icoZnxAmount;
 
+    /**
+     * @var float ICO etherium rate
+     */
+    protected $ethZnxRate;
+
+    /**
+     * IcoPart constructor.
+     */
     public function __construct()
     {
         $this->init();
@@ -20,29 +55,51 @@ abstract class IcoPart
      *
      * @return mixed
      */
-    abstract protected function init();
-
-    /**
-     * Check if Part is active part
-     *
-     * @return bool
-     */
-    public function isActive() {
-        $currentDate = time();
-
-        $checkDate = strtotime($this->icoStartDate) >= $currentDate && strtotime($this->icoEndDate) < $currentDate;
-        $checkAmount = $this->icoZnxAmount < $this->icoZnxLimit;
-
-        return $checkDate && $checkAmount;
+    protected function init()
+    {
+        $this->icoZnxAmount = ZantecoinTransaction::where('ico_part', $this->getID())
+            ->get()
+            ->sum('amount');
     }
 
     /**
-     * Check if Part is active part
+     * Get part ID
+     *
+     * @return string
+     */
+    public function getID()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get part Name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get ZNX limit
      *
      * @return int
      */
-    public function getLimit() {
+    public function getLimit()
+    {
         return $this->icoZnxLimit;
+    }
+
+    /**
+     * Get ZNX Rate
+     *
+     * @return int
+     */
+    public function getEthRate()
+    {
+        return $this->ethZnxRate;
     }
 
     /**
@@ -50,7 +107,8 @@ abstract class IcoPart
      *
      * @return int
      */
-    public function getBalance() {
+    public function getBalance()
+    {
         return $this->icoZnxLimit - $this->icoZnxAmount;
     }
 
@@ -59,8 +117,25 @@ abstract class IcoPart
      *
      * @return int
      */
-    public function getRate() {
+    public function getRelativeBalance()
+    {
         return $this->icoZnxAmount / $this->icoZnxLimit;
+    }
+
+    /**
+     * Check if Part is active part
+     *
+     * @param int $operationDate
+     *
+     * @return bool
+     */
+    public function isActive($operationDate)
+    {
+//        $checkDate = strtotime($this->icoStartDate) >= $currentDate && strtotime($this->icoEndDate) < $currentDate;
+        $checkDate = $operationDate < strtotime($this->icoEndDate);
+        $checkAmount = $this->icoZnxAmount < $this->icoZnxLimit;
+
+        return $checkDate && $checkAmount;
     }
 
     /**
@@ -68,7 +143,8 @@ abstract class IcoPart
      *
      * @param int $amount
      */
-    public function increaseAmount($amount) {
+    public function increaseAmount($amount)
+    {
         $this->icoZnxAmount += $amount;
     }
 }
