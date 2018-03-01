@@ -43,7 +43,7 @@
                         <div class="masthead__right">
                             @guest
                                 <div class="logon-btns">
-                                    <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign In</a>
+                                    <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Log In</a>
                                     <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
                                 </div>
                             @endguest
@@ -382,7 +382,7 @@
                     </div>
 
                     <div class="text-center lp-row-3">
-                        <div class="text text-uppercase">FIRST 1000 CARDS GET A BONUS OF 1000 ZNX!</div>
+                        <!-- <div class="text text-uppercase">FIRST 1000 CARDS GET A BONUS OF 1000 ZNX!</div> -->
                         <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-light">Register For Pre-ICO</a>
                     </div>
                 </div>
@@ -644,11 +644,6 @@
                         <p>Ron is bringing his experience from SEB Corporate banking. He has more than 20 years of experience in finance,
                             deep understanding of risk, compliance and payment architecture in the EU. Ex CFO at Lukoil Baltic. As an
                             independent financial advisor Ron has led over 600 projects, totaling in over $60m.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <img src="images/michael.jpg" srcset="images/michael@2x.jpg 2x" alt="Michael Neumann">
-                        <h3 class="h4">Michael Neumann <span>Regional Sales Manager</span></h3>
-                        <p>Michael Neumann is a serial entrepreneur and investor of a global scale. Over past 20 years he has built numerous projects in Scandinavia, Eastern Europe, Russia and Asia. His latest venture reached turnover of $500m. Graduated from Handelhøyskolen BI, Michael´s strength is in grasping a business opportunity and scaling. He is also an inspiring role model and motivational speaker. Michael ´s role in the company is scaling ZANTEPAY to become one of the biggest players in the world.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/kristi.jpg" srcset="images/kristi@2x.jpg 2x" alt="Kristi Sild">
