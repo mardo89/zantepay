@@ -7,32 +7,25 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SystemAlert extends Mailable
+class CheckContributions extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * @var string Alert event
+     * @var array Incorrect Contributions List
      */
-    public $event;
-
-    /**
-     * @var string Alert message
-     */
-    public $alertMessage;
+    public $contributionsList;
 
     /**
      * Create a new message instance.
      *
-     * @param string $event
-     * @param string $message
+     * @param array $contributions
      *
      * @return void
      */
-    public function __construct($event, $message)
+    public function __construct($contributions)
     {
-        $this->event = $event;
-        $this->alertMessage = $message;
+        $this->contributionsList = $contributions;
     }
 
     /**
@@ -45,7 +38,6 @@ class SystemAlert extends Mailable
         return $this->subject($this->event)
             ->from(env('CONTACT_EMAIL'))
             ->to(env('SERVICE_EMAIL'))
-            ->view('emails.system-alert');
-
+            ->view('emails.check-contributions');
     }
 }

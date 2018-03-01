@@ -2,11 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\SystemAlert;
+use App\Mail\CheckContributions as CheckContributionMail;
 use App\Models\DB\Contribution;
 use App\Models\DB\ContributionAction;
 use App\Models\DB\Wallet;
-use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\EtheriumApi;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -87,7 +86,7 @@ class CheckContributions extends Command
             }
 
             if (count($incorrectContributions) > 0) {
-//                Mail::send(new SystemAlert('Contributions Check', 'Contributions table contain incorrect data.'));
+                Mail::send(new CheckContributionMail($incorrectContributions));
             }
 
         } catch (\Exception $e) {
