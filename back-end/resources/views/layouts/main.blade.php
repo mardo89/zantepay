@@ -8,6 +8,13 @@
 
     <title>ZANTEPAY</title>
 
+    <!-- Social Networks  Open Graph -->
+    <meta property="og:url" content="http://test.zantepay.com"/>
+    <meta property="og:title" content="ZANTEPAY"/>
+    <meta property="og:description" content="This is ZANTEPAY"/>
+    <meta property="og:image" content="http://test.zantepay.com/images/logo-large.png"/>
+    <!-- End Open Graph -->
+
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
@@ -66,7 +73,7 @@
 
 <!-- Sumo -->
 {{--<script src="//load.sumome.com/" data-sumo-site-id="1b320c3e8fabe2b7fc8de8f8f6a818fc6abdb6eb272f1b25fe8ca580f0bbf5f4"--}}
-        {{--async="async"></script>--}}
+{{--async="async"></script>--}}
 
 <!-- Useproof -->
 <script id=proof-script>!function () {

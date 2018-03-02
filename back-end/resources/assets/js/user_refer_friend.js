@@ -1,5 +1,15 @@
 require('./helpers');
 
+const openShareWindow = (url, windowWidth, windowHeight) => {
+
+    const positionLeft = (screen.availWidth - windowWidth) / 2;
+    const positionTop = (screen.availHeight - windowHeight) / 2;
+    const params = "width=" + windowWidth +", height=" + windowHeight + ", resizable=no, scrollbars=yes, left=" + positionLeft + ", top=" + positionTop;
+
+    window.open(url, '_blank', params)
+
+}
+
 $(document).ready(function () {
 
     $('#invite-friend').on('click', function (event) {
@@ -109,6 +119,36 @@ $(document).ready(function () {
                     showError(message);
                 }
             )
+    });
+
+    $('#fb-share').on('click', function (event) {
+        event.preventDefault();
+
+        openShareWindow(
+            $(this).attr('href'),
+            640,
+            400
+        );
+    });
+
+    $('#tw-share').on('click', function (event) {
+        event.preventDefault();
+
+        openShareWindow(
+            $(this).attr('href'),
+            640,
+            255
+        );
+    });
+
+    $('#google-share').on('click', function (event) {
+        event.preventDefault();
+
+        openShareWindow(
+            $(this).attr('href'),
+            400,
+            480
+        );
     });
 
 });

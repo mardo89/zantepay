@@ -767,19 +767,20 @@ class UserController extends Controller
             ]
         );
 
-
         try {
             $operationID = EtheriumApi::getOperationID($user->uid);
+
+            $ethAddressAction->operation_id = $operationID;
+            $ethAddressAction->save();
+
             $address = EtheriumApi::createAddress($operationID);
+
+            $ethAddressAction->status = EthAddressAction::STATUS_COMPLETE;
+            $ethAddressAction->save();
 
             $wallet = $user->wallet;
             $wallet->eth_wallet = $address;
             $wallet->save();
-
-
-            $ethAddressAction->operation_id = $operationID;
-            $ethAddressAction->status = EthAddressAction::STATUS_COMPLETE;
-            $ethAddressAction->save();
 
         } catch (\Exception $e) {
 

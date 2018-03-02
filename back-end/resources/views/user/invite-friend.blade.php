@@ -55,13 +55,19 @@
                         <span class="field-label">Invite via social media:</span>
                         <div class="row">
                             <div class="col-sm-4 pr-0">
-                                <a href="" class="field-btn btn btn--facebook btn--medium btn--full-w"><i></i>Facebook</a>
+                                <a href="http://www.facebook.com/sharer.php?u={{$referralLink}}&p[title]=Join Me" id="fb-share" class="field-btn btn btn--facebook btn--medium btn--full-w" target="_blank">
+                                    <i></i>Facebook
+                                </a>
                             </div>
                             <div class="col-sm-4 pr-0">
-                                <a href="" class="field-btn btn btn--google btn--medium btn--full-w"><i></i>Google</a>
+                                <a href="https://plus.google.com/share?url={{$referralLink}}" id="google-share" class="field-btn btn btn--google btn--medium btn--full-w" target="_blank">
+                                    <i></i>Google
+                                </a>
                             </div>
                             <div class="col-sm-4 pr-0">
-                                <a href="" class="field-btn btn btn--twitter btn--medium btn--full-w"><i></i>Twitter</a>
+                                <a href="https://twitter.com/intent/tweet?text=Join%20Me%20:&url={{$referralLink}}" id="tw-share" class="field-btn btn btn--twitter btn--medium btn--full-w" target="_blank">
+                                    <i></i>Twitter
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -32,8 +32,6 @@ class IndexController extends Controller
 
         $this->checkExternals();
 
-//        $totalZNX = ZantecoinTransaction::all()->sum('amount');
-
         return view(
             'main.index',
             [
