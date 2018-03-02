@@ -16,16 +16,15 @@ class EtheriumApi
     const ADMIN_ACCOUNT_PASSWORD = 'C0inPa$$word';
 
     /**
-     * Create Etherium address
+     * Create Etherium Operation ID to generate Address
      *
      * @param string $userID
      *
-     * @return mixed
+     * @return string
      * @throws \Exception
      */
-    public static function createAddress($userID)
+    public static function getOperationID($userID)
     {
-        // Get Operation ID
         $apiResponse = self::sendPostRequest(
             '/proxy',
             [
@@ -39,16 +38,26 @@ class EtheriumApi
         );
 
         if (!isset($apiResponse['data']) || !isset($apiResponse['data']->operationId)) {
-            throw new \Exception('Error getting operative ID');
+            throw new \Exception('Error getting operation ID');
         }
 
-        $operationID = $apiResponse['data']->operationId;
+        return $apiResponse['data']->operationId;
+    }
 
-        // Get Address
-        $address = '';
+    /**
+     * Create Etherium address
+     *
+     * @param string $operationID
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public static function createAddress($operationID)
+    {
+        $address = null;
         $requestsCount = 0;
 
-        while ($operationID == '' || $requestsCount < 20) {
+        while ($operationID == '' || $requestsCount < 30) {
             $apiResponse = self::sendGetRequest(
                 '/proxy',
                 'operationId=' . $operationID
@@ -68,7 +77,7 @@ class EtheriumApi
             sleep(10);
         }
 
-        if ($address == '') {
+        if (is_null($address)) {
             throw new \Exception('Error getting address');
         }
 

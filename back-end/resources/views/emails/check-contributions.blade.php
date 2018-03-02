@@ -6,6 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ZANTEPAY</title>
+
+    <style type="text/css">
+
+        h2 {
+            color: rgba(249,33,18,.6);
+        }
+
+        #contributions th {
+            color: #333366;
+            text-align: center;
+            padding: 5px 15px;
+        }
+
+        #contributions td {
+            color: #000;
+            text-align: left;
+            padding: 5px 15px;
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -14,7 +35,7 @@
 
     <br/>
 
-    <table id="message">
+    <table id="contributions" border="1">
         <thead>
             <tr>
                 <th>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\InviteFriend;
 use App\Models\DB\AreaCode;
+use App\Models\DB\EthAddressAction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
@@ -724,10 +725,13 @@ class UserController extends Controller
             ];
         }
 
+        $ethAddressAction = EthAddressAction::where('user_id', $user->id)->get()->last();
+
         return view(
             'user.wallet',
             [
                 'wallet' => $wallet,
+                'gettingAddress' => optional($ethAddressAction)->status === EthAddressAction::STATUS_IN_PROGRESS,
                 'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
                 'znx_rate' => (new CurrencyFormatter($ethRate))->ethFormat()->get(),
                 'contributions' => $contributions
@@ -737,7 +741,7 @@ class UserController extends Controller
 
 
     /**
-     * Update wallet link
+     * Create Etherium address
      *
      * @return JSON
      */
@@ -745,30 +749,53 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        DB::beginTransaction();
+        $lastAction = EthAddressAction::where('user_id', $user->id)->get()->last();
 
-        try {
-
-            $wallet = $user->wallet;
-
-            $wallet->eth_wallet = EtheriumApi::createAddress($user->uid);
-
-            $wallet->save();
-
-        } catch (\Exception $e) {
-
-            DB::rollback();
-
+        if (optional($lastAction)->status === EthAddressAction::STATUS_IN_PROGRESS || optional($lastAction)->status === EthAddressAction::STATUS_COMPLETE) {
             return response()->json(
                 [
-                    'message' => 'Error creating Wallet Address',
+                    'message' => 'Operation in-progress or Etherium address already exists.',
                     'errors' => []
                 ],
                 500
             );
         }
 
-        DB::commit();
+        $ethAddressAction = EthAddressAction::create(
+            [
+                'user_id' => $user->id,
+            ]
+        );
+
+
+        try {
+            $operationID = EtheriumApi::getOperationID($user->uid);
+            $address = EtheriumApi::createAddress($operationID);
+
+            $wallet = $user->wallet;
+            $wallet->eth_wallet = $address;
+            $wallet->save();
+
+
+            $ethAddressAction->operation_id = $operationID;
+            $ethAddressAction->status = EthAddressAction::STATUS_COMPLETE;
+            $ethAddressAction->save();
+
+        } catch (\Exception $e) {
+
+            $ethAddressAction->status = EthAddressAction::STATUS_FAILED;
+            $ethAddressAction->error_message = $e->getMessage();
+            $ethAddressAction->save();
+
+            return response()->json(
+                [
+                    'message' => 'Error creating Wallet Addresss',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
 
         return response()->json(
             [

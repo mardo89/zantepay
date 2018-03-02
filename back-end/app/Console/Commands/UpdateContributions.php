@@ -55,7 +55,7 @@ class UpdateContributions extends Command
 
             $lastContributionOperation = ContributionAction::all()->last();
 
-            $continuationToken = optional($lastContributionOperation)->continuation_token ?? 0;
+            $continuationToken = optional($lastContributionOperation)->continuation_token ?? null;
 
             $contributions = EtheriumApi::getContributions($continuationToken);
 

@@ -79,7 +79,7 @@ class RestoreContributions extends Command
     {
         $this->info('Remove Zantecoin transactions ...');
 
-        ZantecoinTransaction::where('operation_type', ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX)->delete();
+        ZantecoinTransaction::where('transaction_type', ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX)->delete();
 
         $this->info('done!');
         $this->info('');
@@ -113,7 +113,7 @@ class RestoreContributions extends Command
 
         $continuationToken = optional($lastContributionOperation)->continuation_token ?? 0;
 
-        $contributions = EtheriumApi::getContributions($continuationToken);
+        $contributions = EtheriumApi::getContributions(null, $continuationToken);
 
         if (count($contributions['contributions']) > 0) {
 

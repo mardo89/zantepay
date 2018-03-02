@@ -40,7 +40,23 @@
                 <div>
                     <div class="mb-20 text-regular">Your personal Ethereum address to fund this account:</div>
                     <div class="row row-middle wallet">
-                        @if($wallet->eth_wallet)
+                        @if ($gettingAddress)
+                            <div class="col col-md-3">
+                                <a href="" class="btn btn--shadowed-light btn--medium mt-sm-15 is-loading" disabled>
+                                    Create Address
+                                    <div class="spinner spinner--30">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col col-md-12 mt-20 primary-color text-sm address-warning">
+                                Your request is pending. Please refresh the page to see the result.
+                            </div>
+                        @elseif($wallet->eth_wallet)
                             <div class="col col-sm-auto text-lg wordwrap address">{{ $wallet->eth_wallet }}</div>
 
                             <div class="col col-md-3">

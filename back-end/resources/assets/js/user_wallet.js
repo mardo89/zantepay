@@ -26,6 +26,14 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
+        button.parent().after(
+            $('<div />')
+                .addClass('col col-md-12 mt-20 primary-color text-sm address-warning')
+                .append(
+                    $('<span />').text('This operation can take up to 5 minutes. Please do not close or refresh this page.')
+                )
+        );
+
         axios.post(
             '/user/wallet/address',
             qs.stringify({})
@@ -33,6 +41,8 @@ $(document).ready(function () {
             .then(
                 response => {
                     hideSpinner(button);
+
+                    $('.address-warning').remove();
 
                     const wrapper = button.parent();
 
@@ -74,6 +84,8 @@ $(document).ready(function () {
             .catch(
                 error => {
                     hideSpinner(button);
+
+                    $('.address-warning').remove();
 
                     const {message} = error.response.data;
 

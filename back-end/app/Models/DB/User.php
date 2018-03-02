@@ -15,7 +15,6 @@ class User extends Authenticatable
     const USER_ROLE_ADMIN = 0;
     const USER_ROLE_MANAGER = 1;
     const USER_ROLE_USER = 2;
-    const USER_ROLE_SALES = 3;
 
     /**
      * User statuses
@@ -92,9 +91,6 @@ class User extends Authenticatable
             case self::USER_ROLE_USER:
                 return 'User';
 
-            case self::USER_ROLE_SALES:
-                return 'Sales';
-
             default:
                 return '';
         }
@@ -113,10 +109,6 @@ class User extends Authenticatable
             [
                 'id' => self::USER_ROLE_MANAGER,
                 'name' => self::getRole(self::USER_ROLE_MANAGER)
-            ],
-            [
-                'id' => self::USER_ROLE_SALES,
-                'name' => self::getRole(self::USER_ROLE_SALES)
             ],
             [
                 'id' => self::USER_ROLE_USER,
