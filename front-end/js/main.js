@@ -265,8 +265,8 @@ $(document).ready(function() {
   $(document).on('click', '.tabs-head a', function(e) {
     e.preventDefault();
     var thisHref = $(this).attr('href');
-    $('.tabs-head li').removeClass('is-active');
-    $('.tab-body').removeClass('is-active');
+    $(this).closest('.tabs-head').find('li').removeClass('is-active');
+    $(thisHref).closest('.tabs-wrap').find('.tab-body').removeClass('is-active');
     $(this).parent().addClass('is-active');
     $(thisHref).addClass('is-active');
     if ( thisHref != '#profile') {
