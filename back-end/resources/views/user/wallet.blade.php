@@ -133,16 +133,16 @@
                                     <tr>
                                         <td class="col-left">Etherium</td>
                                         <td>ETH</td>
-                                        <td>{{ $znx_rate }}</td>
+                                        <td>{{ $ico['znx_rate'] }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div>
-                            <h2 class="h4 mb-20">Pre-sale starts in:</h2>
+                            <h2 class="h4 mb-20">{{ $ico['part_name'] }} starts in:</h2>
                             <div class="countdown">
-                                <span class="js-countdown" data-date="2018/03/12 12:34:00"></span>
+                                <span class="js-countdown" data-date="{{ $ico['start_date'] }}"></span>
                             </div>
                         </div>
                     </div>

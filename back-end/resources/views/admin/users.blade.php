@@ -2,7 +2,11 @@
 
 @section('main-menu')
     <li class="current-menu-item"><a href="users">Users</a></li>
-    <li><a href="wallet">Wallet</a></li>
+
+    @if(\Illuminate\Support\Facades\Auth::user()->role === \App\Models\DB\User::USER_ROLE_ADMIN)
+        <li><a href="wallet">Wallet</a></li>
+    @endif
+
 @endsection
 
 @section('content')
@@ -18,7 +22,8 @@
                                 @foreach($roles as $role)
                                     <div class="col-lg-4">
                                         <div class="checkbox">
-                                            <input type="checkbox" name="role-filter" id="{{ "rf" . $role['id'] }}" value="{{ $role['name'] }}" checked>
+                                            <input type="checkbox" name="role-filter" id="{{ "rf" . $role['id'] }}"
+                                                   value="{{ $role['name'] }}" checked>
                                             <label for="{{ "rf" . $role['id'] }}">{{ $role['name'] }}</label>
                                         </div>
                                     </div>
@@ -55,7 +60,8 @@
                                 @foreach($statuses as $status)
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="checkbox">
-                                            <input type="checkbox" name="status-filter" id="{{ "sf" . $status['id'] }}" value="{{ $status['name'] }}" checked>
+                                            <input type="checkbox" name="status-filter" id="{{ "sf" . $status['id'] }}"
+                                                   value="{{ $status['name'] }}" checked>
                                             <label for="{{ "sf" . $status['id'] }}">{{ $status['name'] }}</label>
                                         </div>
                                     </div>

@@ -45,7 +45,7 @@
                     </nav>
 
                     <div class="masthead__right">
-                        @if(\Illuminate\Support\Facades\Auth::user()->role === \App\Models\DB\User::USER_ROLE_ADMIN)
+                        @if(\Illuminate\Support\Facades\Auth::user()->role === \App\Models\DB\User::USER_ROLE_ADMIN || \Illuminate\Support\Facades\Auth::user()->role === \App\Models\DB\User::USER_ROLE_MANAGER)
                             <div class="logon-btns">
                                 <a href="/admin/users" class="btn btn--small btn--shadowed-dark">Manage</a>
                                 <a id="logout-btn" href="" class="btn btn--small btn--shadowed-dark">Logout</a>
@@ -81,6 +81,7 @@
 <script src="/js/components/particles.min.js"></script>
 <script src="/js/components/jquery.magnific-popup.min.js"></script>
 <script src="/js/components/datepicker.js"></script>
+<script src="/js/components/jquery.countdown.min.js"></script>
 
 @yield('scripts')
 
@@ -114,7 +115,7 @@
 
 <!-- Sumo -->
 {{--<script src="//load.sumome.com/" data-sumo-site-id="1b320c3e8fabe2b7fc8de8f8f6a818fc6abdb6eb272f1b25fe8ca580f0bbf5f4"--}}
-        {{--async="async"></script>--}}
+{{--async="async"></script>--}}
 
 <!-- Useproof -->
 <script id=proof-script>!function () {

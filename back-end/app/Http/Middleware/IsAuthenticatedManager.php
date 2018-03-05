@@ -6,7 +6,7 @@ use App\Models\DB\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class IsAuthenticatedAdmin
+class IsAuthenticatedManager
 {
     /**
      * Handle an incoming request.
@@ -30,7 +30,7 @@ class IsAuthenticatedAdmin
         }
 
         // Check role
-        if ($user->role != User::USER_ROLE_ADMIN) {
+        if ($user->role == User::USER_ROLE_USER) {
             return redirect('/');
         }
 

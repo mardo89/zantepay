@@ -2,7 +2,11 @@
 
 @section('main-menu')
     <li class="current-menu-item"><a href="users">Users</a></li>
-    <li><a href="wallet">Wallet</a></li>
+
+    @if(\Illuminate\Support\Facades\Auth::user()->role === \App\Models\DB\User::USER_ROLE_ADMIN)
+        <li><a href="wallet">Wallet</a></li>
+    @endif
+
 @endsection
 
 @section('content')
@@ -27,7 +31,7 @@
                                 <a href="#account-wallets">Account & Wallets</a>
                             </li>
                         </ul>
-                        @if(count($userRoles) > 0)
+                        @if(\Illuminate\Support\Facades\Auth::user()->role === \App\Models\DB\User::USER_ROLE_ADMIN && count($userRoles) > 0)
                             <div class="form-group">
                                 <label class="field-label">Role:</label>
                                 <select name="user-role" class="input-field">
@@ -126,7 +130,9 @@
                                 </div>
                             </div>
 
-                            <input id="remove-user" class="mt-20 btn btn--medium btn--shadowed-light" type="button" value="Delete User">
+                            @if(\Illuminate\Support\Facades\Auth::user()->role === \App\Models\DB\User::USER_ROLE_ADMIN && count($userRoles) > 0)
+                                <input id="remove-user" class="mt-20 btn btn--medium btn--shadowed-light" type="button" value="Delete User">
+                            @endif
                         </div>
                     </div>
                     <!-- END tab Profile -->
@@ -180,13 +186,15 @@
                                             <object width="100%" height="300px" type="application/pdf"
                                                     data="{{ $document['src'] }}"></object>
 
-                                            <a href="{{ $document['src'] }}" target="_blank" class="mt-40 mb-20 btn btn--small btn--shadowed-light">
+                                            <a href="{{ $document['src'] }}" target="_blank"
+                                               class="mt-40 mb-20 btn btn--small btn--shadowed-light">
                                                 View
                                             </a>
                                         @else
                                             <img width="100%" src="{{ $document['src'] }}"/>
 
-                                            <a href="{{ $document['src'] }}" target="_blank" class="mt-40 mb-20 btn btn--small btn--shadowed-light">
+                                            <a href="{{ $document['src'] }}" target="_blank"
+                                               class="mt-40 mb-20 btn btn--small btn--shadowed-light">
                                                 View
                                             </a>
                                         @endif
@@ -233,13 +241,15 @@
                                             <object width="100%" height="300px" type="application/pdf"
                                                     data="{{ $document['src'] }}"></object>
 
-                                            <a href="{{ $document['src'] }}" target="_blank" class="mt-40 mb-20 btn btn--small btn--shadowed-light">
+                                            <a href="{{ $document['src'] }}" target="_blank"
+                                               class="mt-40 mb-20 btn btn--small btn--shadowed-light">
                                                 View
                                             </a>
                                         @else
                                             <img width="500px" src="{{ $document['src'] }}"/>
 
-                                            <a href="{{ $document['src'] }}" target="_blank" class="mt-40 mb-20 btn btn--small btn--shadowed-light">
+                                            <a href="{{ $document['src'] }}" target="_blank"
+                                               class="mt-40 mb-20 btn btn--small btn--shadowed-light">
                                                 View
                                             </a>
                                         @endif

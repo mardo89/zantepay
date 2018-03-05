@@ -16,8 +16,10 @@ Route::post('seed-investor', 'IndexController@saveInvestor');
  * Mailing
  */
 Route::group(['prefix' => 'mail'], function () {
+
     Route::post('activate-account', 'MailController@activateAccount');
     Route::post('contact-us', 'MailController@contactUs');
+
 });
 
 
@@ -25,6 +27,7 @@ Route::group(['prefix' => 'mail'], function () {
  * Account
  */
 Route::group(['prefix' => 'account'], function () {
+
     Route::post('register', 'AccountController@register');
     Route::post('login', 'AccountController@login');
     Route::post('logout', 'AccountController@logout');
@@ -44,6 +47,7 @@ Route::group(['prefix' => 'account'], function () {
  * USER
  */
 Route::group(['prefix' => 'user'], function () {
+
     Route::get('states', 'UserController@getStates');
     Route::get('profile', 'UserController@profile');
     Route::post('profile', 'UserController@saveProfile');
@@ -76,22 +80,23 @@ Route::group(['prefix' => 'user'], function () {
  * ADMIN
  */
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('users', 'AdminController@users');
 
-    Route::get('profile', 'AdminController@profile');
-    Route::post('profile', 'AdminController@saveProfile');
-    Route::post('profile/remove', 'AdminController@removeProfile');
+    Route::get('users', 'AdminController@users')->middleware('auth.manager');
 
-    Route::get('document', 'AdminController@document');
-    Route::post('document/approve', 'AdminController@approveDocument');
-    Route::post('document/decline', 'AdminController@declineDocument');
+    Route::get('profile', 'AdminController@profile')->middleware('auth.manager');
+    Route::post('profile', 'AdminController@saveProfile')->middleware('auth.admin');
+    Route::post('profile/remove', 'AdminController@removeProfile')->middleware('auth.admin');
 
-    Route::get('wallet', 'AdminController@wallet');
-    Route::post('wallet/znx', 'AdminController@addZNX');
-    Route::post('wallet', 'AdminController@updateWallet');
+    Route::get('document', 'AdminController@document')->middleware('auth.manager');
+    Route::post('document/approve', 'AdminController@approveDocument')->middleware('auth.manager');
+    Route::post('document/decline', 'AdminController@declineDocument')->middleware('auth.manager');
+
+    Route::get('wallet', 'AdminController@wallet')->middleware('auth.admin');
+    Route::post('wallet/znx', 'AdminController@addZNX')->middleware('auth.admin');
+    Route::post('wallet', 'AdminController@updateWallet')->middleware('auth.admin');
 
 });
 
-Route::get('/test-email', function () {
-    return new App\Mail\ResetPassword('1234567890');
-});
+//Route::get('/test-email', function () {
+//    return new App\Mail\ResetPassword('1234567890');
+//});
