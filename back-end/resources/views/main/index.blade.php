@@ -28,7 +28,7 @@
                                 <li><a href="#ico">ICO</a></li>
                                 <li><a href="#team">Team</a></li>
                                 <li><a href="">FAQ</a></li>
-                                <li><a href="#contacts">Contacts</a></li>
+                                <li><a href="#contacts" onclick="ga('send',  'event',  'button', 'onclick', 'contacts');">Contacts</a></li>
                                 <li>
                                     <a href="">Development</a>
                                     <ul>
@@ -94,13 +94,14 @@
                 <h1 class="h2 header__title text-uppercase">Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one
                     card</h1>
                 <div class="horizontal-btns">
-                    <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
+                    <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
-                    <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260">Register For Pre-ICO</a>
+                    <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
+                    <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a> -->
                 </div>
                 <div class="investors-block">
                     <h3 class="h4 text-uppercase">We are looking for seed investors</h3>
-                    <a href="#become-our-seed-investors" class="js-popup-link btn btn--shadowed-dark btn--260">Become An Investor</a>
+                    <a href="#become-our-seed-investors" class="js-popup-link btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'become_an_investor');">Become An Investor</a>
                 </div>
                 <h3 class="h4 text-uppercase"> 1 ETH = 14285 ZNX<br><br> Pre-sale starts in</h3>
                 <div class="countdown">
@@ -187,7 +188,8 @@
                 </div>
 
                 <div class="lp-section-two-btn">
-                    <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260">Register For Pre-ICO</a>
+                    <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
+                    <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a> -->
                 </div>
             </div>
         </div>
@@ -284,14 +286,15 @@
                         <div class="lp-image-container4">
                             <img src="images/ICO.png" alt="ICO">
                         </div>
-                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260">Whitepaper</a>
+                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
                     </div>
                     <div class="col-sm-6 text-center">
                         <h3 class="h2 headline">Token <br> distribution</h3>
                         <div class="lp-image-container4">
                             <img src="images/token-distribution.png" alt="Token Distribution">
                         </div>
-                        <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260">Register For Pre-ICO</a>
+                        <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
+                        <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a> -->
                     </div>
                 </div>
 
@@ -383,7 +386,8 @@
 
                     <div class="text-center lp-row-3">
                         <!-- <div class="text text-uppercase">FIRST 1000 CARDS GET A BONUS OF 1000 ZNX!</div> -->
-                        <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-light">Register For Pre-ICO</a>
+                        <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-light" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
+                        <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Buy Tokens NOW</a> -->
                     </div>
                 </div>
             </section>
@@ -720,7 +724,7 @@
                                       placeholder="Your message"></textarea>
                         </div>
                         <div class="text-center">
-                            <input class="btn btn--shadowed-dark btn--160" type="submit" value="Send">
+                            <input class="btn btn--shadowed-dark btn--160" type="submit" value="Send" onclick="ga('send',  'event',  'button', 'onclick', 'send');">
                         </div>
                     </form>
                 </div>
@@ -871,7 +875,7 @@
                 </div>
                 <div class="text-gray text-sm">The payment will be made in ETH</div>
                 <div class="logon-submit">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe" onclick="ga('send',  'event',  'button', 'onclick', 'subscribe');">
                 </div>
             </form>
         </div>
