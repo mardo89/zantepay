@@ -776,7 +776,7 @@ class UserController extends Controller
         );
 
         try {
-            $operationID = EtheriumApi::getOperationID($user->uid);
+            $operationID = EtheriumApi::getAddressOID($user->uid);
 
             $ethAddressAction->operation_id = $operationID;
             $ethAddressAction->save();

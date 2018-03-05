@@ -2,7 +2,11 @@
 
 @section('main-menu')
     <li><a href="users">Users</a></li>
-    <li class="current-menu-item"><a href="wallet">Wallet</a></li>
+
+    @if(\Illuminate\Support\Facades\Auth::user()->role === \App\Models\DB\User::USER_ROLE_ADMIN)
+        <li class="current-menu-item"><a href="wallet">Wallet</a></li>
+    @endif
+
 @endsection
 
 @section('content')

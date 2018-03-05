@@ -5,7 +5,6 @@ namespace App\Models\Wallet;
 
 class EtheriumApi
 {
-
     const API_URL = 'https://test.ethereum.node.zantepay.com';
     const API_PORT = 443;
 
@@ -23,7 +22,7 @@ class EtheriumApi
      * @return string
      * @throws \Exception
      */
-    public static function getOperationID($userID)
+    public static function getAddressOID($userID)
     {
         $apiResponse = self::sendPostRequest(
             '/proxy',
@@ -115,6 +114,120 @@ class EtheriumApi
         ];
     }
 
+
+    /**
+     * Grand ICO coins
+     *
+     * @param int $amount
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public static function grantICOCoins($amount) {
+        $operationID = self::getCoinsOID('ico', $amount);
+
+        return self::checkCoinsStatus($operationID);
+    }
+
+    /**
+     * Marketing coins
+     *
+     * @param int $amount
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public static function marketingCoins($amount) {
+        $operationID = self::getCoinsOID('marketing', $amount);
+
+        return self::checkCoinsStatus($operationID);
+    }
+
+    /**
+     * Company coins
+     *
+     * @param int $amount
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public static function companyCoins($amount) {
+        $operationID = self::getCoinsOID('company', $amount);
+
+        return self::checkCoinsStatus($operationID);
+    }
+
+    /**
+     * Create Etherium Operation ID to Grand ICO/Marketing/Company
+     *
+     * @param string $grantType
+     * @param int $amount
+     *
+     * @return string
+     * @throws \Exception
+     */
+    protected static function getCoinsOID($grantType, $amount)
+    {
+        $apiResponse = self::sendPostRequest(
+            '/coins',
+            [
+                'grantType' => $grantType,
+                'amount' => $amount
+            ],
+            [
+                'Content-Type: application/json',
+                'X-ZantePay-Admin-AccountId: ' . self::ADMIN_ACCOUNT_ID,
+                'X-ZantePay-Admin-Password: ' . self::ADMIN_ACCOUNT_PASSWORD,
+            ]
+        );
+
+        if (!isset($apiResponse['data']) || !isset($apiResponse['data']->operationId)) {
+            throw new \Exception('Error getting operation ID');
+        }
+
+        return $apiResponse['data']->operationId;
+    }
+
+    /**
+     * Create Etherium address
+     *
+     * @param string $operationID
+     *
+     * @return string
+     * @throws \Exception
+     */
+    protected static function checkCoinsStatus($operationID)
+    {
+        $status = null;
+        $requestsCount = 0;
+
+        while ($operationID == '' || $requestsCount < 30) {
+            $apiResponse = self::sendGetRequest(
+                '/operation/' . $operationID
+            );
+
+            if ($apiResponse['status'] == 400) {
+                break;
+            }
+
+            if ($apiResponse['status'] == 200 && isset($apiResponse['data']->status)) {
+                $status = $apiResponse['data']->status;
+                break;
+            }
+
+            $requestsCount++;
+
+            sleep(10);
+        }
+
+        if (is_null($status)) {
+            throw new \Exception('Error sending coins');
+        }
+
+        return $status;
+    }
+
+
     /**
      * Send GET request
      *
@@ -123,7 +236,7 @@ class EtheriumApi
      *
      * @return array|mixed
      */
-    protected static function sendGetRequest($endpoint, $params)
+    protected static function sendGetRequest($endpoint, $params = '')
     {
         $ch = curl_init();
 

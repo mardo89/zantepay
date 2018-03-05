@@ -84,7 +84,7 @@ $(document).ready(function () {
                             closeOnBgClick: true,
                             callbacks: {
                                 close: function() {
-                                    window.location.pathname = '/admin/users'
+                                    window.location = '/admin/users'
                                 }
                             }
                         }
