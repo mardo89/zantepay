@@ -81,6 +81,7 @@
 <script src="/js/components/particles.min.js"></script>
 <script src="/js/components/jquery.magnific-popup.min.js"></script>
 <script src="/js/components/datepicker.js"></script>
+<script src="/js/components/jquery.countdown.min.js"></script>
 
 @yield('scripts')
 

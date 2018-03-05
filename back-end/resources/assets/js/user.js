@@ -168,6 +168,23 @@ $(document).ready(function () {
         );
     }
 
+    // Count down
+    if ($('.js-countdown').length) {
+        var date = $('.js-countdown').data('date');
+        $('.js-countdown').countdown(date)
+            .on('update.countdown', function (event) {
+                var dateFormat = '<span class="countdown-group"><span class="countdown-txt-lg">%D</span><span class="countdown-txt-sm">Days</span></span>';
+                dateFormat += '<span class="countdown-dots">:</span><span class="countdown-group"><span class="countdown-txt-lg">%H</span><span class="countdown-txt-sm">Hours</span></span>';
+                dateFormat += '<span class="countdown-dots">:</span><span class="countdown-group"><span class="countdown-txt-lg">%M</span><span class="countdown-txt-sm">Minutes</span></span>';
+                dateFormat += '<span class="countdown-dots">:</span><span class="countdown-group"><span class="countdown-txt-lg">%S</span><span class="countdown-txt-sm">Seconds</span></span>';
+
+                $(this).html(event.strftime(dateFormat));
+            })
+            .on('finish.countdown', function (event) {
+                $(this).html('This offer has expired!').parent().addClass('disabled');
+            });
+    }
+
     // Logout
     $('#logout-btn').on('click', function (event) {
         event.preventDefault();

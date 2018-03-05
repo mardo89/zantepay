@@ -708,7 +708,11 @@ class UserController extends Controller
 
         $ico = new Ico();
 
-        $ethRate = optional($ico->getActivePart())->getEthRate() ?? 0;
+        $activeIcoPart = $ico->getActivePart();
+
+        $ethRate = optional($activeIcoPart)->getEthRate() ?? 0;
+        $startDate = optional($activeIcoPart)->getStartDate() ?? null;
+        $icoPartName = optional($activeIcoPart)->getName() ?? '';
 
         $contributions = [];
 
@@ -733,7 +737,11 @@ class UserController extends Controller
                 'wallet' => $wallet,
                 'gettingAddress' => optional($ethAddressAction)->status === EthAddressAction::STATUS_IN_PROGRESS,
                 'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
-                'znx_rate' => (new CurrencyFormatter($ethRate))->ethFormat()->get(),
+                'ico' => [
+                    'znx_rate' => (new CurrencyFormatter($ethRate))->ethFormat()->get(),
+                    'start_date' => $startDate ? date('Y/m/d H:i:s', strtotime($startDate)) : '',
+                    'part_name' => $icoPartName
+                ],
                 'contributions' => $contributions
             ]
         );

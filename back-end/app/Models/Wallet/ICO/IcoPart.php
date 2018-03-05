@@ -123,6 +123,26 @@ class IcoPart
     }
 
     /**
+     * Get start date
+     *
+     * @return string
+     */
+    public function getStartDate()
+    {
+        return $this->icoStartDate;
+    }
+
+    /**
+     * Get end date
+     *
+     * @return string
+     */
+    public function getEndDate()
+    {
+        return $this->icoEndDate;
+    }
+
+    /**
      * Check if Part is active part
      *
      * @param int $operationDate

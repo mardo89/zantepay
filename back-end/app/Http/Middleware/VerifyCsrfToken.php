@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'ico-registration',
-        'ico-registration',
+        'seed-investor',
+        'contact-us',
     ];
 }
