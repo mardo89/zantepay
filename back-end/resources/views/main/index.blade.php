@@ -97,7 +97,7 @@
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
                     <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                 </div>
-                <h3 class="h4 text-uppercase"> 1 ETH = 14285 ZNX<br></h3>
+                <h3 class="h4 text-uppercase"> 1 ETH = 14285 ZNX<br><br> Pre-ICO ends in</h3>
                 <div class="countdown">
                     <span class="js-countdown" data-date="2018/04/15 00:00:00"></span>
                 </div>
