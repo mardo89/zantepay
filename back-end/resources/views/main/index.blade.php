@@ -96,8 +96,8 @@
                 <div class="horizontal-btns">
                     <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
-                    <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
-                    <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a> -->
+                    {{--<a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>--}}
+                    <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                 </div>
                 <div class="investors-block">
                     <h3 class="h4 text-uppercase">We are looking for seed investors</h3>

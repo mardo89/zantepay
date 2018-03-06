@@ -383,6 +383,9 @@ class AccountController extends Controller
             case User::USER_ROLE_MANAGER:
                 return '/admin/users';
 
+            case User::USER_ROLE_SALES:
+                return '/admin/users';
+
             case User::USER_ROLE_USER:
                 return '/user/wallet';
 

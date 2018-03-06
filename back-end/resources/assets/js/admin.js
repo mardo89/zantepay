@@ -57,7 +57,7 @@ $(document).ready(function () {
         )
             .then(
                 () => {
-                    window.location.pathname = '/';
+                    window.location = '/';
                 }
             )
     });
