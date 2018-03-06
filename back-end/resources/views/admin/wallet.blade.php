@@ -46,7 +46,7 @@
 
 
             <div class="dashboard-top-panel">
-                <div class="dashboard-top-panel-row">
+                <div class="dashboard-top-panel-row tabs-head-wrap">
                     <ul class="tabs-head">
                         <li class="is-active">
                             <a href="#admin-zantecoin">ZanteCoin</a>
@@ -65,47 +65,203 @@
                     <div class="dashboard-group">
                         <!-- TODO: this part is demo. Need to connect user wallet addresses database -->
                         <h2 class="h4 headline-mb">Issue ICO coins</h2>
-                        <p><b>Click Issue Token button to send tokens to participant</b></p>
-                        <div class="table-responsive-500">
+                        <div class="table-responsive-500 table--left">
                             <table id="ico-participants" class="table table-black">
                                 <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Proxy address</th>
-                                    <th><span id="symbol"></span></th>
-                                    <th>Issue tokens</th>
-                                </tr>
+                                    <tr>
+                                        <th class="col-left sort">ICO status <span class="caret"></span></th>
+                                        <th class="sort sort-asc">Total coins <span class="caret"></span></th>
+                                        <th class="sort sort-desc">Available coins <span class="caret"></span></th>
+                                        <th class="sort">ETH received <span class="caret"></span></th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>0x3E96dadD4caE102F7fA4cff012F218449Ad5d5d8</td>
-                                    <td>100000</td>
-                                    <td>
-                                        <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>0x79791E2b5934eA0556C707dc8faB80DCD3BF06C2</td>
-                                    <td>200000</td>
-                                    <td>
-                                        <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Ashton Cox</td>
-                                    <td>0x8f3FbdeE15F51c38A057688275d2B91652E0132C</td>
-                                    <td>300000</td>
-                                    <td>
-                                        <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token
-                                        </button>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="col-left">Pre-ICO (started 15.03.2018) - current</td>
+                                        <td>30 000 000</td>
+                                        <td>30 000 000</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-left">Ico I (starts 15.04.2018 19:00)</td>
+                                        <td>70 000 000</td>
+                                        <td>70 000 000</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-left">Ico II (starts 15.05.2018 19:00)</td>
+                                        <td>200 000 000</td>
+                                        <td>200 000 000</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-left">Ico III (starts 15.06.2018 19:00)</td>
+                                        <td>300 000 000</td>
+                                        <td>300 000 000</td>
+                                        <td>0</td>
+                                    </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="dashboard-group">
+                        <p><b>Click Issue Token button to send tokens to participant</b></p>
+                        <div class="dashboard-top-panel-row dashboard-top-panel-row--sm tabs-head-wrap mb-10">
+                            <ul class="tabs-head">
+                                <li class="is-active">
+                                    <a href="#pre-ico">Pre-ICO</a>
+                                </li>
+                                <li>
+                                    <a href="#ico1">ICO I</a>
+                                </li>
+                                <li>
+                                    <a href="#ico2">ICO II</a>
+                                </li>
+                                <li>
+                                    <a href="#ico3">ICO III</a>
+                                </li>
+                                <li>
+                                    <a href="#total">Total</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tabs-wrap">
+                            <!-- pre ico -->
+                            <div class="tab-body is-active" id="pre-ico">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort"><span id="symbol"></span> <span class="caret"></span></th>
+                                            <th class="sort">Issue tokens <span class="caret"></span></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>0x3E96dadD4caE102F7fA4cff012F218449Ad5d5d8</td>
+                                            <td>100000</td>
+                                            <td>
+                                                <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Garrett Winters</td>
+                                            <td>0x79791E2b5934eA0556C707dc8faB80DCD3BF06C2</td>
+                                            <td>200000</td>
+                                            <td>
+                                                <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ashton Cox</td>
+                                            <td>0x8f3FbdeE15F51c38A057688275d2B91652E0132C</td>
+                                            <td>300000</td>
+                                            <td>
+                                                <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- ico 1 -->
+                            <div class="tab-body" id="ico1">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Proxy address</th>
+                                                <th><span id="symbol"></span></th>
+                                                <th>Issue tokens</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>---</td>
+                                                <td>---</td>
+                                                <td>---</td>
+                                                <td>---</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- ico 2 -->
+                            <div class="tab-body" id="ico2">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Proxy address</th>
+                                                <th><span id="symbol"></span></th>
+                                                <th>Issue tokens</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>---</td>
+                                                <td>---</td>
+                                                <td>---</td>
+                                                <td>---</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- ico 3 -->
+                            <div class="tab-body" id="ico3">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Proxy address</th>
+                                                <th><span id="symbol"></span></th>
+                                                <th>Issue tokens</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>---</td>
+                                                <td>---</td>
+                                                <td>---</td>
+                                                <td>---</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- Total -->
+                            <div class="tab-body" id="total">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Proxy address</th>
+                                                <th><span id="symbol"></span></th>
+                                                <th>Issue tokens</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>---</td>
+                                                <td>---</td>
+                                                <td>---</td>
+                                                <td>---</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
