@@ -197,9 +197,7 @@ $(document).ready(function () {
         )
             .then(
                 () => {
-                    // $.magnificPopup.close();
-
-                    window.location.pathname = '/';
+                    window.location = '/';
                 }
             )
     });

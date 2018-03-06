@@ -77,24 +77,23 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 /**
- * ADMIN
+ * ADMIN / MANAGER / SALES
  */
 Route::group(['prefix' => 'admin'], function () {
 
-    Route::get('users', 'AdminController@users')->middleware('auth.manager');
+    Route::get('users', 'ManagerController@users');
 
-    Route::get('profile', 'AdminController@profile')->middleware('auth.manager');
-    Route::post('profile', 'AdminController@saveProfile')->middleware('auth.admin');
-    Route::post('profile/remove', 'AdminController@removeProfile')->middleware('auth.admin');
+    Route::get('profile', 'ManagerController@profile');
+    Route::post('profile', 'AdminController@saveProfile');
+    Route::post('profile/remove', 'AdminController@removeProfile');
 
-    Route::get('document', 'AdminController@document')->middleware('auth.manager');
-    Route::post('document/approve', 'AdminController@approveDocument')->middleware('auth.manager');
-    Route::post('document/decline', 'AdminController@declineDocument')->middleware('auth.manager');
+    Route::get('document', 'ManagerController@document');
+    Route::post('document/approve', 'ManagerController@approveDocument');
+    Route::post('document/decline', 'ManagerController@declineDocument');
 
-    Route::get('wallet', 'AdminController@wallet')->middleware('auth.admin');
-    Route::post('wallet/znx', 'AdminController@addZNX')->middleware('auth.admin');
-    Route::post('wallet', 'AdminController@updateWallet')->middleware('auth.admin');
-
+    Route::get('wallet', 'AdminController@wallet');
+    Route::post('wallet/znx', 'ManagerController@addZNX');
+    Route::post('wallet', 'ManagerController@updateWallet');
 });
 
 //Route::get('/test-email', function () {

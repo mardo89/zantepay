@@ -406,7 +406,7 @@ $(document).ready(function () {
 
                     $.magnificPopup.close();
 
-                    window.location.pathname = response.data.userPage;
+                    window.location = response.data.userPage;
                 }
             )
             .catch(
