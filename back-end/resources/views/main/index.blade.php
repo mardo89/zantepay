@@ -25,16 +25,16 @@
                             <ul>
                                 <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a></li>
                                 <li><a href="#ico">ICO</a></li>
-                                <!-- <li><a href="">Bounty</a></li> -->
+                                <li><a href="">Bounty</a></li>
                                 <li><a href="#team">Team</a></li>
-                                <!-- <li>
+                                <li>
                                     <a href="">Development</a>
                                     <ul>
                                         <li><a href="">Wallet Beta</a></li>
                                         <li><a href="">App Beta</a></li>
                                         <li><a href="">Development roadmap</a></li>
                                     </ul>
-                                </li> -->
+                                </li>
                                 <li><a href="">FAQ</a></li>
                             </ul>
                         </nav>
@@ -95,16 +95,34 @@
                 <div class="horizontal-btns">
                     <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
-                    {{--<a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>--}}
                     <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                 </div>
-                <div class="investors-block">
-                    <h3 class="h4 text-uppercase">We are looking for seed investors</h3>
-                    <a href="#become-our-seed-investors" class="js-popup-link btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'become_an_investor');">Become An Investor</a>
-                </div>
-                <h3 class="h4 text-uppercase"> 1 ETH = 14285 ZNX<br><br> Pre-sale starts in</h3>
+                <h3 class="h4 text-uppercase"> 1 ETH = 14285 ZNX<br></h3>
                 <div class="countdown">
-                    <span class="js-countdown" data-date="2018/03/15 00:00:00"></span>
+                    <span class="js-countdown" data-date="2018/04/15 00:00:00"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="white-content container">
+            <div class="ico-progress">
+                <div class="ico-progress-left">
+                    <span class="h4">ZNX</span>
+                    <span class="text-lg text-lg-center">0</span>
+                    <span class="text-lg">ETH</span>
+                </div>
+                <div class="ico-progress-bar">
+                    <!-- please use "is-right" class if <50% and "is-left" if >50% -->
+                    <div class="ico-progress-bar-group is-right" style="width:30%;">
+                        <span class="h4">2.000.000</span>
+                        <span class="text-lg">1.588,4</span>
+                        <div class="ico-progress-bar-line"></div>
+                        <img src="images/coin-ico.png" srcset="images/coin-ico@2x.png 2x" alt="ZANTECOIN">
+                    </div>
+                </div>
+                <div class="ico-progress-right">
+                    <span class="h4">30.000.000</span>
+                    <span class="text-lg">20.000.000</span>
                 </div>
             </div>
         </div>
@@ -201,8 +219,8 @@
                 </div>
 
                 <div class="lp-section-two-btn">
-                    <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
-                    <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a> -->
+                    <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
+                    <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                 </div>
             </div>
         </div>
@@ -306,8 +324,8 @@
                         <div class="lp-image-container4">
                             <img src="images/token-distribution.png" alt="Token Distribution">
                         </div>
-                        <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
-                        <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a> -->
+                        <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
+                        <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                     </div>
                 </div>
 
@@ -399,8 +417,8 @@
 
                     <div class="text-center lp-row-3">
                         <!-- <div class="text text-uppercase">FIRST 1000 CARDS GET A BONUS OF 1000 ZNX!</div> -->
-                        <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-light" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
-                        <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Buy Tokens NOW</a> -->
+                        <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-light" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
+                        <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Buy Tokens NOW</a>
                     </div>
                 </div>
             </section>
