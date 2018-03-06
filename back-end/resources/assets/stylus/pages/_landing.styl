@@ -9,7 +9,7 @@
 .lp-section-one
   padding-top 70px
   margin-top -70px
-  padding-bottom 65px
+  padding-bottom 95px
   position relative
   z-index 20
   // &:before
@@ -35,7 +35,7 @@
     margin-bottom 20px
 
 .lp-section-artifical
-  padding-bottom 150px
+  padding-bottom 0
   .headline
     margin-bottom 70px
 
@@ -133,10 +133,8 @@
     font-size 24px
 
 .lp-section-two-btn
-  margin 140px 0 0
+  margin 70px 0 0
   text-align center
-  @media screen and (max-width: 1199px)
-    margin 100px 0 0
   @media screen and (max-width: 767px)
     margin 40px 0 0
 
@@ -587,3 +585,123 @@
         @media screen and (max-width 767px)
           display inline-block
           text-align center
+
+.ico-progress
+  padding 0 150px
+  position relative
+  max-width 1080px
+  margin 220px auto 70px
+  @media screen and (max-width 991px)
+    padding 0 120px
+  @media screen and (max-width 575px)
+    margin-top 150px
+    padding 0
+    .h4
+      font-size 18px
+    .text-lg
+      font-size 14px
+
+.ico-progress-left,
+.ico-progress-right
+  position absolute
+  left 0
+  width 135px
+  top 0
+  @media screen and (max-width 991px)
+    width 105px
+  @media screen and (max-width 575px)
+    width auto
+    // right 0
+  .h4,
+  .text-lg
+    position absolute
+    top -70px
+    right 0
+    @media screen and (max-width 575px)
+      left 0
+      right auto
+  .text-lg
+    top 25px
+  .text-lg-center
+    top -8px
+    @media screen and (max-width 575px)
+      display none
+
+.ico-progress-right
+  left auto
+  right 0
+  // @media screen and (max-width 575px)
+  //   left 0
+  //   right auto
+  .h4,
+  .text-lg
+    right auto
+    left 0
+    @media screen and (max-width 575px)
+      left auto
+      right 0
+
+.ico-progress-bar,
+.ico-progress-bar-group
+  position relative
+  height 8px
+  background #55585c
+  span.h4
+    @media screen and (max-width 575px)
+      top -30px
+  span.text-lg
+    @media screen and (max-width 575px)
+      top 10px
+
+.ico-progress-bar-group
+  background $primary-color
+  color $primary-color
+  transition width 1s
+  img
+    position absolute
+    right -33px
+    top -150px
+    @media screen and (max-width 991px)
+      position: absolute;
+      right: -18px;
+      top: -120px;
+      max-width: 40px;
+    @media screen and (max-width 575px)
+      display none
+  .h4,
+  .text-lg
+    position absolute
+    top -70px
+  .text-lg
+    top 25px
+  &.is-left
+    .h4,
+    .text-lg
+      right 20px
+  &.is-right
+    .h4,
+    .text-lg
+      left 100%
+      margin-left 20px
+
+.ico-progress-bar-line
+  position absolute
+  right 0
+  top 0
+  &:before,
+  &:after
+    content ''
+    position absolute
+    right 0
+  &:before
+    top -65px
+    bottom 0
+    border-left 1px solid #fff
+    @media screen and (max-width 575px)
+      top -35px
+  &:after
+    bottom -45px
+    border-left 1px dashed #fff
+    top 0
+    @media screen and (max-width 575px)
+      bottom -25px

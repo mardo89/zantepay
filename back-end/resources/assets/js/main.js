@@ -189,7 +189,7 @@ $(document).ready(function () {
     }
 
     // Scroll navigation
-    $('.header-lp .navigation a, .scroll-button').on('click', function (e) {
+    $('.header-lp .navigation a[href^="#"], .scroll-button').on('click', function (e) {
         e.preventDefault();
         var target = this.hash;
         $target = $(target);

@@ -23,20 +23,19 @@
                     <div class="masthead__menu">
                         <nav class="navigation">
                             <ul>
-                                <li><a href="#about-us">About Us</a></li>
-                                <li><a href="#roadmap">Roadmap</a></li>
+                                <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a></li>
                                 <li><a href="#ico">ICO</a></li>
+                                <!-- <li><a href="">Bounty</a></li> -->
                                 <li><a href="#team">Team</a></li>
-                                <li><a href="">FAQ</a></li>
-                                <li><a href="#contacts" onclick="ga('send',  'event',  'button', 'onclick', 'contacts');">Contacts</a></li>
-                                <li>
+                                <!-- <li>
                                     <a href="">Development</a>
                                     <ul>
                                         <li><a href="">Wallet Beta</a></li>
                                         <li><a href="">App Beta</a></li>
                                         <li><a href="">Development roadmap</a></li>
                                     </ul>
-                                </li>
+                                </li> -->
+                                <li><a href="">FAQ</a></li>
                             </ul>
                         </nav>
 
@@ -116,6 +115,43 @@
 @section('main')
 
     <main class="main main-lp">
+        <section class="p-b-60 white-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img src="images/zantepay-devices.png" srcset="images/zantepay-devices@2x.png 2x" alt="What is ZANTEPAY">
+                    </div>
+                    <div class="col-md-4 vertical-middle-col">
+                        <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
+                        <p>ZANTEPAY is a cryptocurrency multiwallet with a debit card. It allows you to spend your digital assets anytime, anywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+            
+        <section class="lp-section-one white-content" id="about-us">
+            <div class="container">
+                <div class="text-center">
+                    <h3 class="h2 headline text-left">ZANTECOIN - The Most <br> Valuable Coin </h3>
+                </div>
+                <div class="row vertical-middle-col mt-40 p-t-30">
+                    <div class="text-center col-lg-3 col-sm-4 offset-lg-1">
+                        <img src="images/zantecoin2.png" srcset="images/zantecoin2@2x.png 2x" alt="Zantecoin">
+                    </div>
+                    <div class="col-lg-7 col-sm-8 offset-lg-1">
+                        <ul class="styl-list">
+                            <li>New mainstream currency</li>
+                            <li>BTC, ETH, LTC free conversion to ZNX</li>
+                            <li>Mastercard - accepted everywhere</li>
+                            <li>Can be used to cover service fees in ZANTEPAY ecosystem</li>
+                            <li>50% discount on all services in ZANTEPAY ecosystem when using ZANTECOIN</li>
+                            <li>ERC 20 token</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section class="lp-section-artifical white-content">
             <div class="container">
                 <h3 class="h2 headline">Artificial intelligence <span>at core</span></h3>
@@ -142,29 +178,6 @@
                             <br>
                             To build the multiwallet where all <br> the processes are managed by AI
                         </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="lp-section-one white-content" id="about-us">
-            <div class="container">
-                <div class="text-center">
-                    <h3 class="h2 headline text-left">ZANTECOIN - The Most <br> Valuable Coin </h3>
-                </div>
-                <div class="row vertical-middle-col mt-40 p-t-30">
-                    <div class="text-center col-lg-3 col-sm-4 offset-lg-1">
-                        <img src="images/zantecoin2.png" srcset="images/zantecoin2@2x.png 2x" alt="Zantecoin">
-                    </div>
-                    <div class="col-lg-7 col-sm-8 offset-lg-1">
-                        <ul class="styl-list">
-                            <li>New mainstream currency</li>
-                            <li>BTC, ETH, LTC free conversion to ZNX</li>
-                            <li>Mastercard - accepted everywhere</li>
-                            <li>Can be used to cover service fees in ZANTEPAY ecosystem</li>
-                            <li>50% discount on all services in ZANTEPAY ecosystem when using ZANTECOIN</li>
-                            <li>ERC 20 token</li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -953,7 +966,7 @@
             <form action="">
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check1"><label for="check1">I’ve read, understood and agree with the <a href="#">Whitepaper</a></label>
+                        <input type="checkbox" name="" id="check1"><label for="check1">I’ve read, understood and agree with the <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a></label>
                     </div>
                 </div>
                 <div class="logon-group text-left">

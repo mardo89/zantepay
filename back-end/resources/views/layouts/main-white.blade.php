@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one card!">
 
-    <title>ZANTEPAY</title>
+    <title>ZANTEPAY - Bringing cryptocurrency to the mainstream</title>
 
     <!-- Social Networks  Open Graph -->
     <meta property="og:url" content="http://test.zantepay.com"/>
