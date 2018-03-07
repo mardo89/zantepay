@@ -104,7 +104,7 @@
                 </div>
                 <h3 class="h4 text-uppercase"> 1 ETH = 14285 ZNX<br><br> Pre-sale starts in</h3>
                 <div class="countdown">
-                    <span class="js-countdown" data-date="2018/03/15 00:00:00"></span>
+                    <span class="js-countdown" data-date="2018/03/15 19:00:00"></span>
                 </div>
             </div>
         </div>
