@@ -826,7 +826,7 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'znx_amount' => 'numeric|min:0|max:600000000|required_without:eth_amount',
+                'znx_amount' => 'integer|min:0|max:600000000|required_without:eth_amount',
                 'eth_amount' => 'numeric|min:0|max:200000|required_without:znx_amount'
             ],
             ValidationMessages::getList(

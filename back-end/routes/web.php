@@ -92,8 +92,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('document/decline', 'ManagerController@declineDocument');
 
     Route::get('wallet', 'AdminController@wallet');
-    Route::post('wallet/znx', 'ManagerController@addZNX');
     Route::post('wallet', 'ManagerController@updateWallet');
+    Route::post('wallet/znx', 'ManagerController@addZNX');
+    Route::post('wallet/grant-marketing-coins', 'AdminController@grantMarketingCoins');
 });
 
 //Route::get('/test-email', function () {

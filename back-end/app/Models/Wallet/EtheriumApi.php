@@ -119,12 +119,13 @@ class EtheriumApi
      * Grand ICO coins
      *
      * @param int $amount
+     * @param string $address
      *
      * @return string
      * @throws \Exception
      */
-    public static function grantICOCoins($amount) {
-        $operationID = self::getCoinsOID('ico', $amount);
+    public static function grantICOCoins($amount, $address) {
+        $operationID = self::getCoinsOID('ico', $amount, $address);
 
         return self::checkCoinsStatus($operationID);
     }
@@ -133,12 +134,13 @@ class EtheriumApi
      * Marketing coins
      *
      * @param int $amount
+     * @param string $address
      *
      * @return string
      * @throws \Exception
      */
-    public static function marketingCoins($amount) {
-        $operationID = self::getCoinsOID('marketing', $amount);
+    public static function marketingCoins($amount, $address) {
+        $operationID = self::getCoinsOID('marketing', $amount, $address);
 
         return self::checkCoinsStatus($operationID);
     }
@@ -147,12 +149,13 @@ class EtheriumApi
      * Company coins
      *
      * @param int $amount
+     * @param string $address
      *
      * @return string
      * @throws \Exception
      */
-    public static function companyCoins($amount) {
-        $operationID = self::getCoinsOID('company', $amount);
+    public static function companyCoins($amount, $address) {
+        $operationID = self::getCoinsOID('company', $amount, $address);
 
         return self::checkCoinsStatus($operationID);
     }
@@ -162,14 +165,15 @@ class EtheriumApi
      *
      * @param string $grantType
      * @param int $amount
+     * @param string $address
      *
      * @return string
      * @throws \Exception
      */
-    protected static function getCoinsOID($grantType, $amount)
+    protected static function getCoinsOID($grantType, $amount, $address)
     {
         $apiResponse = self::sendPostRequest(
-            '/coins',
+            '/coins/' . $address,
             [
                 'grantType' => $grantType,
                 'amount' => $amount

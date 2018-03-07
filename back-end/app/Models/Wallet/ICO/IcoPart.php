@@ -113,6 +113,16 @@ class IcoPart
     }
 
     /**
+     * Get ZNX amount
+     *
+     * @return int
+     */
+    public function getAmount()
+    {
+        return $this->icoZnxAmount;
+    }
+
+    /**
      * Get ZNX rate
      *
      * @return int
@@ -151,7 +161,6 @@ class IcoPart
      */
     public function isActive($operationDate)
     {
-//        $checkDate = strtotime($this->icoStartDate) >= $currentDate && strtotime($this->icoEndDate) < $currentDate;
         $checkDate = $operationDate < strtotime($this->icoEndDate);
         $checkAmount = $this->icoZnxAmount < $this->icoZnxLimit;
 

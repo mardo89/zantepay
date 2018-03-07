@@ -58,29 +58,6 @@
                 </div>
             </div>
 
-            <div class="row justify-content-end mb-10">
-                <div class="col-sm col-sm-auto">
-                    <div class="checkbox">
-                        <input type="checkbox" name="confirm" id="check11"><label for="check11">Success</label>
-                    </div>
-                </div>
-                <div class="col-sm col-sm-auto">
-                    <div class="checkbox">
-                        <input type="checkbox" name="confirm" id="check12"><label for="check12">Failure</label>
-                    </div>
-                </div>
-                <div class="col-sm col-sm-auto">
-                    <div class="checkbox">
-                        <input type="checkbox" name="confirm" id="check13"><label for="check13">In progress</label>
-                    </div>
-                </div>
-                <div class="col-sm col-sm-auto">
-                    <div class="checkbox">
-                        <input type="checkbox" name="confirm" id="check14"><label for="check14">Pending</label>
-                    </div>
-                </div>
-            </div>
-
             <div class="tabs-wrap">
                 <!-- tab ZanteCoin -->
                 <div class="tab-body is-active" id="admin-zantecoin">
@@ -91,42 +68,52 @@
                         <div class="table-responsive-500 table--left">
                             <table id="ico-participants" class="table table-black">
                                 <thead>
-                                    <tr>
-                                        <th class="col-left sort">ICO status <span class="caret"></span></th>
-                                        <th class="sort sort-asc">Total coins <span class="caret"></span></th>
-                                        <th class="sort sort-desc">Available coins <span class="caret"></span></th>
-                                        <th class="sort">ETH received <span class="caret"></span></th>
-                                    </tr>
+                                <tr>
+                                    <th class="col-left sort">ICO status <span class="caret"></span></th>
+                                    <th class="sort sort-asc">Total coins <span class="caret"></span></th>
+                                    <th class="sort sort-desc">Available coins <span class="caret"></span></th>
+                                    <th class="sort">ETH received <span class="caret"></span></th>
+                                </tr>
                                 </thead>
                                 <tbody>
+
+                                @foreach($ico as $icoInfo)
                                     <tr>
-                                        <td class="col-left">Pre-ICO (started 15.03.2018) - current</td>
-                                        <td>30 000 000</td>
-                                        <td>30 000 000</td>
-                                        <td>0</td>
+                                        <td class="col-left">{{ $icoInfo['name'] }}</td>
+                                        <td>{{ $icoInfo['limit'] }}</td>
+                                        <td>{{ $icoInfo['balance'] }}</td>
+                                        <td>{{ $icoInfo['eth'] }}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="col-left">Ico I (starts 15.04.2018 19:00)</td>
-                                        <td>70 000 000</td>
-                                        <td>70 000 000</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-left">Ico II (starts 15.05.2018 19:00)</td>
-                                        <td>200 000 000</td>
-                                        <td>200 000 000</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-left">Ico III (starts 15.06.2018 19:00)</td>
-                                        <td>300 000 000</td>
-                                        <td>300 000 000</td>
-                                        <td>0</td>
-                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
+                    <div class="row justify-content-end mb-10">
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="confirm" id="check11"><label for="check11">Success</label>
+                            </div>
+                        </div>
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="confirm" id="check12"><label for="check12">Failure</label>
+                            </div>
+                        </div>
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="confirm" id="check13"><label for="check13">In progress</label>
+                            </div>
+                        </div>
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="confirm" id="check14"><label for="check14">Pending</label>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="dashboard-group">
                         <p><b>Click Issue Token button to send tokens to participant</b></p>
                         <div class="dashboard-top-panel-row dashboard-top-panel-row--sm tabs-head-wrap mb-10">
@@ -207,20 +194,20 @@
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Proxy address</th>
-                                                <th><span id="symbol"></span></th>
-                                                <th>Issue tokens</th>
-                                            </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Proxy address</th>
+                                            <th><span id="symbol"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>---</td>
-                                                <td>---</td>
-                                                <td>---</td>
-                                                <td>---</td>
-                                            </tr>
+                                        <tr>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -230,20 +217,20 @@
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Proxy address</th>
-                                                <th><span id="symbol"></span></th>
-                                                <th>Issue tokens</th>
-                                            </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Proxy address</th>
+                                            <th><span id="symbol"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>---</td>
-                                                <td>---</td>
-                                                <td>---</td>
-                                                <td>---</td>
-                                            </tr>
+                                        <tr>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -253,20 +240,20 @@
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Proxy address</th>
-                                                <th><span id="symbol"></span></th>
-                                                <th>Issue tokens</th>
-                                            </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Proxy address</th>
+                                            <th><span id="symbol"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>---</td>
-                                                <td>---</td>
-                                                <td>---</td>
-                                                <td>---</td>
-                                            </tr>
+                                        <tr>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -276,20 +263,20 @@
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Proxy address</th>
-                                                <th><span id="symbol"></span></th>
-                                                <th>Issue tokens</th>
-                                            </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Proxy address</th>
+                                            <th><span id="symbol"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>---</td>
-                                                <td>---</td>
-                                                <td>---</td>
-                                                <td>---</td>
-                                            </tr>
+                                        <tr>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -302,7 +289,9 @@
                         <p><b>Fill beneficiary address and amount in ZNX to grant marketing coins</b></p>
                         <p>Curently available: <span id="grant_marketing_available"></span> out of <span
                                     id="total_grant_marketing_supply"></span> ZNX</p>
+
                         <div class="row row-middle mt-20">
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="text-regular mb-10"><label for="grant_marketing_address">Beneficiary addres</label></div>
@@ -310,12 +299,14 @@
                                            placeholder="Set beneficiary address">
                                 </div>
                             </div>
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <div class="text-regular mb-10"><label for="grant_marketing_amount">Number of ZNX to grant</label></div>
                                     <input class="input-field" type="text" id="grant_marketing_amount" placeholder="Set amount to grant">
                                 </div>
                             </div>
+
                             <div class="col col-sm-auto">
                                 <button class=" mt-10 btn btn--medium btn--shadowed-light" type="submit" id="grant_marketing_coins"> Grant
                                     Coins
@@ -403,6 +394,15 @@
 
 @section('popups')
 
+    <!-- Grant ZNX Coins -->
+    <div class="logon-modal mfp-hide" id="grant-coins-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">GRANTED!</h3>
+            <div class="logon-modal-text">
+                <p>ZNX Coins successfully granted.</p>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
