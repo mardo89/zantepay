@@ -136,6 +136,7 @@
                             </ul>
                         </div>
                         <div class="tabs-wrap">
+
                             <!-- pre ico -->
                             <div class="tab-body is-active" id="pre-ico">
                                 <div class="table-responsive-500">
@@ -144,139 +145,141 @@
                                         <tr>
                                             <th class="sort sort-asc">Name <span class="caret"></span></th>
                                             <th class="sort">Proxy address <span class="caret"></span></th>
-                                            <th class="sort"><span id="symbol"></span> <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
                                             <th class="sort">Issue tokens <span class="caret"></span></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>0x3E96dadD4caE102F7fA4cff012F218449Ad5d5d8</td>
-                                            <td>100000</td>
-                                            <td>
-                                                <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>0x79791E2b5934eA0556C707dc8faB80DCD3BF06C2</td>
-                                            <td>200000</td>
-                                            <td>
-                                                <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>0x8f3FbdeE15F51c38A057688275d2B91652E0132C</td>
-                                            <td>300000</td>
-                                            <td>
-                                                <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">Issue Token
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        @foreach($grant as $transaction)
+                                            @continue($transaction['ico']['part_one'] == 0)
+
+                                            <tr>
+                                                <td>{{ $transaction['user'] }}</td>
+                                                <td>{{ $transaction['address'] }}</td>
+                                                <td>{{ $transaction['ico']['part_one'] }}</td>
+                                                <td>---</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                                <nav class="text-center mt-20">
-                                    <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    </ul>
-                                </nav>
                             </div>
+
                             <!-- ico 1 -->
                             <div class="tab-body" id="ico1">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Proxy address</th>
-                                            <th><span id="symbol"></span></th>
-                                            <th>Issue tokens</th>
+                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th class="sort">Issue tokens <span class="caret"></span></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                        </tr>
+                                        @foreach($grant as $transaction)
+                                            @continue($transaction['ico']['part_two'] == 0)
+
+                                            <tr>
+                                                <td>{{ $transaction['user'] }}</td>
+                                                <td>{{ $transaction['address'] }}</td>
+                                                <td>{{ $transaction['ico']['part_two'] }}</td>
+                                                <td>---</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+
                             <!-- ico 2 -->
                             <div class="tab-body" id="ico2">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Proxy address</th>
-                                            <th><span id="symbol"></span></th>
-                                            <th>Issue tokens</th>
+                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th class="sort">Issue tokens <span class="caret"></span></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                        </tr>
+                                        @foreach($grant as $transaction)
+                                            @continue($transaction['ico']['part_three'] == 0)
+
+                                            <tr>
+                                                <td>{{ $transaction['user'] }}</td>
+                                                <td>{{ $transaction['address'] }}</td>
+                                                <td>{{ $transaction['ico']['part_three'] }}</td>
+                                                <td>---</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+
                             <!-- ico 3 -->
                             <div class="tab-body" id="ico3">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Proxy address</th>
-                                            <th><span id="symbol"></span></th>
-                                            <th>Issue tokens</th>
+                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th class="sort">Issue tokens <span class="caret"></span></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                        </tr>
+                                        @foreach($grant as $transaction)
+                                            @continue($transaction['ico']['part_four'] == 0)
+
+                                            <tr>
+                                                <td>{{ $transaction['user'] }}</td>
+                                                <td>{{ $transaction['address'] }}</td>
+                                                <td>{{ $transaction['ico']['part_four'] }}</td>
+                                                <td>---</td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+
                             <!-- Total -->
                             <div class="tab-body" id="total">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Proxy address</th>
-                                            <th><span id="symbol"></span></th>
-                                            <th>Issue tokens</th>
+                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th class="sort">Issue tokens <span class="caret"></span></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                        </tr>
+                                        @foreach($grant as $transaction)
+                                            @continue($transaction['ico']['total'] == 0)
+
+                                            <tr>
+                                                <td>{{ $transaction['user'] }}</td>
+                                                <td>{{ $transaction['address'] }}</td>
+                                                <td>{{ $transaction['ico']['total'] }}</td>
+                                                <td>
+                                                    @if( $transaction['transaction'] != '')
+                                                        {{ $transaction['transaction'] }}
+                                                    @else
+                                                        <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">
+                                                            Issue Token
+                                                        </button>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>

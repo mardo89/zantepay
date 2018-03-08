@@ -466,11 +466,11 @@ class AccountController extends Controller
 
         }
 
-        if (Auth::user()->role != User::USER_ROLE_USER) {
-            return redirect()->action('AdminController@users');
-        }
-
-        return redirect()->action('UserController@wallet');
+        return redirect(
+            $this->getUserPage(
+                Auth::user()->role
+            )
+        );
     }
 
     /**
@@ -545,11 +545,11 @@ class AccountController extends Controller
 
         }
 
-        if (Auth::user()->role != User::USER_ROLE_USER) {
-            return redirect()->action('AdminController@users');
-        }
-
-        return redirect()->action('UserController@wallet');
+        return redirect(
+            $this->getUserPage(
+                Auth::user()->role
+            )
+        );
     }
 
 }

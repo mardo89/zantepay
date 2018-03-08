@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DB\Contribution;
+use App\Models\DB\GrantCoinsTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
@@ -111,10 +112,22 @@ class AdminController extends Controller
             )
         );
 
+        $uid = $request->uid;
+
+        if (Auth::user()->uid === $uid) {
+            return response()->json(
+                [
+                    'message' => 'Admin user can not delete himself',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
         DB::beginTransaction();
 
         try {
-            $user = User::where('uid', $request->uid)->first();
+            $user = User::where('uid', $uid)->first();
 
             if (is_null($user)) {
                 throw new \Exception('User does not exist');
@@ -206,12 +219,45 @@ class AdminController extends Controller
         }
 
         // Issue Tokens Table
+        $users = User::with('profile')->get();
         $znxTransactions = ZantecoinTransaction::all();
+        $grantCoinsTransactions = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_ICO_COINS)->get();
+
+        $grantInfo = [];
+
+        foreach ($users as $user) {
+
+            $userZnxTransactions = $znxTransactions->where('user_id', $user->id);
+
+            $icoPartOneAmount = $userZnxTransactions->where('ico_part', $ico->getIcoPartOne()->getID())->sum('amount');
+            $icoPartTwoAmount = $userZnxTransactions->where('ico_part', $ico->getIcoPartTwo()->getID())->sum('amount');
+            $icoPartThreeAmount = $userZnxTransactions->where('ico_part', $ico->getIcoPartThree()->getID())->sum('amount');
+            $icoPartFourAmount = $userZnxTransactions->where('ico_part', $ico->getIcoPartFour()->getID())->sum('amount');
+
+            $grantCoinTransaction = $grantCoinsTransactions->where('address', $user->profile->eth_wallet)->where('type', GrantCoinsTransaction::GRANT_ICO_COINS)->first();
+
+            $userName = $user->first_name . ' ' . $user->last_name;
+
+            $grantInfo[] = [
+                'user' => trim($userName) != '' ? $userName : $user->email,
+                'address' => $user->profile->eth_wallet,
+                'ico' => [
+                    'part_one' => $icoPartOneAmount,
+                    'part_two' => $icoPartTwoAmount,
+                    'part_three' => $icoPartThreeAmount,
+                    'part_four' => $icoPartFourAmount,
+                    'total' => $icoPartOneAmount + $icoPartTwoAmount + $icoPartThreeAmount + $icoPartFourAmount,
+                ],
+                'transaction' => optional($grantCoinTransaction)->getStatus() ?? ''
+            ];
+
+        }
 
         return view(
             'admin.wallet',
             [
                 'ico' => $icoInfo,
+                'grant' => $grantInfo
             ]
         );
     }
@@ -239,21 +285,48 @@ class AdminController extends Controller
             )
         );
 
-        DB::beginTransaction();
+        $address = $request->address;
+        $amount = (int)$request->amount;
+
+        $transaction = GrantCoinsTransaction::create(
+            [
+                'address' => $address,
+                'amount' => $amount,
+                'type' => GrantCoinsTransaction::GRANT_MARKETING_COINS,
+            ]
+        );
 
         try {
 
-            /**
-             * @todo store transactions in the db
-             */
-            EtheriumApi::marketingCoins($request->amount, $request->address);
+            $operationID = EtheriumApi::getCoinsOID($transaction->type, $amount, $address);
+
+            $transaction->operation_id = $operationID;
+            $transaction->save();
+
+            $transactionStatus = EtheriumApi::checkCoinsStatus($operationID);
+
+            switch ($transactionStatus) {
+                case 'success':
+                    $transaction->status = GrantCoinsTransaction::STATUS_COMPLETE;
+                    break;
+
+                case 'failure':
+                    $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
+                    break;
+
+                default:
+                    $transaction->status = GrantCoinsTransaction::STATUS_IN_PROGRESS;
+            }
+
+            $transaction->save();
 
         } catch (\Exception $e) {
-            DB::rollback();
+            $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
+            $transaction->save();
 
             return response()->json(
                 [
-                    'message' => 'Error granting coins',
+                    'message' => 'Error granting Marketing Coins',
                     'errors' => []
                 ],
                 500
@@ -261,7 +334,82 @@ class AdminController extends Controller
 
         }
 
-        DB::commit();
+        return response()->json(
+            []
+        );
+    }
+
+    /**
+     * Grant Company Coins
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function grantCompanyCoins(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'address' => 'required|string',
+                'amount' => 'required|integer',
+            ],
+            ValidationMessages::getList(
+                [
+                    'address' => 'Beneficiary Address',
+                    'amount' => 'Grant ZNX Amount',
+                ]
+            )
+        );
+
+        $address = $request->address;
+        $amount = (int)$request->amount;
+
+        $transaction = GrantCoinsTransaction::create(
+            [
+                'address' => $address,
+                'amount' => $amount,
+                'type' => GrantCoinsTransaction::GRANT_COMPANY_COINS,
+            ]
+        );
+
+        try {
+
+            $operationID = EtheriumApi::getCoinsOID($transaction->type, $amount, $address);
+
+            $transaction->operation_id = $operationID;
+            $transaction->save();
+
+            $transactionStatus = EtheriumApi::checkCoinsStatus($operationID);
+
+            switch ($transactionStatus) {
+                case 'success':
+                    $transaction->status = GrantCoinsTransaction::STATUS_COMPLETE;
+                    break;
+
+                case 'failure':
+                    $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
+                    break;
+
+                default:
+                    $transaction->status = GrantCoinsTransaction::STATUS_IN_PROGRESS;
+            }
+
+            $transaction->save();
+
+        } catch (\Exception $e) {
+            $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
+            $transaction->save();
+
+            return response()->json(
+                [
+                    'message' => 'Error granting Company Coins',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
 
         return response()->json(
             []

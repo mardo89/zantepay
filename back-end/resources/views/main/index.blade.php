@@ -785,7 +785,7 @@
                     <li><a href="">Privacy Policy</a></li>
                 </ul>
             </div>
-            <p class="copyright"><span class="copyright-ico"></span> 2017 ZANTEPAY</p>
+            <p class="copyright"><span class="copyright-ico"></span> 2018 ZANTEPAY</p>
         </div>
     </footer>
 
