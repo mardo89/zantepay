@@ -686,6 +686,11 @@
                         <p>Kristi is an experienced attorney and leads the legal team of Zantepay project. Kristi is a partner in Lawfirm LEXTAL, one of the biggest lawfirms in Estonia, having also offices in Latvia and Lithuania. Kristi has wide legal experience in fintech field, including regulatory matters and other legal questions related to innovative financing and financial services. Her expertise also covers services related to crypto currencies and ICOs.</p>
                     </div>
                     <div class="col-lg-4">
+                        <img src="images/dmitry.jpg" srcset="images/dmitry@2x.jpg 2x" alt="Dmitri Laush">
+                        <h3 class="h4">Dmitri Laush <span>Co-Founder and Member of the Board, Admiral Markets.</span></h3>
+                        <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co- founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor and investor in various blockchain projects and startups. Founder of own crypto fund and a few blockchain projects. Entrepreneur, Blockchain Evangelist and a true believer that decentralization, peer-to-peer (P2P) governance systems and cryptocurrencies can help define a new path for the progress of humanity.</p>
+                    </div>
+                    <div class="col-lg-4">
                         <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">
                         <h3 class="h4">Stanislav Ivashchenko <span>User Experience and Product Design Lead</span></h3>
                         <p>Stanislav shapes visual appearance of ZANTEPAY. He possesses more than 6 years of experience in graphic design

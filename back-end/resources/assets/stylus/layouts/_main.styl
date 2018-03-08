@@ -292,7 +292,7 @@
 .tabs-head-wrap
   background #eee
   padding 0 25px
-  
+
 .tabs-head
   clearlist()
   clearfix()
@@ -317,3 +317,57 @@
   margin-bottom 30px
   border-radius 5px
   padding 25px 30px
+
+.tabs-head-faq
+  background #f6f6f6
+  min-height 1px
+  margin-bottom 35px
+  .tabs-head
+    display block
+    width 100%
+    li
+      padding 0
+      width 33.333%
+      text-align center
+      &.is-active
+        a
+          background $primary-color
+          color #fff !important
+      a
+        display block
+        padding 10px 20px
+        &:hover
+          color $primary-color
+        text-decoration none !important
+
+.tabs-wrap
+  .accordion
+    max-width 780px
+    margin auto
+
+.accordion__head
+  position relative
+  padding 10px 0 10px 35px
+  .fa
+    position absolute
+    left 0
+    font-size 13px
+    top 50%
+    transform translateY(-50%)
+    transition all .3s
+  a
+    text-decoration none !important
+  h3
+    color #000
+    padding 5px 0
+  &.is-active
+    .fa
+      transform rotate(180deg) translateY(-50%)
+      margin-top -11px
+
+.accordion__body
+  padding 25px 0
+  display none
+  p
+    &:last-of-type
+      margin-bottom 0
