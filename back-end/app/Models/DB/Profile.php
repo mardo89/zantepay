@@ -28,7 +28,8 @@ class Profile extends Model
      * @var array
      */
     protected $hidden = [
-        'country_id', 'state_id', 'city', 'address', 'postcode',
-        'passport_id', 'passport_expiration_date', 'birth_date'
+        'country_id', 'state_id', 'city', 'address', 'post_code',
+        'passport_id', 'passport_expiration_date',
+        'birth_date', 'birth_country_id', 'eth_wallet'
     ];
 }
