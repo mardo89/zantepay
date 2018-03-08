@@ -112,10 +112,22 @@ class AdminController extends Controller
             )
         );
 
+        $uid = $request->uid;
+
+        if (Auth::user()->uid === $uid) {
+            return response()->json(
+                [
+                    'message' => 'Admin user can not delete himself',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
         DB::beginTransaction();
 
         try {
-            $user = User::where('uid', $request->uid)->first();
+            $user = User::where('uid', $uid)->first();
 
             if (is_null($user)) {
                 throw new \Exception('User does not exist');
