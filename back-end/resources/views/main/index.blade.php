@@ -97,9 +97,9 @@
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
                     <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                 </div>
-                <h3 class="h4 text-uppercase"> 1 ETH = 14285 ZNX<br><br> Pre-ICO ends in</h3>
+                <h3 class="h4 text-uppercase"> 1 ETH = {{ $ico['znxRate'] }} ZNX<br><br> {{ $ico['name'] }} ends in</h3>
                 <div class="countdown">
-                    <span class="js-countdown" data-date="2018/04/15 00:00:00"></span>
+                    <span class="js-countdown" data-date="{{ $ico['endDate'] }}"></span>
                 </div>
             </div>
         </div>
@@ -113,16 +113,16 @@
                 </div>
                 <div class="ico-progress-bar">
                     <!-- please use "is-right" class if <50% and "is-left" if >50% -->
-                    <div class="ico-progress-bar-group is-right" style="width:30%;">
-                        <span class="h4">2.000.000</span>
-                        <span class="text-lg">1.588,4</span>
+                    <div class="ico-progress-bar-group {{ $ico['relativeBalance']['progressClass'] }}" style="width:{{ $ico['relativeBalance']['percent'] }}%;">
+                        <span class="h4">{{ $ico['znxAmount'] }}</span>
+                        <span class="text-lg">{{ $ico['ethAmount'] }}</span>
                         <div class="ico-progress-bar-line"></div>
                         <img src="images/coin-ico.png" srcset="images/coin-ico@2x.png 2x" alt="ZANTECOIN">
                     </div>
                 </div>
                 <div class="ico-progress-right">
-                    <span class="h4">30.000.000</span>
-                    <span class="text-lg">20.000.000</span>
+                    <span class="h4">{{ $ico['znxLimit'] }}</span>
+                    <span class="text-lg">{{ $ico['ethLimit'] }}</span>
                 </div>
             </div>
         </div>
@@ -205,16 +205,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-5 offset-lg-2 offset-md-1 lp-pre-ico-col">
-                        <h2 class="h2 headline">Pre - ICO Part I <span>1 ZNX=0.05€</span><span>1 ZNX = 0.00007ETH</span></h2>
+                        <h2 class="h2 headline">{{ $ico['name'] }} <span>1 ZNX={{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
                     </div>
                     <div class="col-md-5 text-center">
                         <div class="lp-progress-wrap">
                             <div class="js-lp-progress-blured lp-progress-blured"></div>
-                            <div class="js-lp-progress lp-progress-top" data-percent="0.00"></div><!-- 17% - data-percet="0.17", etc.. -->
-                            <div class="lp-progress-text"> 0.00% <span>distributed</span>
+                            <div class="js-lp-progress lp-progress-top" data-percent="{{ $ico['relativeBalance']['value'] }}"></div>
+                            <div class="lp-progress-text"> {{ $ico['relativeBalance']['percent'] }}% <span>distributed</span>
                             </div>
                         </div>
-                        <p class="h4">0 ZNX distributed</p>
+                        <p class="h4">{{ $ico['znxAmount'] }} ZNX distributed</p>
                     </div>
                 </div>
 

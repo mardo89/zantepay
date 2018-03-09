@@ -134,8 +134,8 @@ class UserController extends Controller
                 'address' => 'string|nullable',
                 'postcode' => 'string|max:10|nullable',
                 'passport' => 'string|max:50|nullable',
-                'expiration_date' => 'date',
-                'birth_date' => 'date',
+                'expiration_date' => 'date|after_or_equal:tomorrow',
+                'birth_date' => 'date|before_or_equal:-18 year',
                 'birth_country' => 'numeric',
             ],
             ValidationMessages::getList(
@@ -160,6 +160,8 @@ class UserController extends Controller
                     'country.numeric' => 'Unknown Country',
                     'state.numeric' => 'Unknown State',
                     'phone_number.digits_between' => 'Incorrect phone number format',
+                    'expiration_date.after_or_equal' => 'Expiry date cannot be earlier than the current date',
+                    'birth_date.before_or_equal' => 'You have to be at least 18 years old to be eligible to buy ZNX',
                 ]
             )
         );

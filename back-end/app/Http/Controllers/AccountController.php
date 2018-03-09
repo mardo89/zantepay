@@ -203,11 +203,14 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255',
+                'email' => 'required|string|email|max:255|exists:users,email',
             ],
             ValidationMessages::getList(
                 [
                     'email' => 'Email',
+                ],
+                [
+                    'email.exists' => 'There is no user with such email'
                 ]
             )
         );

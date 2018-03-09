@@ -13,4 +13,5 @@ class IcoPartFour extends IcoPart
     protected $icoZnxLimit = 300000000;
     protected $icoZnxAmount = 0;
     protected $ethZnxRate = 0.00035;
+    protected $euroZnxRate = 0.05;
 }

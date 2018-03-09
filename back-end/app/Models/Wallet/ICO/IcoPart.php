@@ -43,6 +43,11 @@ class IcoPart
     protected $ethZnxRate;
 
     /**
+     * @var float ICO euro rate
+     */
+    protected $euroZnxRate;
+
+    /**
      * IcoPart constructor.
      */
     public function __construct()
@@ -93,13 +98,23 @@ class IcoPart
     }
 
     /**
-     * Get ZNX Rate
+     * Get ETH to ZNX Rate
      *
      * @return int
      */
     public function getEthRate()
     {
         return $this->ethZnxRate;
+    }
+
+    /**
+     * Get EURO to ZNX Rate
+     *
+     * @return int
+     */
+    public function getEuroRate()
+    {
+        return $this->euroZnxRate;
     }
 
     /**

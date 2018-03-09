@@ -27,7 +27,7 @@ class RateCalculator
         $rate = $icoPart->getEthRate();
         $balance = $icoPart->getBalance();
 
-        $availableEthAmount = $rate * $balance;
+        $availableEthAmount = self::fromZnx($balance, $rate);
 
         $znx = [];
 
@@ -46,7 +46,7 @@ class RateCalculator
             );
         }
 
-        $znxAmount = floor($ethAmount / $rate);
+        $znxAmount = self::toZnx($ethAmount, $rate);
 
         $icoPart->increaseAmount($znxAmount);
 
@@ -85,7 +85,7 @@ class RateCalculator
             $icoPart->increaseAmount($balance);
 
             $eth[] = [
-                'amount' => $balance * $rate,
+                'amount' => self::fromZnx($balance, $rate),
                 'rate' => $rate,
                 'icoPart' => $icoPart->getID()
             ];
@@ -97,7 +97,7 @@ class RateCalculator
 
         }
 
-        $ethAmount = $znxAmount * $rate;
+        $ethAmount = self::fromZnx($znxAmount, $rate);
 
         $icoPart->increaseAmount($znxAmount);
 
@@ -132,6 +132,30 @@ class RateCalculator
     public static function weiToEth($amount)
     {
         return $amount / 1000000000000000000;
+    }
+
+    /**
+     * Convert to ZNX
+     *
+     * @param float $amount
+     * @param float $rate
+     *
+     * @return integer
+     */
+    public static function toZnx($amount, $rate) {
+        return $rate != 0 ? floor($amount / $rate) : 0;
+    }
+
+    /**
+     * Convert from ZNX
+     *
+     * @param float $amount
+     * @param float $rate
+     *
+     * @return float
+     */
+    public static function fromZnx($amount, $rate) {
+        return $amount * $rate;
     }
 
 }

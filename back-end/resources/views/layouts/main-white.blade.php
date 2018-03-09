@@ -10,10 +10,10 @@
     <title>ZANTEPAY - Bringing cryptocurrency to the mainstream</title>
 
     <!-- Social Networks  Open Graph -->
-    <meta property="og:url" content="http://test.zantepay.com"/>
+    <meta property="og:url" content="{{ asset('/') }}"/>
     <meta property="og:title" content="ZANTEPAY"/>
-    <meta property="og:description" content="This is ZANTEPAY"/>
-    <meta property="og:image" content="http://test.zantepay.com/images/logo-large.png"/>
+    <meta property="og:description" content="ZANTEPAY"/>
+    <meta property="og:image" content="{{ asset('images/fb_share.jpg') }}"/>
     <!-- End Open Graph -->
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">

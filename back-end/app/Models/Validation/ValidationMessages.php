@@ -22,6 +22,9 @@ class ValidationMessages
         'required_if' => 'The %s field is required',
         'digits_between' => 'The %s field is out of range',
         'date' => 'The %s field must be a correct date',
+        'exists' => 'The %s field contain non-existent data',
+        'before_or_equal' => 'The %s field is out of date',
+        'after_or_equal' => 'The %s field is out of date',
     ];
 
     /**
