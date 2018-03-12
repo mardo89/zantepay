@@ -10,6 +10,7 @@ Route::get('reset-password', 'IndexController@resetPassword');
 Route::get('password', 'IndexController@confirmPasswordReset');
 Route::post('ico-registration', 'IndexController@saveRegistration');
 Route::post('seed-investor', 'IndexController@saveInvestor');
+Route::get('/faq', 'IndexController@faq');
 
 
 /**
@@ -19,6 +20,7 @@ Route::group(['prefix' => 'mail'], function () {
 
     Route::post('activate-account', 'MailController@activateAccount');
     Route::post('contact-us', 'MailController@contactUs');
+    Route::post('question', 'MailController@question');
 
 });
 

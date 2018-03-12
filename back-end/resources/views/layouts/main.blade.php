@@ -12,7 +12,7 @@
     <!-- Social Networks  Open Graph -->
     <meta property="og:url" content="{{ asset('/') }}"/>
     <meta property="og:title" content="ZANTEPAY"/>
-    <meta property="og:description" content="ZANTEPAY"/>
+    <meta property="og:description" content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
     <meta property="og:image" content="{{ asset('images/fb_share.jpg') }}"/>
     <!-- End Open Graph -->
 

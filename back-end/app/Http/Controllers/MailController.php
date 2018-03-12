@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Question;
 use App\Models\DB\User;
 use App\Models\Validation\ValidationMessages;
 use App\Mail\ActivateAccount;
@@ -82,7 +83,15 @@ class MailController extends Controller
         } catch (\Exception $e) {
 
             return response()->json(
-                []
+                [
+                    'message' => 'Can not send a message',
+                    'errors' => [
+                        'name' => '',
+                        'message' => '',
+                        'email' => 'Can not send a message'
+                    ]
+                ],
+                422
             );
 
         }
@@ -91,4 +100,60 @@ class MailController extends Controller
             []
         );
     }
+
+    /**
+     * Send question email
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function question(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'question' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'name' => 'Name',
+                    'email' => 'Email',
+                    'question' => 'Question',
+                ]
+            )
+
+        );
+
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $question = $request->input('question');
+
+        try {
+
+            Mail::to(env('CONTACT_EMAIL'))->send(new Question($name, $email, $question));
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Can not send a question',
+                    'errors' => [
+                        'name' => '',
+                        'question' => '',
+                        'email' => 'Can not send a question'
+                    ]
+                ],
+                422
+            );
+
+        }
+
+        return response()->json(
+            []
+        );
+    }
+
 }

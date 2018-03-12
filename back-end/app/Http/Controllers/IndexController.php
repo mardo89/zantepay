@@ -25,6 +25,7 @@ class IndexController extends Controller
 {
     /**
      * Main page
+     *
      * @param Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -325,6 +326,18 @@ class IndexController extends Controller
     public function confirmPasswordReset()
     {
         return view('main.reset-password-complete');
+    }
+
+    /**
+     * FAQ page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function faq()
+    {
+        return view(
+            'main.faq'
+        );
     }
 
     /**

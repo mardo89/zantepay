@@ -35,7 +35,7 @@
                                         <li><a href="">Development roadmap</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">FAQ</a></li>
+                                <li><a href="/faq">FAQ</a></li>
                             </ul>
                         </nav>
 
