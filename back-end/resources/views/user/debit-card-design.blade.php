@@ -41,7 +41,7 @@
                             <div class="radio-button">
                                 <input type="radio" name="card-type" value="{{ \App\Models\DB\DebitCard::DESIGN_WHITE }}" id="radio1" checked>
                                 <label for="radio1">
-                                    <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x" alt="White Visa Debit Card">
+                                    <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x" alt="White Debit Card">
                                 </label>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                             <div class="radio-button">
                                 <input type="radio" name="card-type" value="{{ \App\Models\DB\DebitCard::DESIGN_RED }}" id="radio2">
                                 <label for="radio2">
-                                    <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x" alt="Red Visa Debit Card">
+                                    <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x" alt="Red Debit Card">
                                 </label>
                             </div>
                         </div>
