@@ -3,6 +3,7 @@
 namespace App\Models\Wallet\ICO;
 
 use App\Models\DB\Contribution;
+use App\Models\DB\EthRate;
 use App\Models\DB\ZantecoinTransaction;
 
 class IcoPart
@@ -45,7 +46,7 @@ class IcoPart
     /**
      * @var float ICO euro rate
      */
-    protected $euroZnxRate;
+    protected $euroZnxRate = 0.05;
 
     /**
      * IcoPart constructor.
@@ -65,6 +66,10 @@ class IcoPart
         $this->icoZnxAmount = ZantecoinTransaction::where('ico_part', $this->getID())
             ->get()
             ->sum('amount');
+
+        $ethEuroRate = optional(EthRate::where('currency_type', EthRate::CURRENCY_TYPE_EURO)->first())->rate ?? 0;
+
+        $this->ethZnxRate = $this->euroZnxRate / $ethEuroRate;
     }
 
     /**
