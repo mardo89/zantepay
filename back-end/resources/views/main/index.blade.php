@@ -999,7 +999,7 @@
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood the <a href="#">
+                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood with the <a href="#">
                             Terms & Conditions</a></label>
                     </div>
                 </div>
