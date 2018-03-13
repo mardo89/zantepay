@@ -25,6 +25,7 @@ class User extends Authenticatable
     const USER_STATUS_IDENTITY_VERIFIED = 2;
     const USER_STATUS_ADDRESS_VERIFIED = 3;
     const USER_STATUS_VERIFIED = 4;
+    const USER_STATUS_WITHDRAW_PENDING = 5;
 
     /**
      * The attributes that are mass assignable.
@@ -68,6 +69,9 @@ class User extends Authenticatable
 
             case self::USER_STATUS_VERIFIED:
                 return 'Verified';
+
+            case self::USER_STATUS_WITHDRAW_PENDING:
+                return 'Withdraw Pending';
 
             default:
                 return '';

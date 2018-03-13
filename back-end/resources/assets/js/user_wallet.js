@@ -153,6 +153,129 @@ $(document).ready(function () {
             )
     });
 
+    $('#transfer_btn').on('click', function (event) {
+        event.preventDefault();
+
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const transfer = {
+            eth_amount: $('input[name="transfer_eth_amount"]').val()
+        }
+
+        console.log(transfer);
+
+        axios.post(
+            '/user/wallet/transfer-eth',
+            qs.stringify(transfer)
+        )
+            .then(
+                response => {
+                    hideSpinner(button);
+
+                    $('input[name="transfer_eth_amount"]').val('');
+
+                    $('#available_znx_amount').text(response.data.total);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#transfer-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true,
+                            callbacks: {
+                                elementParse: function (item) {
+                                    $(item.src).find('#znx_balance').text(response.data.balance);
+                                }
+                            }
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message, errors} = error.response.data;
+
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('input[name="transfer_' + field + '"]').parent().addClass('form-error');
+                                $('input[name="transfer_' + field + '"]').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
+                }
+            )
+    });
+
+    $('#withdraw_btn').on('click', function (event) {
+        event.preventDefault();
+
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const withdraw = {
+            address: $('input[name="withdraw_address"]').val()
+        }
+
+        axios.post(
+            '/user/wallet/withdraw-eth',
+            qs.stringify(withdraw)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#withdraw-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message, errors} = error.response.data;
+
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('input[name="withdraw_' + field + '"]').parent().addClass('form-error');
+                                $('input[name="withdraw_' + field + '"]').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
+                }
+            )
+    });
+
 });
 
 

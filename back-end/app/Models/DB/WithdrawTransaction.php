@@ -4,13 +4,14 @@ namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ZantecoinTransaction extends Model
+class WithdrawTransaction extends Model
 {
     /**
-     * Transaction types
+     * Action statuses
      */
-    const TRANSACTION_ETH_TO_ZNX = 0;
-    const TRANSACTION_COMMISSION_TO_ZNX = 1;
+    const STATUS_PENDING = 'PENDING';
+    const STATUS_COMPLETE = 'COMPLETE';
+    const STATUS_FAILED = 'FAILED';
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class ZantecoinTransaction extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'amount', 'ico_part', 'contribution_id', 'transaction_type'
+        'user_id', 'amount', 'wallet_address'
     ];
 
     /**

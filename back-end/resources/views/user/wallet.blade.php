@@ -159,7 +159,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input id="field14" class="input-field" type="text" name="eth" placeholder="ETH">
+                                    <input id="field14" class="input-field" type="text" name="transfer_eth_amount" placeholder="ETH">
                                 </div>
                             </div>
                             <div class="col col-sm-auto">
@@ -167,13 +167,13 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input id="field15" class="input-field" type="text" name="znx" placeholder="ZNX">
+                                    <input id="field15" class="input-field" type="text" name="transfer_znx_amount" placeholder="ZNX">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col col-md-8 offset-md-3 offset-lg-2">
-                                <a href="" class="btn btn--shadowed-light btn--medium btn--130">Transfer</a>
+                                <a href="" id="transfer_btn" class="btn btn--shadowed-light btn--medium btn--130">Transfer</a>
                             </div>
                         </div>
                     </div>
@@ -185,13 +185,13 @@
                             </div>
                             <div class="col-md">
                                 <div class="form-group">
-                                    <input id="field16" class="input-field" type="text" name="eth" placeholder="Paste address">
+                                    <input id="field16" class="input-field" type="text" name="withdraw_address" placeholder="Paste address">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col col-md-8 offset-md-3">
-                                <a href="" class="btn btn--shadowed-light btn--medium btn--130">Withdraw</a>
+                                <a href="" id="withdraw_btn" class="btn btn--shadowed-light btn--medium btn--130">Withdraw</a>
                             </div>
                         </div>
                     </div>
@@ -200,7 +200,7 @@
 
             <div class="panel">
                 <h2 class="h4 mb-20">Transfer:</h2>
-                <div class="text-regular mb-20">Available for transfer: <span class="primary-color text-lg"> {{ $wallet->znx_amount }} ZNX tokens</span>
+                <div class="text-regular mb-20">Available for transfer: <span id="available_znx_amount" class="primary-color text-lg"> {{ $availableAmount }} </span>
                 </div>
                 <div class="text-regular">You will be able to withdraw your ERC20 tokens to Ethereum Network after the end of the ICO.</div>
             </div>
@@ -326,6 +326,39 @@
         </div>
     </div>
 
+    <!-- Transfer confirmation -->
+    <div class="logon-modal mfp-hide" id="transfer-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">TRANSFERED!</h3>
+            <div class="logon-modal-text">
+                <p>
+                    <span id="znx_balance"> </span> ZNX successfully transferred
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transfer confirmation -->
+    <div class="logon-modal mfp-hide" id="transfer-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">TRANSFERED!</h3>
+            <div class="logon-modal-text">
+                <p>
+                    <span id="znx_balance"> </span> ZNX successfully transferred
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw confirmation -->
+    <div class="logon-modal mfp-hide" id="withdraw-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">TRANSFERED!</h3>
+            <div class="logon-modal-text">
+                <p> --- </p>
+            </div>
+        </div>
+    </div>
 
 @endsection
 

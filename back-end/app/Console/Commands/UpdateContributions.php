@@ -80,6 +80,7 @@ class UpdateContributions extends Command
 
                     if (!is_null($userWallet)) {
 
+                        // Create Transactions
                         foreach ($znxAmountParts as $znxAmountPart) {
                             ZantecoinTransaction::create(
                                 [
@@ -90,7 +91,18 @@ class UpdateContributions extends Command
                                     'transaction_type' => ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX
                                 ]
                             );
+                        }
 
+                        // Apply Commission bonus
+                        $user = $userWallet->user;
+
+                        if (!is_null($user->referrer)) {
+                            $userReferrer = User::find($user->referrer);
+
+                            $referrerWallet = $userReferrer->wallet;
+
+                            $referrerWallet->commission_bonus = Wallet::COMMISSION_BONUS * $ethAmount;
+                            $referrerWallet->save();
                         }
 
                     }

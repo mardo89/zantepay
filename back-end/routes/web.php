@@ -67,6 +67,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('wallet', 'UserController@wallet');
     Route::post('wallet/address', 'UserController@createWalletAddress');
     Route::post('wallet/rate-calculator', 'UserController@rateCalculator');
+    Route::post('wallet/transfer-eth', 'UserController@transferEth');
+    Route::post('wallet/withdraw-eth', 'UserController@withdrawEth');
 
     Route::get('debit-card', 'UserController@debitCard');
     Route::post('debit-card', 'UserController@saveDebitCard');

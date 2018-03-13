@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\InviteFriend;
 use App\Models\DB\AreaCode;
 use App\Models\DB\EthAddressAction;
+use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
@@ -646,6 +647,8 @@ class UserController extends Controller
      */
     public function saveInvitation(Request $request)
     {
+        $user = Auth::user();
+
         $this->validate(
             $request,
             [
@@ -659,8 +662,6 @@ class UserController extends Controller
         );
 
         try {
-            $user = Auth::user();
-
             $email = $request->email;
 
             $invite = Invite::where('user_id', $user->id)->where('email', $email)->first();
@@ -733,10 +734,13 @@ class UserController extends Controller
 
         $ethAddressAction = EthAddressAction::where('user_id', $user->id)->get()->last();
 
+        $availableZnxAmount = (new CurrencyFormatter($wallet->znx_amount))->znxFormat()->withSuffix('ZNX tokens')->get();
+
         return view(
             'user.wallet',
             [
                 'wallet' => $wallet,
+                'availableAmount' => $availableZnxAmount,
                 'gettingAddress' => optional($ethAddressAction)->status === EthAddressAction::STATUS_IN_PROGRESS,
                 'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
                 'ico' => [
@@ -882,6 +886,172 @@ class UserController extends Controller
             [
                 'balance' => $balance
             ]
+        );
+    }
+
+    /**
+     * Transfer Commission Bonus to ZNX
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function transferEth(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate(
+            $request,
+            [
+                'eth_amount' => 'numeric|min:0|max:200000|required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'eth_amount' => 'ETH Amount'
+                ]
+            )
+        );
+
+        $userWallet = $user->wallet;
+        $ethAmount = (float)$request->eth_amount;
+
+        if ($userWallet->commission_bonus < $ethAmount) {
+            return response()->json(
+                [
+                    'message' => 'Not enough ETH to transfer',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            $ico = new Ico();
+
+            $znxAmountParts = RateCalculator::ethToZnx($request->eth_amount, time(), $ico);
+
+            $znxAmount = 0;
+
+            foreach ($znxAmountParts as $znxAmountPart) {
+                ZantecoinTransaction::create(
+                    [
+                        'user_id' => $user->id,
+                        'amount' => $znxAmountPart['amount'],
+                        'ico_part' => $znxAmountPart['icoPart'],
+                        'contribution_id' => 0,
+                        'transaction_type' => ZantecoinTransaction::TRANSACTION_COMMISSION_TO_ZNX
+                    ]
+                );
+
+                $znxAmount += $znxAmountPart['amount'];
+            }
+
+            // Update Wallet
+            $userWallet->znx_amount += $znxAmount;
+            $userWallet->commission_bonus -= $ethAmount;
+            $userWallet->save();
+
+            $balance = (new CurrencyFormatter($znxAmount))->znxFormat()->get();
+            $total = (new CurrencyFormatter($userWallet->znx_amount))->znxFormat()->withSuffix('ZNX tokens')->get();
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error transferring ETH',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
+        DB::commit();
+
+        return response()->json(
+            [
+                'balance' => $balance,
+                'total' => $total
+            ]
+        );
+    }
+
+    /**
+     * Withdraw ETH
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function withdrawEth(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate(
+            $request,
+            [
+                'address' => 'string|required',
+            ],
+            ValidationMessages::getList(
+                [
+                    'address' => 'Address'
+                ]
+            )
+        );
+
+        $userWallet = $user->wallet;
+
+        if ($userWallet->commission_bonus == 0) {
+            return response()->json(
+                [
+                    'message' => 'Not enough ETH to withdraw',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
+        DB::beginTransaction();
+
+        try {
+            // Create transaction
+            WithdrawTransaction::create(
+                [
+                    'user_id' => $user->id,
+                    'amount' => $userWallet->commission_bonus,
+                    'wallet_address' => $request->address
+                ]
+            );
+
+            // Set commission bonus to 0
+            $userWallet->commission_bonus = 0;
+            $userWallet->save();
+
+            // Update user status
+            $user->status = User::USER_STATUS_WITHDRAW_PENDING;
+            $user->save();
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error withdrawing ETH',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
         );
     }
 

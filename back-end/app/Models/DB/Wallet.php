@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Wallet extends Model
 {
     /**
+     * Bonuses
+     */
+    const DEBIT_CARD_BONUS = 500;
+    const REFERRAL_BONUS = 500;
+    const COMMISSION_BONUS = 0.2;
+
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

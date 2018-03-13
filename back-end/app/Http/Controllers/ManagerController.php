@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DB\Wallet;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -254,6 +255,22 @@ class ManagerController extends Controller
 
             if ($verificationComplete) {
                 $user->status = User::USER_STATUS_VERIFIED;
+
+                // User bonus
+                $userWallet = $user->wallet;
+
+                $userWallet->debit_card_bonus = Wallet::DEBIT_CARD_BONUS;
+                $userWallet->save();
+
+                // Referrer Bonus
+                if (!is_null($user->referrer)) {
+                    $userReferrer = User::find($user->referrer);
+
+                    $referrerWallet = $userReferrer->wallet;
+
+                    $referrerWallet->referral_bonus = Wallet::DEBIT_CARD_BONUS;
+                    $referrerWallet->save();
+                }
             }
 
             $user->save();
