@@ -687,8 +687,13 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/dmitry.jpg" srcset="images/dmitry@2x.jpg 2x" alt="Dmitri Laush">
-                        <h3 class="h4">Dmitri Laush <span>Co-Founder and Member of the Board, Admiral Markets.</span></h3>
+                        <h3 class="h4">Dmitri Laush <span>Advisor</span></h3>
                         <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co- founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor and investor in various blockchain projects and startups. Founder of own crypto fund and a few blockchain projects. Entrepreneur, Blockchain Evangelist and a true believer that decentralization, peer-to-peer (P2P) governance systems and cryptocurrencies can help define a new path for the progress of humanity.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
+                        <h3 class="h4">Juan Alonso-Villalobos <span>Advisor</span></h3>
+                        <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">

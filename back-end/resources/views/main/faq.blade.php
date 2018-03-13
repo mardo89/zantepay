@@ -239,7 +239,7 @@
                                     <h3 class="text-lg">When does ICO start?</h3>
                                 </a>
                             </div>
-                            <div class="accordion__body" id="ac-item7">
+                            <div class="accordion__body" id="ac-item07">
                                 <p>The pre-ICO starts on 15th of March 2018, it will follow by ICO, part I, II, III until 15th of July 2018.</p>
                             </div>
                         </div>
