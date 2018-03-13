@@ -204,8 +204,8 @@
         <div class="lp-section-two white-content">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-5 offset-lg-2 offset-md-1 lp-pre-ico-col">
-                        <h2 class="h2 headline">{{ $ico['name'] }} <span>1 ZNX={{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
+                    <div class="col-xl-5 col-lg-6 col-md-7 offset-lg-1 lp-pre-ico-col">
+                        <h2 class="h2 headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
                     </div>
                     <div class="col-md-5 text-center">
                         <div class="lp-progress-wrap">
@@ -317,7 +317,7 @@
                         <div class="lp-image-container4">
                             <img src="images/ICO.png" alt="ICO">
                         </div>
-                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
+                        <h2 class="h2 headline ico-chart-headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
                     </div>
                     <div class="col-sm-6 text-center">
                         <h3 class="h2 headline">Token <br> distribution</h3>
@@ -994,8 +994,8 @@
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood the <a href="#">Referral
-                                Terms & Conditions</a></label>
+                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood the <a href="#">
+                            Terms & Conditions</a></label>
                     </div>
                 </div>
                 <div class="logon-group text-left">

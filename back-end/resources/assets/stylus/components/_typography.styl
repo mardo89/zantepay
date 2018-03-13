@@ -9,7 +9,18 @@
 
 .text-right
   text-align right
-  
+
+.h1
+  font-size 42px
+  font-weight 700
+  letter-spacing -1px
+  @media screen and (max-width: 1400px)
+    font-size 36px
+  @media screen and (max-width: 991px)
+    font-size 33px
+  @media screen and (max-width: 480px)
+    font-size 30px
+    
 .h2
   font-size 36px
   font-weight 500
@@ -64,6 +75,18 @@
     width 1px
     background $primary-color
     box-shadow 0 0 10px rgba($primary-color, 0.7)
+
+.headline--black
+  font-size 24px
+  font-weight 700
+  display inline-block
+  span
+    display inline
+    vertical-align bottom
+    font-size 1.4em
+  &:before
+    width 8px
+    box-shadow none
 
 .text,
 p
