@@ -62,9 +62,21 @@ class AdminController extends Controller
             )
         );
 
+        $userID = $request->uid;
+
+        if (Auth::user()->uid === $userID) {
+            return response()->json(
+                [
+                    'message' => 'Admin user can not update role for himself',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
         try {
 
-            $user = User::where('uid', $request->uid)->first();
+            $user = User::where('uid', $userID)->first();
 
             if (is_null($user)) {
                 throw new \Exception('User does not exist');
@@ -112,9 +124,9 @@ class AdminController extends Controller
             )
         );
 
-        $uid = $request->uid;
+        $userID = $request->uid;
 
-        if (Auth::user()->uid === $uid) {
+        if (Auth::user()->uid === $userID) {
             return response()->json(
                 [
                     'message' => 'Admin user can not delete himself',
@@ -127,7 +139,7 @@ class AdminController extends Controller
         DB::beginTransaction();
 
         try {
-            $user = User::where('uid', $uid)->first();
+            $user = User::where('uid', $userID)->first();
 
             if (is_null($user)) {
                 throw new \Exception('User does not exist');

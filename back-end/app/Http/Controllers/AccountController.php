@@ -367,6 +367,8 @@ class AccountController extends Controller
             ]
         );
 
+        Session::forget('referrer');
+
         return $user;
     }
 

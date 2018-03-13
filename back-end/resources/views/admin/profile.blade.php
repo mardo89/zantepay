@@ -11,25 +11,29 @@
 @endsection
 
 @section('change-role')
-    <div class="form-group">
-        <label class="field-label">Role:</label>
-        <select name="user-role" class="input-field">
-            @foreach($userRoles as $userRole)
-                <option
-                        value="{{ $userRole['id'] }}"
-                        @if($userRole['id'] == $user->role)
-                        selected
-                        @endif
-                >
-                    {{ $userRole['name'] }}
-                </option>
-            @endforeach
-        </select>
-    </div>
+    @if($canEdit)
+        <div class="form-group">
+            <label class="field-label">Role:</label>
+            <select name="user-role" class="input-field">
+                @foreach($userRoles as $userRole)
+                    <option
+                            value="{{ $userRole['id'] }}"
+                            @if($userRole['id'] == $user->role)
+                            selected
+                            @endif
+                    >
+                        {{ $userRole['name'] }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    @endif
 @endsection
 
 @section('remove-user')
-    <input id="remove-user" class="mt-20 btn btn--medium btn--shadowed-light" type="button" value="Delete User" />
+    @if($canEdit)
+        <input id="remove-user" class="mt-20 btn btn--medium btn--shadowed-light" type="button" value="Delete User"/>
+    @endif
 @endsection
 
 @section('admin-popups')

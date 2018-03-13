@@ -174,7 +174,7 @@ class ManagerController extends Controller
         $wallet = $user->wallet;
 
         // Roles list
-        $rolesList = ($user->id == Auth::user()->id) ? [] : User::getRolesList();
+        $rolesList = User::getRolesList();
 
         return view(
             $this->getViewPrefix() . 'profile',
@@ -187,7 +187,8 @@ class ManagerController extends Controller
                 'referrer' => $referrerEmail,
                 'debitCard' => $userDebitCard,
                 'wallet' => $wallet,
-                'userRoles' => $rolesList
+                'userRoles' => $rolesList,
+                'canEdit' => Auth::user()->uid != $userID
             ]
         );
     }

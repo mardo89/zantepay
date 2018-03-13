@@ -4,7 +4,7 @@
 @section('main')
 
     <h2 class="h4 headline-mb">Hi there!</h2>
-    <p>You’ve been invited to join and pre-order ZANTEPAY debit card. You’ll get 400 ZNX as a bonus.</p>
+    <p>You’ve been invited to join and pre-order ZANTEPAY debit card. You’ll get 500 ZNX as a bonus.</p>
 
     <form id="frm_invite_signup" class="inv-form">
         <div class="form-group">
