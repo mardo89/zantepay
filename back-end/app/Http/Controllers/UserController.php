@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\InviteFriend;
 use App\Models\DB\AreaCode;
 use App\Models\DB\EthAddressAction;
+use App\Models\DB\TransferTransaction;
 use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
@@ -717,18 +718,48 @@ class UserController extends Controller
         $startDate = optional($activeIcoPart)->getStartDate() ?? null;
         $icoPartName = optional($activeIcoPart)->getName() ?? '';
 
-        $contributions = [];
+        $userTransactions = [];
 
-        foreach ($user->wallet->contributions as $contribution) {
-            $ethAmount = RateCalculator::weiToEth($contribution->amount);
+        $contributionTransactions = $user->wallet->contributions;
+        $transferTransactions = $user->transferTransactions;
+        $withdrawTransactions = $user->withdrawTransactions;
 
-            $contributions[] = [
-                'date' => date('d.m.Y', strtotime($contribution->operation_date)),
-                'time' => date('H:i:s', strtotime($contribution->operation_date)),
-                'address' => $contribution->proxy,
+        foreach ($contributionTransactions as $contributionTransaction) {
+            $ethAmount = RateCalculator::weiToEth($contributionTransaction->amount);
+
+            $userTransactions[] = [
+                'date' => date('d.m.Y', $contributionTransaction->time_stamp),
+                'time' => date('H:i:s', $contributionTransaction->time_stamp),
+                'address' => $contributionTransaction->proxy,
                 'amount' => (new CurrencyFormatter($ethAmount))->ethFormat()->withSuffix('ETH')->get(),
-                'type' => 'In',
-                'status' => 'Pending'
+                'type' => 'Buy',
+                'status' => 'SUCCESS'
+            ];
+        }
+
+        foreach ($transferTransactions as $transferTransaction) {
+            $ethAmount = $transferTransaction->eth_amount;
+
+            $userTransactions[] = [
+                'date' => date('d.m.Y', strtotime($transferTransaction->created_at)),
+                'time' => date('H:i:s', strtotime($transferTransaction->created_at)),
+                'address' => '',
+                'amount' => (new CurrencyFormatter($ethAmount))->ethFormat()->withSuffix('ETH')->get(),
+                'type' => 'Transfer',
+                'status' => 'SUCCESS'
+            ];
+        }
+
+        foreach ($withdrawTransactions as $withdrawTransaction) {
+            $ethAmount = $withdrawTransaction->amount;
+
+            $userTransactions[] = [
+                'date' => date('d.m.Y', strtotime($withdrawTransaction->created_at)),
+                'time' => date('H:i:s', strtotime($withdrawTransaction->created_at)),
+                'address' => $withdrawTransaction->wallet_address,
+                'amount' => (new CurrencyFormatter($ethAmount))->ethFormat()->withSuffix('ETH')->get(),
+                'type' => 'Withdraw',
+                'status' => $withdrawTransaction->status
             ];
         }
 
@@ -748,7 +779,7 @@ class UserController extends Controller
                     'start_date' => $startDate ? date('Y/m/d H:i:s', strtotime($startDate)) : '',
                     'part_name' => $icoPartName
                 ],
-                'contributions' => $contributions
+                'transactions' => $userTransactions
             ]
         );
     }
@@ -925,13 +956,24 @@ class UserController extends Controller
             );
         }
 
+        $ethAmount = $request->eth_amount;
+
         DB::beginTransaction();
 
         try {
 
+            // Create transaction
+            $transferTransaction = TransferTransaction::create(
+                [
+                    'user_id' => $user->id,
+                    'eth_amount' => $ethAmount,
+                ]
+            );
+
+            // Convert ETH to ZNX
             $ico = new Ico();
 
-            $znxAmountParts = RateCalculator::ethToZnx($request->eth_amount, time(), $ico);
+            $znxAmountParts = RateCalculator::ethToZnx($ethAmount, time(), $ico);
 
             $znxAmount = 0;
 
@@ -941,13 +983,17 @@ class UserController extends Controller
                         'user_id' => $user->id,
                         'amount' => $znxAmountPart['amount'],
                         'ico_part' => $znxAmountPart['icoPart'],
-                        'contribution_id' => 0,
+                        'contribution_id' => $transferTransaction->id,
                         'transaction_type' => ZantecoinTransaction::TRANSACTION_COMMISSION_TO_ZNX
                     ]
                 );
 
                 $znxAmount += $znxAmountPart['amount'];
             }
+
+            // Update transaction
+            $transferTransaction->znx_amount = $znxAmount;
+            $transferTransaction->save();
 
             // Update Wallet
             $userWallet->znx_amount += $znxAmount;
@@ -963,7 +1009,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error transferring ETH',
+                    'message' => $e->getMessage(),//'Error transferring ETH',
                     'errors' => []
                 ],
                 500

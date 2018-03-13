@@ -158,6 +158,20 @@ class User extends Authenticatable
     }
 
     /**
+     * Get list of user transfer transactions
+     */
+    public function transferTransactions() {
+        return $this->hasMany('App\Models\DB\TransferTransaction', 'user_id', 'id');
+    }
+
+    /**
+     * Get list of user withdraw transactions
+     */
+    public function withdrawTransactions() {
+        return $this->hasMany('App\Models\DB\WithdrawTransaction', 'user_id', 'id');
+    }
+
+    /**
      * Generate password hash
      *
      * @param string $password

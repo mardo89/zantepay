@@ -165,8 +165,6 @@ $(document).ready(function () {
             eth_amount: $('input[name="transfer_eth_amount"]').val()
         }
 
-        console.log(transfer);
-
         axios.post(
             '/user/wallet/transfer-eth',
             qs.stringify(transfer)
@@ -187,8 +185,8 @@ $(document).ready(function () {
                             type: 'inline',
                             closeOnBgClick: true,
                             callbacks: {
-                                elementParse: function (item) {
-                                    $(item.src).find('#znx_balance').text(response.data.balance);
+                                close: function () {
+                                    window.location.reload();
                                 }
                             }
                         }
@@ -246,7 +244,12 @@ $(document).ready(function () {
                                 src: '#withdraw-modal'
                             },
                             type: 'inline',
-                            closeOnBgClick: true
+                            closeOnBgClick: true,
+                            callbacks: {
+                                close: function () {
+                                    window.location.reload();
+                                }
+                            }
                         }
                     );
                 }

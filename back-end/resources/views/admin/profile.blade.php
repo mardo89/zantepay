@@ -32,7 +32,7 @@
 
 @section('remove-user')
     @if($canEdit)
-        <input id="remove-user" class="mt-20 btn btn--medium btn--shadowed-light" type="button" value="Delete User"/>
+        <button id="remove-user" class="mt-20 btn btn--medium btn--shadowed-light"> Delete User </button>
     @endif
 @endsection
 

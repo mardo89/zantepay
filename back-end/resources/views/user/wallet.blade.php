@@ -80,16 +80,16 @@
                                 <table class="table-transparent table-3-cols">
                                     <thead>
                                     <tr>
-                                        <th>Commission (ETH)</th>
-                                        <th>Total ZNX</th>
-                                        <th>Referal bonus (ZNX)</th>
+                                        <th>ICO ZNX </th>
+                                        <th>Card pre-order bonuses</th>
+                                        <th>Card referral bonus</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>0</td>
                                         <td>{{ $wallet->znx_amount }}</td>
-                                        <td>0</td>
+                                        <td>{{ $wallet->debit_card_bonus }}</td>
+                                        <td>{{ $wallet->referral_bonus }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -150,6 +150,9 @@
             </div>
             <div class="panel">
                 <h2 class="h4 mb-20">Bonuses:</h2>
+
+                <span>{{ $wallet->commission_bonus }} ETH Available </span>
+
                 <div class="row">
                     <div class="col-lg-6 mb-md-30">
                         <h2 class="h4 headline-mb">Transfer ETH to ZNX:</h2>
@@ -208,29 +211,27 @@
             <div class="panel">
                 <!-- toggle class .is-active for .update-icon while loadding proccess -->
                 <h2 class="h4 headline-mb">Transactions history: </h2>
-                <div class="table-responsive-500">
+                <div class="table-responsive-400">
                     <table class="table-black">
                         <thead>
                         <tr>
                             <th width="105">Date</th>
                             <th width="115">Time</th>
                             <th width="70">Type</th>
-                            <th>From</th>
-                            <th width="220">To</th>
+                            <th width="220">Address</th>
                             <th width="150">Amount</th>
                             <th width="110">Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($contributions as $contribution)
+                        @foreach($transactions as $transaction)
                             <tr>
-                                <td> {{ $contribution['date'] }} </td>
-                                <td> {{ $contribution['time'] }} </td>
-                                <td>{{ $contribution['type'] }}</td>
-                                <td>...</td>
-                                <td>{{ $contribution['address'] }}</td>
-                                <td class="nowrap">{{ $contribution['amount'] }}</td>
-                                <td>{{ $contribution['status'] }}</td>
+                                <td> {{ $transaction['date'] }} </td>
+                                <td> {{ $transaction['time'] }} </td>
+                                <td>{{ $transaction['type'] }}</td>
+                                <td>{{ $transaction['address'] }}</td>
+                                <td class="nowrap">{{ $transaction['amount'] }}</td>
+                                <td>{{ $transaction['status'] }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -332,19 +333,7 @@
             <h3 class="h4">TRANSFERED!</h3>
             <div class="logon-modal-text">
                 <p>
-                    <span id="znx_balance"> </span> ZNX successfully transferred
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Transfer confirmation -->
-    <div class="logon-modal mfp-hide" id="transfer-modal">
-        <div class="logon-modal-container">
-            <h3 class="h4">TRANSFERED!</h3>
-            <div class="logon-modal-text">
-                <p>
-                    <span id="znx_balance"> </span> ZNX successfully transferred
+                    <span id="znx_balance"> </span> ZNX successfully transferred!
                 </p>
             </div>
         </div>
@@ -355,7 +344,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">TRANSFERED!</h3>
             <div class="logon-modal-text">
-                <p> --- </p>
+                <p>You have successfully submitted a withdraw request!</p>
             </div>
         </div>
     </div>
