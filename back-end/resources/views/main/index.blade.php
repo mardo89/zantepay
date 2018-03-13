@@ -727,12 +727,17 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <img src="images/dmitry.jpg" srcset="images/dmitry@2x.jpg 2x" alt="Dmitri Laush">
-                        <h3 class="h4">Dmitri Laush <span>Advisor</span></h3>
+                        <h3 class="h4">Dmitri Laush <span style="font-size:0.83em;">Foreign Exchange, Integration Partner, Co-Founder of Admiral Markets.</span></h3>
                         <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co- founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor and investor in various blockchain projects and startups. Founder of own crypto fund and a few blockchain projects. Entrepreneur, Blockchain Evangelist and a true believer that decentralization, peer-to-peer (P2P) governance systems and cryptocurrencies can help define a new path for the progress of humanity.</p>
                     </div>
                     <div class="col-lg-4">
+                        <img src="images/cristobal.jpg" srcset="images/cristobal@2x.jpg 2x" alt="Cristobal Alonso">
+                        <h3 class="h4">Cristobal Alonso <span style="font-size:0.83em;">Global CEO @ Startup Wise Guys</span></h3>
+                        <p>Cristobal is the Global Capo of Startup Wise Guys – Europe’s leading B2B accelerator and the leading acceleration platform for global founders and preferred deal flow partner for VC funds in Northern Europe and the CEE. Cristobal’s unique background combines extensive CxO experience in different mobile operators in Europe, leading several transformations and turnarounds, together with CEO startup experience both in B2B and B2C environments. Cristobal has been involved in more than 15 startups in 20 different countries as a founder, early CEO, investor, and lately as an advisor.</p>
+                    </div>
+                    <div class="col-lg-4">
                         <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
-                        <h3 class="h4">Juan Alonso-Villalobos <span>Advisor</span></h3>
+                        <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span></h3>
                         <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
                     </div>
                 </div>
