@@ -50,9 +50,12 @@ class UserController extends Controller
      */
     public function getStates(Request $request)
     {
-        $this->validate($request, [
-            'country' => 'numeric'
-        ]);
+        $this->validate(
+            $request,
+            [
+                'country' => 'numeric'
+            ]
+        );
 
         $country = $request->input('country');
 
@@ -64,6 +67,38 @@ class UserController extends Controller
                 'states' => $states,
                 'codes' => $codes
             ]
+        );
+    }
+
+    /**
+     * Accept Terms
+     *
+     * @return View
+     */
+    public function acceptTerms()
+    {
+        $user = Auth::user();
+
+
+        try {
+
+            $user->status = User::USER_STATUS_NOT_VERIFIED;
+            $user->save();
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Error accepting Terms and Conditions',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
+
+        return response()->json(
+            []
         );
     }
 
@@ -779,7 +814,8 @@ class UserController extends Controller
                     'start_date' => $startDate ? date('Y/m/d H:i:s', strtotime($startDate)) : '',
                     'part_name' => $icoPartName
                 ],
-                'transactions' => $userTransactions
+                'transactions' => $userTransactions,
+                'showWelcome' => $user->status == User::USER_STATUS_PENDING
             ]
         );
     }

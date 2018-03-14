@@ -279,6 +279,39 @@ $(document).ready(function () {
             )
     });
 
+    $('#frm_welcome').on('submit', function (event) {
+        event.preventDefault();
+
+        clearErrors();
+
+        if ($('#welcome input[name="tc_item"]').length !== $('#welcome input[name="tc_item"]:checked').length) {
+
+            $('#welcome input[name="tc_item"]').each(function() {
+                if(!$(this).prop('checked')) {
+                    $(this).parents('.logon-group').addClass('form-error');
+                }
+            });
+        }
+
+        axios.post(
+            '/user/accept-terms',
+            qs.stringify()
+        )
+            .then(
+                () => {
+                    window.location.reload();
+                }
+            )
+            .catch(
+                error => {
+                    const {message} = error.response.data;
+
+                    showError(message);
+                }
+            )
+    });
+
+
 });
 
 

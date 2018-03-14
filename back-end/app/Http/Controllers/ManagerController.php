@@ -57,6 +57,10 @@ class ManagerController extends Controller
 
         $statusesList = [
             [
+                'id' => User::USER_STATUS_PENDING,
+                'name' => User::getStatus(User::USER_STATUS_PENDING)
+            ],
+            [
                 'id' => User::USER_STATUS_NOT_VERIFIED,
                 'name' => User::getStatus(User::USER_STATUS_NOT_VERIFIED)
             ],
@@ -76,6 +80,10 @@ class ManagerController extends Controller
                 'id' => User::USER_STATUS_INACTIVE,
                 'name' => User::getStatus(User::USER_STATUS_INACTIVE)
             ],
+            [
+                'id' => User::USER_STATUS_WITHDRAW_PENDING,
+                'name' => User::getStatus(User::USER_STATUS_WITHDRAW_PENDING)
+            ]
         ];
 
         return view(

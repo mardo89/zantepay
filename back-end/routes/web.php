@@ -51,6 +51,8 @@ Route::group(['prefix' => 'account'], function () {
 Route::group(['prefix' => 'user'], function () {
 
     Route::get('states', 'UserController@getStates');
+    Route::post('accept-terms', 'UserController@acceptTerms');
+
     Route::get('profile', 'UserController@profile');
     Route::post('profile', 'UserController@saveProfile');
 

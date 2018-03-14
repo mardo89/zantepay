@@ -80,7 +80,7 @@
                                 <table class="table-transparent table-3-cols">
                                     <thead>
                                     <tr>
-                                        <th>ICO ZNX </th>
+                                        <th>ICO ZNX</th>
                                         <th>Card pre-order bonuses</th>
                                         <th>Card referral bonus</th>
                                     </tr>
@@ -195,7 +195,8 @@
 
             <div class="panel">
                 <h2 class="h4 mb-20">Transfer:</h2>
-                <div class="text-regular mb-20">Available for transfer: <span id="available_znx_amount" class="primary-color text-lg"> {{ $availableAmount }} </span>
+                <div class="text-regular mb-20">Available for transfer: <span id="available_znx_amount"
+                                                                              class="primary-color text-lg"> {{ $availableAmount }} </span>
                 </div>
                 <div class="text-regular">You will be able to withdraw your ERC20 tokens to Ethereum Network after the end of the ICO.</div>
             </div>
@@ -341,8 +342,87 @@
         </div>
     </div>
 
+    <!-- WELCOME TO ZANTEPAY -->
+    <div class="logon-modal mfp-hide logon-modal--560" id="welcome">
+        <div class="logon-modal-container">
+            <h3 class="h4 text-uppercase">Welcome to ZANTEPAY</h3>
+            <form id="frm_welcome">
+                <div class="logon-group">Before you can proceed you must read & accept:</div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check12">
+                        <label for="check12">I’ve read and understood the
+                            <a href="{{ asset('storage/Terms and Conditions Zantepay.pdf') }}">Terms & Conditions</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check13">
+                        <label for="check13">I’ve read, understood and agree with the
+                            <a href="{{ asset('storage/Privacy Policy Zantepay.pdf') }}">Privacy Terms</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check11">
+                        <label for="check11">I’ve read, understood and agree with the
+                            <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}">Whitepaper</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check14">
+                        <label for="check14">I’ve read, understood and agree with the
+                            <a href="{{ asset('storage/Cookie Policy Zantepay.pdf') }}">Cookie Policy</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check15"><label for="check15">Citizens and residents from the US, South
+                            Korea and China are not allowed to contribute during the ICO.</label>
+                    </div>
+                </div>
+
+                <div class="logon-submit">
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <a id="logout-btn" href="" class="js-close-popup btn btn--shadowed-light btn--260">Cancel</a>
+                        </div>
+                        <div class="col-4">
+                            <input class="btn btn--shadowed-light btn--260" type="submit" value="Ok">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 @endsection
 
 @section('scripts')
     <script src="/js/user_wallet.js" type="text/javascript"></script>
+
+    @if($showWelcome)
+        <script type='text/javascript'>
+            $.magnificPopup.open(
+                {
+                    items: {
+                        src: '#welcome'
+                    },
+                    type: 'inline',
+                    closeOnBgClick: true,
+                }
+            );
+
+        </script>
+    @endif
 @endsection
