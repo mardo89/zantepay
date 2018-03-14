@@ -798,8 +798,8 @@
             </div>
             <div class="footer-menu">
                 <ul>
-                    <li><a href="{{ asset('storage/Terms and Conditions Zantepay.pdf') }}">Terms & Conditions</a></li>
-                    <li><a href="{{ asset('storage/Privacy Policy Zantepay.pdf') }}">Privacy Policy</a></li>
+                    <li><a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" target="_blank">Terms & Conditions</a></li>
+                    <li><a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" target="_blank">Privacy Policy</a></li>
                 </ul>
             </div>
             <p class="copyright"><span class="copyright-ico"></span> 2018 ZANTEPAY</p>
@@ -1011,13 +1011,13 @@
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood with the <a href="#">
+                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood with the <a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" target="_blank">
                             Terms & Conditions</a></label>
                     </div>
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check3"><label for="check3">I’ve read, understood and agree with the <a href="#">Privacy
+                        <input type="checkbox" name="" id="check3"><label for="check3">I’ve read, understood and agree with the <a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" target="_blank">Privacy
                                 Terms</a></label>
                     </div>
                 </div>

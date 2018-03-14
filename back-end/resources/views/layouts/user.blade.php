@@ -75,7 +75,6 @@
     </div>
 </div>
 
-
 <!-- JS scripts -->
 <script src="/js/user.js" type="text/javascript"></script>
 <script src="/js/components/particles.min.js"></script>

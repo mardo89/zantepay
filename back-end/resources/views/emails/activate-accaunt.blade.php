@@ -239,11 +239,11 @@
                                                             <tr>
                                                                 <td align="left" valign="top"
                                                                     style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #bcbcbc; line-height: 36px; font-weight: normal;">
-                                                                    Terms &amp;&nbsp;Conditions
+                                                                    <a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" style="outline: none; border: 0; color: #bcbcbc; text-decoration: none;">Terms &amp; Conditions</a>
                                                                 </td>
                                                                 <td align="right" valign="top"
                                                                     style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #bcbcbc; line-height: 36px; font-weight: normal;">
-                                                                    Privacy Policy
+                                                                    <a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" style="outline: none; border: 0; color: #bcbcbc; text-decoration: none;">Privacy Policy</a>
                                                                 </td>
                                                             </tr>
                                                         </table>
