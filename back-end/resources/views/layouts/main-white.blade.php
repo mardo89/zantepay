@@ -61,8 +61,8 @@
     <footer class="footer-center">
         <div class="footer-nav">
             <ul>
-                <li><a href="">Referral Terms & Conditions</a></li>
-                <li><a href="">Privacy Terms</a></li>
+                <li><a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}">Terms & Conditions</a></li>
+                <li><a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}">Privacy Terms</a></li>
                 <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank">Whitepaper</a></li>
             </ul>
         </div>
