@@ -29,32 +29,33 @@
     to improve your experience.</p>
 <![endif]-->
 
-<header class="header header-transparent">
-    <div class="masthead">
-        <div class="container">
-            <div class="masthead__row">
-                <div class="masthead__left">
-                    <a href="/" class="logo" title="ZANTEPAY">
-                        <img src="/images/logo-large-wsh.png" alt="ZANTEPAY Logo">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-
 <main class="main main-inv">
     <div class="container">
-        <div class="invitation-wrap">
-            <div class="row vertical-middle-col">
-                <div class="col-md-6">
-                    <img src="/images/iPhone-debit.png" srcset="/images/iPhone-debit@2x.png 2x" alt="iPhone Debit card">
+
+        <div class="invitation-wrap invitation-wrap-3col">
+            <div class="row">
+                <div class="col-lg-4 inv-col1">
+                    <h2 class="h2 headline headline--black p-b-60 p-t-40">Refer a friend for a <br> <span>20%</span> commission</h2>
+                    <div class="row p-b-60 inv-card-row">
+                        <img src="images/wh-card-sm.png" srcset="images/wh-card-sm@2x.png 2x" alt="Zantepay Mastercad">
+                    </div>
+                    <div class="row vertical-middle-col inv-bonus-row">
+                        <div class="col-md-8">
+                            <h2 class="h2 headline headline--black">Verify and pre-order a <span class="primary-color">FREE</span> card</h2>
+                        </div>
+                        <div class="col-md-4 pl-0">
+                            <img src="images/get-500-znx.png" srcset="images/get-500-znx@2x.png 2x" alt="get 500 ZNX">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6 col-lg-4 text-center">
+                    <img src="images/iphone-wallets.png" srcset="images/iphone-wallets@2x.png 2x" alt="Zantepay Wallets">
+                </div>
+                <div class="col-sm-6 col-lg-4 inv-content-col">
                     @yield('main')
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -69,6 +70,21 @@
     </footer>
 
 </main>
+
+
+<header class="header header-transparent">
+    <div class="masthead">
+        <div class="container">
+            <div class="masthead__row">
+                <div class="masthead__left">
+                    <a href="/" class="logo" title="ZANTEPAY">
+                        <img src="/images/logo-large-wsh.png" alt="ZANTEPAY Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
 
 @yield('popups')
