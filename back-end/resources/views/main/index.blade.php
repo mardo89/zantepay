@@ -686,16 +686,6 @@
                         <p>Kristi is an experienced attorney and leads the legal team of Zantepay project. Kristi is a partner in Lawfirm LEXTAL, one of the biggest lawfirms in Estonia, having also offices in Latvia and Lithuania. Kristi has wide legal experience in fintech field, including regulatory matters and other legal questions related to innovative financing and financial services. Her expertise also covers services related to crypto currencies and ICOs.</p>
                     </div>
                     <div class="col-lg-4">
-                        <img src="images/dmitry.jpg" srcset="images/dmitry@2x.jpg 2x" alt="Dmitri Laush">
-                        <h3 class="h4">Dmitri Laush <span>Advisor</span></h3>
-                        <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co- founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor and investor in various blockchain projects and startups. Founder of own crypto fund and a few blockchain projects. Entrepreneur, Blockchain Evangelist and a true believer that decentralization, peer-to-peer (P2P) governance systems and cryptocurrencies can help define a new path for the progress of humanity.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
-                        <h3 class="h4">Juan Alonso-Villalobos <span>Advisor</span></h3>
-                        <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
-                    </div>
-                    <div class="col-lg-4">
                         <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">
                         <h3 class="h4">Stanislav Ivashchenko <span>User Experience and Product Design Lead</span></h3>
                         <p>Stanislav shapes visual appearance of ZANTEPAY. He possesses more than 6 years of experience in graphic design
@@ -727,6 +717,28 @@
                         <h3 class="h4">Levon Hayrapetyan <span>Smart Contracts Developer</span></h3>
                         <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in
                             experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
+                    </div>
+                </div>
+
+                <div class="text-center lp-row-1">
+                    <h2 class="headline h2"><span>Advisors</span></h2>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img src="images/dmitry.jpg" srcset="images/dmitry@2x.jpg 2x" alt="Dmitri Laush">
+                        <h3 class="h4">Dmitri Laush <span style="font-size:0.83em;">Foreign Exchange, Integration Partner, Co-Founder of Admiral Markets.</span></h3>
+                        <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co- founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor and investor in various blockchain projects and startups. Founder of own crypto fund and a few blockchain projects. Entrepreneur, Blockchain Evangelist and a true believer that decentralization, peer-to-peer (P2P) governance systems and cryptocurrencies can help define a new path for the progress of humanity.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/cristobal.jpg" srcset="images/cristobal@2x.jpg 2x" alt="Cristobal Alonso">
+                        <h3 class="h4">Cristobal Alonso <span style="font-size:0.83em;">Global CEO @ Startup Wise Guys</span></h3>
+                        <p>Cristobal is the Global Capo of Startup Wise Guys – Europe’s leading B2B accelerator and the leading acceleration platform for global founders and preferred deal flow partner for VC funds in Northern Europe and the CEE. Cristobal’s unique background combines extensive CxO experience in different mobile operators in Europe, leading several transformations and turnarounds, together with CEO startup experience both in B2B and B2C environments. Cristobal has been involved in more than 15 startups in 20 different countries as a founder, early CEO, investor, and lately as an advisor.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
+                        <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span></h3>
+                        <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
                     </div>
                 </div>
             </div>
@@ -999,7 +1011,7 @@
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood the <a href="#">
+                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood with the <a href="#">
                             Terms & Conditions</a></label>
                     </div>
                 </div>
