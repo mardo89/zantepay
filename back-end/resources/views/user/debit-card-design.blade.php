@@ -93,7 +93,7 @@
                     <div class="mb-30 text-center">
                         <div class="checkbox">
                             <input type="checkbox" name="terms" id="check6">
-                            <label for="check6">I confirm that I have read debit card pre-order Terms & Conditions</label>
+                            <label for="check6">I confirm that I have read debit card pre-order </label> <a href="{{ asset('storage/Debit Card Terms and Conditions Zantepay.pdf') }}">Terms & Conditions</a>
                         </div>
                     </div>
                     <div class="card-submit-wrap">

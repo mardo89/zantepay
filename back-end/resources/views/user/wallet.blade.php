@@ -160,17 +160,9 @@
                             <div class="col-lg-2 col-md-3">
                                 <div class="form-group text-regular"><label for="field14">Amount:</label></div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-9">
                                 <div class="form-group">
                                     <input id="field14" class="input-field" type="text" name="transfer_eth_amount" placeholder="ETH">
-                                </div>
-                            </div>
-                            <div class="col col-sm-auto">
-                                <div class="form-group text-regular"><label for="field15">to</label></div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input id="field15" class="input-field" type="text" name="transfer_znx_amount" placeholder="ZNX">
                                 </div>
                             </div>
                         </div>

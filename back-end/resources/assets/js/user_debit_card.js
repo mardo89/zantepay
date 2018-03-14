@@ -5,6 +5,13 @@ $(document).ready(function () {
     $('#dc_design').on('submit', function (event) {
         event.preventDefault();
 
+        const confirmed = $('input[name="terms"]').prop('checked');
+
+        if (!confirmed) {
+            showError('Please, confirm that you have read debit card pre-order Terms & Conditions');
+            return false;
+        }
+
         const button = $('#dc_design').find('button[type="submit"]');
         showSpinner(button);
 

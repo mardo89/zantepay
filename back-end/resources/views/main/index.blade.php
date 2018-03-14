@@ -798,8 +798,8 @@
             </div>
             <div class="footer-menu">
                 <ul>
-                    <li><a href="">Terms & Conditions</a></li>
-                    <li><a href="">Privacy Policy</a></li>
+                    <li><a href="{{ asset('storage/Terms and Conditions Zantepay.pdf') }}">Terms & Conditions</a></li>
+                    <li><a href="{{ asset('storage/Privacy Policy Zantepay.pdf') }}">Privacy Policy</a></li>
                 </ul>
             </div>
             <p class="copyright"><span class="copyright-ico"></span> 2018 ZANTEPAY</p>
