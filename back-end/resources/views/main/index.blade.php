@@ -786,8 +786,8 @@
             </div>
             <div class="footer-menu">
                 <ul>
-                    <li><a href="">Terms & Conditions</a></li>
-                    <li><a href="">Privacy Policy</a></li>
+                    <li><a href="{{ asset('storage/Terms and Conditions Zantepay.pdf') }}">Terms & Conditions</a></li>
+                    <li><a href="{{ asset('storage/Privacy Policy Zantepay.pdf') }}">Privacy Policy</a></li>
                 </ul>
             </div>
             <p class="copyright"><span class="copyright-ico"></span> 2018 ZANTEPAY</p>
@@ -1011,51 +1011,6 @@
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Next">
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- WELCOME TO ZANTEPAY -->
-    <div class="logon-modal mfp-hide logon-modal--560" id="welcome">
-        <div class="logon-modal-container">
-            <h3 class="h4 text-uppercase">Welcome to ZANTEPAY</h3>
-            <form action="">
-                <div class="logon-group">Before you can proceed you must read & accept: </div>
-                <div class="logon-group text-left">
-                    <div class="checkbox">
-                        <input type="checkbox" name="" id="check12"><label for="check12">I’ve read and understood the <a href="#">Terms & Conditions</a></label>
-                    </div>
-                </div>
-                <div class="logon-group text-left">
-                    <div class="checkbox">
-                        <input type="checkbox" name="" id="check13"><label for="check13">I’ve read, understood and agree with the <a href="#">Privacy Terms</a></label>
-                    </div>
-                </div>
-                <div class="logon-group text-left">
-                    <div class="checkbox">
-                        <input type="checkbox" name="" id="check11"><label for="check11">I’ve read, understood and agree with the <a href="#">Whitepaper</a></label>
-                    </div>
-                </div>
-                <div class="logon-group text-left">
-                    <div class="checkbox">
-                        <input type="checkbox" name="" id="check14"><label for="check14">I’ve read, understood and agree with the <a href="#">Cookie Policy</a></label>
-                    </div>
-                </div>
-                <div class="logon-group text-left">
-                    <div class="checkbox">
-                        <input type="checkbox" name="" id="check15"><label for="check15">Citizens and residents from the US, South Korea and China are not allowed to contribute during the ICO.</label>
-                    </div>
-                </div>
-                <div class="logon-submit">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <a href="#welcome" class="js-close-popup btn btn--shadowed-light btn--260">Cancel</a>
-                        </div>
-                        <div class="col-4">
-                            <input class="btn btn--shadowed-light btn--260" type="submit" value="Ok">
-                        </div>
-                    </div>
                 </div>
             </form>
         </div>

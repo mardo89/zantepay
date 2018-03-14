@@ -29,49 +29,6 @@
     to improve your experience.</p>
 <![endif]-->
 
-<main class="main main-inv">
-    <div class="container">
-
-        <div class="invitation-wrap invitation-wrap-3col">
-            <div class="row">
-                <div class="col-lg-4 inv-col1">
-                    <h2 class="h2 headline headline--black p-b-60 p-t-40">Refer a friend for a <br> <span>20%</span> commission</h2>
-                    <div class="row p-b-60 inv-card-row">
-                        <img src="images/wh-card-sm.png" srcset="images/wh-card-sm@2x.png 2x" alt="Zantepay Mastercad">
-                    </div>
-                    <div class="row vertical-middle-col inv-bonus-row">
-                        <div class="col-md-8">
-                            <h2 class="h2 headline headline--black">Verify and pre-order a <span class="primary-color">FREE</span> card</h2>
-                        </div>
-                        <div class="col-md-4 pl-0">
-                            <img src="images/get-500-znx.png" srcset="images/get-500-znx@2x.png 2x" alt="get 500 ZNX">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 text-center">
-                    <img src="images/iphone-wallets.png" srcset="images/iphone-wallets@2x.png 2x" alt="Zantepay Wallets">
-                </div>
-                <div class="col-sm-6 col-lg-4 inv-content-col">
-                    @yield('main')
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <footer class="footer-center">
-        <div class="footer-nav">
-            <ul>
-                <li><a href="">Referral Terms & Conditions</a></li>
-                <li><a href="">Privacy Terms</a></li>
-                <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank">Whitepaper</a></li>
-            </ul>
-        </div>
-    </footer>
-
-</main>
-
-
 <header class="header header-transparent">
     <div class="masthead">
         <div class="container">
@@ -85,6 +42,24 @@
         </div>
     </div>
 </header>
+
+
+<main class="main main-inv">
+    <div class="container">
+        @yield('main')
+    </div>
+
+    <footer class="footer-center">
+        <div class="footer-nav">
+            <ul>
+                <li><a href="">Referral Terms & Conditions</a></li>
+                <li><a href="{{ asset('storage/Privacy Policy Zantepay.pdf') }}">Privacy Terms</a></li>
+                <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank">Whitepaper</a></li>
+            </ul>
+        </div>
+    </footer>
+
+</main>
 
 
 @yield('popups')
@@ -123,7 +98,7 @@
 
 <!-- Sumo -->
 {{--<script src="//load.sumome.com/" data-sumo-site-id="1b320c3e8fabe2b7fc8de8f8f6a818fc6abdb6eb272f1b25fe8ca580f0bbf5f4"--}}
-        {{--async="async"></script>--}}
+{{--async="async"></script>--}}
 
 <!-- Useproof -->
 <script id=proof-script>!function () {

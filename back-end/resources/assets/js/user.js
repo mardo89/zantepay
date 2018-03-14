@@ -217,6 +217,17 @@ $(document).ready(function () {
         tmpEl.remove();
     })
 
+
+    // $.magnificPopup.open(
+    //     {
+    //         items: {
+    //             src: '#welcome'
+    //         },
+    //         type: 'inline',
+    //         closeOnBgClick: true,
+    //     }
+    // );
+
 });
 
 
