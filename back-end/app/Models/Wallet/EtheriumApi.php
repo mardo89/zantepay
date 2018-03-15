@@ -96,8 +96,13 @@ class EtheriumApi
     {
         $params = [];
 
-        $params[] = is_null($continuationStartToken) ? '' : 'start=' . $continuationStartToken;
-        $params []= is_null($continuationEndToken) ? '' : 'end=' . $continuationEndToken;
+        if (!is_null($continuationStartToken)) {
+            $params[] = 'start=' . $continuationStartToken;
+        }
+
+        if (!is_null($continuationEndToken)) {
+            $params[] = 'end=' . $continuationEndToken;
+        }
 
         $apiResponse = self::sendGetRequest(
             '/contributions',
