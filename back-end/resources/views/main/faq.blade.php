@@ -291,4 +291,88 @@
         </div>
     </div>
 
+    <!-- sign in -->
+    <div class="logon-modal mfp-hide" id="sign-in-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">SIGN IN</h3>
+            <div class="social-btns">
+                <a href="/account/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
+                <a href="/account/google" class="btn btn--google"><i></i> Sign In With Google</a>
+            </div>
+
+            <div class="or-horizontal">or</div>
+            <form id="frm_signin">
+                <div class="logon-group">
+                    <input id="signin_email" class="logon-field" type="email" name="email" placeholder="Email">
+                </div>
+                <div class="logon-group">
+                    <input id="signin_pwd" class="logon-field" type="password" name="password" placeholder="Password">
+                </div>
+                <div class="logon-submit">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
+                </div>
+
+                <a href="#sign-up-modal" class="js-popup-link logon-link">Sign Up</a>
+                <br>
+                <a href="#forgot-password" class="js-popup-link logon-link mt-10">Forgot password ?</a>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- forgot password -->
+    <div class="logon-modal mfp-hide" id="forgot-password">
+        <div class="logon-modal-container">
+            <h3 class="h4">Forgot Password?</h3><br>
+            <form id="frm_forgot_password">
+                <div class="logon-group">
+                    <input class="logon-field" type="email" name="email" placeholder="Email">
+                </div>
+                <div class="logon-submit mt-35">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Reset Password">
+                </div>
+                <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- reset confirmation -->
+    <div class="logon-modal mfp-hide" id="reset-confirm-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">RIGHT ON!</h3>
+            <div class="logon-modal-text">
+                <p>By now you should have received an email from us. To reset your account password please click the link in the email.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- sing up -->
+    <div class="logon-modal mfp-hide" id="sign-up-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">SIGN UP</h3>
+            <div class="social-btns">
+                <a href="/account/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
+                <a href="/account/google" class="btn btn--google"><i></i> Sign In With Google</a>
+            </div>
+
+            <div class="or-horizontal">or</div>
+            <form id="frm_signup">
+                <div class="logon-group">
+                    <input class="logon-field" type="email" name="email" placeholder="Email">
+                </div>
+                <div class="logon-group">
+                    <input class="logon-field" type="password" name="password" placeholder="Password">
+                </div>
+                <div class="logon-group">
+                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password">
+                </div>
+                <div class="logon-submit">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">
+                </div>
+                <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
+            </form>
+
+        </div>
+    </div>
+
 @endsection
