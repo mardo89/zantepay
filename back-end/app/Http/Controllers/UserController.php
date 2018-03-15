@@ -755,9 +755,9 @@ class UserController extends Controller
 
         $userTransactions = [];
 
-        $contributionTransactions = $user->wallet->contributions;
-        $transferTransactions = $user->transferTransactions;
-        $withdrawTransactions = $user->withdrawTransactions;
+        $contributionTransactions = $user->wallet->contributions ?? [];
+        $transferTransactions = $user->transferTransactions ?? [];
+        $withdrawTransactions = $user->withdrawTransactions ?? [];
 
         foreach ($contributionTransactions as $contributionTransaction) {
             $ethAmount = RateCalculator::weiToEth($contributionTransaction->amount);
