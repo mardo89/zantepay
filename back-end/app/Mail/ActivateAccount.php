@@ -35,8 +35,6 @@ class ActivateAccount extends Mailable
     public function build()
     {
         return $this->subject('Account activation')
-            ->from(env('CONTACT_EMAIL'))
-            ->replyTo(env('CONTACT_EMAIL'))
             ->view('emails.activate-accaunt');
     }
 }
