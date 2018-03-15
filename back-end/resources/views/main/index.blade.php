@@ -25,16 +25,16 @@
                             <ul>
                                 <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a></li>
                                 <li><a href="#ico">ICO</a></li>
-                                <li><a href="">Bounty</a></li>
+                                <!-- <li><a href="">Bounty</a></li> -->
                                 <li><a href="#team">Team</a></li>
-                                <li>
+                                <!-- <li>
                                     <a href="">Development</a>
                                     <ul>
                                         <li><a href="">Wallet Beta</a></li>
                                         <li><a href="">App Beta</a></li>
                                         <li><a href="">Development roadmap</a></li>
                                     </ul>
-                                </li>
+                                </li> -->
                                 <li><a href="/faq">FAQ</a></li>
                             </ul>
                         </nav>
