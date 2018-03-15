@@ -419,7 +419,19 @@
                         src: '#welcome'
                     },
                     type: 'inline',
-                    closeOnBgClick: true,
+                    midClick: true,
+                    showCloseBtn: false,
+                    closeOnBgClick: false,
+                    mainClass: 'mfp-fade',
+                    fixedContentPos: false,
+                    callbacks: {
+                       open: function() {
+                          $('body').addClass('noscroll');
+                       },
+                       close: function() {
+                           $('body').removeClass('noscroll');
+                       }
+                    }
                 }
             );
 
