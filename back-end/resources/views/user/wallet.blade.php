@@ -204,7 +204,7 @@
             <div class="panel">
                 <!-- toggle class .is-active for .update-icon while loadding proccess -->
                 <h2 class="h4 headline-mb">Transactions history: </h2>
-                <div class="table-responsive-400">
+                <div class="table-responsive-500">
                     <table class="table-black">
                         <thead>
                         <tr>
@@ -394,10 +394,10 @@
 
                 <div class="logon-submit">
                     <div class="row justify-content-center">
-                        <div class="col-4">
+                        <div class="col-sm-4 col-6">
                             <a id="logout-btn" href="" class="js-close-popup btn btn--shadowed-light btn--260">Cancel</a>
                         </div>
-                        <div class="col-4">
+                        <div class="col-sm-4 col-6">
                             <input class="btn btn--shadowed-light btn--260" type="submit" value="Ok">
                         </div>
                     </div>
