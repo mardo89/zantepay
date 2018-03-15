@@ -286,12 +286,17 @@ $(document).ready(function () {
 
         if ($('#welcome input[name="tc_item"]').length !== $('#welcome input[name="tc_item"]:checked').length) {
 
-            $('#welcome input[name="tc_item"]').each(function() {
-                if(!$(this).prop('checked')) {
+            $('#welcome input[name="tc_item"]').each(function () {
+                if (!$(this).prop('checked')) {
                     $(this).parents('.logon-group').addClass('form-error');
                 }
             });
+
+            return false;
         }
+
+        const button = $(this).find('input[type="submit"]');
+        button.prop('disabled', true);
 
         axios.post(
             '/user/accept-terms',
@@ -304,6 +309,8 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
+                    button.prop('disabled', false);
+
                     const {message} = error.response.data;
 
                     showError(message);
