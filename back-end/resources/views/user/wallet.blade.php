@@ -353,7 +353,7 @@
                     <div class="checkbox">
                         <input type="checkbox" name="tc_item" id="check12">
                         <label for="check12">I’ve read and understood the
-                            <a href="{{ asset('storage/Terms and Conditions Zantepay.pdf') }}">Terms & Conditions</a>
+                            <a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}">Terms & Conditions</a>
                         </label>
                     </div>
                 </div>
@@ -362,7 +362,7 @@
                     <div class="checkbox">
                         <input type="checkbox" name="tc_item" id="check13">
                         <label for="check13">I’ve read, understood and agree with the
-                            <a href="{{ asset('storage/Privacy Policy Zantepay.pdf') }}">Privacy Terms</a>
+                            <a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}">Privacy Terms</a>
                         </label>
                     </div>
                 </div>
@@ -380,7 +380,7 @@
                     <div class="checkbox">
                         <input type="checkbox" name="tc_item" id="check14">
                         <label for="check14">I’ve read, understood and agree with the
-                            <a href="{{ asset('storage/Cookie Policy Zantepay.pdf') }}">Cookie Policy</a>
+                            <a href="{{ asset('storage/Zantepay_Cookie_Policy.pdf') }}">Cookie Policy</a>
                         </label>
                     </div>
                 </div>

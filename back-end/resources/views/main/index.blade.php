@@ -25,16 +25,16 @@
                             <ul>
                                 <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a></li>
                                 <li><a href="#ico">ICO</a></li>
-                                <li><a href="">Bounty</a></li>
+                                <!-- <li><a href="">Bounty</a></li> -->
                                 <li><a href="#team">Team</a></li>
-                                <li>
+                                <!-- <li>
                                     <a href="">Development</a>
                                     <ul>
                                         <li><a href="">Wallet Beta</a></li>
                                         <li><a href="">App Beta</a></li>
                                         <li><a href="">Development roadmap</a></li>
                                     </ul>
-                                </li>
+                                </li> -->
                                 <li><a href="/faq">FAQ</a></li>
                             </ul>
                         </nav>
@@ -739,6 +739,12 @@
                         <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
                         <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span></h3>
                         <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/bill.jpg" srcset="images/bill@2x.jpg 2x" alt="Bill Ross">
+                        <h3 class="h4 h4--3row">Bill Ross <span style="font-size:0.83em;">Chief Information Security Officer, Cyber Security Architect and Payment Card Industry Compliance expert. </span></h3>
+                        <p>Bill is a retired United States Air Force Intelligence Officer.  Bill led revolutionary advancements in Intelligence Systems Architecture for the United States Air Force and various global military commands. 
+                        Most notably, Bill served as the Vice President of Security Operations at the Federal Reserve, he completely reorganized the Federal Reserve Information Technology Cyber Security Program.  Bill also led various other financial service industry cyber security programs at the American Investment Group (AIG), the Hong Kong Shanghai Bank (HSBC), AXA Insurance, and JP Morgan.  Bill also led a variety of other significant companies and government agencies such as Barnes and Noble.com, State of Virginia, State of California, Defense Contract Management Agency, the United States Navy, and LGS Innovations.</p>
                     </div>
                 </div>
             </div>
