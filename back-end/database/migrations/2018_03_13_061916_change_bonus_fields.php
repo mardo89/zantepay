@@ -37,7 +37,7 @@ class ChangeBonusFields extends Migration
             $table->dropColumn('debit_card_bonus');
             $table->dropColumn('commission_bonus');
 
-            $table->float('znx_amount', 8, 2)->change();
+//            $table->float('znx_amount', 8, 2)->change();
             $table->float('rs_bonus', 8, 2)->default(0);
             $table->float('rt_bonus', 8, 2)->default(0);
             $table->float('dc_bonus', 8, 2)->default(0);
