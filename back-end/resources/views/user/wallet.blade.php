@@ -140,9 +140,9 @@
                             </div>
                         </div>
                         <div>
-                            <h2 class="h4 mb-20">{{ $ico['part_name'] }} starts in:</h2>
+                            <h2 class="h4 mb-20">{{ $ico['part_name'] }} ends in:</h2>
                             <div class="countdown">
-                                <span class="js-countdown" data-date="{{ $ico['start_date'] }}"></span>
+                                <span class="js-countdown" data-date="{{ $ico['end_date'] }}"></span>
                             </div>
                         </div>
                     </div>

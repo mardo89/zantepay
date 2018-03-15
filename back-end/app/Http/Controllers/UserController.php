@@ -750,7 +750,7 @@ class UserController extends Controller
         $activeIcoPart = $ico->getActivePart();
 
         $ethRate = optional($activeIcoPart)->getEthRate() ?? 0;
-        $startDate = optional($activeIcoPart)->getStartDate() ?? null;
+        $endDate = optional($activeIcoPart)->getEndDate() ?? null;
         $icoPartName = optional($activeIcoPart)->getName() ?? '';
 
         $userTransactions = [];
@@ -811,7 +811,7 @@ class UserController extends Controller
                 'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
                 'ico' => [
                     'znx_rate' => (new CurrencyFormatter($ethRate))->ethFormat()->get(),
-                    'start_date' => $startDate ? date('Y/m/d H:i:s', strtotime($startDate)) : '',
+                    'end_date' => $endDate ? date('Y/m/d H:i:s', strtotime($endDate)) : '',
                     'part_name' => $icoPartName
                 ],
                 'transactions' => $userTransactions,
