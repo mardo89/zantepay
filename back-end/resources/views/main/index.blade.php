@@ -718,6 +718,12 @@
                         <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in
                             experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
                     </div>
+                    <!-- <div class="col-lg-4">
+                        <img src="images/oleg.jpg" srcset="images/oleg@2x.jpg 2x" alt="Oleg Pyvovarenko">
+                        <h3 class="h4">Oleg Pyvovarenko <span style="font-size:0.83em;">Chief Information Security Officer, Cyber Security Architect and Payment Card Industry Compliance expert. </span></h3>
+                        <p>Bill is a retired United States Air Force Intelligence Officer.  Bill led revolutionary advancements in Intelligence Systems Architecture for the United States Air Force and various global military commands. 
+                        Most notably, Bill served as the Vice President of Security Operations at the Federal Reserve, he completely reorganized the Federal Reserve Information Technology Cyber Security Program.  Bill also led various other financial service industry cyber security programs at the American Investment Group (AIG), the Hong Kong Shanghai Bank (HSBC), AXA Insurance, and JP Morgan.  Bill also led a variety of other significant companies and government agencies such as Barnes and Noble.com, State of Virginia, State of California, Defense Contract Management Agency, the United States Navy, and LGS Innovations.</p>
+                    </div> -->
                 </div>
 
                 <div class="text-center lp-row-1">
@@ -727,7 +733,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <img src="images/dmitry.jpg" srcset="images/dmitry@2x.jpg 2x" alt="Dmitri Laush">
-                        <h3 class="h4">Dmitri Laush <span style="font-size:0.83em;">Foreign Exchange, Integration Partner, Co-Founder of Admiral Markets.</span></h3>
+                        <h3 class="h4">Dmitri Laush <span style="font-size:0.83em;">Foreign Exchange, Integration Partner, Co-Founder of Admiral Markets</span></h3>
                         <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co- founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor and investor in various blockchain projects and startups. Founder of own crypto fund and a few blockchain projects. Entrepreneur, Blockchain Evangelist and a true believer that decentralization, peer-to-peer (P2P) governance systems and cryptocurrencies can help define a new path for the progress of humanity.</p>
                     </div>
                     <div class="col-lg-4">
@@ -736,26 +742,20 @@
                         <p>Cristobal is the Global Capo of Startup Wise Guys – Europe’s leading B2B accelerator and the leading acceleration platform for global founders and preferred deal flow partner for VC funds in Northern Europe and the CEE. Cristobal’s unique background combines extensive CxO experience in different mobile operators in Europe, leading several transformations and turnarounds, together with CEO startup experience both in B2B and B2C environments. Cristobal has been involved in more than 15 startups in 20 different countries as a founder, early CEO, investor, and lately as an advisor.</p>
                     </div>
                     <div class="col-lg-4">
+                        <img src="images/rauno.jpg" srcset="images/rauno@2x.jpg 2x" alt="Rauno Klettenberg">
+                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia</span></h3>
+                        <p>Experienced Board Member with a demonstrated history of working in the financial services industry. Skilled in Analytical Skills, Asset Management, Management, Mergers & Acquisitions, and Financial Risk. Strong business development professional with a Master's Degree focused in Accounting and Finance from Estonian Business School.</p>
+                    </div>
+                    <div class="col-lg-4">
                         <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
                         <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span></h3>
                         <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/bill.jpg" srcset="images/bill@2x.jpg 2x" alt="Bill Ross">
-                        <h3 class="h4 h4--3row">Bill Ross <span style="font-size:0.83em;">Chief Information Security Officer, Cyber Security Architect and Payment Card Industry Compliance expert. </span></h3>
+                        <h3 class="h4 h4--3row">Bill Ross <span style="font-size:0.83em;">Chief Information Security Officer, Cyber Security Architect and Payment Card Industry Compliance expert</span></h3>
                         <p>Bill is a retired United States Air Force Intelligence Officer.  Bill led revolutionary advancements in Intelligence Systems Architecture for the United States Air Force and various global military commands. 
                         Most notably, Bill served as the Vice President of Security Operations at the Federal Reserve, he completely reorganized the Federal Reserve Information Technology Cyber Security Program.  Bill also led various other financial service industry cyber security programs at the American Investment Group (AIG), the Hong Kong Shanghai Bank (HSBC), AXA Insurance, and JP Morgan.  Bill also led a variety of other significant companies and government agencies such as Barnes and Noble.com, State of Virginia, State of California, Defense Contract Management Agency, the United States Navy, and LGS Innovations.</p>
-                    </div>
-                    <!-- <div class="col-lg-4">
-                        <img src="images/oleg.jpg" srcset="images/oleg@2x.jpg 2x" alt="Oleg Pyvovarenko">
-                        <h3 class="h4">Oleg Pyvovarenko <span style="font-size:0.83em;">Chief Information Security Officer, Cyber Security Architect and Payment Card Industry Compliance expert. </span></h3>
-                        <p>Bill is a retired United States Air Force Intelligence Officer.  Bill led revolutionary advancements in Intelligence Systems Architecture for the United States Air Force and various global military commands. 
-                        Most notably, Bill served as the Vice President of Security Operations at the Federal Reserve, he completely reorganized the Federal Reserve Information Technology Cyber Security Program.  Bill also led various other financial service industry cyber security programs at the American Investment Group (AIG), the Hong Kong Shanghai Bank (HSBC), AXA Insurance, and JP Morgan.  Bill also led a variety of other significant companies and government agencies such as Barnes and Noble.com, State of Virginia, State of California, Defense Contract Management Agency, the United States Navy, and LGS Innovations.</p>
-                    </div> -->
-                    <div class="col-lg-4">
-                        <img src="images/rauno.jpg" srcset="images/rauno@2x.jpg 2x" alt="Rauno Klettenberg">
-                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia. </span></h3>
-                        <p>Experienced Board Member with a demonstrated history of working in the financial services industry. Skilled in Analytical Skills, Asset Management, Management, Mergers & Acquisitions, and Financial Risk. Strong business development professional with a Master's Degree focused in Accounting and Finance from Estonian Business School.</p>
                     </div>
                 </div>
             </div>

@@ -214,11 +214,11 @@ crowdSale.owner( function (err, res) {
     if (err) {
         return;
     }
-    $("#current_owner").text(res);
+    $("#current_crowdsale_owner").text(res);
 });
 // Transfer ownership
-$("#set_new_owner").click(function() {
-    crowdSale.transferOwnership($("#new_owner_address").val(), (err, res) => {
+$("#set_new_crowdsale_owner").click(function() {
+    crowdSale.transferOwnership($("#new_crowdsale_owner_address").val(), (err, res) => {
         if (err) {
             return;
         }
@@ -230,11 +230,11 @@ crowdSale.newOwner( function (err, res) {
     if (err) {
         return;
     }
-    $("#pending_owner_address").text(res);
+    $("#pending_crowdsale_owner_address").text(res);
 });
 
 // Accept ownership
-$("#accept_ownership").click(function() {
+$("#accept_crowdsale_ownership").click(function() {
     crowdSale.acceptOwnership((err, res) => {
             if (err) {
                 return;
@@ -243,8 +243,8 @@ $("#accept_ownership").click(function() {
 });
 
 // Set wallet
-$("#set_wallet").click(function() {
-    crowdSale.setWallet($("#new_wallet_address").val(), (err, res) => {
+$("#set_crowdsale_wallet").click(function() {
+    crowdSale.setWallet($("#new_crowdsale_wallet_address").val(), (err, res) => {
         if (err) {
             return;
         }
@@ -256,7 +256,7 @@ crowdSale.wallet( function (err, res) {
     if (err) {
         return;
     }
-    $("#current_wallet").text(res);
+    $("#current_crowdsale_wallet").text(res);
 });
 
 
@@ -266,12 +266,12 @@ web3.eth.getBalance(ContractAddress, function (err, res) {
         return;
     }
     var value = web3.fromWei(res, 'Wei');
-    $("#address_balance").text(value);
+    $("#crowdsale_address_balance").text(value);
 });
 
 // Withdraw funds wallet
-$("#withdraw_funds").click(function() {
-    var withdrawAmount = web3.toWei($("#withdrawAmount").val(), 'ether');
+$("#withdraw_crowdsale_funds").click(function() {
+    var withdrawAmount = web3.toWei($("#withdraw_crowdsale_Amount").val(), 'ether');
     crowdSale.withdrawFunds(withdrawAmount, (err, res) => {
     if (err) {
         return;
