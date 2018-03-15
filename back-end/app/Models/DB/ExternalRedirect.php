@@ -31,7 +31,7 @@ class ExternalRedirect extends Model
 
     public static function addLink($externalLink, $email, $action) {
 
-        if ($externalLink !== '') {
+        if ($externalLink) {
 
             self::create(
                 [

@@ -42,7 +42,6 @@ class InviteFriend extends Mailable
     public function build()
     {
         return $this->subject('Account activation')
-            ->from(env('CONTACT_EMAIL'))
-            ->replyTo($this->userEmail)->view('emails.invite-friend');
+            ->view('emails.invite-friend');
     }
 }

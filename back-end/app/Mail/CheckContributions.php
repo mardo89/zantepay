@@ -36,7 +36,6 @@ class CheckContributions extends Mailable
     public function build()
     {
         return $this->subject('Contributions Checking System')
-            ->from(env('CONTACT_EMAIL'))
             ->to(env('SERVICE_EMAIL'))
             ->view('emails.check-contributions');
     }
