@@ -3,58 +3,9 @@
 @section('header')
 
     <header class="header">
-        <div class="masthead">
-            <div class="container">
-                <div class="masthead__row">
-                    <div class="masthead__left">
-                        <a href="/" class="logo" title="ZANTEPAY">
-                            <img src="images/logo-large.png" alt="ZANTEPAY Logo">
-                        </a>
-                    </div>
 
-                    <div class="hamburger hamburger--slider">
-                        <div class="hamburger-box">
-                            <div class="hamburger-inner"></div>
-                        </div>
-                    </div>
+        @parent
 
-                    <div class="masthead__menu">
-                        <nav class="navigation">
-                            <ul>
-                                <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a></li>
-                                <li><a href="/#ico">ICO</a></li>
-                                <li><a href="">Bounty</a></li>
-                                <li><a href="/#team">Team</a></li>
-                                <li>
-                                    <a href="">Development</a>
-                                    <ul>
-                                        <li><a href="">Wallet Beta</a></li>
-                                        <li><a href="">App Beta</a></li>
-                                        <li><a href="">Development roadmap</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="/faq">FAQ</a></li>
-                            </ul>
-                        </nav>
-
-                        <div class="masthead__right">
-                            @guest
-                                <div class="logon-btns">
-                                    <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Log In</a>
-                                    <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
-                                </div>
-                            @endguest
-
-                            @auth
-                                <a href="user/wallet" class="btn btn--small btn--shadowed-dark">Profile</a>
-                            @endauth
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </header>
 
 @endsection
@@ -280,6 +231,8 @@
 
 @section('popups')
 
+    @parent
+
     <!-- question confirmation -->
     <div class="logon-modal mfp-hide" id="confirm-question">
         <div class="logon-modal-container">
@@ -288,90 +241,6 @@
                 <p>Your question has been sent.</p>
                 <div>Enjoy your day!</div>
             </div>
-        </div>
-    </div>
-
-    <!-- sign in -->
-    <div class="logon-modal mfp-hide" id="sign-in-modal">
-        <div class="logon-modal-container">
-            <h3 class="h4">SIGN IN</h3>
-            <div class="social-btns">
-                <a href="/account/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
-                <a href="/account/google" class="btn btn--google"><i></i> Sign In With Google</a>
-            </div>
-
-            <div class="or-horizontal">or</div>
-            <form id="frm_signin">
-                <div class="logon-group">
-                    <input id="signin_email" class="logon-field" type="email" name="email" placeholder="Email">
-                </div>
-                <div class="logon-group">
-                    <input id="signin_pwd" class="logon-field" type="password" name="password" placeholder="Password">
-                </div>
-                <div class="logon-submit">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
-                </div>
-
-                <a href="#sign-up-modal" class="js-popup-link logon-link">Sign Up</a>
-                <br>
-                <a href="#forgot-password" class="js-popup-link logon-link mt-10">Forgot password ?</a>
-            </form>
-
-        </div>
-    </div>
-
-    <!-- forgot password -->
-    <div class="logon-modal mfp-hide" id="forgot-password">
-        <div class="logon-modal-container">
-            <h3 class="h4">Forgot Password?</h3><br>
-            <form id="frm_forgot_password">
-                <div class="logon-group">
-                    <input class="logon-field" type="email" name="email" placeholder="Email">
-                </div>
-                <div class="logon-submit mt-35">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Reset Password">
-                </div>
-                <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
-            </form>
-        </div>
-    </div>
-
-    <!-- reset confirmation -->
-    <div class="logon-modal mfp-hide" id="reset-confirm-modal">
-        <div class="logon-modal-container">
-            <h3 class="h4">RIGHT ON!</h3>
-            <div class="logon-modal-text">
-                <p>By now you should have received an email from us. To reset your account password please click the link in the email.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- sing up -->
-    <div class="logon-modal mfp-hide" id="sign-up-modal">
-        <div class="logon-modal-container">
-            <h3 class="h4">SIGN UP</h3>
-            <div class="social-btns">
-                <a href="/account/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
-                <a href="/account/google" class="btn btn--google"><i></i> Sign In With Google</a>
-            </div>
-
-            <div class="or-horizontal">or</div>
-            <form id="frm_signup">
-                <div class="logon-group">
-                    <input class="logon-field" type="email" name="email" placeholder="Email">
-                </div>
-                <div class="logon-group">
-                    <input class="logon-field" type="password" name="password" placeholder="Password">
-                </div>
-                <div class="logon-group">
-                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password">
-                </div>
-                <div class="logon-submit">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">
-                </div>
-                <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
-            </form>
-
         </div>
     </div>
 

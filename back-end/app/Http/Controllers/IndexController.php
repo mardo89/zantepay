@@ -57,6 +57,7 @@ class IndexController extends Controller
         return view(
             'main.index',
             [
+                'menuPrefix' => '',
                 'currency' => [
                     'btc' => Currency::CURRENCY_TYPE_BTC,
                     'eth' => Currency::CURRENCY_TYPE_ETH,
@@ -336,7 +337,10 @@ class IndexController extends Controller
     public function faq()
     {
         return view(
-            'main.faq'
+            'main.faq',
+            [
+                'menuPrefix' => '/',
+            ]
         );
     }
 
