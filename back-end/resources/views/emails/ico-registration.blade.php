@@ -209,10 +209,10 @@
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:280px;">
                                                             <tr>
                                                                 <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #bcbcbc; line-height: 36px; font-weight: normal;">
-                                                                    <a href="" style="outline: none; border: 0; color: #bcbcbc; text-decoration: none;">Terms &amp; Conditions</a>
+                                                                    <a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" style="outline: none; border: 0; color: #bcbcbc; text-decoration: none;">Terms &amp; Conditions</a>
                                                                 </td>
                                                                 <td align="right" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #bcbcbc; line-height: 36px; font-weight: normal;">
-                                                                    <a href="" style="outline: none; border: 0; color: #bcbcbc; text-decoration: none;">Privacy Policy</a>
+                                                                    <a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" style="outline: none; border: 0; color: #bcbcbc; text-decoration: none;">Privacy Policy</a>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -237,7 +237,7 @@
                                                                     <img src="{{ url('/') . "/images/Copy.png" }}" width="20" height="20" style="display:block;outline:0;border:0;width:20px;height:20px" alt="Copyright ico">
                                                                 </td>
                                                                 <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #f92112; line-height: 21px; font-weight: normal;">
-                                                                    2017 ZANTEPAY
+                                                                    2018 ZANTEPAY
                                                                 </td>
                                                             </tr>
                                                         </table>

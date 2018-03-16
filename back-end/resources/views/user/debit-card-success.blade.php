@@ -30,7 +30,7 @@
 
                             </div>
                             <div class="col-sm-6">
-                                <p>Sign up bonus tokens received: <br> 500 ZNX (locked)</p>
+                                <p>Pre-order bonus tokens received: <br> 500 ZNX (locked)</p>
                                 <p><a href="/user/profile-settings">Verify account</a> to unlock bonus!!</p>
                             </div>
                         </div>

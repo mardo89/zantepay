@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DB\Wallet;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -56,6 +57,10 @@ class ManagerController extends Controller
 
         $statusesList = [
             [
+                'id' => User::USER_STATUS_PENDING,
+                'name' => User::getStatus(User::USER_STATUS_PENDING)
+            ],
+            [
                 'id' => User::USER_STATUS_NOT_VERIFIED,
                 'name' => User::getStatus(User::USER_STATUS_NOT_VERIFIED)
             ],
@@ -75,6 +80,10 @@ class ManagerController extends Controller
                 'id' => User::USER_STATUS_INACTIVE,
                 'name' => User::getStatus(User::USER_STATUS_INACTIVE)
             ],
+            [
+                'id' => User::USER_STATUS_WITHDRAW_PENDING,
+                'name' => User::getStatus(User::USER_STATUS_WITHDRAW_PENDING)
+            ]
         ];
 
         return view(
@@ -174,7 +183,7 @@ class ManagerController extends Controller
         $wallet = $user->wallet;
 
         // Roles list
-        $rolesList = ($user->id == Auth::user()->id) ? [] : User::getRolesList();
+        $rolesList = User::getRolesList();
 
         return view(
             $this->getViewPrefix() . 'profile',
@@ -187,7 +196,8 @@ class ManagerController extends Controller
                 'referrer' => $referrerEmail,
                 'debitCard' => $userDebitCard,
                 'wallet' => $wallet,
-                'userRoles' => $rolesList
+                'userRoles' => $rolesList,
+                'canEdit' => Auth::user()->uid != $userID
             ]
         );
     }
@@ -253,6 +263,22 @@ class ManagerController extends Controller
 
             if ($verificationComplete) {
                 $user->status = User::USER_STATUS_VERIFIED;
+
+                // User bonus
+                $userWallet = $user->wallet;
+
+                $userWallet->debit_card_bonus = Wallet::DEBIT_CARD_BONUS;
+                $userWallet->save();
+
+                // Referrer Bonus
+                if (!is_null($user->referrer)) {
+                    $userReferrer = User::find($user->referrer);
+
+                    $referrerWallet = $userReferrer->wallet;
+
+                    $referrerWallet->referral_bonus = Wallet::DEBIT_CARD_BONUS;
+                    $referrerWallet->save();
+                }
             }
 
             $user->save();

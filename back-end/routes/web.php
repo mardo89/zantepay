@@ -10,6 +10,7 @@ Route::get('reset-password', 'IndexController@resetPassword');
 Route::get('password', 'IndexController@confirmPasswordReset');
 Route::post('ico-registration', 'IndexController@saveRegistration');
 Route::post('seed-investor', 'IndexController@saveInvestor');
+Route::get('/faq', 'IndexController@faq');
 
 
 /**
@@ -19,6 +20,7 @@ Route::group(['prefix' => 'mail'], function () {
 
     Route::post('activate-account', 'MailController@activateAccount');
     Route::post('contact-us', 'MailController@contactUs');
+    Route::post('question', 'MailController@question');
 
 });
 
@@ -49,6 +51,8 @@ Route::group(['prefix' => 'account'], function () {
 Route::group(['prefix' => 'user'], function () {
 
     Route::get('states', 'UserController@getStates');
+    Route::post('accept-terms', 'UserController@acceptTerms');
+
     Route::get('profile', 'UserController@profile');
     Route::post('profile', 'UserController@saveProfile');
 
@@ -65,6 +69,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('wallet', 'UserController@wallet');
     Route::post('wallet/address', 'UserController@createWalletAddress');
     Route::post('wallet/rate-calculator', 'UserController@rateCalculator');
+    Route::post('wallet/transfer-eth', 'UserController@transferEth');
+    Route::post('wallet/withdraw-eth', 'UserController@withdrawEth');
 
     Route::get('debit-card', 'UserController@debitCard');
     Route::post('debit-card', 'UserController@saveDebitCard');
@@ -92,8 +98,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('document/decline', 'ManagerController@declineDocument');
 
     Route::get('wallet', 'AdminController@wallet');
-    Route::post('wallet/znx', 'ManagerController@addZNX');
     Route::post('wallet', 'ManagerController@updateWallet');
+    Route::post('wallet/znx', 'ManagerController@addZNX');
+    Route::post('wallet/grant-marketing-coins', 'AdminController@grantMarketingCoins');
+    Route::post('wallet/grant-company-coins', 'AdminController@grantMarketingCoins');
 });
 
 //Route::get('/test-email', function () {

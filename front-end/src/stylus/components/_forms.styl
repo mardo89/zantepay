@@ -122,6 +122,10 @@
   &[readonly]
     cursor default
     color #9b9a9a
+    background #f4f4f4
+    box-shadow none
+    &:focus
+      border-color #bfbfbf
   &::placeholder
     color #9b9a9a
   &:focus
@@ -306,3 +310,10 @@ select.input-field
     right 0
     top 50%
     transform translateY(-50%)
+
+.faq-form
+  max-width 780px
+  margin auto
+  padding-top 20px
+  .textarea-field
+    min-height 120px

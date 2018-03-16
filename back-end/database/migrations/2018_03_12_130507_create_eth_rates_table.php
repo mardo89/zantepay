@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionsTable extends Migration
+class CreateEthRatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('eth_rates', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('wallet_id');
-            $table->integer('currency');
-            $table->float('amount', 8, 2)->default(0);
-            $table->integer('user_id');
-            $table->timestamp('created_on');
+            $table->integer('currency_type');
+            $table->float('rate', 30, 8);
+            $table->timestamps();
         });
     }
 
@@ -30,6 +28,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('eth_rates');
     }
 }

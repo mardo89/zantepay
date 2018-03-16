@@ -49,7 +49,6 @@ class IcoRegistrationAdmin extends Mailable
     public function build()
     {
         return $this->subject('PRE-ICO Registration')
-            ->from(env('CONTACT_EMAIL'))
             ->to('mardo@zantepay.com')
             ->to('lena@zantepay.com')
             ->view('emails.ico-registration-admin');

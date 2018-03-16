@@ -4,15 +4,22 @@ namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class WithdrawTransaction extends Model
 {
+    /**
+     * Action statuses
+     */
+    const STATUS_PENDING = 'PENDING';
+    const STATUS_COMPLETE = 'COMPLETE';
+    const STATUS_FAILED = 'FAILED';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'wallet_id', 'currency', 'amount', 'user_id'
+        'user_id', 'amount', 'wallet_address'
     ];
 
     /**
@@ -22,8 +29,4 @@ class Transaction extends Model
      */
     protected $hidden = [];
 
-    /**
-     * @var bool Disable timestamps
-     */
-    public $timestamps = false;
 }

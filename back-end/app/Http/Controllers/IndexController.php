@@ -12,6 +12,9 @@ use App\Models\DB\Investor;
 use App\Models\DB\PasswordReset;
 use App\Models\DB\User;
 use App\Models\Validation\ValidationMessages;
+use App\Models\Wallet\CurrencyFormatter;
+use App\Models\Wallet\Ico;
+use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -22,6 +25,7 @@ class IndexController extends Controller
 {
     /**
      * Main page
+     *
      * @param Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -32,12 +36,47 @@ class IndexController extends Controller
 
         $this->checkExternals();
 
+        $ico = new Ico();
+
+        $activePart = $ico->getActivePart();
+
+        $icoPartName = optional($activePart)->getName() ?? '';
+        $icoPartEndDate = optional($activePart)->getEndDate() ?? '';
+        $icoPartLimit = optional($activePart)->getLimit() ?? '';
+
+        $icoPartEthRate = optional($activePart)->getEthRate() ?? 0;
+        $icoPartEuroRate = optional($activePart)->getEuroRate() ?? 0;
+        $icoPartZnxRate = RateCalculator::toZnx(1, $icoPartEthRate);
+
+        $icoPartAmount = optional($activePart)->getAmount() ?? 0;
+        $icoPartRelativeBalance = optional($activePart)->getRelativeBalance() ?? 0;
+
+        $ethLimit = RateCalculator::fromZnx($icoPartLimit, $icoPartEthRate);
+        $ethAmount = RateCalculator::fromZnx($icoPartAmount, $icoPartEthRate);
+
         return view(
             'main.index',
             [
+                'menuPrefix' => '',
                 'currency' => [
                     'btc' => Currency::CURRENCY_TYPE_BTC,
                     'eth' => Currency::CURRENCY_TYPE_ETH,
+                ],
+                'ico' => [
+                    'name' => $icoPartName,
+                    'endDate' => date('Y/m/d H:i:s', strtotime($icoPartEndDate)),
+                    'znxLimit' => number_format($icoPartLimit, 0, ',', '.'),
+                    'znxAmount' => number_format($icoPartAmount, 0, ',', '.'),
+                    'ethLimit' => number_format($ethLimit, 0, ',', '.'),
+                    'ethAmount' => number_format($ethAmount, 0, ',', '.'),
+                    'znxRate' => (new CurrencyFormatter($icoPartZnxRate))->znxFormat()->get(),
+                    'ethRate' => (new CurrencyFormatter($icoPartEthRate))->ethFormat()->get(),
+                    'euroRate' => (new CurrencyFormatter($icoPartEuroRate))->ethFormat()->get(),
+                    'relativeBalance' => [
+                        'value' => $icoPartRelativeBalance,
+                        'percent' => number_format($icoPartRelativeBalance * 100, 2),
+                        'progressClass' => $icoPartRelativeBalance > 50 ? 'is-left' : 'is-right'
+                    ]
                 ]
             ]
         );
@@ -216,7 +255,7 @@ class IndexController extends Controller
             return redirect('/');
         }
 
-        $user->status = User::USER_STATUS_NOT_VERIFIED;
+        $user->status = User::USER_STATUS_PENDING;
         $user->save();
 
         return view('main.confirm-email');
@@ -288,6 +327,21 @@ class IndexController extends Controller
     public function confirmPasswordReset()
     {
         return view('main.reset-password-complete');
+    }
+
+    /**
+     * FAQ page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function faq()
+    {
+        return view(
+            'main.faq',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
     }
 
     /**

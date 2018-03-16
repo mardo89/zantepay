@@ -96,8 +96,13 @@ class EtheriumApi
     {
         $params = [];
 
-        $params[] = is_null($continuationStartToken) ? '' : 'start=' . $continuationStartToken;
-        $params []= is_null($continuationEndToken) ? '' : 'end=' . $continuationEndToken;
+        if (!is_null($continuationStartToken)) {
+            $params[] = 'start=' . $continuationStartToken;
+        }
+
+        if (!is_null($continuationEndToken)) {
+            $params[] = 'end=' . $continuationEndToken;
+        }
 
         $apiResponse = self::sendGetRequest(
             '/contributions',
@@ -114,62 +119,20 @@ class EtheriumApi
         ];
     }
 
-
-    /**
-     * Grand ICO coins
-     *
-     * @param int $amount
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public static function grantICOCoins($amount) {
-        $operationID = self::getCoinsOID('ico', $amount);
-
-        return self::checkCoinsStatus($operationID);
-    }
-
-    /**
-     * Marketing coins
-     *
-     * @param int $amount
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public static function marketingCoins($amount) {
-        $operationID = self::getCoinsOID('marketing', $amount);
-
-        return self::checkCoinsStatus($operationID);
-    }
-
-    /**
-     * Company coins
-     *
-     * @param int $amount
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public static function companyCoins($amount) {
-        $operationID = self::getCoinsOID('company', $amount);
-
-        return self::checkCoinsStatus($operationID);
-    }
-
     /**
      * Create Etherium Operation ID to Grand ICO/Marketing/Company
      *
      * @param string $grantType
      * @param int $amount
+     * @param string $address
      *
      * @return string
      * @throws \Exception
      */
-    protected static function getCoinsOID($grantType, $amount)
+    public static function getCoinsOID($grantType, $amount, $address)
     {
         $apiResponse = self::sendPostRequest(
-            '/coins',
+            '/coins/' . $address,
             [
                 'grantType' => $grantType,
                 'amount' => $amount
@@ -196,7 +159,7 @@ class EtheriumApi
      * @return string
      * @throws \Exception
      */
-    protected static function checkCoinsStatus($operationID)
+    public static function checkCoinsStatus($operationID)
     {
         $status = null;
         $requestsCount = 0;
@@ -226,7 +189,6 @@ class EtheriumApi
 
         return $status;
     }
-
 
     /**
      * Send GET request

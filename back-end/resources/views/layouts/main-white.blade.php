@@ -10,10 +10,15 @@
     <title>ZANTEPAY - Bringing cryptocurrency to the mainstream</title>
 
     <!-- Social Networks  Open Graph -->
-    <meta property="og:url" content="http://test.zantepay.com"/>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ZANTEPAY" />
+    <meta name="twitter:description" content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!" />
+    <meta name="twitter:image" content="{{ asset('images/fb_share.jpg') }}" />
+
+    <meta property="og:url" content="{{ asset('/') }}"/>
     <meta property="og:title" content="ZANTEPAY"/>
-    <meta property="og:description" content="This is ZANTEPAY"/>
-    <meta property="og:image" content="http://test.zantepay.com/images/logo-large.png"/>
+    <meta property="og:description" content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
+    <meta property="og:image" content="{{ asset('images/fb_share.jpg') }}"/>
     <!-- End Open Graph -->
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -46,23 +51,14 @@
 
 <main class="main main-inv">
     <div class="container">
-        <div class="invitation-wrap">
-            <div class="row vertical-middle-col">
-                <div class="col-md-6">
-                    <img src="/images/iPhone-debit.png" srcset="/images/iPhone-debit@2x.png 2x" alt="iPhone Debit card">
-                </div>
-                <div class="col-md-6">
-                    @yield('main')
-                </div>
-            </div>
-        </div>
+        @yield('main')
     </div>
 
     <footer class="footer-center">
         <div class="footer-nav">
             <ul>
-                <li><a href="">Referral Terms & Conditions</a></li>
-                <li><a href="">Privacy Terms</a></li>
+                <li><a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" target="_blank">Terms & Conditions</a></li>
+                <li><a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" target="_blank">Privacy Terms</a></li>
                 <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank">Whitepaper</a></li>
             </ul>
         </div>
@@ -107,7 +103,7 @@
 
 <!-- Sumo -->
 {{--<script src="//load.sumome.com/" data-sumo-site-id="1b320c3e8fabe2b7fc8de8f8f6a818fc6abdb6eb272f1b25fe8ca580f0bbf5f4"--}}
-        {{--async="async"></script>--}}
+{{--async="async"></script>--}}
 
 <!-- Useproof -->
 <script id=proof-script>!function () {

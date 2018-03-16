@@ -744,9 +744,9 @@ $("#ico-participants").on('click','#issue_ico',function(){
     var currentRow=$(this).closest("tr"); 
     var wallet_address = currentRow.find("td:eq(1)").text(); // TODO: get user wallet address
     var tokens_amount = currentRow.find("td:eq(2)").text(); // TODO: get user tokens amount
-    // TODO: ICO issue coins need to parameters user wallet address and token balance	
+    // TODO: ICO issue coins need to parameters user wallet address and token balance   
     zanteCoin.issueIcoCoins(wallet_address,tokens_amount, (err, res) => {
-        if (err) {	
+        if (err) {  
             return;
         }
         
@@ -816,12 +816,12 @@ zanteCoin.owner( function (err, res) {
     if (err) {
         return;
     }
-    $("#current_owner").text(res);
+    $("#current_zantecoin_owner").text(res);
 });
 
 // Transfer ownership
-$("#set_new_owner").click(function() {
-    zanteCoin.transferOwnership($("#new_owner_address").val(), (err, res) => {
+$("#set_new_zantecoin_owner").click(function() {
+    zanteCoin.transferOwnership($("#new_zantecoin_owner_address").val(), (err, res) => {
     if (err) {
         return;
     }
@@ -833,11 +833,11 @@ zanteCoin.newOwner( function (err, res) {
     if (err) {
         return;
     }
-    $("#pending_owner_address").text(res);
+    $("#pending_zantecoin_owner_address").text(res);
 });
 
 // Accept ownership
-$("#accept_ownership").click(function() {
+$("#accept_zantecoin_ownership").click(function() {
     zanteCoin.acceptOwnership((err, res) => {
         if (err) {
             return;

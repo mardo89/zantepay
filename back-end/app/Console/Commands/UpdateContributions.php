@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Mail\SystemAlert;
 use App\Models\DB\Contribution;
 use App\Models\DB\ContributionAction;
+use App\Models\DB\User;
 use App\Models\DB\Wallet;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\EtheriumApi;
@@ -80,6 +81,7 @@ class UpdateContributions extends Command
 
                     if (!is_null($userWallet)) {
 
+                        // Create Transactions
                         foreach ($znxAmountParts as $znxAmountPart) {
                             ZantecoinTransaction::create(
                                 [
@@ -90,7 +92,18 @@ class UpdateContributions extends Command
                                     'transaction_type' => ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX
                                 ]
                             );
+                        }
 
+                        // Apply Commission bonus
+                        $user = $userWallet->user;
+
+                        if (!is_null($user->referrer)) {
+                            $userReferrer = User::find($user->referrer);
+
+                            $referrerWallet = $userReferrer->wallet;
+
+                            $referrerWallet->commission_bonus = Wallet::COMMISSION_BONUS * $ethAmount;
+                            $referrerWallet->save();
                         }
 
                     }

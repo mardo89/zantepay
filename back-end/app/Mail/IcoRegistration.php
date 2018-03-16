@@ -35,7 +35,6 @@ class IcoRegistration extends Mailable
     public function build()
     {
         return $this->subject('PRE-ICO Registration')
-            ->from(env('CONTACT_EMAIL'))
             ->view('emails.ico-registration');
     }
 }

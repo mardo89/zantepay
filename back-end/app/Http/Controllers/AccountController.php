@@ -203,11 +203,14 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255',
+                'email' => 'required|string|email|max:255|exists:users,email',
             ],
             ValidationMessages::getList(
                 [
                     'email' => 'Email',
+                ],
+                [
+                    'email.exists' => 'There is no user with such email'
                 ]
             )
         );
@@ -364,6 +367,8 @@ class AccountController extends Controller
             ]
         );
 
+        Session::forget('referrer');
+
         return $user;
     }
 
@@ -430,7 +435,7 @@ class AccountController extends Controller
                         'email' => $snUser->email,
                         'password' => User::hashPassword(uniqid()),
                         'uid' => uniqid(),
-                        'status' => User::USER_STATUS_NOT_VERIFIED,
+                        'status' => User::USER_STATUS_PENDING,
                         'first_name' => $userNameParts[1] ?? "",
                         'last_name' => $userNameParts[0] ?? "",
                         'avatar' => $snUser->avatar,
@@ -466,11 +471,11 @@ class AccountController extends Controller
 
         }
 
-        if (Auth::user()->role != User::USER_ROLE_USER) {
-            return redirect()->action('AdminController@users');
-        }
-
-        return redirect()->action('UserController@wallet');
+        return redirect(
+            $this->getUserPage(
+                Auth::user()->role
+            )
+        );
     }
 
     /**
@@ -509,7 +514,7 @@ class AccountController extends Controller
                         'email' => $snUser->email,
                         'password' => User::hashPassword(uniqid()),
                         'uid' => uniqid(),
-                        'status' => User::USER_STATUS_NOT_VERIFIED,
+                        'status' => User::USER_STATUS_PENDING,
                         'first_name' => $userNameParts[0] ?? "",
                         'last_name' => $userNameParts[1] ?? "",
                         'avatar' => $snUser->avatar,
@@ -545,11 +550,11 @@ class AccountController extends Controller
 
         }
 
-        if (Auth::user()->role != User::USER_ROLE_USER) {
-            return redirect()->action('AdminController@users');
-        }
-
-        return redirect()->action('UserController@wallet');
+        return redirect(
+            $this->getUserPage(
+                Auth::user()->role
+            )
+        );
     }
 
 }

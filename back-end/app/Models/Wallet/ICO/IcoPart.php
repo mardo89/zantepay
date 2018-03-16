@@ -3,6 +3,7 @@
 namespace App\Models\Wallet\ICO;
 
 use App\Models\DB\Contribution;
+use App\Models\DB\EthRate;
 use App\Models\DB\ZantecoinTransaction;
 
 class IcoPart
@@ -43,6 +44,11 @@ class IcoPart
     protected $ethZnxRate;
 
     /**
+     * @var float ICO euro rate
+     */
+    protected $euroZnxRate = 0.05;
+
+    /**
      * IcoPart constructor.
      */
     public function __construct()
@@ -60,6 +66,10 @@ class IcoPart
         $this->icoZnxAmount = ZantecoinTransaction::where('ico_part', $this->getID())
             ->get()
             ->sum('amount');
+
+        $ethEuroRate = optional(EthRate::where('currency_type', EthRate::CURRENCY_TYPE_EURO)->first())->rate ?? 0;
+
+        $this->ethZnxRate = $this->euroZnxRate / $ethEuroRate;
     }
 
     /**
@@ -93,13 +103,23 @@ class IcoPart
     }
 
     /**
-     * Get ZNX Rate
+     * Get ETH to ZNX Rate
      *
      * @return int
      */
     public function getEthRate()
     {
         return $this->ethZnxRate;
+    }
+
+    /**
+     * Get EURO to ZNX Rate
+     *
+     * @return int
+     */
+    public function getEuroRate()
+    {
+        return $this->euroZnxRate;
     }
 
     /**
@@ -110,6 +130,16 @@ class IcoPart
     public function getBalance()
     {
         return $this->icoZnxLimit - $this->icoZnxAmount;
+    }
+
+    /**
+     * Get ZNX amount
+     *
+     * @return int
+     */
+    public function getAmount()
+    {
+        return $this->icoZnxAmount;
     }
 
     /**
@@ -151,7 +181,6 @@ class IcoPart
      */
     public function isActive($operationDate)
     {
-//        $checkDate = strtotime($this->icoStartDate) >= $currentDate && strtotime($this->icoEndDate) < $currentDate;
         $checkDate = $operationDate < strtotime($this->icoEndDate);
         $checkAmount = $this->icoZnxAmount < $this->icoZnxLimit;
 

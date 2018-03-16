@@ -80,16 +80,16 @@
                                 <table class="table-transparent table-3-cols">
                                     <thead>
                                     <tr>
-                                        <th>Commission (ETH)</th>
-                                        <th>Total ZNX</th>
-                                        <th>Referal bonus (ZNX)</th>
+                                        <th>ICO ZNX</th>
+                                        <th>Card pre-order bonuses</th>
+                                        <th>Card referral bonus</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>0</td>
                                         <td>{{ $wallet->znx_amount }}</td>
-                                        <td>0</td>
+                                        <td>{{ $wallet->debit_card_bonus }}</td>
+                                        <td>{{ $wallet->referral_bonus }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -140,9 +140,9 @@
                             </div>
                         </div>
                         <div>
-                            <h2 class="h4 mb-20">{{ $ico['part_name'] }} starts in:</h2>
+                            <h2 class="h4 mb-20">{{ $ico['part_name'] }} ends in:</h2>
                             <div class="countdown">
-                                <span class="js-countdown" data-date="{{ $ico['start_date'] }}"></span>
+                                <span class="js-countdown" data-date="{{ $ico['end_date'] }}"></span>
                             </div>
                         </div>
                     </div>
@@ -150,6 +150,9 @@
             </div>
             <div class="panel">
                 <h2 class="h4 mb-20">Bonuses:</h2>
+
+                <span>{{ $wallet->commission_bonus }} ETH Available </span>
+
                 <div class="row">
                     <div class="col-lg-6 mb-md-30">
                         <h2 class="h4 headline-mb">Transfer ETH to ZNX:</h2>
@@ -157,23 +160,15 @@
                             <div class="col-lg-2 col-md-3">
                                 <div class="form-group text-regular"><label for="field14">Amount:</label></div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-9">
                                 <div class="form-group">
-                                    <input id="field14" class="input-field" type="text" name="eth" placeholder="ETH">
-                                </div>
-                            </div>
-                            <div class="col col-sm-auto">
-                                <div class="form-group text-regular"><label for="field15">to</label></div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input id="field15" class="input-field" type="text" name="znx" placeholder="ZNX">
+                                    <input id="field14" class="input-field" type="text" name="transfer_eth_amount" placeholder="ETH">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col col-md-8 offset-md-3 offset-lg-2">
-                                <a href="" class="btn btn--shadowed-light btn--medium btn--130">Transfer</a>
+                                <a href="" id="transfer_btn" class="btn btn--shadowed-light btn--medium btn--130">Transfer</a>
                             </div>
                         </div>
                     </div>
@@ -185,13 +180,13 @@
                             </div>
                             <div class="col-md">
                                 <div class="form-group">
-                                    <input id="field16" class="input-field" type="text" name="eth" placeholder="Paste address">
+                                    <input id="field16" class="input-field" type="text" name="withdraw_address" placeholder="Paste address">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col col-md-8 offset-md-3">
-                                <a href="" class="btn btn--shadowed-light btn--medium btn--130">Withdraw</a>
+                                <a href="" id="withdraw_btn" class="btn btn--shadowed-light btn--medium btn--130">Withdraw</a>
                             </div>
                         </div>
                     </div>
@@ -200,7 +195,8 @@
 
             <div class="panel">
                 <h2 class="h4 mb-20">Transfer:</h2>
-                <div class="text-regular mb-20">Available for transfer: <span class="primary-color text-lg"> {{ $wallet->znx_amount }} ZNX tokens</span>
+                <div class="text-regular mb-20">Available for transfer: <span id="available_znx_amount"
+                                                                              class="primary-color text-lg"> {{ $availableAmount }} </span>
                 </div>
                 <div class="text-regular">You will be able to withdraw your ERC20 tokens to Ethereum Network after the end of the ICO.</div>
             </div>
@@ -215,22 +211,20 @@
                             <th width="105">Date</th>
                             <th width="115">Time</th>
                             <th width="70">Type</th>
-                            <th>From</th>
-                            <th width="220">To</th>
+                            <th width="220">Address</th>
                             <th width="150">Amount</th>
                             <th width="110">Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($contributions as $contribution)
+                        @foreach($transactions as $transaction)
                             <tr>
-                                <td> {{ $contribution['date'] }} </td>
-                                <td> {{ $contribution['time'] }} </td>
-                                <td>{{ $contribution['type'] }}</td>
-                                <td>...</td>
-                                <td>{{ $contribution['address'] }}</td>
-                                <td class="nowrap">{{ $contribution['amount'] }}</td>
-                                <td>{{ $contribution['status'] }}</td>
+                                <td> {{ $transaction['date'] }} </td>
+                                <td> {{ $transaction['time'] }} </td>
+                                <td>{{ $transaction['type'] }}</td>
+                                <td>{{ $transaction['address'] }}</td>
+                                <td class="nowrap">{{ $transaction['amount'] }}</td>
+                                <td>{{ $transaction['status'] }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -326,9 +320,121 @@
         </div>
     </div>
 
+    <!-- Transfer confirmation -->
+    <div class="logon-modal mfp-hide" id="transfer-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">TRANSFERED!</h3>
+            <div class="logon-modal-text">
+                <p>
+                    <span id="znx_balance"> </span> ZNX successfully transferred!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw confirmation -->
+    <div class="logon-modal mfp-hide" id="withdraw-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">TRANSFERED!</h3>
+            <div class="logon-modal-text">
+                <p>You have successfully submitted a withdraw request!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- WELCOME TO ZANTEPAY -->
+    <div class="logon-modal mfp-hide logon-modal--560" id="welcome">
+        <div class="logon-modal-container">
+            <h3 class="h4 text-uppercase">Welcome to ZANTEPAY</h3>
+            <form id="frm_welcome">
+                <div class="logon-group">Before you can proceed you must read & accept:</div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check12">
+                        <label for="check12">I’ve read and understood the
+                            <a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}">Terms & Conditions</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check13">
+                        <label for="check13">I’ve read, understood and agree with the
+                            <a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}">Privacy Terms</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check11">
+                        <label for="check11">I’ve read, understood and agree with the
+                            <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}">Whitepaper</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check14">
+                        <label for="check14">I’ve read, understood and agree with the
+                            <a href="{{ asset('storage/Zantepay_Cookie_Policy.pdf') }}">Cookie Policy</a>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check15"><label for="check15">Citizens and residents from the US, South
+                            Korea and China are not allowed to contribute during the ICO.</label>
+                    </div>
+                </div>
+
+                <div class="logon-submit">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4 col-6">
+                            <a id="logout-btn" href="" class="js-close-popup btn btn--shadowed-light btn--260">Cancel</a>
+                        </div>
+                        <div class="col-sm-4 col-6">
+                            <input class="btn btn--shadowed-light btn--260" type="submit" value="Ok">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
 @endsection
 
 @section('scripts')
     <script src="/js/user_wallet.js" type="text/javascript"></script>
+
+    @if($showWelcome)
+        <script type='text/javascript'>
+            $.magnificPopup.open(
+                {
+                    items: {
+                        src: '#welcome'
+                    },
+                    type: 'inline',
+                    midClick: true,
+                    showCloseBtn: false,
+                    closeOnBgClick: false,
+                    mainClass: 'mfp-fade',
+                    fixedContentPos: false,
+                    callbacks: {
+                       open: function() {
+                          $('body').addClass('noscroll');
+                       },
+                       close: function() {
+                           $('body').removeClass('noscroll');
+                       }
+                    }
+                }
+            );
+
+        </script>
+    @endif
 @endsection

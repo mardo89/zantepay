@@ -79,6 +79,19 @@ class Ico
     }
 
     /**
+     * Gett array of availabe ICO parts
+     * @return array
+     */
+    public function getParts() {
+        return [
+            $this->getIcoPartOne(),
+            $this->getIcoPartTwo(),
+            $this->getIcoPartThree(),
+            $this->getIcoPartFour()
+        ];
+    }
+
+    /**
      * Return ICO part one
      *
      * @return IcoPartOne

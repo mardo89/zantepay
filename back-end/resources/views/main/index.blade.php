@@ -5,58 +5,8 @@
     <div id="particles-js"></div>
 
     <header class="header header-lp">
-        <div class="masthead">
-            <div class="container">
-                <div class="masthead__row">
-                    <div class="masthead__left">
-                        <a href="/" class="logo" title="ZANTEPAY">
-                            <img src="images/logo-large.png" alt="ZANTEPAY Logo">
-                        </a>
-                    </div>
+        @parent
 
-                    <div class="hamburger hamburger--slider">
-                        <div class="hamburger-box">
-                            <div class="hamburger-inner"></div>
-                        </div>
-                    </div>
-
-                    <div class="masthead__menu">
-                        <nav class="navigation">
-                            <ul>
-                                <li><a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a></li>
-                                <li><a href="#ico">ICO</a></li>
-                                <!-- <li><a href="">Bounty</a></li> -->
-                                <li><a href="#team">Team</a></li>
-                                <!-- <li>
-                                    <a href="">Development</a>
-                                    <ul>
-                                        <li><a href="">Wallet Beta</a></li>
-                                        <li><a href="">App Beta</a></li>
-                                        <li><a href="">Development roadmap</a></li>
-                                    </ul>
-                                </li> -->
-                                <li><a href="">FAQ</a></li>
-                            </ul>
-                        </nav>
-
-                        <div class="masthead__right">
-                            @guest
-                                <div class="logon-btns">
-                                    <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Log In</a>
-                                    <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
-                                </div>
-                            @endguest
-
-                            @auth
-                                <a href="user/wallet" class="btn btn--small btn--shadowed-dark">Profile</a>
-                            @endauth
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
         <div class="h-banner">
             <div class="container">
                 <div class="row">
@@ -85,6 +35,7 @@
                 <a href="javascript:void(0)" class="fa fa-close js-close-banner" title="Close"></a>
             </div>
         </div>
+
         <div class="header__content white-content">
             <div class="container">
                 <div class="center-logo pos-r">
@@ -95,16 +46,34 @@
                 <div class="horizontal-btns">
                     <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
-                    {{--<a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>--}}
-                    <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a> -->
+                    <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                 </div>
-                <div class="investors-block">
-                    <h3 class="h4 text-uppercase">We are looking for seed investors</h3>
-                    <a href="#become-our-seed-investors" class="js-popup-link btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'become_an_investor');">Become An Investor</a>
-                </div>
-                <h3 class="h4 text-uppercase"> 1 ETH = 14285 ZNX<br><br> Pre-sale starts in</h3>
+                <h3 class="h4 text-uppercase"> 1 ETH = {{ $ico['znxRate'] }} ZNX<br><br> {{ $ico['name'] }} ends in</h3>
                 <div class="countdown">
-                    <span class="js-countdown" data-date="2018/03/15 19:00:00"></span>
+                    <span class="js-countdown" data-date="{{ $ico['endDate'] }}"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="white-content container">
+            <div class="ico-progress">
+                <div class="ico-progress-left">
+                    <span class="h4">ZNX</span>
+                    <span class="text-lg text-lg-center">0</span>
+                    <span class="text-lg">ETH</span>
+                </div>
+                <div class="ico-progress-bar">
+                    <!-- please use "is-right" class if <50% and "is-left" if >50% -->
+                    <div class="ico-progress-bar-group {{ $ico['relativeBalance']['progressClass'] }}" style="width:{{ $ico['relativeBalance']['percent'] }}%;">
+                        <span class="h4">{{ $ico['znxAmount'] }}</span>
+                        <span class="text-lg">{{ $ico['ethAmount'] }}</span>
+                        <div class="ico-progress-bar-line"></div>
+                        <img src="images/coin-ico.png" srcset="images/coin-ico@2x.png 2x" alt="ZANTECOIN">
+                    </div>
+                </div>
+                <div class="ico-progress-right">
+                    <span class="h4">{{ $ico['znxLimit'] }}</span>
+                    <span class="text-lg">{{ $ico['ethLimit'] }}</span>
                 </div>
             </div>
         </div>
@@ -186,23 +155,23 @@
         <div class="lp-section-two white-content">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-5 offset-lg-2 offset-md-1 lp-pre-ico-col">
-                        <h2 class="h2 headline">Pre - ICO Part I <span>1 ZNX=0.05€</span><span>1 ZNX = 0.00007ETH</span></h2>
+                    <div class="col-xl-5 col-lg-6 col-md-7 offset-lg-1 lp-pre-ico-col">
+                        <h2 class="h2 headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
                     </div>
                     <div class="col-md-5 text-center">
                         <div class="lp-progress-wrap">
                             <div class="js-lp-progress-blured lp-progress-blured"></div>
-                            <div class="js-lp-progress lp-progress-top" data-percent="0.00"></div><!-- 17% - data-percet="0.17", etc.. -->
-                            <div class="lp-progress-text"> 0.00% <span>distributed</span>
+                            <div class="js-lp-progress lp-progress-top" data-percent="{{ $ico['relativeBalance']['value'] }}"></div>
+                            <div class="lp-progress-text"> {{ $ico['relativeBalance']['percent'] }}% <span>distributed</span>
                             </div>
                         </div>
-                        <p class="h4">0 ZNX distributed</p>
+                        <p class="h4">{{ $ico['znxAmount'] }} ZNX distributed</p>
                     </div>
                 </div>
 
                 <div class="lp-section-two-btn">
-                    <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
-                    <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a> -->
+                    <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
+                    <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                 </div>
             </div>
         </div>
@@ -299,15 +268,15 @@
                         <div class="lp-image-container4">
                             <img src="images/ICO.png" alt="ICO">
                         </div>
-                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
+                        <h2 class="h2 headline ico-chart-headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
                     </div>
                     <div class="col-sm-6 text-center">
                         <h3 class="h2 headline">Token <br> distribution</h3>
                         <div class="lp-image-container4">
                             <img src="images/token-distribution.png" alt="Token Distribution">
                         </div>
-                        <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
-                        <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a> -->
+                        <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
+                        <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                     </div>
                 </div>
 
@@ -399,8 +368,8 @@
 
                     <div class="text-center lp-row-3">
                         <!-- <div class="text text-uppercase">FIRST 1000 CARDS GET A BONUS OF 1000 ZNX!</div> -->
-                        <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-light" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a>
-                        <!-- <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Buy Tokens NOW</a> -->
+                        <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-light" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
+                        <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Buy Tokens NOW</a>
                     </div>
                 </div>
             </section>
@@ -700,6 +669,44 @@
                         <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in
                             experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
                     </div>
+                    <div class="col-lg-4">
+                        <img src="images/oleg.jpg" srcset="images/oleg@2x.jpg 2x" alt="Oleg Pyvovarenko">
+                        <h3 class="h4">Oleg Pyvovarenko <span>DM Team Lead</span></h3>
+                        <p>Data-driven product marketing manager with 7+ years of experience in various global projects. Experienced in gambling, betting, finance projects, ICO and crypto exchanges. Worked with huobi.pro, Aeron.aero, xchange.io etc. </p>
+                    </div>
+                </div>
+
+                <div class="text-center lp-row-1">
+                    <h2 class="headline h2"><span>Advisors</span></h2>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img src="images/dmitry.jpg" srcset="images/dmitry@2x.jpg 2x" alt="Dmitri Laush">
+                        <h3 class="h4">Dmitri Laush <span style="font-size:0.83em;">Foreign Exchange, Integration Partner, Co-Founder of Admiral Markets</span></h3>
+                        <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co- founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor and investor in various blockchain projects and startups. Founder of own crypto fund and a few blockchain projects. Entrepreneur, Blockchain Evangelist and a true believer that decentralization, peer-to-peer (P2P) governance systems and cryptocurrencies can help define a new path for the progress of humanity.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/cristobal.jpg" srcset="images/cristobal@2x.jpg 2x" alt="Cristobal Alonso">
+                        <h3 class="h4">Cristobal Alonso <span style="font-size:0.83em;">Global CEO @ Startup Wise Guys</span></h3>
+                        <p>Cristobal is the Global Capo of Startup Wise Guys – Europe’s leading B2B accelerator and the leading acceleration platform for global founders and preferred deal flow partner for VC funds in Northern Europe and the CEE. Cristobal’s unique background combines extensive CxO experience in different mobile operators in Europe, leading several transformations and turnarounds, together with CEO startup experience both in B2B and B2C environments. Cristobal has been involved in more than 15 startups in 20 different countries as a founder, early CEO, investor, and lately as an advisor.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/rauno.jpg" srcset="images/rauno@2x.jpg 2x" alt="Rauno Klettenberg">
+                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia</span></h3>
+                        <p>Experienced Board Member with a demonstrated history of working in the financial services industry. Skilled in Analytical Skills, Asset Management, Management, Mergers & Acquisitions, and Financial Risk. Strong business development professional with a Master's Degree focused in Accounting and Finance from Estonian Business School.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
+                        <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span></h3>
+                        <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/bill.jpg" srcset="images/bill@2x.jpg 2x" alt="Bill Ross">
+                        <h3 class="h4 h4--3row">Bill Ross <span style="font-size:0.83em;">Chief Information Security Officer, Cyber Security Architect and Payment Card Industry Compliance expert</span></h3>
+                        <p>Bill is a retired United States Air Force Intelligence Officer.  Bill led revolutionary advancements in Intelligence Systems Architecture for the United States Air Force and various global military commands. 
+                        Most notably, Bill served as the Vice President of Security Operations at the Federal Reserve, he completely reorganized the Federal Reserve Information Technology Cyber Security Program.  Bill also led various other financial service industry cyber security programs at the American Investment Group (AIG), the Hong Kong Shanghai Bank (HSBC), AXA Insurance, and JP Morgan.  Bill also led a variety of other significant companies and government agencies such as Barnes and Noble.com, State of Virginia, State of California, Defense Contract Management Agency, the United States Navy, and LGS Innovations.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -758,11 +765,11 @@
             </div>
             <div class="footer-menu">
                 <ul>
-                    <li><a href="">Terms & Conditions</a></li>
-                    <li><a href="">Privacy Policy</a></li>
+                    <li><a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" target="_blank">Terms & Conditions</a></li>
+                    <li><a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" target="_blank">Privacy Policy</a></li>
                 </ul>
             </div>
-            <p class="copyright"><span class="copyright-ico"></span> 2017 ZANTEPAY</p>
+            <p class="copyright"><span class="copyright-ico"></span> 2018 ZANTEPAY</p>
         </div>
     </footer>
 
@@ -770,102 +777,7 @@
 
 @section('popups')
 
-    <!-- sign in -->
-    <div class="logon-modal mfp-hide" id="sign-in-modal">
-        <div class="logon-modal-container">
-            <h3 class="h4">SIGN IN</h3>
-            <div class="social-btns">
-                <a href="/account/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
-                <a href="/account/google" class="btn btn--google"><i></i> Sign In With Google</a>
-            </div>
-
-            <div class="or-horizontal">or</div>
-            <form id="frm_signin">
-                <div class="logon-group">
-                    <input id="signin_email" class="logon-field" type="email" name="email" placeholder="Email">
-                </div>
-                <div class="logon-group">
-                    <input id="signin_pwd" class="logon-field" type="password" name="password" placeholder="Password">
-                </div>
-                <div class="logon-submit">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
-                </div>
-
-                <a href="#sign-up-modal" class="js-popup-link logon-link">Sign Up</a>
-                <br>
-                <a href="#forgot-password" class="js-popup-link logon-link mt-10">Forgot password ?</a>
-            </form>
-
-        </div>
-    </div>
-
-    <!-- forgot password -->
-    <div class="logon-modal mfp-hide" id="forgot-password">
-        <div class="logon-modal-container">
-            <h3 class="h4">Forgot Password?</h3><br>
-            <form id="frm_forgot_password">
-                <div class="logon-group">
-                    <input class="logon-field" type="email" name="email" placeholder="Email">
-                </div>
-                <div class="logon-submit mt-35">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Reset Password">
-                </div>
-                <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
-            </form>
-        </div>
-    </div>
-
-    <!-- reset confirmation -->
-    <div class="logon-modal mfp-hide" id="reset-confirm-modal">
-        <div class="logon-modal-container">
-            <h3 class="h4">RIGHT ON!</h3>
-            <div class="logon-modal-text">
-                <p>By now you should have received an email from us. To reset your account password please click the link in the email.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- sing up -->
-    <div class="logon-modal mfp-hide" id="sign-up-modal">
-        <div class="logon-modal-container">
-            <h3 class="h4">SIGN UP</h3>
-            <div class="social-btns">
-                <a href="/account/fb" class="btn btn--facebook"><i></i> Sign In With Facebook</a>
-                <a href="/account/google" class="btn btn--google"><i></i> Sign In With Google</a>
-            </div>
-
-            <div class="or-horizontal">or</div>
-            <form id="frm_signup">
-                <div class="logon-group">
-                    <input class="logon-field" type="email" name="email" placeholder="Email">
-                </div>
-                <div class="logon-group">
-                    <input class="logon-field" type="password" name="password" placeholder="Password">
-                </div>
-                <div class="logon-group">
-                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password">
-                </div>
-                <div class="logon-submit">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">
-                </div>
-                <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
-            </form>
-
-        </div>
-    </div>
-
-    <!-- sign up confirmation -->
-    <div class="logon-modal mfp-hide" id="confirm-modal">
-        <div class="logon-modal-container">
-            <h3 class="h4">RIGHT ON!</h3>
-            <div class="logon-modal-text">
-                <p>Thank you for registering with ZANTEPAY. By now you should have received a confirmation email from us. To activate your
-                    account please click the link in the email.</p>
-            </div>
-
-            <a href="" id="resend-registration-email" class="btn btn--shadowed-light btn--260">Resend Email</a>
-        </div>
-    </div>
+    @parent
 
     <!-- sign up pre ico -->
     <div class="logon-modal logon-modal-lg mfp-hide" id="sign-up-preico">
@@ -971,13 +883,13 @@
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood the <a href="#">Referral
-                                Terms & Conditions</a></label>
+                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood with the <a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" target="_blank">
+                            Terms & Conditions</a></label>
                     </div>
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check3"><label for="check3">I’ve read, understood and agree with the <a href="#">Privacy
+                        <input type="checkbox" name="" id="check3"><label for="check3">I’ve read, understood and agree with the <a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" target="_blank">Privacy
                                 Terms</a></label>
                     </div>
                 </div>

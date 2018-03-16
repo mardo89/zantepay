@@ -188,6 +188,43 @@ $(document).ready(function () {
         });
     }
 
+    if ( $('.js-open-noclose-popup').length ) {
+        $('.js-open-noclose-popup').magnificPopup({
+            type:'inline',
+            midClick: true,
+            showCloseBtn: false,
+            closeOnBgClick: false,
+            mainClass: 'mfp-fade',
+            fixedContentPos: false,
+            callbacks: {
+                open: function() {
+                   $('body').addClass('noscroll');
+                },
+                close: function() {
+                    $('body').removeClass('noscroll');
+                }
+            }
+        });
+    }
+    $(document).on( 'click', '.js-close-popup', function() {
+        $.magnificPopup.close();
+    });
+
+    //accordion
+    $(document).on('click', '.js-accordion .accordion__head a', function() {
+        var thisID = $(this).attr('href');
+        if ( $(this).closest('.accordion__head').hasClass('is-active') ) {
+            $(this).parents('.js-accordion').find('.accordion__head').removeClass('is-active');
+            $(this).parents('.js-accordion').find('.accordion__body').slideUp();
+        } else {
+            $(this).parents('.js-accordion').find('.accordion__head').removeClass('is-active');
+            $(this).parent().addClass('is-active');
+            $(this).parents('.js-accordion').find('.accordion__body').not(thisID).slideUp();
+            $(thisID).slideDown();
+        }
+        return false;
+    });
+
     // Scroll navigation
     $('.header-lp .navigation a[href^="#"], .scroll-button').on('click', function (e) {
         e.preventDefault();
@@ -204,6 +241,21 @@ $(document).ready(function () {
     if ($('[data-toggle="datepicker"]').length) {
         $('[data-toggle="datepicker"]').datepicker();
     }
+
+    //tabs
+    $(document).on('click', '.tabs-head a', function(e) {
+        e.preventDefault();
+        var thisHref = $(this).attr('href');
+        $(this).closest('.tabs-head').find('li').removeClass('is-active');
+        $(thisHref).closest('.tabs-wrap').find('.tab-body').removeClass('is-active');
+        $(this).parent().addClass('is-active');
+        $(thisHref).addClass('is-active');
+        if ( thisHref != '#profile') {
+            $('.dashboard-top-panel-row .form-group').hide();
+        } else {
+            $('.dashboard-top-panel-row .form-group').show();
+        }
+    });
 
     //hp shapes
     if ($('#particles-js').length) {
@@ -327,61 +379,6 @@ $(document).ready(function () {
             }
         );
     }
-
-    // Contact us
-    $('#frm_contact').on('submit', function (event) {
-        event.preventDefault();
-
-        const button = $('#frm_contact').find('input[type="submit"]');
-        showSpinner(button, 50);
-        clearErrors();
-
-        axios.post(
-            '/mail/contact-us',
-            qs.stringify(
-                {
-                    'name': $('#contact-name').val(),
-                    'email': $('#contact-email').val(),
-                    'message': $('#contact-message').val()
-                }
-            )
-        )
-            .then(
-                () => {
-                    hideSpinner(button);
-                    clearForm($('#frm_contact'));
-
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#confirm-contact-us'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
-                        }
-                    );
-
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {errors} = error.response.data;
-
-                    $.each(
-                        errors,
-                        (field, error) => {
-                            $('#contact-' + field).parents('.form-group').addClass('form-error');
-                            $('#contact-' + field).after(
-                                $('<span />').addClass('error-text').text(error)
-                            );
-
-                        }
-                    )
-                }
-            )
-    });
 
     //Log in
     $('#frm_signin').on('submit', function (event) {
@@ -760,6 +757,116 @@ $(document).ready(function () {
             )
 
     });
+
+    // Contact us
+    $('#frm_contact').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $('#frm_contact').find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        axios.post(
+            '/mail/contact-us',
+            qs.stringify(
+                {
+                    'name': $('#contact-name').val(),
+                    'email': $('#contact-email').val(),
+                    'message': $('#contact-message').val()
+                }
+            )
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+                    clearForm($('#frm_contact'));
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#confirm-contact-us'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#contact-' + field).parents('.form-group').addClass('form-error');
+                            $('#contact-' + field).after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+
+                        }
+                    )
+                }
+            )
+    });
+
+    // Ask question
+    $('#frm_faq').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $('#frm_faq').find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        axios.post(
+            '/mail/question',
+            qs.stringify(
+                {
+                    'name': $('#frm_faq #user_name').val(),
+                    'email': $('#frm_faq #user_email').val(),
+                    'question': $('#frm_faq #user_question').val()
+                }
+            )
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+                    clearForm($('#frm_contact'));
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#confirm-question'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#frm_faq #user_' + field).parents('.form-group').addClass('form-error');
+                            $('#frm_faq #user_' + field).after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+    });
+
 });
 
 
