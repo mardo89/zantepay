@@ -429,25 +429,31 @@ class AccountController extends Controller
 
             if (!$snAccount) {
 
-                // register a new User
-                $userInfo = $this->createUser(
-                    [
-                        'email' => $snUser->email,
-                        'password' => User::hashPassword(uniqid()),
-                        'uid' => uniqid(),
-                        'status' => User::USER_STATUS_PENDING,
-                        'first_name' => $userNameParts[1] ?? "",
-                        'last_name' => $userNameParts[0] ?? "",
-                        'avatar' => $snUser->avatar,
-                    ]
-                );
+                $userInfo = User::where('email', $snUser->email)->first();
+
+                if (!$userInfo) {
+
+                    // register a new User
+                    $userInfo = $this->createUser(
+                        [
+                            'email' => $snUser->email,
+                            'password' => User::hashPassword(uniqid()),
+                            'uid' => uniqid(),
+                            'status' => User::USER_STATUS_PENDING,
+                            'first_name' => $userNameParts[1] ?? "",
+                            'last_name' => $userNameParts[0] ?? "",
+                            'avatar' => $snUser->avatar,
+                        ]
+                    );
+
+                }
 
                 //create social network account
                 SocialNetworkAccount::create(
                     [
                         'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK,
                         'user_token' => $snUser->getId(),
-                        'user_id' => $userInfo['id']
+                        'user_id' => $userInfo->id
                     ]
                 );
 
@@ -508,25 +514,31 @@ class AccountController extends Controller
 
             if (!$snAccount) {
 
-                // register a new User
-                $userInfo = $this->createUser(
-                    [
-                        'email' => $snUser->email,
-                        'password' => User::hashPassword(uniqid()),
-                        'uid' => uniqid(),
-                        'status' => User::USER_STATUS_PENDING,
-                        'first_name' => $userNameParts[0] ?? "",
-                        'last_name' => $userNameParts[1] ?? "",
-                        'avatar' => $snUser->avatar,
-                    ]
-                );
+                $userInfo = User::where('email', $snUser->email)->first();
+
+                if (!$userInfo) {
+
+                    // register a new User
+                    $userInfo = $this->createUser(
+                        [
+                            'email' => $snUser->email,
+                            'password' => User::hashPassword(uniqid()),
+                            'uid' => uniqid(),
+                            'status' => User::USER_STATUS_PENDING,
+                            'first_name' => $userNameParts[0] ?? "",
+                            'last_name' => $userNameParts[1] ?? "",
+                            'avatar' => $snUser->avatar,
+                        ]
+                    );
+
+                }
 
                 //create social network account
                 SocialNetworkAccount::create(
                     [
                         'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE,
                         'user_token' => $snUser->getId(),
-                        'user_id' => $userInfo['id']
+                        'user_id' => $userInfo->id
                     ]
                 );
 
