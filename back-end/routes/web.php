@@ -21,6 +21,7 @@ Route::group(['prefix' => 'mail'], function () {
     Route::post('activate-account', 'MailController@activateAccount');
     Route::post('contact-us', 'MailController@contactUs');
     Route::post('question', 'MailController@question');
+    Route::post('invite-friend', 'MailController@inviteFriend');
 
 });
 
@@ -104,6 +105,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('wallet/grant-company-coins', 'AdminController@grantMarketingCoins');
 });
 
-//Route::get('/test-email', function () {
-//    return new App\Mail\ResetPassword('1234567890');
-//});
+Route::get('/test-email', function () {
+    return new App\Mail\InviteFriend('1234567890');
+});

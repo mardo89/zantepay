@@ -718,7 +718,7 @@ class UserController extends Controller
                     ]
                 );
 
-                Mail::to($email)->send(new InviteFriend($user->email, $user->uid));
+                Mail::to($email)->send(new InviteFriend($user->uid));
             }
 
         } catch (\Exception $e) {

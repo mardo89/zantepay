@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InviteFriend;
 use App\Mail\Question;
 use App\Models\DB\User;
 use App\Models\Validation\ValidationMessages;
@@ -156,4 +157,42 @@ class MailController extends Controller
         );
     }
 
+    /**
+     * Send invitation
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function inviteFriend(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|string|email|max:255'
+            ]
+        );
+
+        try {
+
+            Mail::to($request->email)->send(new InviteFriend($user->uid));
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Invitation failed',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
+
+        return response()->json(
+            []
+        );
+    }
 }

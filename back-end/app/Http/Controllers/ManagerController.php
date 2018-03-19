@@ -308,7 +308,6 @@ class ManagerController extends Controller
         );
     }
 
-
     /**
      * Decline document
      *
@@ -393,7 +392,6 @@ class ManagerController extends Controller
         );
     }
 
-
     /**
      * Show user document
      *
@@ -420,7 +418,6 @@ class ManagerController extends Controller
             ['Content-Type' => $mimeType]
         );
     }
-
 
     /**
      * Update ZNX amount
