@@ -287,12 +287,12 @@
                                                 <tr>
                                                     <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                                         <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="150">
+                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="155">
                                                             <tr>
-                                                                <td align="center" valign="top" width="150">
+                                                                <td align="center" valign="top" width="155">
                                                         <![endif]-->
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                               style="max-width:150px;">
+                                                               style="max-width:155px;">
                                                             <tr>
                                                                 <td align="left" valign="top" width="30">
                                                                     <img src="{{ url('/') . "/images/Copy.png" }}" width="20" height="20"
