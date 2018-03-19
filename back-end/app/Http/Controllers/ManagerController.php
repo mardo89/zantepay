@@ -65,6 +65,10 @@ class ManagerController extends Controller
                 'name' => User::getStatus(User::USER_STATUS_NOT_VERIFIED)
             ],
             [
+                'id' => User::USER_STATUS_VERIFICATION_PENDING,
+                'name' => User::getStatus(User::USER_STATUS_VERIFICATION_PENDING)
+            ],
+            [
                 'id' => User::USER_STATUS_IDENTITY_VERIFIED,
                 'name' => User::getStatus(User::USER_STATUS_IDENTITY_VERIFIED)
             ],
@@ -241,19 +245,19 @@ class ManagerController extends Controller
             $verification = $user->verification;
 
             if ($documentType == Document::DOCUMENT_TYPE_IDENTITY) {
+
                 $verification->id_documents_status = Verification::DOCUMENTS_APPROVED;
                 $verification->id_decline_reason = '';
 
-                $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
+                $user->changeStatus(User::USER_STATUS_IDENTITY_VERIFIED);
 
-                $verificationStatus = Verification::getStatus($verification->id_documents_status);
             } else {
+
                 $verification->address_documents_status = Verification::DOCUMENTS_APPROVED;
                 $verification->address_decline_reason = '';
 
-                $user->status = User::USER_STATUS_ADDRESS_VERIFIED;
+                $user->changeStatus(User::USER_STATUS_ADDRESS_VERIFIED);
 
-                $verificationStatus = Verification::getStatus($verification->id_documents_status);
             }
 
             $verification->save();
@@ -262,7 +266,7 @@ class ManagerController extends Controller
                 && $verification->address_documents_status == Verification::DOCUMENTS_APPROVED;
 
             if ($verificationComplete) {
-                $user->status = User::USER_STATUS_VERIFIED;
+                $user->changeStatus(User::USER_STATUS_VERIFIED);
 
                 // User bonus
                 $userWallet = $user->wallet;
@@ -280,8 +284,6 @@ class ManagerController extends Controller
                     $referrerWallet->save();
                 }
             }
-
-            $user->save();
 
         } catch (\Exception $e) {
 
@@ -348,38 +350,35 @@ class ManagerController extends Controller
             $verification = $user->verification;
 
             if ($documentType == Document::DOCUMENT_TYPE_IDENTITY) {
+
                 $verification->id_documents_status = Verification::DOCUMENTS_DECLINED;
                 $verification->id_decline_reason = $declineReason;
 
-                $user->status = User::USER_STATUS_ADDRESS_VERIFIED;
-
-                $verificationStatus = Verification::getStatus($verification->id_documents_status) . ' - ' . $declineReason;
             } else {
+
                 $verification->address_documents_status = Verification::DOCUMENTS_DECLINED;
                 $verification->address_decline_reason = $declineReason;
 
-                $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
-
-                $verificationStatus = Verification::getStatus($verification->address_documents_status) . ' - ' . $declineReason;
             }
 
             $verification->save();
 
-            $verificationComplete = $verification->id_documents_status != Verification::DOCUMENTS_APPROVED
-                && $verification->address_documents_status != Verification::DOCUMENTS_APPROVED;
-
-            if ($verificationComplete) {
-                $user->status = User::USER_STATUS_NOT_VERIFIED;
+            // Change user status
+            if ($verification->id_documents_status == Verification::DOCUMENTS_APPROVED) {
+                $user->changeStatus(User::USER_STATUS_IDENTITY_VERIFIED);
+            } elseif ($verification->address_documents_status == Verification::DOCUMENTS_APPROVED) {
+                $user->changeStatus(User::USER_STATUS_ADDRESS_VERIFIED);
+            } else {
+                $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
             }
 
-            $user->save();
 
         } catch (\Exception $e) {
             DB::rollback();
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),//'Error declining documents',
+                    'message' => 'Error declining documents',
                     'errors' => []
                 ],
                 500
@@ -390,9 +389,7 @@ class ManagerController extends Controller
         DB::commit();
 
         return response()->json(
-            [
-                'status' => $verificationStatus
-            ]
+            []
         );
     }
 
@@ -566,7 +563,8 @@ class ManagerController extends Controller
      *
      * @return bool
      */
-    protected function getViewPrefix() {
+    protected function getViewPrefix()
+    {
         return Auth::user()->role === User::USER_ROLE_ADMIN ? 'admin.' : 'manager.';
     }
 }

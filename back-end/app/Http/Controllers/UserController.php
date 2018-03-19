@@ -82,8 +82,7 @@ class UserController extends Controller
 
         try {
 
-            $user->status = User::USER_STATUS_NOT_VERIFIED;
-            $user->save();
+            $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
 
         } catch (\Exception $e) {
 
@@ -362,6 +361,15 @@ class UserController extends Controller
             }
 
             $verification->save();
+
+            // Change user status
+            if ($verification->id_documents_status == Verification::DOCUMENTS_APPROVED) {
+                $user->changeStatus(User::USER_STATUS_IDENTITY_VERIFIED);
+            } elseif ($verification->address_documents_status == Verification::DOCUMENTS_APPROVED) {
+                $user->changeStatus(User::USER_STATUS_ADDRESS_VERIFIED);
+            } else {
+                $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
+            }
 
 
         } catch (\Exception $e) {
@@ -1483,6 +1491,8 @@ class UserController extends Controller
         $verification->id_decline_reason = '';
         $verification->save();
 
+        // Change Status
+        $user->changeStatus(User::USER_STATUS_VERIFICATION_PENDING);
     }
 
 
@@ -1545,6 +1555,9 @@ class UserController extends Controller
         $verification->address_documents_status = Verification::DOCUMENTS_UPLOADED;
         $verification->address_decline_reason = '';
         $verification->save();
+
+        // Change Status
+        $user->changeStatus(User::USER_STATUS_VERIFICATION_PENDING);
     }
 
 }

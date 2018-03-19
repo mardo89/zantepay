@@ -255,8 +255,7 @@ class IndexController extends Controller
             return redirect('/');
         }
 
-        $user->status = User::USER_STATUS_PENDING;
-        $user->save();
+        $user->changeStatus(User::USER_STATUS_PENDING);
 
         return view('main.confirm-email');
     }
