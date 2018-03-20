@@ -26,7 +26,7 @@ class Contribution extends Model
      * Get user wallet
      */
     public function wallet() {
-        return $this->belongsTo('App\Models\DB\Wallet', 'eth_wallet', 'proxy');
+        return $this->belongsTo('App\Models\DB\Wallet', 'proxy', 'eth_wallet');
     }
 
 }

@@ -244,6 +244,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message)
                     }
@@ -298,7 +300,11 @@ $(document).ready(function () {
                     const {message} = error.response.data;
 
                     if (error.response.status == 422) {
+
                         $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+
+                        scrollToError();
+
                     } else {
                         showError(message)
                     }

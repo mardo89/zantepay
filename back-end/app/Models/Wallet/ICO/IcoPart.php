@@ -46,7 +46,7 @@ class IcoPart
     /**
      * @var float ICO euro rate
      */
-    protected $euroZnxRate = 0.05;
+    protected $euroZnxRate;
 
     /**
      * IcoPart constructor.

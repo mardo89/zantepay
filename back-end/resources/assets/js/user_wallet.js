@@ -11,7 +11,9 @@ $(document).ready(function () {
 
         $('body').append(tmpEl);
 
-        tmpEl.select();
+        tmpEl.focus();
+
+        tmpEl.get(0).setSelectionRange(0, address.length);
 
         document.execCommand("copy");
 
@@ -90,7 +92,11 @@ $(document).ready(function () {
                     const {message} = error.response.data;
 
                     if (error.response.status == 422) {
+
                         $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+
+                        scrollToError();
+
                     } else {
                         showError(message)
                     }
@@ -211,6 +217,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
@@ -272,6 +280,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
@@ -317,7 +327,6 @@ $(document).ready(function () {
                 }
             )
     });
-
 
 });
 

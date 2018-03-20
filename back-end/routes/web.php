@@ -105,6 +105,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('wallet/grant-company-coins', 'AdminController@grantMarketingCoins');
 });
 
-Route::get('/test-email', function () {
-    return new App\Mail\InviteFriend('1234567890');
-});
+//Route::get('/test-email', function () {
+//    return new App\Mail\InviteFriend('1234567890');
+//});

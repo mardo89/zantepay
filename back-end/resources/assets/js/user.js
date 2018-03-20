@@ -203,14 +203,18 @@ $(document).ready(function () {
     });
 
     // Copy link
-    $('#copy-link').on('click', function () {
+    $('#copy-link').on('click', function (e) {
+        e.preventDefault();
+
         const refLink = $('input[name="referral"]').val();
 
         let tmpEl = $('<input />').val(refLink);
 
         $('body').append(tmpEl);
 
-        tmpEl.select();
+        tmpEl.focus();
+
+        tmpEl.get(0).setSelectionRange(0, refLink.length);
 
         document.execCommand("copy");
 

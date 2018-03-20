@@ -91,6 +91,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }

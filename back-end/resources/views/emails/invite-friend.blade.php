@@ -111,7 +111,7 @@
                                                 <tr>
                                                     <td align="center" valign="top">
                                                         <a href="#" target="_blank" style="outline: none; border: 0;"><img
-                                                                    src="{{ url('/') . "/images/Logo.png" }}" width="214" height="29"
+                                                                    src="{{ url('/') . "/images/logo.png" }}" width="214" height="29"
                                                                     style="display:block;outline:0;border:0;width:214px;height:29px"
                                                                     alt="ZANTEPAY"></a>
                                                     </td>
