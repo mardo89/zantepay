@@ -47,6 +47,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
@@ -215,6 +217,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
@@ -276,6 +280,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
@@ -333,6 +339,8 @@ $(document).ready(function () {
                                 );
                             }
                         )
+
+                        scrollToError();
 
                     } else {
                         showError(message);

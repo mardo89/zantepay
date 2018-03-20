@@ -8,6 +8,7 @@ use App\Models\DB\User;
 use App\Models\Validation\ValidationMessages;
 use App\Mail\ActivateAccount;
 use App\Mail\ContactUs;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 

@@ -34,7 +34,7 @@ class InviteFriend extends Mailable
      */
     public function build()
     {
-        return $this->subject('Account activation')
+        return $this->subject('ZANTEPAY Invitation')
             ->view('emails.invite-friend');
     }
 }

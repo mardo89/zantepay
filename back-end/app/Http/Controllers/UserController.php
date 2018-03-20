@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Mail\InviteFriend;
 use App\Models\DB\AreaCode;
+use App\Models\DB\Contribution;
 use App\Models\DB\EthAddressAction;
 use App\Models\DB\TransferTransaction;
+use App\Models\DB\Wallet;
 use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
@@ -644,31 +646,79 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        $invites = Invite::where('user_id', $user->id)->get();
-
         $userReferrals = [];
+
+        // Collect information about invites
+        $invites = Invite::where('user_id', $user->id)->get();
 
         foreach ($invites as $invite) {
             $userReferrals[$invite->email] = [
                 'name' => $invite->email,
                 'avatar' => '/images/avatar.png',
-                'status' => Invite::getStatus(Invite::INVITATION_STATUS_PENDING)
-
+                'status' => Invite::getStatus(Invite::INVITATION_STATUS_PENDING),
+                'bonus' => '',
+                'commission' => ''
             ];
         }
 
+        // Collect information about bonuses
+        $dcBonus = [];
+
+        foreach (DebitCard::all() as $dcInfo) {
+            $dcBonus[$dcInfo->user_id] = Wallet::DEBIT_CARD_BONUS;
+        }
+
+        // Collect information about commission
+        $commissionBonus = [];
+
+        foreach (Contribution::all() as $contribution) {
+            $cUser = optional($contribution->wallet)->user;
+
+            if (!$cUser) {
+                continue;
+            }
+
+            $userID = $cUser->id;
+
+            if (!isset($commissions[$userID])) {
+                $commissionBonus[$userID] = 0;
+            }
+
+            $ethAmount = RateCalculator::weiToEth($contribution->amount);
+
+            $commissionBonus[$userID] += $ethAmount * Wallet::COMMISSION_BONUS;
+        }
+
+        // Collect information about referrals
         $referrals = User::where('referrer', $user->id)->get();
 
-
         foreach ($referrals as $referral) {
+            $hidePos = strrpos($referral->email, "@");
+
+            if ($hidePos <= 2) {
+                $replacement = str_repeat('*', $hidePos);
+
+                $hiddenEmail = substr_replace($referral->email, $replacement, 0, $hidePos);
+            } elseif ($hidePos <= 5) {
+                $replacement = str_repeat('*', $hidePos - 1);
+
+                $hiddenEmail = substr_replace($referral->email, $replacement, 1, $hidePos - 1);
+            } else {
+                $replacement = str_repeat('*', $hidePos - 2);
+
+                $hiddenEmail = substr_replace($referral->email, $replacement, 1, $hidePos - 2);
+            }
+
             $userName = ($referral->first_name != '' && $referral->last_name != '')
                 ? $referral->first_name . ' ' . $referral->last_name
-                : $referral->email;
+                : $hiddenEmail;
 
             $userReferrals[$referral->email] = [
                 'name' => $userName,
                 'avatar' => !is_null($referral->avatar) ? $referral->avatar : '/images/avatar.png',
-                'status' => Invite::getStatus(Invite::INVITATION_STATUS_VERIFYING)
+                'status' => Invite::getStatus(Invite::INVITATION_STATUS_VERIFYING),
+                'bonus' => isset($dcBonus[$referral->id]) ? Wallet::REFERRAL_BONUS + $dcBonus[$referral->id] : Wallet::REFERRAL_BONUS,
+                'commission' => isset($commissionBonus[$referral->id]) ? $commissionBonus[$referral->id] : ''
             ];
         }
 

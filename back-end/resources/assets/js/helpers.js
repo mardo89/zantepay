@@ -59,3 +59,13 @@ window.validateFile = file => {
 
     return false;
 }
+
+// Scroll to error
+window.scrollToError = () => {
+    $('html, body').animate(
+        {
+            scrollTop: $('.form-error:eq(0)').offset().top
+        },
+        500
+    );
+}

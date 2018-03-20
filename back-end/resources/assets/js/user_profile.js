@@ -89,6 +89,7 @@ $(document).ready(function () {
                     const {errors, message} = error.response.data;
 
                     if (error.response.status == 422) {
+
                         $.each(
                             errors,
                             (field, error) => {
@@ -99,6 +100,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
@@ -106,6 +109,7 @@ $(document).ready(function () {
                 }
             )
     });
+
 });
 
 

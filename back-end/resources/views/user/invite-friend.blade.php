@@ -80,7 +80,7 @@
             </div>
 
             <div class="dashboard-inv">
-                <h2 class="h4 headline-mb">Send Invitations: </h2>
+                <h2 class="h4 headline-mb">Sent invitations: </h2>
             </div>
             <div class="table-responsive-500">
                 <table id="invites-list" class="inv-table table-black">
@@ -88,7 +88,9 @@
                     <tr>
                         <th colspan="2">Name</th>
                         <th>Status</th>
-                        <th colspan="2">Bonus (ZNX)</th>
+                        <th>Bonus (ZNX)</th>
+                        <th>Commission (ETH)</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -103,7 +105,8 @@
                             <td>
                                 <span class="primary-color">{{ $referral['status'] }}</span>
                             </td>
-                            <td style="min-width: 100px"></td>
+                            <td style="min-width: 100px">{{ $referral['bonus'] }}</td>
+                            <td style="min-width: 100px">{{ $referral['commission'] }}</td>
                             <td width="160" class="col-center"><a href="" class="send-link resend-invitation">Resend</a></td>
                         </tr>
                     @endforeach
