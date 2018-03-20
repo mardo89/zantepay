@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input class="input-field" type="text" name="referral" value="{{ $referralToken }}" readonly>
+                        <input class="input-field" type="hidden" name="referral" value="{{ $referralToken }}" readonly>
                     </div>
 
                     <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Sign Up</button>
