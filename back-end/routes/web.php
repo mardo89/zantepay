@@ -103,6 +103,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('wallet/znx', 'ManagerController@addZNX');
     Route::post('wallet/grant-marketing-coins', 'AdminController@grantMarketingCoins');
     Route::post('wallet/grant-company-coins', 'AdminController@grantMarketingCoins');
+    Route::post('wallet/grant-foundation-coins', 'AdminController@grantFoundationCoins');
 });
 
 //Route::get('/test-email', function () {

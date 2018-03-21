@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DB\Wallet;
+use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -11,6 +12,7 @@ use App\Models\DB\State;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
 use App\Models\Validation\ValidationMessages;
+use App\Models\Wallet\Ico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -441,21 +443,40 @@ class ManagerController extends Controller
             )
         );
 
+        $uid = $request->uid;
+        $amount = $request->amount;
+
+        $user = User::where('uid', $uid)->first();
+
+        if (!$user) {
+            return response()->json(
+                [
+                    'message' => 'User does not exist.',
+                    'errors' => []
+                ],
+                500
+            );
+        }
 
         DB::beginTransaction();
 
         try {
 
-            $userID = $request->input('uid', '');
+            $ico = new Ico();
 
-            $user = User::where('uid', $userID)->first();
-
-            if (!$user) {
-                throw new \Exception('User does not exist');
-            }
+            // Create Zantecoin transaction transaction
+            ZantecoinTransaction::create(
+                [
+                    'user_id' => $user->id,
+                    'amount' => $amount,
+                    'ico_part' => $ico->getActivePart()->getID(),
+                    'contribution_id' => 0,
+                    'transaction_type' => ZantecoinTransaction::TRANSACTION_ADMIN_ADD_ZNX
+                ]
+            );
 
             $wallet = $user->wallet;
-            $wallet->znx_amount += $request->amount;
+            $wallet->znx_amount += $amount;
             $wallet->save();
 
         } catch (\Exception $e) {
@@ -463,7 +484,7 @@ class ManagerController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error updating ZNX amount',
+                    'message' => 'There has been an error with transfer of ' . $amount . ' ZNX from ICO pool.',
                     'errors' => []
                 ],
                 500
@@ -508,15 +529,11 @@ class ManagerController extends Controller
 
         try {
 
-            $userID = $request->input('uid', '');
+            $profile = optional(User::where('uid', $request->uid)->first())->profile;
 
-            $user = User::where('uid', $userID)->first();
-
-            if (!$user) {
+            if (!$profile) {
                 throw new \Exception('User does not exist');
             }
-
-            $profile = $user->profile;
 
             switch ($request->currency) {
 //                case Currency::CURRENCY_TYPE_BTC:
@@ -524,7 +541,7 @@ class ManagerController extends Controller
 //                    break;
 
                 case Currency::CURRENCY_TYPE_ETH:
-                    $profile->eth_wallet = $request->address;
+                    $profile->eth_wallet = trim($request->address);
                     break;
 
 //                case Currency::CURRENCY_TYPE_ZNX:
