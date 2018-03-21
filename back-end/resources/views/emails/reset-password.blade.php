@@ -34,17 +34,16 @@
             .mob-hide {
                 display: none !important;
             }
-        }
-
-        .table600 {
-            width: 600px;
+            .table600 {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Email Text</span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Please confirm that you would like to&nbsp;reset your&nbsp;account password. Link will be expired in 10 minutes.</span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
