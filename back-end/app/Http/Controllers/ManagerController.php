@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ApproveDocuments;
 use App\Models\DB\Wallet;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\Currency;
@@ -285,6 +286,8 @@ class ManagerController extends Controller
                     $referrerWallet->referral_bonus = Wallet::DEBIT_CARD_BONUS;
                     $referrerWallet->save();
                 }
+
+                Mail::to($user->email)->send(new ApproveDocuments());
             }
 
         } catch (\Exception $e) {

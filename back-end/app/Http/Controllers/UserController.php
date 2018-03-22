@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DebitCardPreOrder;
 use App\Mail\InviteFriend;
 use App\Models\DB\AreaCode;
 use App\Models\DB\Contribution;
@@ -1235,6 +1236,8 @@ class UserController extends Controller
      */
     public function saveDebitCard(Request $request)
     {
+        $user = Auth::user();
+
         $this->validate(
             $request,
             [
@@ -1242,8 +1245,9 @@ class UserController extends Controller
             ]
         );
 
+        DB::beginTransaction();
+
         try {
-            $user = Auth::user();
 
             $userDebitCard = [
                 'user_id' => $user->id,
@@ -1253,12 +1257,20 @@ class UserController extends Controller
             $card = DebitCard::where('user_id', $user->id)->first();
 
             if (!$card) {
+
                 DebitCard::create($userDebitCard);
+
+                Mail::to($user->email)->send(new DebitCardPreOrder());
+
             } else {
+
                 DebitCard::where('user_id', $user->id)->update($userDebitCard);
+
             }
 
         } catch (\Exception $e) {
+
+            DB::rollback();
 
             return response()->json(
                 [
@@ -1269,6 +1281,8 @@ class UserController extends Controller
             );
 
         }
+
+        DB::commit();
 
         return response()->json(
             [
