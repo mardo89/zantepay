@@ -43,7 +43,7 @@
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Please confirm that you would like to&nbsp;reset your&nbsp;account password. Link will be expired in 10 minutes.</span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thanks for visiting ZANTEPAY! Per your request, we have successfully changed your password.</span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
@@ -99,62 +99,113 @@
                                                                     alt="ZANTEPAY"></a>
                                                     </td>
                                                 </tr>
+                                                <tr><td height="60" style="line-height:60px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td height="60" style="line-height:60px; font-size: 0;">&nbsp;</td>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 32px; color: #232323; line-height: normal; font-weight: normal;">
+                                                    Hi there!
+                                                  </td>
                                                 </tr>
+                                                <tr><td height="40" style="line-height:40px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" valign="top"
-                                                        style="font-family:Verdana, Arial, sans-serif; font-size: 32px; color: #232323; line-height: normal; font-weight: normal;">
-                                                        Reset password
-                                                    </td>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    Welcome to ZANTEPAY!
+                                                  </td>
                                                 </tr>
+                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td height="40" style="line-height:40px; font-size: 0;">&nbsp;</td>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    Since you have signed up, we hope you are also curious to log in to your account and explore your account features.
+                                                  </td>
                                                 </tr>
+                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        Please confirm that you would like to&nbsp;reset your&nbsp;account password.
-                                                        Link will be expired in 10 minutes.
-                                                    </td>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    This will give you a hint about where to start from. <br> For example:
+                                                  </td>
                                                 </tr>
+                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
+                                                  <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    <b>1.</b> You can pre-order FREE debit card under your account ZANTEPAY Debit Card.
+                                                  </td>
                                                 </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
-                                                        <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="384">
-                                                            <tr>
-                                                                <td align="center" valign="top" width="384">
-                                                        <![endif]-->
-                                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                               style="max-width:384px;">
-                                                            <tr>
-                                                                <td align="center" valign="top">
-                                                                    <a href="{{ $resetLink }}" target="_blank"
-                                                                       style="outline: none; border: 0;"><img
-                                                                                src="{{ url('/') . "/images/reset-password.png"}}" width="384" height="54"
-                                                                                style="display:block;outline:0;border:0;width:100%;height:auto"
-                                                                                alt="Reset my password"></a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" valign="top"
-                                                                    style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                                    Or paste this link into your browser:
-                                                                    <span style="color:#0566c1;font-size: 12px;">{{ $resetLink }}</span>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                        <!--[if mso]>
-                                                        </td>
-                                                        </tr>
-                                                        </table>
-                                                        <![endif]-->
-                                                    </td>
+                                                  <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    <b>2.</b> You can verify account under Profile Settings.
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    <b>3.</b> You can find your Ethereum deposit address to buy ZANTECOINS.
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    <b>4.</b> Have an overview of your referral bonus and commissions (20% commission).
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    <b>5.</b> Withdraw you commission (ETH withdrawal).
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #f92112; line-height: 28px; font-weight: normal;">
+                                                    <b>6.</b> Please pay attention: we don’t send any ETH or BTC deposit addresses to your email address to buy tokens. 
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: bold;">
+                                                    ZANTEPAY rewards:
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 20px; color: #474747; line-height: 28px; font-weight: bold;">
+                                                    Refer a friend for a <span style="color:#f92112;">20%</span> commission!
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="15" style="line-height:15px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 20px; color: #474747; line-height: 28px; font-weight: bold;">
+                                                    Verify and pre-order a <span style="color:#f92112;">FREE</span> card!
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="center" valign="top">
+                                                    <img src="{{ url('/') . "/images/get-500znx.jpg" }}" width="381" height="290" style="display:block;outline:0;border:0;width:381px;height:290px" alt="Get 500 ZNX">
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="25" style="line-height:25px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: bold;">
+                                                    Your referral link:
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #0566c1; line-height: 28px; font-weight: normal;">
+                                                    <a href="https://zantepay.com/invitation?ref=5aaaa6fa9df1d" style="outline: none; border: 0; color: #0566c1; text-decoration: none;">https://zantepay.com/invitation?ref=5aaaa6fa9df1d</a>
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    Should you need any help or have any questions do not hesitate to contact us at <a href="mailto:support@zantepay.com" style="color:#f92112;outline: none; border: 0; text-decoration: none;">support@zantepay.com</a>. The quickest way to do it is to reply to this message. Our team will always be happy to assist you! Don’t let the opportunity pass by! Share your referral link NOW.
+                                                  </td>
+                                                </tr>
+                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                  <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                    Yours, <br> Mardo, ZANTEPAY Founder & CEO
+                                                  </td>
                                                 </tr>
                                             </table>
                                             <!--[if mso]>
