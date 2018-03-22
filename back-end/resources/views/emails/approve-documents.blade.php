@@ -11,7 +11,7 @@
 <body>
 <div class="container">
 
-    <h2>Thank you for pre-ordering Debit Card</h2>
+    <h2>Your documents approved</h2>
 
 </div>
 </body>

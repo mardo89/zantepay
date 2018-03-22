@@ -17,6 +17,7 @@ use App\Models\Wallet\Ico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -252,12 +253,16 @@ class ManagerController extends Controller
                 $verification->id_documents_status = Verification::DOCUMENTS_APPROVED;
                 $verification->id_decline_reason = '';
 
+                $verificationStatus = Verification::getStatus($verification->id_documents_status);
+
                 $user->changeStatus(User::USER_STATUS_IDENTITY_VERIFIED);
 
             } else {
 
                 $verification->address_documents_status = Verification::DOCUMENTS_APPROVED;
                 $verification->address_decline_reason = '';
+
+                $verificationStatus = Verification::getStatus($verification->address_documents_status);
 
                 $user->changeStatus(User::USER_STATUS_ADDRESS_VERIFIED);
 
@@ -358,11 +363,14 @@ class ManagerController extends Controller
                 $verification->id_documents_status = Verification::DOCUMENTS_DECLINED;
                 $verification->id_decline_reason = $declineReason;
 
+                $verificationStatus =  Verification::getStatus($verification->id_documents_status) . ' - ' . $verification->id_decline_reason;
+
             } else {
 
                 $verification->address_documents_status = Verification::DOCUMENTS_DECLINED;
                 $verification->address_decline_reason = $declineReason;
 
+                $verificationStatus =  Verification::getStatus($verification->address_documents_status) . ' - ' . $verification->address_decline_reason;
             }
 
             $verification->save();
@@ -393,7 +401,9 @@ class ManagerController extends Controller
         DB::commit();
 
         return response()->json(
-            []
+            [
+                'status' => $verificationStatus
+            ]
         );
     }
 

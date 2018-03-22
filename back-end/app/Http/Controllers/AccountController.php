@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ActivateAccount;
+use App\Mail\ChangePassword;
 use App\Mail\ResetPassword;
 use App\Models\DB\ExternalRedirect;
 use App\Models\DB\PasswordReset;
@@ -311,6 +312,8 @@ class AccountController extends Controller
             $user->save();
 
             PasswordReset::where('email', $user->email)->delete();
+
+            Mail::to($user->email)->send(new ChangePassword());
 
         } catch (\Exception $e) {
 

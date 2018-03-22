@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\DebitCardPreOrder;
 use App\Mail\InviteFriend;
+use App\Mail\Welcome;
 use App\Models\DB\AreaCode;
 use App\Models\DB\Contribution;
 use App\Models\DB\EthAddressAction;
@@ -82,12 +83,17 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
+        DB::beginTransaction();
 
         try {
 
             $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
 
+            Mail::to($user->email)->send(new Welcome());
+
         } catch (\Exception $e) {
+
+            DB::rollback();
 
             return response()->json(
                 [
@@ -98,6 +104,8 @@ class UserController extends Controller
             );
 
         }
+
+        DB::commit();
 
         return response()->json(
             []

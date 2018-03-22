@@ -107,5 +107,5 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 //Route::get('/test-email', function () {
-//    return new App\Mail\InviteFriend('1234567890');
+//    return new \App\Mail\ChangePassword();
 //});
