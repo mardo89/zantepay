@@ -257,7 +257,12 @@ $(document).ready(function () {
                                 src: '#add-ico-znx-modal'
                             },
                             type: 'inline',
-                            closeOnBgClick: true
+                            closeOnBgClick: true,
+                            callbacks: {
+                                elementParse: function (item) {
+                                    $(item.src).find('.znx_added').text(user.amount);
+                                }
+                            }
                         }
                     );
                 }
@@ -309,7 +314,7 @@ $(document).ready(function () {
                 response => {
                     hideSpinner(button);
 
-                    $('..foundation-pool input[name="znx-amount"]').val('');
+                    $('.foundation-pool input[name="znx-amount"]').val('');
 
                     $.magnificPopup.open(
                         {
@@ -317,7 +322,12 @@ $(document).ready(function () {
                                 src: '#add-foundation-znx-modal'
                             },
                             type: 'inline',
-                            closeOnBgClick: true
+                            closeOnBgClick: true,
+                            callbacks: {
+                                elementParse: function (item) {
+                                    $(item.src).find('.znx_added').text(user.amount);
+                                }
+                            }
                         }
                     );
                 }

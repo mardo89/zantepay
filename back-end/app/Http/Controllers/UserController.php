@@ -542,7 +542,7 @@ class UserController extends Controller
 //                    break;
 
                 case Currency::CURRENCY_TYPE_ETH:
-                    $profile->eth_wallet = trim($request->address);
+                    $profile->eth_wallet = $request->address;
                     break;
 
             }

@@ -482,7 +482,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">Added!</h3>
             <div class="logon-modal-text">
-                <p>You ZNX Wallet was successfully updated.</p>
+                <p>You have successfully transferred <span class="znx_added"></span> ZNX from ICO pool.</p>
             </div>
         </div>
     </div>
@@ -492,7 +492,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">Added!</h3>
             <div class="logon-modal-text">
-                <p>ZNX was successfully added.</p>
+                <p>You have successfully transferred <span class="znx_added"></span> ZNX from Foundation pool.</p>
             </div>
         </div>
     </div>

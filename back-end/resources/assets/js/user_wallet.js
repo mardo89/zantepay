@@ -193,6 +193,10 @@ $(document).ready(function () {
                             callbacks: {
                                 close: function () {
                                     window.location.reload();
+                                },
+
+                                elementParse: function (item) {
+                                    $(item.src).find('#znx_balance').text(response.data.balance);
                                 }
                             }
                         }
@@ -245,6 +249,8 @@ $(document).ready(function () {
             .then(
                 () => {
                     hideSpinner(button);
+
+                    $('input[name="withdraw_address"]').val('');
 
                     $.magnificPopup.open(
                         {
