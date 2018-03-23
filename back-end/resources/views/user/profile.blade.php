@@ -30,14 +30,14 @@
                                 <input class="input-field" type="text" name="l-name" maxlength="100" value="{{ $user->last_name }}">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-lg-3 col-sm-6">
                             <div class="form-group profile_email">
                                 <label class="field-label" for="field3">Email:</label>
                                 <input class="input-field" type="email" name="email" value="{{ $user->email }}">
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="field-label" for="field23">Area code:</label>
