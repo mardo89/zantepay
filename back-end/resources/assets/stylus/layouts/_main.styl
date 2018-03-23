@@ -329,7 +329,7 @@
     width 100%
     li
       padding 0
-      width 33.333%
+      width 25%
       text-align center
       &.is-active
         a
@@ -338,9 +338,12 @@
       a
         display block
         padding 10px 20px
+        @media screen and (max-width 480px)
+          padding 10px
+          font-size 15px
         &:hover
           color $primary-color
-        text-decoration none !important
+          text-decoration none !important
 
 .tabs-wrap
   .accordion

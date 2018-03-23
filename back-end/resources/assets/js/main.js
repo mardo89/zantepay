@@ -257,6 +257,20 @@ $(document).ready(function () {
         }
     });
 
+    //open tabs by url
+    if ( location.hash && $('.tabs-head') ) {
+        var tabHref = location.hash;
+        $('.tabs-head li').removeClass('is-active');
+        $('.tab-body').removeClass('is-active');
+        $('a[href="' + tabHref + '"]').parent().addClass('is-active');
+        $(tabHref).addClass('is-active');
+    }
+
+    //open resset password by url
+    if ( location.hash == '#forgot-password' ) {
+        $.magnificPopup.open({items: {src: '#forgot-password'},type: 'inline'});
+    }
+    
     //hp shapes
     if ($('#particles-js').length) {
         var lineColor = $('.particles-js-black').length ? '#000' : '#fff';
