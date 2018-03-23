@@ -476,7 +476,7 @@ class AdminController extends Controller
 
         try {
 
-            $operationID = EtheriumApi::getCoinsOID($transaction->type, $amount, $address);
+            $operationID = EtheriumApi::getCoinsOID($transaction->type, $amount, $transaction->address);
 
             $transaction->operation_id = $operationID;
             $transaction->save();

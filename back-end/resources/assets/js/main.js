@@ -384,7 +384,7 @@ $(document).ready(function () {
     $('#frm_signin').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_signin').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -430,7 +430,7 @@ $(document).ready(function () {
     $('#frm_signup').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_signup').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -490,7 +490,7 @@ $(document).ready(function () {
     $("#frm_invite_signup").on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_invite_signup').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -554,7 +554,7 @@ $(document).ready(function () {
     $('#frm_forgot_password').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_forgot').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -606,7 +606,7 @@ $(document).ready(function () {
     $('#frm_change_password').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_change_password').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -651,7 +651,7 @@ $(document).ready(function () {
     $('#frm_ico_registration').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_ico_registration').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -706,7 +706,7 @@ $(document).ready(function () {
     $('#frm_investor').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_investor').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -762,7 +762,7 @@ $(document).ready(function () {
     $('#frm_contact').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_contact').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -817,7 +817,7 @@ $(document).ready(function () {
     $('#frm_faq').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_faq').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 

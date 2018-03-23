@@ -311,8 +311,27 @@ $(document).ready(function () {
             return false;
         }
 
+        const spinner = $('<div />').addClass('spinner-container').css('height', '50px')
+            .append(
+                $('<div />').addClass('spinner spinner--50')
+                    .append(
+                        $('<div />')
+                    )
+                    .append(
+                        $('<div />')
+                    )
+                    .append(
+                        $('<div />')
+                    )
+                    .append(
+                        $('<div />')
+                    )
+            )
+
         const button = $(this).find('input[type="submit"]');
-        button.prop('disabled', true);
+
+        button.prop('disabled', true).hide();
+        button.after(spinner);
 
         axios.post(
             '/user/accept-terms',
@@ -325,11 +344,15 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    button.prop('disabled', false);
+                    button.prop('disabled', false).show();
+                    spinner.remove();
 
                     const {message} = error.response.data;
 
-                    showError(message);
+                    $('.logon-group').last().after(
+                        $('<span />').addClass('error-text').text(message)
+                    )
+
                 }
             )
     });

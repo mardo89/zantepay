@@ -2,7 +2,8 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-} catch (e) {}
+} catch (e) {
+}
 
 window.axios = require('axios');
 
@@ -16,4 +17,24 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+window.axios.interceptors.response.use(
+    response => {
+        console.error(response);
+
+        return response;
+    },
+
+    error => {
+        if (error.response.status === 419) {
+            // window.location = '/';
+
+            error.response.data.message = 'Session has expired. Please reload page.';
+        }
+
+        return Promise.reject(error);
+
+    }
+);
+
 window.qs = require('qs');
+

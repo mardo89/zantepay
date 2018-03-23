@@ -67,7 +67,7 @@ $(document).ready(function () {
             return false;
         }
 
-        const button = $('#upload-identity-documents').find('button[type="submit"]');
+        const button = $(this).find('button[type="submit"]');
         showSpinner(button);
 
         axios.post(
@@ -137,7 +137,7 @@ $(document).ready(function () {
             return false;
         }
 
-        const button = $('#upload-identity-documents').find('button[type="submit"]');
+        const button = $(this).find('button[type="submit"]');
         showSpinner(button);
 
         axios.post(
