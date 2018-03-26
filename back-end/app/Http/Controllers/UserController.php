@@ -722,10 +722,12 @@ class UserController extends Controller
                 ? $referral->first_name . ' ' . $referral->last_name
                 : $hiddenEmail;
 
+            $inviteStatus = $referral->status == User::USER_STATUS_VERIFIED ? Invite::INVITATION_STATUS_COMPLETE : Invite::INVITATION_STATUS_VERIFYING;
+
             $userReferrals[$referral->email] = [
                 'name' => $userName,
                 'avatar' => !is_null($referral->avatar) ? $referral->avatar : '/images/avatar.png',
-                'status' => Invite::getStatus(Invite::INVITATION_STATUS_VERIFYING),
+                'status' => Invite::getStatus($inviteStatus),
                 'bonus' => isset($dcBonus[$referral->id]) ? Wallet::REFERRAL_BONUS + $dcBonus[$referral->id] : Wallet::REFERRAL_BONUS,
                 'commission' => isset($commissionBonus[$referral->id]) ? $commissionBonus[$referral->id] : ''
             ];

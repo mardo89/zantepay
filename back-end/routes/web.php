@@ -89,6 +89,7 @@ Route::group(['prefix' => 'user'], function () {
 Route::group(['prefix' => 'admin'], function () {
 
     Route::get('users', 'ManagerController@users');
+    Route::get('users/search', 'ManagerController@searchUsers');
 
     Route::get('profile', 'ManagerController@profile');
     Route::post('profile', 'AdminController@saveProfile');

@@ -2,83 +2,175 @@ require('./helpers');
 
 $(document).ready(function () {
 
-    $('input[name="search-by-email"]').on('keyup', function (event) {
-        const filterText = $(this).val().toLowerCase();
-
-        $('#users-list tbody tr').each(function (index, element) {
-            const userEmail = $(element).find('td:eq(1)').text().toLowerCase();
-            const userName = $(element).find('td:eq(2)').text().toLowerCase();
-            const userReferrer = $(element).find('td:eq(5)').text().toLowerCase();
-
-            const isNotMatch = (
-                userEmail.indexOf(filterText) === -1
-                && userName.indexOf(filterText) === -1
-                && userReferrer.indexOf(filterText) === -1
-            );
-
-            if (filterText.trim().length !== 0 && isNotMatch) {
-                $(this).hide()
-            } else {
-                $(this).show();
-            }
-        });
-    });
-
-    $('.search-cross').on('click', function (event) {
+    $('#search_user_frm').on('submit', function (event) {
         event.preventDefault();
 
-        $('input[name="search-by-email"]').val('').trigger('keyup');
-    });
+        // roles filter
+        const roleFilter = [];
 
-    $('input[name="status-filter"]').on('change', function (event) {
-        const refFilter = $(this).val();
-        const isVisible = $(this).prop('checked');
+        $(this).find('input[name="role-filter"]:checked').each(function () {
+            roleFilter.push($(this).val());
+        });
 
-        $('#users-list tbody tr').each(function (index, element) {
-            const userStatus = $(element).find('td:eq(4)').text().trim();
+        // status filter
+        const statusFilter = [];
 
-            if (refFilter == userStatus) {
-                if (isVisible) {
-                    $(this).show();
-                } else {
-                    $(this).hide()
+        $(this).find('input[name="status-filter"]:checked').each(function () {
+            statusFilter.push($(this).val());
+        });
+
+        // referrer
+        const referrerFilter = [];
+
+        $(this).find('input[name="referrer-filter"]:checked').each(function () {
+            referrerFilter.push($(this).val());
+        });
+
+        // email / name
+        const nameFilter = $(this).find('input[name="search-by-email"]').val();
+
+
+        // email / name
+        const activePage = parseInt($('.page-item.active .page-link').html());
+        const page = isNaN(activePage) ? 1 : activePage;
+
+        const button = $(this).find('input[type="submit"]');
+        showSpinner(button);
+        clearErrors();
+        $('.pagination').hide();
+
+        axios.get(
+            '/admin/users/search',
+            {
+                params: {
+                    'role_filter': roleFilter,
+                    'status_filter': statusFilter,
+                    'referrer_filter': referrerFilter,
+                    'name_filter': nameFilter,
+                    'page': page
                 }
             }
-        });
+        )
+            .then(
+                response => {
+                    hideSpinner(button);
+
+                    $('#users-list tbody').empty();
+                    $('.pagination .page-item').empty().hide();
+
+                    response.data.usersList.forEach(
+                        user => {
+
+                            $('#users-list tbody')
+                                .append(
+                                    $('<tr />').attr('id', user.id)
+                                        .append(
+                                            $('<td />').attr('width', 100).addClass('col-center')
+                                                .append(
+                                                    $('<div />').addClass('thumb-60')
+                                                        .append(
+                                                            $('<img />').attr({'src': user.avatar, 'alt': user.name})
+                                                        )
+                                                )
+                                        )
+                                        .append(
+                                            $('<td />')
+                                                .append(
+                                                    $('<a />').addClass('primary-color').attr('href', user.profileLink).html(user.email)
+                                                )
+                                        )
+                                        .append(
+                                            $('<td />').html(user.name)
+                                        )
+                                        .append(
+                                            $('<td />').html(user.role)
+                                        )
+                                        .append(
+                                            $('<td />').html(user.status)
+                                        )
+                                        .append(
+                                            $('<td />').html(user.hasReferrals)
+                                        )
+                                )
+
+                        }
+                    );
+
+                    for(let i=1; i<=response.data.paginator.totalPages; i++) {
+                        const itemClass = response.data.paginator.currentPage == i ? 'page-item active' : 'page-item';
+
+                        $('.pagination')
+                            .append(
+                                $('<li />').addClass(itemClass)
+                                    .append(
+                                        $('<a />').addClass('page-link').attr('href', '#').html(i)
+                                    )
+                            )
+                    }
+
+                    // add pagination
+                    if (response.data.paginator.totalPages > 1) {
+                        $('.pagination')
+                            .prepend(
+                                $('<li />').addClass('page-item')
+                                    .append(
+                                        $('<a />').addClass('page-link prev-page-link').attr('href', '#').html('Previous')
+                                    )
+                            )
+                            .append(
+                                $('<li />').addClass('page-item')
+                                    .append(
+                                        $('<a />').addClass('page-link next-page-link').attr('href', '#').html('Next')
+                                    )
+                            )
+
+                        $('.pagination').show();
+                    }
+
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
     });
 
-    $('input[name="role-filter"]').on('change', function (event) {
-        const refFilter = $(this).val();
-        const isVisible = $(this).prop('checked');
+    $('.pagination').on('click', '.page-link', function(e) {
+        e.preventDefault();
 
-        $('#users-list tbody tr').each(function (index, element) {
-            const userRole = $(element).find('td:eq(3)').text().trim();
+        let activeItem = $('.page-item.active');
+        let nextItem = $(this).parents('.page-item');
 
-            if (refFilter == userRole) {
-                if (isVisible) {
-                    $(this).show();
-                } else {
-                    $(this).hide()
-                }
+        if ($(this).hasClass('prev-page-link')) {
+            activeItem = $('.page-item.active');
+            nextItem = activeItem.prev();
+
+            if (nextItem.find('.prev-page-link').length) {
+                return false;
             }
-        });
-    });
 
-    $('input[name="dc-filter"]').on('change', function (event) {
-        const refFilter = $(this).val();
-        const isVisible = $(this).prop('checked');
+        }
 
-        $('#users-list tbody tr').each(function (index, element) {
-            const userRole = $(element).find('td:eq(1)').text().trim();
+        if ($(this).hasClass('next-page-link')) {
 
-            if (refFilter == userRole) {
-                if (isVisible) {
-                    $(this).show();
-                } else {
-                    $(this).hide()
-                }
+            activeItem = $('.page-item.active');
+            nextItem = activeItem.next();
+
+            if (nextItem.find('.next-page-link').length) {
+                return false;
             }
-        });
+
+        }
+
+        activeItem.removeClass('active');
+        nextItem.addClass('active');
+
+        $('#search_user_frm').trigger('submit');
     });
 
 });

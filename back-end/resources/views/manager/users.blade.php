@@ -8,7 +8,8 @@
 
     <main class="main main-dashboard">
         <div class="container">
-            <form action="">
+            <form id="search_user_frm">
+
                 <div class="dashboard-group">
                     <div class="row">
                         <div class="col-lg-5 col-sm-4 mb-20">
@@ -18,7 +19,7 @@
                                     <div class="col-lg-4">
                                         <div class="checkbox">
                                             <input type="checkbox" name="role-filter" id="{{ "rf" . $role['id'] }}"
-                                                   value="{{ $role['name'] }}" checked>
+                                                   value="{{ $role['id'] }}" checked>
                                             <label for="{{ "rf" . $role['id'] }}">{{ $role['name'] }}</label>
                                         </div>
                                     </div>
@@ -56,7 +57,7 @@
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="checkbox">
                                             <input type="checkbox" name="status-filter" id="{{ "sf" . $status['id'] }}"
-                                                   value="{{ $status['name'] }}" checked>
+                                                   value="{{ $status['id'] }}" checked>
                                             <label for="{{ "sf" . $status['id'] }}">{{ $status['name'] }}</label>
                                         </div>
                                     </div>
@@ -78,6 +79,16 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="dashboard-group">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <button type="submit" class="mb-20 btn btn--medium btn--shadowed-light btn--full-w">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </form>
 
             <div class="table-responsive-500">
@@ -92,29 +103,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($users as $user)
-                        <tr id="{{ $user['id'] }}">
-                            <td width="100" class="col-center">
-                                <div class="thumb-60">
-                                    <img src="{{ $user['avatar'] }}" alt="{{ $user['name'] }}">
-                                </div>
-                            </td>
-                            <td>
-                                <a class="primary-color" href="{{ $user['profileLink'] }}">{{ $user['email'] }}</a>
-                            </td>
-                            <td> {{ $user['name'] }} </td>
-                            <td> {{ $user['role'] }} </td>
-                            <td> {{ $user['status'] }} </td>
-                            <td>
-                                @if ($user['isReferrer'])
-                                    YES
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
                     </tbody>
                 </table>
             </div>
+
+            <nav class="text-center mt-20">
+                <ul class="pagination">
+                </ul>
+            </nav>
+
         </div>
     </main>
 

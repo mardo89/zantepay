@@ -38,25 +38,6 @@ class ManagerController extends Controller
      */
     public function users()
     {
-        $usersList = [];
-
-        foreach (User::all() as $user) {
-
-            // Referrals
-            $isReferrer = User::where('referrer', $user->id)->count() != 0;
-
-            $usersList[] = [
-                'id' => $user->id,
-                'email' => $user->email,
-                'name' => $user->first_name . ' ' . $user->last_name,
-                'avatar' => !is_null($user->avatar) ? $user->avatar : '/images/avatar.png',
-                'status' => User::getStatus($user->status),
-                'role' => User::getRole($user->role),
-                'isReferrer' => $isReferrer,
-                'profileLink' => action('ManagerController@profile', ['uid' => $user->uid]),
-            ];
-        }
-
         $rolesList = User::getRolesList();
 
         $statusesList = [
@@ -97,9 +78,104 @@ class ManagerController extends Controller
         return view(
             $this->getViewPrefix() . 'users',
             [
-                'users' => $usersList,
                 'roles' => $rolesList,
                 'statuses' => $statusesList
+            ]
+        );
+    }
+
+    /**
+     * Search users
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function searchUsers(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'role_filter' => 'array',
+                'status_filter' => 'array',
+                'referrer_filter' => 'array',
+                'name_filter' => 'string|nullable',
+                'page' => 'integer|min:1',
+            ],
+            ValidationMessages::getList(
+                [
+                    'role_filter' => 'Role Filter',
+                    'status_filter' => 'Status Filter',
+                    'referrer_filter' => 'Referrer Filter',
+                    'name_filter' => 'Name Filter',
+                    'page' => 'Page',
+                ]
+            )
+        );
+
+        $roleFilter = $request->input('role_filter', []);
+        $statusFilter = $request->input('status_filter', []);
+        $referrerFilter = $request->input('referrer_filter', []);
+        $nameFilter = $request->input('name_filter', '');
+        $page = $request->input('page', 1);
+
+        $queryBuilder = User::with('referrals');
+
+        if (count($roleFilter) > 0) {
+            $queryBuilder->whereIn('role', $roleFilter);
+        }
+
+        if (count($statusFilter) > 0) {
+            $queryBuilder->whereIn('status', $statusFilter);
+        }
+
+        if ($nameFilter) {
+            $queryBuilder->where(
+                function ($query) use ($nameFilter) {
+                    $query->where('first_name', 'like', '%' . $nameFilter . '%')
+                        ->orWhere('last_name', 'like', '%' . $nameFilter . '%')
+                        ->orWhere('email', 'like', '%' . $nameFilter . '%');
+                }
+            );
+        }
+
+        $rowsPerPage = 2;
+
+        $users = $queryBuilder->get();
+
+        // Users List
+        $usersList = [];
+
+        foreach ($users as $user) {
+            $hasReferrals = $user->referrals->count() > 0 ? 1 : 0;
+
+            if (count($referrerFilter) > 0 && !in_array($hasReferrals, $referrerFilter)) {
+                continue;
+            }
+
+            $usersList[] = [
+                'id' => $user->id,
+                'email' => $user->email,
+                'name' => $user->first_name . ' ' . $user->last_name,
+                'avatar' => !is_null($user->avatar) ? $user->avatar : '/images/avatar.png',
+                'status' => User::getStatus($user->status),
+                'role' => User::getRole($user->role),
+                'hasReferrals' => $user->referrals->count() > 0 ? 'YES' : 'NO',
+                'profileLink' => action('ManagerController@profile', ['uid' => $user->uid]),
+            ];
+        }
+
+        // Paginator
+        $totalPages = ceil(count($usersList) / $rowsPerPage);
+        $usersList = array_slice($usersList, ($page - 1) * $rowsPerPage, $rowsPerPage);
+
+        return response()->json(
+            [
+                'usersList' => $usersList,
+                'paginator' => [
+                    'currentPage' => $page,
+                    'totalPages' => $totalPages
+                ]
             ]
         );
     }
@@ -363,14 +439,14 @@ class ManagerController extends Controller
                 $verification->id_documents_status = Verification::DOCUMENTS_DECLINED;
                 $verification->id_decline_reason = $declineReason;
 
-                $verificationStatus =  Verification::getStatus($verification->id_documents_status) . ' - ' . $verification->id_decline_reason;
+                $verificationStatus = Verification::getStatus($verification->id_documents_status) . ' - ' . $verification->id_decline_reason;
 
             } else {
 
                 $verification->address_documents_status = Verification::DOCUMENTS_DECLINED;
                 $verification->address_decline_reason = $declineReason;
 
-                $verificationStatus =  Verification::getStatus($verification->address_documents_status) . ' - ' . $verification->address_decline_reason;
+                $verificationStatus = Verification::getStatus($verification->address_documents_status) . ' - ' . $verification->address_decline_reason;
             }
 
             $verification->save();

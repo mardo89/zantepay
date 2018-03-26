@@ -18,14 +18,11 @@ if (token) {
 }
 
 window.axios.interceptors.response.use(
-    response => {
-        console.error(response);
-
-        return response;
-    },
+    response => response,
 
     error => {
-        if (error.response.status === 419) {
+
+        if (error.response.status == 419) {
             // window.location = '/';
 
             error.response.data.message = 'Session has expired. Please reload page.';
