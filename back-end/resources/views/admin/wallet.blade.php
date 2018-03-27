@@ -288,7 +288,7 @@
                     </div>
 
                     <div class="dashboard-group">
-                        <h2 class="h4 headline-mb">Grant Marketing Coins</h2>
+                        <h2 class="h4 headline-mb">Grant Marketing Coins. &nbsp; &nbsp; Total left: </h2>
                         <p><b>Fill beneficiary address and amount in ZNX to grant marketing coins</b></p>
                         <p>Curently available: <span id="grant_marketing_available"></span> out of <span
                                     id="total_grant_marketing_supply"></span> ZNX</p>
@@ -319,7 +319,7 @@
                     </div>
 
                     <div>
-                        <h2 class="h4 headline-mb">Grant Company Coins</h2>
+                        <h2 class="h4 headline-mb">Grant Company Coins. &nbsp; &nbsp; Total left:</h2>
                         <p><b>Fill beneficiary address and amount in ZNX to Grant Company coins</b></p>
                         <p>Curently available: <span id="grant_company_available"></span>(<span id="total_grant_company_supply"></span>) ZNX
                         </p>

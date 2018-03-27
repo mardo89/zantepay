@@ -56,9 +56,19 @@
                     <nav class="navigation">
                         <ul>
                             <li>
-                                <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
-                                   onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper
-                                </a>
+                                <a href="javascript:void(0);">Whitepaper</a>
+                                <ul>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">English
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Japan.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Japan');">Japan
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li>
