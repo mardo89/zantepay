@@ -715,7 +715,7 @@ class UserController extends Controller
             } else {
                 $replacement = str_repeat('*', $hidePos - 2);
 
-                $hiddenEmail = substr_replace($referral->email, $replacement, 1, $hidePos - 2);
+                $hiddenEmail = substr_replace($referral->email, $replacement, 3, $hidePos - 2);
             }
 
             $userName = ($referral->first_name != '' && $referral->last_name != '')
@@ -724,11 +724,14 @@ class UserController extends Controller
 
             $inviteStatus = $referral->status == User::USER_STATUS_VERIFIED ? Invite::INVITATION_STATUS_COMPLETE : Invite::INVITATION_STATUS_VERIFYING;
 
+            $bonusStatus = $referral->status == User::USER_STATUS_VERIFIED ? '' : '(locked - account is not verified)';
+
             $userReferrals[$referral->email] = [
                 'name' => $userName,
                 'avatar' => !is_null($referral->avatar) ? $referral->avatar : '/images/avatar.png',
                 'status' => Invite::getStatus($inviteStatus),
-                'bonus' => isset($dcBonus[$referral->id]) ? Wallet::REFERRAL_BONUS + $dcBonus[$referral->id] : Wallet::REFERRAL_BONUS,
+                'bonus_amount' => isset($dcBonus[$referral->id]) ? Wallet::REFERRAL_BONUS + $dcBonus[$referral->id] : Wallet::REFERRAL_BONUS,
+                'bonus_status' => $bonusStatus,
                 'commission' => isset($commissionBonus[$referral->id]) ? $commissionBonus[$referral->id] : ''
             ];
         }

@@ -105,7 +105,7 @@
                             <td>
                                 <span class="primary-color">{{ $referral['status'] }}</span>
                             </td>
-                            <td style="min-width: 100px">{{ $referral['bonus'] }}</td>
+                            <td style="min-width: 100px">{{ $referral['bonus_amount'] }} {{ $referral['bonus_status'] }}</td>
                             <td style="min-width: 100px">{{ $referral['commission'] }}</td>
                             <td width="160" class="col-center"><a href="" class="send-link resend-invitation">Resend</a></td>
                         </tr>

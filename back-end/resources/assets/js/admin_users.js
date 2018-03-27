@@ -29,12 +29,25 @@ $(document).ready(function () {
         // email / name
         const nameFilter = $(this).find('input[name="search-by-email"]').val();
 
-
-        // email / name
+        // page
         const activePage = parseInt($('.page-item.active .page-link').html());
         const page = isNaN(activePage) ? 1 : activePage;
 
-        const button = $(this).find('input[type="submit"]');
+        // sort
+        let sortIndex = 0;
+        let sortOrder = 'asc';
+
+        if ($('.sort.sort-asc').length) {
+            sortIndex = $('.sort.sort-asc').index();
+            sortOrder = 'asc';
+        }
+
+        if ($('.sort.sort-desc').length) {
+            sortIndex = $('.sort.sort-desc').index();
+            sortOrder = 'desc';
+        }
+
+        const button = $(this).find('button[type="submit"]');
         showSpinner(button);
         clearErrors();
         $('.pagination').hide();
@@ -47,7 +60,9 @@ $(document).ready(function () {
                     'status_filter': statusFilter,
                     'referrer_filter': referrerFilter,
                     'name_filter': nameFilter,
-                    'page': page
+                    'page': page,
+                    'sort_index': sortIndex,
+                    'sort_order': sortOrder
                 }
             }
         )
@@ -169,6 +184,30 @@ $(document).ready(function () {
 
         activeItem.removeClass('active');
         nextItem.addClass('active');
+
+        $('#search_user_frm').trigger('submit');
+    });
+
+    $('#users-list .sort').on('click', function(e) {
+        e.preventDefault();
+
+        if ($(this).hasClass('sort-asc')) {
+            $('.sort').removeClass('sort-asc').removeClass('sort-desc');
+
+            $(this).addClass('sort-desc');
+        } else {
+            $('.sort').removeClass('sort-asc').removeClass('sort-desc');
+
+            $(this).addClass('sort-asc');
+        }
+
+        $('#search_user_frm').trigger('submit');
+    });
+
+    $('#search_user_frm button[type="submit"]').on('click', function(e) {
+        e.preventDefault();
+
+        $('.pagination .page-item').empty();
 
         $('#search_user_frm').trigger('submit');
     });

@@ -12,8 +12,13 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
+        'invitation',
         'ico-registration',
         'seed-investor',
-        'contact-us',
+        'account/register',
+        'account/login',
+        'account/logout',
+        'account/reset-password',
+        'mail/*',
     ];
 }

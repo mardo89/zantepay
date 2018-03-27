@@ -95,8 +95,8 @@
                 <table id="users-list" class="inv-table table-black">
                     <thead>
                     <tr>
-                        <th colspan="2">Email</th>
-                        <th>Name</th>
+                        <th class="sort" colspan="2">Email <span class="caret"></span></th>
+                        <th class="sort">Name <span class="caret"></span></th>
                         <th>Role</th>
                         <th>Status</th>
                         <th width="100">Referrer</th>

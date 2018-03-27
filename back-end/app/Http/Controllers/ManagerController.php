@@ -101,6 +101,8 @@ class ManagerController extends Controller
                 'referrer_filter' => 'array',
                 'name_filter' => 'string|nullable',
                 'page' => 'integer|min:1',
+                'sort_index' => 'integer',
+                'sort_order' => 'in:asc,desc',
             ],
             ValidationMessages::getList(
                 [
@@ -109,6 +111,8 @@ class ManagerController extends Controller
                     'referrer_filter' => 'Referrer Filter',
                     'name_filter' => 'Name Filter',
                     'page' => 'Page',
+                    'sort_index' => 'Sort Column',
+                    'sort_order' => 'Sort Order',
                 ]
             )
         );
@@ -118,6 +122,8 @@ class ManagerController extends Controller
         $referrerFilter = $request->input('referrer_filter', []);
         $nameFilter = $request->input('name_filter', '');
         $page = $request->input('page', 1);
+        $sortIndex = $request->input('sort_index', 0);
+        $sortOrder = $request->input('sort_order', 0);
 
         $queryBuilder = User::with('referrals');
 
@@ -139,9 +145,21 @@ class ManagerController extends Controller
             );
         }
 
-        $rowsPerPage = 2;
+        // sort
+        switch ($sortIndex) {
+            case 0:
+                $sortColumn = 'email';
+                break;
 
-        $users = $queryBuilder->get();
+            case 1:
+                $sortColumn = 'first_name';
+                break;
+
+            default:
+                $sortColumn = 'id';
+        }
+
+        $users = $queryBuilder->orderBy($sortColumn, $sortOrder)->get();
 
         // Users List
         $usersList = [];
@@ -166,6 +184,8 @@ class ManagerController extends Controller
         }
 
         // Paginator
+        $rowsPerPage = 25;
+
         $totalPages = ceil(count($usersList) / $rowsPerPage);
         $usersList = array_slice($usersList, ($page - 1) * $rowsPerPage, $rowsPerPage);
 

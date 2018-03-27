@@ -23,13 +23,12 @@ window.axios.interceptors.response.use(
     error => {
 
         if (error.response.status == 419) {
-            // window.location = '/';
 
             error.response.data.message = 'Session has expired. Please reload page.';
+
         }
 
         return Promise.reject(error);
-
     }
 );
 
