@@ -101,10 +101,10 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('wallet', 'AdminController@wallet');
     Route::post('wallet', 'ManagerController@updateWallet');
-    Route::post('wallet/znx', 'ManagerController@addZNX');
+    Route::post('wallet/add-ico-znx', 'ManagerController@addIcoZnx');
+    Route::post('wallet/add-foundation-znx', 'ManagerController@addFoundationZnx');
     Route::post('wallet/grant-marketing-coins', 'AdminController@grantMarketingCoins');
     Route::post('wallet/grant-company-coins', 'AdminController@grantCompanyCoins');
-    Route::post('wallet/grant-foundation-coins', 'AdminController@grantFoundationCoins');
 });
 
 //Route::get('/test-email', function () {

@@ -531,13 +531,13 @@ class ManagerController extends Controller
     }
 
     /**
-     * Update ZNX amount
+     * Add ZNX from ICO pool
      *
      * @param Request $request
      *
      * @return JSON
      */
-    public function addZNX(Request $request)
+    public function addIcoZnx(Request $request)
     {
         $this->validate(
             $request,
@@ -580,7 +580,87 @@ class ManagerController extends Controller
                     'amount' => $amount,
                     'ico_part' => $ico->getActivePart()->getID(),
                     'contribution_id' => 0,
-                    'transaction_type' => ZantecoinTransaction::TRANSACTION_ADMIN_ADD_ZNX
+                    'transaction_type' => ZantecoinTransaction::TRANSACTION_ADD_ICO_ZNX
+                ]
+            );
+
+            $wallet = $user->wallet;
+            $wallet->znx_amount += $amount;
+            $wallet->save();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'There has been an error with transfer of ' . $amount . ' ZNX from ICO pool.',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            [
+                'totalAmount' => $wallet->znx_amount
+            ]
+        );
+    }
+
+    /**
+     * Add ZNX from Foundation pool
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function addFoundationZnx(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'uid' => 'required|string',
+                'amount' => 'required|numeric'
+            ],
+            ValidationMessages::getList(
+                [
+                    'amount' => 'Amount',
+                ]
+            )
+        );
+
+        $uid = $request->uid;
+        $amount = $request->amount;
+
+        $user = User::where('uid', $uid)->first();
+
+        if (!$user) {
+            return response()->json(
+                [
+                    'message' => 'User does not exist.',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            $ico = new Ico();
+
+            // Create Zantecoin transaction transaction
+            ZantecoinTransaction::create(
+                [
+                    'user_id' => $user->id,
+                    'amount' => $amount,
+                    'ico_part' => $ico->getActivePart()->getID(),
+                    'contribution_id' => 0,
+                    'transaction_type' => ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
                 ]
             );
 

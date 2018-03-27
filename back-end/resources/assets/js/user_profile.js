@@ -32,9 +32,15 @@ $(document).ready(function () {
             )
             .catch(
                 () => {
+
                     $('select[name="state"]').html(
                         $('<option />').val(0).text('Other state').attr('selected', 'selected')
                     )
+
+                    $('select[name="area-code"]').html(
+                        $('<option />').val(0).text('Other code').attr('selected', 'selected')
+                    )
+
                 }
             )
     });

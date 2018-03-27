@@ -313,29 +313,25 @@
                                             </div>
                                         </div>
 
-                                        @if(\Illuminate\Support\Facades\Auth::user()->role == \App\Models\DB\User::USER_ROLE_ADMIN)
-
-                                            <div class="col-md-12">
-                                                <div class="dashboard-group-sm foundation-pool">
-                                                    <label for="field24" class="field-label">Add ZNX from Foundation pool:</label>
-                                                    <div class="row row-middle">
-                                                        <div class="col-lg-7 col-md-7">
-                                                            <div class="field-group">
-                                                                <input class="input-field" type="text" name="znx-amount" id="field24"
-                                                                       placeholder="ZNX amount">
-                                                            </div>
+                                        <div class="col-md-12">
+                                            <div class="dashboard-group-sm foundation-pool">
+                                                <label for="field24" class="field-label">Add ZNX from Foundation pool:</label>
+                                                <div class="row row-middle">
+                                                    <div class="col-lg-7 col-md-7">
+                                                        <div class="field-group">
+                                                            <input class="input-field" type="text" name="znx-amount" id="field24"
+                                                                   placeholder="ZNX amount">
                                                         </div>
-                                                        <div class="col-lg-5 col-md-5">
-                                                            <button id="add-foundation-znx" type="button"
-                                                                    class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
-                                                                Add ZNX
-                                                            </button>
-                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5">
+                                                        <button id="add-foundation-znx" type="button"
+                                                                class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
+                                                            Add ZNX
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                        @endif
+                                        </div>
 
                                     </div>
                                 </div>

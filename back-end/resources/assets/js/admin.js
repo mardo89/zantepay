@@ -60,6 +60,13 @@ $(document).ready(function () {
                     window.location = '/';
                 }
             )
+            .catch(
+                error => {
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
     });
 
 });

@@ -241,7 +241,7 @@ $(document).ready(function () {
         }
 
         axios.post(
-            '/admin/wallet/znx',
+            '/admin/wallet/add-ico-znx',
             qs.stringify(user)
         )
             .then(
@@ -307,7 +307,7 @@ $(document).ready(function () {
         }
 
         axios.post(
-            '/admin/wallet/grant-foundation-coins',
+            '/admin/wallet/add-foundation-znx',
             qs.stringify(user)
         )
             .then(
@@ -315,6 +315,7 @@ $(document).ready(function () {
                     hideSpinner(button);
 
                     $('.foundation-pool input[name="znx-amount"]').val('');
+                    $('#total-znx-amount').html(response.data.totalAmount);
 
                     $.magnificPopup.open(
                         {
