@@ -203,19 +203,19 @@
 
                 <!-- tab Submit a ticket -->
                 <div class="tab-body" id="submit-a-ticket">
-                    <form id="frm_faq" class="faq-form">
+                    <form id="frm_ticket" class="faq-form">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input class="input-field" type="text" id="user_name" placeholder="Name" required>
+                                    <input class="input-field" type="text" id="ticket_user_name" placeholder="Name" required>
                                 </div>
                                 <div class="form-group">
-                                    <input class="input-field" type="text" id="user_email" placeholder="Email" required>
+                                    <input class="input-field" type="text" id="ticket_user_email" placeholder="Email" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <textarea class="textarea-field" id="user_question" placeholder="Your question" required></textarea>
+                                    <textarea class="textarea-field" id="ticket_user_question" placeholder="Your question" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -228,19 +228,19 @@
 
                 <!-- tab Submit idea -->
                 <div class="tab-body" id="submit-idea">
-                    <form id="frm_faq2" class="faq-form">
+                    <form id="frm_idea" class="faq-form">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input class="input-field" type="text" id="user_name2" placeholder="Name" required>
+                                    <input class="input-field" type="text" id="idea_user_name" placeholder="Name" required>
                                 </div>
                                 <div class="form-group">
-                                    <input class="input-field" type="text" id="user_email2" placeholder="Email" required>
+                                    <input class="input-field" type="text" id="idea_user_email" placeholder="Email" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <textarea class="textarea-field" id="user_question2" placeholder="Your question" required></textarea>
+                                    <textarea class="textarea-field" id="idea_user_question" placeholder="Your question" required></textarea>
                                 </div>
                             </div>
                         </div>

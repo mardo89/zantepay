@@ -115,6 +115,7 @@ class MailController extends Controller
         $this->validate(
             $request,
             [
+                'subject' => 'required|string|max:50',
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
                 'question' => 'required'
@@ -129,13 +130,14 @@ class MailController extends Controller
 
         );
 
+        $subject = $request->input('subject');
         $name = $request->input('name');
         $email = $request->input('email');
         $question = $request->input('question');
 
         try {
 
-            Mail::to(env('CONTACT_EMAIL'))->send(new Question($name, $email, $question));
+            Mail::to(env('CONTACT_EMAIL'))->send(new Question($subject, $name, $email, $question));
 
         } catch (\Exception $e) {
 

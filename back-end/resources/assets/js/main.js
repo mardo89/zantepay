@@ -828,7 +828,7 @@ $(document).ready(function () {
     });
 
     // Ask question
-    $('#frm_faq').on('submit', function (event) {
+    $('#frm_ticket').on('submit', function (event) {
         event.preventDefault();
 
         const button = $(this).find('input[type="submit"]');
@@ -839,16 +839,17 @@ $(document).ready(function () {
             '/mail/question',
             qs.stringify(
                 {
-                    'name': $('#frm_faq #user_name').val(),
-                    'email': $('#frm_faq #user_email').val(),
-                    'question': $('#frm_faq #user_question').val()
+                    'subject': 'New Ticket Submitted',
+                    'name': $('#ticket_user_name').val(),
+                    'email': $('#ticket_user_email').val(),
+                    'question': $('#ticket_user_question').val()
                 }
             )
         )
             .then(
                 () => {
                     hideSpinner(button);
-                    clearForm($('#frm_contact'));
+                    clearForm($('#frm_ticket'));
 
                     $.magnificPopup.open(
                         {
@@ -871,8 +872,62 @@ $(document).ready(function () {
                     $.each(
                         errors,
                         (field, error) => {
-                            $('#frm_faq #user_' + field).parents('.form-group').addClass('form-error');
-                            $('#frm_faq #user_' + field).after(
+                            $('#ticket_user_' + field).parents('.form-group').addClass('form-error');
+                            $('#ticket_user_' + field).after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+    });
+
+    $('#frm_idea').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $(this).find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        axios.post(
+            '/mail/question',
+            qs.stringify(
+                {
+                    'subject': 'New Idea Submitted',
+                    'name': $('#idea_user_name').val(),
+                    'email': $('#idea_user_email').val(),
+                    'question': $('#idea_user_question').val()
+                }
+            )
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+                    clearForm($('#frm_idea'));
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#confirm-question'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#idea_user_' + field).parents('.form-group').addClass('form-error');
+                            $('#idea_user_' + field).after(
                                 $('<span />').addClass('error-text').text(error)
                             );
                         }
