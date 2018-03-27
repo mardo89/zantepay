@@ -665,7 +665,8 @@ class UserController extends Controller
                 'name' => $invite->email,
                 'avatar' => '/images/avatar.png',
                 'status' => Invite::getStatus(Invite::INVITATION_STATUS_PENDING),
-                'bonus' => '',
+                'bonus_amount' => '',
+                'bonus_status' => '',
                 'commission' => ''
             ];
         }
