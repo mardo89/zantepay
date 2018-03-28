@@ -312,6 +312,63 @@ $(document).ready(function () {
             )
     });
 
+    $('#address-files').on('change', function() {
+
+        $('.selected-address-files').remove();
+
+        let fileList = $('<ul />').addClass('files-list selected-address-files');
+
+        $.each(
+            $(this)[0].files,
+            (index, file) => {
+
+                fileList.append(
+                    $('<li />')
+                        .append(
+                            $('<i />').addClass('file-ico')
+                        )
+                        .append(
+                            $('<div />').addClass('filename').html(file.name)
+                        )
+                );
+            }
+        )
+
+        $('#upload-address-documents .drag-drop-area').after(
+            fileList
+        );
+
+    })
+
+    $('#document-files').on('change', function() {
+
+        $('.selected-document-files').remove();
+
+        let fileList = $('<ul />').addClass('files-list selected-document-files');
+
+        $.each(
+            $(this)[0].files,
+            (index, file) => {
+
+                fileList.append(
+                    $('<li />')
+                        .append(
+                            $('<i />').addClass('file-ico')
+                        )
+                        .append(
+                            $('<div />').addClass('filename').html(file.name)
+                        )
+                );
+            }
+        )
+
+        $('#upload-identity-documents .drag-drop-area').after(
+            fileList
+        );
+
+    })
+
+    $('#address-files, #document-files').trigger('change');
 });
 
 

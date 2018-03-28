@@ -4,7 +4,7 @@ const openShareWindow = (url, windowWidth, windowHeight) => {
 
     const positionLeft = (screen.availWidth - windowWidth) / 2;
     const positionTop = (screen.availHeight - windowHeight) / 2;
-    const params = "width=" + windowWidth +", height=" + windowHeight + ", resizable=no, scrollbars=yes, left=" + positionLeft + ", top=" + positionTop;
+    const params = "width=" + windowWidth + ", height=" + windowHeight + ", resizable=no, scrollbars=yes, left=" + positionLeft + ", top=" + positionTop;
 
     window.open(url, '_blank', params)
 
@@ -33,44 +33,51 @@ $(document).ready(function () {
 
                     $('input[name="email"]').val('');
 
-                    $('#invites-list tbody')
-                        .prepend(
-                            $('<tr />')
-                                .append(
-                                    $('<td />').css('width', '100').addClass('col-center')
-                                        .append(
-                                            $('<div />').addClass('thumb-60')
-                                                .append(
-                                                    $('<img />')
-                                                        .attr('src', '/images/avatar.png')
-                                                        .attr('alt', response.data.email)
-                                                )
-                                        )
-                                )
-                                .append(
-                                    $('<td />').text(response.data.email)
-                                )
-                                .append(
-                                    $('<td />')
-                                        .append(
-                                            $('<span />')
-                                                .addClass('primary-color')
-                                                .text(response.data.status)
-                                        )
-                                )
-                                .append(
-                                    $('<td />').text('')
-                                )
-                                .append(
-                                    $('<td />').css('width', '160').addClass('col-center')
-                                        .append(
-                                            $('<a />')
-                                                .attr('href', '')
-                                                .addClass('send-link resend-invitation')
-                                                .text('Resend')
-                                        )
-                                )
-                        )
+                    if ($('#' + response.data.email).length === 0) {
+
+                        $('#invites-list tbody')
+                            .prepend(
+                                $('<tr />').attr('id', response.data.email)
+                                    .append(
+                                        $('<td />').css('width', '100').addClass('col-center')
+                                            .append(
+                                                $('<div />').addClass('thumb-60')
+                                                    .append(
+                                                        $('<img />')
+                                                            .attr('src', '/images/avatar.png')
+                                                            .attr('alt', response.data.email)
+                                                    )
+                                            )
+                                    )
+                                    .append(
+                                        $('<td />').text(response.data.email)
+                                    )
+                                    .append(
+                                        $('<td />')
+                                            .append(
+                                                $('<span />')
+                                                    .addClass('primary-color')
+                                                    .text(response.data.status)
+                                            )
+                                    )
+                                    .append(
+                                        $('<td />').text('')
+                                    )
+                                    .append(
+                                        $('<td />').text('')
+                                    )
+                                    .append(
+                                        $('<td />').css('width', '160').addClass('col-center')
+                                            .append(
+                                                $('<a />')
+                                                    .attr('href', '')
+                                                    .addClass('send-link resend-invitation')
+                                                    .text('Resend')
+                                            )
+                                    )
+                            )
+                    }
+
                 }
             )
             .catch(
@@ -103,7 +110,7 @@ $(document).ready(function () {
     $('#invites-list').on('click', '.resend-invitation', function (event) {
         event.preventDefault();
 
-        const email = $(this).parents('tr').find('td:eq(1)').text();
+        const email = $(this).parents('tr').attr('id');
 
         axios.post(
             '/mail/invite-friend',

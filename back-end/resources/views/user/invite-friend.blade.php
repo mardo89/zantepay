@@ -95,7 +95,7 @@
                     </thead>
                     <tbody>
                     @foreach($referrals as $referral)
-                        <tr>
+                        <tr id="{{ $referral['email'] }}">
                             <td width="100" class="col-center">
                                 <div class="thumb-60">
                                     <img src="{{ $referral['avatar'] }}" alt={{ $referral['name'] }}>

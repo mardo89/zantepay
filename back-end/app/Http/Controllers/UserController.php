@@ -663,6 +663,7 @@ class UserController extends Controller
         foreach ($invites as $invite) {
             $userReferrals[$invite->email] = [
                 'name' => $invite->email,
+                'email' => $invite->email,
                 'avatar' => '/images/avatar.png',
                 'status' => Invite::getStatus(Invite::INVITATION_STATUS_PENDING),
                 'bonus_amount' => '',
@@ -729,6 +730,7 @@ class UserController extends Controller
 
             $userReferrals[$referral->email] = [
                 'name' => $userName,
+                'email' => $referral->email,
                 'avatar' => !is_null($referral->avatar) ? $referral->avatar : '/images/avatar.png',
                 'status' => Invite::getStatus($inviteStatus),
                 'bonus_amount' => isset($dcBonus[$referral->id]) ? Wallet::REFERRAL_BONUS + $dcBonus[$referral->id] : Wallet::REFERRAL_BONUS,
