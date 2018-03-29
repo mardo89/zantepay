@@ -64,8 +64,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Japan.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Japan');">Japan
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Japanese.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Japanese');">Japanese
                                         </a>
                                     </li>
                                 </ul>
