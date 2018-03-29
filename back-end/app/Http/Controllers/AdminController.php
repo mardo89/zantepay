@@ -19,6 +19,7 @@ use App\Models\DB\Verification;
 use App\Models\DB\Wallet;
 use App\Models\Validation\ValidationMessages;
 use App\Models\Wallet\EtheriumApi;
+use App\Models\Wallet\Grant;
 use App\Models\Wallet\Ico;
 use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
@@ -233,7 +234,17 @@ class AdminController extends Controller
         $znxTransactions = ZantecoinTransaction::all();
         $grantCoinsTransactions = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_ICO_COINS)->get();
 
-        $grantInfo = [];
+        $grant = new Grant();
+
+        $icoBalance = $grant->icoPool()->getBalance();
+        $marketingBalance = $grant->marketingPool()->getBalance();
+        $companyBalance = $grant->companyPool()->getBalance();
+
+        $grantInfo = [
+            'ico_balance' => $icoBalance,
+            'marketing_balance' => $marketingBalance,
+            'company_balance' => $companyBalance,
+        ];
 
         foreach ($users as $user) {
 

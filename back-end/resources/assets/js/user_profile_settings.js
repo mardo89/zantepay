@@ -312,7 +312,7 @@ $(document).ready(function () {
             )
     });
 
-    $('#address-files').on('change', function() {
+    $('#address-files').on('change', function () {
 
         $('.selected-address-files').remove();
 
@@ -340,7 +340,7 @@ $(document).ready(function () {
 
     })
 
-    $('#document-files').on('change', function() {
+    $('#document-files').on('change', function () {
 
         $('.selected-document-files').remove();
 
@@ -369,6 +369,7 @@ $(document).ready(function () {
     })
 
     $('#address-files, #document-files').trigger('change');
+
 });
 
 

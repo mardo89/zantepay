@@ -1,28 +1,26 @@
 <?php
 
-namespace App\Models\Wallet;
+namespace App\Models\Wallet\Grant;
 
 
-
-class Company
+class Pool
 {
-    /**
-     * @var int Marketing coins limit
-     */
-    protected $znxLimit = 800000000;
-
     /**
      * @var int Marketing current amount of coins
      */
     protected $znxAmount;
 
+    /**
+     * @var int Marketing coins limit
+     */
+    protected $znxLimit;
+
 
     public function __construct()
     {
-        /**
-         * @todo add initialization of current amount of coins
-         */
+        $this->init();
     }
+
 
     /**
      * Get ZNX limit
@@ -44,6 +42,16 @@ class Company
     public function reachLimit($amount)
     {
         return ($this->znxAmount + $amount) <= $this->znxLimit;
+    }
+
+    /**
+     * Get ZNX balance
+     *
+     * @return int
+     */
+    public function getBalance()
+    {
+        return $this->znxLimit - $this->znxAmount;
     }
 
 }
