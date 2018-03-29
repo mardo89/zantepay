@@ -236,12 +236,12 @@ class AdminController extends Controller
 
         $grant = new Grant();
 
-        $icoBalance = $grant->icoPool()->getBalance();
-        $marketingBalance = $grant->marketingPool()->getBalance();
-        $companyBalance = $grant->companyPool()->getBalance();
+        $foundationGranted = ZantecoinTransaction::where('transaction_type', ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX)->get()->sum('amount');
+
+        $marketingBalance = $grant->marketingPool()->getLimit();
+        $companyBalance = $grant->companyPool()->getLimit() - $foundationGranted;
 
         $grantInfo = [
-            'ico_balance' => $icoBalance,
             'marketing_balance' => $marketingBalance,
             'company_balance' => $companyBalance,
         ];
