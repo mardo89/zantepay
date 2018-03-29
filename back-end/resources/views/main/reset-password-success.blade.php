@@ -16,7 +16,9 @@
             <input id="signup_cnf_pwd" class="input-field" type="password" name="confirm-password" placeholder="Confirm Password">
         </div>
 
-        <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Apply</button>
+        <div class="form-group">
+            <input type="submit" class="btn btn--shadowed-light btn--full-w" value="Apply" />
+        </div>
     </form>
 
 @endsection

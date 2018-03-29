@@ -15,7 +15,9 @@
             <input id="signin_pwd" class="input-field" type="password" name="password" placeholder="Password">
         </div>
 
-        <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Sign In</button>
+        <div class="form-group">
+            <input type="submit" class="btn btn--shadowed-light btn--full-w" value="Sign In" />
+        </div>
     </form>
 
 @endsection
