@@ -442,4 +442,124 @@ class AdminController extends Controller
         );
     }
 
+
+    /**
+     * Search transactions
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function searchIcoTransactions(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'part_filter' => 'integer',
+                'status_filter' => 'array',
+                'page' => 'integer|min:1',
+                'sort_index' => 'integer',
+                'sort_order' => 'in:asc,desc',
+            ],
+            ValidationMessages::getList(
+                [
+                    'part_filter' => 'ICO Part',
+                    'status_filter' => 'Status Filter',
+                    'page' => 'Page',
+                    'sort_index' => 'Sort Column',
+                    'sort_order' => 'Sort Order',
+                ]
+            )
+        );
+
+        $partFilter = $request->input('part_filter', 0);
+        $statusFilter = $request->input('status_filter', []);
+        $page = $request->input('page', 1);
+        $sortIndex = $request->input('sort_index', 0);
+        $sortOrder = $request->input('sort_order', 0);
+
+
+        $users = User::with('profile')->get();
+        $grantCoinsTransactions = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_ICO_COINS)->get();
+        $znxTransactions = ZantecoinTransaction::whereIn('transaction_type', ZantecoinTransaction::getIcoTransactionTypes())->get();
+
+
+        // Generate users list
+        $usersList = [];
+
+        foreach ($users as $user) {
+
+            $userZnxTransactions = $znxTransactions->where('user_id', $user->id);
+
+            $icoAmount = $userZnxTransactions->sum('amount');
+
+            if ($partFilter != 0) {
+                $icoAmount = $userZnxTransactions->where('ico_part', $partFilter)->sum('amount');
+            }
+
+            if ($icoAmount == 0) {
+                continue;
+            }
+
+            $grantCoinTransaction = $grantCoinsTransactions->where('address', $user->profile->eth_wallet)->first();
+            $transactionStatus = optional($grantCoinTransaction)->getStatus() ?? '';
+
+            if (count($statusFilter) > 0 && !in_array($transactionStatus, $statusFilter)) {
+                continue;
+            }
+
+            $userName = $user->first_name . ' ' . $user->last_name;
+
+            $usersList[] = [
+                'user' => trim($userName) != '' ? $userName : $user->email,
+                'address' => $user->profile->eth_wallet,
+                'amount' => $icoAmount,
+                'transaction' => optional($grantCoinTransaction)->getStatus() ?? ''
+            ];
+
+        }
+
+        // Sort
+        $usersCollection = collect($usersList);
+
+        switch ($sortIndex) {
+            case 0:
+                $sortColumn = 'email';
+                break;
+
+            case 1:
+                $sortColumn = 'proxy';
+                break;
+
+            case 2:
+                $sortColumn = 'amount';
+                break;
+
+            default:
+                $sortColumn = 'id';
+        }
+
+        if ($sortOrder == 'asc') {
+            $usersCollection->sortBy($sortColumn);
+        } else {
+            $usersCollection->sortByDesc($sortColumn);
+        }
+
+        // Paginator
+        $rowsPerPage = 25;
+
+        $totalPages = ceil(count($usersList) / $rowsPerPage);
+        $transactionsList = $usersCollection->slice(($page - 1) * $rowsPerPage, $rowsPerPage)->get();
+
+        return response()->json(
+            [
+                'transactionsList' => $transactionsList,
+                'paginator' => [
+                    'currentPage' => $page,
+                    'totalPages' => $totalPages
+                ]
+            ]
+        );
+    }
+
 }

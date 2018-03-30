@@ -290,8 +290,6 @@
                     <div class="dashboard-group">
                         <h2 class="h4 headline-mb">Grant Marketing Coins. &nbsp; &nbsp; Total left: {{ $balance['marketing_balance'] }}</h2>
                         <p><b>Fill beneficiary address and amount in ZNX to grant marketing coins</b></p>
-                        <p>Curently available: <span id="grant_marketing_available"></span> out of <span
-                                    id="total_grant_marketing_supply"></span> ZNX</p>
 
                         <div class="row row-middle mt-20">
 
@@ -321,8 +319,6 @@
                     <div>
                         <h2 class="h4 headline-mb">Grant Company Coins. &nbsp; &nbsp; Total left: {{ $balance['company_balance'] }}</h2>
                         <p><b>Fill beneficiary address and amount in ZNX to Grant Company coins</b></p>
-                        <p>Curently available: <span id="grant_company_available"></span>(<span id="total_grant_company_supply"></span>) ZNX
-                        </p>
                         <div class="row row-middle mt-20">
                             <div class="col-md-4">
                                 <div class="form-group">
