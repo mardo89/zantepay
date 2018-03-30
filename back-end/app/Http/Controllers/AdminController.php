@@ -231,20 +231,10 @@ class AdminController extends Controller
 
         // Issue Tokens Table
         $users = User::with('profile')->get();
-        $znxTransactions = ZantecoinTransaction::all();
+        $znxTransactions = ZantecoinTransaction::whereIn('transaction_type', ZantecoinTransaction::getIcoTransactionTypes())->get();
         $grantCoinsTransactions = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_ICO_COINS)->get();
 
-        $grant = new Grant();
-
-        $foundationGranted = ZantecoinTransaction::where('transaction_type', ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX)->get()->sum('amount');
-
-        $marketingBalance = $grant->marketingPool()->getLimit();
-        $companyBalance = $grant->companyPool()->getLimit() - $foundationGranted;
-
-        $grantInfo = [
-            'marketing_balance' => $marketingBalance,
-            'company_balance' => $companyBalance,
-        ];
+        $grantInfo = [];
 
         foreach ($users as $user) {
 
@@ -274,11 +264,26 @@ class AdminController extends Controller
 
         }
 
+        // Grant balance and limits
+        $grant = new Grant();
+
+        $foundationGranted = ZantecoinTransaction::where('transaction_type', ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX)->get()->sum('amount');
+
+        $marketingBalance = $grant->marketingPool()->getLimit();
+        $companyBalance = $grant->companyPool()->getLimit() - $foundationGranted;
+
+        $grantBalance = [
+            'marketing_balance' => $marketingBalance,
+            'company_balance' => $companyBalance,
+        ];
+
+
         return view(
             'admin.wallet',
             [
                 'ico' => $icoInfo,
-                'grant' => $grantInfo
+                'grant' => $grantInfo,
+                'balance' => $grantBalance
             ]
         );
     }

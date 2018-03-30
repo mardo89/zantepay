@@ -64,6 +64,7 @@ class IcoPart
     protected function init()
     {
         $this->icoZnxAmount = ZantecoinTransaction::where('ico_part', $this->getID())
+            ->whereIn('transaction_type', ZantecoinTransaction::getIcoTransactionTypes())
             ->get()
             ->sum('amount');
 

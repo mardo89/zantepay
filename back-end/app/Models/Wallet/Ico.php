@@ -80,6 +80,7 @@ class Ico
 
     /**
      * Gett array of availabe ICO parts
+     *
      * @return array
      */
     public function getParts() {
@@ -130,4 +131,5 @@ class Ico
     {
         return $this->icoPartFour;
     }
+
 }
