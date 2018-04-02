@@ -102,109 +102,54 @@
                                                 <tr><td height="60" style="line-height:60px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 32px; color: #232323; line-height: normal; font-weight: normal;">
-                                                        Hi there!
+                                                        Hello!
                                                     </td>
                                                 </tr>
                                                 <tr><td height="40" style="line-height:40px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        Welcome to ZANTEPAY!
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                        Thank you for being part of our community and contributing to ZANTEPAY token sale. Thank you for taking the time to understand our project. Thank you for believing in and supporting our vision. And thank you for taking the first step toward that vision by becoming one of the first to hold the ZNX cryptocurrency.
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        Since you have signed up, we hope you are also curious to log in to your account and explore your account features.
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                        The details of your contribution are as follows:
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        This will give you a hint about where to start from. <br> For example:
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 24px; font-weight: bold;">
+                                                        Contribution Amount: 0.5 ETH 
+                                                    </td>
+                                                </tr>
+                                                <tr><td height="5" style="line-height:5px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 24px; font-weight: bold;">
+                                                        You received: 4,175.0 ZNX 
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        <b>1.</b> You can pre-order FREE debit card under your account ZANTEPAY Debit Card.
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        <b>2.</b> You can verify account under Profile Settings.
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        <b>3.</b> You can find your Ethereum deposit address to buy ZANTECOINS.
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        <b>4.</b> Have an overview of your referral bonus and commissions (20% commission).
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        <b>5.</b> Withdraw you commission (ETH withdrawal).
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #f92112; line-height: 24px; font-weight: normal;">
-                                                        <b>6.</b> Please pay attention: we don’t send any ETH or BTC deposit addresses to your email address to buy tokens. 
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                        As announced previously, ZNX will become available on after 15 July, 2018.
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 24px; font-weight: bold;">
-                                                        ZANTEPAY rewards:
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                        This is just the very beginning! Stay tuned for ZANTEPAY multiwallet and pre-paid card release. The next several months are bound to be super exciting, as ZANTEPAY vision becomes a reality.
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 20px; color: #474747; line-height: 24px; font-weight: bold;">
-                                                        Refer a friend for a <span style="color:#f92112;">20%</span> commission!
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: bold;">
+                                                        Thank you!
                                                     </td>
                                                 </tr>
-                                                <tr><td height="15" style="line-height:15px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 20px; color: #474747; line-height: 24px; font-weight: bold;">
-                                                        Verify and pre-order a <span style="color:#f92112;">FREE</span> card!
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="center" valign="top">
-                                                    <img src="{{ url('/') . "/images/get-500znx.jpg" }}" width="381" height="290" style=    "display:block;outline:0;border:0;width:381px;height:290px" alt="Get 500 ZNX">
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="25" style="line-height:25px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 24px; font-weight: bold;">
-                                                        Your referral link:
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #0566c1; line-height: 24px; font-weight: normal;">
-                                                        <a href="https://zantepay.com/invitation?ref=5aaaa6fa9df1d" style="outline: none; border: 0; color: #0566c1; text-decoration: none;">https://zantepay.com/invitation?ref=5aaaa6fa9df1d</a>
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        Should you need any help or have any questions do not hesitate to contact us at <a href="mailto:support@zantepay.com" style="color:#f92112;outline: none; border: 0; text-decoration: none;">support@zantepay.com</a>. The quickest way to do it is to reply to this message. Our team will always be happy to assist you! Don’t let the opportunity pass by! Share your referral link NOW.
-                                                    </td>
-                                                </tr>
-                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
-                                                <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        Yours, <br> Mardo, ZANTEPAY Founder & CEO
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: bold;">
+                                                        ZANTEPAY Team
                                                     </td>
                                                 </tr>
                                             </table>
