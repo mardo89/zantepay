@@ -93,44 +93,49 @@
                     <div class="row justify-content-end mb-10">
                         <div class="col-sm col-sm-auto">
                             <div class="checkbox">
-                                <input type="checkbox" name="confirm" id="check11"><label for="check11">Success</label>
+                                <input type="checkbox" name="ico_status_filter" id="check11">
+                                <label for="check11">Success</label>
                             </div>
                         </div>
                         <div class="col-sm col-sm-auto">
                             <div class="checkbox">
-                                <input type="checkbox" name="confirm" id="check12"><label for="check12">Failure</label>
+                                <input type="checkbox" name="ico_status_filter" id="check12">
+                                <label for="check12">Failure</label>
                             </div>
                         </div>
                         <div class="col-sm col-sm-auto">
                             <div class="checkbox">
-                                <input type="checkbox" name="confirm" id="check13"><label for="check13">In progress</label>
+                                <input type="checkbox" name="ico_status_filter" id="check13">
+                                <label for="check13">In progress</label>
                             </div>
                         </div>
                         <div class="col-sm col-sm-auto">
                             <div class="checkbox">
-                                <input type="checkbox" name="confirm" id="check14"><label for="check14">Pending</label>
+                                <input type="checkbox" name="ico_status_filter" id="check14">
+                                <label for="check14">Pending</label>
                             </div>
                         </div>
                     </div>
 
-
                     <div class="dashboard-group">
-                        <p><b>Click Issue Token button to send tokens to participant</b></p>
+                        <p>
+                            <b>Click Issue Token button to send tokens to participant</b>
+                        </p>
                         <div class="dashboard-top-panel-row dashboard-top-panel-row--sm tabs-head-wrap mb-10">
-                            <ul class="tabs-head">
-                                <li class="is-active">
+                            <ul id="ico_part_filter" class="tabs-head">
+                                <li id="ICO_PART_ONE" class="is-active">
                                     <a href="#pre-ico">Pre-ICO</a>
                                 </li>
-                                <li>
+                                <li id="ICO_PART_TWO">
                                     <a href="#ico1">ICO I</a>
                                 </li>
-                                <li>
+                                <li id="ICO_PART_THREE">
                                     <a href="#ico2">ICO II</a>
                                 </li>
-                                <li>
+                                <li id="ICO_PART_FOUR">
                                     <a href="#ico3">ICO III</a>
                                 </li>
-                                <li>
+                                <li id="ICO_TOTAL">
                                     <a href="#total">Total</a>
                                 </li>
                             </ul>
@@ -138,150 +143,117 @@
                         <div class="tabs-wrap">
 
                             <!-- pre ico -->
-                            <div class="tab-body is-active" id="pre-ico">
+                            <div class="tab-body is-active ico_transactions_block" id="pre-ico">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
                                         <tr>
-                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Name <span class="caret"></span></th>
                                             <th class="sort">Proxy address <span class="caret"></span></th>
                                             <th class="sort">Amount <span class="caret"></span></th>
-                                            <th class="sort">Issue tokens <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($grant as $transaction)
-                                            @continue($transaction['ico']['part_one'] == 0)
-
-                                            <tr>
-                                                <td>{{ $transaction['user'] }}</td>
-                                                <td>{{ $transaction['address'] }}</td>
-                                                <td>{{ $transaction['ico']['part_one'] }}</td>
-                                                <td>---</td>
-                                            </tr>
-                                        @endforeach
                                         </tbody>
                                     </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
 
                             <!-- ico 1 -->
-                            <div class="tab-body" id="ico1">
+                            <div class="tab-body ico_transactions_block" id="ico1">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
                                         <tr>
-                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Name <span class="caret"></span></th>
                                             <th class="sort">Proxy address <span class="caret"></span></th>
                                             <th class="sort">Amount <span class="caret"></span></th>
-                                            <th class="sort">Issue tokens <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($grant as $transaction)
-                                            @continue($transaction['ico']['part_two'] == 0)
-
-                                            <tr>
-                                                <td>{{ $transaction['user'] }}</td>
-                                                <td>{{ $transaction['address'] }}</td>
-                                                <td>{{ $transaction['ico']['part_two'] }}</td>
-                                                <td>---</td>
-                                            </tr>
-                                        @endforeach
                                         </tbody>
                                     </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
 
                             <!-- ico 2 -->
-                            <div class="tab-body" id="ico2">
+                            <div class="tab-body ico_transactions_block" id="ico2">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
                                         <tr>
-                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Name <span class="caret"></span></th>
                                             <th class="sort">Proxy address <span class="caret"></span></th>
                                             <th class="sort">Amount <span class="caret"></span></th>
-                                            <th class="sort">Issue tokens <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($grant as $transaction)
-                                            @continue($transaction['ico']['part_three'] == 0)
-
-                                            <tr>
-                                                <td>{{ $transaction['user'] }}</td>
-                                                <td>{{ $transaction['address'] }}</td>
-                                                <td>{{ $transaction['ico']['part_three'] }}</td>
-                                                <td>---</td>
-                                            </tr>
-                                        @endforeach
                                         </tbody>
                                     </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
 
                             <!-- ico 3 -->
-                            <div class="tab-body" id="ico3">
+                            <div class="tab-body ico_transactions_block" id="ico3">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
                                         <tr>
-                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Name <span class="caret"></span></th>
                                             <th class="sort">Proxy address <span class="caret"></span></th>
                                             <th class="sort">Amount <span class="caret"></span></th>
-                                            <th class="sort">Issue tokens <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($grant as $transaction)
-                                            @continue($transaction['ico']['part_four'] == 0)
-
-                                            <tr>
-                                                <td>{{ $transaction['user'] }}</td>
-                                                <td>{{ $transaction['address'] }}</td>
-                                                <td>{{ $transaction['ico']['part_four'] }}</td>
-                                                <td>---</td>
-                                            </tr>
-                                        @endforeach
                                         </tbody>
                                     </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
 
                             <!-- Total -->
-                            <div class="tab-body" id="total">
+                            <div class="tab-body ico_transactions_block" id="total">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
                                         <tr>
-                                            <th class="sort sort-asc">Name <span class="caret"></span></th>
+                                            <th class="sort">Name <span class="caret"></span></th>
                                             <th class="sort">Proxy address <span class="caret"></span></th>
                                             <th class="sort">Amount <span class="caret"></span></th>
-                                            <th class="sort">Issue tokens <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($grant as $transaction)
-                                            @continue($transaction['ico']['total'] == 0)
-
-                                            <tr>
-                                                <td>{{ $transaction['user'] }}</td>
-                                                <td>{{ $transaction['address'] }}</td>
-                                                <td>{{ $transaction['ico']['total'] }}</td>
-                                                <td>
-                                                    @if( $transaction['transaction'] != '')
-                                                        {{ $transaction['transaction'] }}
-                                                    @else
-                                                        <button class="btn btn--medium btn--shadowed-light" type="button" id="issue_ico">
-                                                            Issue Token
-                                                        </button>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
                                         </tbody>
                                     </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>
@@ -337,6 +309,176 @@
                                     Coins
                                 </button>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-end mb-10">
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="foundation_status_filter" id="check11">
+                                <label for="check11">Success</label>
+                            </div>
+                        </div>
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="foundation_status_filter" id="check12">
+                                <label for="check12">Failure</label>
+                            </div>
+                        </div>
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="foundation_status_filter" id="check13">
+                                <label for="check13">In progress</label>
+                            </div>
+                        </div>
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="foundation_status_filter" id="check14">
+                                <label for="check14">Pending</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-group">
+                        <p>
+                            <b>Click Issue Token button to send tokens to participant</b>
+                        </p>
+                        <div class="dashboard-top-panel-row dashboard-top-panel-row--sm tabs-head-wrap mb-10">
+                            <ul id="foundation_part_filter" class="tabs-head">
+                                <li id="ICO_PART_ONE" class="is-active">
+                                    <a href="#foundation-pre-ico">Pre-ICO</a>
+                                </li>
+                                <li id="ICO_PART_TWO">
+                                    <a href="#foundation-ico1">ICO I</a>
+                                </li>
+                                <li id="ICO_PART_THREE">
+                                    <a href="#foundation-ico2">ICO II</a>
+                                </li>
+                                <li id="ICO_PART_FOUR">
+                                    <a href="#foundation-ico3">ICO III</a>
+                                </li>
+                                <li id="ICO_TOTAL">
+                                    <a href="#foundation-total">Total</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tabs-wrap">
+
+                            <!-- pre ico -->
+                            <div class="tab-body is-active foundation_transactions_block" id="foundation-pre-ico">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <!-- ico 1 -->
+                            <div class="tab-body foundation_transactions_block" id="foundation-ico1">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <!-- ico 2 -->
+                            <div class="tab-body foundation_transactions_block" id="foundation-ico2">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <!-- ico 3 -->
+                            <div class="tab-body foundation_transactions_block" id="foundation-ico3">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <!-- Total -->
+                            <div class="tab-body foundation_transactions_block" id="foundation-total">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 

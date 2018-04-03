@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\API\Transactions;
 use App\Models\DB\Contribution;
 use App\Models\DB\GrantCoinsTransaction;
 use App\Models\DB\ZantecoinTransaction;
-use App\Models\Wallet\Currency;
-use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
 use App\Models\DB\Document;
 use App\Models\DB\Invite;
 use App\Models\DB\PasswordReset;
 use App\Models\DB\Profile;
 use App\Models\DB\SocialNetworkAccount;
-use App\Models\DB\State;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
 use App\Models\DB\Wallet;
@@ -229,41 +227,6 @@ class AdminController extends Controller
             ];
         }
 
-        // Issue Tokens Table
-        $users = User::with('profile')->get();
-        $znxTransactions = ZantecoinTransaction::whereIn('transaction_type', ZantecoinTransaction::getIcoTransactionTypes())->get();
-        $grantCoinsTransactions = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_ICO_COINS)->get();
-
-        $grantInfo = [];
-
-        foreach ($users as $user) {
-
-            $userZnxTransactions = $znxTransactions->where('user_id', $user->id);
-
-            $icoPartOneAmount = $userZnxTransactions->where('ico_part', $ico->getIcoPartOne()->getID())->sum('amount');
-            $icoPartTwoAmount = $userZnxTransactions->where('ico_part', $ico->getIcoPartTwo()->getID())->sum('amount');
-            $icoPartThreeAmount = $userZnxTransactions->where('ico_part', $ico->getIcoPartThree()->getID())->sum('amount');
-            $icoPartFourAmount = $userZnxTransactions->where('ico_part', $ico->getIcoPartFour()->getID())->sum('amount');
-
-            $grantCoinTransaction = $grantCoinsTransactions->where('address', $user->profile->eth_wallet)->where('type', GrantCoinsTransaction::GRANT_ICO_COINS)->first();
-
-            $userName = $user->first_name . ' ' . $user->last_name;
-
-            $grantInfo[] = [
-                'user' => trim($userName) != '' ? $userName : $user->email,
-                'address' => $user->profile->eth_wallet,
-                'ico' => [
-                    'part_one' => $icoPartOneAmount,
-                    'part_two' => $icoPartTwoAmount,
-                    'part_three' => $icoPartThreeAmount,
-                    'part_four' => $icoPartFourAmount,
-                    'total' => $icoPartOneAmount + $icoPartTwoAmount + $icoPartThreeAmount + $icoPartFourAmount,
-                ],
-                'transaction' => optional($grantCoinTransaction)->getStatus() ?? ''
-            ];
-
-        }
-
         // Grant balance and limits
         $grant = new Grant();
 
@@ -282,7 +245,6 @@ class AdminController extends Controller
             'admin.wallet',
             [
                 'ico' => $icoInfo,
-                'grant' => $grantInfo,
                 'balance' => $grantBalance
             ]
         );
@@ -444,7 +406,7 @@ class AdminController extends Controller
 
 
     /**
-     * Search transactions
+     * Search ICO transactions
      *
      * @param Request $request
      *
@@ -455,7 +417,7 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'part_filter' => 'integer',
+                'part_filter' => 'string|nullable',
                 'status_filter' => 'array',
                 'page' => 'integer|min:1',
                 'sort_index' => 'integer',
@@ -472,93 +434,72 @@ class AdminController extends Controller
             )
         );
 
-        $partFilter = $request->input('part_filter', 0);
-        $statusFilter = $request->input('status_filter', []);
-        $page = $request->input('page', 1);
-        $sortIndex = $request->input('sort_index', 0);
-        $sortOrder = $request->input('sort_order', 0);
+        $filters = [
+            'grant_type_filter' => GrantCoinsTransaction::GRANT_ICO_COINS,
+            'znx_type_filter' => ZantecoinTransaction::getIcoTransactionTypes(),
+            'part_filter' => $request->part_filter,
+            'status_filter' => $request->status_filter,
+            'page' => $request->page,
+        ];
 
+        $sort = [
+            'sort_index' => $request->sort_index,
+            'sort_order' => $request->sort_order,
+        ];
 
-        $users = User::with('profile')->get();
-        $grantCoinsTransactions = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_ICO_COINS)->get();
-        $znxTransactions = ZantecoinTransaction::whereIn('transaction_type', ZantecoinTransaction::getIcoTransactionTypes())->get();
-
-
-        // Generate users list
-        $usersList = [];
-
-        foreach ($users as $user) {
-
-            $userZnxTransactions = $znxTransactions->where('user_id', $user->id);
-
-            $icoAmount = $userZnxTransactions->sum('amount');
-
-            if ($partFilter != 0) {
-                $icoAmount = $userZnxTransactions->where('ico_part', $partFilter)->sum('amount');
-            }
-
-            if ($icoAmount == 0) {
-                continue;
-            }
-
-            $grantCoinTransaction = $grantCoinsTransactions->where('address', $user->profile->eth_wallet)->first();
-            $transactionStatus = optional($grantCoinTransaction)->getStatus() ?? '';
-
-            if (count($statusFilter) > 0 && !in_array($transactionStatus, $statusFilter)) {
-                continue;
-            }
-
-            $userName = $user->first_name . ' ' . $user->last_name;
-
-            $usersList[] = [
-                'user' => trim($userName) != '' ? $userName : $user->email,
-                'address' => $user->profile->eth_wallet,
-                'amount' => $icoAmount,
-                'transaction' => optional($grantCoinTransaction)->getStatus() ?? ''
-            ];
-
-        }
-
-        // Sort
-        $usersCollection = collect($usersList);
-
-        switch ($sortIndex) {
-            case 0:
-                $sortColumn = 'email';
-                break;
-
-            case 1:
-                $sortColumn = 'proxy';
-                break;
-
-            case 2:
-                $sortColumn = 'amount';
-                break;
-
-            default:
-                $sortColumn = 'id';
-        }
-
-        if ($sortOrder == 'asc') {
-            $usersCollection->sortBy($sortColumn);
-        } else {
-            $usersCollection->sortByDesc($sortColumn);
-        }
-
-        // Paginator
-        $rowsPerPage = 25;
-
-        $totalPages = ceil(count($usersList) / $rowsPerPage);
-        $transactionsList = $usersCollection->slice(($page - 1) * $rowsPerPage, $rowsPerPage)->get();
+        $transactionsList = Transactions::searchICOTransactions($filters, $sort);
 
         return response()->json(
+            $transactionsList
+        );
+    }
+
+    /**
+     * Search Foundation transactions
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function searchFoundationTransactions(Request $request)
+    {
+        $this->validate(
+            $request,
             [
-                'transactionsList' => $transactionsList,
-                'paginator' => [
-                    'currentPage' => $page,
-                    'totalPages' => $totalPages
+                'part_filter' => 'string|nullable',
+                'status_filter' => 'array',
+                'page' => 'integer|min:1',
+                'sort_index' => 'integer',
+                'sort_order' => 'in:asc,desc',
+            ],
+            ValidationMessages::getList(
+                [
+                    'part_filter' => 'ICO Part',
+                    'status_filter' => 'Status Filter',
+                    'page' => 'Page',
+                    'sort_index' => 'Sort Column',
+                    'sort_order' => 'Sort Order',
                 ]
-            ]
+            )
+        );
+
+        $filters = [
+            'grant_type_filter' => GrantCoinsTransaction::GRANT_COMPANY_COINS,
+            'znx_type_filter' => ZantecoinTransaction::getFoundationTransactionTypes(),
+            'part_filter' => $request->part_filter,
+            'status_filter' => $request->status_filter,
+            'page' => $request->page,
+        ];
+
+        $sort = [
+            'sort_index' => $request->sort_index,
+            'sort_order' => $request->sort_order,
+        ];
+
+        $transactionsList = Transactions::searchICOTransactions($filters, $sort);
+
+        return response()->json(
+            $transactionsList
         );
     }
 
