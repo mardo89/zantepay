@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\API\Transactions;
+use App\Models\Search\Transactions;
 use App\Models\DB\Contribution;
 use App\Models\DB\GrantCoinsTransaction;
 use App\Models\DB\ZantecoinTransaction;
@@ -434,20 +434,34 @@ class AdminController extends Controller
             )
         );
 
-        $filters = [
-            'grant_type_filter' => GrantCoinsTransaction::GRANT_ICO_COINS,
-            'znx_type_filter' => ZantecoinTransaction::getIcoTransactionTypes(),
-            'part_filter' => $request->part_filter,
-            'status_filter' => $request->status_filter,
-            'page' => $request->page,
-        ];
+        try {
 
-        $sort = [
-            'sort_index' => $request->sort_index,
-            'sort_order' => $request->sort_order,
-        ];
+            $filters = [
+                'grant_type_filter' => GrantCoinsTransaction::GRANT_ICO_COINS,
+                'znx_type_filter' => ZantecoinTransaction::getIcoTransactionTypes(),
+                'part_filter' => $request->part_filter,
+                'status_filter' => $request->status_filter,
+                'page' => $request->page,
+            ];
 
-        $transactionsList = Transactions::searchICOTransactions($filters, $sort);
+            $sort = [
+                'sort_index' => $request->sort_index,
+                'sort_order' => $request->sort_order,
+            ];
+
+            $transactionsList = Transactions::searchICOTransactions($filters, $sort);
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Error while searching transactions',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
 
         return response()->json(
             $transactionsList
@@ -483,20 +497,34 @@ class AdminController extends Controller
             )
         );
 
-        $filters = [
-            'grant_type_filter' => GrantCoinsTransaction::GRANT_COMPANY_COINS,
-            'znx_type_filter' => ZantecoinTransaction::getFoundationTransactionTypes(),
-            'part_filter' => $request->part_filter,
-            'status_filter' => $request->status_filter,
-            'page' => $request->page,
-        ];
+        try {
 
-        $sort = [
-            'sort_index' => $request->sort_index,
-            'sort_order' => $request->sort_order,
-        ];
+            $filters = [
+                'grant_type_filter' => GrantCoinsTransaction::GRANT_COMPANY_COINS,
+                'znx_type_filter' => ZantecoinTransaction::getFoundationTransactionTypes(),
+                'part_filter' => $request->part_filter,
+                'status_filter' => $request->status_filter,
+                'page' => $request->page,
+            ];
 
-        $transactionsList = Transactions::searchICOTransactions($filters, $sort);
+            $sort = [
+                'sort_index' => $request->sort_index,
+                'sort_order' => $request->sort_order,
+            ];
+
+            $transactionsList = Transactions::searchICOTransactions($filters, $sort);
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Error while searching transactions',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
 
         return response()->json(
             $transactionsList

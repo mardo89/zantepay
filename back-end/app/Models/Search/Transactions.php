@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\API;
+namespace App\Models\Search;
 
 
 use App\Models\DB\GrantCoinsTransaction;
@@ -55,7 +55,7 @@ class Transactions
             }
 
             $grantCoinTransaction = $grantCoinsTransactions->where('address', $user->profile->eth_wallet)->first();
-            $transactionStatus = optional($grantCoinTransaction)->getStatus() ?? '';
+            $transactionStatus = optional($grantCoinTransaction)->getStatusMessage() ?? '';
 
             if (count($statusFilter) > 0 && !in_array($transactionStatus, $statusFilter)) {
                 continue;
@@ -67,7 +67,7 @@ class Transactions
                 'user' => trim($userName) != '' ? $userName : $user->email,
                 'address' => $user->profile->eth_wallet,
                 'amount' => $icoAmount,
-                'status' => optional($grantCoinTransaction)->getStatus() ?? ''
+                'status' => $transactionStatus
             ];
 
         }

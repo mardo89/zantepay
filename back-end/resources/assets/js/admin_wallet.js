@@ -58,16 +58,16 @@ const searchUser = (type, part, table, url, allowGrant) => {
             response => {
                 table.find('.operation-in-progress').remove();
 
-                const grantButton = allowGrant === false
-                    ? '---'
-                    : '<button class="btn btn--medium btn--shadowed-light" type="button">Issue Token</button>'
-
-
                 response.data.transactionsList.forEach(
                     transaction => {
-                        const transactionStatus = transaction.status === '' ? grantButton : transaction.status;
 
-                        console.log(transactionStatus);
+                        let transactionStatus = '---';
+
+                        if (allowGrant) {
+                            transactionStatus = transaction.status === ''
+                                ? '<button class="btn btn--medium btn--shadowed-light" type="button">Issue Token</button>'
+                                : transaction.status;
+                        }
 
                         table.find('tbody')
                             .append(
