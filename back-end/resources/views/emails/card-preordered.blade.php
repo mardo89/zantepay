@@ -120,7 +120,7 @@
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        Log in to verify your account: <a href="https://www.zantepay.com/" target="_blank" style="color:#f92112;outline: none; border: 0; text-decoration: none;">https://www.zantepay.com/</a>
+                                                        Log in to verify your account: <a href="{{ $loginLink }}" target="_blank" style="color:#f92112;outline: none; border: 0; text-decoration: none;">{{ $loginLink }}</a>
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
@@ -132,7 +132,11 @@
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top">
-                                                        <img src="{{ url('/') . "images/red-card@2x.jpg"}}" width="394" height="246" style="display:block;outline:0;border:0;width:394px;height:246px" alt="ZANTEPAY debit card">
+                                                        @if($cardDesign === \App\Models\DB\DebitCard::DESIGN_WHITE)
+                                                            <img src="{{ url('/') . "/images/wh-card@2x.jpg"}}" width="394" height="246" style="display:block;outline:0;border:0;width:394px;height:246px" alt="ZANTEPAY debit card">
+                                                        @else($debitCard === \App\Models\DB\DebitCard::DESIGN_RED)
+                                                            <img src="{{ url('/') . "/images/red-card@2x.jpg"}}" width="394" height="246" style="display:block;outline:0;border:0;width:394px;height:246px" alt="ZANTEPAY debit card">
+                                                        @endif
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
@@ -150,7 +154,7 @@
                                                 <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #0566c1; line-height: 24px; font-weight: normal;">
-                                                        <a href="https://www.zantepay.com/invitation?ref=5aaaa6fa9df1d" style="outline: none; border: 0; color: #0566c1; text-decoration: none;">https://www.zantepay.com/invitation?ref=5aaaa6fa9df1d</a>
+                                                        <a href="{{ $referralLink }}" style="outline: none; border: 0; color: #0566c1; text-decoration: none;">{{ $referralLink }}</a>
                                                     </td>
                                                 </tr>
                                                 <tr>

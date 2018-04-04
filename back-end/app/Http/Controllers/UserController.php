@@ -1276,7 +1276,7 @@ class UserController extends Controller
 
                 DebitCard::create($userDebitCard);
 
-                Mail::to($user->email)->send(new DebitCardPreOrder());
+                Mail::to($user->email)->send(new DebitCardPreOrder($user->uid, $userDebitCard['design']));
 
             } else {
 

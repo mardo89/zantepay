@@ -111,5 +111,5 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 //Route::get('/test-email', function () {
-//    return new \App\Mail\ChangePassword();
+//    return new \App\Mail\DebitCardPreOrder('000000', 0);
 //});
