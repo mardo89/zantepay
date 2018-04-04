@@ -60,12 +60,14 @@ const searchUser = (type, part, table, url, allowGrant) => {
 
                 const grantButton = allowGrant === false
                     ? '---'
-                    : $('<button />').addClass('btn btn--medium btn--shadowed-light').attr({type: 'button'}).html('Issue Token')
+                    : '<button class="btn btn--medium btn--shadowed-light" type="button">Issue Token</button>'
 
 
                 response.data.transactionsList.forEach(
                     transaction => {
                         const transactionStatus = transaction.status === '' ? grantButton : transaction.status;
+
+                        console.log(transactionStatus);
 
                         table.find('tbody')
                             .append(

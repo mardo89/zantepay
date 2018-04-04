@@ -12,7 +12,7 @@ class Transactions
     /**
      * Transactions per page
      */
-    const TRANSACTIONS_PER_PAGE = 1;
+    const TRANSACTIONS_PER_PAGE = 25;
 
     /**
      * Search transactions info for Admin -> Grant tables
