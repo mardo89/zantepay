@@ -26,7 +26,7 @@ class DebitCardsService
      *
      * @return boolean
      */
-    public static function hasDebitCard($user)
+    public static function checkDebitCard($user)
     {
         return !is_null(self::getDebitCard($user));
     }

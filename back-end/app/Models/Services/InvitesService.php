@@ -5,7 +5,6 @@ namespace App\Models\Services;
 
 use App\Models\DB\Invite;
 use App\Models\DB\User;
-use App\Models\DB\Wallet;
 
 class InvitesService
 {
@@ -13,18 +12,9 @@ class InvitesService
      * @var array User Statuses
      */
     public static $invitationStatuses = [
-        [
-            'id' => Invite::INVITATION_STATUS_PENDING,
-            'name' => 'Invitation pending'
-        ],
-        [
-            'id' => Invite::INVITATION_STATUS_VERIFYING,
-            'name' => 'Verification not finished'
-        ],
-        [
-            'id' => Invite::INVITATION_STATUS_COMPLETE,
-            'name' => 'Signed up!'
-        ],
+        Invite::INVITATION_STATUS_PENDING => 'Invitation pending',
+        Invite::INVITATION_STATUS_VERIFYING => 'Verification not finished',
+        Invite::INVITATION_STATUS_COMPLETE => 'Signed up!'
     ];
 
     /**
@@ -74,15 +64,11 @@ class InvitesService
                 ? $referral->first_name . ' ' . $referral->last_name
                 : $hiddenEmail;
 
-            $wallet = $referral->wallet;
 
             $inviteStatus = Invite::INVITATION_STATUS_VERIFYING;
-            $referralBonus = DebitCardsService::hasDebitCard($referral) ? Wallet::REFERRAL_BONUS : 0;
-            $bonusStatus = '(locked - account is not verified)';
 
             if (DocumentsService::verificationComplete($referral)) {
                 $inviteStatus = Invite::INVITATION_STATUS_COMPLETE;
-                $bonusStatus = '';
             }
 
             $invitedUsers[$referral->email] = [
@@ -90,8 +76,8 @@ class InvitesService
                 'email' => $referral->email,
                 'avatar' => !is_null($referral->avatar) ? $referral->avatar : '/images/avatar.png',
                 'status' => self::getInvitationStatus($inviteStatus),
-                'bonus' => $referralBonus > 0 ? $referralBonus . ' ' . $bonusStatus : '',
-                'commission' => $wallet->commission_bonus > 0 ? $wallet->commission_bonus : ''
+                'bonus' => BonusesService::getReferralBonus($referral),
+                'commission' => BonusesService::getCommissionBonus($referral)
             ];
         }
 
@@ -117,8 +103,9 @@ class InvitesService
      *
      * @return string
      */
-    public static function getInvitationStatus($invitationStatus) {
-        return self::$invitationStatuses[$invitationStatus]['name'] ?? '';
+    public static function getInvitationStatus($invitationStatus)
+    {
+        return self::$invitationStatuses[$invitationStatus] ?? '';
     }
 
 }

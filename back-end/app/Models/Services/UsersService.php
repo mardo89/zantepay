@@ -34,38 +34,14 @@ class UsersService
      * @var array User Statuses
      */
     public static $userStatuses = [
-        [
-            'id' => User::USER_STATUS_INACTIVE,
-            'name' => 'In-Active'
-        ],
-        [
-            'id' => User::USER_STATUS_NOT_VERIFIED,
-            'name' => 'Not Verified'
-        ],
-        [
-            'id' => User::USER_STATUS_IDENTITY_VERIFIED,
-            'name' => 'Identity Verified'
-        ],
-        [
-            'id' => User::USER_STATUS_ADDRESS_VERIFIED,
-            'name' => 'Address Verified'
-        ],
-        [
-            'id' => User::USER_STATUS_VERIFIED,
-            'name' => 'Verified'
-        ],
-        [
-            'id' => User::USER_STATUS_WITHDRAW_PENDING,
-            'name' => 'Withdraw Pending'
-        ],
-        [
-            'id' => User::USER_STATUS_PENDING,
-            'name' => 'T&C Pending'
-        ],
-        [
-            'id' => User::USER_STATUS_VERIFICATION_PENDING,
-            'name' => 'Documents uploaded'
-        ]
+        User::USER_STATUS_INACTIVE => 'In-Active',
+        User::USER_STATUS_NOT_VERIFIED => 'Not Verified',
+        User::USER_STATUS_IDENTITY_VERIFIED => 'Identity Verified',
+        User::USER_STATUS_ADDRESS_VERIFIED => 'Address Verified',
+        User::USER_STATUS_VERIFIED => 'Verified',
+        User::USER_STATUS_WITHDRAW_PENDING => 'Withdraw Pending',
+        User::USER_STATUS_PENDING => 'T&C Pending',
+        User::USER_STATUS_VERIFICATION_PENDING => 'Documents uploaded'
     ];
 
     /**
@@ -125,7 +101,8 @@ class UsersService
      *
      * @return string
      */
-    public static function getUserRole($userRole) {
+    public static function getUserRole($userRole)
+    {
         return self::$userRoles[$userRole]['name'] ?? '';
     }
 
@@ -136,10 +113,22 @@ class UsersService
      *
      * @return string
      */
-    public static function getUserStatus($userStatus) {
-        return self::$userStatuses[$userStatus]['name'] ?? '';
+    public static function getUserStatus($userStatus)
+    {
+        return self::$userStatuses[$userStatus] ?? '';
     }
 
+    /**
+     * Return user statuses
+     *
+     * @return array
+     */
+    public static function getUserStatuses()
+    {
+        foreach (self::$userStatuses as $statusID => $statusName) {
+            return yield ['id' => $statusID, 'name' => $statusName];
+        }
+    }
 
     /**
      * Return user home page

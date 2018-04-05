@@ -3,8 +3,8 @@
 namespace App\Models\Services;
 
 
-use App\Models\DB\DebitCard;
 use App\Models\DB\Wallet;
+use App\Models\Wallet\RateCalculator;
 
 class BonusesService
 {
@@ -19,7 +19,7 @@ class BonusesService
     public static function updateBonus($user)
     {
         $documentsVerified = DocumentsService::verificationComplete($user);
-        $hasDebitCard = DebitCardsService::hasDebitCard($user);
+        $hasDebitCard = DebitCardsService::checkDebitCard($user);
 
         if (!$documentsVerified || !$hasDebitCard) {
             return;
@@ -40,6 +40,40 @@ class BonusesService
         $wallet = $referrer->wallet;
         $wallet->referral_bonus += Wallet::REFERRAL_BONUS;
         $wallet->save();
+    }
+
+    /**
+     * Calculate referral bonus
+     *
+     * @param User $referral
+     *
+     * @return string
+     */
+    public static function getReferralBonus($referral)
+    {
+        $hasDebitCard = DebitCardsService::checkDebitCard($referral);
+        $documentsVerified = DocumentsService::verificationComplete($referral);
+
+        $referralBonus =  $hasDebitCard ? Wallet::REFERRAL_BONUS : 0;
+        $bonusStatus =  $documentsVerified ? '(locked - account is not verified)' : '';
+
+        return $referralBonus > 0 ? $referralBonus . ' ' . $bonusStatus : '';
+    }
+
+    /**
+     * Calculate commission bonus
+     *
+     * @param User $referral
+     *
+     * @return string
+     */
+    public static function getCommissionBonus($referral)
+    {
+        $contributionsList = PaymentsService::getEthPayments($referral);
+
+        $commissionBonus = $contributionsList->sum('amount') * Wallet::COMMISSION_BONUS;
+
+        return $commissionBonus > 0 ? RateCalculator::weiToEth($commissionBonus) : '';
     }
 
 }
