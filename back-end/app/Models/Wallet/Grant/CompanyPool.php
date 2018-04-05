@@ -18,7 +18,7 @@ class CompanyPool extends Pool
      */
     protected function init()
     {
-        $this->znxAmount = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_COMPANY_COINS)
+        $this->znxAmount = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_COMPANY_TOKENS)
             ->get()
             ->sum('amount');
     }

@@ -18,7 +18,7 @@ class MarketingPool extends Pool
      */
     protected function init()
     {
-        $this->znxAmount = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_MARKETING_COINS)
+        $this->znxAmount = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_MARKETING_TOKENS)
             ->get()
             ->sum('amount');
     }

@@ -15,6 +15,7 @@ use App\Models\DB\SocialNetworkAccount;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
 use App\Models\DB\Wallet;
+use App\Models\Services\TokensService;
 use App\Models\Validation\ValidationMessages;
 use App\Models\Wallet\EtheriumApi;
 use App\Models\Wallet\Grant;
@@ -190,7 +191,6 @@ class AdminController extends Controller
      */
     public function wallet()
     {
-
         // ICO Table
         $ico = new Ico();
 
@@ -276,41 +276,11 @@ class AdminController extends Controller
         $address = $request->address;
         $amount = (int)$request->amount;
 
-        $transaction = GrantCoinsTransaction::create(
-            [
-                'address' => $address,
-                'amount' => $amount,
-                'type' => GrantCoinsTransaction::GRANT_MARKETING_COINS,
-            ]
-        );
-
         try {
 
-            $operationID = EtheriumApi::getCoinsOID($transaction->type, $amount, $address);
-
-            $transaction->operation_id = $operationID;
-            $transaction->save();
-
-            $transactionStatus = EtheriumApi::checkCoinsStatus($operationID);
-
-            switch ($transactionStatus) {
-                case 'success':
-                    $transaction->status = GrantCoinsTransaction::STATUS_COMPLETE;
-                    break;
-
-                case 'failure':
-                    $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
-                    break;
-
-                default:
-                    $transaction->status = GrantCoinsTransaction::STATUS_IN_PROGRESS;
-            }
-
-            $transaction->save();
+            TokensService::grantMarketingTokens($address, $amount);
 
         } catch (\Exception $e) {
-            $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
-            $transaction->save();
 
             return response()->json(
                 [
@@ -353,41 +323,11 @@ class AdminController extends Controller
         $address = $request->address;
         $amount = (int)$request->amount;
 
-        $transaction = GrantCoinsTransaction::create(
-            [
-                'address' => $address,
-                'amount' => $amount,
-                'type' => GrantCoinsTransaction::GRANT_COMPANY_COINS,
-            ]
-        );
-
         try {
 
-            $operationID = EtheriumApi::getCoinsOID($transaction->type, $amount, $address);
-
-            $transaction->operation_id = $operationID;
-            $transaction->save();
-
-            $transactionStatus = EtheriumApi::checkCoinsStatus($operationID);
-
-            switch ($transactionStatus) {
-                case 'success':
-                    $transaction->status = GrantCoinsTransaction::STATUS_COMPLETE;
-                    break;
-
-                case 'failure':
-                    $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
-                    break;
-
-                default:
-                    $transaction->status = GrantCoinsTransaction::STATUS_IN_PROGRESS;
-            }
-
-            $transaction->save();
+            TokensService::grantCompanyTokens($address, $amount);
 
         } catch (\Exception $e) {
-            $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
-            $transaction->save();
 
             return response()->json(
                 [
@@ -437,7 +377,7 @@ class AdminController extends Controller
         try {
 
             $filters = [
-                'grant_type_filter' => GrantCoinsTransaction::GRANT_ICO_COINS,
+                'grant_type_filter' => GrantCoinsTransaction::GRANT_ICO_TOKENS,
                 'znx_type_filter' => ZantecoinTransaction::getIcoTransactionTypes(),
                 'part_filter' => $request->part_filter,
                 'status_filter' => $request->status_filter,
@@ -500,7 +440,7 @@ class AdminController extends Controller
         try {
 
             $filters = [
-                'grant_type_filter' => GrantCoinsTransaction::GRANT_COMPANY_COINS,
+                'grant_type_filter' => GrantCoinsTransaction::GRANT_COMPANY_TOKENS,
                 'znx_type_filter' => ZantecoinTransaction::getFoundationTransactionTypes(),
                 'part_filter' => $request->part_filter,
                 'status_filter' => $request->status_filter,

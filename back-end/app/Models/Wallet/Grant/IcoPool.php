@@ -18,7 +18,7 @@ class IcoPool extends Pool
      */
     protected function init()
     {
-        $this->znxAmount = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_ICO_COINS)
+        $this->znxAmount = GrantCoinsTransaction::where('type', GrantCoinsTransaction::GRANT_ICO_TOKENS)
             ->get()
             ->sum('amount');
     }

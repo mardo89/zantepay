@@ -6,6 +6,7 @@ namespace App\Models\Search;
 use App\Models\DB\GrantCoinsTransaction;
 use App\Models\DB\User;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\TokensService;
 
 class Transactions
 {
@@ -55,7 +56,7 @@ class Transactions
             }
 
             $grantCoinTransaction = $grantCoinsTransactions->where('address', $user->profile->eth_wallet)->first();
-            $transactionStatus = optional($grantCoinTransaction)->getStatusMessage() ?? '';
+            $transactionStatus = $grantCoinTransaction ? TokensService::getTransactionStatus($grantCoinTransaction->status) : '';
 
             if (count($statusFilter) > 0 && !in_array($transactionStatus, $statusFilter)) {
                 continue;

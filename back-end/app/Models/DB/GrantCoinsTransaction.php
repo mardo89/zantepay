@@ -9,9 +9,9 @@ class GrantCoinsTransaction extends Model
     /**
      * Transaction types
      */
-    const GRANT_ICO_COINS = 'ico';
-    const GRANT_MARKETING_COINS = 'marketing';
-    const GRANT_COMPANY_COINS = 'company';
+    const GRANT_ICO_TOKENS = 'ico';
+    const GRANT_MARKETING_TOKENS = 'marketing';
+    const GRANT_COMPANY_TOKENS = 'company';
 
     /**
      * Transaction statuses
