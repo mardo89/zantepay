@@ -12,6 +12,9 @@ use App\Models\DB\TransferTransaction;
 use App\Models\DB\Wallet;
 use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\BonusesService;
+use App\Models\Services\InvitesService;
+use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -653,97 +656,15 @@ class UserController extends Controller
      */
     public function invite()
     {
-        $user = Auth::user();
+        $user = UsersService::getActiveUser();
 
-        $userReferrals = [];
-
-        // Collect information about invites
-        $invites = Invite::where('user_id', $user->id)->get();
-
-        foreach ($invites as $invite) {
-            $userReferrals[$invite->email] = [
-                'name' => $invite->email,
-                'email' => $invite->email,
-                'avatar' => '/images/avatar.png',
-                'status' => Invite::getStatus(Invite::INVITATION_STATUS_PENDING),
-                'bonus_amount' => '',
-                'bonus_status' => '',
-                'commission' => ''
-            ];
-        }
-
-        // Collect information about bonuses
-        $dcBonus = [];
-
-        foreach (DebitCard::all() as $dcInfo) {
-            $dcBonus[$dcInfo->user_id] = Wallet::DEBIT_CARD_BONUS;
-        }
-
-        // Collect information about commission
-        $commissionBonus = [];
-
-        foreach (Contribution::all() as $contribution) {
-            $cUser = optional($contribution->wallet)->user;
-
-            if (!$cUser) {
-                continue;
-            }
-
-            $userID = $cUser->id;
-
-            if (!isset($commissions[$userID])) {
-                $commissionBonus[$userID] = 0;
-            }
-
-            $ethAmount = RateCalculator::weiToEth($contribution->amount);
-
-            $commissionBonus[$userID] += $ethAmount * Wallet::COMMISSION_BONUS;
-        }
-
-        // Collect information about referrals
-        $referrals = User::where('referrer', $user->id)->get();
-
-        foreach ($referrals as $referral) {
-            $hidePos = strrpos($referral->email, "@");
-
-            if ($hidePos <= 2) {
-                $replacement = str_repeat('*', $hidePos);
-
-                $hiddenEmail = substr_replace($referral->email, $replacement, 0, $hidePos);
-            } elseif ($hidePos <= 5) {
-                $replacement = str_repeat('*', $hidePos - 1);
-
-                $hiddenEmail = substr_replace($referral->email, $replacement, 1, $hidePos - 1);
-            } else {
-                $replacement = str_repeat('*', $hidePos - 2);
-
-                $hiddenEmail = substr_replace($referral->email, $replacement, 3, $hidePos - 2);
-            }
-
-            $userName = ($referral->first_name != '' && $referral->last_name != '')
-                ? $referral->first_name . ' ' . $referral->last_name
-                : $hiddenEmail;
-
-            $inviteStatus = $referral->status == User::USER_STATUS_VERIFIED ? Invite::INVITATION_STATUS_COMPLETE : Invite::INVITATION_STATUS_VERIFYING;
-
-            $bonusStatus = $referral->status == User::USER_STATUS_VERIFIED ? '' : '(locked - account is not verified)';
-
-            $userReferrals[$referral->email] = [
-                'name' => $userName,
-                'email' => $referral->email,
-                'avatar' => !is_null($referral->avatar) ? $referral->avatar : '/images/avatar.png',
-                'status' => Invite::getStatus($inviteStatus),
-                'bonus_amount' => isset($dcBonus[$referral->id]) ? Wallet::REFERRAL_BONUS + $dcBonus[$referral->id] : Wallet::REFERRAL_BONUS,
-                'bonus_status' => $bonusStatus,
-                'commission' => isset($commissionBonus[$referral->id]) ? $commissionBonus[$referral->id] : ''
-            ];
-        }
+        $invitedUsers = InvitesService::getInvitedUsers($user);
 
         return view(
             'user.invite-friend',
             [
                 'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
-                'referrals' => $userReferrals
+                'invitedUsers' => $invitedUsers
             ]
         );
     }
@@ -1275,6 +1196,8 @@ class UserController extends Controller
             if (!$card) {
 
                 DebitCard::create($userDebitCard);
+
+                BonusesService::updateBonus($user);
 
                 Mail::to($user->email)->send(new DebitCardPreOrder($user->uid, $userDebitCard['design']));
 

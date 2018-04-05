@@ -94,19 +94,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($referrals as $referral)
-                        <tr id="{{ $referral['email'] }}">
+                    @foreach($invitedUsers as $invitedUser)
+                        <tr id="{{ $invitedUser['email'] }}">
                             <td width="100" class="col-center">
                                 <div class="thumb-60">
-                                    <img src="{{ $referral['avatar'] }}" alt={{ $referral['name'] }}>
+                                    <img src="{{ $invitedUser['avatar'] }}" alt={{ $invitedUser['name'] }}>
                                 </div>
                             </td>
-                            <td> {{ $referral['name'] }} </td>
+                            <td> {{ $invitedUser['name'] }} </td>
                             <td>
-                                <span class="primary-color">{{ $referral['status'] }}</span>
+                                <span class="primary-color">{{ $invitedUser['status'] }}</span>
                             </td>
-                            <td style="min-width: 100px">{{ $referral['bonus_amount'] }} {{ $referral['bonus_status'] }}</td>
-                            <td style="min-width: 100px">{{ $referral['commission'] }}</td>
+                            <td style="min-width: 100px">{{ $invitedUser['bonus'] }}</td>
+                            <td style="min-width: 100px">{{ $invitedUser['commission'] }}</td>
                             <td width="160" class="col-center"><a href="" class="send-link resend-invitation">Resend</a></td>
                         </tr>
                     @endforeach
