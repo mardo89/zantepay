@@ -6,6 +6,7 @@ use App\Mail\ApproveDocuments;
 use App\Models\DB\Wallet;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\BonusesService;
+use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -39,6 +40,8 @@ class ManagerController extends Controller
      */
     public function users()
     {
+        $rolesList = UsersService::getUserStatuses();
+
         $rolesList = User::getRolesList();
 
         $statusesList = [
