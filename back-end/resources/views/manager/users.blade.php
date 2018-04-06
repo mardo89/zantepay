@@ -71,9 +71,18 @@
                 <div class="dashboard-group">
                     <h2 class="h4 headline-mb">Search users:</h2>
                     <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <div class="date-picker-wrap">
+                                    <input class="input-field date-picker-inp" type="text" name="registered_at" data-toggle="datepicker" placeholder="Registered at">
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="col-lg-5">
                             <div class="form-group">
-                                <input class="input-field search-field" type="text" name="search-by-email" id="field1">
+                                <input class="input-field search-field" type="text" name="search-by-email" id="field1" placeholder="Email / Name">
                                 <a href="" class="search-cross"></a>
                             </div>
                         </div>
@@ -97,6 +106,7 @@
                     <tr>
                         <th class="sort" colspan="2">Email <span class="caret"></span></th>
                         <th class="sort">Name <span class="caret"></span></th>
+                        <th>Registered</th>
                         <th>Role</th>
                         <th>Status</th>
                         <th width="100">Referrer</th>

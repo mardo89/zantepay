@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ApproveDocuments;
-use App\Models\DB\Wallet;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\BonusesService;
 use App\Models\Services\UsersService;
@@ -40,52 +39,15 @@ class ManagerController extends Controller
      */
     public function users()
     {
-        $rolesList = UsersService::getUserStatuses();
-
-        $rolesList = User::getRolesList();
-
-        $statusesList = [
-            [
-                'id' => User::USER_STATUS_PENDING,
-                'name' => User::getStatus(User::USER_STATUS_PENDING)
-            ],
-            [
-                'id' => User::USER_STATUS_NOT_VERIFIED,
-                'name' => User::getStatus(User::USER_STATUS_NOT_VERIFIED)
-            ],
-            [
-                'id' => User::USER_STATUS_VERIFICATION_PENDING,
-                'name' => User::getStatus(User::USER_STATUS_VERIFICATION_PENDING)
-            ],
-            [
-                'id' => User::USER_STATUS_IDENTITY_VERIFIED,
-                'name' => User::getStatus(User::USER_STATUS_IDENTITY_VERIFIED)
-            ],
-            [
-                'id' => User::USER_STATUS_ADDRESS_VERIFIED,
-                'name' => User::getStatus(User::USER_STATUS_ADDRESS_VERIFIED)
-            ],
-            [
-                'id' => User::USER_STATUS_VERIFIED,
-                'name' => User::getStatus(User::USER_STATUS_VERIFIED)
-            ],
-            [
-                'id' => User::USER_STATUS_INACTIVE,
-                'name' => User::getStatus(User::USER_STATUS_INACTIVE)
-            ],
-            [
-                'id' => User::USER_STATUS_WITHDRAW_PENDING,
-                'name' => User::getStatus(User::USER_STATUS_WITHDRAW_PENDING)
-            ]
-        ];
 
         return view(
             $this->getViewPrefix() . 'users',
             [
-                'roles' => $rolesList,
-                'statuses' => $statusesList
+                'roles' => UsersService::getUserRoles(),
+                'statuses' => UsersService::getUserStatuses()
             ]
         );
+
     }
 
     /**
@@ -104,6 +66,7 @@ class ManagerController extends Controller
                 'status_filter' => 'array',
                 'referrer_filter' => 'array',
                 'name_filter' => 'string|nullable',
+                'registered_filter' => 'date|nullable',
                 'page' => 'integer|min:1',
                 'sort_index' => 'integer',
                 'sort_order' => 'in:asc,desc',
@@ -114,6 +77,7 @@ class ManagerController extends Controller
                     'status_filter' => 'Status Filter',
                     'referrer_filter' => 'Referrer Filter',
                     'name_filter' => 'Name Filter',
+                    'registered_filter' => 'Registration Date Filter',
                     'page' => 'Page',
                     'sort_index' => 'Sort Column',
                     'sort_order' => 'Sort Order',
@@ -125,6 +89,7 @@ class ManagerController extends Controller
         $statusFilter = $request->input('status_filter', []);
         $referrerFilter = $request->input('referrer_filter', []);
         $nameFilter = $request->input('name_filter', '');
+        $registeredFilter = $request->input('registered_filter', '');
         $page = $request->input('page', 1);
         $sortIndex = $request->input('sort_index', 0);
         $sortOrder = $request->input('sort_order', 0);
@@ -147,6 +112,15 @@ class ManagerController extends Controller
                         ->orWhere('email', 'like', '%' . $nameFilter . '%');
                 }
             );
+        }
+
+        if ($registeredFilter != '') {
+            $filterDate = [
+                date('Y-m-d 00:00:00', strtotime($registeredFilter)),
+                date('Y-m-d 23:59:59', strtotime($registeredFilter)),
+            ];
+
+            $queryBuilder->whereBetween('created_at', $filterDate);
         }
 
         // sort
@@ -180,6 +154,7 @@ class ManagerController extends Controller
                 'email' => $user->email,
                 'name' => $user->first_name . ' ' . $user->last_name,
                 'avatar' => !is_null($user->avatar) ? $user->avatar : '/images/avatar.png',
+                'registered' => $user->created_at->format('m/d/Y'),
                 'status' => User::getStatus($user->status),
                 'role' => User::getRole($user->role),
                 'hasReferrals' => $user->referrals->count() > 0 ? 'YES' : 'NO',

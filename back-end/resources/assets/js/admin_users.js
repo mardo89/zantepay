@@ -29,6 +29,9 @@ $(document).ready(function () {
         // email / name
         const nameFilter = $(this).find('input[name="search-by-email"]').val();
 
+        // created at filter
+        const registeredFilter = $(this).find('input[name="registered_at"]').val();
+
         // page
         const activePage = parseInt($('.page-item.active .page-link').html());
         const page = isNaN(activePage) ? 1 : activePage;
@@ -60,6 +63,7 @@ $(document).ready(function () {
                     'status_filter': statusFilter,
                     'referrer_filter': referrerFilter,
                     'name_filter': nameFilter,
+                    'registered_filter': registeredFilter,
                     'page': page,
                     'sort_index': sortIndex,
                     'sort_order': sortOrder
@@ -96,6 +100,9 @@ $(document).ready(function () {
                                         )
                                         .append(
                                             $('<td />').html(user.name)
+                                        )
+                                        .append(
+                                            $('<td />').html(user.registered)
                                         )
                                         .append(
                                             $('<td />').html(user.role)

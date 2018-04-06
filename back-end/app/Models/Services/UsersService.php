@@ -17,22 +17,10 @@ class UsersService
      * @var array User Roles
      */
     public static $userRoles = [
-        [
-            'id' => User::USER_ROLE_ADMIN,
-            'name' => 'Admin'
-        ],
-        [
-            'id' => User::USER_ROLE_MANAGER,
-            'name' => 'Manager'
-        ],
-        [
-            'id' => User::USER_ROLE_SALES,
-            'name' => 'Sales'
-        ],
-        [
-            'id' => User::USER_ROLE_USER,
-            'name' => 'User'
-        ]
+        User::USER_ROLE_ADMIN => 'Admin',
+        User::USER_ROLE_MANAGER => 'Manager',
+        User::USER_ROLE_SALES => 'Sales',
+        User::USER_ROLE_USER => 'User'
     ];
 
     /**
@@ -128,9 +116,13 @@ class UsersService
      */
     public static function getUserRoles()
     {
+        $userRoles = [];
+
         foreach (self::$userRoles as $roleID => $roleName) {
-            return yield ['id' => $roleID, 'name' => $roleName];
+            $userRoles[] = ['id' => $roleID, 'name' => $roleName];
         }
+
+        return $userRoles;
     }
 
     /**
@@ -174,9 +166,13 @@ class UsersService
      */
     public static function getUserStatuses()
     {
+        $userStatuses = [];
+
         foreach (self::$userStatuses as $statusID => $statusName) {
-            return yield ['id' => $statusID, 'name' => $statusName];
+            $userStatuses[] = ['id' => $statusID, 'name' => $statusName];
         }
+
+        return $userStatuses;
     }
 
     /**
