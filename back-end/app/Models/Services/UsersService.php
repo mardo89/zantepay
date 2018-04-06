@@ -56,6 +56,17 @@ class UsersService
         return User::find($userID);
     }
 
+    /**
+     *  Get user by UID
+     *
+     * @param string $userID
+     *
+     * @return mixed
+     */
+    public static function findUserByUid($userID)
+    {
+        return User::where('uid', $userID)->first();
+    }
 
     /**
      *  Get logged user

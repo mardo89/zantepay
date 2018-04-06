@@ -3,28 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Search\Transactions;
-use App\Models\DB\Contribution;
 use App\Models\DB\GrantCoinsTransaction;
 use App\Models\DB\ZantecoinTransaction;
-use App\Models\DB\DebitCard;
-use App\Models\DB\Document;
-use App\Models\DB\Invite;
-use App\Models\DB\PasswordReset;
-use App\Models\DB\Profile;
-use App\Models\DB\SocialNetworkAccount;
-use App\Models\DB\User;
-use App\Models\DB\Verification;
-use App\Models\DB\Wallet;
+use App\Models\Services\AccountsService;
+use App\Models\Services\IcoService;
 use App\Models\Services\TokensService;
 use App\Models\Validation\ValidationMessages;
-use App\Models\Wallet\EtheriumApi;
-use App\Models\Wallet\Grant;
-use App\Models\Wallet\Ico;
-use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 
 class AdminController extends Controller
@@ -62,34 +48,15 @@ class AdminController extends Controller
             )
         );
 
-        $userID = $request->uid;
-
-        if (Auth::user()->uid === $userID) {
-            return response()->json(
-                [
-                    'message' => 'Admin user can not update role for himself',
-                    'errors' => []
-                ],
-                500
-            );
-        }
-
         try {
 
-            $user = User::where('uid', $userID)->first();
-
-            if (is_null($user)) {
-                throw new \Exception('User does not exist');
-            }
-
-            $user->role = $request->role;
-            $user->save();
+            AccountsService::changeRole($request->uid, $request->role);
 
         } catch (\Exception $e) {
 
             return response()->json(
                 [
-                    'message' => 'Error changing role',
+                    'message' => $e->getMessage(),
                     'errors' => []
                 ],
                 500
@@ -123,53 +90,18 @@ class AdminController extends Controller
             )
         );
 
-        $userID = $request->uid;
-
-        if (Auth::user()->uid === $userID) {
-            return response()->json(
-                [
-                    'message' => 'Admin user can not delete himself',
-                    'errors' => []
-                ],
-                500
-            );
-        }
-
         DB::beginTransaction();
 
         try {
-            $user = User::where('uid', $userID)->first();
 
-            if (is_null($user)) {
-                throw new \Exception('User does not exist');
-            }
-
-            Profile::where('user_id', $user->id)->delete();
-            Invite::where('user_id', $user->id)->delete();
-            DebitCard::where('user_id', $user->id)->delete();
-            Verification::where('user_id', $user->id)->delete();
-            PasswordReset::where('email', $user->email)->delete();
-            SocialNetworkAccount::where('user_id', $user->id)->delete();
-            ZantecoinTransaction::where('user_id', $user->id)->delete();
-            Wallet::where('user_id', $user->id)->delete();
-
-            // Documents
-            $documents = Document::where('user_id', $user->id)->get();
-            foreach ($documents as $document) {
-                if (Storage::exists($document->file_path)) {
-                    Storage::delete($document->file_path);
-                }
-            }
-            Document::where('user_id', $user->id)->delete();
-
-            $user->delete();
+            AccountsService::removeAccount($request->uid);
 
         } catch (\Exception $e) {
             DB::rollback();
 
             return response()->json(
                 [
-                    'message' => 'Error deleting user',
+                    'message' => $e->getMessage(),
                     'errors' => []
                 ],
                 500
@@ -191,63 +123,15 @@ class AdminController extends Controller
      */
     public function wallet()
     {
-        // ICO Table
-        $ico = new Ico();
-
-        $currentDate = time();
-
-        $icoInfo = [];
-
-        foreach ($ico->getParts() as $icoPart) {
-            $startDate = $icoPart->getStartDate();
-            $endDate = $icoPart->getEndDate();
-
-            $weiReceived = Contribution::where('time_stamp', '>=', strtotime($startDate))
-                ->where('time_stamp', '<', strtotime($endDate))
-                ->get()
-                ->sum('amount');
-
-            $icoName = $icoPart->getName();
-
-            if (strtotime($icoPart->getStartDate()) < $currentDate) {
-                $icoName .= ' (started ' . $startDate . ')';
-            } else {
-                $icoName .= ' (starts ' . $startDate . ')';
-            }
-
-            if ($icoPart->getID() === $ico->getActivePart()->getID()) {
-                $icoName .= ' - current';
-            }
-
-            $icoInfo[] = [
-                'name' => $icoName,
-                'limit' => number_format($icoPart->getLimit(), 0, '.', ' '),
-                'balance' => number_format($icoPart->getBalance(), 0, '.', ' '),
-                'eth' => RateCalculator::weiToEth($weiReceived)
-            ];
-        }
-
-        // Grant balance and limits
-        $grant = new Grant();
-
-        $foundationGranted = ZantecoinTransaction::where('transaction_type', ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX)->get()->sum('amount');
-
-        $marketingBalance = $grant->marketingPool()->getLimit();
-        $companyBalance = $grant->companyPool()->getLimit() - $foundationGranted;
-
-        $grantBalance = [
-            'marketing_balance' => $marketingBalance,
-            'company_balance' => $companyBalance,
-        ];
-
 
         return view(
             'admin.wallet',
             [
-                'ico' => $icoInfo,
-                'balance' => $grantBalance
+                'ico' => IcoService::getInfo(),
+                'balance' => TokensService::getGrantBalance()
             ]
         );
+
     }
 
     /**
@@ -273,12 +157,9 @@ class AdminController extends Controller
             )
         );
 
-        $address = $request->address;
-        $amount = (int)$request->amount;
-
         try {
 
-            TokensService::grantMarketingTokens($address, $amount);
+            TokensService::grantMarketingTokens($request->address, $request->amount);
 
         } catch (\Exception $e) {
 
@@ -320,12 +201,9 @@ class AdminController extends Controller
             )
         );
 
-        $address = $request->address;
-        $amount = (int)$request->amount;
-
         try {
 
-            TokensService::grantCompanyTokens($address, $amount);
+            TokensService::grantCompanyTokens($request->address, $request->amount);
 
         } catch (\Exception $e) {
 

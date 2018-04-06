@@ -20,5 +20,19 @@ class PaymentsService
         return Contribution::where('proxy', $user->wallet->eth_wallet)->get();
     }
 
+    /**
+     * Search ETH payments
+     *
+     * @param string $startDate
+     * @param string $endDate
+     *
+     * @return mixed
+     */
+    public static function searchEthPayments($startDate, $endDate)
+    {
+        return $weiReceived = Contribution::where('time_stamp', '>=', strtotime($startDate))
+            ->where('time_stamp', '<', strtotime($endDate))
+            ->get();
+    }
 
 }

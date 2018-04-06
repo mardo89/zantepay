@@ -3,123 +3,84 @@
 namespace App\Models\Services;
 
 
+use App\Models\DB\PasswordReset;
 use App\Models\DB\Profile;
 use App\Models\DB\SocialNetworkAccount;
-use App\Models\DB\User;
+use App\Models\DB\Wallet;
+use App\Models\DB\ZantecoinTransaction;
 
 class AccountsService
 {
 
     /**
-     * Create user acconut
+     * Change user role
      *
-     * @return User
-     */
-    public static function addUser($userInfo)
-    {
-        $user = User::create($userInfo);
-
-        Profile::create(
-            [
-                'user_id' => $user->id
-            ]
-        );
-
-        return $user;
-    }
-
-    /**
-     * Process FB user
-     *
-     * @param array $fbUserInfo
-     *
-     * @return int
-     */
-    public static function processFBUser($fbUserInfo)
-    {
-        $fbAccount = self::getFBUser($fbUserInfo);
-
-        if (is_null($fbAccount)) {
-
-            $user = self::addFBUser($fbUserInfo);
-
-            $userID = $user->id;
-
-        } else {
-
-            $fbAccount->account_token = $fbUserInfo->token;
-            $fbAccount->save();
-
-            $userID = $fbAccount->user->id;
-        }
-
-        return $userID;
-    }
-
-    /**
-     * Get FB user account info
-     *
-     * @param array $fbUserInfo
-     *
-     * @return SocialNetworkAccount | null
-     */
-    public static function getFBUser($fbUserInfo)
-    {
-        return SocialNetworkAccount::where('account_id', $fbUserInfo->getId())
-            ->where('network', SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK)
-            ->first();
-    }
-
-    /**
-     * Create FB user acconut
-     *
-     * @param array $fbUserInfo
-     *
-     * @return User
-     */
-    public static function addFBUser($fbUserInfo)
-    {
-        $user = self::addUser(
-            [
-                'email' => $fbUserInfo->email,
-                'password' => uniqid(),
-            ]
-        );
-
-        SocialNetworkAccount::create(
-            [
-                'network' => SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK,
-                'account_id' => $fbUserInfo->getId(),
-                'account_token' => $fbUserInfo->token,
-                'user_id' => $user->id
-            ]
-        );
-
-        return $user;
-    }
-
-    /**
-     * Return user home page
-     *
+     * @param string $userUID
      * @param int $userRole
      *
-     * @return string
+     * @throws
      */
-    public static function getUserPage($userRole)
+    public static function changeAccountRole($userUID, $userRole)
     {
-        switch ($userRole) {
-            case User::USER_ROLE_ADMIN:
-                return '/admin/users';
-
-            case User::USER_ROLE_MANAGER:
-                return '/admin/users';
-
-            case User::USER_ROLE_USER:
-                return '/user/profile';
-
-            default:
-                return '/';
+        if (self::isSelf($userUID)) {
+            throw new \Exception('Admin user can not update role for himself');
         }
+
+        $user = UsersService::findUserByUid($userUID);
+
+        if (!$user) {
+            throw new \Exception('User does not exist');
+        }
+
+        $user->role = $userRole;
+        $user->save();
+    }
+
+    /**
+     * Remove user
+     *
+     * @param string $userID
+     *
+     * @throws
+     */
+    public static function removeAccount($userID)
+    {
+        if (self::isSelf($userID)) {
+            throw new \Exception('Admin user can not delete himself');
+        }
+
+        $user = UsersService::findUserByID($userID);
+
+        if (!$user) {
+            throw new \Exception('User does not exist');
+        }
+
+        Profile::where('user_id', $user->id)->delete();
+        PasswordReset::where('email', $user->email)->delete();
+        SocialNetworkAccount::where('user_id', $user->id)->delete();
+
+        InvitesService::removeInvites($user->id);
+        DebitCardsService::removeDebitCard($user->id);
+        DocumentsService::removeDocuments($user->id);
+
+        ZantecoinTransaction::where('user_id', $user->id)->delete();
+        Wallet::where('user_id', $user->id)->delete();
+
+        $user->delete();
+    }
+
+    /**
+     * Change user role
+     *
+     * @param string $userUID
+     *
+     * @return mixed
+     */
+    protected static function isSelf($userUID)
+    {
+        $loggedUser = UsersService::getActiveUser();
+
+        return $loggedUser->uid === $userUID;
     }
 
 }

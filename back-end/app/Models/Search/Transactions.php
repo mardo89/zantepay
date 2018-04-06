@@ -112,4 +112,16 @@ class Transactions
         ];
     }
 
+    /**
+     * Search total amount of the transactions
+     *
+     * @param array $transactionTypes
+     *
+     * @return int
+     */
+    public static function searchTransactionsAmount($transactionTypes)
+    {
+        return ZantecoinTransaction::whereIn('transaction_type', $transactionTypes)->get()->sum('amount');
+    }
+
 }

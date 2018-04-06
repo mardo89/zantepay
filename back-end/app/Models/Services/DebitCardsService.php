@@ -31,4 +31,14 @@ class DebitCardsService
         return !is_null(self::getDebitCard($user));
     }
 
+    /**
+     * Remove user's Debit Card
+     *
+     * @param int $userID
+     */
+    public static function removeDebitCard($userID)
+    {
+        DebitCard::where('user_id', $userID)->delete();
+    }
+
 }

@@ -36,25 +36,4 @@ class GrantCoinsTransaction extends Model
      */
     protected $hidden = [];
 
-    /**
-     * Return transaction status
-     *
-     * @return string
-     */
-    public function getStatusMessage() {
-        switch ($this->status) {
-            case self::STATUS_IN_PROGRESS:
-                return 'In-Progress';
-
-            case self::STATUS_COMPLETE:
-                return 'Success';
-
-            case self::STATUS_FAILED:
-                return 'Failed';
-
-            default:
-                return '';
-        }
-    }
-
 }

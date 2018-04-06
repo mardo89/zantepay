@@ -97,6 +97,16 @@ class InvitesService
     }
 
     /**
+     * Remove user's Invites
+     *
+     * @param int $userID
+     */
+    public static function removeInvites($userID)
+    {
+        Invite::where('user_id', $userID)->delete();
+    }
+
+    /**
      * Return user status
      *
      * @param int $invitationStatus

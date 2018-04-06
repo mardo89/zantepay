@@ -3,9 +3,11 @@
 namespace App\Models\Services;
 
 
-
 use App\Models\DB\GrantCoinsTransaction;
+use App\Models\DB\ZantecoinTransaction;
+use App\Models\Search\Transactions;
 use App\Models\Wallet\EtheriumApi;
+use App\Models\Wallet\Grant;
 
 class TokensService
 {
@@ -136,6 +138,30 @@ class TokensService
     public static function getTransactionStatus($transactionStatus)
     {
         return self::$transactionStatuses[$transactionStatus] ?? '';
+    }
+
+    /**
+     * Return balance of Granting Tokens
+     *
+     * @return array
+     */
+    public static function getGrantBalance()
+    {
+        $grant = new Grant();
+
+        $foundationGranted = Transactions::searchTransactionsAmount(
+            [
+                ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
+            ]
+        );
+
+        $companyBalance = $grant->companyPool()->getLimit() - $foundationGranted;
+        $marketingBalance = $grant->marketingPool()->getLimit();
+
+        return [
+            'marketing_balance' => $marketingBalance,
+            'company_balance' => $companyBalance,
+        ];
     }
 
 }
