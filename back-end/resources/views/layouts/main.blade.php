@@ -68,6 +68,12 @@
                                            onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Japanese');">Japanese
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Russian.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Russian');">Russian
+                                        </a>
+                                    </li>
+                                     
                                 </ul>
                             </li>
 

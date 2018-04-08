@@ -487,6 +487,11 @@
                         <h3 class="h4">Oleg Pyvovarenko <span>DM Team Lead</span></h3>
                         <p>Data-driven product marketing manager with 7+ years of experience in various global projects. Experienced in gambling, betting, finance projects, ICO and crypto exchanges. Worked with huobi.pro, Aeron.aero, xchange.io etc. </p>
                     </div>
+                    <div class="col-lg-4">
+                        <img src="images/vadim.jpg" srcset="images/vadim@2x.jpg 2x" alt="Vadim Ivanenko">
+                        <h3 class="h4">Vadim Ivanenko <span>Bounty Manager</span></h3>
+                        <p>Vadim is a serial entrepreneur, blockchain evangelist and crypto investor. He is a CEO and Founder at Luft, offering B2B solutions for the blockchain startups. His role at ZANTEPAY is to design and lead its Bounty Programme.</p>
+                    </div>
                 </div>
 
                 <div class="text-center lp-row-1">
@@ -506,12 +511,12 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/rauno.jpg" srcset="images/rauno@2x.jpg 2x" alt="Rauno Klettenberg">
-                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia. </span></h3>
+                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia </span></h3>
                         <p>Ex Chairman of the Board at Nasdaq Tallinn. Ex General Manager of Handelsbanken. Member of the Board at Finance Estonia. Rauno is an experienced Board Member with a demonstrated history of working in the financial services industry. Expert in Asset Management, Management, Mergers & Acquisitions, and Financial Risk. He is a strong business development professional with a Master's Degree focused in Accounting and Finance from Estonian Business School.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/andrii.jpg" srcset="images/andrii@2x.jpg 2x" alt="Andriy Danchak">
-                        <h3 class="h4">Andriy Danchak <span style="font-size:0.83em;">CEO of GFC Good Finance Company AS. </span></h3>
+                        <h3 class="h4">Andriy Danchak <span style="font-size:0.83em;">CEO of GFC Good Finance Company AS </span></h3>
                         <p>Andriy has more than 10 years of experience within the banking industry. Previously held an executive position in Raiffeisen and Standard Union Bank. Andriy possesses a deep knowledge of banking policies and regulations. As a CEO of GFC - a licensed payment institution and a principal member of Mastercard ®, his task is to work closely with ZANTEPAY on a debit card project.</p>
                     </div>
                     <div class="col-lg-4">
@@ -578,6 +583,7 @@
                     <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
                     <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
                     <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
+                    <li><a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a></li>
                 </ul>
             </div>
             <div class="footer-menu">
