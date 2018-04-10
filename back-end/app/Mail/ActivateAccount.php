@@ -19,12 +19,12 @@ class ActivateAccount extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $uid
+     * @param array $mailData
      *
      */
-    public function __construct($uid)
+    public function __construct($mailData)
     {
-        $this->activationLink = action('IndexController@confirmActivation', ['uid' => $uid]);
+        $this->activationLink = action('IndexController@confirmActivation', ['uid' => $mailData['uid']]);
     }
 
     /**
@@ -35,6 +35,6 @@ class ActivateAccount extends Mailable
     public function build()
     {
         return $this->subject('Account activation')
-            ->view('emails.activate-accaunt');
+            ->view('emails.activate-account');
     }
 }

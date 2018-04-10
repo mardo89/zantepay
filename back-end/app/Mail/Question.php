@@ -29,18 +29,14 @@ class Question extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $subject
-     * @param string $userName
-     * @param string $userEmail
-     * @param string $userQuestion
-     *
+     * @param array $mailData
      */
-    public function __construct($subject, $userName, $userEmail, $userQuestion)
+    public function __construct($mailData)
     {
-        $this->subject = $subject;
-        $this->userName = $userName;
-        $this->userEmail = $userEmail;
-        $this->userQuestion = $userQuestion;
+        $this->subject = $mailData['subject'];
+        $this->userName = $mailData['name'];
+        $this->userEmail = $mailData['email'];
+        $this->userQuestion = $mailData['question'];
     }
 
     /**

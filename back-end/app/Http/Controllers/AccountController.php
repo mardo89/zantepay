@@ -12,6 +12,7 @@ use App\Models\DB\SocialNetworkAccount;
 use App\Models\DB\Verification;
 use App\Models\DB\Wallet;
 use App\Models\DB\User;
+use App\Models\Services\MailService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
@@ -81,7 +82,7 @@ class AccountController extends Controller
                 ExternalRedirect::ACTION_TYPE_REGISTRATION
             );
 
-            Mail::to($userInfo['email'])->send(new ActivateAccount($userInfo['uid']));
+            MailService::sendActivateAccountEmail($userInfo['email'], $userInfo['uid']);
 
         } catch (\Exception $e) {
 
@@ -229,7 +230,7 @@ class AccountController extends Controller
                 ]
             );
 
-            Mail::to($resetInfo['email'])->send(new ResetPassword($resetInfo['token']));
+            MailService::sendResetPasswordEmail($resetInfo['email'], $resetInfo['token']);
 
         } catch (\Exception $e) {
 
@@ -313,7 +314,7 @@ class AccountController extends Controller
 
             PasswordReset::where('email', $user->email)->delete();
 
-            Mail::to($user->email)->send(new ChangePassword());
+            MailService::sendChangePasswordEmail($user->email);
 
         } catch (\Exception $e) {
 
