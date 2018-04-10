@@ -330,7 +330,6 @@
                             <div class="text-center">
                                 <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Verify & Pre-order a FREE Debit
                                     Card</a>
-                                <p class="text-lg">(currently under testing, pre-order opening soon)</p>
                                 <p class="text-regular">Pre-order free debit card and receive 500ZNX!</p>
                                 <p class="text-regular">Invite a friend to pre-order debit card. <br> RECEIVE 500ZNX WHEN PREORDER IS
                                     FINISHED! <br> Your friend gets 500ZNX.</p>
@@ -339,13 +338,11 @@
                         <div class="col-md-6 offset-lg-1">
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
-                                <li>According to the selected preferences, Bitcoin, Litecoin, Ethereum and Zantecoin will let you purchase
-                                    via Debit card everywhere in the world.
-                                </li>
-                                <li>Directly connected to your ZANTEPAY wallet.</li>
-                                <li>A multitude of management options will be available to you.</li>
-                                <li>Automatic highest trading price from partner exchanges. Fee 1%. No hidden fees added.</li>
-                                <li>20% cashback in ZANTECOINs.</li>
+                                <li>Issued by Estonian GFC Good Finance Company, partner of Mastercard. Read  the announment <a target="_blank" href="https://medium.com/@zantepay/zantepay-and-gfc-sign-a-preliminary-agreement-on-debit-cards-bf2ba13cc987">here</a> </li>
+                                <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoineverywhere in the world.</li>
+                                <li>Connected directly to your ZANTEPAY wallet.</li>
+                                <li>Provides automatic highest trading price from partner exchanges. 1%exchange fee. No hidden charges.</li>
+                                <li>20% cashback in ZANTECOIN.</li>
                             </ul>
                         </div>
                     </div>
