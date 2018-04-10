@@ -34,7 +34,7 @@ const hideSpinner = (element) => {
 // Send activation email
 const sendActivationEmail = uid => {
     axios.post(
-        '/mail/activate-account',
+        '/activate-account',
         qs.stringify(
             {
                 uid
@@ -476,7 +476,7 @@ $(document).ready(function () {
                         }
                     );
 
-                    $('#resend-registration-email').on('click', function (event) {
+                    $('#resend-registration-email').off().on('click', function (event) {
                         event.preventDefault();
 
                         sendActivationEmail(response.data.uid)
@@ -783,7 +783,7 @@ $(document).ready(function () {
         clearErrors();
 
         axios.post(
-            '/mail/contact-us',
+            '/contact-us',
             qs.stringify(
                 {
                     'name': $('#contact-name').val(),
@@ -838,7 +838,7 @@ $(document).ready(function () {
         clearErrors();
 
         axios.post(
-            '/mail/question',
+            '/question',
             qs.stringify(
                 {
                     'subject': 'New Ticket Submitted',
@@ -892,7 +892,7 @@ $(document).ready(function () {
         clearErrors();
 
         axios.post(
-            '/mail/question',
+            '/question',
             qs.stringify(
                 {
                     'subject': 'New Idea Submitted',

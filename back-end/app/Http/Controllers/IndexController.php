@@ -6,6 +6,8 @@ use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
 use App\Mail\IcoRegistration as IcoRegistrationMail;
 use App\Models\DB\ExternalRedirect;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\MailService;
+use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\IcoRegistration;
 use App\Models\DB\Investor;
@@ -342,6 +344,152 @@ class IndexController extends Controller
             ]
         );
     }
+
+    /**
+     * Send contact us email
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function contactUs(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'message' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'name' => 'Name',
+                    'email' => 'Email',
+                    'message' => 'Message',
+                ]
+            )
+
+        );
+
+        try {
+
+            MailService::sendContactUsEmail($request->email, $request->name, $request->message);
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => $e->getMessage(),//'Can not send a message',
+                    'errors' => [
+                        'name' => '',
+                        'message' => '',
+                        'email' => 'Can not send a message'
+                    ]
+                ],
+                422
+            );
+
+        }
+
+        return response()->json(
+            []
+        );
+    }
+
+    /**
+     * Send question email
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function question(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'subject' => 'required|string|max:50',
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'question' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'subject' => 'Subject',
+                    'name' => 'Name',
+                    'email' => 'Email',
+                    'question' => 'Question',
+                ]
+            )
+        );
+
+        try {
+
+            MailService::sendQuestionEmail($request->email, $request->name, $request->question, $request->subject);
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Can not send a question',
+                    'errors' => [
+                        'name' => '',
+                        'question' => '',
+                        'email' => 'Can not send a question'
+                    ]
+                ],
+                422
+            );
+
+        }
+
+        return response()->json(
+            []
+        );
+    }
+
+    /**
+     * Send activation email to the user
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function activateAccount(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'uid' => 'required|string',
+            ],
+            ValidationMessages::getList(
+                [
+                    'uid' => 'User ID',
+                ]
+            )
+        );
+
+        try {
+
+            $user = UsersService::findUserByUid($request->uid);
+
+            if ($user) {
+                MailService::sendActivateAccountEmail($user->email, $user->uid);
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                []
+            );
+
+        }
+
+        return response()->json(
+            []
+        );
+    }
+
 
     /**
      * Check if referrer exist and store him to the Session
