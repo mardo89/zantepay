@@ -71,3 +71,33 @@
       @media screen and (max-width: 400px)
         font-size 15px
         white-space nowrap
+
+.popover
+  position fixed
+  bottom 30px
+  left 50%
+  transform translateX(-50%)
+  z-index 900
+  width calc(100% - 30px)
+  max-width 450px
+  background #fff
+  border-radius 5px
+  box-shadow 0 0 10px rgba(#000, .4)
+  padding 15px 70px 15px 50px
+  font-size 16px
+  .fa
+    position absolute
+    left 15px
+    font-size 25px
+    top 50%
+    transform translateY(-50%)
+    color #51d651
+
+.popover__close
+  position absolute
+  right 20px
+  top 50%
+  transform translateY(-50%)
+  font-size 16px
+  color #999
+  text-decoration none !important
