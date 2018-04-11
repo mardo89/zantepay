@@ -33,6 +33,38 @@ class MailService
             'name' => 'Change Password',
             'mailClass' => 'ChangePassword'
         ],
+        MailEvent::EVENT_TYPE_REGISTER_FOR_ICO => [
+            'name' => 'Register for PRE-ICO',
+            'mailClass' => 'IcoRegistrationMail'
+        ],
+        MailEvent::EVENT_TYPE_REGISTER_FOR_ICO_ADMIN => [
+            'name' => 'Register for PRE-ICO Admin',
+            'mailClass' => 'IcoRegistrationAdminMail'
+        ],
+        MailEvent::EVENT_TYPE_APPROVE_DOCUMENTS => [
+            'name' => 'Approve Documents',
+            'mailClass' => 'ApproveDocuments'
+        ],
+        MailEvent::EVENT_TYPE_WELCOME => [
+            'name' => 'Welcome',
+            'mailClass' => 'Welcome'
+        ],
+        MailEvent::EVENT_TYPE_INVITE_FRIEND => [
+            'name' => 'Invite Friend',
+            'mailClass' => 'InviteFriend'
+        ],
+        MailEvent::EVENT_TYPE_ORDER_DEBIT_CARD => [
+            'name' => 'Pre-order Debit Card',
+            'mailClass' => 'DebitCardPreOrder'
+        ],
+        MailEvent::EVENT_TYPE_SYSTEM_ALERT => [
+            'name' => 'System Alert',
+            'mailClass' => 'SystemAlert'
+        ],
+        MailEvent::EVENT_TYPE_CHECK_CONTRIBUTIONS => [
+            'name' => 'Check Contributions Alert',
+            'mailClass' => 'CheckContributionMail'
+        ],
     ];
 
 
@@ -120,7 +152,7 @@ class MailService
     }
 
     /**
-     * Send Reset Password email
+     * Send Change Password email
      *
      * @param string $email
      * @param string $resetToken
@@ -135,6 +167,142 @@ class MailService
         self::send($event, $to, $data);
     }
 
+    /**
+     * Send Register for Pre-ICO email
+     *
+     * @param string $email
+     */
+    public static function sendIcoRegistrationEmail($email)
+    {
+        $event = MailEvent::EVENT_TYPE_REGISTER_FOR_ICO;
+        $to = $email;
+        $data = [];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Register for Pre-ICO Admin email
+     *
+     * @param string $email
+     * @param int $currency
+     * @param float $amount
+     */
+    public static function sendIcoRegistrationAdminEmail($email, $currency, $amount)
+    {
+        $event = MailEvent::EVENT_TYPE_REGISTER_FOR_ICO_ADMIN;
+        $to = [
+            'mardo@zantepay.com',
+            'lena@zantepay.com'
+        ];
+        $data = [
+            'email' => $email,
+            'currency' => $currency,
+            'amount' => $amount
+        ];
+
+        foreach ($to as $toAddress) {
+            self::send($event, $toAddress, $data);
+        }
+    }
+
+    /**
+     * Send Approve Documents email
+     *
+     * @param string $email
+     */
+    public static function sendApproveDocumentsEmail($email)
+    {
+        $event = MailEvent::EVENT_TYPE_APPROVE_DOCUMENTS;
+        $to = $email;
+        $data = [];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Welcome email
+     *
+     * @param string $email
+     */
+    public static function sendWelcomeEmail($email)
+    {
+        $event = MailEvent::EVENT_TYPE_WELCOME;
+        $to = $email;
+        $data = [];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Invite Friend email
+     *
+     * @param string $email
+     * @param string $uid
+     */
+    public static function sendInviteFriendEmail($email, $uid)
+    {
+        $event = MailEvent::EVENT_TYPE_INVITE_FRIEND;
+        $to = $email;
+        $data = [
+            'uid' => $uid,
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Order Debit Card email
+     *
+     * @param string $email
+     * @param string $uid
+     * @param int $design
+     */
+    public static function sendOrderDebitCardEmail($email, $uid, $design)
+    {
+        $event = MailEvent::EVENT_TYPE_ORDER_DEBIT_CARD;
+        $to = $email;
+        $data = [
+            'uid' => $uid,
+            'design' => $design
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send System Alert email
+     *
+     * @param string $systemEvent
+     * @param string $systemMessage
+     */
+    public static function sendSystemAlertEmail($systemEvent, $systemMessage)
+    {
+        $event = MailEvent::EVENT_TYPE_SYSTEM_ALERT;
+        $to = env('SERVICE_EMAIL');
+        $data = [
+            'event' => $systemEvent,
+            'message' => $systemMessage
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Check Contributions email
+     *
+     * @param array $contributionsList
+     */
+    public static function sendCheckContributionsEmail($contributionsList)
+    {
+        $event = MailEvent::EVENT_TYPE_CHECK_CONTRIBUTIONS;
+        $to = env('SERVICE_EMAIL');
+        $data = [
+            'contributions' => $contributionsList
+        ];
+
+        self::send($event, $to, $data);
+    }
 
     /**
      * Get mail object

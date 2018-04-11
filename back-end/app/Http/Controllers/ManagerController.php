@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ApproveDocuments;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\BonusesService;
+use App\Models\Services\MailService;
 use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
@@ -353,7 +354,7 @@ class ManagerController extends Controller
 
                 BonusesService::updateBonus($user);
 
-                Mail::to($user->email)->send(new ApproveDocuments());
+                MailService::sendApproveDocumentsEmail($user->email);
             }
 
         } catch (\Exception $e) {

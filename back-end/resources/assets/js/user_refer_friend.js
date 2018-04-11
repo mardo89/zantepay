@@ -19,13 +19,15 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
-        const invite = {
-            'email': $('#friend-email').val()
-        }
+        const email = $('#friend-email').val();
 
         axios.post(
             '/user/invite-friend',
-            qs.stringify(invite)
+            qs.stringify(
+                {
+                    email
+                }
+            )
         )
             .then(
                 response => {
@@ -113,7 +115,7 @@ $(document).ready(function () {
         const email = $(this).parents('tr').attr('id');
 
         axios.post(
-            '/mail/invite-friend',
+            '/user/invite-friend',
             qs.stringify(
                 {
                     email

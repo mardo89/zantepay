@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 col-lg-7 col-md-8">
-                        The only official URL for Zantepay is <a href="//www.zantepay.com">www.zantepay.com</a>. If you receive confirmation
+                        The only official URL for Zantepay is <a href="https://zantepay.com">https://zantepay.com</a>. If you receive confirmation
                         of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
                     </div>
                     <div class="col-xl-4 col-lg-5 col-md-4">

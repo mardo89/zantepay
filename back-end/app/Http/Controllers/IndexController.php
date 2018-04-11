@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
-use App\Mail\IcoRegistration as IcoRegistrationMail;
 use App\Models\DB\ExternalRedirect;
-use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\MailService;
 use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
@@ -20,7 +17,6 @@ use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Mail;
 
 
 class IndexController extends Controller
@@ -130,10 +126,8 @@ class IndexController extends Controller
                 ExternalRedirect::ACTION_TYPE_REGISTRATION_ICO
             );
 
-            $link = action('IndexController@main');
-
-            Mail::to($email)->send(new IcoRegistrationMail($link));
-            Mail::send(new IcoRegistrationAdminMail($email, $currency, $amount));
+            MailService::sendIcoRegistrationEmail($email);
+            MailService::sendIcoRegistrationAdminEmail($email, $currency, $amount);
 
         } catch (\Exception $e) {
 

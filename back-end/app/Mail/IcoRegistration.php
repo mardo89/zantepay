@@ -22,9 +22,9 @@ class IcoRegistration extends Mailable
      * @param string $link
      *
      */
-    public function __construct($link)
+    public function __construct()
     {
-        $this->link = $link;
+        $this->link = action('IndexController@main');
     }
 
     /**

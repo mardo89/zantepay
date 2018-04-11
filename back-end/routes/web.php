@@ -17,16 +17,6 @@ Route::post('activate-account', 'IndexController@activateAccount');
 
 
 /**
- * Mailing
- */
-Route::group(['prefix' => 'mail'], function () {
-
-    Route::post('invite-friend', 'MailController@inviteFriend');
-
-});
-
-
-/**
  * Account
  */
 Route::group(['prefix' => 'account'], function () {

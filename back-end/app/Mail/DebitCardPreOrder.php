@@ -29,16 +29,15 @@ class DebitCardPreOrder extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $uid
-     * @param int $cardDesign
+     * @param array $mailData
      *
      * @return void
      */
-    public function __construct($uid, $cardDesign)
+    public function __construct($mailData)
     {
         $this->loginLink = action('IndexController@main');
-        $this->referralLink = action('IndexController@confirmInvitation', ['ref' => $uid]);
-        $this->cardDesign = $cardDesign;
+        $this->referralLink = action('IndexController@confirmInvitation', ['ref' => $mailData['uid']]);
+        $this->cardDesign = $mailData['design'];
     }
 
     /**

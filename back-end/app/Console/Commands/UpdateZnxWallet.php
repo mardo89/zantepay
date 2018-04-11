@@ -2,12 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\SystemAlert;
 use App\Models\DB\User;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\MailService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 
 class UpdateZnxWallet extends Command
@@ -82,9 +81,7 @@ class UpdateZnxWallet extends Command
 
             DB::rollback();
 
-            $errorMessage = $e->getMessage();
-
-            Mail::send(new SystemAlert('Update ZNX Wallet Error', $errorMessage));
+            MailService::sendSystemAlertEmail('Update ZNX Wallet Error', $e->getMessage());
 
         }
 

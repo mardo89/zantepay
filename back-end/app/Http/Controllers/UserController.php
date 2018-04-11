@@ -14,6 +14,7 @@ use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\BonusesService;
 use App\Models\Services\InvitesService;
+use App\Models\Services\MailService;
 use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
@@ -92,7 +93,7 @@ class UserController extends Controller
 
             $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
 
-            Mail::to($user->email)->send(new Welcome());
+            MailService::sendWelcomeEmail($user->email);
 
         } catch (\Exception $e) {
 
@@ -705,9 +706,10 @@ class UserController extends Controller
                         'email' => $email
                     ]
                 );
-
-                Mail::to($email)->send(new InviteFriend($user->uid));
             }
+
+            MailService::sendInviteFriendEmail($email, $user->uid);
+
 
         } catch (\Exception $e) {
 
@@ -1199,7 +1201,7 @@ class UserController extends Controller
 
                 BonusesService::updateBonus($user);
 
-                Mail::to($user->email)->send(new DebitCardPreOrder($user->uid, $userDebitCard['design']));
+                MailService::sendOrderDebitCardEmail($user->email, $user->uid, $userDebitCard['design']);
 
             } else {
 

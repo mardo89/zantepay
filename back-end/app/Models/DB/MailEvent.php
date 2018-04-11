@@ -21,6 +21,14 @@ class MailEvent extends Model
     const EVENT_TYPE_ACTIVATE_ACCOUNT = 2;
     const EVENT_TYPE_RESET_PASSWORD = 3;
     const EVENT_TYPE_CHANGE_PASSWORD = 4;
+    const EVENT_TYPE_REGISTER_FOR_ICO = 5;
+    const EVENT_TYPE_REGISTER_FOR_ICO_ADMIN = 6;
+    const EVENT_TYPE_APPROVE_DOCUMENTS = 7;
+    const EVENT_TYPE_WELCOME = 8;
+    const EVENT_TYPE_INVITE_FRIEND = 9;
+    const EVENT_TYPE_ORDER_DEBIT_CARD = 10;
+    const EVENT_TYPE_SYSTEM_ALERT = 11;
+    const EVENT_TYPE_CHECK_CONTRIBUTIONS = 12;
 
     /**
      * The attributes that are mass assignable.
