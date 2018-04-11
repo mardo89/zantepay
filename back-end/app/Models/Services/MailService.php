@@ -67,6 +67,15 @@ class MailService
         ],
     ];
 
+    /**
+     * @var array Event Statuses
+     */
+    public static $eventStatuses = [
+        MailEvent::EVENT_STATUS_IN_PROGRESS => 'In-Progress',
+        MailEvent::EVENT_STATUS_SENT => 'Sent',
+        MailEvent::EVENT_STATUS_FAILED => 'Failed',
+    ];
+
 
     /**
      * Send Activate Account email
@@ -305,6 +314,40 @@ class MailService
     }
 
     /**
+     * Get list of event types
+     */
+    public static function getEventTypes()
+    {
+        $eventTypesList = [];
+
+        foreach (self::$eventsList as $eventID => $mailEvent) {
+            $eventTypesList[] = [
+                'id' => $eventID,
+                'name' => $mailEvent['name'],
+            ];
+        }
+
+        return $eventTypesList;
+    }
+
+    /**
+     * Get list of event statuses
+     */
+    public static function getEventStatuses()
+    {
+        $eventStatusesList = [];
+
+        foreach (self::$eventStatuses as $eventID => $eventStatus) {
+            $eventStatusesList[] = [
+                'id' => $eventID,
+                'name' => $eventStatus,
+            ];
+        }
+
+        return $eventStatusesList;
+    }
+
+    /**
      * Get mail object
      *
      * @param MailEvent $event
@@ -319,6 +362,55 @@ class MailService
         $mailClass = 'App\\Mail\\' . $eventInfo['mailClass'];
 
         return new $mailClass($event->mail_data);
+    }
+
+    /**
+     * Get event name
+     *
+     * @param int $eventType
+     *
+     * @return string
+     */
+    public static function getEventName($eventType)
+    {
+        $eventInfo = self::$eventsList[$eventType];
+
+        return $eventInfo['name'] ?? '';
+    }
+
+    /**
+     * Get event status
+     *
+     * @param int $eventStatus
+     *
+     * @return string
+     */
+    public static function getEventStatus($eventStatus)
+    {
+        return self::$eventStatuses[$eventStatus] ?? '';
+    }
+
+    /**
+     * Check if transaction status is Sent
+     *
+     * @param int $eventStatus
+     *
+     * @return string
+     */
+    public static function checkEventStatus($eventStatus)
+    {
+        return $eventStatus == MailEvent::EVENT_STATUS_SENT;
+    }
+
+    /**
+     * Check if transaction status is Sent
+     *
+     * @param int $eventID
+     *
+     */
+    public static function resendEvent($eventID)
+    {
+        ProcessMailEvent::dispatch($eventID);
     }
 
     /**

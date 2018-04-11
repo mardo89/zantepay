@@ -100,6 +100,17 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('wallet/search-foundation-transactions', 'AdminController@searchFoundationTransactions');
 });
 
+/**
+ * SERVICE
+ */
+Route::group(['prefix' => 'service'], function () {
+
+    Route::get('mail-events', 'ServiceController@mailEvents');
+    Route::get('mail-events/search', 'ServiceController@searchMailEvents');
+    Route::post('mail-events/process', 'ServiceController@processMailEvent');
+
+});
+
 //Route::get('/test-email', function () {
 //    return new \App\Mail\DebitCardPreOrder('000000', 0);
 //});
