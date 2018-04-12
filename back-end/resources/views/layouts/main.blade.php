@@ -55,7 +55,7 @@
                 <div class="masthead__menu">
                     <nav class="navigation">
                         <ul>
-                            <li>
+                            <li class="m-dropdown">
                                 <a href="javascript:void(0);">Whitepaper</a>
                                 <ul>
                                     <li>
