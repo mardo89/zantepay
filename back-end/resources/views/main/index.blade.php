@@ -10,11 +10,11 @@
         <div class="h-banner">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-8 col-lg-7 col-md-8">
+                    <div class="col-xl-8 col-md-7">
                         The only official URL for Zantepay is <a href="https://zantepay.com">https://zantepay.com</a>. If you receive confirmation
                         of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
                     </div>
-                    <div class="col-xl-4 col-lg-5 col-md-4">
+                    <div class="col-xl-4 col-md-5">
                         <div class="row">
                             <div class="col-lg">
                                 Official channels:
@@ -339,7 +339,7 @@
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
                                 <li>Issued by Estonian GFC Good Finance Company, partner of Mastercard.</li>
-                                <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoineverywhere in the world.</li>
+                                <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoin everywhere in the world.</li>
                                 <li>Connected directly to your ZANTEPAY wallet.</li>
                                 <li>Provides automatic highest trading price from partner exchanges. 1%exchange fee. No hidden charges.</li>
                                 <li>20% cashback in ZANTECOIN.</li>

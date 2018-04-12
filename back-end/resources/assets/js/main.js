@@ -165,6 +165,12 @@ $(document).ready(function () {
         $('.hamburger').toggleClass('is-active');
     });
 
+    //mobile dropdown
+    $(document).on('click', '.m-dropdown > a', function() {
+      $(this).toggleClass('is-active');
+      $(this).siblings('ul').slideToggle();
+    });
+
     // Popups
     if ($('.js-popup-link').length) {
         $('.js-popup-link').magnificPopup({

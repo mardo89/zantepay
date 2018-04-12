@@ -451,4 +451,9 @@ $(document).ready(function() {
       );
     });
   }
+
+  $(document).on('click', '.m-dropdown > a', function() {
+    $(this).toggleClass('is-active');
+    $(this).siblings('ul').slideToggle();
+  });
 });
