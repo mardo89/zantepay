@@ -111,23 +111,34 @@ window.showConfirmation = (confirmationMessage, onAccept, onReject) => {
 
 // Show popover
 window.showPopover = popoverContent => {
+
     $('.popover').remove();
 
-    $('body').prepend(
-        $('<div />').addClass('popover')
-            .append(
-                $('<i />').addClass('fa fa-check-circle')
-            )
-            .append(
-                $('<div />').addClass('popover__content').html(popoverContent)
-            )
-            .append(
-                $('<a />').addClass('popover__close').attr('href', '').html('Close')
-                    .on('click', function (e) {
-                        e.preventDefault();
+    const popover = $('<div />').addClass('popover')
+        .append(
+            $('<i />').addClass('fa fa-check-circle')
+        )
+        .append(
+            $('<div />').addClass('popover__content').html(popoverContent)
+        )
+        .append(
+            $('<a />').addClass('popover__close').attr('href', '').html('Close')
+                .on('click', function (e) {
+                    e.preventDefault();
 
-                        $('.popover').remove();
-                    })
-            )
+                    $('.popover').remove();
+                })
+        )
+
+    $('body').prepend(
+        popover
     )
+
+    setTimeout(
+        () => {
+            popover.remove();
+        },
+        5000
+    );
+
 }

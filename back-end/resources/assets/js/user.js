@@ -217,7 +217,7 @@ $(document).ready(function () {
 
         let tmpEl = $('<input />').val(refLink);
 
-        $('body').append(tmpEl);
+        $(this).after(tmpEl);
 
         tmpEl.focus();
 

@@ -35,7 +35,7 @@ $(document).ready(function () {
 
                     $('input[name="email"]').val('');
 
-                    if ($('#' + response.data.email).length === 0) {
+                    if ($("#invites-list tr td:contains('" + response.data.email + "')").length === 0) {
 
                         $('#invites-list tbody')
                             .prepend(
@@ -85,6 +85,8 @@ $(document).ready(function () {
             .catch(
                 error => {
                     hideSpinner(button);
+
+                    console.error(error);
 
                     const {message, errors} = error.response.data;
 

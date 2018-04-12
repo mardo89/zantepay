@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         let tmpEl = $('<input />').val(address);
 
-        $('body').append(tmpEl);
+        $(this).after(tmpEl);
 
         tmpEl.focus();
 

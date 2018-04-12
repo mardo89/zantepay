@@ -19,7 +19,7 @@ class Invite extends Model
      * @var array
      */
     protected $fillable = [
-        'event', 'data'
+        'user_id', 'email'
     ];
 
     /**
