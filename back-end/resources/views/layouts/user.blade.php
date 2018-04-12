@@ -75,6 +75,22 @@
     </div>
 </div>
 
+
+<!-- Confirmation modal -->
+<div class="logon-modal logon-modal--560 mfp-hide" id="confirmation-modal">
+    <div class="logon-modal-container">
+        <h3 class="h4" id="confirmation-message"></h3>
+        <div class="row justify-content-center">
+            <div class="col-sm-4 col-6">
+                <a href="#" class="btn btn--shadowed-light btn--260" id="accept_action">Yes</a>
+            </div>
+            <div class="col-sm-4 col-6">
+                <a href="#" class="btn btn--shadowed-light btn--260" id="reject_action">No</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- JS scripts -->
 <script src="/js/user.js" type="text/javascript"></script>
 <script src="/js/components/particles.min.js"></script>

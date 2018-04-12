@@ -5,40 +5,45 @@ $(document).ready(function () {
     $('.remove-document').on('click', function (event) {
         event.preventDefault();
 
-        const file = {
-            'did': $(this).parents('li').attr('id'),
-        }
+        showConfirmation(
+            'Are you sure do you want to delete this file?',
+            () => {
+                const file = {
+                    'did': $(this).parents('li').attr('id'),
+                }
 
-        axios.post(
-            '/user/profile-settings/remove-document',
-            qs.stringify(file)
-        )
-            .then(
-                () => {
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#remove-document-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                close: function () {
-                                    window.location.reload();
+                axios.post(
+                    '/user/profile-settings/remove-document',
+                    qs.stringify(file)
+                )
+                    .then(
+                        () => {
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#remove-document-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        close: function () {
+                                            window.location.reload();
+                                        }
+                                    }
+
                                 }
-                            }
-
+                            );
                         }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    const {message} = error.response.data;
+                    )
+                    .catch(
+                        error => {
+                            const {message} = error.response.data;
 
-                    showError(message);
-                }
-            )
+                            showError(message);
+                        }
+                    )
+            }
+        );
     });
 
     $('#upload-identity-documents').on('submit', function (event) {

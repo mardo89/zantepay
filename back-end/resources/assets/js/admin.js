@@ -35,7 +35,7 @@ $(document).ready(function () {
         e.preventDefault();
         var thisHref = $(this).attr('href');
         $(this).closest('.tabs-head').find('li').removeClass('is-active');
-        $(thisHref).closest('.tabs-wrap').find('.tab-body').removeClass('is-active');
+        $(thisHref).closest('.tabs-wrap').children('.tab-body').removeClass('is-active');
         $(this).parent().addClass('is-active');
         $(thisHref).addClass('is-active');
         if ( thisHref != '#profile') {

@@ -69,3 +69,65 @@ window.scrollToError = () => {
         500
     );
 }
+
+// Show Confirmation dialog
+window.showConfirmation = (confirmationMessage, onAccept, onReject) => {
+    $.magnificPopup.open(
+        {
+            items: {
+                src: '#confirmation-modal'
+            },
+            type: 'inline',
+            showCloseBtn: false,
+            closeOnBgClick: false,
+            callbacks: {
+                elementParse: function (item) {
+                    $(item.src).find('#confirmation-message').text(confirmationMessage);
+
+                    $(item.src).find('#accept_action').on('click', function (e) {
+                        e.preventDefault();
+
+                        $.magnificPopup.close();
+
+                        if (typeof onAccept === 'function') {
+                            onAccept();
+                        }
+                    });
+
+                    $(item.src).find('#reject_action').on('click', function (e) {
+                        e.preventDefault();
+
+                        $.magnificPopup.close();
+
+                        if (typeof onReject === 'function') {
+                            onReject;
+                        }
+                    });
+                }
+            }
+        }
+    );
+}
+
+// Show popover
+window.showPopover = popoverContent => {
+    $('.popover').remove();
+
+    $('body').prepend(
+        $('<div />').addClass('popover')
+            .append(
+                $('<i />').addClass('fa fa-check-circle')
+            )
+            .append(
+                $('<div />').addClass('popover__content').html(popoverContent)
+            )
+            .append(
+                $('<a />').addClass('popover__close').attr('href', '').html('Close')
+                    .on('click', function (e) {
+                        e.preventDefault();
+
+                        $('.popover').remove();
+                    })
+            )
+    )
+}

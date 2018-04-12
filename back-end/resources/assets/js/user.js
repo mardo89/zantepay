@@ -226,6 +226,8 @@ $(document).ready(function () {
         document.execCommand("copy");
 
         tmpEl.remove();
+
+        showPopover('Link copied to clipboard');
     })
 
 });
