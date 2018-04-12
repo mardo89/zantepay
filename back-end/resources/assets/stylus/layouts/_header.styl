@@ -1,5 +1,7 @@
 .header
   background $bg-color-dark
+  position relative
+  z-index 400
 
 .header-lp
   position relative
@@ -109,7 +111,7 @@
           border-right none
           padding 10px 5px
       &.current-menu-item
-        a
+        & > a
           color $primary-color
       a:hover
         color $primary-color
@@ -130,6 +132,9 @@
             right 10px
             top 50%
             transform translateY(-50%)
+            display none
+            @media (max-width: 991px)
+              display block
           &.is-active
             &:before
               transform translateY(-50%) rotate(180deg)

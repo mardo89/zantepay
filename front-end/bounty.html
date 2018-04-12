@@ -35,18 +35,74 @@
             <div class="masthead__menu">
               <nav class="navigation">
                 <ul>
-                  <li><a href="/ZANTEPAY_Whitepaper.pdf">Whitepaper</a></li>
+                  <li class="m-dropdown">
+                    <a href="/ZANTEPAY_Whitepaper.pdf">Whitepaper</a>
+                    <ul>
+                      <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper.pdf" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">English
+                          </a>
+                      </li>
+                      <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Russian.pdf" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Russian');">Russian
+                          </a>
+                      </li>
+                      <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Chinese.pdf" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Chinese');">Chinese
+                          </a>
+                      </li>
+                      <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Japanese.pdf" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Japanese');">Japanese
+                          </a>
+                      </li>
+                      <!-- <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Korean.pdf"
+                             onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Korean');">Korean
+                          </a>
+                      </li> -->
+                      <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Arabic.pdf" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Arabic');">Arabic
+                          </a>
+                      </li>
+                      <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper_French.pdf" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper French');">French
+                          </a>
+                      </li>
+                      <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper_German.pdf" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper German');">German
+                          </a>
+                      </li>
+                      <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Spanish.pdf" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Spanish');">Spanish
+                          </a>
+                      </li>
+                      <li>
+                          <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Portuguese.pdf" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Portuguese');">Portuguese
+                          </a>
+                      </li>
+                    </ul>
+                  </li>
                   <li><a href="#ico">ICO</a></li>
-                  <li class="current-menu-item"><a href="">Bounty</a></li>
+                  <li class="m-dropdown current-menu-item">
+                    <a href="">Bounty</a>
+                    <ul>
+                      <li><a href="twitter-campaign.html">Twitter Campaign</a></li>
+                      <li><a href="facebook-campaign.html">Facebook Campaign</a></li>
+                      <li><a href="youtube-campaign.html">YouTube Campaign</a></li>
+                      <li><a href="blogs-article-campaign.html">Blogs, Article Campaign</a></li>
+                      <li><a href="support-campaign.html">Support Campaign</a></li>
+                      <li><a href="telegram-campaign.html">Telegram Campaign</a></li>
+                      <li><a href="other-campaign.html">Other Campaign</a></li>
+                    </ul>
+                  </li>
                   <li><a href="#team">Team</a></li>
-                  <li>
+                  <!-- <li class="m-dropdown">
                     <a href="">Development</a>
                     <ul>
                       <li><a href="">Wallet Beta</a></li>
                       <li><a href="">App Beta</a></li>
                       <li><a href="">Development roadmap</a></li>
                     </ul>
-                  </li>
+                  </li> -->
                   <li><a href="">FAQ</a></li>
                 </ul>
               </nav>
@@ -101,23 +157,48 @@
     <main class="main main-lp">
       <div class="lp-section-ref white-content">
         <div class="container">
-          <h2 class="h4 text-center">Referral BONUS</h2>
+          <h2 class="h2 text-center text-uppercase">Bounty token distribution</h2>
           <div class="row justify-content-center">
-            <div class="col-md-3">
-              <div class="lp-ref-left">
-                <h2 class="h2 headline headline--black mb-25">Refer a friend for a <br> <span>20%</span> commission</h2>
-                <img src="images/zantecoin-sm.png" srcset="images/zantecoin-sm@2x.png 2x" alt="zantecoin">
+            <div class="col-lg-5 text-center">
+              <div class="lp-ref-chart">
+                <img src="images/circle-chart.png" srcset="images/circle-chart@2x.png 2x" alt="Bounty token distribution">
+                <h3>
+                  <strong>6.000.000</strong>
+                  ZNX tokens
+                </h3>
               </div>
             </div>
-            <div class="col-md-6 text-center">
-              <img src="images/wh-card-sm.png" srcset="images/wh-card-sm@2x.png 2x" alt="Zantepay Mastercad">
-              <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--200 mt-35">Sign Up NOW</a>
-            </div>
-            <div class="col-md-3">
-              <div class="lp-ref-right">
-                <h2 class="h2 headline headline--black mb-25">Verify and pre-order a <span class="primary-color">FREE</span> card</h2>
-                <img src="images/get-500-znx.png" srcset="images/get-500-znx@2x.png 2x" alt="get 500 ZNX">
-              </div>
+            <div class="col-lg-7">
+              <ul class="bounty-list">
+                <li>
+                  <i class="bounty-percent" style="background: #f92112;">30%</i>
+                  <p>Twitter Campaign &nbsp; <span>1.800.000 ZNX</span></p>
+                </li>
+                <li>
+                  <i class="bounty-percent" style="background: #99dc59;">30%</i>
+                  <p>Facebook Campaign &nbsp; <span>1.800.000 ZNX</span></p>
+                </li>
+                <li>
+                  <i class="bounty-percent" style="background: #93519b;">14%</i>
+                  <p>YouTube Campaign &nbsp; <span>840.000 ZNX</span></p>
+                </li>
+                <li>
+                  <i class="bounty-percent" style="background: #ff3a2c;">10%</i>
+                  <p>Blogs, Article Campaign &nbsp; <span>600.000 ZNX</span></p>
+                </li>
+                <li>
+                  <i class="bounty-percent" style="background: #3c76f8;">10%</i>
+                  <p>Support Campaign &nbsp; <span>600.000 ZNX</span></p>
+                </li>
+                <li>
+                  <i class="bounty-percent" style="background: #ff902c;">5%</i>
+                  <p>Telegram Campaign &nbsp; <span>300.000 ZNX</span></p>
+                </li>
+                <li>
+                  <i class="bounty-percent" style="background: #83cfd2;">1%</i>
+                  <p>Other &nbsp; <span>60.000 ZNX</span></p>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -125,55 +206,51 @@
 
       <div class="lp-section-dist text-center white-content">
         <div class="container">
-          <h2 class="h2 header__title text-uppercase mb-5">Bounty token distribution</h2>
-          <ul class="dist-list">
-            <li>
-              <span>Cashback</span>
-              <i></i>
-              <span>300.000.000 ZNX</span>
-            </li>
-            <li>
-              <span>Card referral</span>
-              <i></i>
-              <span>300.000.000 ZNX</span>
-            </li>
-            <li>
-              <span>Video</span>
-              <i></i>
-              <span>1.000.000 ZNX</span>
-            </li>
-            <li>
-              <span>Social</span>
-              <i></i>
-              <span>4.000.000 ZNX</span>
-            </li>
-            <li>
-              <span>Content</span>
-              <i></i>
-              <span>2.000.000 ZNX</span>
-            </li>
-          </ul>
           <div class="lp-panels-group">
             <div class="row justify-content-center">
               <div class="col-lg-4 col-md-6">
                 <div class="lp-panel">
-                  <h3 class="h4">Video Bounty</h3>
-                  <img src="images/video-bounty.png" srcset="images/video-bounty@2x.png 2x" alt="Video Bounty">
-                  <!-- <a class="lp-panel__link" href="">More info</a> -->
+                  <h3 class="h4"><a href="twitter-campaign.html">Twitter Campaign</a></h3>
+                  <a href="twitter-campaign.html">
+                    <img src="images/twitter-lg-icon.png" srcset="images/twitter-lg-icon@2x.png 2x" alt="Twitter Campaign">
+                  </a>
+                  <a class="lp-panel__link" href="twitter-campaign.html">More info</a>
                 </div>
               </div>
               <div class="col-lg-4 col-md-6">
                 <div class="lp-panel">
-                  <h3 class="h4">Social Bounty</h3>
-                  <img src="images/social-bounty.png" srcset="images/social-bounty@2x.png 2x" alt="Social Bounty">
-                  <!-- <a class="lp-panel__link" href="">More info</a> -->
+                  <h3 class="h4"><a href="facebook-campaign.html">Facebook Campaign</a></h3>
+                  <a href="facebook-campaign.html">
+                    <img src="images/facebook-lg-icon.png" srcset="images/facebook-lg-icon@2x.png 2x" alt="Facebook Campaign">
+                  </a>
+                  <a class="lp-panel__link" href="facebook-campaign.html">More info</a>
                 </div>
               </div>
               <div class="col-lg-4 col-md-6">
                 <div class="lp-panel">
-                  <h3 class="h4">Content Bounty</h3>
-                  <img src="images/content-bounty.png" srcset="images/content-bounty@2x.png 2x" alt="Content Bounty">
-                  <!-- <a class="lp-panel__link" href="">More info</a> -->
+                  <h3 class="h4"><a href="youtube-campaign.html">YouTube Campaign</a></h3>
+                  <a href="youtube-campaign.html">
+                    <img src="images/youtube-lg-icon.png" srcset="images/youtube-lg-icon@2x.png 2x" alt="YouTube Campaign">
+                  </a>
+                  <a class="lp-panel__link" href="youtube-campaign.html">More info</a>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="lp-panel">
+                  <h3 class="h4"><a href="blogs-article-campaign.html">Blogs, Article Campaign</a></h3>
+                  <a href="blogs-article-campaign.html">
+                    <img src="images/doc-icon.png" srcset="images/doc-icon@2x.png 2x" alt="Blogs, Article Campaign">
+                  </a>
+                  <a class="lp-panel__link" href="blogs-article-campaign.html">More info</a>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="lp-panel">
+                  <h3 class="h4"><a href="support-campaign.html">Support Campaign</a></h3>
+                  <a href="support-campaign.html">
+                    <img src="images/group-icon.png" srcset="images/group-icon@2x.png 2x" alt="Support Campaign">
+                  </a>
+                  <a class="lp-panel__link" href="support-campaign.html">More info</a>
                 </div>
               </div>
             </div>
