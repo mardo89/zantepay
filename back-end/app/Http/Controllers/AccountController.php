@@ -121,6 +121,24 @@ class AccountController extends Controller
      */
     public function login(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|email|max:255',
+                'password' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                    'password' => 'Password',
+                ],
+                [
+                    'email.required' => 'Enter email',
+                    'password.required' => 'Enter password',
+                ]
+            )
+
+        );
 
         $email = $request->input('email', '');
         $password = $request->input('password', '');

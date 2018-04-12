@@ -178,7 +178,7 @@
                     <input id="signin_email" class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="logon-group">
-                    <input id="signin_pwd" class="logon-field" type="password" name="password" placeholder="Password">
+                    <input id="signin_pwd" class="logon-field" type="password" name="password" placeholder="Password" autocomplete="off">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
@@ -233,10 +233,10 @@
                     <input class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="password" name="password" placeholder="Password">
+                    <input class="logon-field" type="password" name="password" placeholder="Password" autocomplete="off">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password">
+                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password" autocomplete="off">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">

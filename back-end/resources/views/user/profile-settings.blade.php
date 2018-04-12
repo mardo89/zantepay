@@ -37,7 +37,7 @@
                                                 <div class="drag-drop-text">Click to open explorer</div>
                                                 <label>
                                                     <span class="btn btn--shadowed-light btn--medium">Choose file</span>
-                                                    <input id="document-files" type="file" name="files[]" multiple="multiple"
+                                                    <input id="document-files" type="file" name="id_files" multiple="multiple"
                                                            title='Click to add Files'>
                                                 </label>
                                                 <div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document
@@ -78,7 +78,7 @@
                                                 <div class="drag-drop-text">Click to open explorer</div>
                                                 <label>
                                                     <span class="btn btn--shadowed-light btn--medium">Choose file</span>
-                                                    <input id="address-files" type="file" name="files[]" multiple="multiple"
+                                                    <input id="address-files" type="file" name="address_files" multiple="multiple"
                                                            title='Click to add Files'>
                                                 </label>
                                                 <div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document
@@ -180,15 +180,15 @@
                         <h2 class="h4 headline-mb">Change password:</h2>
                         <div class="form-group">
                             <label class="field-label" for="field1">Current password:</label>
-                            <input class="input-field" type="password" name="current-password" id="field1">
+                            <input class="input-field" type="password" name="current-password" id="field1" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label class="field-label" for="field2">New password:</label>
-                            <input class="input-field" type="password" name="password" id="field2">
+                            <input class="input-field" type="password" name="password" id="field2" autocomplete="off">
                         </div>
                         <div class="form-group dashboard-group-md">
-                            <label class="field-label" for="field3">Current password:</label>
-                            <input class="input-field" type="password" name="confirm-password" id="field3">
+                            <label class="field-label" for="field3">Confirm password:</label>
+                            <input class="input-field" type="password" name="confirm-password" id="field3" autocomplete="off">
                         </div>
 
                         <button type="submit" class="btn btn--shadowed-light btn--medium">Change Password</button>

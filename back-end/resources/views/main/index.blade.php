@@ -339,7 +339,7 @@
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
                                 <li>Issued by Estonian GFC Good Finance Company, partner of Mastercard.</li>
-                                <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoineverywhere in the world.</li>
+                                <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoin everywhere in the world.</li>
                                 <li>Connected directly to your ZANTEPAY wallet.</li>
                                 <li>Provides automatic highest trading price from partner exchanges. 1%exchange fee. No hidden charges.</li>
                                 <li>20% cashback in ZANTECOIN.</li>

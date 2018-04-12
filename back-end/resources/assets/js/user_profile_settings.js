@@ -43,6 +43,7 @@ $(document).ready(function () {
 
     $('#upload-identity-documents').on('submit', function (event) {
         event.preventDefault();
+        clearErrors();
 
         let documents = new FormData();
 
@@ -77,6 +78,7 @@ $(document).ready(function () {
             .then(
                 () => {
                     hideSpinner(button);
+                    $('#document-files').val('');
 
                     $.magnificPopup.open(
                         {
@@ -100,9 +102,22 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    const {message} = error.response.data;
+                    const {message, errors} = error.response.data;
 
-                    showError(message);
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('#upload-identity-documents .drag-drop-area').after(
+                                    $('<div />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
                 }
             )
 
@@ -147,6 +162,7 @@ $(document).ready(function () {
             .then(
                 () => {
                     hideSpinner(button);
+                    $('#address-files').val('');
 
                     $.magnificPopup.open(
                         {
@@ -177,7 +193,7 @@ $(document).ready(function () {
                         $.each(
                             errors,
                             (field, error) => {
-                                $('.drag-drop-area').after(
+                                $('#upload-address-documents .drag-drop-area').after(
                                     $('<div />').addClass('error-text').text(error)
                                 );
                             }

@@ -598,7 +598,7 @@ class UserController extends Controller
             $request,
             [
                 'current-password' => 'required|string',
-                'password' => 'required|string|min:6|confirmed',
+                'password' => 'required|string|min:6|confirmed|different:current-password',
             ],
             ValidationMessages::getList(
                 [
@@ -608,6 +608,7 @@ class UserController extends Controller
                 [
                     'password.min' => 'The Password field must be at least 6 characters',
                     'password.confirmed' => 'The Password confirmation does not match',
+                    'password.different' => 'New password and current password should not be the same',
                 ]
             )
         );

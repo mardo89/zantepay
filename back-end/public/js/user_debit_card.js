@@ -1,1 +1,289 @@
-!function(e){var r={};function n(t){if(r[t])return r[t].exports;var o=r[t]={i:t,l:!1,exports:{}};return e[t].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=r,n.d=function(e,r,t){n.o(e,r)||Object.defineProperty(e,r,{configurable:!1,enumerable:!0,get:t})},n.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(r,"a",r),r},n.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},n.p="",n(n.s=51)}({1:function(e,r){window.getSpinner=function(e){return $("<div />").addClass("spinner spinner--"+e).append($("<div />")).append($("<div />")).append($("<div />")).append($("<div />"))},window.showSpinner=function(e){e.addClass("is-loading").prop("disabled",!0),e.append(getSpinner(30))},window.hideSpinner=function(e){e.removeClass("is-loading").prop("disabled",!1),e.find(".spinner").remove()},window.clearErrors=function(){$(".form-error").removeClass("form-error"),$(".error-text").remove()},window.showError=function(e){$.magnificPopup.open({items:{src:"#error-modal"},type:"inline",closeOnBgClick:!0,callbacks:{elementParse:function(r){$(r.src).find("#error-message").text(e)}}})},window.validateFile=function(e){var r=e.type.match(/(.png)|(.jpeg)|(.jpg)|(.pdf)$/i),n=e.size.toFixed(0)<4194304;return!(!r||!n)},window.scrollToError=function(){$("html, body").animate({scrollTop:$(".form-error:eq(0)").offset().top},500)}},51:function(e,r,n){e.exports=n(52)},52:function(e,r,n){n(1),$(document).ready(function(){$("#dc_design").on("submit",function(e){if(e.preventDefault(),!$('input[name="terms"]').prop("checked"))return showError("Please, confirm that you have read debit card pre-order Terms & Conditions"),!1;var r=$("#dc_design").find('button[type="submit"]');showSpinner(r);var n={design:$('input[name="card-type"]:checked').val()};axios.post("/user/debit-card",qs.stringify(n)).then(function(e){hideSpinner(r),window.location=e.data.nextStep}).catch(function(e){hideSpinner(r);var n=e.response.data.message;showError(n)})}),$("#dc_documents").on("submit",function(e){e.preventDefault(),clearErrors();var r=new FormData;if($('input[name="confirm"]').prop("checked"))r.append("verify_later",1);else{r.append("verify_later",0);var n=!0;if($.each($("#document-files")[0].files,function(e,t){if(!validateFile(t))return n=!1,!1;r.append("document_files[]",t)}),!n)return $(".drag-drop-area").after($("<div />").addClass("error-text").text("Incorrect files format.")),!1}var t=$("#dc_documents").find('button[type="submit"]');showSpinner(t),axios.post("/user/debit-card-documents",r).then(function(e){hideSpinner(t),window.location=e.data.nextStep}).catch(function(e){hideSpinner(t);var r=e.response.data,n=r.message,o=r.errors;422==e.response.status?$.each(o,function(e,r){$(".drag-drop-area").after($("<div />").addClass("error-text").text(r))}):showError(n)})}),$("#dc_address").on("submit",function(e){e.preventDefault(),clearErrors();var r=new FormData;if($('input[name="confirm"]').prop("checked"))r.append("verify_later",1);else{r.append("verify_later",0);var n=!0;if($.each($("#address-files")[0].files,function(e,t){if(!validateFile(t))return n=!1,!1;r.append("address_files[]",t)}),!n)return $(".drag-drop-area").after($("<div />").addClass("error-text").text("Incorrect files format.")),!1}var t=$("#dc_address").find('button[type="submit"]');showSpinner(t),axios.post("/user/debit-card-address",r).then(function(e){hideSpinner(t),window.location=e.data.nextStep}).catch(function(e){hideSpinner(t);var r=e.response.data,n=r.message,o=r.errors;422==e.response.status?$.each(o,function(e,r){$(".drag-drop-area").after($("<div />").addClass("error-text").text(r))}):showError(n)})})})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 1:
+/***/ (function(module, exports) {
+
+window.getSpinner = function (size) {
+
+    return $('<div />').addClass('spinner spinner--' + size).append($('<div />')).append($('<div />')).append($('<div />')).append($('<div />'));
+};
+
+window.showSpinner = function (element) {
+    element.addClass('is-loading').prop('disabled', true);
+    element.append(getSpinner(30));
+};
+
+window.hideSpinner = function (element) {
+    element.removeClass('is-loading').prop('disabled', false);
+    element.find('.spinner').remove();
+};
+
+// Errors
+window.clearErrors = function () {
+    $('.form-error').removeClass('form-error');
+    $('.error-text').remove();
+};
+
+window.showError = function (errorMessage) {
+    $.magnificPopup.open({
+        items: {
+            src: '#error-modal'
+        },
+        type: 'inline',
+        closeOnBgClick: true,
+        callbacks: {
+            elementParse: function elementParse(item) {
+                $(item.src).find('#error-message').text(errorMessage);
+            }
+        }
+    });
+};
+
+// Validate file
+window.validateFile = function (file) {
+    var isValidType = file.type.match(/(.png)|(.jpeg)|(.jpg)|(.pdf)$/i);
+    var isValidSize = file.size.toFixed(0) < 4194304;
+
+    if (isValidType && isValidSize) {
+        return true;
+    }
+
+    return false;
+};
+
+// Scroll to error
+window.scrollToError = function () {
+    $('html, body').animate({
+        scrollTop: $('.form-error:eq(0)').offset().top
+    }, 500);
+};
+
+/***/ }),
+
+/***/ 52:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(53);
+
+
+/***/ }),
+
+/***/ 53:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1);
+
+$(document).ready(function () {
+
+    $('#dc_design').on('submit', function (event) {
+        event.preventDefault();
+
+        var confirmed = $('input[name="terms"]').prop('checked');
+
+        if (!confirmed) {
+            showError('Please, confirm that you have read debit card pre-order Terms & Conditions');
+            return false;
+        }
+
+        var button = $('#dc_design').find('button[type="submit"]');
+        showSpinner(button);
+
+        var card = {
+            'design': $('input[name="card-type"]:checked').val()
+        };
+
+        axios.post('/user/debit-card', qs.stringify(card)).then(function (response) {
+            hideSpinner(button);
+
+            window.location = response.data.nextStep;
+        }).catch(function (error) {
+            hideSpinner(button);
+
+            var message = error.response.data.message;
+
+
+            showError(message);
+        });
+    });
+
+    $('#dc_documents').on('submit', function (event) {
+        event.preventDefault();
+        clearErrors();
+
+        var card = new FormData();
+
+        if ($('input[name="confirm"]').prop('checked')) {
+            card.append('verify_later', 1);
+        } else {
+            card.append('verify_later', 0);
+
+            var isFilesValid = true;
+
+            $.each($('#document-files')[0].files, function (index, file) {
+                if (!validateFile(file)) {
+                    isFilesValid = false;
+
+                    return false;
+                }
+
+                card.append('document_files[]', file);
+            });
+
+            if (!isFilesValid) {
+                $('.drag-drop-area').after($('<div />').addClass('error-text').text('Incorrect files format.'));
+
+                return false;
+            }
+        }
+
+        var button = $('#dc_documents').find('button[type="submit"]');
+        showSpinner(button);
+
+        axios.post('/user/debit-card-documents', card).then(function (response) {
+            hideSpinner(button);
+
+            window.location = response.data.nextStep;
+        }).catch(function (error) {
+            hideSpinner(button);
+
+            var _error$response$data = error.response.data,
+                message = _error$response$data.message,
+                errors = _error$response$data.errors;
+
+
+            if (error.response.status == 422) {
+
+                $.each(errors, function (field, error) {
+                    $('.drag-drop-area').after($('<div />').addClass('error-text').text(error));
+                });
+            } else {
+                showError(message);
+            }
+        });
+    });
+
+    $('#dc_address').on('submit', function (event) {
+        event.preventDefault();
+        clearErrors();
+
+        var card = new FormData();
+
+        if ($('input[name="confirm"]').prop('checked')) {
+            card.append('verify_later', 1);
+        } else {
+            card.append('verify_later', 0);
+
+            var isFilesValid = true;
+
+            $.each($('#address-files')[0].files, function (index, file) {
+                if (!validateFile(file)) {
+                    isFilesValid = false;
+
+                    return false;
+                }
+
+                card.append('address_files[]', file);
+            });
+
+            if (!isFilesValid) {
+                $('.drag-drop-area').after($('<div />').addClass('error-text').text('Incorrect files format.'));
+
+                return false;
+            }
+        }
+
+        var button = $('#dc_address').find('button[type="submit"]');
+        showSpinner(button);
+
+        axios.post('/user/debit-card-address', card).then(function (response) {
+            hideSpinner(button);
+
+            window.location = response.data.nextStep;
+        }).catch(function (error) {
+            hideSpinner(button);
+
+            var _error$response$data2 = error.response.data,
+                message = _error$response$data2.message,
+                errors = _error$response$data2.errors;
+
+
+            if (error.response.status == 422) {
+
+                $.each(errors, function (field, error) {
+                    $('.drag-drop-area').after($('<div />').addClass('error-text').text(error));
+                });
+            } else {
+                showError(message);
+            }
+        });
+    });
+});
+
+/***/ })
+
+/******/ });
