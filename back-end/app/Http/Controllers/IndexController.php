@@ -37,6 +37,7 @@ class IndexController extends Controller
         $ico = new Ico();
 
         $activePart = $ico->getActivePart();
+        $previousPart = $ico->getPreviousPart();
 
         $icoPartName = optional($activePart)->getName() ?? '';
         $icoPartEndDate = optional($activePart)->getEndDate() ?? '';
@@ -49,8 +50,12 @@ class IndexController extends Controller
         $icoPartAmount = optional($activePart)->getAmount() ?? 0;
         $icoPartRelativeBalance = optional($activePart)->getRelativeBalance() ?? 0;
 
+        $prevPartAmount = optional($previousPart)->getAmount() ?? 0;
+
         $ethLimit = RateCalculator::fromZnx($icoPartLimit, $icoPartEthRate);
         $ethAmount = RateCalculator::fromZnx($icoPartAmount, $icoPartEthRate);
+
+        $showProgress = !is_null($previousPart);
 
         return view(
             'main.index',
@@ -62,9 +67,11 @@ class IndexController extends Controller
                 ],
                 'ico' => [
                     'name' => $icoPartName,
+                    'showProgress' => $showProgress,
                     'endDate' => date('Y/m/d H:i:s', strtotime($icoPartEndDate)),
                     'znxLimit' => number_format($icoPartLimit, 0, ',', '.'),
                     'znxAmount' => number_format($icoPartAmount, 0, ',', '.'),
+                    'prevAmount' => number_format($prevPartAmount, 0, ',', '.'),
                     'ethLimit' => number_format($ethLimit, 0, ',', '.'),
                     'ethAmount' => number_format($ethAmount, 0, ',', '.'),
                     'znxRate' => (new CurrencyFormatter($icoPartZnxRate))->znxFormat()->get(),

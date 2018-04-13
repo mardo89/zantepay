@@ -69,24 +69,45 @@
                 </div>
 
                 <div class="dashboard-group">
-                    <h2 class="h4 headline-mb">Search users:</h2>
                     <div class="row">
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <div class="date-picker-wrap">
-                                    <input class="input-field date-picker-inp" type="text" name="registered_at" data-toggle="datepicker" placeholder="Registered at">
+                        <div class="col-lg-6">
+
+                            <h2 class="h4 headline-mb">Date interval:</h2>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <div class="date-picker-wrap">
+                                            <input class="input-field date-picker-inp" type="text" name="date_from_filter" data-toggle="datepicker" placeholder="From">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <div class="date-picker-wrap">
+                                            <input class="input-field date-picker-inp" type="text" name="date_to_filter" data-toggle="datepicker" placeholder="To">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
+                        <div class="col-lg-6">
 
-                        <div class="col-lg-5">
-                            <div class="form-group">
-                                <input class="input-field search-field" type="text" name="search-by-email" id="field1" placeholder="Email / Name">
-                                <a href="" class="search-cross"></a>
+                            <h2 class="h4 headline-mb">Search users:</h2>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="input-field search-field" type="text" name="search-by-email" id="field1" placeholder="Email / Name">
+                                        <a href="" class="search-cross"></a>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
+
                 </div>
 
                 <div class="dashboard-group">

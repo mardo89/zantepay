@@ -189,6 +189,21 @@ class IcoPart
     }
 
     /**
+     * Check if Part is finished
+     *
+     * @param int $operationDate
+     *
+     * @return bool
+     */
+    public function isFinished($operationDate)
+    {
+        $checkDate = $operationDate > strtotime($this->icoEndDate);
+        $checkAmount = $this->icoZnxAmount > $this->icoZnxLimit;
+
+        return $checkDate || $checkAmount;
+    }
+
+    /**
      * Increase ZNX amount
      *
      * @param int $amount

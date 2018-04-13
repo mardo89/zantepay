@@ -67,7 +67,8 @@ class ManagerController extends Controller
                 'status_filter' => 'array',
                 'referrer_filter' => 'array',
                 'name_filter' => 'string|nullable',
-                'registered_filter' => 'date|nullable',
+                'date_from_filter' => 'date|nullable',
+                'date_to_filter' => 'date|nullable',
                 'page' => 'integer|min:1',
                 'sort_index' => 'integer',
                 'sort_order' => 'in:asc,desc',
@@ -78,7 +79,8 @@ class ManagerController extends Controller
                     'status_filter' => 'Status Filter',
                     'referrer_filter' => 'Referrer Filter',
                     'name_filter' => 'Name Filter',
-                    'registered_filter' => 'Registration Date Filter',
+                    'date_from_filter' => 'Date From Filter',
+                    'date_to_filter' => 'Date To Filter',
                     'page' => 'Page',
                     'sort_index' => 'Sort Column',
                     'sort_order' => 'Sort Order',
@@ -90,7 +92,8 @@ class ManagerController extends Controller
         $statusFilter = $request->input('status_filter', []);
         $referrerFilter = $request->input('referrer_filter', []);
         $nameFilter = $request->input('name_filter', '');
-        $registeredFilter = $request->input('registered_filter', '');
+        $dateFromFilter = $request->input('date_from_filter', '');
+        $dateToFilter = $request->input('date_to_filter', '');
         $page = $request->input('page', 1);
         $sortIndex = $request->input('sort_index', 0);
         $sortOrder = $request->input('sort_order', 0);
@@ -115,13 +118,12 @@ class ManagerController extends Controller
             );
         }
 
-        if ($registeredFilter != '') {
-            $filterDate = [
-                date('Y-m-d 00:00:00', strtotime($registeredFilter)),
-                date('Y-m-d 23:59:59', strtotime($registeredFilter)),
-            ];
+        if ($dateFromFilter != '') {
+            $queryBuilder->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime($dateFromFilter)));
+        }
 
-            $queryBuilder->whereBetween('created_at', $filterDate);
+        if ($dateToFilter != '') {
+            $queryBuilder->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime($dateToFilter)));
         }
 
         // sort

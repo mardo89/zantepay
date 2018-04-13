@@ -29,8 +29,9 @@ $(document).ready(function () {
         // email / name
         const nameFilter = $(this).find('input[name="search-by-email"]').val();
 
-        // created at filter
-        const registeredFilter = $(this).find('input[name="registered_at"]').val();
+        // date filter
+        const dateFromFiler = $(this).find('input[name="date_from_filter"]').val();
+        const dateToFiler = $(this).find('input[name="date_to_filter"]').val();
 
         // page
         const activePage = parseInt($('.page-item.active .page-link').html());
@@ -63,7 +64,8 @@ $(document).ready(function () {
                     'status_filter': statusFilter,
                     'referrer_filter': referrerFilter,
                     'name_filter': nameFilter,
-                    'registered_filter': registeredFilter,
+                    'date_from_filter': dateFromFiler,
+                    'date_to_filter': dateToFiler,
                     'page': page,
                     'sort_index': sortIndex,
                     'sort_order': sortOrder
@@ -118,7 +120,7 @@ $(document).ready(function () {
                         }
                     );
 
-                    for(let i=1; i<=response.data.paginator.totalPages; i++) {
+                    for (let i = 1; i <= response.data.paginator.totalPages; i++) {
                         const itemClass = response.data.paginator.currentPage == i ? 'page-item active' : 'page-item';
 
                         $('.pagination')
@@ -162,7 +164,7 @@ $(document).ready(function () {
             )
     });
 
-    $('.pagination').on('click', '.page-link', function(e) {
+    $('.pagination').on('click', '.page-link', function (e) {
         e.preventDefault();
 
         let activeItem = $('.page-item.active');
@@ -195,7 +197,7 @@ $(document).ready(function () {
         $('#search_user_frm').trigger('submit');
     });
 
-    $('#users-list .sort').on('click', function(e) {
+    $('#users-list .sort').on('click', function (e) {
         e.preventDefault();
 
         if ($(this).hasClass('sort-asc')) {
@@ -211,7 +213,7 @@ $(document).ready(function () {
         $('#search_user_frm').trigger('submit');
     });
 
-    $('#search_user_frm button[type="submit"]').on('click', function(e) {
+    $('#search_user_frm button[type="submit"]').on('click', function (e) {
         e.preventDefault();
 
         $('.pagination .page-item').empty();

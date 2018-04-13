@@ -7,7 +7,7 @@ class IcoPartTwo extends IcoPart
 {
     protected $id = 'ICO_PART_TWO';
 
-    protected $name = 'ICO I';
+    protected $name = 'ICO';
 
     protected $icoStartDate = '15.04.2018 19:00:00';
 
