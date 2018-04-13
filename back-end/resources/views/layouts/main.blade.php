@@ -78,11 +78,11 @@
                                            onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Japanese');">Japanese
                                         </a>
                                     </li>
-                                    <!-- <li>
+                                    <li>
                                         <a href="{{ asset('storage/Zantepay_Whitepaper_Korean.pdf') }}"
                                            onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Korean');">Korean
                                         </a>
-                                    </li> -->
+                                    </li>
                                     <li>
                                         <a href="{{ asset('storage/Zantepay_Whitepaper_Arabic.pdf') }}"
                                            onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Arabic');">Arabic
