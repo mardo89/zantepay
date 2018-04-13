@@ -722,3 +722,65 @@
       font-size 0.6em
     @media screen and (max-width 575px)
       font-size 0.8em
+
+.lp-section-ref
+  .h2
+    margin-bottom 100px
+
+.lp-ref-chart
+  display inline-block
+  position relative
+  @media screen and (max-width 991px)
+    margin-bottom 40px
+  img
+    vertical-align bottom
+  h3
+    margin 0
+    position absolute
+    left 50%
+    top 50%
+    transform translateY(-50%) translateX(-50%)
+    font-size 19px
+    font-weight 400
+    strong
+      color $primary-color
+      font-size 37px
+      font-weight 700
+      @media screen and (max-width: 767px)
+        font-size 33px
+
+.bounty-list
+  clearlist()
+  li
+    margin-bottom 20px
+    vertical-align middle
+    font-size 24px
+    font-weight 700
+    @media screen and (max-width: 1199px)
+      font-size 21px
+    @media screen and (max-width: 767px)
+      margin-bottom 35px
+      text-align center
+    span
+      color $primary-color
+      white-space nowrap
+    p
+      margin 0
+      display inline-block
+      vertical-align middle
+      @media screen and (max-width: 767px)
+        display block
+        margin-top 10px
+
+.bounty-percent
+  display inline-block
+  vertical-align middle
+  width 100px
+  height 40px
+  line-height 40px
+  font-style normal
+  text-align center
+  border-radius 20px
+  margin-right 40px
+  @media screen and (max-width: 767px)
+    margin-right 0

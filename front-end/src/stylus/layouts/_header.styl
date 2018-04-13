@@ -1,5 +1,7 @@
 .header
   background $bg-color-dark
+  position relative
+  z-index 400
 
 .header-lp
   position relative
@@ -109,7 +111,7 @@
           border-right none
           padding 10px 5px
       &.current-menu-item
-        a
+        & > a
           color $primary-color
       a:hover
         color $primary-color
