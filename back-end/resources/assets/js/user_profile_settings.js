@@ -1,5 +1,12 @@
 require('./helpers');
 
+const resetForms = () => {
+
+    $('#upload-identity-documents').trigger('reset');
+    $('#upload-address-documents').trigger('reset');
+
+}
+
 $(document).ready(function () {
 
     $('.remove-document').on('click', function (event) {
@@ -83,7 +90,7 @@ $(document).ready(function () {
             .then(
                 () => {
                     hideSpinner(button);
-                    $('#document-files').val('');
+                    resetForms();
 
                     $.magnificPopup.open(
                         {
@@ -167,7 +174,7 @@ $(document).ready(function () {
             .then(
                 () => {
                     hideSpinner(button);
-                    $('#address-files').val('');
+                    resetForms();
 
                     $.magnificPopup.open(
                         {

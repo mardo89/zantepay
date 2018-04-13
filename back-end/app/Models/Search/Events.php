@@ -9,9 +9,9 @@ use App\Models\Services\MailService;
 class Events
 {
     /**
-     * Transactions per page
+     * Events per page
      */
-    const EVENTS_PER_PAGE = 2;
+    const EVENTS_PER_PAGE = 25;
 
     /**
      * Search transactions info for Admin -> Grant tables
