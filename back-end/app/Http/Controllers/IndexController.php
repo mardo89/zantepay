@@ -419,7 +419,7 @@ class IndexController extends Controller
             $request,
             [
                 'subject' => 'required|string|max:50',
-                'name' => 'required|string|max:255',
+                'name' => 'required|alpha_num|max:255',
                 'email' => 'required|string|email|max:255',
                 'question' => 'required'
             ],

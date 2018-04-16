@@ -217,6 +217,19 @@ class UserController extends Controller
             )
         );
 
+        if ($request->first_name && $request->last_name && $request->first_name === $request->last_name) {
+            return response()->json(
+                [
+                    'message' => 'Error updating profile',
+                    'errors' => [
+                        'first_name' => 'First and last name should not be the same',
+                        'last_name' => ''
+                    ]
+                ],
+                422
+            );
+        }
+
         DB::beginTransaction();
 
         try {

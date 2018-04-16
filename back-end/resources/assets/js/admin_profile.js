@@ -53,7 +53,6 @@ $(document).ready(function () {
                         showError(message);
                     }
                 }
-
             )
     });
 
@@ -61,47 +60,53 @@ $(document).ready(function () {
     $('#remove-user').on('click', function (event) {
         event.preventDefault();
 
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
+        showConfirmation(
+            'Are you sure do you want to delete this user?',
+            () => {
+                const button = $(this);
+                showSpinner(button);
+                clearErrors();
 
-        const userInfo = {
-            'uid': $('#user-profile-id').val(),
-        }
+                const userInfo = {
+                    'uid': $('#user-profile-id').val(),
+                }
 
-        axios.post(
-            '/admin/profile/remove',
-            qs.stringify(userInfo)
-        )
-            .then(
-                () => {
-                    hideSpinner(button);
+                axios.post(
+                    '/admin/profile/remove',
+                    qs.stringify(userInfo)
+                )
+                    .then(
+                        () => {
+                            hideSpinner(button);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#remove-profile-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                close: function() {
-                                    window.location = '/admin/users'
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#remove-profile-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        close: function () {
+                                            window.location = '/admin/users'
+                                        }
+                                    }
                                 }
-                            }
+                            );
                         }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
+                    )
+                    .catch(
+                        error => {
+                            hideSpinner(button);
 
-                    const {message} = error.response.data;
+                            const {message} = error.response.data;
 
-                    showError(message)
-                }
-            )
+                            showError(message)
+                        }
+                    )
+            }
+        );
+
     });
 
     // Approve documents
