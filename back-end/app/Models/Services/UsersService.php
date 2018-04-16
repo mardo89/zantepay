@@ -38,66 +38,6 @@ class UsersService
     ];
 
     /**
-     *  Get user by ID
-     *
-     * @param int $userID
-     *
-     * @return mixed
-     */
-    public static function getUser($userID)
-    {
-        return User::find($userID);
-    }
-
-    /**
-     *  Get user by UID
-     *
-     * @param string $userID
-     *
-     * @return mixed
-     */
-    public static function findUserByUid($userID)
-    {
-        return User::where('uid', $userID)->first();
-    }
-
-    /**
-     *  Get logged user
-     *
-     * @param int $userID
-     *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
-     */
-    public static function getActiveUser()
-    {
-        return Auth::user();
-    }
-
-    /**
-     *  Get user referrer
-     *
-     * @param User $user
-     *
-     * @return mixed
-     */
-    public static function getReferrer($user)
-    {
-        return self::getUser($user->referrer);
-    }
-
-    /**
-     *  Get user referrals
-     *
-     * @param User $user
-     *
-     * @return mixed
-     */
-    public static function getReferrals($user)
-    {
-        return $user->referrals;
-    }
-
-    /**
      * Return user role
      *
      * @param int $userRole
@@ -128,23 +68,17 @@ class UsersService
     /**
      * Change user role
      *
-     * @param User $user
+     * @param mixed $user
      * @param int $userRole
      *
      * @throws
      */
-    public static function changeUserRole($user, $userRole)
+    public static function changeUserRole(User $user, $userRole)
     {
-        if (!$user) {
-            throw new \Exception('User does not exist');
+        if(array_key_exists($userRole, self::$userRoles)) {
+            $user->role = $userRole;
+            $user->save();
         }
-
-        if (self::isSelf($user)) {
-            throw new \Exception('Admin user can not update role for himself');
-        }
-
-        $user->role = $userRole;
-        $user->save();
     }
 
     /**
@@ -176,6 +110,45 @@ class UsersService
     }
 
     /**
+     * Change user role
+     *
+     * @param mixed $user
+     * @param int $userStatus
+     *
+     * @throws
+     */
+    public static function changeUserStatus(User $user, $userStatus)
+    {
+        if(array_key_exists($userStatus, self::$userStatuses)) {
+            $user->status = $userStatus;
+            $user->save();
+        }
+    }
+
+    /**
+     * Remove user
+     *
+     * @param User $user
+     *
+     * @throws
+     */
+    public static function removeUser($user)
+    {
+        Profile::where('user_id', $user->id)->delete();
+        PasswordReset::where('email', $user->email)->delete();
+        SocialNetworkAccount::where('user_id', $user->id)->delete();
+
+        InvitesService::removeInvites($user->id);
+        DebitCardsService::removeDebitCard($user->id);
+        DocumentsService::removeDocuments($user->id);
+
+        ZantecoinTransaction::where('user_id', $user->id)->delete();
+        Wallet::where('user_id', $user->id)->delete();
+
+        $user->delete();
+    }
+
+    /**
      * Return user home page
      *
      * @param int $userRole
@@ -197,51 +170,6 @@ class UsersService
             default:
                 return '/';
         }
-    }
-
-    /**
-     * Remove user
-     *
-     * @param User $user
-     *
-     * @throws
-     */
-    public static function removeUser($user)
-    {
-        if (!$user) {
-            throw new \Exception('User does not exist');
-        }
-
-        if (self::isSelf($user)) {
-            throw new \Exception('Admin user can not delete himself');
-        }
-
-        Profile::where('user_id', $user->id)->delete();
-        PasswordReset::where('email', $user->email)->delete();
-        SocialNetworkAccount::where('user_id', $user->id)->delete();
-
-        InvitesService::removeInvites($user->id);
-        DebitCardsService::removeDebitCard($user->id);
-        DocumentsService::removeDocuments($user->id);
-
-        ZantecoinTransaction::where('user_id', $user->id)->delete();
-        Wallet::where('user_id', $user->id)->delete();
-
-        $user->delete();
-    }
-
-    /**
-     * Check if user is self
-     *
-     * @param User $user
-     *
-     * @return boolean
-     */
-    public static function isSelf($user)
-    {
-        $loggedUser = UsersService::getActiveUser();
-
-        return $loggedUser->id === $user->id;
     }
 
 }

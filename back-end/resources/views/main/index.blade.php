@@ -85,7 +85,7 @@
                 </div>
 
                 <h3 class="h4 text-center">
-                    Total sold before ICO:
+                    Sold total during private sale and pre-ICO:
                     <p> {{ $ico['prevAmount'] }} ZNX</p>
                 </h3>
 

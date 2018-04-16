@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DB\ExternalRedirect;
+use App\Models\DB\ZantecoinTransaction;
+use App\Models\Search\Transactions;
 use App\Models\Services\MailService;
 use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
@@ -50,7 +52,14 @@ class IndexController extends Controller
         $icoPartAmount = optional($activePart)->getAmount() ?? 0;
         $icoPartRelativeBalance = optional($activePart)->getRelativeBalance() ?? 0;
 
-        $prevPartAmount = optional($previousPart)->getAmount() ?? 0;
+        $prevPartAmount = Transactions::searchTransactionsAmount(
+            [
+                ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX,
+                ZantecoinTransaction::TRANSACTION_ADD_ICO_ZNX,
+                ZantecoinTransaction::TRANSACTION_COMMISSION_TO_ZNX,
+                ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
+            ]
+        );
 
         $ethLimit = RateCalculator::fromZnx($icoPartLimit, $icoPartEthRate);
         $ethAmount = RateCalculator::fromZnx($icoPartAmount, $icoPartEthRate);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UserAccessException;
+use App\Exceptions\UserNotFoundException;
 use App\Models\Search\Transactions;
 use App\Models\DB\GrantCoinsTransaction;
 use App\Models\DB\ZantecoinTransaction;
@@ -25,7 +27,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Save user profile
+     * Change user role
      *
      * @param Request $request
      *
@@ -51,15 +53,29 @@ class AdminController extends Controller
 
         try {
 
-            $user = UsersService::findUserByUid($request->uid);
+            $user = AccountsService::findUserStrict(
+                [
+                    'uid' =>  $request->uid
+                ]
+            );
 
             UsersService::changeUserRole($user, $request->role);
 
         } catch (\Exception $e) {
 
+            $message = 'Error updating user role';
+
+            if($e instanceof UserNotFoundException){
+                $message = $e->getMessage();
+            }
+
+            if($e instanceof UserAccessException){
+                $message = 'Admin user can not update role for himself';
+            }
+
             return response()->json(
                 [
-                    'message' => $e->getMessage(),
+                    'message' => $message,
                     'errors' => []
                 ],
                 500
@@ -97,16 +113,30 @@ class AdminController extends Controller
 
         try {
 
-            $user = UsersService::findUserByUid($request->uid);
+            $user = AccountsService::findUserStrict(
+                [
+                    'uid' =>  $request->uid
+                ]
+            );
 
             UsersService::removeUser($user);
 
         } catch (\Exception $e) {
             DB::rollback();
 
+            $message = 'Error deleting user';
+
+            if($e instanceof UserNotFoundException){
+                $message = $e->getMessage();
+            }
+
+            if($e instanceof UserAccessException){
+                $message = 'Admin user can not delete himself';
+            }
+
             return response()->json(
                 [
-                    'message' => $e->getMessage(),
+                    'message' => $message,
                     'errors' => []
                 ],
                 500
