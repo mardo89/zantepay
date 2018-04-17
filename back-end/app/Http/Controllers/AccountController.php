@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\AuthException;
 use App\Mail\ActivateAccount;
 use App\Mail\ChangePassword;
 use App\Mail\ResetPassword;
@@ -12,6 +13,8 @@ use App\Models\DB\SocialNetworkAccount;
 use App\Models\DB\Verification;
 use App\Models\DB\Wallet;
 use App\Models\DB\User;
+use App\Models\Services\AccountsService;
+use App\Models\Services\AuthService;
 use App\Models\Services\MailService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Auth\AuthenticationException;
@@ -61,28 +64,11 @@ class AccountController extends Controller
             )
         );
 
-        $email = $request->input('email');
-        $password = $request->input('password');
-
         DB::beginTransaction();
 
         try {
 
-            $userInfo = $this->createUser(
-                [
-                    'email' => $email,
-                    'password' => User::hashPassword($password),
-                    'uid' => uniqid()
-                ]
-            );
-
-            ExternalRedirect::addLink(
-                Session::get('externalLink'),
-                $email,
-                ExternalRedirect::ACTION_TYPE_REGISTRATION
-            );
-
-            MailService::sendActivateAccountEmail($userInfo['email'], $userInfo['uid']);
+            $uid = AccountsService::registerUser($request->email, $request->password);
 
         } catch (\Exception $e) {
 
@@ -106,7 +92,7 @@ class AccountController extends Controller
 
         return response()->json(
             [
-                'uid' => $userInfo['uid']
+                'uid' => $uid
             ]
         );
 
@@ -140,28 +126,13 @@ class AccountController extends Controller
 
         );
 
-        $email = $request->input('email', '');
-        $password = $request->input('password', '');
-
         try {
-            $isAuthorized = Auth::attempt(
-                [
-                    'email' => $email,
-                    'password' => $password,
-                ]
-            );
 
-            if (!$isAuthorized) {
-                throw new AuthenticationException('Login or password incorrect');
-            }
-
-            if (Auth::user()->status === User::USER_STATUS_INACTIVE) {
-                throw new AuthenticationException('Your account is disabled');
-            }
+            AuthService::loginUser($request->email, $request->password);
 
         } catch (\Exception $e) {
 
-            $message = ($e instanceof AuthenticationException) ? $e->getMessage() : 'Authentification failed';
+            $message = ($e instanceof AuthException) ? $e->getMessage() : 'Authentification failed';
 
             return response()->json(
                 [
@@ -189,7 +160,7 @@ class AccountController extends Controller
     {
         try {
 
-            Auth::logout();
+            AuthService::logoutUser();
 
         } catch (\Exception $e) {
 
@@ -361,7 +332,7 @@ class AccountController extends Controller
      *
      * @return array
      */
-    protected function createUser($userInfo)
+    public function createUser($userInfo)
     {
         $referrer = Session::get('referrer');
 

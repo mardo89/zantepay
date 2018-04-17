@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     /**
-     * Identification status
-     */
-    const IDENTIFICATION_NOT_APPROVED = 0;
-
-    const IDENTIFICATION_APPROVED = 1;
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array

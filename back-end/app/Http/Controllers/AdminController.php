@@ -10,6 +10,7 @@ use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\AccountsService;
 use App\Models\Services\IcoService;
 use App\Models\Services\TokensService;
+use App\Models\Services\TransactionsService;
 use App\Models\Services\UsersService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
@@ -291,7 +292,7 @@ class AdminController extends Controller
 
             $filters = [
                 'grant_type_filter' => GrantCoinsTransaction::GRANT_ICO_TOKENS,
-                'znx_type_filter' => ZantecoinTransaction::getIcoTransactionTypes(),
+                'znx_type_filter' => TransactionsService::getIcoTransactionTypes(),
                 'part_filter' => $request->part_filter,
                 'status_filter' => $request->status_filter,
                 'page' => $request->page,
@@ -354,7 +355,7 @@ class AdminController extends Controller
 
             $filters = [
                 'grant_type_filter' => GrantCoinsTransaction::GRANT_COMPANY_TOKENS,
-                'znx_type_filter' => ZantecoinTransaction::getFoundationTransactionTypes(),
+                'znx_type_filter' => TransactionsService::getFoundationTransactionTypes(),
                 'part_filter' => $request->part_filter,
                 'status_filter' => $request->status_filter,
                 'page' => $request->page,

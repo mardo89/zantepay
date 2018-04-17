@@ -11,6 +11,20 @@ class DocumentsService
 {
 
     /**
+     * Create Verification
+     *
+     * @param int $userID
+     */
+    public static function createVerification($userID)
+    {
+        Verification::create(
+            [
+                'user_id' => $userID
+            ]
+        );
+    }
+
+    /**
      * Check if documents verification is complete
      *
      * @param User $user

@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 
-class AuthException extends \Exception
+class PasswordException extends \Exception
 {
 
     public function __construct($message)

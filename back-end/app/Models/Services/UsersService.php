@@ -110,7 +110,7 @@ class UsersService
     }
 
     /**
-     * Change user role
+     * Change user status
      *
      * @param mixed $user
      * @param int $userStatus
@@ -126,26 +126,17 @@ class UsersService
     }
 
     /**
-     * Remove user
+     * Change user password
      *
-     * @param User $user
+     * @param mixed $user
+     * @param string $userPassword
      *
      * @throws
      */
-    public static function removeUser($user)
+    public static function changeUserPassword(User $user, $userPassword)
     {
-        Profile::where('user_id', $user->id)->delete();
-        PasswordReset::where('email', $user->email)->delete();
-        SocialNetworkAccount::where('user_id', $user->id)->delete();
-
-        InvitesService::removeInvites($user->id);
-        DebitCardsService::removeDebitCard($user->id);
-        DocumentsService::removeDocuments($user->id);
-
-        ZantecoinTransaction::where('user_id', $user->id)->delete();
-        Wallet::where('user_id', $user->id)->delete();
-
-        $user->delete();
+        $user->password = $userPassword;
+        $user->save();
     }
 
 }

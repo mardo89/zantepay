@@ -21,36 +21,6 @@ class AuthService
         User::USER_ROLE_SALES => '/admin/users',
         User::USER_ROLE_USER => '/user/wallet',
     ];
-    /**
-     *  Register new user
-     *
-     * @param string $email
-     * @param string $password
-     *
-     * @return User
-     */
-    public static function registerUser($email, $password)
-    {
-        $uid = uniqid();
-
-        self::createUser(
-            [
-                'email' => $email,
-                'password' => $password,
-                'uid' => $uid
-            ]
-        );
-
-        ExternalRedirect::addLink(
-            Session::get('externalLink'),
-            $email,
-            ExternalRedirect::ACTION_TYPE_REGISTRATION
-        );
-
-        MailService::sendActivateAccountEmail($email, $uid);
-
-        return $uid;
-    }
 
     /**
      *  Login user
@@ -81,6 +51,46 @@ class AuthService
     }
 
     /**
+     *  Login user with Facebook
+     *
+     * @throws
+     */
+    public static function loginWithFacebook()
+    {
+        $userID = AccountsService::registerFacebookUser();
+
+        $isAuthorized = Auth::loginUsingId($userID);
+
+        if (!$isAuthorized) {
+            throw new AuthException('Authentification failed.');
+        }
+
+        $activeUser = AccountsService::getActiveUser();
+
+        return self::getHomePage($activeUser->role);
+    }
+
+    /**
+     *  Login user with Google
+     *
+     * @throws
+     */
+    public static function loginWithGoogle()
+    {
+        $userID = AccountsService::registerGoogleUser();
+
+        $isAuthorized = Auth::loginUsingId($userID);
+
+        if (!$isAuthorized) {
+            throw new AuthException('Authentification failed.');
+        }
+
+        $activeUser = AccountsService::getActiveUser();
+
+        return self::getHomePage($activeUser->role);
+    }
+
+    /**
      *  Logout user
      *
      * @throws
@@ -88,58 +98,6 @@ class AuthService
     public static function logoutUser()
     {
         Auth::logout();
-    }
-
-    /**
-     * Check password with existing hash
-     *
-     * @param string $password
-     * @param string $hash
-     *
-     * @return bool
-     */
-    public static function checkPassword($password, $hash) {
-        return password_verify($password, $hash);
-    }
-
-    /**
-     * Create user with profile, wallet, documents
-     *
-     * @param array $userInfo
-     *
-     * @return User
-     */
-    protected static function createUser($userInfo)
-    {
-        $referrer = Session::get('referrer');
-
-        if (!is_null($referrer)) {
-            $userInfo['referrer'] = $referrer;
-        }
-
-        $user = User::create($userInfo);
-
-        Profile::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Verification::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Wallet::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Session::forget('referrer');
-
-        return $user;
     }
 
     /**

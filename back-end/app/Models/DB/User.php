@@ -189,37 +189,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Generate password hash
+     * Automaticaly bcrypt password field
      *
-     * @param string $password
-     *
-     * @return string
+     * @param $value
      */
-    public static function hashPassword($password) {
-        return bcrypt($password);
-    }
-
-    /**
-     * Check password with existing hash
-     *
-     * @param string $password
-     * @param string $hash
-     *
-     * @return bool
-     */
-    public static function checkPassword($password, $hash) {
-        return password_verify($password, $hash);
-    }
-
-    /**
-     * Change user status
-     *
-     * @param int $userStatus
-     */
-    public function changeStatus($userStatus) {
-        $this->status = $userStatus;
-
-        $this->save();
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
 }

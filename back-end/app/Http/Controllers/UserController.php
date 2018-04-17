@@ -86,13 +86,13 @@ class UserController extends Controller
      */
     public function acceptTerms()
     {
-        $user = Auth::user();
-
         DB::beginTransaction();
 
         try {
 
-            $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
+            $user = AccountsService::getActiveUser();
+
+            UsersService::changeUserStatus($user, User::USER_STATUS_NOT_VERIFIED);
 
             MailService::sendWelcomeEmail($user->email);
 

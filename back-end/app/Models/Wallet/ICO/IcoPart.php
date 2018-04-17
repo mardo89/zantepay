@@ -5,6 +5,7 @@ namespace App\Models\Wallet\ICO;
 use App\Models\DB\Contribution;
 use App\Models\DB\EthRate;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\TransactionsService;
 
 class IcoPart
 {
@@ -64,7 +65,7 @@ class IcoPart
     protected function init()
     {
         $this->icoZnxAmount = ZantecoinTransaction::where('ico_part', $this->getID())
-            ->whereIn('transaction_type', ZantecoinTransaction::getIcoTransactionTypes())
+            ->whereIn('transaction_type', TransactionsService::getIcoTransactionTypes())
             ->get()
             ->sum('amount');
 
