@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DB\ExternalRedirect;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Search\Transactions;
+use App\Models\Services\AccountsService;
 use App\Models\Services\MailService;
 use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
@@ -481,7 +482,11 @@ class IndexController extends Controller
 
         try {
 
-            $user = UsersService::findUserByUid($request->uid);
+            $user = AccountsService::findUser(
+                [
+                    'uid' => $request->uid
+                ]
+            );
 
             if ($user) {
                 MailService::sendActivateAccountEmail($user->email, $user->uid);

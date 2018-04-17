@@ -28,6 +28,7 @@ class AuthService
      * @param string $email
      * @param string $password
      *
+     * @return string
      * @throws
      */
     public static function loginUser($email, $password)
@@ -48,11 +49,16 @@ class AuthService
         if (optional($activeUser)->isDisabled()) {
             throw new AuthException('Your account is disabled');
         }
+
+        $activeUser = AccountsService::getActiveUser();
+
+        return self::getHomePage($activeUser->role);
     }
 
     /**
      *  Login user with Facebook
      *
+     * @return string
      * @throws
      */
     public static function loginWithFacebook()
@@ -73,6 +79,7 @@ class AuthService
     /**
      *  Login user with Google
      *
+     * @return string
      * @throws
      */
     public static function loginWithGoogle()
@@ -107,7 +114,7 @@ class AuthService
      *
      * @return string
      */
-    protected function getHomePage($userRole)
+    protected static function getHomePage($userRole)
     {
         return self::$homePages[$userRole] ?? '/';
     }

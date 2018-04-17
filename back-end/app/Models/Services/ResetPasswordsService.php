@@ -16,12 +16,16 @@ class ResetPasswordsService
      */
     public static function createPasswordReset($userEmail)
     {
-        return PasswordReset::create(
+        $resetToken = uniqid();
+
+        PasswordReset::create(
             [
                 'email' => $userEmail,
-                'token' => uniqid()
+                'token' => $resetToken
             ]
         );
+
+        MailService::sendResetPasswordEmail($userEmail, $resetToken);
     }
 
 

@@ -3,28 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\AuthException;
-use App\Mail\ActivateAccount;
-use App\Mail\ChangePassword;
-use App\Mail\ResetPassword;
-use App\Models\DB\ExternalRedirect;
-use App\Models\DB\PasswordReset;
-use App\Models\DB\Profile;
-use App\Models\DB\SocialNetworkAccount;
-use App\Models\DB\Verification;
-use App\Models\DB\Wallet;
-use App\Models\DB\User;
 use App\Models\Services\AccountsService;
 use App\Models\Services\AuthService;
-use App\Models\Services\MailService;
+use App\Models\Services\ResetPasswordsService;
 use App\Models\Validation\ValidationMessages;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
-use Mockery\Exception;
 
 
 class AccountController extends Controller
@@ -128,7 +113,7 @@ class AccountController extends Controller
 
         try {
 
-            AuthService::loginUser($request->email, $request->password);
+            $userPage = AuthService::loginUser($request->email, $request->password);
 
         } catch (\Exception $e) {
 
@@ -148,7 +133,7 @@ class AccountController extends Controller
 
         return response()->json(
             [
-                'userPage' => $this->getUserPage(Auth::user()->role)
+                'userPage' => $userPage
             ]
         );
     }
@@ -206,20 +191,11 @@ class AccountController extends Controller
             )
         );
 
-        $email = $request->input('email');
-
         DB::beginTransaction();
 
         try {
 
-            $resetInfo = PasswordReset::create(
-                [
-                    'email' => $email,
-                    'token' => uniqid()
-                ]
-            );
-
-            MailService::sendResetPasswordEmail($resetInfo['email'], $resetInfo['token']);
+            ResetPasswordsService::createPasswordReset($request->email);
 
         } catch (\Exception $e) {
 
@@ -272,38 +248,11 @@ class AccountController extends Controller
             )
         );
 
-        $resetInfo = PasswordReset::where('token', $request->token)
-            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 15 MINUTE)'))
-            ->first();
-
-        if (is_null($resetInfo)) {
-            return response()->json(
-                [
-                    'nextStep' => action('IndexController@resetPassword')
-                ]
-            );
-        }
-
-        $user = User::where('email', $resetInfo->email)->first();
-
-        if (is_null($user)) {
-            return response()->json(
-                [
-                    'nextStep' => action('IndexController@resetPassword')
-                ]
-            );
-        }
-
         DB::beginTransaction();
 
         try {
 
-            $user->password = User::hashPassword($request->password);
-            $user->save();
-
-            PasswordReset::where('email', $user->email)->delete();
-
-            MailService::sendChangePasswordEmail($user->email);
+            AccountsService::savePassword($request->token, $request->password);
 
         } catch (\Exception $e) {
 
@@ -326,73 +275,6 @@ class AccountController extends Controller
     }
 
     /**
-     * Create user with profile and wallet
-     *
-     * @param array $userInfo
-     *
-     * @return array
-     */
-    public function createUser($userInfo)
-    {
-        $referrer = Session::get('referrer');
-
-        if (!is_null($referrer)) {
-            $userInfo['referrer'] = $referrer;
-        }
-
-        $user = User::create($userInfo);
-
-        Profile::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Verification::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Wallet::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Session::forget('referrer');
-
-        return $user;
-    }
-
-    /**
-     * Return user home page
-     *
-     * @param int $userRole
-     *
-     * @return string
-     */
-    protected function getUserPage($userRole)
-    {
-        switch ($userRole) {
-            case User::USER_ROLE_ADMIN:
-                return '/admin/users';
-
-            case User::USER_ROLE_MANAGER:
-                return '/admin/users';
-
-            case User::USER_ROLE_SALES:
-                return '/admin/users';
-
-            case User::USER_ROLE_USER:
-                return '/user/wallet';
-
-            default:
-                return '/';
-        }
-    }
-
-    /**
      * Redirect to Facebook
      * @return redirect
      */
@@ -412,69 +294,15 @@ class AccountController extends Controller
 
         try {
 
-            $snUser = Socialite::driver('facebook')->user();
-
-            $userNameParts = explode(' ', $snUser->getName());
-
-            $snAccount = SocialNetworkAccount::where('user_token', $snUser->getId())
-                ->where('social_network_id', SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK)
-                ->first();
-
-            if (!$snAccount) {
-
-                $userInfo = User::where('email', $snUser->email)->first();
-
-                if (!$userInfo) {
-
-                    // register a new User
-                    $userInfo = $this->createUser(
-                        [
-                            'email' => $snUser->email,
-                            'password' => User::hashPassword(uniqid()),
-                            'uid' => uniqid(),
-                            'status' => User::USER_STATUS_PENDING,
-                            'first_name' => $userNameParts[1] ?? "",
-                            'last_name' => $userNameParts[0] ?? "",
-                            'avatar' => $snUser->avatar,
-                        ]
-                    );
-
-                }
-
-                //create social network account
-                SocialNetworkAccount::create(
-                    [
-                        'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK,
-                        'user_token' => $snUser->getId(),
-                        'user_id' => $userInfo->id
-                    ]
-                );
-
-                $userID = $userInfo['id'];
-
-            } else {
-
-                $userID = $snAccount->user->id;
-
-            }
-
-            $isAuthorized = Auth::loginUsingId($userID);
-
-            if (!$isAuthorized) {
-                throw new Exception('Authentification failed.');
-            }
+            $redirectUrl = AuthService::loginWithFacebook();
 
         } catch (\Exception $e) {
 
-            return redirect()->action('IndexController@main');
+            $redirectUrl = redirect()->action('IndexController@main');
 
         }
 
-        return redirect(
-            $this->getUserPage(
-                Auth::user()->role
-            )
-        );
+        return redirect($redirectUrl);
     }
 
     /**
@@ -497,69 +325,15 @@ class AccountController extends Controller
 
         try {
 
-            $snUser = Socialite::driver('google')->user();
-
-            $userNameParts = explode(' ', $snUser->getName());
-
-            $snAccount = SocialNetworkAccount::where('user_token', $snUser->getId())
-                ->where('social_network_id', SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE)
-                ->first();
-
-            if (!$snAccount) {
-
-                $userInfo = User::where('email', $snUser->email)->first();
-
-                if (!$userInfo) {
-
-                    // register a new User
-                    $userInfo = $this->createUser(
-                        [
-                            'email' => $snUser->email,
-                            'password' => User::hashPassword(uniqid()),
-                            'uid' => uniqid(),
-                            'status' => User::USER_STATUS_PENDING,
-                            'first_name' => $userNameParts[0] ?? "",
-                            'last_name' => $userNameParts[1] ?? "",
-                            'avatar' => $snUser->avatar,
-                        ]
-                    );
-
-                }
-
-                //create social network account
-                SocialNetworkAccount::create(
-                    [
-                        'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE,
-                        'user_token' => $snUser->getId(),
-                        'user_id' => $userInfo->id
-                    ]
-                );
-
-                $userID = $userInfo['id'];
-
-            } else {
-
-                $userID = $snAccount->user->id;
-
-            }
-
-            $isAuthorized = Auth::loginUsingId($userID);
-
-            if (!$isAuthorized) {
-                throw new Exception('Authentification failed.');
-            }
+            $redirectUrl = AuthService::loginWithGoogle();
 
         } catch (\Exception $e) {
 
-            return redirect()->action('IndexController@main');
+            $redirectUrl = redirect()->action('IndexController@main');
 
         }
 
-        return redirect(
-            $this->getUserPage(
-                Auth::user()->role
-            )
-        );
+        return redirect($redirectUrl);
     }
 
 }
