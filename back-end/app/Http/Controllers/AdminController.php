@@ -6,12 +6,10 @@ use App\Exceptions\UserAccessException;
 use App\Exceptions\UserNotFoundException;
 use App\Models\Search\Transactions;
 use App\Models\DB\GrantCoinsTransaction;
-use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\AccountsService;
 use App\Models\Services\IcoService;
 use App\Models\Services\TokensService;
 use App\Models\Services\TransactionsService;
-use App\Models\Services\UsersService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,13 +52,7 @@ class AdminController extends Controller
 
         try {
 
-            $user = AccountsService::findUserStrict(
-                [
-                    'uid' =>  $request->uid
-                ]
-            );
-
-            UsersService::changeUserRole($user, $request->role);
+            AccountsService::changeUserRole($request->uid, $request->role);
 
         } catch (\Exception $e) {
 
@@ -114,13 +106,7 @@ class AdminController extends Controller
 
         try {
 
-            $user = AccountsService::findUserStrict(
-                [
-                    'uid' =>  $request->uid
-                ]
-            );
-
-            UsersService::removeUser($user);
+            AccountsService::removeUser($request->uid);
 
         } catch (\Exception $e) {
             DB::rollback();

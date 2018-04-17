@@ -6,6 +6,7 @@ use App\Models\DB\ExternalRedirect;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Search\Transactions;
 use App\Models\Services\AccountsService;
+use App\Models\Services\IcoService;
 use App\Models\Services\MailService;
 use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
@@ -260,15 +261,15 @@ class IndexController extends Controller
      */
     public function confirmActivation(Request $request)
     {
-        $userID = $request->input('uid', '');
+        try {
 
-        $user = User::where('uid', $userID)->first();;
+            AccountsService::changeUserStatus($request->uid, User::USER_STATUS_PENDING);
 
-        if (!$user || $user->status != User::USER_STATUS_INACTIVE) {
+        } catch (\Exception $e) {
+
             return redirect('/');
-        }
 
-        $user->changeStatus(User::USER_STATUS_PENDING);
+        }
 
         return view('main.confirm-email');
     }

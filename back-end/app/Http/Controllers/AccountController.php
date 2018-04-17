@@ -298,7 +298,7 @@ class AccountController extends Controller
 
         } catch (\Exception $e) {
 
-            $redirectUrl = redirect()->action('IndexController@main');
+            $redirectUrl = '/';
 
         }
 
@@ -329,7 +329,7 @@ class AccountController extends Controller
 
         } catch (\Exception $e) {
 
-            $redirectUrl = redirect()->action('IndexController@main');
+            $redirectUrl = '/';
 
         }
 

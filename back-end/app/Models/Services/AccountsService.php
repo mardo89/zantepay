@@ -13,7 +13,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AccountsService
 {
-
     /**
      *  Register new user
      *
@@ -152,11 +151,7 @@ class AccountsService
      */
     public static function removeUser($userUID)
     {
-        $user = self::findUserStrict(
-            [
-                'uid' => $userUID
-            ]
-        );
+        $user = self::getUserByID($userUID);
 
         WalletsService::removeWallet($user->id);
         TransactionsService::removeTransactions($user->id);
@@ -168,6 +163,36 @@ class AccountsService
         ResetPasswordsService::removePasswordReset($user->email);
 
         $user->delete();
+    }
+
+    /**
+     * Change user role
+     *
+     * @param string $userUID
+     * @param int $userRole
+     *
+     * @throws
+     */
+    public static function changeUserRole($userUID, $userRole)
+    {
+        $user = self::getUserByID($userUID);
+
+        UsersService::changeUserRole($user, $userRole);
+    }
+
+    /**
+     * Change user status
+     *
+     * @param string $userUID
+     * @param int $userRole
+     *
+     * @throws
+     */
+    public static function changeUserStatus($userUID, $userStatus)
+    {
+        $user = self::getUserByID($userUID);
+
+        UsersService::changeUserStatus($user, $userStatus);
     }
 
     /**
@@ -209,7 +234,6 @@ class AccountsService
         MailService::sendChangePasswordEmail($user->email);
     }
 
-
     /**
      *  Get user by ID
      *
@@ -224,6 +248,25 @@ class AccountsService
         return self::findUser(
             [
                 'id' => $userID
+            ]
+        );
+
+    }
+
+    /**
+     *  Get user by UID
+     *
+     * @param int $userUID
+     *
+     * @return User
+     * @throws UserNotFoundException
+     */
+    public static function getUserByID($userUID)
+    {
+
+        return self::findUser(
+            [
+                'uid' => $userUID
             ]
         );
 
