@@ -15,6 +15,7 @@ class BonusesService
      * @param User $user
      *
      * @return mixed
+     * @throws
      */
     public static function updateBonus($user)
     {
@@ -31,7 +32,7 @@ class BonusesService
         $wallet->save();
 
         // referrer bonus
-        $referrer = UsersService::getReferrer($user);
+        $referrer = AccountsService::getReferrer($user->referrer);
 
         if (!$referrer) {
             return;
@@ -54,8 +55,8 @@ class BonusesService
         $hasDebitCard = DebitCardsService::checkDebitCard($referral);
         $documentsVerified = DocumentsService::verificationComplete($referral);
 
-        $referralBonus =  $hasDebitCard ? Wallet::REFERRAL_BONUS : 0;
-        $bonusStatus =  $documentsVerified ? '(locked - account is not verified)' : '';
+        $referralBonus = $hasDebitCard ? Wallet::REFERRAL_BONUS : 0;
+        $bonusStatus = $documentsVerified ? '(locked - account is not verified)' : '';
 
         return $referralBonus > 0 ? $referralBonus . ' ' . $bonusStatus : '';
     }

@@ -12,6 +12,7 @@ use App\Models\DB\TransferTransaction;
 use App\Models\DB\Wallet;
 use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\AccountsService;
 use App\Models\Services\BonusesService;
 use App\Models\Services\InvitesService;
 use App\Models\Services\MailService;
@@ -671,7 +672,7 @@ class UserController extends Controller
      */
     public function invite()
     {
-        $user = UsersService::getActiveUser();
+        $user = AccountsService::getActiveUser();
 
         $invitedUsers = InvitesService::getInvitedUsers($user);
 

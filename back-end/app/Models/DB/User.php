@@ -180,6 +180,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is deactivated
+     *
+     * @return boolean
+     */
+    public function isDisabled() {
+        return $this->status == self::USER_STATUS_INACTIVE;
+    }
+
+    /**
      * Generate password hash
      *
      * @param string $password

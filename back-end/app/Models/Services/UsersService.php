@@ -148,28 +148,4 @@ class UsersService
         $user->delete();
     }
 
-    /**
-     * Return user home page
-     *
-     * @param int $userRole
-     *
-     * @return string
-     */
-    public static function getUserPage($userRole)
-    {
-        switch ($userRole) {
-            case User::USER_ROLE_ADMIN:
-                return '/admin/users';
-
-            case User::USER_ROLE_MANAGER:
-                return '/admin/users';
-
-            case User::USER_ROLE_USER:
-                return '/user/profile';
-
-            default:
-                return '/';
-        }
-    }
-
 }

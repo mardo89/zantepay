@@ -41,7 +41,7 @@ class InvitesService
             ];
         }
 
-        $referrals = UsersService::getReferrals($user);
+        $referrals = $user->referrals;
 
         foreach ($referrals as $referral) {
             $hidePos = strrpos($referral->email, "@");

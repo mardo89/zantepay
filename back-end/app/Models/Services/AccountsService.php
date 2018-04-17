@@ -34,25 +34,16 @@ class AccountsService
      *
      * @param string $userReferrer
      *
-     * @return User
+     * @return mixed
      * @throws
      */
     public static function getReferrer($userReferrer)
     {
-        return self::getUser($userReferrer);
-    }
+        if (!$userReferrer) {
+            return null;
+        }
 
-    /**
-     *  Get user referrals
-     *
-     * @param int $userID
-     *
-     * @return mixed
-     * @throws
-     */
-    public static function getReferrals($userID)
-    {
-        return self::getUser($userID)->referrals;
+        return User::where('referrer', $userReferrer)->first();
     }
 
     /**
