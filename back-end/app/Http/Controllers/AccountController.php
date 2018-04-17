@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ActivateAccount;
+use App\Mail\ChangePassword;
 use App\Mail\ResetPassword;
 use App\Models\DB\ExternalRedirect;
 use App\Models\DB\PasswordReset;
@@ -11,6 +12,7 @@ use App\Models\DB\SocialNetworkAccount;
 use App\Models\DB\Verification;
 use App\Models\DB\Wallet;
 use App\Models\DB\User;
+use App\Models\Services\MailService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
@@ -80,7 +82,7 @@ class AccountController extends Controller
                 ExternalRedirect::ACTION_TYPE_REGISTRATION
             );
 
-            Mail::to($userInfo['email'])->send(new ActivateAccount($userInfo['uid']));
+            MailService::sendActivateAccountEmail($userInfo['email'], $userInfo['uid']);
 
         } catch (\Exception $e) {
 
@@ -119,6 +121,24 @@ class AccountController extends Controller
      */
     public function login(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|email|max:255',
+                'password' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                    'password' => 'Password',
+                ],
+                [
+                    'email.required' => 'Enter email',
+                    'password.required' => 'Enter password',
+                ]
+            )
+
+        );
 
         $email = $request->input('email', '');
         $password = $request->input('password', '');
@@ -228,7 +248,7 @@ class AccountController extends Controller
                 ]
             );
 
-            Mail::to($resetInfo['email'])->send(new ResetPassword($resetInfo['token']));
+            MailService::sendResetPasswordEmail($resetInfo['email'], $resetInfo['token']);
 
         } catch (\Exception $e) {
 
@@ -311,6 +331,8 @@ class AccountController extends Controller
             $user->save();
 
             PasswordReset::where('email', $user->email)->delete();
+
+            MailService::sendChangePasswordEmail($user->email);
 
         } catch (\Exception $e) {
 
@@ -429,25 +451,31 @@ class AccountController extends Controller
 
             if (!$snAccount) {
 
-                // register a new User
-                $userInfo = $this->createUser(
-                    [
-                        'email' => $snUser->email,
-                        'password' => User::hashPassword(uniqid()),
-                        'uid' => uniqid(),
-                        'status' => User::USER_STATUS_PENDING,
-                        'first_name' => $userNameParts[1] ?? "",
-                        'last_name' => $userNameParts[0] ?? "",
-                        'avatar' => $snUser->avatar,
-                    ]
-                );
+                $userInfo = User::where('email', $snUser->email)->first();
+
+                if (!$userInfo) {
+
+                    // register a new User
+                    $userInfo = $this->createUser(
+                        [
+                            'email' => $snUser->email,
+                            'password' => User::hashPassword(uniqid()),
+                            'uid' => uniqid(),
+                            'status' => User::USER_STATUS_PENDING,
+                            'first_name' => $userNameParts[1] ?? "",
+                            'last_name' => $userNameParts[0] ?? "",
+                            'avatar' => $snUser->avatar,
+                        ]
+                    );
+
+                }
 
                 //create social network account
                 SocialNetworkAccount::create(
                     [
                         'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK,
                         'user_token' => $snUser->getId(),
-                        'user_id' => $userInfo['id']
+                        'user_id' => $userInfo->id
                     ]
                 );
 
@@ -508,25 +536,31 @@ class AccountController extends Controller
 
             if (!$snAccount) {
 
-                // register a new User
-                $userInfo = $this->createUser(
-                    [
-                        'email' => $snUser->email,
-                        'password' => User::hashPassword(uniqid()),
-                        'uid' => uniqid(),
-                        'status' => User::USER_STATUS_PENDING,
-                        'first_name' => $userNameParts[0] ?? "",
-                        'last_name' => $userNameParts[1] ?? "",
-                        'avatar' => $snUser->avatar,
-                    ]
-                );
+                $userInfo = User::where('email', $snUser->email)->first();
+
+                if (!$userInfo) {
+
+                    // register a new User
+                    $userInfo = $this->createUser(
+                        [
+                            'email' => $snUser->email,
+                            'password' => User::hashPassword(uniqid()),
+                            'uid' => uniqid(),
+                            'status' => User::USER_STATUS_PENDING,
+                            'first_name' => $userNameParts[0] ?? "",
+                            'last_name' => $userNameParts[1] ?? "",
+                            'avatar' => $snUser->avatar,
+                        ]
+                    );
+
+                }
 
                 //create social network account
                 SocialNetworkAccount::create(
                     [
                         'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE,
                         'user_token' => $snUser->getId(),
-                        'user_id' => $userInfo['id']
+                        'user_id' => $userInfo->id
                     ]
                 );
 

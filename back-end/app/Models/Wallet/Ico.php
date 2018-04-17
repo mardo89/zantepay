@@ -26,7 +26,7 @@ class Ico
     /**
      * Get current ICO part
      *
-     * @return mixed
+     * @return IcoPartFour|IcoPartOne|IcoPartThree|IcoPartTwo|null
      */
     public function getActivePart() {
         $currentDate = time();
@@ -44,6 +44,33 @@ class Ico
         }
 
         if ($this->icoPartFour->isActive($currentDate)) {
+            return $this->icoPartFour;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get previous ICO part
+     *
+     * @return IcoPartFour|IcoPartOne|IcoPartThree|IcoPartTwo|null
+     */
+    public function getPreviousPart() {
+        $currentDate = time();
+
+        if ($this->icoPartOne->isFinished($currentDate)) {
+            return $this->icoPartOne;
+        }
+
+        if ($this->icoPartTwo->isFinished($currentDate)) {
+            return $this->icoPartTwo;
+        }
+
+        if ($this->icoPartThree->isFinished($currentDate)) {
+            return $this->icoPartThree;
+        }
+
+        if ($this->icoPartFour->isFinished($currentDate)) {
             return $this->icoPartFour;
         }
 
@@ -80,6 +107,7 @@ class Ico
 
     /**
      * Gett array of availabe ICO parts
+     *
      * @return array
      */
     public function getParts() {
@@ -130,4 +158,5 @@ class Ico
     {
         return $this->icoPartFour;
     }
+
 }

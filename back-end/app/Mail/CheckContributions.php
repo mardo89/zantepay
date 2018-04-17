@@ -19,13 +19,13 @@ class CheckContributions extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param array $contributions
+     * @param array $mailData
      *
      * @return void
      */
-    public function __construct($contributions)
+    public function __construct($mailData)
     {
-        $this->contributionsList = $contributions;
+        $this->contributionsList = $mailData['contributions'];
     }
 
     /**
@@ -36,7 +36,6 @@ class CheckContributions extends Mailable
     public function build()
     {
         return $this->subject('Contributions Checking System')
-            ->to(env('SERVICE_EMAIL'))
             ->view('emails.check-contributions');
     }
 }

@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="signin_pwd" class="input-field" type="password" name="password" placeholder="Password">
+                        <input id="signin_pwd" class="input-field" type="password" name="password" placeholder="Password" autocomplete="off">
                     </div>
 
                     <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Sign In</button>

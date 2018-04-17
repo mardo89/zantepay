@@ -24,15 +24,14 @@ class SystemAlert extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $event
-     * @param string $message
+     * @param array $mailData
      *
      * @return void
      */
-    public function __construct($event, $message)
+    public function __construct($mailData)
     {
-        $this->event = $event;
-        $this->alertMessage = $message;
+        $this->event = $mailData['event'];
+        $this->alertMessage = $mailData['message'];
     }
 
     /**
@@ -43,7 +42,6 @@ class SystemAlert extends Mailable
     public function build()
     {
         return $this->subject($this->event)
-            ->to(env('SERVICE_EMAIL'))
             ->view('emails.system-alert');
 
     }

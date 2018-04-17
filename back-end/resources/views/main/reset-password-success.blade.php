@@ -9,14 +9,16 @@
         <input type="hidden" name="reset-token" value="{{ $resetToken }}"/>
 
         <div class="form-group">
-            <input id="signup_pwd" class="input-field" type="password" name="password" placeholder="Password">
+            <input id="signup_pwd" class="input-field" type="password" name="password" placeholder="Password" autocomplete="off">
         </div>
 
         <div class="form-group">
-            <input id="signup_cnf_pwd" class="input-field" type="password" name="confirm-password" placeholder="Confirm Password">
+            <input id="signup_cnf_pwd" class="input-field" type="password" name="confirm-password" placeholder="Confirm Password" autocomplete="off">
         </div>
 
-        <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Apply</button>
+        <div class="form-group">
+            <input type="submit" class="btn btn--shadowed-light btn--full-w" value="Apply" />
+        </div>
     </form>
 
 @endsection

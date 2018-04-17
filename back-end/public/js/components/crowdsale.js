@@ -10,32 +10,21 @@ window.onload = function() {
 }
 var CrowdSaleContract = web3.eth.contract([
 	{
-		"constant": false,
+		"anonymous": false,
 		"inputs": [
 			{
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "withdrawFunds",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "wallet",
-		"outputs": [
+				"indexed": true,
+				"name": "_from",
+				"type": "address"
+			},
 			{
-				"name": "",
+				"indexed": true,
+				"name": "_to",
 				"type": "address"
 			}
 		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+		"name": "OwnershipTransferred",
+		"type": "event"
 	},
 	{
 		"constant": false,
@@ -44,20 +33,6 @@ var CrowdSaleContract = web3.eth.contract([
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -77,20 +52,6 @@ var CrowdSaleContract = web3.eth.contract([
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "newOwner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -120,34 +81,6 @@ var CrowdSaleContract = web3.eth.contract([
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "fallback"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "userId",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"name": "proxy",
-				"type": "address"
-			}
-		],
-		"name": "UserProxyCreated",
-		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -193,20 +126,87 @@ var CrowdSaleContract = web3.eth.contract([
 		"inputs": [
 			{
 				"indexed": true,
-				"name": "_from",
-				"type": "address"
+				"name": "userId",
+				"type": "bytes32"
 			},
 			{
-				"indexed": true,
-				"name": "_to",
+				"indexed": false,
+				"name": "proxy",
 				"type": "address"
 			}
 		],
-		"name": "OwnershipTransferred",
+		"name": "UserProxyCreated",
 		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "withdrawFunds",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "newOwner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "wallet",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]);
-var ContractAddress = "0xc5d2cee9ffa093c33aab29197f5896e48b93f312";
+var ContractAddress = "0xe9ebe067ed20550eabf02eab6edda92e530ecfb6";
 var crowdSale = CrowdSaleContract.at(ContractAddress);
 // Current owner address
 
@@ -271,7 +271,7 @@ web3.eth.getBalance(ContractAddress, function (err, res) {
 
 // Withdraw funds wallet
 $("#withdraw_crowdsale_funds").click(function() {
-    var withdrawAmount = web3.toWei($("#withdraw_crowdsale_Amount").val(), 'ether');
+	var withdrawAmount = web3.toBigNumber($("#crowdsale_withdrawAmount").val());
     crowdSale.withdrawFunds(withdrawAmount, (err, res) => {
     if (err) {
         return;

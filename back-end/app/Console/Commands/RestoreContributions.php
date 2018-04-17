@@ -2,18 +2,16 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\SystemAlert;
 use App\Models\DB\Contribution;
 use App\Models\DB\ContributionAction;
 use App\Models\DB\Wallet;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\MailService;
 use App\Models\Wallet\EtheriumApi;
 use App\Models\Wallet\Ico;
 use App\Models\Wallet\RateCalculator;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-
 
 class RestoreContributions extends Command
 {
@@ -64,9 +62,8 @@ class RestoreContributions extends Command
 
             DB::rollback();
 
-            $errorMessage = $e->getMessage();
+            MailService::sendSystemAlertEmail('Update Contributions Error', $e->getMessage());
 
-            Mail::send(new SystemAlert('Update Contributions Error', $errorMessage));
         }
 
         DB::commit();

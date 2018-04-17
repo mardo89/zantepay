@@ -15,5 +15,11 @@ class VerifyCsrfToken extends Middleware
         'ico-registration',
         'seed-investor',
         'contact-us',
+        'question',
+        'activate-account',
+        'account/register',
+        'account/login',
+        'account/logout',
+        'account/reset-password',
     ];
 }

@@ -701,7 +701,7 @@ var ZanteCoinContract = web3.eth.contract([
         "type": "function"
     }
 ]);
-var ContractAddress = "0x4e1ad19920b1b084681b77adbbcbfc4369dd8c8a";
+var ContractAddress = "0xd8210fad278c8be9c199f338b48cf68821b39fb6";
 var zanteCoin = ZanteCoinContract.at(ContractAddress);   
            
 // Coin symbol
@@ -737,21 +737,6 @@ zanteCoin.COIN_SUPPLY_ICO_TOTAL ( function (err, res) {
         $("#ico_coins_available").text(ico_coins_availabe);
     });
 });
-
-// TODO: this part is demo. Need to connect user wallet addresses database
-$("#ico-participants").on('click','#issue_ico',function(){
-    // get the current row
-    var currentRow=$(this).closest("tr"); 
-    var wallet_address = currentRow.find("td:eq(1)").text(); // TODO: get user wallet address
-    var tokens_amount = currentRow.find("td:eq(2)").text(); // TODO: get user tokens amount
-    // TODO: ICO issue coins need to parameters user wallet address and token balance   
-    zanteCoin.issueIcoCoins(wallet_address,tokens_amount, (err, res) => {
-        if (err) {  
-            return;
-        }
-        
-    });
-});
 // ICO coins section end
 
 // Grant Company section
@@ -772,14 +757,6 @@ zanteCoin.COIN_SUPPLY_COMPANY_TOTAL ( function (err, res) {
     });
 });
 
-// Grant company coins issue
-$("#grant_company_coins").click(function() {
-    zanteCoin.grantCompanyCoins($("#grant_company_address").val(), $("#grant_company_amount").val(), (err, res) => {
-        if (err) {
-            return;
-        }
-    });
-});
 // Grant Company section end
 
 // Grant Marketing section start
@@ -797,15 +774,6 @@ zanteCoin.COIN_SUPPLY_MKT_TOTAL ( function (err, res) {
         var grant_marketing_issued = res;
         var grant_marketing_available = grant_marketing_supply - grant_marketing_issued;
         $("#grant_marketing_available").text(grant_marketing_available);
-    });
-});
-
-// Grant marketing coins issue
-$("#grant_marketing_coins").click(function() {
-    zanteCoin.grantMarketingCoins($("#grant_marketing_address").val(), $("#grant_marketing_amount").val(), (err, res) => {
-        if (err) {
-            return;
-        }
     });
 });
 

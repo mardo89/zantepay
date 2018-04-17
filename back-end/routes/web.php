@@ -10,19 +10,10 @@ Route::get('reset-password', 'IndexController@resetPassword');
 Route::get('password', 'IndexController@confirmPasswordReset');
 Route::post('ico-registration', 'IndexController@saveRegistration');
 Route::post('seed-investor', 'IndexController@saveInvestor');
-Route::get('/faq', 'IndexController@faq');
-
-
-/**
- * Mailing
- */
-Route::group(['prefix' => 'mail'], function () {
-
-    Route::post('activate-account', 'MailController@activateAccount');
-    Route::post('contact-us', 'MailController@contactUs');
-    Route::post('question', 'MailController@question');
-
-});
+Route::get('faq', 'IndexController@faq');
+Route::post('contact-us', 'IndexController@contactUs');
+Route::post('question', 'IndexController@question');
+Route::post('activate-account', 'IndexController@activateAccount');
 
 
 /**
@@ -88,6 +79,7 @@ Route::group(['prefix' => 'user'], function () {
 Route::group(['prefix' => 'admin'], function () {
 
     Route::get('users', 'ManagerController@users');
+    Route::get('users/search', 'ManagerController@searchUsers');
 
     Route::get('profile', 'ManagerController@profile');
     Route::post('profile', 'AdminController@saveProfile');
@@ -99,11 +91,26 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('wallet', 'AdminController@wallet');
     Route::post('wallet', 'ManagerController@updateWallet');
-    Route::post('wallet/znx', 'ManagerController@addZNX');
+    Route::post('wallet/add-ico-znx', 'ManagerController@addIcoZnx');
+    Route::post('wallet/add-foundation-znx', 'ManagerController@addFoundationZnx');
     Route::post('wallet/grant-marketing-coins', 'AdminController@grantMarketingCoins');
-    Route::post('wallet/grant-company-coins', 'AdminController@grantMarketingCoins');
+    Route::post('wallet/grant-company-coins', 'AdminController@grantCompanyCoins');
+
+    Route::get('wallet/search-ico-transactions', 'AdminController@searchIcoTransactions');
+    Route::get('wallet/search-foundation-transactions', 'AdminController@searchFoundationTransactions');
+});
+
+/**
+ * SERVICE
+ */
+Route::group(['prefix' => 'service'], function () {
+
+    Route::get('mail-events', 'ServiceController@mailEvents');
+    Route::get('mail-events/search', 'ServiceController@searchMailEvents');
+    Route::post('mail-events/process', 'ServiceController@processMailEvent');
+
 });
 
 //Route::get('/test-email', function () {
-//    return new App\Mail\ResetPassword('1234567890');
+//    return new \App\Mail\DebitCardPreOrder('000000', 0);
 //});

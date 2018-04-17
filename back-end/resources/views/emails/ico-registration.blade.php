@@ -29,15 +29,15 @@
             .mob-hide {
                 display: none !important;
             }
-        }
-        .table600 {
-            width: 600px;
+            .table600 {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;" >
-    <span class="preheader" style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Email Text</span>
+    <span class="preheader" style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thank you for signing up for the ZANTEPAY newsletter and joining our whitelist. We are creating an awesome cryptocurrency multiwallet with an integrated debit card. The ZANTEPAY Wallet will be able to store more than 50+ cryptocurrencies and will have a small exchange fee (BTC to EUR 1%, Altcoins to EUR 1,5%).</span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
@@ -75,7 +75,7 @@
                                                 <tr><td height="74" style="line-height:74px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top">
-                                                        <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/logo.png"}}" width="214" height="29" style="display:block;outline:0;border:0;width:214px;height:29px" alt="ZANTEPAY"></a>
+                                                        <a href="https://www.zantepay.com" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/logo.png"}}" width="214" height="29" style="display:block;outline:0;border:0;width:214px;height:29px" alt="ZANTEPAY"></a>
                                                     </td>
                                                 </tr>
                                                 <tr><td height="60" style="line-height:60px; font-size: 0;">&nbsp;</td></tr>
@@ -162,32 +162,66 @@
                                     <tr>
                                         <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                             <!--[if mso]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="280">
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="370">
                                                 <tr>
-                                                    <td align="center" valign="top" width="280">
+                                                    <td align="center" valign="top" width="370">
                                             <![endif]-->
-                                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:280px;">
-                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                   style="max-width:370px;">
+                                                <tr>
+                                                    <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
+                                                </tr>
                                                 <tr>
                                                     <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                                         <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="230">
+                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="370">
                                                             <tr>
-                                                                <td align="center" valign="top" width="230">
+                                                                <td align="center" valign="top" width="370">
                                                         <![endif]-->
-                                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:230px;">
+                                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                               style="max-width:370px;">
                                                             <tr>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/Fb.png"}}" width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Facebook"></a>
+                                                                    <a href="https://www.zantepay.com" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/website-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Website"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/Tw.png"}}" width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Twitter"></a>
+                                                                    <a href="http://telegram.me/zantepay" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/telegram-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Telegram"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/Email.png"}}" width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Email"></a>
+                                                                    <a href="https://www.facebook.com/ZANTEPAY/" target="_blank" style="outline: none; border: 0;"><img
+                                                                                src="{{ url('/') . "/images/Fb.png" }}" width="42" height="42"
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px"
+                                                                                alt="Facebook"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img src="{{ url('/') . "/images/Bit.png"}}" width="42" height="42" style="display:block;outline:0;border:0;width:42px;height:42px" alt="Bitcoin"></a>
+                                                                    <a href="https://twitter.com/zantepay" target="_blank" style="outline: none; border: 0;"><img
+                                                                                src="{{ url('/') . "/images/Tw.png" }}" width="42" height="42"
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px"
+                                                                                alt="Twitter"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="https://medium.com/@zantepay/" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/medium-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Medium"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="mailto:support@zantepay.com" target="_blank" style="outline: none; border: 0;"><img
+                                                                                src="{{ url('/') . "/images/Email.png" }}" width="42" height="42"
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px"
+                                                                                alt="Email"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="https://www.reddit.com/user/ZANTEPAY" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/reddit-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Reddit"></a>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -198,7 +232,9 @@
                                                         <![endif]-->
                                                     </td>
                                                 </tr>
-                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
+                                                </tr>
                                                 <tr>
                                                     <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                                         <!--[if mso]>
@@ -206,12 +242,15 @@
                                                             <tr>
                                                                 <td align="center" valign="top" width="280">
                                                         <![endif]-->
-                                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:280px;">
+                                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                               style="max-width:280px;">
                                                             <tr>
-                                                                <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #bcbcbc; line-height: 36px; font-weight: normal;">
+                                                                <td align="left" valign="top"
+                                                                    style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #bcbcbc; line-height: 36px; font-weight: normal;">
                                                                     <a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" style="outline: none; border: 0; color: #bcbcbc; text-decoration: none;">Terms &amp; Conditions</a>
                                                                 </td>
-                                                                <td align="right" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #bcbcbc; line-height: 36px; font-weight: normal;">
+                                                                <td align="right" valign="top"
+                                                                    style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #bcbcbc; line-height: 36px; font-weight: normal;">
                                                                     <a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" style="outline: none; border: 0; color: #bcbcbc; text-decoration: none;">Privacy Policy</a>
                                                                 </td>
                                                             </tr>
@@ -223,18 +262,23 @@
                                                         <![endif]-->
                                                     </td>
                                                 </tr>
-                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
+                                                </tr>
                                                 <tr>
                                                     <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                                         <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="140">
+                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="155">
                                                             <tr>
-                                                                <td align="center" valign="top" width="140">
+                                                                <td align="center" valign="top" width="155">
                                                         <![endif]-->
-                                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:140px;">
+                                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                               style="max-width:155px;">
                                                             <tr>
                                                                 <td align="left" valign="top" width="30">
-                                                                    <img src="{{ url('/') . "/images/Copy.png" }}" width="20" height="20" style="display:block;outline:0;border:0;width:20px;height:20px" alt="Copyright ico">
+                                                                    <img src="{{ url('/') . "/images/Copy.png"}}" width="20" height="20"
+                                                                         style="display:block;outline:0;border:0;width:20px;height:20px"
+                                                                         alt="Copyright ico">
                                                                 </td>
                                                                 <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #f92112; line-height: 21px; font-weight: normal;">
                                                                     2018 ZANTEPAY
@@ -248,7 +292,9 @@
                                                         <![endif]-->
                                                     </td>
                                                 </tr>
-                                                <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
+                                                </tr>
                                             </table>
                                             <!--[if mso]>
                                             </td>

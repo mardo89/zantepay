@@ -8,7 +8,8 @@
 
     <main class="main main-dashboard">
         <div class="container">
-            <form action="">
+            <form id="search_user_frm">
+
                 <div class="dashboard-group">
                     <div class="row">
                         <div class="col-lg-5 col-sm-4 mb-20">
@@ -18,7 +19,7 @@
                                     <div class="col-lg-4">
                                         <div class="checkbox">
                                             <input type="checkbox" name="role-filter" id="{{ "rf" . $role['id'] }}"
-                                                   value="{{ $role['name'] }}" checked>
+                                                   value="{{ $role['id'] }}" checked>
                                             <label for="{{ "rf" . $role['id'] }}">{{ $role['name'] }}</label>
                                         </div>
                                     </div>
@@ -56,7 +57,7 @@
                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                         <div class="checkbox">
                                             <input type="checkbox" name="status-filter" id="{{ "sf" . $status['id'] }}"
-                                                   value="{{ $status['name'] }}" checked>
+                                                   value="{{ $status['id'] }}" checked>
                                             <label for="{{ "sf" . $status['id'] }}">{{ $status['name'] }}</label>
                                         </div>
                                     </div>
@@ -68,13 +69,53 @@
                 </div>
 
                 <div class="dashboard-group">
-                    <h2 class="h4 headline-mb">Search users:</h2>
                     <div class="row">
-                        <div class="col-lg-5">
-                            <div class="form-group">
-                                <input class="input-field search-field" type="text" name="search-by-email" id="field1">
-                                <a href="" class="search-cross"></a>
+                        <div class="col-lg-6">
+
+                            <h2 class="h4 headline-mb">Date interval:</h2>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <div class="date-picker-wrap">
+                                            <input class="input-field date-picker-inp" type="text" name="date_from_filter" data-toggle="datepicker" placeholder="From">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <div class="date-picker-wrap">
+                                            <input class="input-field date-picker-inp" type="text" name="date_to_filter" data-toggle="datepicker" placeholder="To">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                        </div>
+
+                        <div class="col-lg-6">
+
+                            <h2 class="h4 headline-mb">Search users:</h2>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="input-field search-field" type="text" name="search-by-email" id="field1" placeholder="Email / Name">
+                                        <a href="" class="search-cross"></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-group">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <button type="submit" class="mb-20 btn btn--medium btn--shadowed-light btn--full-w">
+                                Search
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -84,37 +125,24 @@
                 <table id="users-list" class="inv-table table-black">
                     <thead>
                     <tr>
-                        <th colspan="2">Email</th>
-                        <th>Name</th>
+                        <th class="sort" colspan="2">Email <span class="caret"></span></th>
+                        <th class="sort">Name <span class="caret"></span></th>
+                        <th>Registered</th>
                         <th>Role</th>
                         <th>Status</th>
                         <th width="100">Referrer</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($users as $user)
-                        <tr id="{{ $user['id'] }}">
-                            <td width="100" class="col-center">
-                                <div class="thumb-60">
-                                    <img src="{{ $user['avatar'] }}" alt="{{ $user['name'] }}">
-                                </div>
-                            </td>
-                            <td>
-                                <a class="primary-color" href="{{ $user['profileLink'] }}">{{ $user['email'] }}</a>
-                            </td>
-                            <td> {{ $user['name'] }} </td>
-                            <td> {{ $user['role'] }} </td>
-                            <td> {{ $user['status'] }} </td>
-                            <td>
-                                @if ($user['isReferrer'])
-                                    YES
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
                     </tbody>
                 </table>
             </div>
+
+            <nav class="text-center mt-20">
+                <ul class="pagination">
+                </ul>
+            </nav>
+
         </div>
     </main>
 

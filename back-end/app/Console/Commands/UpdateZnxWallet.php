@@ -2,12 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\SystemAlert;
 use App\Models\DB\User;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\MailService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 
 class UpdateZnxWallet extends Command
@@ -60,27 +59,21 @@ class UpdateZnxWallet extends Command
                 $znxAmount[$transaction->user_id] += $transaction->amount;
             }
 
-            // check ZNX amount in the wallets
-            foreach ($znxAmount as $userID => $amount) {
-                $user = User::find($userID);
+            foreach (User::with('wallet')->get() as $user) {
+                $wallet = $user->wallet;
 
-                if (is_null($user)) {
+                if (!$wallet) {
                     continue;
                 }
 
-                $userWallet = $user->wallet;
-
-                if (is_null($userWallet)) {
-                    continue;
-                }
+                $transactionsAmount = $znxAmount[$user->id] ?? 0;
 
                 // correct ZNX amount
-                if ($userWallet->znx_amount != $amount) {
+                if ($wallet->znx_amount != $transactionsAmount) {
 
-                    $userWallet->znx_amount = $amount;
+                    $wallet->znx_amount = $transactionsAmount;
 
-                    $userWallet->save();
-
+                    $wallet->save();
                 }
             }
 
@@ -88,9 +81,7 @@ class UpdateZnxWallet extends Command
 
             DB::rollback();
 
-            $errorMessage = $e->getMessage();
-
-            Mail::send(new SystemAlert('Update ZNX Wallet Error', $errorMessage));
+            MailService::sendSystemAlertEmail('Update ZNX Wallet Error', $e->getMessage());
 
         }
 

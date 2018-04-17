@@ -19,12 +19,12 @@ class ResetPassword extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $resetToken
+     * @param array $mailData
      *
      */
-    public function __construct($resetToken)
+    public function __construct($mailData)
     {
-        $this->resetLink = action('IndexController@resetPassword', ['rt' => $resetToken]);
+        $this->resetLink = action('IndexController@resetPassword', ['rt' => $mailData['resetToken']]);
     }
 
     /**

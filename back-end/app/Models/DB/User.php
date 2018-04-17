@@ -27,6 +27,7 @@ class User extends Authenticatable
     const USER_STATUS_VERIFIED = 4;
     const USER_STATUS_WITHDRAW_PENDING = 5;
     const USER_STATUS_PENDING = 6;
+    const USER_STATUS_VERIFICATION_PENDING = 7;
 
     /**
      * The attributes that are mass assignable.
@@ -76,6 +77,9 @@ class User extends Authenticatable
 
             case self::USER_STATUS_PENDING:
                 return 'T&C Pending';
+
+            case self::USER_STATUS_VERIFICATION_PENDING:
+                return 'Documents uploaded';
 
             default:
                 return '';
@@ -176,6 +180,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is deactivated
+     *
+     * @return boolean
+     */
+    public function isDisabled() {
+        return $this->status == self::USER_STATUS_INACTIVE;
+    }
+
+    /**
      * Generate password hash
      *
      * @param string $password
@@ -196,6 +209,17 @@ class User extends Authenticatable
      */
     public static function checkPassword($password, $hash) {
         return password_verify($password, $hash);
+    }
+
+    /**
+     * Change user status
+     *
+     * @param int $userStatus
+     */
+    public function changeStatus($userStatus) {
+        $this->status = $userStatus;
+
+        $this->save();
     }
 
 }

@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DebitCardPreOrder;
 use App\Mail\InviteFriend;
+use App\Mail\Welcome;
 use App\Models\DB\AreaCode;
+use App\Models\DB\Contribution;
 use App\Models\DB\EthAddressAction;
 use App\Models\DB\TransferTransaction;
+use App\Models\DB\Wallet;
 use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\AccountsService;
+use App\Models\Services\BonusesService;
+use App\Models\Services\InvitesService;
+use App\Models\Services\MailService;
+use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -79,13 +88,17 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
+        DB::beginTransaction();
 
         try {
 
-            $user->status = User::USER_STATUS_NOT_VERIFIED;
-            $user->save();
+            $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
+
+            MailService::sendWelcomeEmail($user->email);
 
         } catch (\Exception $e) {
+
+            DB::rollback();
 
             return response()->json(
                 [
@@ -96,6 +109,8 @@ class UserController extends Controller
             );
 
         }
+
+        DB::commit();
 
         return response()->json(
             []
@@ -202,6 +217,19 @@ class UserController extends Controller
                 ]
             )
         );
+
+        if ($request->first_name && $request->last_name && $request->first_name === $request->last_name) {
+            return response()->json(
+                [
+                    'message' => 'Error updating profile',
+                    'errors' => [
+                        'first_name' => 'First and last name should not be the same',
+                        'last_name' => ''
+                    ]
+                ],
+                422
+            );
+        }
 
         DB::beginTransaction();
 
@@ -362,6 +390,15 @@ class UserController extends Controller
             }
 
             $verification->save();
+
+            // Change user status
+            if ($verification->id_documents_status == Verification::DOCUMENTS_APPROVED) {
+                $user->changeStatus(User::USER_STATUS_IDENTITY_VERIFIED);
+            } elseif ($verification->address_documents_status == Verification::DOCUMENTS_APPROVED) {
+                $user->changeStatus(User::USER_STATUS_ADDRESS_VERIFIED);
+            } else {
+                $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
+            }
 
 
         } catch (\Exception $e) {
@@ -575,7 +612,7 @@ class UserController extends Controller
             $request,
             [
                 'current-password' => 'required|string',
-                'password' => 'required|string|min:6|confirmed',
+                'password' => 'required|string|min:6|confirmed|different:current-password',
             ],
             ValidationMessages::getList(
                 [
@@ -585,6 +622,7 @@ class UserController extends Controller
                 [
                     'password.min' => 'The Password field must be at least 6 characters',
                     'password.confirmed' => 'The Password confirmation does not match',
+                    'password.different' => 'New password and current password should not be the same',
                 ]
             )
         );
@@ -634,41 +672,15 @@ class UserController extends Controller
      */
     public function invite()
     {
-        $user = Auth::user();
+        $user = AccountsService::getActiveUser();
 
-        $invites = Invite::where('user_id', $user->id)->get();
-
-        $userReferrals = [];
-
-        foreach ($invites as $invite) {
-            $userReferrals[$invite->email] = [
-                'name' => $invite->email,
-                'avatar' => '/images/avatar.png',
-                'status' => Invite::getStatus(Invite::INVITATION_STATUS_PENDING)
-
-            ];
-        }
-
-        $referrals = User::where('referrer', $user->id)->get();
-
-
-        foreach ($referrals as $referral) {
-            $userName = ($referral->first_name != '' && $referral->last_name != '')
-                ? $referral->first_name . ' ' . $referral->last_name
-                : $referral->email;
-
-            $userReferrals[$referral->email] = [
-                'name' => $userName,
-                'avatar' => !is_null($referral->avatar) ? $referral->avatar : '/images/avatar.png',
-                'status' => Invite::getStatus(Invite::INVITATION_STATUS_VERIFYING)
-            ];
-        }
+        $invitedUsers = InvitesService::getInvitedUsers($user);
 
         return view(
             'user.invite-friend',
             [
                 'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
-                'referrals' => $userReferrals
+                'invitedUsers' => $invitedUsers
             ]
         );
     }
@@ -709,9 +721,10 @@ class UserController extends Controller
                         'email' => $email
                     ]
                 );
-
-                Mail::to($email)->send(new InviteFriend($user->email, $user->uid));
             }
+
+            MailService::sendInviteFriendEmail($email, $user->uid);
+
 
         } catch (\Exception $e) {
 
@@ -1177,6 +1190,8 @@ class UserController extends Controller
      */
     public function saveDebitCard(Request $request)
     {
+        $user = Auth::user();
+
         $this->validate(
             $request,
             [
@@ -1184,8 +1199,9 @@ class UserController extends Controller
             ]
         );
 
+        DB::beginTransaction();
+
         try {
-            $user = Auth::user();
 
             $userDebitCard = [
                 'user_id' => $user->id,
@@ -1195,12 +1211,22 @@ class UserController extends Controller
             $card = DebitCard::where('user_id', $user->id)->first();
 
             if (!$card) {
+
                 DebitCard::create($userDebitCard);
+
+                BonusesService::updateBonus($user);
+
+                MailService::sendOrderDebitCardEmail($user->email, $user->uid, $userDebitCard['design']);
+
             } else {
+
                 DebitCard::where('user_id', $user->id)->update($userDebitCard);
+
             }
 
         } catch (\Exception $e) {
+
+            DB::rollback();
 
             return response()->json(
                 [
@@ -1211,6 +1237,8 @@ class UserController extends Controller
             );
 
         }
+
+        DB::commit();
 
         return response()->json(
             [
@@ -1483,6 +1511,8 @@ class UserController extends Controller
         $verification->id_decline_reason = '';
         $verification->save();
 
+        // Change Status
+        $user->changeStatus(User::USER_STATUS_VERIFICATION_PENDING);
     }
 
 
@@ -1545,6 +1575,9 @@ class UserController extends Controller
         $verification->address_documents_status = Verification::DOCUMENTS_UPLOADED;
         $verification->address_decline_reason = '';
         $verification->save();
+
+        // Change Status
+        $user->changeStatus(User::USER_STATUS_VERIFICATION_PENDING);
     }
 
 }

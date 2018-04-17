@@ -12,11 +12,6 @@ class InviteFriend extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * @var string User email
-     */
-    public $userEmail;
-
-    /**
      * @var string Referral link
      */
     public $referralLink;
@@ -24,13 +19,11 @@ class InviteFriend extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $userEmail
      * @param string $uid
      *
      */
-    public function __construct($userEmail, $uid)
+    public function __construct($uid)
     {
-        $this->userEmail = $userEmail;
         $this->referralLink = action('IndexController@confirmInvitation', ['ref' => $uid]);
     }
 
@@ -41,7 +34,7 @@ class InviteFriend extends Mailable
      */
     public function build()
     {
-        return $this->subject('Account activation')
+        return $this->subject('ZANTEPAY Invitation')
             ->view('emails.invite-friend');
     }
 }

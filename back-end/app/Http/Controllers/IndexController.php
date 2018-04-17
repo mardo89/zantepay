@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\IcoRegistrationAdmin as IcoRegistrationAdminMail;
-use App\Mail\IcoRegistration as IcoRegistrationMail;
 use App\Models\DB\ExternalRedirect;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Search\Transactions;
+use App\Models\Services\MailService;
+use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\IcoRegistration;
 use App\Models\DB\Investor;
@@ -18,7 +19,6 @@ use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Mail;
 
 
 class IndexController extends Controller
@@ -39,6 +39,7 @@ class IndexController extends Controller
         $ico = new Ico();
 
         $activePart = $ico->getActivePart();
+        $previousPart = $ico->getPreviousPart();
 
         $icoPartName = optional($activePart)->getName() ?? '';
         $icoPartEndDate = optional($activePart)->getEndDate() ?? '';
@@ -51,8 +52,19 @@ class IndexController extends Controller
         $icoPartAmount = optional($activePart)->getAmount() ?? 0;
         $icoPartRelativeBalance = optional($activePart)->getRelativeBalance() ?? 0;
 
+        $prevPartAmount = Transactions::searchTransactionsAmount(
+            [
+                ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX,
+                ZantecoinTransaction::TRANSACTION_ADD_ICO_ZNX,
+                ZantecoinTransaction::TRANSACTION_COMMISSION_TO_ZNX,
+                ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
+            ]
+        );
+
         $ethLimit = RateCalculator::fromZnx($icoPartLimit, $icoPartEthRate);
         $ethAmount = RateCalculator::fromZnx($icoPartAmount, $icoPartEthRate);
+
+        $showProgress = !is_null($previousPart);
 
         return view(
             'main.index',
@@ -64,9 +76,11 @@ class IndexController extends Controller
                 ],
                 'ico' => [
                     'name' => $icoPartName,
+                    'showProgress' => $showProgress,
                     'endDate' => date('Y/m/d H:i:s', strtotime($icoPartEndDate)),
                     'znxLimit' => number_format($icoPartLimit, 0, ',', '.'),
                     'znxAmount' => number_format($icoPartAmount, 0, ',', '.'),
+                    'prevAmount' => number_format($prevPartAmount, 0, ',', '.'),
                     'ethLimit' => number_format($ethLimit, 0, ',', '.'),
                     'ethAmount' => number_format($ethAmount, 0, ',', '.'),
                     'znxRate' => (new CurrencyFormatter($icoPartZnxRate))->znxFormat()->get(),
@@ -128,10 +142,8 @@ class IndexController extends Controller
                 ExternalRedirect::ACTION_TYPE_REGISTRATION_ICO
             );
 
-            $link = action('IndexController@main');
-
-            Mail::to($email)->send(new IcoRegistrationMail($link));
-            Mail::send(new IcoRegistrationAdminMail($email, $currency, $amount));
+            MailService::sendIcoRegistrationEmail($email);
+            MailService::sendIcoRegistrationAdminEmail($email, $currency, $amount);
 
         } catch (\Exception $e) {
 
@@ -255,8 +267,7 @@ class IndexController extends Controller
             return redirect('/');
         }
 
-        $user->status = User::USER_STATUS_PENDING;
-        $user->save();
+        $user->changeStatus(User::USER_STATUS_PENDING);
 
         return view('main.confirm-email');
     }
@@ -343,6 +354,152 @@ class IndexController extends Controller
             ]
         );
     }
+
+    /**
+     * Send contact us email
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function contactUs(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|alpha_num|max:255',
+                'email' => 'required|email|max:255',
+                'message' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'name' => 'Name',
+                    'email' => 'Email',
+                    'message' => 'Message',
+                ]
+            )
+
+        );
+
+        try {
+
+            MailService::sendContactUsEmail($request->email, $request->name, $request->message);
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => $e->getMessage(),//'Can not send a message',
+                    'errors' => [
+                        'name' => '',
+                        'message' => '',
+                        'email' => 'Can not send a message'
+                    ]
+                ],
+                422
+            );
+
+        }
+
+        return response()->json(
+            []
+        );
+    }
+
+    /**
+     * Send question email
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function question(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'subject' => 'required|string|max:50',
+                'name' => 'required|alpha_num|max:255',
+                'email' => 'required|string|email|max:255',
+                'question' => 'required'
+            ],
+            ValidationMessages::getList(
+                [
+                    'subject' => 'Subject',
+                    'name' => 'Name',
+                    'email' => 'Email',
+                    'question' => 'Question',
+                ]
+            )
+        );
+
+        try {
+
+            MailService::sendQuestionEmail($request->email, $request->name, $request->question, $request->subject);
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Can not send a question',
+                    'errors' => [
+                        'name' => '',
+                        'question' => '',
+                        'email' => 'Can not send a question'
+                    ]
+                ],
+                422
+            );
+
+        }
+
+        return response()->json(
+            []
+        );
+    }
+
+    /**
+     * Send activation email to the user
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function activateAccount(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'uid' => 'required|string',
+            ],
+            ValidationMessages::getList(
+                [
+                    'uid' => 'User ID',
+                ]
+            )
+        );
+
+        try {
+
+            $user = UsersService::findUserByUid($request->uid);
+
+            if ($user) {
+                MailService::sendActivateAccountEmail($user->email, $user->uid);
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                []
+            );
+
+        }
+
+        return response()->json(
+            []
+        );
+    }
+
 
     /**
      * Check if referrer exist and store him to the Session

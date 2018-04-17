@@ -35,7 +35,7 @@ $(document).ready(function () {
         e.preventDefault();
         var thisHref = $(this).attr('href');
         $(this).closest('.tabs-head').find('li').removeClass('is-active');
-        $(thisHref).closest('.tabs-wrap').find('.tab-body').removeClass('is-active');
+        $(thisHref).closest('.tabs-wrap').children('.tab-body').removeClass('is-active');
         $(this).parent().addClass('is-active');
         $(thisHref).addClass('is-active');
         if ( thisHref != '#profile') {
@@ -60,56 +60,14 @@ $(document).ready(function () {
                     window.location = '/';
                 }
             )
-    });
+            .catch(
+                error => {
+                    const {message} = error.response.data;
 
-    const tableSorter = (table, column, direction) => {
-        let rows = table.find('tbody tr');
-
-        let compare = (x, y) => x < y;
-
-        if (direction) {
-            compare = (x, y) => x >= y
-        }
-
-        for(let i=0; i < rows.length - 1; i++) {
-
-            for(let j=i+1; j < rows.length; j++) {
-
-                const val_i = $(rows[i]).find('td').eq(column).html();
-                const val_j = $(rows[j]).find('td').eq(column).html();
-
-                if (compare(val_i, val_j)) {
-                    let tmp_row = rows[i];
-                    rows[i] = rows[j];
-                    rows[j] = tmp_row;
+                    showError(message)
                 }
-
-            }
-        }
-
-    }
-
-    // Sorter
-    $('body').on('click', '.sort', function (event) {
-        const table = $(this).parents('table');
-        const column = $(this).index();
-        let direction = 0;
-
-        if ($(this).hasClass('sort-desc')) {
-            $(this).removeClass('sort-desc');
-            $(this).addClass('sort-asc');
-
-            direction = 1;
-        } else {
-            $(this).removeClass('sort-asc');
-            $(this).addClass('sort-desc');
-
-            direction = 2;
-        }
-
-        tableSorter(table, column, direction)
-    })
-
+            )
+    });
 
 });
 

@@ -1,5 +1,7 @@
 .header
   background $bg-color-dark
+  position relative
+  z-index 400
 
 .header-lp
   position relative
@@ -100,7 +102,8 @@
         vertical-align top
         line-height 20px
         font-size 16px
-        transition color .2s
+        // transition color .2s
+        transform translateZ(0)
         @media screen and (max-width: 1199px)
           font-size 14px
           padding 0 10px
@@ -108,7 +111,7 @@
           border-right none
           padding 10px 5px
       &.current-menu-item
-        a
+        & > a
           color $primary-color
       a:hover
         color $primary-color
@@ -116,6 +119,25 @@
       &:hover > ul
         opacity 1
         visibility visible
+      &.m-dropdown
+        & > a
+          position relative
+          display block
+          &:before
+            content "\f107"
+            font normal normal normal 14px/1 FontAwesome
+            font-size 18px
+            color $primary-color
+            position absolute
+            right 10px
+            top 50%
+            transform translateY(-50%)
+            display none
+            @media (max-width: 991px)
+              display block
+          &.is-active
+            &:before
+              transform translateY(-50%) rotate(180deg)
     ul
       position absolute
       left 0
@@ -125,11 +147,13 @@
       padding 10px 0
       opacity 0
       visibility hidden
-      transition all .3s
+      // transition all .3s
       @media screen and (max-width: 991px)
         position static
+        display none
         padding 0
         opacity 1
+        margin-bottom -1px
         visibility visible
         border-top 1px solid $primary-color
       li
@@ -143,10 +167,12 @@
         vertical-align top
         line-height 20px
         font-size 16px
-        transition color .2s
+        // transition color .2s
+        @media screen and (max-width: 1199px)
+          font-size 14px
         @media screen and (max-width: 991px)
-          padding 10px 5px
-          border-top 
+          padding 10px 25px
+          display block
 
 .masthead__right
   @media screen and (max-width: 991px)
@@ -176,7 +202,7 @@
   padding 10px 0
   opacity 0
   visibility hidden
-  transition all .3s
+  // transition all .3s
   &.is-active
     opacity 1
     visibility visible

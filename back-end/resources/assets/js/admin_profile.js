@@ -47,11 +47,12 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
                 }
-
             )
     });
 
@@ -59,47 +60,53 @@ $(document).ready(function () {
     $('#remove-user').on('click', function (event) {
         event.preventDefault();
 
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
+        showConfirmation(
+            'Are you sure do you want to delete this user?',
+            () => {
+                const button = $(this);
+                showSpinner(button);
+                clearErrors();
 
-        const userInfo = {
-            'uid': $('#user-profile-id').val(),
-        }
+                const userInfo = {
+                    'uid': $('#user-profile-id').val(),
+                }
 
-        axios.post(
-            '/admin/profile/remove',
-            qs.stringify(userInfo)
-        )
-            .then(
-                () => {
-                    hideSpinner(button);
+                axios.post(
+                    '/admin/profile/remove',
+                    qs.stringify(userInfo)
+                )
+                    .then(
+                        () => {
+                            hideSpinner(button);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#remove-profile-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                close: function() {
-                                    window.location = '/admin/users'
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#remove-profile-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        close: function () {
+                                            window.location = '/admin/users'
+                                        }
+                                    }
                                 }
-                            }
+                            );
                         }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
+                    )
+                    .catch(
+                        error => {
+                            hideSpinner(button);
 
-                    const {message} = error.response.data;
+                            const {message} = error.response.data;
 
-                    showError(message)
-                }
-            )
+                            showError(message)
+                        }
+                    )
+            }
+        );
+
     });
 
     // Approve documents
@@ -215,6 +222,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
@@ -224,7 +233,7 @@ $(document).ready(function () {
     });
 
     // Add ZNX ammount
-    $('#add-znx').on('click', function (event) {
+    $('#add-ico-znx').on('click', function (event) {
         event.preventDefault();
 
         const button = $(this);
@@ -233,27 +242,32 @@ $(document).ready(function () {
 
         const user = {
             'uid': $('#user-profile-id').val(),
-            'amount': $('input[name="znx-amount"]').val(),
+            'amount': $('.ico-pool input[name="znx-amount"]').val(),
         }
 
         axios.post(
-            '/admin/wallet/znx',
+            '/admin/wallet/add-ico-znx',
             qs.stringify(user)
         )
             .then(
                 response => {
                     hideSpinner(button);
 
-                    $('input[name="znx-amount"]').val('');
+                    $('.ico-pool input[name="znx-amount"]').val('');
                     $('#total-znx-amount').html(response.data.totalAmount);
 
                     $.magnificPopup.open(
                         {
                             items: {
-                                src: '#add-znx-modal'
+                                src: '#add-ico-znx-modal'
                             },
                             type: 'inline',
-                            closeOnBgClick: true
+                            closeOnBgClick: true,
+                            callbacks: {
+                                elementParse: function (item) {
+                                    $(item.src).find('.znx_added').text(user.amount);
+                                }
+                            }
                         }
                     );
                 }
@@ -269,12 +283,80 @@ $(document).ready(function () {
                         $.each(
                             errors,
                             (field, error) => {
-                                $('input[name="znx-amount"]').parent().addClass('form-error');
-                                $('input[name="znx-amount"]').after(
+                                $('.ico-pool input[name="znx-amount"]').parent().addClass('form-error');
+                                $('.ico-pool input[name="znx-amount"]').after(
                                     $('<span />').addClass('error-text').text(error)
                                 );
                             }
                         )
+
+                        scrollToError();
+
+                    } else {
+                        showError(message);
+                    }
+                }
+            )
+    });
+
+    $('#add-foundation-znx').on('click', function (event) {
+        event.preventDefault();
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const user = {
+            'uid': $('#user-profile-id').val(),
+            'amount': $('.foundation-pool input[name="znx-amount"]').val(),
+        }
+
+        axios.post(
+            '/admin/wallet/add-foundation-znx',
+            qs.stringify(user)
+        )
+            .then(
+                response => {
+                    hideSpinner(button);
+
+                    $('.foundation-pool input[name="znx-amount"]').val('');
+                    $('#total-znx-amount').html(response.data.totalAmount);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#add-foundation-znx-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true,
+                            callbacks: {
+                                elementParse: function (item) {
+                                    $(item.src).find('.znx_added').text(user.amount);
+                                }
+                            }
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message, errors} = error.response.data;
+
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('.foundation-pool input[name="znx-amount"]').parent().addClass('form-error');
+                                $('.foundation-pool input[name="znx-amount"]').after(
+                                    $('<span />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                        scrollToError();
 
                     } else {
                         showError(message);
@@ -333,6 +415,8 @@ $(document).ready(function () {
                                 );
                             }
                         )
+
+                        scrollToError();
 
                     } else {
                         showError(message);

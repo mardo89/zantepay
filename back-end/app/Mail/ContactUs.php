@@ -29,16 +29,13 @@ class ContactUs extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $userName
-     * @param string $userEmail
-     * @param string $userMessage
-     *
+     * @param array $mailData
      */
-    public function __construct($userName, $userEmail, $userMessage)
+    public function __construct($mailData)
     {
-       $this->userName = $userName;
-       $this->userEmail = $userEmail;
-       $this->userMessage = $userMessage;
+       $this->userName = $mailData['name'];
+       $this->userEmail = $mailData['email'];
+       $this->userMessage = $mailData['message'];
     }
 
     /**
@@ -48,6 +45,6 @@ class ContactUs extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.contact-us');
+        return $this->subject('Contact Us')->view('emails.contact-us');
     }
 }

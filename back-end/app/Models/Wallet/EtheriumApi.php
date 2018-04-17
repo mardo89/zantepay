@@ -56,7 +56,7 @@ class EtheriumApi
         $address = null;
         $requestsCount = 0;
 
-        while ($operationID == '' || $requestsCount < 30) {
+        while ($requestsCount < 30) {
             $apiResponse = self::sendGetRequest(
                 '/proxy',
                 'operationId=' . $operationID
@@ -164,7 +164,7 @@ class EtheriumApi
         $status = null;
         $requestsCount = 0;
 
-        while ($operationID == '' || $requestsCount < 30) {
+        while ($requestsCount < 30) {
             $apiResponse = self::sendGetRequest(
                 '/operation/' . $operationID
             );
@@ -206,7 +206,7 @@ class EtheriumApi
         curl_setopt($ch, CURLOPT_PORT, self::API_PORT);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
 
         $apiResponse = curl_exec($ch);
 
@@ -244,7 +244,7 @@ class EtheriumApi
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 

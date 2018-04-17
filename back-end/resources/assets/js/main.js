@@ -34,7 +34,7 @@ const hideSpinner = (element) => {
 // Send activation email
 const sendActivationEmail = uid => {
     axios.post(
-        '/mail/activate-account',
+        '/activate-account',
         qs.stringify(
             {
                 uid
@@ -165,6 +165,12 @@ $(document).ready(function () {
         $('.hamburger').toggleClass('is-active');
     });
 
+    //mobile dropdown
+    $(document).on('click', '.m-dropdown > a', function() {
+      $(this).toggleClass('is-active');
+      $(this).siblings('ul').slideToggle();
+    });
+
     // Popups
     if ($('.js-popup-link').length) {
         $('.js-popup-link').magnificPopup({
@@ -257,134 +263,150 @@ $(document).ready(function () {
         }
     });
 
+    //open tabs by url
+    if ( location.hash && $('.tabs-head') ) {
+        var tabHref = location.hash;
+        $('.tabs-head li').removeClass('is-active');
+        $('.tab-body').removeClass('is-active');
+        $('a[href="' + tabHref + '"]').parent().addClass('is-active');
+        $(tabHref).addClass('is-active');
+    }
+
+    //open resset password by url
+    if ( location.hash == '#forgot-password' ) {
+        $.magnificPopup.open({items: {src: '#forgot-password'},type: 'inline'});
+    }
+    
     //hp shapes
     if ($('#particles-js').length) {
-        var lineColor = $('.particles-js-black').length ? '#000' : '#fff';
+        window.addEventListener("load", function () {
+            var lineColor = $('.particles-js-black').length ? '#000' : '#fff';
 
-        particlesJS(
-            'particles-js',
-            {
-                "particles": {
-                    "number": {
-                        "value": 80,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#f92112"
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 5
-                        },
-                        "image": {
-                            "src": "img/github.svg",
-                            "width": 100,
-                            "height": 100
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.7,
-                        "random": false,
-                        "anim": {
-                            "enable": false,
-                            "speed": 3,
-                            "opacity_min": 0.2,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 5,
-                        "random": true,
-                        "anim": {
-                            "enable": false,
-                            "speed": 6,
-                            "size_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": lineColor,
-                        "opacity": 0.5,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 4,
-                        "direction": "none",
-                        "random": false,
-                        "straight": false,
-                        "out_mode": "out",
-                        "attract": {
-                            "enable": false,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": false,
-                        },
-                        "onclick": {
-                            "enable": false,
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 400,
-                            "line_linked": {
-                                "opacity": 1
+            particlesJS(
+                'particles-js',
+                {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
                             }
                         },
-                        "bubble": {
-                            "distance": 400,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 5
+                        "color": {
+                            "value": "#f92112"
                         },
-                        "repulse": {
-                            "distance": 200
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            },
+                            "image": {
+                                "src": "img/github.svg",
+                                "width": 100,
+                                "height": 100
+                            }
                         },
-                        "push": {
-                            "particles_nb": 4
+                        "opacity": {
+                            "value": 0.7,
+                            "random": false,
+                            "anim": {
+                                "enable": false,
+                                "speed": 3,
+                                "opacity_min": 0.2,
+                                "sync": false
+                            }
                         },
-                        "remove": {
-                            "particles_nb": 2
+                        "size": {
+                            "value": 5,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 6,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": lineColor,
+                            "opacity": 0.5,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 4,
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
                         }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": false,
+                            },
+                            "onclick": {
+                                "enable": false,
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 400,
+                                "line_linked": {
+                                    "opacity": 1
+                                }
+                            },
+                            "bubble": {
+                                "distance": 400,
+                                "size": 40,
+                                "duration": 2,
+                                "opacity": 8,
+                                "speed": 5
+                            },
+                            "repulse": {
+                                "distance": 200
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            },
+                            "remove": {
+                                "particles_nb": 2
+                            }
+                        }
+                    },
+                    "retina_detect": true,
+                    "config_demo": {
+                        "hide_card": false,
+                        "background_color": "#b61924",
+                        "background_image": "",
+                        "background_position": "50% 50%",
+                        "background_repeat": "no-repeat",
+                        "background_size": "cover"
                     }
-                },
-                "retina_detect": true,
-                "config_demo": {
-                    "hide_card": false,
-                    "background_color": "#b61924",
-                    "background_image": "",
-                    "background_position": "50% 50%",
-                    "background_repeat": "no-repeat",
-                    "background_size": "cover"
                 }
-            }
-        );
+            );
+        });
     }
 
     //Log in
     $('#frm_signin').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_signin').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -430,7 +452,7 @@ $(document).ready(function () {
     $('#frm_signup').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_signup').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -460,7 +482,7 @@ $(document).ready(function () {
                         }
                     );
 
-                    $('#resend-registration-email').on('click', function (event) {
+                    $('#resend-registration-email').off().on('click', function (event) {
                         event.preventDefault();
 
                         sendActivationEmail(response.data.uid)
@@ -490,7 +512,7 @@ $(document).ready(function () {
     $("#frm_invite_signup").on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_invite_signup').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -554,7 +576,7 @@ $(document).ready(function () {
     $('#frm_forgot_password').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_forgot').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -606,7 +628,7 @@ $(document).ready(function () {
     $('#frm_change_password').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_change_password').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -651,7 +673,7 @@ $(document).ready(function () {
     $('#frm_ico_registration').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_ico_registration').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -706,7 +728,7 @@ $(document).ready(function () {
     $('#frm_investor').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_investor').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
@@ -762,12 +784,12 @@ $(document).ready(function () {
     $('#frm_contact').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_contact').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
         axios.post(
-            '/mail/contact-us',
+            '/contact-us',
             qs.stringify(
                 {
                     'name': $('#contact-name').val(),
@@ -814,27 +836,28 @@ $(document).ready(function () {
     });
 
     // Ask question
-    $('#frm_faq').on('submit', function (event) {
+    $('#frm_ticket').on('submit', function (event) {
         event.preventDefault();
 
-        const button = $('#frm_faq').find('input[type="submit"]');
+        const button = $(this).find('input[type="submit"]');
         showSpinner(button, 50);
         clearErrors();
 
         axios.post(
-            '/mail/question',
+            '/question',
             qs.stringify(
                 {
-                    'name': $('#frm_faq #user_name').val(),
-                    'email': $('#frm_faq #user_email').val(),
-                    'question': $('#frm_faq #user_question').val()
+                    'subject': 'New Ticket Submitted',
+                    'name': $('#ticket_user_name').val(),
+                    'email': $('#ticket_user_email').val(),
+                    'question': $('#ticket_user_question').val()
                 }
             )
         )
             .then(
                 () => {
                     hideSpinner(button);
-                    clearForm($('#frm_contact'));
+                    clearForm($('#frm_ticket'));
 
                     $.magnificPopup.open(
                         {
@@ -857,8 +880,62 @@ $(document).ready(function () {
                     $.each(
                         errors,
                         (field, error) => {
-                            $('#frm_faq #user_' + field).parents('.form-group').addClass('form-error');
-                            $('#frm_faq #user_' + field).after(
+                            $('#ticket_user_' + field).parents('.form-group').addClass('form-error');
+                            $('#ticket_user_' + field).after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+    });
+
+    $('#frm_idea').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $(this).find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        axios.post(
+            '/question',
+            qs.stringify(
+                {
+                    'subject': 'New Idea Submitted',
+                    'name': $('#idea_user_name').val(),
+                    'email': $('#idea_user_email').val(),
+                    'question': $('#idea_user_question').val()
+                }
+            )
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+                    clearForm($('#frm_idea'));
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#confirm-question'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#idea_user_' + field).parents('.form-group').addClass('form-error');
+                            $('#idea_user_' + field).after(
                                 $('<span />').addClass('error-text').text(error)
                             );
                         }

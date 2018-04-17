@@ -9,9 +9,9 @@ class GrantCoinsTransaction extends Model
     /**
      * Transaction types
      */
-    const GRANT_ICO_COINS = 'ico';
-    const GRANT_MARKETING_COINS = 'marketing';
-    const GRANT_COMPANY_COINS = 'company';
+    const GRANT_ICO_TOKENS = 'ico';
+    const GRANT_MARKETING_TOKENS = 'marketing';
+    const GRANT_COMPANY_TOKENS = 'company';
 
     /**
      * Transaction statuses
@@ -35,26 +35,5 @@ class GrantCoinsTransaction extends Model
      * @var array
      */
     protected $hidden = [];
-
-    /**
-     * Return transaction status
-     *
-     * @return string
-     */
-    public function getStatusMessage() {
-        switch ($this->status) {
-            case self::STATUS_IN_PROGRESS:
-                return 'In-Progress';
-
-            case self::STATUS_COMPLETE:
-                return 'Success';
-
-            case self::STATUS_FAILED:
-                return 'Failed';
-
-            default:
-                return '';
-        }
-    }
 
 }

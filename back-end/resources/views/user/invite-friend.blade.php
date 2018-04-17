@@ -80,7 +80,7 @@
             </div>
 
             <div class="dashboard-inv">
-                <h2 class="h4 headline-mb">Send Invitations: </h2>
+                <h2 class="h4 headline-mb">Sent invitations: </h2>
             </div>
             <div class="table-responsive-500">
                 <table id="invites-list" class="inv-table table-black">
@@ -88,22 +88,25 @@
                     <tr>
                         <th colspan="2">Name</th>
                         <th>Status</th>
-                        <th colspan="2">Bonus (ZNX)</th>
+                        <th>Bonus (ZNX)</th>
+                        <th>Commission (ETH)</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($referrals as $referral)
-                        <tr>
+                    @foreach($invitedUsers as $invitedUser)
+                        <tr id="{{ $invitedUser['email'] }}">
                             <td width="100" class="col-center">
                                 <div class="thumb-60">
-                                    <img src="{{ $referral['avatar'] }}" alt={{ $referral['name'] }}>
+                                    <img src="{{ $invitedUser['avatar'] }}" alt={{ $invitedUser['name'] }}>
                                 </div>
                             </td>
-                            <td> {{ $referral['name'] }} </td>
+                            <td> {{ $invitedUser['name'] }} </td>
                             <td>
-                                <span class="primary-color">{{ $referral['status'] }}</span>
+                                <span class="primary-color">{{ $invitedUser['status'] }}</span>
                             </td>
-                            <td style="min-width: 100px"></td>
+                            <td style="min-width: 100px">{{ $invitedUser['bonus'] }}</td>
+                            <td style="min-width: 100px">{{ $invitedUser['commission'] }}</td>
                             <td width="160" class="col-center"><a href="" class="send-link resend-invitation">Resend</a></td>
                         </tr>
                     @endforeach

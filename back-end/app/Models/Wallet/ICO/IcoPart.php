@@ -46,7 +46,7 @@ class IcoPart
     /**
      * @var float ICO euro rate
      */
-    protected $euroZnxRate = 0.05;
+    protected $euroZnxRate;
 
     /**
      * IcoPart constructor.
@@ -64,6 +64,7 @@ class IcoPart
     protected function init()
     {
         $this->icoZnxAmount = ZantecoinTransaction::where('ico_part', $this->getID())
+            ->whereIn('transaction_type', ZantecoinTransaction::getIcoTransactionTypes())
             ->get()
             ->sum('amount');
 
@@ -185,6 +186,21 @@ class IcoPart
         $checkAmount = $this->icoZnxAmount < $this->icoZnxLimit;
 
         return $checkDate && $checkAmount;
+    }
+
+    /**
+     * Check if Part is finished
+     *
+     * @param int $operationDate
+     *
+     * @return bool
+     */
+    public function isFinished($operationDate)
+    {
+        $checkDate = $operationDate > strtotime($this->icoEndDate);
+        $checkAmount = $this->icoZnxAmount > $this->icoZnxLimit;
+
+        return $checkDate || $checkAmount;
     }
 
     /**

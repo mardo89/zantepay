@@ -19,5 +19,6 @@ mix.js('resources/assets/js/main.js', 'public/js')
     .js('resources/assets/js/admin_users.js', 'public/js')
     .js('resources/assets/js/admin_profile.js', 'public/js')
     .js('resources/assets/js/admin_wallet.js', 'public/js')
+    .js('resources/assets/js/service.js', 'public/js')
     .stylus('resources/assets/stylus/main.styl', 'public/css');
    // .sass('resources/assets/sass/app.scss', 'public/css');

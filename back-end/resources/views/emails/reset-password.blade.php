@@ -34,17 +34,16 @@
             .mob-hide {
                 display: none !important;
             }
-        }
-
-        .table600 {
-            width: 600px;
+            .table600 {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Email Text</span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Please confirm that you would like to&nbsp;reset your&nbsp;account password. Link will be expired in 10 minutes.</span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
@@ -94,7 +93,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td align="center" valign="top">
-                                                        <a href="#" target="_blank" style="outline: none; border: 0;"><img
+                                                        <a href="https://www.zantepay.com" target="_blank" style="outline: none; border: 0;"><img
                                                                     src="{{ url('/') . "/images/logo.png"}}" width="214" height="29"
                                                                     style="display:block;outline:0;border:0;width:214px;height:29px"
                                                                     alt="ZANTEPAY"></a>
@@ -171,48 +170,66 @@
                                     <tr>
                                         <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                             <!--[if mso]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="280">
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="370">
                                                 <tr>
-                                                    <td align="center" valign="top" width="280">
+                                                    <td align="center" valign="top" width="370">
                                             <![endif]-->
                                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                   style="max-width:280px;">
+                                                   style="max-width:370px;">
                                                 <tr>
                                                     <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
                                                 </tr>
                                                 <tr>
                                                     <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                                         <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="230">
+                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="370">
                                                             <tr>
-                                                                <td align="center" valign="top" width="230">
+                                                                <td align="center" valign="top" width="370">
                                                         <![endif]-->
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                               style="max-width:230px;">
+                                                               style="max-width:370px;">
                                                             <tr>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img
+                                                                    <a href="https://www.zantepay.com" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/website-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Website"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="http://telegram.me/zantepay" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/telegram-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Telegram"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="https://www.facebook.com/ZANTEPAY/" target="_blank" style="outline: none; border: 0;"><img
                                                                                 src="{{ url('/') . "/images/Fb.png" }}" width="42" height="42"
                                                                                 style="display:block;outline:0;border:0;width:42px;height:42px"
                                                                                 alt="Facebook"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img
+                                                                    <a href="https://twitter.com/zantepay" target="_blank" style="outline: none; border: 0;"><img
                                                                                 src="{{ url('/') . "/images/Tw.png" }}" width="42" height="42"
                                                                                 style="display:block;outline:0;border:0;width:42px;height:42px"
                                                                                 alt="Twitter"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img
+                                                                    <a href="https://medium.com/@zantepay/" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/medium-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Medium"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="mailto:support@zantepay.com" target="_blank" style="outline: none; border: 0;"><img
                                                                                 src="{{ url('/') . "/images/Email.png" }}" width="42" height="42"
                                                                                 style="display:block;outline:0;border:0;width:42px;height:42px"
                                                                                 alt="Email"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img
-                                                                                src="{{ url('/') . "/images/Bit.png" }}" width="42" height="42"
-                                                                                style="display:block;outline:0;border:0;width:42px;height:42px"
-                                                                                alt="Bitcoin"></a>
+                                                                    <a href="https://www.reddit.com/user/ZANTEPAY" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/reddit-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Reddit"></a>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -259,12 +276,12 @@
                                                 <tr>
                                                     <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                                         <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="140">
+                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="155">
                                                             <tr>
-                                                                <td align="center" valign="top" width="140">
+                                                                <td align="center" valign="top" width="155">
                                                         <![endif]-->
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                               style="max-width:140px;">
+                                                               style="max-width:155px;">
                                                             <tr>
                                                                 <td align="left" valign="top" width="30">
                                                                     <img src="{{ url('/') . "/images/Copy.png"}}" width="20" height="20"

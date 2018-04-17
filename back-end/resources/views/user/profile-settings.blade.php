@@ -34,12 +34,10 @@
                                         <div class="drag-drop-area">
                                             <div class="drag-drop-container">
                                                 <div class="drag-drop-ico"></div>
-                                                <div class="drag-drop-text">Click to open explorer or <br> drag and drop your
-                                                    verification file here
-                                                </div>
+                                                <div class="drag-drop-text">Click to open explorer</div>
                                                 <label>
                                                     <span class="btn btn--shadowed-light btn--medium">Choose file</span>
-                                                    <input id="document-files" type="file" name="files[]" multiple="multiple"
+                                                    <input id="document-files" type="file" name="id_files" multiple="multiple"
                                                            title='Click to add Files'>
                                                 </label>
                                                 <div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document
@@ -77,12 +75,10 @@
                                         <div class="drag-drop-area">
                                             <div class="drag-drop-container">
                                                 <div class="drag-drop-ico"></div>
-                                                <div class="drag-drop-text">Click to open explorer or <br> drag and drop your
-                                                    verification file here
-                                                </div>
+                                                <div class="drag-drop-text">Click to open explorer</div>
                                                 <label>
                                                     <span class="btn btn--shadowed-light btn--medium">Choose file</span>
-                                                    <input id="address-files" type="file" name="files[]" multiple="multiple"
+                                                    <input id="address-files" type="file" name="address_files" multiple="multiple"
                                                            title='Click to add Files'>
                                                 </label>
                                                 <div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document
@@ -116,34 +112,34 @@
                     <hr>
 
                     {{--<div class="dashboard-col-wrap dashboard-group-md">--}}
-                        {{--<h2 class="h4 mb-20">Bitcoin wallet:</h2>--}}
-                        {{--<div class="row">--}}
-                            {{--<div class="col-lg-11 wallet-address-group">--}}
-                                {{--<form action="">--}}
-                                    {{--<input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_BTC }}"/>--}}
+                    {{--<h2 class="h4 mb-20">Bitcoin wallet:</h2>--}}
+                    {{--<div class="row">--}}
+                    {{--<div class="col-lg-11 wallet-address-group">--}}
+                    {{--<form action="">--}}
+                    {{--<input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_BTC }}"/>--}}
 
-                                    {{--<div class="row mb-15">--}}
-                                        {{--<div class="col-xl-8 col-lg-7 col-md-8">--}}
-                                            {{--<label class="field-label" for="field4">BTC wallet address:</label>--}}
-                                            {{--<input class="input-field" type="text" name="wallet-address" id="field4"--}}
-                                                   {{--value="{{ $wallet->btc_wallet }}">--}}
-                                        {{--</div>--}}
+                    {{--<div class="row mb-15">--}}
+                    {{--<div class="col-xl-8 col-lg-7 col-md-8">--}}
+                    {{--<label class="field-label" for="field4">BTC wallet address:</label>--}}
+                    {{--<input class="input-field" type="text" name="wallet-address" id="field4"--}}
+                    {{--value="{{ $wallet->btc_wallet }}">--}}
+                    {{--</div>--}}
 
-                                        {{--<div class="col-xl-4 col-lg-5 col-md-4">--}}
-                                            {{--<button type="button"--}}
-                                                    {{--class="btn btn--shadowed-light btn--medium mt-35 mt-sm-15  update-wallet">--}}
-                                                {{--Change Address--}}
-                                            {{--</button>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
+                    {{--<div class="col-xl-4 col-lg-5 col-md-4">--}}
+                    {{--<button type="button"--}}
+                    {{--class="btn btn--shadowed-light btn--medium mt-35 mt-sm-15  update-wallet">--}}
+                    {{--Change Address--}}
+                    {{--</button>--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
 
-                                    {{--<div class="checkbox">--}}
-                                        {{--<input type="checkbox" id="check1" class="owner-confirm"><label for="check1" class="text-sm">Hereby--}}
-                                            {{--I confirm that I am the owner of this account</label>--}}
-                                    {{--</div>--}}
-                                {{--</form>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+                    {{--<div class="checkbox">--}}
+                    {{--<input type="checkbox" id="check1" class="owner-confirm"><label for="check1" class="text-sm">Hereby--}}
+                    {{--I confirm that I am the owner of this account</label>--}}
+                    {{--</div>--}}
+                    {{--</form>--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
                     {{--</div>--}}
 
                     <div class="dashboard-col-wrap">
@@ -151,7 +147,8 @@
                         <div class="row">
                             <div class="col-lg-11 wallet-address-group">
                                 <form action="">
-                                    <input type="hidden" name="wallet-currency" value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ETH }}"/>
+                                    <input type="hidden" name="wallet-currency"
+                                           value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ETH }}"/>
 
                                     <div class="row mb-15">
                                         <div class="col-xl-8 col-lg-7 col-md-8">
@@ -183,15 +180,15 @@
                         <h2 class="h4 headline-mb">Change password:</h2>
                         <div class="form-group">
                             <label class="field-label" for="field1">Current password:</label>
-                            <input class="input-field" type="password" name="current-password" id="field1">
+                            <input class="input-field" type="password" name="current-password" id="field1" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label class="field-label" for="field2">New password:</label>
-                            <input class="input-field" type="password" name="password" id="field2">
+                            <input class="input-field" type="password" name="password" id="field2" autocomplete="off">
                         </div>
                         <div class="form-group dashboard-group-md">
-                            <label class="field-label" for="field3">Current password:</label>
-                            <input class="input-field" type="password" name="confirm-password" id="field3">
+                            <label class="field-label" for="field3">Confirm password:</label>
+                            <input class="input-field" type="password" name="confirm-password" id="field3" autocomplete="off">
                         </div>
 
                         <button type="submit" class="btn btn--shadowed-light btn--medium">Change Password</button>

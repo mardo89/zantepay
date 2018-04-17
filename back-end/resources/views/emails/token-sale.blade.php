@@ -34,17 +34,16 @@
             .mob-hide {
                 display: none !important;
             }
-        }
-
-        .table600 {
-            width: 600px;
+            .table600 {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Email Text</span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thanks for visiting ZANTEPAY! Per your request, we have successfully changed your password.</span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
@@ -94,68 +93,63 @@
                                                 </tr>
                                                 <tr>
                                                     <td align="center" valign="top">
-                                                        <a href="#" target="_blank" style="outline: none; border: 0;"><img
+                                                        <a href="https://www.zantepay.com" target="_blank" style="outline: none; border: 0;"><img
                                                                     src="{{ url('/') . "/images/logo.png"}}" width="214" height="29"
                                                                     style="display:block;outline:0;border:0;width:214px;height:29px"
                                                                     alt="ZANTEPAY"></a>
                                                     </td>
                                                 </tr>
+                                                <tr><td height="60" style="line-height:60px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td height="60" style="line-height:60px; font-size: 0;">&nbsp;</td>
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 32px; color: #232323; line-height: normal; font-weight: normal;">
+                                                        Hello!
+                                                    </td>
                                                 </tr>
+                                                <tr><td height="40" style="line-height:40px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
-                                                    <td align="center" valign="top"
-                                                        style="font-family:Verdana, Arial, sans-serif; font-size: 32px; color: #232323; line-height: normal; font-weight: normal;">
-                                                        Confirm your account
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                        Thank you for being part of our community and contributing to ZANTEPAY token sale. Thank you for taking the time to understand our project. Thank you for believing in and supporting our vision. And thank you for taking the first step toward that vision by becoming one of the first to hold the ZNX cryptocurrency.
+                                                    </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                        The details of your contribution are as follows:
+                                                    </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 24px; font-weight: bold;">
+                                                        Contribution Amount: 0.5 ETH 
+                                                    </td>
+                                                </tr>
+                                                <tr><td height="5" style="line-height:5px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 24px; font-weight: bold;">
+                                                        You received: 4,175.0 ZNX 
+                                                    </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                        As announced previously, ZNX will become available on after 15 July, 2018.
+                                                    </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
+                                                        This is just the very beginning! Stay tuned for ZANTEPAY multiwallet and pre-paid card release. The next several months are bound to be super exciting, as ZANTEPAY vision becomes a reality.
+                                                    </td>
+                                                </tr>
+                                                <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
+                                                <tr>
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: bold;">
+                                                        Thank you!
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td height="40" style="line-height:40px; font-size: 0;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        Please confirm that you would like to&nbsp;create an&nbsp;account with ZANTEPAY by&nbsp;verifying
-                                                        your email address below. Once it&nbsp;is&nbsp;done, you will be&nbsp;able to&nbsp;log
-                                                        in&nbsp;and start using the cryptocurrency wallet of&nbsp;the future!
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
-                                                        <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="384">
-                                                            <tr>
-                                                                <td align="center" valign="top" width="384">
-                                                        <![endif]-->
-                                                        <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                               style="max-width:384px;">
-                                                            <tr>
-                                                                <td align="center" valign="top">
-                                                                    <a href="{{ $activationLink }}" target="_blank"
-                                                                       style="outline: none; border: 0;"><img
-                                                                                src="{{ url('/') . "/images/Btn.png"}}" width="384" height="54"
-                                                                                style="display:block;outline:0;border:0;width:100%;height:auto"
-                                                                                alt="Verify my email"></a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" valign="top"
-                                                                    style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                                    Or paste this link into your browser:
-                                                                    <span style="color:#0566c1;font-size: 12px;">{{ $activationLink }}</span>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                        <!--[if mso]>
-                                                        </td>
-                                                        </tr>
-                                                        </table>
-                                                        <![endif]-->
+                                                    <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: bold;">
+                                                        ZANTEPAY Team
                                                     </td>
                                                 </tr>
                                             </table>
@@ -172,48 +166,66 @@
                                     <tr>
                                         <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                             <!--[if mso]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="280">
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="370">
                                                 <tr>
-                                                    <td align="center" valign="top" width="280">
+                                                    <td align="center" valign="top" width="370">
                                             <![endif]-->
                                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                   style="max-width:280px;">
+                                                   style="max-width:370px;">
                                                 <tr>
                                                     <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
                                                 </tr>
                                                 <tr>
                                                     <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                                         <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="230">
+                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="370">
                                                             <tr>
-                                                                <td align="center" valign="top" width="230">
+                                                                <td align="center" valign="top" width="370">
                                                         <![endif]-->
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                               style="max-width:230px;">
+                                                               style="max-width:370px;">
                                                             <tr>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img
+                                                                    <a href="https://www.zantepay.com" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/website-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Website"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="http://telegram.me/zantepay" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/telegram-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Telegram"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="https://www.facebook.com/ZANTEPAY/" target="_blank" style="outline: none; border: 0;"><img
                                                                                 src="{{ url('/') . "/images/Fb.png" }}" width="42" height="42"
                                                                                 style="display:block;outline:0;border:0;width:42px;height:42px"
                                                                                 alt="Facebook"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img
+                                                                    <a href="https://twitter.com/zantepay" target="_blank" style="outline: none; border: 0;"><img
                                                                                 src="{{ url('/') . "/images/Tw.png" }}" width="42" height="42"
                                                                                 style="display:block;outline:0;border:0;width:42px;height:42px"
                                                                                 alt="Twitter"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img
+                                                                    <a href="https://medium.com/@zantepay/" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/medium-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Medium"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="mailto:support@zantepay.com" target="_blank" style="outline: none; border: 0;"><img
                                                                                 src="{{ url('/') . "/images/Email.png" }}" width="42" height="42"
                                                                                 style="display:block;outline:0;border:0;width:42px;height:42px"
                                                                                 alt="Email"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank" style="outline: none; border: 0;"><img
-                                                                                src="{{ url('/') . "/images/Bit.png" }}" width="42" height="42"
-                                                                                style="display:block;outline:0;border:0;width:42px;height:42px"
-                                                                                alt="Bitcoin"></a>
+                                                                    <a href="https://www.reddit.com/user/ZANTEPAY" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/reddit-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Reddit"></a>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -260,12 +272,12 @@
                                                 <tr>
                                                     <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                                         <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="140">
+                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="155">
                                                             <tr>
-                                                                <td align="center" valign="top" width="140">
+                                                                <td align="center" valign="top" width="155">
                                                         <![endif]-->
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                               style="max-width:140px;">
+                                                               style="max-width:155px;">
                                                             <tr>
                                                                 <td align="left" valign="top" width="30">
                                                                     <img src="{{ url('/') . "/images/Copy.png"}}" width="20" height="20"

@@ -29,16 +29,14 @@ class Question extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $userName
-     * @param string $userEmail
-     * @param string $userMessage
-     *
+     * @param array $mailData
      */
-    public function __construct($userName, $userEmail, $userQuestion)
+    public function __construct($mailData)
     {
-       $this->userName = $userName;
-       $this->userEmail = $userEmail;
-       $this->userQuestion = $userQuestion;
+        $this->subject = $mailData['subject'];
+        $this->userName = $mailData['name'];
+        $this->userEmail = $mailData['email'];
+        $this->userQuestion = $mailData['question'];
     }
 
     /**
@@ -48,6 +46,7 @@ class Question extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.question');
+        return $this->subject($this->subject)
+            ->view('emails.question');
     }
 }

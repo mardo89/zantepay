@@ -9,9 +9,11 @@ $(document).ready(function () {
 
         let tmpEl = $('<input />').val(address);
 
-        $('body').append(tmpEl);
+        $(this).after(tmpEl);
 
-        tmpEl.select();
+        tmpEl.focus();
+
+        tmpEl.get(0).setSelectionRange(0, address.length);
 
         document.execCommand("copy");
 
@@ -90,7 +92,11 @@ $(document).ready(function () {
                     const {message} = error.response.data;
 
                     if (error.response.status == 422) {
+
                         $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+
+                        scrollToError();
+
                     } else {
                         showError(message)
                     }
@@ -187,6 +193,10 @@ $(document).ready(function () {
                             callbacks: {
                                 close: function () {
                                     window.location.reload();
+                                },
+
+                                elementParse: function (item) {
+                                    $(item.src).find('#znx_balance').text(response.data.balance);
                                 }
                             }
                         }
@@ -210,6 +220,8 @@ $(document).ready(function () {
                                 );
                             }
                         )
+
+                        scrollToError();
 
                     } else {
                         showError(message);
@@ -237,6 +249,8 @@ $(document).ready(function () {
             .then(
                 () => {
                     hideSpinner(button);
+
+                    $('input[name="withdraw_address"]').val('');
 
                     $.magnificPopup.open(
                         {
@@ -272,6 +286,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
@@ -295,8 +311,27 @@ $(document).ready(function () {
             return false;
         }
 
+        const spinner = $('<div />').addClass('spinner-container').css('height', '50px')
+            .append(
+                $('<div />').addClass('spinner spinner--50')
+                    .append(
+                        $('<div />')
+                    )
+                    .append(
+                        $('<div />')
+                    )
+                    .append(
+                        $('<div />')
+                    )
+                    .append(
+                        $('<div />')
+                    )
+            )
+
         const button = $(this).find('input[type="submit"]');
-        button.prop('disabled', true);
+
+        button.prop('disabled', true).hide();
+        button.after(spinner);
 
         axios.post(
             '/user/accept-terms',
@@ -309,15 +344,18 @@ $(document).ready(function () {
             )
             .catch(
                 error => {
-                    button.prop('disabled', false);
+                    button.prop('disabled', false).show();
+                    spinner.remove();
 
                     const {message} = error.response.data;
 
-                    showError(message);
+                    $('.logon-group').last().after(
+                        $('<span />').addClass('error-text').text(message)
+                    )
+
                 }
             )
     });
-
 
 });
 

@@ -10,23 +10,25 @@
         <div class="h-banner">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-8 col-lg-7 col-md-8">
-                        The only official URL for Zantepay is <a href="//www.zantepay.com">www.zantepay.com</a>. If you receive confirmation
+                    <div class="col-xl-8 col-md-7">
+                        The only official URL for Zantepay is <a href="https://zantepay.com">https://zantepay.com</a>. If you receive
+                        confirmation
                         of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
                     </div>
-                    <div class="col-xl-4 col-lg-5 col-md-4">
+                    <div class="col-xl-4 col-md-5">
                         <div class="row">
                             <div class="col-lg">
                                 Official channels:
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-9">
                                 <ul class="social-list">
                                     <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
                                     <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
                                     <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
                                     <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
                                     <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
-                                    <!-- <li><a target="_blank" href="https://bitcointalk.org/"><i class="fa fa-bitcoin"></i></a></li> -->
+                                    <li><a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -44,7 +46,8 @@
                 <h1 class="h2 header__title text-uppercase">Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one
                     card</h1>
                 <div class="horizontal-btns">
-                    <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
+                    <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260"
+                       onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
                     <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
                     <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                 </div>
@@ -55,28 +58,41 @@
             </div>
         </div>
 
-        <div class="white-content container">
-            <div class="ico-progress">
-                <div class="ico-progress-left">
-                    <span class="h4">ZNX</span>
-                    <span class="text-lg text-lg-center">0</span>
-                    <span class="text-lg">ETH</span>
-                </div>
-                <div class="ico-progress-bar">
-                    <!-- please use "is-right" class if <50% and "is-left" if >50% -->
-                    <div class="ico-progress-bar-group {{ $ico['relativeBalance']['progressClass'] }}" style="width:{{ $ico['relativeBalance']['percent'] }}%;">
-                        <span class="h4">{{ $ico['znxAmount'] }}</span>
-                        <span class="text-lg">{{ $ico['ethAmount'] }}</span>
-                        <div class="ico-progress-bar-line"></div>
-                        <img src="images/coin-ico.png" srcset="images/coin-ico@2x.png 2x" alt="ZANTECOIN">
+        @if($ico['showProgress'])
+
+            <div class="white-content container">
+
+                <div class="ico-progress">
+                    <div class="ico-progress-left">
+                        <span class="h4">ZNX</span>
+                        <span class="text-lg text-lg-center">0</span>
+                        <span class="text-lg">ETH</span>
+                    </div>
+                    <div class="ico-progress-bar">
+                        <!-- please use "is-right" class if <50% and "is-left" if >50% -->
+                        <div class="ico-progress-bar-group {{ $ico['relativeBalance']['progressClass'] }}"
+                             style="width:{{ $ico['relativeBalance']['percent'] }}%;">
+                            <span class="h4">{{ $ico['znxAmount'] }}</span>
+                            <span class="text-lg">{{ $ico['ethAmount'] }}</span>
+                            <div class="ico-progress-bar-line"></div>
+                            <img src="images/coin-ico.png" srcset="images/coin-ico@2x.png 2x" alt="ZANTECOIN">
+                        </div>
+                    </div>
+                    <div class="ico-progress-right">
+                        <span class="h4">{{ $ico['znxLimit'] }}</span>
+                        <span class="text-lg">{{ $ico['ethLimit'] }}</span>
                     </div>
                 </div>
-                <div class="ico-progress-right">
-                    <span class="h4">{{ $ico['znxLimit'] }}</span>
-                    <span class="text-lg">{{ $ico['ethLimit'] }}</span>
-                </div>
+
+                <h3 class="h4 text-center">
+                    Sold total during private sale and pre-ICO:
+                    <p> {{ $ico['prevAmount'] }} ZNX</p>
+                </h3>
+
             </div>
-        </div>
+
+        @endif
+
     </header>
 
 @endsection
@@ -92,12 +108,13 @@
                     </div>
                     <div class="col-md-4 vertical-middle-col">
                         <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
-                        <p>ZANTEPAY is a cryptocurrency multiwallet with a debit card. It allows you to spend your digital assets anytime, anywhere.</p>
+                        <p>ZANTEPAY is a cryptocurrency multiwallet with a debit card. It allows you to spend your digital assets anytime,
+                            anywhere.</p>
                     </div>
                 </div>
             </div>
         </section>
-            
+
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">
@@ -120,7 +137,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section class="lp-section-artifical white-content">
             <div class="container">
                 <h3 class="h2 headline">Artificial intelligence <span>at core</span></h3>
@@ -156,7 +173,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-5 col-lg-6 col-md-7 offset-lg-1 lp-pre-ico-col">
-                        <h2 class="h2 headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
+                        <h2 class="h2 headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}
+                                €</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
                     </div>
                     <div class="col-md-5 text-center">
                         <div class="lp-progress-wrap">
@@ -268,7 +286,8 @@
                         <div class="lp-image-container4">
                             <img src="images/ICO.png" alt="ICO">
                         </div>
-                        <h2 class="h2 headline ico-chart-headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
+                        <h2 class="h2 headline ico-chart-headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }}
+                                ETH</span></h2>
                     </div>
                     <div class="col-sm-6 text-center">
                         <h3 class="h2 headline">Token <br> distribution</h3>
@@ -330,7 +349,6 @@
                             <div class="text-center">
                                 <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Verify & Pre-order a FREE Debit
                                     Card</a>
-                                <p class="text-lg">(currently under testing, pre-order opening soon)</p>
                                 <p class="text-regular">Pre-order free debit card and receive 500ZNX!</p>
                                 <p class="text-regular">Invite a friend to pre-order debit card. <br> RECEIVE 500ZNX WHEN PREORDER IS
                                     FINISHED! <br> Your friend gets 500ZNX.</p>
@@ -339,13 +357,11 @@
                         <div class="col-md-6 offset-lg-1">
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
-                                <li>According to the selected preferences, Bitcoin, Litecoin, Ethereum and Zantecoin will let you purchase
-                                    via Debit card everywhere in the world.
-                                </li>
-                                <li>Directly connected to your ZANTEPAY wallet.</li>
-                                <li>A multitude of management options will be available to you.</li>
-                                <li>Automatic highest trading price from partner exchanges. Fee 1%. No hidden fees added.</li>
-                                <li>20% cashback in ZANTECOINs.</li>
+                                <li>Issued by Estonian GFC Good Finance Company, partner of Mastercard.</li>
+                                <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoin everywhere in the world.</li>
+                                <li>Connected directly to your ZANTEPAY wallet.</li>
+                                <li>Provides automatic highest trading price from partner exchanges. 1%exchange fee. No hidden charges.</li>
+                                <li>20% cashback in ZANTECOIN.</li>
                             </ul>
                         </div>
                     </div>
@@ -408,193 +424,6 @@
             </div>
         </section>
 
-        <div class="lp-section-eight">
-            <div class="container">
-                <div class="text-center lp-row-1">
-                    <h2 class="headline h2">Marketing plan for <span>600.000.000 ZNX</span></h2>
-                </div>
-                <div class="lp-table-group">
-                    <h3 class="h2 headline">Bonus plan for <br> 5 mln debit card users</h3>
-                    <div class="table-responsive-500">
-                        <table class="table table-7-cols">
-                            <thead>
-                            <tr>
-                                <th>Debit cards total</th>
-                                <th>Pre-ordered cards</th>
-                                <th>ZNX distributed as referral bonus</th>
-                                <th>Pre-order value, EUR</th>
-                                <th>ICO Part I value, EUR</th>
-                                <th>ICO Part II value, EUR</th>
-                                <th>ICO Part III value, EUR</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>0-1000</td>
-                                <td>1000</td>
-                                <td>1000</td>
-                                <td>50</td>
-                                <td>100</td>
-                                <td>140</td>
-                                <td>250</td>
-                            </tr>
-                            <tr>
-                                <td>1000-5000</td>
-                                <td>4000</td>
-                                <td>800</td>
-                                <td>40</td>
-                                <td>80</td>
-                                <td>112</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>5000-10000</td>
-                                <td>5000</td>
-                                <td>600</td>
-                                <td>30</td>
-                                <td>60</td>
-                                <td>84</td>
-                                <td>150</td>
-                            </tr>
-                            <tr>
-                                <td>10000-15000</td>
-                                <td>5000</td>
-                                <td>400</td>
-                                <td>20</td>
-                                <td>40</td>
-                                <td>56</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>15000-25000</td>
-                                <td>10000</td>
-                                <td>200</td>
-                                <td>10</td>
-                                <td>20</td>
-                                <td>28</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>25000-50000</td>
-                                <td>25000</td>
-                                <td>100</td>
-                                <td>5</td>
-                                <td>10</td>
-                                <td>14</td>
-                                <td>25</td>
-                            </tr>
-                            <tr>
-                                <td>50000-75000</td>
-                                <td>25000</td>
-                                <td>100</td>
-                                <td>5</td>
-                                <td>10</td>
-                                <td>14</td>
-                                <td>25</td>
-                            </tr>
-                            <tr>
-                                <td>75000-100000</td>
-                                <td>25000</td>
-                                <td>80</td>
-                                <td>4</td>
-                                <td>8</td>
-                                <td>11,2</td>
-                                <td>20</td>
-                            </tr>
-                            <tr>
-                                <td>100k - 1 mln</td>
-                                <td>900000</td>
-                                <td>80</td>
-                                <td>4</td>
-                                <td>8</td>
-                                <td>11,2</td>
-                                <td>20</td>
-                            </tr>
-                            <tr>
-                                <td>1 mln - 5 mln</td>
-                                <td>4000000</td>
-                                <td>60</td>
-                                <td>3</td>
-                                <td>6</td>
-                                <td>8,4</td>
-                                <td>15</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="lp-table-group">
-                    <h3 class="h2 headline">Cashback bonus plan <br>for turnover 1 BLN</h3>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Turnover amount</th>
-                            <th>Turnover</th>
-                            <th>Cashback</th>
-                            <th>ZNX distributed</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1 - 1 mln</td>
-                            <td>1000000</td>
-                            <td>20%</td>
-                            <td>2000000</td>
-                        </tr>
-                        <tr>
-                            <td>1 mln - 10 mln</td>
-                            <td>9000000</td>
-                            <td>15%</td>
-                            <td>13500000</td>
-                        </tr>
-                        <tr>
-                            <td>10 mln - 20 mln</td>
-                            <td>10000000</td>
-                            <td>12%</td>
-                            <td>12000000</td>
-                        </tr>
-                        <tr>
-                            <td>20 mln - 50 mln</td>
-                            <td>30000000</td>
-                            <td>5%</td>
-                            <td>15000000</td>
-                        </tr>
-                        <tr>
-                            <td>50 mln - 100 mln</td>
-                            <td>50000000</td>
-                            <td>5%</td>
-                            <td>25000000</td>
-                        </tr>
-                        <tr>
-                            <td>100 mln - 200 mln</td>
-                            <td>100000000</td>
-                            <td>3%</td>
-                            <td>30000000</td>
-                        </tr>
-                        <tr>
-                            <td>200 mln - 300 mln</td>
-                            <td>100000000</td>
-                            <td>3%</td>
-                            <td>30000000</td>
-                        </tr>
-                        <tr>
-                            <td>300 mln - 500 mln</td>
-                            <td>200000000</td>
-                            <td>2%</td>
-                            <td>40000000</td>
-                        </tr>
-                        <tr>
-                            <td>500 mln - 1 bln</td>
-                            <td>500000000</td>
-                            <td>2%</td>
-                            <td>100000000</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
         <div class="lp-section-nineth" id="team">
             <div class="container">
                 <div class="text-center lp-row-1">
@@ -634,7 +463,10 @@
                     <div class="col-lg-4">
                         <img src="images/kristi.jpg" srcset="images/kristi@2x.jpg 2x" alt="Kristi Sild">
                         <h3 class="h4">Kristi Sild <span>Legal <br> Attorney at Law/ Partner, LEXTAL</span></h3>
-                        <p>Kristi is an experienced attorney and leads the legal team of Zantepay project. Kristi is a partner in Lawfirm LEXTAL, one of the biggest lawfirms in Estonia, having also offices in Latvia and Lithuania. Kristi has wide legal experience in fintech field, including regulatory matters and other legal questions related to innovative financing and financial services. Her expertise also covers services related to crypto currencies and ICOs.</p>
+                        <p>Kristi is an experienced attorney and leads the legal team of Zantepay project. Kristi is a partner in Lawfirm
+                            LEXTAL, one of the biggest lawfirms in Estonia, having also offices in Latvia and Lithuania. Kristi has wide
+                            legal experience in fintech field, including regulatory matters and other legal questions related to innovative
+                            financing and financial services. Her expertise also covers services related to crypto currencies and ICOs.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">
@@ -672,39 +504,74 @@
                     <div class="col-lg-4">
                         <img src="images/oleg.jpg" srcset="images/oleg@2x.jpg 2x" alt="Oleg Pyvovarenko">
                         <h3 class="h4">Oleg Pyvovarenko <span>DM Team Lead</span></h3>
-                        <p>Data-driven product marketing manager with 7+ years of experience in various global projects. Experienced in gambling, betting, finance projects, ICO and crypto exchanges. Worked with huobi.pro, Aeron.aero, xchange.io etc. </p>
+                        <p>Data-driven product marketing manager with 7+ years of experience in various global projects. Experienced in
+                            gambling, betting, finance projects, ICO and crypto exchanges. Worked with huobi.pro, Aeron.aero, xchange.io
+                            etc. </p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/vadim.jpg" srcset="images/vadim@2x.jpg 2x" alt="Vadim Ivanenko">
+                        <h3 class="h4">Vadim Ivanenko <span>Bounty Manager</span></h3>
+                        <p>Vadim is a serial entrepreneur, blockchain evangelist and crypto investor. He is a CEO and Founder at Luft,
+                            offering B2B solutions for the blockchain startups. His role at ZANTEPAY is to design and lead its Bounty
+                            Programme.</p>
                     </div>
                 </div>
 
                 <div class="text-center lp-row-1">
                     <h2 class="headline h2"><span>Advisors</span></h2>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-lg-4">
                         <img src="images/dmitry.jpg" srcset="images/dmitry@2x.jpg 2x" alt="Dmitri Laush">
-                        <h3 class="h4">Dmitri Laush <span style="font-size:0.83em;">Foreign Exchange, Integration Partner, Co-Founder of Admiral Markets</span></h3>
-                        <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co- founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor and investor in various blockchain projects and startups. Founder of own crypto fund and a few blockchain projects. Entrepreneur, Blockchain Evangelist and a true believer that decentralization, peer-to-peer (P2P) governance systems and cryptocurrencies can help define a new path for the progress of humanity.</p>
+                        <h3 class="h4">Dmitri Laush <span style="font-size:0.83em;">Foreign Exchange, Integration Partner, Co-Founder of Admiral Markets</span>
+                        </h3>
+                        <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co-
+                            founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor
+                            and investor in various blockchain projects and startups. Founder of own crypto fund and a few blockchain
+                            projects. Entrepreneur, Blockchain Evangelist and a true believer that decentralization, peer-to-peer (P2P)
+                            governance systems and cryptocurrencies can help define a new path for the progress of humanity.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/cristobal.jpg" srcset="images/cristobal@2x.jpg 2x" alt="Cristobal Alonso">
                         <h3 class="h4">Cristobal Alonso <span style="font-size:0.83em;">Global CEO @ Startup Wise Guys</span></h3>
-                        <p>Cristobal is the Global Capo of Startup Wise Guys – Europe’s leading B2B accelerator and the leading acceleration platform for global founders and preferred deal flow partner for VC funds in Northern Europe and the CEE. Cristobal’s unique background combines extensive CxO experience in different mobile operators in Europe, leading several transformations and turnarounds, together with CEO startup experience both in B2B and B2C environments. Cristobal has been involved in more than 15 startups in 20 different countries as a founder, early CEO, investor, and lately as an advisor.</p>
+                        <p>Cristobal is the Global Capo of Startup Wise Guys – Europe’s leading B2B accelerator and the leading acceleration
+                            platform for global founders and preferred deal flow partner for VC funds in Northern Europe and the CEE.
+                            Cristobal’s unique background combines extensive CxO experience in different mobile operators in Europe, leading
+                            several transformations and turnarounds, together with CEO startup experience both in B2B and B2C environments.
+                            Cristobal has been involved in more than 15 startups in 20 different countries as a founder, early CEO,
+                            investor, and lately as an advisor.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/rauno.jpg" srcset="images/rauno@2x.jpg 2x" alt="Rauno Klettenberg">
-                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia. </span></h3>
-                        <p>Ex Chairman of the Board at Nasdaq Tallinn. Ex General Manager of Handelsbanken. Member of the Board at Finance Estonia. Rauno is an experienced Board Member with a demonstrated history of working in the financial services industry. Expert in Asset Management, Management, Mergers & Acquisitions, and Financial Risk. He is a strong business development professional with a Master's Degree focused in Accounting and Finance from Estonian Business School.</p>
+                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia </span></h3>
+                        <p>Ex Chairman of the Board at Nasdaq Tallinn. Ex General Manager of Handelsbanken. Member of the Board at Finance
+                            Estonia. Rauno is an experienced Board Member with a demonstrated history of working in the financial services
+                            industry. Expert in Asset Management, Management, Mergers & Acquisitions, and Financial Risk. He is a strong
+                            business development professional with a Master's Degree focused in Accounting and Finance from Estonian
+                            Business School.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/andrii.jpg" srcset="images/andrii@2x.jpg 2x" alt="Andriy Danchak">
+                        <h3 class="h4">Andriy Danchak <span style="font-size:0.83em;">CEO of GFC Good Finance Company AS </span></h3>
+                        <p>Andriy has more than 10 years of experience within the banking industry. Previously held an executive position in
+                            Raiffeisen and Standard Union Bank. Andriy possesses a deep knowledge of banking policies and regulations. As a
+                            CEO of GFC - a licensed payment institution and a principal member of Mastercard ®, his task is to work closely
+                            with ZANTEPAY on a debit card project.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
-                        <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span></h3>
-                        <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
+                        <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span>
+                        </h3>
+                        <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to
+                            several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/farid.jpg" srcset="images/farid@2x.jpg 2x" alt="Farid Singh">
-                        <h3 class="h4 h4--3row">Farid Singh <span style="font-size:0.83em;">Innovation Consultant, User centric Product Manager, Blue Ocean Strategist & Tech Expert</span></h3>
-                        <p>With over 10 years of experience in TMT and deep tech, Farid focuses on getting new tech to people. He helps move new technology to a mainstream product and leverages the benefits of new technology to drive adoption. </p>
+                        <h3 class="h4 h4--3row">Farid Singh <span style="font-size:0.83em;">Innovation Consultant, User centric Product Manager, Blue Ocean Strategist & Tech Expert</span>
+                        </h3>
+                        <p>With over 10 years of experience in TMT and deep tech, Farid focuses on getting new tech to people. He helps move
+                            new technology to a mainstream product and leverages the benefits of new technology to drive adoption. </p>
                     </div>
                 </div>
             </div>
@@ -743,7 +610,8 @@
                                       placeholder="Your message"></textarea>
                         </div>
                         <div class="text-center">
-                            <input class="btn btn--shadowed-dark btn--160" type="submit" value="Send" onclick="ga('send',  'event',  'button', 'onclick', 'send');">
+                            <input class="btn btn--shadowed-dark btn--160" type="submit" value="Send"
+                                   onclick="ga('send',  'event',  'button', 'onclick', 'send');">
                         </div>
                     </form>
                 </div>
@@ -760,6 +628,7 @@
                     <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
                     <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
                     <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
+                    <li><a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a></li>
                 </ul>
             </div>
             <div class="footer-menu">
@@ -799,7 +668,8 @@
                 </div>
                 <div class="text-gray text-sm">The payment will be made in ETH</div>
                 <div class="logon-submit">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe" onclick="ga('send',  'event',  'button', 'onclick', 'subscribe');">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe"
+                           onclick="ga('send',  'event',  'button', 'onclick', 'subscribe');">
                 </div>
             </form>
         </div>
@@ -877,18 +747,22 @@
             <form action="">
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check1"><label for="check1">I’ve read, understood and agree with the <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a></label>
+                        <input type="checkbox" name="" id="check1"><label for="check1">I’ve read, understood and agree with the <a
+                                    href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank"
+                                    onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a></label>
                     </div>
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood with the <a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" target="_blank">
-                            Terms & Conditions</a></label>
+                        <input type="checkbox" name="" id="check2"><label for="check2">I’ve read and understood with the <a
+                                    href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" target="_blank">
+                                Terms & Conditions</a></label>
                     </div>
                 </div>
                 <div class="logon-group text-left">
                     <div class="checkbox">
-                        <input type="checkbox" name="" id="check3"><label for="check3">I’ve read, understood and agree with the <a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" target="_blank">Privacy
+                        <input type="checkbox" name="" id="check3"><label for="check3">I’ve read, understood and agree with the <a
+                                    href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" target="_blank">Privacy
                                 Terms</a></label>
                     </div>
                 </div>

@@ -1,48 +1,61 @@
 require('./helpers');
 
+const resetForms = () => {
+
+    $('#upload-identity-documents').trigger('reset');
+    $('#upload-address-documents').trigger('reset');
+
+}
+
 $(document).ready(function () {
 
     $('.remove-document').on('click', function (event) {
         event.preventDefault();
 
-        const file = {
-            'did': $(this).parents('li').attr('id'),
-        }
+        showConfirmation(
+            'Are you sure do you want to delete this file?',
+            () => {
+                const file = {
+                    'did': $(this).parents('li').attr('id'),
+                }
 
-        axios.post(
-            '/user/profile-settings/remove-document',
-            qs.stringify(file)
-        )
-            .then(
-                () => {
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#remove-document-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                close: function () {
-                                    window.location.reload();
+                axios.post(
+                    '/user/profile-settings/remove-document',
+                    qs.stringify(file)
+                )
+                    .then(
+                        () => {
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#remove-document-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        close: function () {
+                                            window.location.reload();
+                                        }
+                                    }
+
                                 }
-                            }
-
+                            );
                         }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    const {message} = error.response.data;
+                    )
+                    .catch(
+                        error => {
+                            const {message} = error.response.data;
 
-                    showError(message);
-                }
-            )
+                            showError(message);
+                        }
+                    )
+            }
+        );
     });
 
     $('#upload-identity-documents').on('submit', function (event) {
         event.preventDefault();
+        clearErrors();
 
         let documents = new FormData();
 
@@ -67,7 +80,7 @@ $(document).ready(function () {
             return false;
         }
 
-        const button = $('#upload-identity-documents').find('button[type="submit"]');
+        const button = $(this).find('button[type="submit"]');
         showSpinner(button);
 
         axios.post(
@@ -77,6 +90,7 @@ $(document).ready(function () {
             .then(
                 () => {
                     hideSpinner(button);
+                    resetForms();
 
                     $.magnificPopup.open(
                         {
@@ -100,9 +114,22 @@ $(document).ready(function () {
                 error => {
                     hideSpinner(button);
 
-                    const {message} = error.response.data;
+                    const {message, errors} = error.response.data;
 
-                    showError(message);
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('#upload-identity-documents .drag-drop-area').after(
+                                    $('<div />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
                 }
             )
 
@@ -137,7 +164,7 @@ $(document).ready(function () {
             return false;
         }
 
-        const button = $('#upload-identity-documents').find('button[type="submit"]');
+        const button = $(this).find('button[type="submit"]');
         showSpinner(button);
 
         axios.post(
@@ -147,6 +174,7 @@ $(document).ready(function () {
             .then(
                 () => {
                     hideSpinner(button);
+                    resetForms();
 
                     $.magnificPopup.open(
                         {
@@ -177,7 +205,7 @@ $(document).ready(function () {
                         $.each(
                             errors,
                             (field, error) => {
-                                $('.drag-drop-area').after(
+                                $('#upload-address-documents .drag-drop-area').after(
                                     $('<div />').addClass('error-text').text(error)
                                 );
                             }
@@ -244,6 +272,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message)
                     }
@@ -298,13 +328,75 @@ $(document).ready(function () {
                     const {message} = error.response.data;
 
                     if (error.response.status == 422) {
+
                         $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+
+                        scrollToError();
+
                     } else {
                         showError(message)
                     }
                 }
             )
     });
+
+    $('#address-files').on('change', function () {
+
+        $('.selected-address-files').remove();
+
+        let fileList = $('<ul />').addClass('files-list selected-address-files');
+
+        $.each(
+            $(this)[0].files,
+            (index, file) => {
+
+                fileList.append(
+                    $('<li />')
+                        .append(
+                            $('<i />').addClass('file-ico')
+                        )
+                        .append(
+                            $('<div />').addClass('filename').html(file.name)
+                        )
+                );
+            }
+        )
+
+        $('#upload-address-documents .drag-drop-area').after(
+            fileList
+        );
+
+    })
+
+    $('#document-files').on('change', function () {
+
+        $('.selected-document-files').remove();
+
+        let fileList = $('<ul />').addClass('files-list selected-document-files');
+
+        $.each(
+            $(this)[0].files,
+            (index, file) => {
+
+                fileList.append(
+                    $('<li />')
+                        .append(
+                            $('<i />').addClass('file-ico')
+                        )
+                        .append(
+                            $('<div />').addClass('filename').html(file.name)
+                        )
+                );
+            }
+        )
+
+        $('#upload-identity-documents .drag-drop-area').after(
+            fileList
+        );
+
+    })
+
+    $('#address-files, #document-files').trigger('change');
 
 });
 

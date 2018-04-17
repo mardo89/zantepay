@@ -55,10 +55,60 @@
                 <div class="masthead__menu">
                     <nav class="navigation">
                         <ul>
-                            <li>
-                                <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
-                                   onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper
-                                </a>
+                            <li class="m-dropdown">
+                                <a href="javascript:void(0);">Whitepaper</a>
+                                <ul>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">English
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Russian.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Russian');">Russian
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Chinese.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Chinese');">Chinese
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Japanese.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Japanese');">Japanese
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Korean.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Korean');">Korean
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Arabic.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Arabic');">Arabic
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_French.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper French');">French
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_German.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper German');">German
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Spanish.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Spanish');">Spanish
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Portuguese.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Portuguese');">Portuguese
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
 
                             <li>
@@ -128,7 +178,7 @@
                     <input id="signin_email" class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="logon-group">
-                    <input id="signin_pwd" class="logon-field" type="password" name="password" placeholder="Password">
+                    <input id="signin_pwd" class="logon-field" type="password" name="password" placeholder="Password" autocomplete="off">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
@@ -183,10 +233,10 @@
                     <input class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="password" name="password" placeholder="Password">
+                    <input class="logon-field" type="password" name="password" placeholder="Password" autocomplete="off">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password">
+                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password" autocomplete="off">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">

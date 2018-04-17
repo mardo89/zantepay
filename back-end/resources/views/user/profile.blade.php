@@ -36,13 +36,9 @@
                                 <input class="input-field" type="email" name="email" value="{{ $user->email }}">
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group profile_phone_number">
-                                <label class="field-label" for="field4">Phone number:</label>
-                                <input class="input-field" type="text" name="tel" maxlength="20" value="{{ $user->phone_number }}">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
                             <div class="form-group">
                                 <label class="field-label" for="field23">Area code:</label>
                                 <select name="area-code" class="input-field">
@@ -57,6 +53,12 @@
                                         </option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group profile_phone_number">
+                                <label class="field-label" for="field4">Phone number:</label>
+                                <input class="input-field" type="text" name="tel" maxlength="20" value="{{ $user->phone_number }}">
                             </div>
                         </div>
                     </div>

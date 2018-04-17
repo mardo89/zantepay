@@ -2,17 +2,13 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\CheckContributions as CheckContributionMail;
-use App\Mail\SystemAlert;
 use App\Models\DB\Contribution;
 use App\Models\DB\ContributionAction;
 use App\Models\DB\Wallet;
+use App\Models\Services\MailService;
 use App\Models\Wallet\EtheriumApi;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-
-
 
 class CheckContributions extends Command
 {
@@ -87,16 +83,14 @@ class CheckContributions extends Command
             }
 
             if (count($incorrectContributions) > 0) {
-                Mail::send(new CheckContributionMail($incorrectContributions));
+                MailService::sendCheckContributionsEmail($incorrectContributions);
             }
 
         } catch (\Exception $e) {
 
             DB::rollback();
 
-            $errorMessage = $e->getMessage();
-
-            Mail::send(new SystemAlert('Check Contributions Error', $errorMessage));
+            MailService::sendSystemAlertEmail('Check Contributions Error', $e->getMessage());
 
         }
 

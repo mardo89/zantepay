@@ -29,16 +29,13 @@ class IcoRegistrationAdmin extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string $email
-     * @param integer $currency
-     * @param integer $amount
-     *
+     * @param array $mailData
      */
-    public function __construct($email, $currency, $amount)
+    public function __construct($mailData)
     {
-        $this->email = $email;
-        $this->currency = $currency;
-        $this->amount = $amount;
+        $this->email = $mailData['email'];
+        $this->currency = $mailData['currency'];
+        $this->amount = $mailData['amount'];
     }
 
     /**
@@ -49,8 +46,6 @@ class IcoRegistrationAdmin extends Mailable
     public function build()
     {
         return $this->subject('PRE-ICO Registration')
-            ->to('mardo@zantepay.com')
-            ->to('lena@zantepay.com')
             ->view('emails.ico-registration-admin');
     }
 }

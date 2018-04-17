@@ -32,9 +32,15 @@ $(document).ready(function () {
             )
             .catch(
                 () => {
+
                     $('select[name="state"]').html(
                         $('<option />').val(0).text('Other state').attr('selected', 'selected')
                     )
+
+                    $('select[name="area-code"]').html(
+                        $('<option />').val(0).text('Other code').attr('selected', 'selected')
+                    )
+
                 }
             )
     });
@@ -89,6 +95,7 @@ $(document).ready(function () {
                     const {errors, message} = error.response.data;
 
                     if (error.response.status == 422) {
+
                         $.each(
                             errors,
                             (field, error) => {
@@ -99,6 +106,8 @@ $(document).ready(function () {
                             }
                         )
 
+                        scrollToError();
+
                     } else {
                         showError(message);
                     }
@@ -106,6 +115,7 @@ $(document).ready(function () {
                 }
             )
     });
+
 });
 
 

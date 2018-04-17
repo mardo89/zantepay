@@ -131,7 +131,7 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td class="col-left">Etherium</td>
+                                        <td class="col-left">Ethereum</td>
                                         <td>ETH</td>
                                         <td>{{ $ico['znx_rate'] }}</td>
                                     </tr>
@@ -315,7 +315,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">CREATED!</h3>
             <div class="logon-modal-text">
-                <p>Your Etherium address successfully created.</p>
+                <p>Your Ethereum address successfully created.</p>
             </div>
         </div>
     </div>

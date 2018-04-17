@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DB\Wallet;
+use App\Mail\ApproveDocuments;
+use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\BonusesService;
+use App\Models\Services\MailService;
+use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -11,9 +15,11 @@ use App\Models\DB\State;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
 use App\Models\Validation\ValidationMessages;
+use App\Models\Wallet\Ico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -34,64 +40,144 @@ class ManagerController extends Controller
      */
     public function users()
     {
+
+        return view(
+            $this->getViewPrefix() . 'users',
+            [
+                'roles' => UsersService::getUserRoles(),
+                'statuses' => UsersService::getUserStatuses()
+            ]
+        );
+
+    }
+
+    /**
+     * Search users
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function searchUsers(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'role_filter' => 'array',
+                'status_filter' => 'array',
+                'referrer_filter' => 'array',
+                'name_filter' => 'string|nullable',
+                'date_from_filter' => 'date|nullable',
+                'date_to_filter' => 'date|nullable',
+                'page' => 'integer|min:1',
+                'sort_index' => 'integer',
+                'sort_order' => 'in:asc,desc',
+            ],
+            ValidationMessages::getList(
+                [
+                    'role_filter' => 'Role Filter',
+                    'status_filter' => 'Status Filter',
+                    'referrer_filter' => 'Referrer Filter',
+                    'name_filter' => 'Name Filter',
+                    'date_from_filter' => 'Date From Filter',
+                    'date_to_filter' => 'Date To Filter',
+                    'page' => 'Page',
+                    'sort_index' => 'Sort Column',
+                    'sort_order' => 'Sort Order',
+                ]
+            )
+        );
+
+        $roleFilter = $request->input('role_filter', []);
+        $statusFilter = $request->input('status_filter', []);
+        $referrerFilter = $request->input('referrer_filter', []);
+        $nameFilter = $request->input('name_filter', '');
+        $dateFromFilter = $request->input('date_from_filter', '');
+        $dateToFilter = $request->input('date_to_filter', '');
+        $page = $request->input('page', 1);
+        $sortIndex = $request->input('sort_index', 0);
+        $sortOrder = $request->input('sort_order', 0);
+
+        $queryBuilder = User::with('referrals');
+
+        if (count($roleFilter) > 0) {
+            $queryBuilder->whereIn('role', $roleFilter);
+        }
+
+        if (count($statusFilter) > 0) {
+            $queryBuilder->whereIn('status', $statusFilter);
+        }
+
+        if ($nameFilter) {
+            $queryBuilder->where(
+                function ($query) use ($nameFilter) {
+                    $query->where('first_name', 'like', '%' . $nameFilter . '%')
+                        ->orWhere('last_name', 'like', '%' . $nameFilter . '%')
+                        ->orWhere('email', 'like', '%' . $nameFilter . '%');
+                }
+            );
+        }
+
+        if ($dateFromFilter != '') {
+            $queryBuilder->where('created_at', '>=', date('Y-m-d 00:00:00', strtotime($dateFromFilter)));
+        }
+
+        if ($dateToFilter != '') {
+            $queryBuilder->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime($dateToFilter)));
+        }
+
+        // sort
+        switch ($sortIndex) {
+            case 0:
+                $sortColumn = 'email';
+                break;
+
+            case 1:
+                $sortColumn = 'first_name';
+                break;
+
+            default:
+                $sortColumn = 'id';
+        }
+
+        $users = $queryBuilder->orderBy($sortColumn, $sortOrder)->get();
+
+        // Users List
         $usersList = [];
 
-        foreach (User::all() as $user) {
+        foreach ($users as $user) {
+            $hasReferrals = $user->referrals->count() > 0 ? 1 : 0;
 
-            // Referrals
-            $isReferrer = User::where('referrer', $user->id)->count() != 0;
+            if (count($referrerFilter) > 0 && !in_array($hasReferrals, $referrerFilter)) {
+                continue;
+            }
 
             $usersList[] = [
                 'id' => $user->id,
                 'email' => $user->email,
                 'name' => $user->first_name . ' ' . $user->last_name,
                 'avatar' => !is_null($user->avatar) ? $user->avatar : '/images/avatar.png',
+                'registered' => $user->created_at->format('m/d/Y'),
                 'status' => User::getStatus($user->status),
                 'role' => User::getRole($user->role),
-                'isReferrer' => $isReferrer,
+                'hasReferrals' => $user->referrals->count() > 0 ? 'YES' : 'NO',
                 'profileLink' => action('ManagerController@profile', ['uid' => $user->uid]),
             ];
         }
 
-        $rolesList = User::getRolesList();
+        // Paginator
+        $rowsPerPage = 25;
 
-        $statusesList = [
-            [
-                'id' => User::USER_STATUS_PENDING,
-                'name' => User::getStatus(User::USER_STATUS_PENDING)
-            ],
-            [
-                'id' => User::USER_STATUS_NOT_VERIFIED,
-                'name' => User::getStatus(User::USER_STATUS_NOT_VERIFIED)
-            ],
-            [
-                'id' => User::USER_STATUS_IDENTITY_VERIFIED,
-                'name' => User::getStatus(User::USER_STATUS_IDENTITY_VERIFIED)
-            ],
-            [
-                'id' => User::USER_STATUS_ADDRESS_VERIFIED,
-                'name' => User::getStatus(User::USER_STATUS_ADDRESS_VERIFIED)
-            ],
-            [
-                'id' => User::USER_STATUS_VERIFIED,
-                'name' => User::getStatus(User::USER_STATUS_VERIFIED)
-            ],
-            [
-                'id' => User::USER_STATUS_INACTIVE,
-                'name' => User::getStatus(User::USER_STATUS_INACTIVE)
-            ],
-            [
-                'id' => User::USER_STATUS_WITHDRAW_PENDING,
-                'name' => User::getStatus(User::USER_STATUS_WITHDRAW_PENDING)
-            ]
-        ];
+        $totalPages = ceil(count($usersList) / $rowsPerPage);
+        $usersList = array_slice($usersList, ($page - 1) * $rowsPerPage, $rowsPerPage);
 
-        return view(
-            $this->getViewPrefix() . 'users',
+        return response()->json(
             [
-                'users' => $usersList,
-                'roles' => $rolesList,
-                'statuses' => $statusesList
+                'usersList' => $usersList,
+                'paginator' => [
+                    'currentPage' => $page,
+                    'totalPages' => $totalPages
+                ]
             ]
         );
     }
@@ -241,19 +327,23 @@ class ManagerController extends Controller
             $verification = $user->verification;
 
             if ($documentType == Document::DOCUMENT_TYPE_IDENTITY) {
+
                 $verification->id_documents_status = Verification::DOCUMENTS_APPROVED;
                 $verification->id_decline_reason = '';
 
-                $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
-
                 $verificationStatus = Verification::getStatus($verification->id_documents_status);
+
+                $user->changeStatus(User::USER_STATUS_IDENTITY_VERIFIED);
+
             } else {
+
                 $verification->address_documents_status = Verification::DOCUMENTS_APPROVED;
                 $verification->address_decline_reason = '';
 
-                $user->status = User::USER_STATUS_ADDRESS_VERIFIED;
+                $verificationStatus = Verification::getStatus($verification->address_documents_status);
 
-                $verificationStatus = Verification::getStatus($verification->id_documents_status);
+                $user->changeStatus(User::USER_STATUS_ADDRESS_VERIFIED);
+
             }
 
             $verification->save();
@@ -262,26 +352,12 @@ class ManagerController extends Controller
                 && $verification->address_documents_status == Verification::DOCUMENTS_APPROVED;
 
             if ($verificationComplete) {
-                $user->status = User::USER_STATUS_VERIFIED;
+                $user->changeStatus(User::USER_STATUS_VERIFIED);
 
-                // User bonus
-                $userWallet = $user->wallet;
+                BonusesService::updateBonus($user);
 
-                $userWallet->debit_card_bonus = Wallet::DEBIT_CARD_BONUS;
-                $userWallet->save();
-
-                // Referrer Bonus
-                if (!is_null($user->referrer)) {
-                    $userReferrer = User::find($user->referrer);
-
-                    $referrerWallet = $userReferrer->wallet;
-
-                    $referrerWallet->referral_bonus = Wallet::DEBIT_CARD_BONUS;
-                    $referrerWallet->save();
-                }
+                MailService::sendApproveDocumentsEmail($user->email);
             }
-
-            $user->save();
 
         } catch (\Exception $e) {
 
@@ -305,7 +381,6 @@ class ManagerController extends Controller
             ]
         );
     }
-
 
     /**
      * Decline document
@@ -348,38 +423,38 @@ class ManagerController extends Controller
             $verification = $user->verification;
 
             if ($documentType == Document::DOCUMENT_TYPE_IDENTITY) {
+
                 $verification->id_documents_status = Verification::DOCUMENTS_DECLINED;
                 $verification->id_decline_reason = $declineReason;
 
-                $user->status = User::USER_STATUS_ADDRESS_VERIFIED;
+                $verificationStatus = Verification::getStatus($verification->id_documents_status) . ' - ' . $verification->id_decline_reason;
 
-                $verificationStatus = Verification::getStatus($verification->id_documents_status) . ' - ' . $declineReason;
             } else {
+
                 $verification->address_documents_status = Verification::DOCUMENTS_DECLINED;
                 $verification->address_decline_reason = $declineReason;
 
-                $user->status = User::USER_STATUS_IDENTITY_VERIFIED;
-
-                $verificationStatus = Verification::getStatus($verification->address_documents_status) . ' - ' . $declineReason;
+                $verificationStatus = Verification::getStatus($verification->address_documents_status) . ' - ' . $verification->address_decline_reason;
             }
 
             $verification->save();
 
-            $verificationComplete = $verification->id_documents_status != Verification::DOCUMENTS_APPROVED
-                && $verification->address_documents_status != Verification::DOCUMENTS_APPROVED;
-
-            if ($verificationComplete) {
-                $user->status = User::USER_STATUS_NOT_VERIFIED;
+            // Change user status
+            if ($verification->id_documents_status == Verification::DOCUMENTS_APPROVED) {
+                $user->changeStatus(User::USER_STATUS_IDENTITY_VERIFIED);
+            } elseif ($verification->address_documents_status == Verification::DOCUMENTS_APPROVED) {
+                $user->changeStatus(User::USER_STATUS_ADDRESS_VERIFIED);
+            } else {
+                $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
             }
 
-            $user->save();
 
         } catch (\Exception $e) {
             DB::rollback();
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),//'Error declining documents',
+                    'message' => 'Error declining documents',
                     'errors' => []
                 ],
                 500
@@ -395,7 +470,6 @@ class ManagerController extends Controller
             ]
         );
     }
-
 
     /**
      * Show user document
@@ -424,15 +498,14 @@ class ManagerController extends Controller
         );
     }
 
-
     /**
-     * Update ZNX amount
+     * Add ZNX from ICO pool
      *
      * @param Request $request
      *
      * @return JSON
      */
-    public function addZNX(Request $request)
+    public function addIcoZnx(Request $request)
     {
         $this->validate(
             $request,
@@ -447,21 +520,40 @@ class ManagerController extends Controller
             )
         );
 
+        $uid = $request->uid;
+        $amount = $request->amount;
+
+        $user = User::where('uid', $uid)->first();
+
+        if (!$user) {
+            return response()->json(
+                [
+                    'message' => 'User does not exist.',
+                    'errors' => []
+                ],
+                500
+            );
+        }
 
         DB::beginTransaction();
 
         try {
 
-            $userID = $request->input('uid', '');
+            $ico = new Ico();
 
-            $user = User::where('uid', $userID)->first();
-
-            if (!$user) {
-                throw new \Exception('User does not exist');
-            }
+            // Create Zantecoin transaction transaction
+            ZantecoinTransaction::create(
+                [
+                    'user_id' => $user->id,
+                    'amount' => $amount,
+                    'ico_part' => $ico->getActivePart()->getID(),
+                    'contribution_id' => 0,
+                    'transaction_type' => ZantecoinTransaction::TRANSACTION_ADD_ICO_ZNX
+                ]
+            );
 
             $wallet = $user->wallet;
-            $wallet->znx_amount += $request->amount;
+            $wallet->znx_amount += $amount;
             $wallet->save();
 
         } catch (\Exception $e) {
@@ -469,7 +561,87 @@ class ManagerController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error updating ZNX amount',
+                    'message' => 'There has been an error with transfer of ' . $amount . ' ZNX from ICO pool.',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            [
+                'totalAmount' => $wallet->znx_amount
+            ]
+        );
+    }
+
+    /**
+     * Add ZNX from Foundation pool
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function addFoundationZnx(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'uid' => 'required|string',
+                'amount' => 'required|numeric'
+            ],
+            ValidationMessages::getList(
+                [
+                    'amount' => 'Amount',
+                ]
+            )
+        );
+
+        $uid = $request->uid;
+        $amount = $request->amount;
+
+        $user = User::where('uid', $uid)->first();
+
+        if (!$user) {
+            return response()->json(
+                [
+                    'message' => 'User does not exist.',
+                    'errors' => []
+                ],
+                500
+            );
+        }
+
+        DB::beginTransaction();
+
+        try {
+
+            $ico = new Ico();
+
+            // Create Zantecoin transaction transaction
+            ZantecoinTransaction::create(
+                [
+                    'user_id' => $user->id,
+                    'amount' => $amount,
+                    'ico_part' => $ico->getActivePart()->getID(),
+                    'contribution_id' => 0,
+                    'transaction_type' => ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
+                ]
+            );
+
+            $wallet = $user->wallet;
+            $wallet->znx_amount += $amount;
+            $wallet->save();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'There has been an error with transfer of ' . $amount . ' ZNX from ICO pool.',
                     'errors' => []
                 ],
                 500
@@ -514,15 +686,11 @@ class ManagerController extends Controller
 
         try {
 
-            $userID = $request->input('uid', '');
+            $profile = optional(User::where('uid', $request->uid)->first())->profile;
 
-            $user = User::where('uid', $userID)->first();
-
-            if (!$user) {
+            if (!$profile) {
                 throw new \Exception('User does not exist');
             }
-
-            $profile = $user->profile;
 
             switch ($request->currency) {
 //                case Currency::CURRENCY_TYPE_BTC:
@@ -566,7 +734,8 @@ class ManagerController extends Controller
      *
      * @return bool
      */
-    protected function getViewPrefix() {
+    protected function getViewPrefix()
+    {
         return Auth::user()->role === User::USER_ROLE_ADMIN ? 'admin.' : 'manager.';
     }
 }

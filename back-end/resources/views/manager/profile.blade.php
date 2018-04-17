@@ -283,7 +283,7 @@
                                             <tr>
                                                 <td id="total-znx-amount">{{ $wallet->znx_amount }}</td>
                                                 <td>0</td>
-                                                <td>0</td>
+                                                <td>{{ $wallet->commission_bonus  }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -292,9 +292,10 @@
 
                                 <div class="form-group">
                                     <div class="row">
+
                                         <div class="col-md-12">
-                                            <div class="dashboard-group-sm">
-                                                <label for="field24" class="field-label">Add ZNX:</label>
+                                            <div class="dashboard-group-sm ico-pool">
+                                                <label for="field24" class="field-label">Add ZNX from ICO pool:</label>
                                                 <div class="row row-middle">
                                                     <div class="col-lg-7 col-md-7">
                                                         <div class="field-group">
@@ -303,7 +304,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5">
-                                                        <button id="add-znx" type="button"
+                                                        <button id="add-ico-znx" type="button"
                                                                 class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
                                                             Add ZNX
                                                         </button>
@@ -311,6 +312,27 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-12">
+                                            <div class="dashboard-group-sm foundation-pool">
+                                                <label for="field24" class="field-label">Add ZNX from Foundation pool:</label>
+                                                <div class="row row-middle">
+                                                    <div class="col-lg-7 col-md-7">
+                                                        <div class="field-group">
+                                                            <input class="input-field" type="text" name="znx-amount" id="field24"
+                                                                   placeholder="ZNX amount">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5">
+                                                        <button id="add-foundation-znx" type="button"
+                                                                class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
+                                                            Add ZNX
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -322,16 +344,14 @@
                                         <table class="table-transparent">
                                             <thead>
                                             <tr>
-                                                <th width="33.333%">ZNX bonus - Referral signup</th>
-                                                <th width="33.333%">Referral transactions</th>
-                                                <th width="33.333%">Debit card pre-order</th>
+                                                <th width="33.333%">Card referral bonus (ZNX)</th>
+                                                <th width="33.333%">Card pre-order bonuses (ZNX)</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td>{{ $wallet->rs_bonus }}</td>
-                                                <td>{{ $wallet->rt_bonus }}</td>
-                                                <td>{{ $wallet->dc_bonus }}</td>
+                                                <td>{{ $wallet->referral_bonus  }}</td>
+                                                <td>{{ $wallet->debit_card_bonus  }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -453,12 +473,22 @@
         </div>
     </div>
 
-    <!-- Add ZNX amount -->
-    <div class="logon-modal mfp-hide" id="add-znx-modal">
+    <!-- Add ZNX amount from ICO pool -->
+    <div class="logon-modal mfp-hide" id="add-ico-znx-modal">
         <div class="logon-modal-container">
             <h3 class="h4">Added!</h3>
             <div class="logon-modal-text">
-                <p>You ZNX Wallet was successfully updated.</p>
+                <p>You have successfully transferred <span class="znx_added"></span> ZNX from ICO pool.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add ZNX amount from Foundation pool -->
+    <div class="logon-modal mfp-hide" id="add-foundation-znx-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">Added!</h3>
+            <div class="logon-modal-text">
+                <p>You have successfully transferred <span class="znx_added"></span> ZNX from Foundation pool.</p>
             </div>
         </div>
     </div>
