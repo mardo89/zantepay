@@ -48,7 +48,7 @@
 
                 <h3 class="h4 mt-40 mb-20">How to join:</h3>
                 <ul class="styl-list styl-list--sm">
-                    <li>Follow us here Twitter</li>
+                    <li>Follow us <a href="https://twitter.com/zantepay" target="_blank">here</a> Twitter</li>
                     <li>Minimum rank(bitcointalk) of the participant: Jr. Member.</li>
                     <li>7 tweet(maximum) in a week and retweet of all tweets in our group.  </li>
                     <li>1 tweet per day.  </li>

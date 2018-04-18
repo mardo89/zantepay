@@ -10,12 +10,12 @@
         <div class="h-banner">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-8 col-md-7">
+                    <div class="col-md-7">
                         The only official URL for Zantepay is <a href="https://zantepay.com">https://zantepay.com</a>. If you receive
                         confirmation
                         of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
                     </div>
-                    <div class="col-xl-4 col-md-5">
+                    <div class="col-md-5">
                         <div class="row">
                             <div class="col-lg">
                                 Official channels:
@@ -29,6 +29,7 @@
                                     <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
                                     <li><a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
                                     </li>
+                                    <li><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -582,9 +583,45 @@
 
 @section('footer')
 
-    <footer class="footer footer-lp white-content" id="contacts">
+    <footer class="footer white-content" id="contacts">
         <div class="container">
-            <div class="row">
+            <div class="footer-chanels" id="channels">
+                <div class="text-center">
+                    <h3 class="h2 headline text-left">Our Channels</h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.facebook.com/ZANTEPAY/">Facebook</a></h4>
+                        <a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://twitter.com/zantepay">Twitter</a></h4>
+                        <a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="http://telegram.me/zantepay">Telegram</a></h4>
+                        <a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.instagram.com/zantepay">Instagram</a></h4>
+                        <a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a href="mailto:support@zantepay.com">Support</a></h4>
+                        <a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY">Reddit</a></h4>
+                        <a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226">Bitcointalk</a></h4>
+                        <a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row footer-cont-group">
                 <div class="col-md-8 offset-md-2">
                     <div class="footer-cont-row">
                         <h2 class="h2 headline">Contact <br> details</h2>
@@ -616,20 +653,11 @@
                     </form>
                 </div>
             </div>
+            
             <div class="footer-logo">
                 <a href="/" title="ZANTEPAY">
                     <img src="images/logo-large.png" alt="ZANTEPAY Logo">
                 </a>
-            </div>
-            <div class="footer-social">
-                <ul class="social-list">
-                    <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
-                    <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
-                    <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
-                    <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
-                    <li><a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a></li>
-                </ul>
             </div>
             <div class="footer-menu">
                 <ul>

@@ -43,6 +43,7 @@
     z-index 400
 .masthead
   padding 18px 0
+  background #000
   .logo
     display inline-block
     img
@@ -231,6 +232,11 @@
       &:hover
         color #fff
         background rgba(#fff, .2)
+  .col-lg-9
+    @media screen and (max-width 1199px)
+      padding-left 0
+    @media screen and (max-width 767px)
+      padding-left 15px
   .col-lg
     padding-top 10px
     padding-bottom 10px
