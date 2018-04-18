@@ -25,7 +25,7 @@ window.axios.interceptors.response.use(
 
         if (error.response.status == 419) {
 
-            error.response.data.message = 'Session has expired. Please reload page.';
+            error.response.data.message = 'Session has expired. Please reload page. All unsaved data will be lost.';
 
         }
 

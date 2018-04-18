@@ -10,6 +10,7 @@ use App\Models\Services\AccountsService;
 use App\Models\Services\IcoService;
 use App\Models\Services\TokensService;
 use App\Models\Services\TransactionsService;
+use App\Models\Services\UsersService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -52,7 +53,9 @@ class AdminController extends Controller
 
         try {
 
-            AccountsService::changeUserRole($request->uid, $request->role);
+            $user = AccountsService::getUserByID($request->uid);
+
+            UsersService::changeUserRole($user, $request->role);
 
         } catch (\Exception $e) {
 

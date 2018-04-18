@@ -8,6 +8,7 @@ use App\Models\Services\MailService;
 use App\Models\Services\RegistrationsService;
 use App\Models\Services\ResetPasswordsService;
 use App\Models\DB\User;
+use App\Models\Services\UsersService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -170,7 +171,9 @@ class IndexController extends Controller
     {
         try {
 
-            AccountsService::changeUserStatus($request->uid, User::USER_STATUS_PENDING);
+            $user = AccountsService::getUserByID($request->uid);
+
+            UsersService::changeUserStatus($user, User::USER_STATUS_PENDING);
 
         } catch (\Exception $e) {
 

@@ -166,36 +166,6 @@ class AccountsService
     }
 
     /**
-     * Change user role
-     *
-     * @param string $userUID
-     * @param int $userRole
-     *
-     * @throws
-     */
-    public static function changeUserRole($userUID, $userRole)
-    {
-        $user = self::getUserByID($userUID);
-
-        UsersService::changeUserRole($user, $userRole);
-    }
-
-    /**
-     * Change user status
-     *
-     * @param string $userUID
-     * @param int $userRole
-     *
-     * @throws
-     */
-    public static function changeUserStatus($userUID, $userStatus)
-    {
-        $user = self::getUserByID($userUID);
-
-        UsersService::changeUserStatus($user, $userStatus);
-    }
-
-    /**
      * Reset users password
      *
      * @param string email
@@ -286,7 +256,7 @@ class AccountsService
             return null;
         }
 
-        return User::where('referrer', $userReferrer)->first();
+        return User::where('id', $userReferrer)->first();
     }
 
     /**

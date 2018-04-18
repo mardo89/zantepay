@@ -13,6 +13,7 @@ class ZantecoinTransaction extends Model
     const TRANSACTION_COMMISSION_TO_ZNX = 1;
     const TRANSACTION_ADD_ICO_ZNX = 2;
     const TRANSACTION_ADD_FOUNDATION_ZNX = 3;
+    const TRANSACTION_ADD_BONUS_ZNX = 4;
 
     /**
      * The attributes that are mass assignable.

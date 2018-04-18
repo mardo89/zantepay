@@ -2,7 +2,6 @@
 
 namespace App\Models\Services;
 
-use App\Exceptions\PasswordException;
 use App\Exceptions\ResetPasswordException;
 use App\Models\DB\PasswordReset;
 use Illuminate\Support\Facades\DB;

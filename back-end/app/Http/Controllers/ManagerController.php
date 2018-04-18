@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ApproveDocuments;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\AccountsService;
 use App\Models\Services\BonusesService;
 use App\Models\Services\MailService;
 use App\Models\Services\UsersService;
@@ -333,7 +334,7 @@ class ManagerController extends Controller
 
                 $verificationStatus = Verification::getStatus($verification->id_documents_status);
 
-                $user->changeStatus(User::USER_STATUS_IDENTITY_VERIFIED);
+                UsersService::changeUserStatus($user, User::USER_STATUS_IDENTITY_VERIFIED);
 
             } else {
 
@@ -342,7 +343,7 @@ class ManagerController extends Controller
 
                 $verificationStatus = Verification::getStatus($verification->address_documents_status);
 
-                $user->changeStatus(User::USER_STATUS_ADDRESS_VERIFIED);
+                UsersService::changeUserStatus($user, User::USER_STATUS_ADDRESS_VERIFIED);
 
             }
 
@@ -352,7 +353,7 @@ class ManagerController extends Controller
                 && $verification->address_documents_status == Verification::DOCUMENTS_APPROVED;
 
             if ($verificationComplete) {
-                $user->changeStatus(User::USER_STATUS_VERIFIED);
+                UsersService::changeUserStatus($user, User::USER_STATUS_VERIFIED);
 
                 BonusesService::updateBonus($user);
 
@@ -441,11 +442,11 @@ class ManagerController extends Controller
 
             // Change user status
             if ($verification->id_documents_status == Verification::DOCUMENTS_APPROVED) {
-                $user->changeStatus(User::USER_STATUS_IDENTITY_VERIFIED);
+                UsersService::changeUserStatus($user, User::USER_STATUS_IDENTITY_VERIFIED);
             } elseif ($verification->address_documents_status == Verification::DOCUMENTS_APPROVED) {
-                $user->changeStatus(User::USER_STATUS_ADDRESS_VERIFIED);
+                UsersService::changeUserStatus($user, User::USER_STATUS_ADDRESS_VERIFIED);
             } else {
-                $user->changeStatus(User::USER_STATUS_NOT_VERIFIED);
+                UsersService::changeUserStatus($user, User::USER_STATUS_NOT_VERIFIED);
             }
 
 

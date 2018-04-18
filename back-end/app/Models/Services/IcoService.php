@@ -116,4 +116,14 @@ class IcoService
         return $icoInfo;
     }
 
+    /**
+     * Get active ICO part
+     *
+     * @return int
+     */
+    public function getActivePart()
+    {
+        return $this->ico->getActivePart();
+    }
+
 }

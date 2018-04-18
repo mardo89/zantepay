@@ -27,9 +27,13 @@ class BonusesService
         }
 
         // user bonus
+        $bonusAmount = Wallet::DEBIT_CARD_BONUS;
+
         $wallet = $user->wallet;
-        $wallet->debit_card_bonus = Wallet::DEBIT_CARD_BONUS;
+        $wallet->debit_card_bonus = $bonusAmount;
         $wallet->save();
+
+        TransactionsService::createBonusTransaction($user->id, $bonusAmount);
 
         // referrer bonus
         $referrer = AccountsService::getReferrer($user->referrer);
@@ -38,9 +42,13 @@ class BonusesService
             return;
         }
 
+        $bonusAmount = Wallet::REFERRAL_BONUS;
+
         $wallet = $referrer->wallet;
-        $wallet->referral_bonus += Wallet::REFERRAL_BONUS;
+        $wallet->referral_bonus += $bonusAmount;
         $wallet->save();
+
+        TransactionsService::createBonusTransaction($referrer->id, $bonusAmount);
     }
 
     /**
