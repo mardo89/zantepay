@@ -3,7 +3,9 @@
 namespace App\Models\Services;
 
 use App\Exceptions\PasswordException;
+use App\Exceptions\ResetPasswordException;
 use App\Models\DB\PasswordReset;
+use Illuminate\Support\Facades\DB;
 
 class ResetPasswordsService
 {
@@ -26,6 +28,33 @@ class ResetPasswordsService
         );
 
         MailService::sendResetPasswordEmail($userEmail, $resetToken);
+    }
+
+    /**
+     * Check if user can reset password
+     *
+     * @param string $resetToken
+     *
+     * @return PasswordReset
+     * @throws
+     */
+    public static function checkPasswordReset($resetToken)
+    {
+        // check expiration date
+        $resetInfo = self::findLastReset($resetToken);
+
+        // Check if there is no other tokens after current
+        $resetEmail = $resetInfo->email;
+
+        $lastResetInfo = PasswordReset::where('email', $resetEmail)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if (is_null($lastResetInfo) || $lastResetInfo->token !== $resetToken) {
+            throw new ResetPasswordException();
+        }
+
+        return $resetInfo;
     }
 
 
@@ -54,7 +83,7 @@ class ResetPasswordsService
             ->first();
 
         if (!$resetInfo) {
-            throw new PasswordException('Error restoring password');
+            throw new ResetPasswordException();
         }
 
         return $resetInfo;
