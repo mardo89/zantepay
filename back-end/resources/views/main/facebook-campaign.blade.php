@@ -48,7 +48,7 @@
 
                 <h3 class="h4 mt-40 mb-20">How to join:</h3>
                 <ul class="styl-list styl-list--sm">
-                    <li>Follow us here Facebook <a href="https://www.facebook.com/zantepay" target="_blank">www.facebook.com/zantepay</a></li>
+                    <li>Follow us <a href="https://www.facebook.com/zantepay" target="_blank">here</a> Facebook <a href="https://www.facebook.com/zantepay" target="_blank">www.facebook.com/zantepay</a></li>
                     <li>Minimum rank(bitcointalk) of the participant: Jr. Member.</li>
                     <li>7 post(maximum) in a week and repost of all posts in our group.</li>
                     <li>1 post per day.   </li>

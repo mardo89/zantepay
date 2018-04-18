@@ -4,9 +4,16 @@
 
 @section('header')
 
-    <header class="header">
+    <header class="header header-lp">
 
         @parent
+
+        <div class="header__content header__lp white-content">
+            <div class="container">
+                <h1 class="h2 header__title text-uppercase mb-5">Bounty campaign</h1>
+                <p>We’re excited to offer the opportunity for you to partner with us. contribute to our network and earn great rewards. This is why we’ve launched our ZANTEPAY Bounty Program, where you can earn ZNX nearly every day! Participation in our Bounty Programs is easy, registration is simple, and you're simply a task away from earning big.</p>
+            </div>
+        </div>
 
     </header>
 
@@ -134,20 +141,45 @@
 
     <footer class="footer white-content" id="contacts">
         <div class="container">
+            <div class="footer-chanels" id="channels">
+                <div class="text-center">
+                    <h3 class="h2 headline text-left">Our Channels</h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.facebook.com/ZANTEPAY/">Facebook</a></h4>
+                        <a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://twitter.com/zantepay">Twitter</a></h4>
+                        <a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="http://telegram.me/zantepay">Telegram</a></h4>
+                        <a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.instagram.com/zantepay">Instagram</a></h4>
+                        <a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a href="mailto:support@zantepay.com">Support</a></h4>
+                        <a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY">Reddit</a></h4>
+                        <a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226">Bitcointalk</a></h4>
+                        <a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
+                    </div>
+                </div>
+            </div>
             <div class="footer-logo">
                 <a href="/" title="ZANTEPAY">
                     <img src="images/logo-large.png" alt="ZANTEPAY Logo">
                 </a>
-            </div>
-            <div class="footer-social">
-                <ul class="social-list">
-                    <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
-                    <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
-                    <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
-                    <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
-                    <!-- <li><a target="_blank" href="https://bitcointalk.org/"><i class="fa fa-bitcoin"></i></a></li> -->
-                </ul>
             </div>
             <div class="footer-menu">
                 <ul>
