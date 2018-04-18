@@ -219,7 +219,7 @@ class AccountsService
      */
     public static function savePassword($resetToken, $password)
     {
-        $resetInfo = ResetPasswordsService::findLastReset($resetToken);
+        $resetInfo = ResetPasswordsService::checkPasswordReset($resetToken);
 
         $user = self::findUser(
             [
@@ -337,6 +337,34 @@ class AccountsService
         }
 
         return $user;
+    }
+
+    /**
+     * Set referrer to Session
+     *
+     * @param string $refToken
+     */
+    public static function setReferrer($refToken)
+    {
+        if (is_null($refToken)) {
+            return;
+        }
+
+        $user = User::where('uid', $refToken)->first();
+
+        if (self::checkExists($user)) {
+            Session::put('referrer', $user->id);
+        }
+    }
+
+    /**
+     * Set external link to Session
+     */
+    public static function setExternals()
+    {
+        $externalLink = $_SERVER['HTTP_REFERER'] ?? '';
+
+        Session::put('externalLink', $externalLink);
     }
 
     /**

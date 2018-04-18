@@ -149,7 +149,7 @@ class AdminController extends Controller
         return view(
             'admin.wallet',
             [
-                'ico' => IcoService::getInfo(),
+                'ico' => (new IcoService())->getAdminInfo(),
                 'balance' => TokensService::getGrantBalance()
             ]
         );
