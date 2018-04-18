@@ -115,7 +115,17 @@
                                 <a href="{{$menuPrefix}}#ico">ICO</a>
                             </li>
 
-                            <!-- <li><a href="">Bounty</a></li> -->
+                            <li class="m-dropdown">
+                                <a href="/bounty">Bounty</a>
+                                <ul>
+                                    <li><a href="/twitter-campaign">Twitter Campaign</a></li>
+                                    <li><a href="/facebook-campaign">Facebook Campaign</a></li>
+                                    <li><a href="/youtube-campaign">YouTube Campaign</a></li>
+                                    <li><a href="/blogs-article-campaign">Blogs, Article Campaign</a></li>
+                                    <li><a href="/support-campaign">Support Campaign</a></li>
+                                    <li><a href="/telegram-campaign">Telegram Campaign</a></li>
+                                </ul>
+                            </li>
 
                             <li>
                                 <a href="{{$menuPrefix}}#team">Team</a>

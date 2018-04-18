@@ -358,6 +358,111 @@ class IndexController extends Controller
     }
 
     /**
+     * Bounty page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function bounty()
+    {
+        return view(
+            'main.bounty',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Twitter Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function twitterBountyCampaign()
+    {
+        return view(
+            'main.twitter-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Facebook Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function facebookBountyCampaign()
+    {
+        return view(
+            'main.facebook-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Youtube Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function youtubeBountyCampaign()
+    {
+        return view(
+            'main.youtube-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Blog Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function blogsBountyCampaign()
+    {
+        return view(
+            'main.blogs-article-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Support Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function supportBountyCampaign()
+    {
+        return view(
+            'main.support-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Telegram Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function telegramBountyCampaign()
+    {
+        return view(
+            'main.telegram-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
      * Send contact us email
      *
      * @param Request $request
