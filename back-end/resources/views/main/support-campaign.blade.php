@@ -39,14 +39,14 @@
                 <h3 class="h4 mb-20">Rewards:</h3>
                 <ul class="styl-list styl-list--sm">
                     <li>Translation of ANN thread+Bounty Thread: 150 Stakes</li>
-                    <li>Moderation/Management:  5 Stakes per Valid Post.</li>
+                    <li>Moderation/Management: 5 Stakes per Valid Post.</li>
                 </ul>
 
                 <h3 class="h4 mt-40 mb-20">Rules:</h3>
                 <ul class="styl-list styl-list--sm">
                     <li>Get approval for your reservation, I will PM all eligible participants.</li>
                     <li>After being accepted and completing the translation, post in this thread with a link to the translated thread.</li>
-                    <li>Translations have to be original and professional, using google translate or other tool leads to disqualification.</li>
+                    <li>Translations have to be original and professional, using Google Translate or other tool leads to disqualification.</li>
                     <li>For moderation will only be counted constructive posts (100 and more chars) from the user who reserved a language.</li>
                     <li>Reserving translation of both the ANN and the bounty threads means moderation of them.</li>
                     <li>Reservation for the translation - 5 days.</li>
@@ -67,9 +67,9 @@
                     <li>German - gslgroup - reserved to 10 Apr</li>
                     <li>Russian - gslgroup - reserved to 10 Apr</li>
                     <li>Italian - Piggy - reserved to 10 Apr</li>
-                    <li>French- Rggadi - reserved to 10 Apr</li>
-                    <li>Chinese- lilac835 - reserved to 10 Apr</li>
-                    <li>Korean- Fommas - reserved to 10 Apr</li>
+                    <li>French - Rggadi - reserved to 10 Apr</li>
+                    <li>Chinese - lilac835 - reserved to 10 Apr</li>
+                    <li>Korean - Fommas - reserved to 10 Apr</li>
                 </ul>
 
             </div>

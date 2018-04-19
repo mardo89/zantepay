@@ -137,6 +137,10 @@ class ManagerController extends Controller
                 $sortColumn = 'first_name';
                 break;
 
+            case 2:
+                $sortColumn = 'created_at';
+                break;
+
             default:
                 $sortColumn = 'id';
         }

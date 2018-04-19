@@ -11,7 +11,7 @@
         <div class="header__content header__lp white-content">
             <div class="container">
                 <h1 class="h2 header__title text-uppercase mb-5">Bounty campaign</h1>
-                <p>We’re excited to offer the opportunity for you to partner with us. contribute to our network and earn great rewards. This is why we’ve launched our ZANTEPAY Bounty Program, where you can earn ZNX nearly every day! Participation in our Bounty Programs is easy, registration is simple, and you're simply a task away from earning big.</p>
+                <p>We’re excited to offer the opportunity for you to partner with us. Contribute to our network and earn great rewards. This is why we’ve launched our ZANTEPAY Bounty Program, where you can earn ZNX nearly every day! Participation in our Bounty Programs is easy, registration is simple, and you're simply a task away from earning big.</p>
             </div>
         </div>
 

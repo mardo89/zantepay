@@ -48,12 +48,12 @@
 
                 <h3 class="h4 mt-40 mb-20">How to join:</h3>
                 <ul class="styl-list styl-list--sm">
-                    <li>Follow us <a href="https://twitter.com/zantepay" target="_blank">here</a> Twitter</li>
-                    <li>Minimum rank(bitcointalk) of the participant: Jr. Member.</li>
-                    <li>7 tweet(maximum) in a week and retweet of all tweets in our group.  </li>
+                    <li>Follow us on <a href="https://twitter.com/zantepay" target="_blank">Twitter</a></li>
+                    <li>Minimum rank (bitcointalk) of the participant: Jr. Member.</li>
+                    <li>7 tweet (maximum) in a week and retweet of all tweets in our group.  </li>
                     <li>1 tweet per day.  </li>
                     <li>Posts older than this reporting week are not accepted.</li>
-                    <li>All tweets have to be with a hashtag #Zantepay #Zantecoin  #newmainstreamcryptocurrency and link https://zantepay.com.</li>
+                    <li>All tweets have to be with a hashtag #Zantepay #Zantecoin  #newmainstreamcryptocurrency and link <a href="{{ asset('/') }}" target="_blank">{{ asset('/') }}</a>.</li>
                     <li>Your account must be at least 6 month old.</li>
                     <li>Your audit score must be more than 90%.</li>
                     <li>Do not RT tweets replying to other users.</li>

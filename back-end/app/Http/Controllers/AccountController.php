@@ -192,7 +192,7 @@ class AccountController extends Controller
 
         try {
 
-            ResetPasswordsService::createPasswordReset($request->email);
+            AccountsService::resetPassword($request->email);
 
         } catch (\Exception $e) {
 

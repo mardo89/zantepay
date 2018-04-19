@@ -25,7 +25,7 @@ $(document).ready(function () {
 
         // sort
         let sortIndex = 0;
-        let sortOrder = 'asc';
+        let sortOrder = 'desc';
 
         if ($('.sort.sort-asc').length) {
             sortIndex = $('.sort.sort-asc').index();

@@ -312,13 +312,76 @@ class AdminController extends Controller
     }
 
     /**
-     * Search Foundation transactions
+     * Search Marketing transactions
      *
      * @param Request $request
      *
      * @return JSON
      */
-    public function searchFoundationTransactions(Request $request)
+    public function searchMarketingTransactions(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'part_filter' => 'string|nullable',
+                'status_filter' => 'array',
+                'page' => 'integer|min:1',
+                'sort_index' => 'integer',
+                'sort_order' => 'in:asc,desc',
+            ],
+            ValidationMessages::getList(
+                [
+                    'part_filter' => 'ICO Part',
+                    'status_filter' => 'Status Filter',
+                    'page' => 'Page',
+                    'sort_index' => 'Sort Column',
+                    'sort_order' => 'Sort Order',
+                ]
+            )
+        );
+
+        try {
+
+            $filters = [
+                'grant_type_filter' => GrantCoinsTransaction::GRANT_MARKETING_TOKENS,
+                'znx_type_filter' => TransactionsService::getMarketingTransactionTypes(),
+                'part_filter' => $request->part_filter,
+                'status_filter' => $request->status_filter,
+                'page' => $request->page,
+            ];
+
+            $sort = [
+                'sort_index' => $request->sort_index,
+                'sort_order' => $request->sort_order,
+            ];
+
+            $transactionsList = Transactions::searchICOTransactions($filters, $sort);
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Error while searching transactions',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
+
+        return response()->json(
+            $transactionsList
+        );
+    }
+
+    /**
+     * Search Company transactions
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function searchCompanyTransactions(Request $request)
     {
         $this->validate(
             $request,
@@ -344,7 +407,7 @@ class AdminController extends Controller
 
             $filters = [
                 'grant_type_filter' => GrantCoinsTransaction::GRANT_COMPANY_TOKENS,
-                'znx_type_filter' => TransactionsService::getFoundationTransactionTypes(),
+                'znx_type_filter' => TransactionsService::getCompanyTransactionTypes(),
                 'part_filter' => $request->part_filter,
                 'status_filter' => $request->status_filter,
                 'page' => $request->page,
