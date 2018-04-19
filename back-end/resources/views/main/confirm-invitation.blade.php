@@ -35,12 +35,12 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="signup_pwd" class="input-field" type="password" name="password" placeholder="Password" autocomplete="off">
+                        <input id="signup_pwd" class="input-field" name="password" placeholder="Password" onfocus="this.type='password'">
                     </div>
 
                     <div class="form-group">
-                        <input id="signup_cnf_pwd" class="input-field" type="password" name="confirm-password"
-                               placeholder="Confirm Password" autocomplete="off">
+                        <input id="signup_cnf_pwd" class="input-field" name="confirm-password"
+                               placeholder="Confirm Password" onfocus="this.type='password'">
                     </div>
 
                     <div class="form-group">

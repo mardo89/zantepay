@@ -183,7 +183,7 @@
                     <input id="signin_email" class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="logon-group">
-                    <input id="signin_pwd" class="logon-field" type="password" name="password" placeholder="Password" autocomplete="off">
+                    <input id="signin_pwd" class="logon-field" name="password" placeholder="Password" onfocus="this.type='password'">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
@@ -238,10 +238,10 @@
                     <input class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="password" name="password" placeholder="Password" autocomplete="off">
+                    <input class="logon-field" name="password" placeholder="Password" onfocus="this.type='password'">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password" autocomplete="off">
+                    <input class="logon-field" name="confirm-password" placeholder="Confirm Password" onfocus="this.type='password'">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">

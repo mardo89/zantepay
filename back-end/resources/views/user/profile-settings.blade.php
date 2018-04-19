@@ -180,15 +180,15 @@
                         <h2 class="h4 headline-mb">Change password:</h2>
                         <div class="form-group">
                             <label class="field-label" for="field1">Current password:</label>
-                            <input class="input-field" type="password" name="current-password" id="field1" autocomplete="off">
+                            <input class="input-field" name="current-password" id="field1" onfocus="this.type='password'">
                         </div>
                         <div class="form-group">
                             <label class="field-label" for="field2">New password:</label>
-                            <input class="input-field" type="password" name="password" id="field2" autocomplete="off">
+                            <input class="input-field" name="password" id="field2" onfocus="this.type='password'">
                         </div>
                         <div class="form-group dashboard-group-md">
                             <label class="field-label" for="field3">Confirm password:</label>
-                            <input class="input-field" type="password" name="confirm-password" id="field3" autocomplete="off">
+                            <input class="input-field" name="confirm-password" id="field3" onfocus="this.type='password'">
                         </div>
 
                         <button type="submit" class="btn btn--shadowed-light btn--medium">Change Password</button>
