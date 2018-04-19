@@ -259,6 +259,8 @@
                         </div>
                     </div>
 
+                    <!-- Grant Marketing Coins -->
+
                     <div class="dashboard-group">
                         <h2 class="h4 headline-mb">Grant Marketing Coins. &nbsp; &nbsp; Total left: {{ $balance['marketing_balance'] }}</h2>
                         <p><b>Fill beneficiary address and amount in ZNX to grant marketing coins</b></p>
@@ -288,6 +290,178 @@
                         </div>
                     </div>
 
+                    <div class="row justify-content-end mb-10">
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="marketing_status_filter" id="check11">
+                                <label for="check11">Success</label>
+                            </div>
+                        </div>
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="marketing_status_filter" id="check12">
+                                <label for="check12">Failure</label>
+                            </div>
+                        </div>
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="marketing_status_filter" id="check13">
+                                <label for="check13">In progress</label>
+                            </div>
+                        </div>
+                        <div class="col-sm col-sm-auto">
+                            <div class="checkbox">
+                                <input type="checkbox" name="marketing_status_filter" id="check14">
+                                <label for="check14">Pending</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-group">
+                        <p>
+                            <b>Click Issue Token button to send tokens to participant</b>
+                        </p>
+                        <div class="dashboard-top-panel-row dashboard-top-panel-row--sm tabs-head-wrap mb-10">
+                            <ul id="marketing_part_filter" class="tabs-head">
+                                <li id="ICO_PART_ONE" class="is-active">
+                                    <a href="#marketing-pre-ico">Pre-ICO</a>
+                                </li>
+                                <li id="ICO_PART_TWO">
+                                    <a href="#marketing-ico1">ICO I</a>
+                                </li>
+                                <li id="ICO_PART_THREE">
+                                    <a href="#marketing-ico2">ICO II</a>
+                                </li>
+                                <li id="ICO_PART_FOUR">
+                                    <a href="#marketing-ico3">ICO III</a>
+                                </li>
+                                <li id="ICO_TOTAL">
+                                    <a href="#marketing-total">Total</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tabs-wrap">
+
+                            <!-- pre ico -->
+                            <div class="tab-body is-active marketing_transactions_block" id="marketing-pre-ico">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <!-- ico 1 -->
+                            <div class="tab-body marketing_transactions_block" id="marketing-ico1">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <!-- ico 2 -->
+                            <div class="tab-body marketing_transactions_block" id="marketing-ico2">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <!-- ico 3 -->
+                            <div class="tab-body marketing_transactions_block" id="marketing-ico3">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <!-- Total -->
+                            <div class="tab-body marketing_transactions_block" id="marketing-total">
+                                <div class="table-responsive-500">
+                                    <table id="ico-participants" class="table table-black">
+                                        <thead>
+                                        <tr>
+                                            <th class="sort">Name <span class="caret"></span></th>
+                                            <th class="sort">Proxy address <span class="caret"></span></th>
+                                            <th class="sort">Amount <span class="caret"></span></th>
+                                            <th>Issue tokens</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+
+                                    <nav class="text-center mt-20">
+                                        <ul class="pagination">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Grant Company coins -->
+
                     <div>
                         <h2 class="h4 headline-mb">Grant Company Coins. &nbsp; &nbsp; Total left: {{ $balance['company_balance'] }}</h2>
                         <p><b>Fill beneficiary address and amount in ZNX to Grant Company coins</b></p>
@@ -315,25 +489,25 @@
                     <div class="row justify-content-end mb-10">
                         <div class="col-sm col-sm-auto">
                             <div class="checkbox">
-                                <input type="checkbox" name="foundation_status_filter" id="check11">
+                                <input type="checkbox" name="company_status_filter" id="check11">
                                 <label for="check11">Success</label>
                             </div>
                         </div>
                         <div class="col-sm col-sm-auto">
                             <div class="checkbox">
-                                <input type="checkbox" name="foundation_status_filter" id="check12">
+                                <input type="checkbox" name="company_status_filter" id="check12">
                                 <label for="check12">Failure</label>
                             </div>
                         </div>
                         <div class="col-sm col-sm-auto">
                             <div class="checkbox">
-                                <input type="checkbox" name="foundation_status_filter" id="check13">
+                                <input type="checkbox" name="company_status_filter" id="check13">
                                 <label for="check13">In progress</label>
                             </div>
                         </div>
                         <div class="col-sm col-sm-auto">
                             <div class="checkbox">
-                                <input type="checkbox" name="foundation_status_filter" id="check14">
+                                <input type="checkbox" name="company_status_filter" id="check14">
                                 <label for="check14">Pending</label>
                             </div>
                         </div>
@@ -344,28 +518,28 @@
                             <b>Click Issue Token button to send tokens to participant</b>
                         </p>
                         <div class="dashboard-top-panel-row dashboard-top-panel-row--sm tabs-head-wrap mb-10">
-                            <ul id="foundation_part_filter" class="tabs-head">
+                            <ul id="company_part_filter" class="tabs-head">
                                 <li id="ICO_PART_ONE" class="is-active">
-                                    <a href="#foundation-pre-ico">Pre-ICO</a>
+                                    <a href="#company-pre-ico">Pre-ICO</a>
                                 </li>
                                 <li id="ICO_PART_TWO">
-                                    <a href="#foundation-ico1">ICO I</a>
+                                    <a href="#company-ico1">ICO I</a>
                                 </li>
                                 <li id="ICO_PART_THREE">
-                                    <a href="#foundation-ico2">ICO II</a>
+                                    <a href="#company-ico2">ICO II</a>
                                 </li>
                                 <li id="ICO_PART_FOUR">
-                                    <a href="#foundation-ico3">ICO III</a>
+                                    <a href="#company-ico3">ICO III</a>
                                 </li>
                                 <li id="ICO_TOTAL">
-                                    <a href="#foundation-total">Total</a>
+                                    <a href="#company-total">Total</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="tabs-wrap">
 
                             <!-- pre ico -->
-                            <div class="tab-body is-active foundation_transactions_block" id="foundation-pre-ico">
+                            <div class="tab-body is-active company_transactions_block" id="company-pre-ico">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
@@ -388,7 +562,7 @@
                             </div>
 
                             <!-- ico 1 -->
-                            <div class="tab-body foundation_transactions_block" id="foundation-ico1">
+                            <div class="tab-body company_transactions_block" id="company-ico1">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
@@ -411,7 +585,7 @@
                             </div>
 
                             <!-- ico 2 -->
-                            <div class="tab-body foundation_transactions_block" id="foundation-ico2">
+                            <div class="tab-body company_transactions_block" id="company-ico2">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
@@ -434,7 +608,7 @@
                             </div>
 
                             <!-- ico 3 -->
-                            <div class="tab-body foundation_transactions_block" id="foundation-ico3">
+                            <div class="tab-body company_transactions_block" id="company-ico3">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>
@@ -457,7 +631,7 @@
                             </div>
 
                             <!-- Total -->
-                            <div class="tab-body foundation_transactions_block" id="foundation-total">
+                            <div class="tab-body company_transactions_block" id="company-total">
                                 <div class="table-responsive-500">
                                     <table id="ico-participants" class="table table-black">
                                         <thead>

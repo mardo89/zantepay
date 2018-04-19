@@ -52,8 +52,8 @@
                 <ul class="styl-list styl-list--sm">
                     <li>Low-quality video will not be accepted.</li>
                     <li>Any languages are accepted.</li>
-                    <li>Video must be genuine. You can use official images, logos, graphics posted on the website, ANN thread(not bounty thread), whitepaper, Blog, Facebook and Twitter.</li>
-                    <li>Video must be at least 1 minutes long, shorter videos will not be accepted.</li>
+                    <li>Video must be genuine. You can use official images, logos, graphics posted on the website, ANN thread (not bounty thread), whitepaper, Blog, Facebook and Twitter.</li>
+                    <li>Video must be at least 1 minute long, shorter videos will not be accepted.</li>
                     <li>"SuperDuper" is unusual creative video, the small movie about our project and how it helps.</li>
                     <li>To proof your ownership of the blog you must add your bitcointalk profile link to your blog posts footer.</li>
                     <li>Put the following links at the end of the article and in the video descriptions (if you didn't use them before):

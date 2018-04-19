@@ -10,6 +10,7 @@ use App\Models\DB\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
+use Mockery\Exception;
 
 class AccountsService
 {
@@ -174,6 +175,12 @@ class AccountsService
      */
     public static function resetPassword($email)
     {
+        $user = self::getUserByEmail($email);
+
+        if (!self::checkExists($user)) {
+            return;
+        }
+
         $resetInfo = ResetPasswordsService::createPasswordReset($email);
 
         MailService::sendResetPasswordEmail($resetInfo->email, $resetInfo->token);
@@ -243,20 +250,54 @@ class AccountsService
     }
 
     /**
+     *  Get user by Email
+     *
+     * @param string $userEmail
+     *
+     * @return User
+     * @throws UserNotFoundException
+     */
+    public static function getUserByEmail($userEmail)
+    {
+
+        try {
+
+            $user = self::findUser(
+                [
+                    'email' => $userEmail
+                ]
+            );
+
+        } catch (\Exception $e) {
+
+            return null;
+
+        }
+
+        return $user;
+    }
+
+    /**
      *  Get user referrer
      *
      * @param string $userReferrer
      *
-     * @return mixed
+     * @return User|null
      * @throws
      */
     public static function getReferrer($userReferrer)
     {
-        if (!$userReferrer) {
+        try {
+
+            $user = self::getUser($userReferrer);
+
+        } catch (\Exception $e) {
+
             return null;
+
         }
 
-        return User::where('id', $userReferrer)->first();
+        return $user;
     }
 
     /**
@@ -399,7 +440,8 @@ class AccountsService
      *
      * @return bool
      */
-    protected static function checkPassword($password, $hash) {
+    protected static function checkPassword($password, $hash)
+    {
         return password_verify($password, $hash);
     }
 

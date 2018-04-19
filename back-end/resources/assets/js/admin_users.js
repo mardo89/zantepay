@@ -38,8 +38,8 @@ $(document).ready(function () {
         const page = isNaN(activePage) ? 1 : activePage;
 
         // sort
-        let sortIndex = 0;
-        let sortOrder = 'asc';
+        let sortIndex = 2;
+        let sortOrder = 'desc';
 
         if ($('.sort.sort-asc').length) {
             sortIndex = $('.sort.sort-asc').index();

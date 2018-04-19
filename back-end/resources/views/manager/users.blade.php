@@ -127,7 +127,7 @@
                     <tr>
                         <th class="sort" colspan="2">Email <span class="caret"></span></th>
                         <th class="sort">Name <span class="caret"></span></th>
-                        <th>Registered</th>
+                        <th class="sort">Registered <span class="caret"></span></th>
                         <th>Role</th>
                         <th>Status</th>
                         <th width="100">Referrer</th>

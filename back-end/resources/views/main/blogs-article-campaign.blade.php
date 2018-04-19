@@ -43,7 +43,7 @@
                     <li>Good quality: 100 Stakes</li>
                     <li>Medium quality: 70 Stakes</li>
                     <li>Normal quality: 40 Stakes</li>
-                    <li>Copy/Past quality: 10 Stakes</li>
+                    <li>Copy/Paste quality: 10 Stakes</li>
                 </ul>
 
                 <p class="mt-40 h4"><a target="_blank" href="https://docs.google.com/forms/d/1cjP56rZ0jypar_fIHJkVXEkvGqhBecSrH3DdNbrRYkk/viewform?edit_requested=true">Fill the form to ADD </a></p>
@@ -52,11 +52,11 @@
                 <ul class="styl-list styl-list--sm">
                     <li>Low-quality articles will not be accepted.</li>
                     <li>Any languages are accepted.</li>
-                    <li>Article must be genuine. You can use official images, logos, graphics posted on the website, ANN thread(not bounty thread), whitepaper, Blog, Facebook and Twitter.</li>
+                    <li>Article must be genuine. You can use official images, logos, graphics posted on the website, ANN thread (not bounty thread), whitepaper, Blog, Facebook and Twitter.</li>
                     <li>Articles must be longer than 300 words, fewer than 300 words will not be accepted.</li>
                     <li>"SuperDuper" is or professional article with a large number of viewings/comments.</li>
                     <li>Medium, Steemit, Newbium, and other general/free blogging platforms are allowed.</li>
-                    <li>Blog posts/articles will be accepted in .com .net .org and other premium websites and blogs.</li>
+                    <li>Blog posts/articles will be accepted in .com, .net, .org and other premium websites and blogs.</li>
                     <li>To proof your ownership of the blog you must add your bitcointalk profile link to your blog posts footer.</li>
                     <li>Put the following links at the end of the article and in the video descriptions (if you didn't use them before):
                         <blockquote>

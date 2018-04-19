@@ -36,17 +36,6 @@ class TransactionsService
     }
 
     /**
-     * Return Foundation transaction types
-     *
-     * @return array
-     */
-    public static function getFoundationTransactionTypes() {
-        return [
-            ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
-        ];
-    }
-
-    /**
      * Return Marketing transaction types
      *
      * @return array
@@ -54,6 +43,17 @@ class TransactionsService
     public static function getMarketingTransactionTypes() {
         return [
             ZantecoinTransaction::TRANSACTION_ADD_BONUS_ZNX
+        ];
+    }
+
+    /**
+     * Return Foundation transaction types
+     *
+     * @return array
+     */
+    public static function getCompanyTransactionTypes() {
+        return [
+            ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
         ];
     }
 

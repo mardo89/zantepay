@@ -48,12 +48,12 @@
 
                 <h3 class="h4 mt-40 mb-20">How to join:</h3>
                 <ul class="styl-list styl-list--sm">
-                    <li>Follow us <a href="https://www.facebook.com/zantepay" target="_blank">here</a> Facebook <a href="https://www.facebook.com/zantepay" target="_blank">www.facebook.com/zantepay</a></li>
-                    <li>Minimum rank(bitcointalk) of the participant: Jr. Member.</li>
-                    <li>7 post(maximum) in a week and repost of all posts in our group.</li>
+                    <li>Follow us on <a href="https://www.facebook.com/zantepay" target="_blank">Facebook</a></li>
+                    <li>Minimum rank (bitcointalk) of the participant: Jr. Member.</li>
+                    <li>7 post (maximum) in a week and repost of all posts in our group.</li>
                     <li>1 post per day.   </li>
                     <li>Posts older than this reporting week are not accepted.</li>
-                    <li>All posts have to be with a hashtag #Zantepay #Zantecoin  #newmainstreamcryptocurrency and link <a href="https://zantepay.com">https://zantepay.com</a>.</li>
+                    <li>All posts have to be with a hashtag #Zantepay #Zantecoin  #newmainstreamcryptocurrency and link <a href="{{ asset('/') }}" target="_blank">{{ asset('/') }}</a>.</li>
                     <li>Your account must be at least 6 month old.</li>
                     <li>Do not RP posts replying to other users.</li>
                     <li>Repost & posts must stay public until the end of the Bounty campaign.</li>

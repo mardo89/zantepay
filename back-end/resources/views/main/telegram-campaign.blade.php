@@ -46,11 +46,11 @@
 
                 <h3 class="h4 mt-40 mb-20">How to join:</h3>
                 <ul class="styl-list styl-list--sm">
-                    <li>Subscribe Telegram.</li>
+                    <li>Subscribe to our <a href="http://telegram.me/zantepay" target="_blank">Telegram</a></li>
                     <li>At least 10 posts in week. </li>
-                    <li>You must not discuss bounty topics in the telegram group. Please keep all bounty conversations to this thread only or PM Trugad in telegram.</li>
-                    <li>The task of participants is to give a constructive answers on others members’ questions, to provoke activity in chat if it “sleeps”, if you have an opportunity - invite people to chat, share your positive opinion about the project.</li>
-                    <li>At the end of the week Telegram-manager will appreciate your activity in chat. The maximum award a participant may receive is 70 stakes in a week, it’s a 10 stakes daily.</li>
+                    <li>You must not discuss bounty topics in the telegram group. Please keep all bounty conversations to this thread only or PM Trugad in Telegram.</li>
+                    <li>The task of participants is to give the constructive answers to others members’ questions, to provoke activity in chat if it “sleeps”, if you have an opportunity - invite people to chat, share your positive opinion about the project.</li>
+                    <li>At the end of the week Telegram-manager will appreciate your activity in chat. The maximum award a participant may receive is 70 stakes in a week, it’s 10 stakes daily.</li>
                     <li>SPAM and non-constructive discussions are not taken into account.</li>
                 </ul>
             </div>

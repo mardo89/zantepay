@@ -104,7 +104,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('wallet/grant-company-coins', 'AdminController@grantCompanyCoins');
 
     Route::get('wallet/search-ico-transactions', 'AdminController@searchIcoTransactions');
-    Route::get('wallet/search-foundation-transactions', 'AdminController@searchFoundationTransactions');
+    Route::get('wallet/search-marketing-transactions', 'AdminController@searchMarketingTransactions');
+    Route::get('wallet/search-company-transactions', 'AdminController@searchCompanyTransactions');
 });
 
 /**
