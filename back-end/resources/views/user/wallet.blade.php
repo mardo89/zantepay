@@ -337,7 +337,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">TRANSFERED!</h3>
             <div class="logon-modal-text">
-                <p>You have successfully submitted a withdraw request!</p>
+                <p>You have successfully submitted a withdrawal request!</p>
             </div>
         </div>
     </div>
