@@ -122,6 +122,9 @@
                             <li>
                                 <a href="{{$menuPrefix}}#team">Team</a>
                             </li>
+                            <li>
+                                <a href="{{$menuPrefix}}#Updates">Updates</a>
+                            </li>
 
                             <!-- <li>
                                 <a href="">Development</a>
@@ -131,12 +134,11 @@
                                     <li><a href="">Development roadmap</a></li>
                                 </ul>
                             </li> -->
-
-                            <li>
-                                <a href="/faq">FAQ</a>
-                            </li>
                             <li>
                                 <a href="{{$menuPrefix}}#channels">Channels</a>
+                            </li>
+                            <li>
+                                <a href="/faq">FAQ</a>
                             </li>
                         </ul>
                     </nav>
