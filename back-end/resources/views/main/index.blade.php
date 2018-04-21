@@ -10,12 +10,12 @@
         <div class="h-banner">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-md-6 col-xl-7">
                         The only official URL for Zantepay is <a href="https://zantepay.com">https://zantepay.com</a>. If you receive
                         confirmation
                         of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-6 col-xl-5">
                         <div class="row">
                             <div class="col-lg">
                                 Official channels:
@@ -28,6 +28,8 @@
                                     <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
                                     <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
                                     <li><a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
+                                    </li>
+                                    <li><a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
                                     </li>
                                     <li><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
                                 </ul>
@@ -684,6 +686,10 @@
                         <a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://medium.com/@zantepay">Medium</a></h4>
+                        <a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
                         <h4><a href="mailto:support@zantepay.com">Support</a></h4>
                         <a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a>
                     </div>
@@ -740,6 +746,7 @@
                 <ul>
                     <li><a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}" target="_blank">Terms & Conditions</a></li>
                     <li><a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}" target="_blank">Privacy Policy</a></li>
+                    <li><a href="{{ asset('storage/Zantepay-AML-Policy.pdf') }}" target="_blank">AML/CTF Policy</a></li>
                 </ul>
             </div>
             <p class="copyright"><span class="copyright-ico"></span> 2018 ZANTEPAY</p>

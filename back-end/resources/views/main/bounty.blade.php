@@ -163,6 +163,10 @@
                         <a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://medium.com/@zantepay">Medium</a></h4>
+                        <a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
                         <h4><a href="mailto:support@zantepay.com">Support</a></h4>
                         <a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a>
                     </div>
@@ -185,6 +189,7 @@
                 <ul>
                     <li><a href="{{ asset('storage/Zantepay_Terms_and_Conditions.pdf') }}">Terms & Conditions</a></li>
                     <li><a href="{{ asset('storage/Zantepay_Privacy_Policy.pdf') }}">Privacy Policy</a></li>
+                    <li><a href="{{ asset('storage/Zantepay-AML-Policy.pdf') }}" target="_blank">AML/CTF Policy</a></li>
                 </ul>
             </div>
             <p class="copyright"><span class="copyright-ico"></span> 2018 ZANTEPAY</p>

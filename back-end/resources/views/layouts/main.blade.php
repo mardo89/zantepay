@@ -123,7 +123,7 @@
                                 <a href="{{$menuPrefix}}#team">Team</a>
                             </li>
                             <li>
-                                <a href="{{$menuPrefix}}#Updates">Updates</a>
+                                <a href="{{$menuPrefix}}#updates">Updates</a>
                             </li>
 
                             <!-- <li>
