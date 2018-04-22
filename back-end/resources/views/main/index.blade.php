@@ -180,68 +180,68 @@
                 <div class="lp-feed">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div target="_blank" class="lp-feed__col">
+                            <a href="https://www.cryptocapitalworld.com" target="_blank" class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-04-20">2018 / 20 / 04</time>
+                                    <p>Meet us on April 25th-26th at Crypto Capital World - World‘s Largest Conference For Crypto Investments </p>
+                                </div>
+                            </a>
+                            <a href="https://bitcointalk.org/index.php?topic=3338226" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-17">2018 / 17 / 04</time>
-                                    <p>Bounty program launch!</p>
+                                    <p>Bounty program launch</p>
                                 </div>
-                            </div>
-                            <div target="_blank" class="lp-feed__col">
+                            </a>
+                            <a href="https://www.instagram.com/zantepay/" target="_blank" class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-04-16">2018 / 16 / 04</time>
+                                    <p>Zantepay on Instagram is live</p>
+                                </div>
+                            </a>
+                            <div class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-15">2018 / 15 / 04</time>
-                                    <p>ICO launch</p>
+                                    <p>ICO kick-off</p>
                                 </div>
                             </div>
-                            <div target="_blank" class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-04-03">2018 / 3 / 04 - 2018 / 16 / 04</time>
-                                    <p>Instagram program launch</p>
-                                </div>
-                            </div>
-                            <div target="_blank" class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-04-13">2018 / 13 / 04</time>
-                                    <p>Newsletter</p>
-                                </div>
-                            </div>
-                            <div target="_blank" class="lp-feed__col">
+                            <div class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-12">2018 / 12 / 04</time>
-                                    <p>Whitepaper Korean, Chinese, Portuguese, German, French, Arabic language upload</p>
+                                    <p>Whitepaper in Korean, Chinese, Portuguese, German, French, and Arabic is up</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div target="_blank" class="lp-feed__col">
+                            <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Russian.pdf" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-11">2018 / 11 / 04</time>
-                                    <p>Whitepaper Russian language upload</p>
+                                    <p>Whitepaper in Russian language is available</p>
                                 </div>
-                            </div>
-                            <div target="_blank" class="lp-feed__col">
+                            </a>
+                            <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Japanese.pdf" target="_blank" class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-03-30">2018 / 10 / 04</time>
+                                    <p>Whitepaper in Japanese is up on the website</p>
+                                </div>
+                            </a>
+                            <a href="https://medium.com/@zantepay/zantepay-and-gfc-sign-a-preliminary-agreement-on-debit-cards-bf2ba13cc987" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-03">2018 / 03 / 04</time>
                                     <p>ZANTEPAY and GFC sign a preliminary agreement on debit cards</p>
                                 </div>
-                            </div>
-                            <div target="_blank" class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-03-30">2018 / 30 / 03</time>
-                                    <p>ZANTEPAY and GFC sign a preliminary agreement on debit cards</p>
-                                </div>
-                            </div>
-                            <div target="_blank" class="lp-feed__col">
+                            </a>
+                            <!-- <div class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-03-23">2018 / 23 / 03</time>
                                     <p>Higher level security integration start</p>
                                 </div>
-                            </div>
-                            <div target="_blank" class="lp-feed__col">
+                            </div> -->
+                            <a href="https://www.facebook.com/ZANTEPAY/photos/a.141550459837098.1073741828.133209457337865/166399440685533/?type=3&theater" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-03-23">2018 / 20 / 03</time>
-                                    <p>Security summit event</p>
+                                    <p>Security Summit 2018</p>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <p class="h5 mt-20">New updates are coming every Friday.</p>
@@ -542,7 +542,7 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/kristi.jpg" srcset="images/kristi@2x.jpg 2x" alt="Kristi Sild">
-                        <h3 class="h4">Kristi Sild <span>Legal <br> Attorney at Law/ Partner, LEXTAL</span></h3>
+                        <h3 class="h4">Kristi Sild <span>Legal <br> Attorney at Law/ Partner, LEXTAL</span> <a target="_blank" href="https://www.linkedin.com/in/kristi-sild-16745093/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Kristi is an experienced attorney and leads the legal team of Zantepay project. Kristi is a partner in Lawfirm
                             LEXTAL, one of the biggest lawfirms in Estonia, having also offices in Latvia and Lithuania. Kristi has wide
                             legal experience in fintech field, including regulatory matters and other legal questions related to innovative
@@ -550,14 +550,14 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/stas.jpg" srcset="images/stas@2x.jpg 2x" alt="Stanislav Ivashchenko">
-                        <h3 class="h4">Stanislav Ivashchenko <span>User Experience and Product Design Lead</span></h3>
+                        <h3 class="h4">Stanislav Ivashchenko <span>User Experience and Product Design Lead</span> <a target="_blank" href="https://www.linkedin.com/in/stanislav-ivashchenko-2352054/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Stanislav shapes visual appearance of ZANTEPAY. He possesses more than 6 years of experience in graphic design
                             and usability across all media and has a passion for bringing brands to life through great user-centered
                             design.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/alex.jpg" srcset="images/alex@2x.jpg 2x" alt="Alexey Fedorenko">
-                        <h3 class="h4">Alexey Fedorenko <span>Front-End Team Lead</span></h3>
+                        <h3 class="h4">Alexey Fedorenko <span>Front-End Team Lead</span> <a target="_blank" href="https://www.linkedin.com/in/alexey-ffedorenko/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Alexey makes a great addition to our team with his commercial experience in front-end development, producing
                             high-quality websites and exceptional user experience.</p>
                     </div>
@@ -571,26 +571,26 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/alexander.jpg" srcset="images/alexander@2x.jpg 2x" alt="Alexander Harutunian ">
-                        <h3 class="h4">Alexander Harutunian <span>Smart Contracts / Project Manager</span></h3>
+                        <h3 class="h4">Alexander Harutunian <span>Smart Contracts / Project Manager</span> <a target="_blank" href="https://www.linkedin.com/in/alex113115/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Corporate finance and economics professional, specializing in Fintech. Previously, Alexander had a senior auditor
                             role at KPMG, led retail and banking sector engagements. He has MBA from American University of Armenia. </p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/levon.jpg" srcset="images/levon@2x.jpg 2x" alt="Levon Hayrapetyan">
-                        <h3 class="h4">Levon Hayrapetyan <span>Smart Contracts Developer</span></h3>
+                        <h3 class="h4">Levon Hayrapetyan <span>Smart Contracts Developer</span> <a target="_blank" href="https://www.linkedin.com/in/levonhayrapetyan/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in
                             experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/oleg.jpg" srcset="images/oleg@2x.jpg 2x" alt="Oleg Pyvovarenko">
-                        <h3 class="h4">Oleg Pyvovarenko <span>DM Team Lead</span></h3>
+                        <h3 class="h4">Oleg Pyvovarenko <span>DM Team Lead</span> <a target="_blank" href="https://www.linkedin.com/in/oleg-pyvovarenko-b307b324/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Data-driven product marketing manager with 7+ years of experience in various global projects. Experienced in
                             gambling, betting, finance projects, ICO and crypto exchanges. Worked with huobi.pro, Aeron.aero, xchange.io
                             etc. </p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/vadim.jpg" srcset="images/vadim@2x.jpg 2x" alt="Vadim Ivanenko">
-                        <h3 class="h4">Vadim Ivanenko <span>Bounty Manager</span></h3>
+                        <h3 class="h4">Vadim Ivanenko <span>Bounty Manager</span> <a target="_blank" href="https://www.linkedin.com/in/vivanenko/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Vadim is a serial entrepreneur, blockchain evangelist and crypto investor. He is a CEO and Founder at Luft,
                             offering B2B solutions for the blockchain startups. His role at ZANTEPAY is to design and lead its Bounty
                             Programme.</p>
@@ -605,6 +605,7 @@
                     <div class="col-lg-4">
                         <img src="images/dmitry.jpg" srcset="images/dmitry@2x.jpg 2x" alt="Dmitri Laush">
                         <h3 class="h4">Dmitri Laush <span style="font-size:0.83em;">Foreign Exchange, Integration Partner, Co-Founder of Admiral Markets</span>
+                        <a target="_blank" href="https://www.linkedin.com/in/dmitrilaush/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
                         </h3>
                         <p>Experienced Investor with a demonstrated history of working 15 years in the financial services industry. Co-
                             founder of Admiral Markets investment firms operating under the Admiral Markets trademark. Dmitri is an advisor
@@ -614,7 +615,9 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/cristobal.jpg" srcset="images/cristobal@2x.jpg 2x" alt="Cristobal Alonso">
-                        <h3 class="h4">Cristobal Alonso <span style="font-size:0.83em;">Global CEO @ Startup Wise Guys</span></h3>
+                        <h3 class="h4">Cristobal Alonso <span style="font-size:0.83em;">Global CEO @ Startup Wise Guys</span>
+                        <a target="_blank" href="https://www.linkedin.com/in/cristobalalonso/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
+                        </h3>
                         <p>Cristobal is the Global Capo of Startup Wise Guys – Europe’s leading B2B accelerator and the leading acceleration
                             platform for global founders and preferred deal flow partner for VC funds in Northern Europe and the CEE.
                             Cristobal’s unique background combines extensive CxO experience in different mobile operators in Europe, leading
@@ -624,7 +627,9 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/rauno.jpg" srcset="images/rauno@2x.jpg 2x" alt="Rauno Klettenberg">
-                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia </span></h3>
+                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia </span>
+                        <a target="_blank" href="https://www.linkedin.com/in/rauno-klettenberg-48521a30/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
+                        </h3>
                         <p>Ex Chairman of the Board at Nasdaq Tallinn. Ex General Manager of Handelsbanken. Member of the Board at Finance
                             Estonia. Rauno is an experienced Board Member with a demonstrated history of working in the financial services
                             industry. Expert in Asset Management, Management, Mergers & Acquisitions, and Financial Risk. He is a strong
@@ -633,7 +638,10 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/andrii.jpg" srcset="images/andrii@2x.jpg 2x" alt="Andriy Danchak">
-                        <h3 class="h4">Andriy Danchak <span style="font-size:0.83em;">CEO of GFC Good Finance Company AS </span></h3>
+                        <h3 class="h4">Andriy Danchak <span style="font-size:0.83em;">CEO of GFC Good Finance Company AS </span>
+                        <a target="_blank" href="https://www.linkedin.com/in/andriydanchak/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
+                        </h3>
+                        
                         <p>Andriy has more than 10 years of experience within the banking industry. Previously held an executive position in
                             Raiffeisen and Standard Union Bank. Andriy possesses a deep knowledge of banking policies and regulations. As a
                             CEO of GFC - a licensed payment institution and a principal member of Mastercard ®, his task is to work closely
@@ -642,6 +650,7 @@
                     <div class="col-lg-4">
                         <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
                         <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span>
+                        <a target="_blank" href="https://www.linkedin.com/in/juanalonsovillalobos/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
                         </h3>
                         <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to
                             several PE and VC funds. StartupWiseGuys Fintech programs Managing director.</p>
@@ -649,6 +658,7 @@
                     <div class="col-lg-4">
                         <img src="images/farid.jpg" srcset="images/farid@2x.jpg 2x" alt="Farid Singh">
                         <h3 class="h4 h4--3row">Farid Singh <span style="font-size:0.83em;">Innovation Consultant, User centric Product Manager, Blue Ocean Strategist & Tech Expert</span>
+                        <a target="_blank" href="https://www.linkedin.com/in/farid-singh-823b391/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
                         </h3>
                         <p>With over 10 years of experience in TMT and deep tech, Farid focuses on getting new tech to people. He helps move
                             new technology to a mainstream product and leverages the benefits of new technology to drive adoption. </p>
@@ -664,9 +674,56 @@
 
     <footer class="footer white-content" id="contacts">
         <div class="container">
+            <div class="footer-partners" id="partners">
+                <div class="text-center">
+                    <h2 class="h2 headline text-left">Partners</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <a target="_blank" rel="nofollow" href="http://www.kryptoraha.ee">
+                            <img src="images/estonian-crypto-association.png" srcset="images/estonian-crypto-association@2x.png 2x" alt="estonian crypto association">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a target="_blank" rel="nofollow" href="http://gfc.ee/">
+                            <img src="images/gfc.png" alt="gfc">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a target="_blank" rel="nofollow" href="https://startupwiseguys.com/">
+                            <img src="images/swg.png" srcset="images/swg@2x.png 2x" alt="StartupWiseGuys">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a target="_blank" rel="nofollow" href="http://www.financeestonia.eu/">
+                            <img src="images/finance_estonia.png" alt="finance estonia">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a target="_blank" rel="nofollow" href="https://e-resident.gov.ee/">
+                            <img src="images/e-residency.svg" alt="e-residency">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a target="_blank" rel="nofollow" href="https://www.home.neustar/">
+                            <img src="images/neustar.svg" width="220" alt="neustar">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a target="_blank" rel="nofollow" href="https://aws.amazon.com">
+                            <img src="images/aws.png" alt="neustar">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a target="_blank" rel="nofollow" href="https://veriff.me/">
+                            <img src="images/veriff.svg" alt="veriff">
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="footer-chanels" id="channels">
                 <div class="text-center">
-                    <h3 class="h2 headline text-left">Our Channels</h3>
+                    <h2 class="h2 headline text-left">Our Channels</h2>
                 </div>
                 <div class="row">
                     <div class="col-sm-3 col-6">
