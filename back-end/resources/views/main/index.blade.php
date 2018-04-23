@@ -563,7 +563,7 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/pavel.jpg" srcset="images/pavel@2x.jpg 2x" alt="Pavel Boyko">
-                        <h3 class="h4">Pavel Boyko <span>Backend Team Lead</span></h3>
+                        <h3 class="h4">Pavel Boyko <span>Backend Team Lead</span> <a target="_blank" href="https://www.linkedin.com/in/pavel-boiko-a1123a3/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Pavel runs Advanced Software Development LTD (ASD), a Fintech software vendor. Pavel and his team has more than
                             10 year experience in delivering the variety of web applications, software engineering solutions, big data
                             analytics, mastering the hardest design, UX/UI tasks. Pavel believes in blockchain and the huge potential of the
