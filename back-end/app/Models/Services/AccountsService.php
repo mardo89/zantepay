@@ -2,6 +2,7 @@
 
 namespace App\Models\Services;
 
+use App\Exceptions\PasswordException;
 use App\Exceptions\UserAccessException;
 use App\Exceptions\UserNotFoundException;
 use App\Models\DB\ExternalRedirect;
@@ -209,6 +210,25 @@ class AccountsService
         ResetPasswordsService::removePasswordReset($user->email);
 
         MailService::sendChangePasswordEmail($user->email);
+    }
+
+    /**
+     * Save password after reset
+     *
+     * @param string $currentPassword
+     * @param string $newPassword
+     *
+     * @throws
+     */
+    public static function changePassword($currentPassword, $newPassword)
+    {
+        $user = self::getActiveUser();
+
+        if (!self::checkPassword($currentPassword, $user->password)) {
+            throw new PasswordException('Current Password is wrong');
+        }
+
+        UsersService::changeUserPassword($user, $newPassword);
     }
 
     /**

@@ -144,7 +144,7 @@ window.showPopover = popoverContent => {
 }
 
 // Show Protection dialog
-window.showProtection = onSubscribe => {
+window.showProtectionDialog = onSubscribe => {
     sessionStorage.removeItem('signature');
 
     $.magnificPopup.open(
@@ -157,22 +157,53 @@ window.showProtection = onSubscribe => {
             closeOnBgClick: true,
             callbacks: {
                 elementParse: function (item) {
-                    $(this).find('input[name="signature"]').val('');
+                    $(item.src).find('#frm_protection').find('input[name="signature"]').val('');
 
-                    $(item.src).find('#frm_protection').on('submit', function (e) {
+                    $(item.src).find('#frm_protection').off('submit').on('submit', function (e) {
                         e.preventDefault();
 
                         sessionStorage.setItem('signature', $(this).find('input[name="signature"]').val());
 
                         $.magnificPopup.close();
 
-                        if (typeof onSubscribe === 'function') {
+                        onSubscribe();
 
-                            onSubscribe();
-                        }
                     });
                 }
             }
         }
     );
+}
+
+// Check protection status
+window.processProtectionRequest = requestParams => {
+    const signature = sessionStorage.getItem('signature');
+
+    if (!signature) {
+        return requestParams
+    }
+
+    return {
+        ...requestParams,
+        signature: signature
+    }
+}
+
+// Check protection status
+window.processProtectionResponse = (responseStatus, processWithProtection, processWithouProtection) => {
+
+    if (responseStatus == 205) {
+
+        if (typeof processWithProtection === 'function') {
+            showProtectionDialog(processWithProtection);
+        }
+
+    } else {
+
+        if (typeof processWithouProtection === 'function') {
+            processWithouProtection();
+        }
+
+    }
+
 }

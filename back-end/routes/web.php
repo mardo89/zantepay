@@ -52,14 +52,14 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('accept-terms', 'UserController@acceptTerms');
 
     Route::get('profile', 'UserController@profile');
-    Route::post('profile', 'UserController@saveProfile');
+    Route::post('profile', 'UserController@saveProfile')->middleware('action.protect');
 
     Route::get('profile-settings', 'UserController@profileSettings');
     Route::post('profile-settings/remove-document', 'UserController@removeDocument');
     Route::post('profile-settings/upload-identity-documents', 'UserController@uploadIdentityDocuments');
     Route::post('profile-settings/upload-address-documents', 'UserController@uploadAddressDocuments');
-    Route::post('profile-settings/change-password', 'UserController@changePassword');
-    Route::post('profile-settings/update-wallet', 'UserController@updateWallet');
+    Route::post('profile-settings/change-password', 'UserController@changePassword')->middleware('action.protect');
+    Route::post('profile-settings/update-wallet', 'UserController@updateWallet')->middleware('action.protect');
 
     Route::get('invite-friend', 'UserController@invite');
     Route::post('invite-friend', 'UserController@saveInvitation');
@@ -67,8 +67,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('wallet', 'UserController@wallet');
     Route::post('wallet/address', 'UserController@createWalletAddress');
     Route::post('wallet/rate-calculator', 'UserController@rateCalculator');
-    Route::post('wallet/transfer-eth', 'UserController@transferEth');
-    Route::post('wallet/withdraw-eth', 'UserController@withdrawEth');
+    Route::post('wallet/transfer-eth', 'UserController@transferEth')->middleware('action.protect');
+    Route::post('wallet/withdraw-eth', 'UserController@withdrawEth')->middleware('action.protect');
 
     Route::get('debit-card', 'UserController@debitCard');
     Route::post('debit-card', 'UserController@saveDebitCard');

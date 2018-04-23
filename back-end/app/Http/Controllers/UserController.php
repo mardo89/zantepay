@@ -627,25 +627,13 @@ class UserController extends Controller
             )
         );
 
-        $currentPassword = $request->input('current-password');
-        $newPassword = $request->input('password');
-
         try {
-            if (User::checkPassword($currentPassword, $user->password) === false) {
-                return response()->json(
-                    [
-                        'message' => 'Error changing password',
-                        'errors' => [
-                            'current-password' => 'Wrong Current Password'
-                        ]
-                    ],
-                    422
-                );
-            }
 
-            $user->password = User::hashPassword($newPassword);
+            $currentPassword = $request->input('current-password');
+            $newPassword = $request->input('password');
 
-            $user->save();
+            AccountsService::changePassword($currentPassword, $newPassword);
+
 
         } catch (\Exception $e) {
 
@@ -983,11 +971,15 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'eth_amount' => 'numeric|min:0|max:200000|required'
+                'eth_amount' => 'numeric|min:0.1|max:200000|required'
             ],
             ValidationMessages::getList(
                 [
                     'eth_amount' => 'ETH Amount'
+                ],
+                [
+                    'eth_amount.min' => 'You cannot withdraw less than 0.1 ETH',
+                    'eth_amount.max' => 'You cannot withdraw more than 200,000 ETH',
                 ]
             )
         );
