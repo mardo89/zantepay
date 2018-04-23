@@ -62,7 +62,7 @@ class UpdateContributions extends Command
 
                 // add contributions to the DB
                 foreach ($contributions['contributions'] as $contribution) {
-                    $contribution = Contribution::create(
+                    $contributionInfo = Contribution::create(
                         [
                             'operation_id' => $contribution->operationId,
                             'proxy' => $contribution->proxy,
@@ -71,11 +71,11 @@ class UpdateContributions extends Command
                         ]
                     );
 
-                    $ethAmount = RateCalculator::weiToEth($contribution->amount);
+                    $ethAmount = RateCalculator::weiToEth($contributionInfo->amount);
 
-                    $znxAmountParts = RateCalculator::ethToZnx($ethAmount, $contribution->timestamp, $ico);
+                    $znxAmountParts = RateCalculator::ethToZnx($ethAmount, $contributionInfo->time_stamp, $ico);
 
-                    $userWallet = Wallet::where('eth_wallet', $contribution->proxy)->first();
+                    $userWallet = Wallet::where('eth_wallet', $contributionInfo->proxy)->first();
 
                     if (!is_null($userWallet)) {
 
@@ -86,7 +86,7 @@ class UpdateContributions extends Command
                                     'user_id' => $userWallet->user->id,
                                     'amount' => $znxAmountPart['amount'],
                                     'ico_part' => $znxAmountPart['icoPart'],
-                                    'contribution_id' => $contribution->id,
+                                    'contribution_id' => $contributionInfo->id,
                                     'transaction_type' => ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX
                                 ]
                             );
@@ -100,7 +100,7 @@ class UpdateContributions extends Command
 
                             $referrerWallet = $userReferrer->wallet;
 
-                            $referrerWallet->commission_bonus = Wallet::COMMISSION_BONUS * $ethAmount;
+                            $referrerWallet->commission_bonus += Wallet::COMMISSION_BONUS * $ethAmount;
                             $referrerWallet->save();
                         }
 
