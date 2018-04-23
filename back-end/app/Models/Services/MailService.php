@@ -65,6 +65,10 @@ class MailService
             'name' => 'Check Contributions Alert',
             'mailClass' => 'CheckContributionMail'
         ],
+        MailEvent::EVENT_TYPE_PROTECT_ACTION => [
+            'name' => 'Protect Action',
+            'mailClass' => 'ProtectAction'
+        ],
     ];
 
     /**
@@ -308,6 +312,23 @@ class MailService
         $to = env('SERVICE_EMAIL');
         $data = [
             'contributions' => $contributionsList
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Protect Action email
+     *
+     * @param string $email
+     * @param string $signature
+     */
+    public static function sendProtectActionEmail($email, $signature)
+    {
+        $event = MailEvent::EVENT_TYPE_PROTECT_ACTION;
+        $to = $email;
+        $data = [
+            'signature' => $signature
         ];
 
         self::send($event, $to, $data);

@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SystemAlert extends Mailable
+class ProtectAction extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,7 +19,7 @@ class SystemAlert extends Mailable
     /**
      * @var string Alert message
      */
-    public $alertMessage;
+    public $signature;
 
     /**
      * Create a new message instance.
@@ -30,8 +30,7 @@ class SystemAlert extends Mailable
      */
     public function __construct($mailData)
     {
-        $this->event = $mailData['event'];
-        $this->alertMessage = $mailData['message'];
+        $this->signature = $mailData['signature'];
     }
 
     /**
@@ -41,7 +40,7 @@ class SystemAlert extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->event)
-            ->view('emails.system-alert');
+        return $this->subject('Protection Action')
+            ->view('emails.protect-action');
     }
 }

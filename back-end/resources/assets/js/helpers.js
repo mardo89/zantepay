@@ -142,3 +142,37 @@ window.showPopover = popoverContent => {
     );
 
 }
+
+// Show Protection dialog
+window.showProtection = onSubscribe => {
+    sessionStorage.removeItem('signature');
+
+    $.magnificPopup.open(
+        {
+            items: {
+                src: '#protection-modal'
+            },
+            type: 'inline',
+            showCloseBtn: true,
+            closeOnBgClick: true,
+            callbacks: {
+                elementParse: function (item) {
+                    $(this).find('input[name="signature"]').val('');
+
+                    $(item.src).find('#frm_protection').on('submit', function (e) {
+                        e.preventDefault();
+
+                        sessionStorage.setItem('signature', $(this).find('input[name="signature"]').val());
+
+                        $.magnificPopup.close();
+
+                        if (typeof onSubscribe === 'function') {
+
+                            onSubscribe();
+                        }
+                    });
+                }
+            }
+        }
+    );
+}
