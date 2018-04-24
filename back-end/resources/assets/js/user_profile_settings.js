@@ -227,6 +227,7 @@ $(document).ready(function () {
         clearErrors();
 
         const password = processProtectionRequest(
+            'Change Password',
             {
                 'current-password': $(this).find('input[name="current-password"]').val(),
                 'password': $(this).find('input[name="password"]').val(),
@@ -303,6 +304,7 @@ $(document).ready(function () {
         }
 
         const wallet = processProtectionRequest(
+            'Change Wallet Address',
             {
                 'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
                 'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val(),

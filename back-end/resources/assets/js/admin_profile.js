@@ -8,26 +8,40 @@ $(document).ready(function () {
 
         clearErrors();
 
-        const userInfo = {
-            'uid': $('#user-profile-id').val(),
-            'role': $(this).val(),
-        }
+        const userInfo = processProtectionRequest(
+            'Change User Role',
+            {
+                'uid': $('#user-profile-id').val(),
+                'role': $(this).val(),
+            }
+        );
+
 
         axios.post(
             '/admin/profile',
             qs.stringify(userInfo)
         )
             .then(
-                () => {
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#save-profile-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
+                response => {
+
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('change');
+                        },
+                        () => {
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#save-profile-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true
+                                }
+                            );
                         }
                     );
+
                 }
             )
             .catch(

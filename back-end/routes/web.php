@@ -89,8 +89,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('users/search', 'ManagerController@searchUsers');
 
     Route::get('profile', 'ManagerController@profile');
-    Route::post('profile', 'AdminController@saveProfile');
-    Route::post('profile/remove', 'AdminController@removeProfile');
+    Route::post('profile', 'AdminController@saveProfile')->middleware('action.protect');
+    Route::post('profile/remove', 'AdminController@removeProfile')->middleware('action.protect');
 
     Route::get('document', 'ManagerController@document');
     Route::post('document/approve', 'ManagerController@approveDocument');

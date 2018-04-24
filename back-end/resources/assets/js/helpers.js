@@ -145,7 +145,6 @@ window.showPopover = popoverContent => {
 
 // Show Protection dialog
 window.showProtectionDialog = onSubscribe => {
-    sessionStorage.removeItem('signature');
 
     $.magnificPopup.open(
         {
@@ -173,14 +172,20 @@ window.showProtectionDialog = onSubscribe => {
             }
         }
     );
+
 }
 
 // Check protection status
-window.processProtectionRequest = requestParams => {
+window.processProtectionRequest = (action, requestParams) => {
     const signature = sessionStorage.getItem('signature');
 
+    sessionStorage.removeItem('signature');
+
     if (!signature) {
-        return requestParams
+        return {
+            ...requestParams,
+            action: action,
+        }
     }
 
     return {

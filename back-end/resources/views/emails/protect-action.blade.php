@@ -10,7 +10,7 @@
     <style type="text/css">
 
         h2 {
-            color: rgba(249,33,18,.6);
+            color: rgba(249, 33, 18, .6);
         }
 
         #secret-key {
@@ -22,12 +22,16 @@
 
 <body>
 <div class="container">
-    <h2>Secret key</h2>
+    <h2>You are trying to {{ $action }}</h2>
 
     <br/>
 
-    <span id="secret-key">
-        {{ $signature }}
-    </span>
+    <div id="secret-key">
+        <p>Use secret key to approve this operation:</p>
+
+        <p><b>{{ $signature }}</b></p>
+
+        <p>This key will be expired in 2 min</p>
+    </div>
 </div>
 </body>

@@ -53,6 +53,7 @@ $(document).ready(function () {
         clearErrors();
 
         const profile = processProtectionRequest(
+            'Save Profile',
             {
                 'first_name': $('input[name="f-name"]').val(),
                 'last_name': $('input[name="l-name"]').val(),

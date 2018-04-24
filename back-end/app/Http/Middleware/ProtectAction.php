@@ -7,7 +7,6 @@ use App\Models\Services\MailService;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-use PHPUnit\Runner\Exception;
 
 class ProtectAction
 {
@@ -31,13 +30,35 @@ class ProtectAction
             return redirect('/');
         }
 
-        $requestParams = array_values($request->except(['signature']));
-
-        $signatureStr = implode('&', $requestParams);
+        $requestParams = $request->except(['signature', 'action']);
+        $requestParams['_timestamp_'] = time();
 
         try {
 
-            if (Crypt::decryptString($request->signature) !== $signatureStr) {
+            $decryptedStr = Crypt::decryptString($request->signature);
+            $decryptedParams = unserialize($decryptedStr);
+
+            $isSignatureCorrect = true;
+
+            // signature must contain timestamp
+            if (!$decryptedParams || !isset($decryptedParams['_timestamp_'])) {
+                $isSignatureCorrect = false;
+            }
+
+            // signature expired in 5 minutes
+            if (time() - $decryptedParams['_timestamp_'] > 120) {
+                $isSignatureCorrect = false;
+            }
+
+            unset($decryptedParams['_timestamp_']);
+
+            foreach ($decryptedParams as $name => $value) {
+                if ($requestParams[$name] != $value) {
+                    $isSignatureCorrect = false;
+                }
+            }
+
+            if ($isSignatureCorrect === false) {
 
                 throw new \Exception('Incorrect signature');
 
@@ -45,9 +66,10 @@ class ProtectAction
 
         } catch (\Exception $e) {
 
-            $signature = Crypt::encryptString($signatureStr);
+            $signature = Crypt::encryptString(serialize($requestParams));
+            $action = $request->action ?? 'Unknown action';
 
-            MailService::sendProtectActionEmail($user->email, $signature);
+            MailService::sendProtectActionEmail($user->email, $signature, $action);
 
             return abort(205);
 

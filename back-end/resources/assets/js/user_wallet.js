@@ -166,6 +166,7 @@ $(document).ready(function () {
         clearErrors();
 
         const transfer = processProtectionRequest(
+            'Transfer ETH to ZNX',
             {
                 eth_amount: $('input[name="transfer_eth_amount"]').val()
             }
@@ -243,12 +244,12 @@ $(document).ready(function () {
     $('#withdraw_btn').on('click', function (event) {
         event.preventDefault();
 
-
         const button = $(this);
         showSpinner(button);
         clearErrors();
 
         const withdraw = processProtectionRequest(
+            'Withdraw ETH',
             {
                 address: $('input[name="withdraw_address"]').val()
             }
