@@ -87,10 +87,10 @@
                     </div>
                 </div>
 
-                <h3 class="h4 text-center">
+                <!-- <h3 class="h4 text-center">
                     Sold total during private sale and pre-ICO:
                     <p> {{ $ico['prevAmount'] }} ZNX</p>
-                </h3>
+                </h3> -->
 
             </div>
 
@@ -744,7 +744,7 @@
                     </div>
                     <div class="col-sm-3 col-6">
                         <h4><a target="_blank" href="https://medium.com/@zantepay">Medium</a></h4>
-                        <a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-instagram"></i></a>
+                        <a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
                         <h4><a href="mailto:support@zantepay.com">Support</a></h4>
