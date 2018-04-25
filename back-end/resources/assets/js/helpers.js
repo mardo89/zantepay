@@ -178,24 +178,28 @@ window.showProtectionDialog = onSubscribe => {
 // Check protection status
 window.processProtectionRequest = (action, requestParams) => {
     const signature = sessionStorage.getItem('signature');
-
     sessionStorage.removeItem('signature');
 
     if (!signature) {
+        const action_timestamp = (new Date()).valueOf();
+        sessionStorage.setItem('action_timestamp', action_timestamp);
+
         return {
             ...requestParams,
             action: action,
+            action_timestamp: action_timestamp
         }
     }
 
     return {
         ...requestParams,
+        action_timestamp: sessionStorage.getItem('action_timestamp'),
         signature: signature
     }
 }
 
 // Check protection status
-window.processProtectionResponse = (responseStatus, processWithProtection, processWithouProtection) => {
+window.processProtectionResponse = (responseStatus, processWithProtection, processWithoutProtection) => {
 
     if (responseStatus == 205) {
 
@@ -205,8 +209,8 @@ window.processProtectionResponse = (responseStatus, processWithProtection, proce
 
     } else {
 
-        if (typeof processWithouProtection === 'function') {
-            processWithouProtection();
+        if (typeof processWithoutProtection === 'function') {
+            processWithoutProtection();
         }
 
     }

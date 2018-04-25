@@ -31,7 +31,6 @@ class ProtectAction
         }
 
         $requestParams = $request->except(['signature', 'action']);
-        $requestParams['_timestamp_'] = time();
 
         try {
 
@@ -41,16 +40,14 @@ class ProtectAction
             $isSignatureCorrect = true;
 
             // signature must contain timestamp
-            if (!$decryptedParams || !isset($decryptedParams['_timestamp_'])) {
+            if (!$decryptedParams || !isset($decryptedParams['action_timestamp'])) {
                 $isSignatureCorrect = false;
             }
 
             // signature expired in 5 minutes
-            if (time() - $decryptedParams['_timestamp_'] > 120) {
+            if (time() - $decryptedParams['action_timestamp'] > 120) {
                 $isSignatureCorrect = false;
             }
-
-            unset($decryptedParams['_timestamp_']);
 
             foreach ($decryptedParams as $name => $value) {
                 if ($requestParams[$name] != $value) {
