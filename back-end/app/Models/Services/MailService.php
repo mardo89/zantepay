@@ -322,13 +322,15 @@ class MailService
      *
      * @param string $email
      * @param string $signature
+     * @param string $action
      */
-    public static function sendProtectActionEmail($email, $signature)
+    public static function sendProtectActionEmail($email, $signature, $action)
     {
         $event = MailEvent::EVENT_TYPE_PROTECT_ACTION;
         $to = $email;
         $data = [
-            'signature' => $signature
+            'signature' => $signature,
+            'action' => $action,
         ];
 
         self::send($event, $to, $data);

@@ -23,7 +23,6 @@ $(document).ready(function () {
     $('.create-address').on('click', function (event) {
         event.preventDefault();
 
-
         const button = $(this);
         showSpinner(button);
         clearErrors();
@@ -162,14 +161,16 @@ $(document).ready(function () {
     $('#transfer_btn').on('click', function (event) {
         event.preventDefault();
 
-
         const button = $(this);
         showSpinner(button);
         clearErrors();
 
-        const transfer = {
-            eth_amount: $('input[name="transfer_eth_amount"]').val()
-        }
+        const transfer = processProtectionRequest(
+            'Transfer ETH to ZNX',
+            {
+                eth_amount: $('input[name="transfer_eth_amount"]').val()
+            }
+        );
 
         axios.post(
             '/user/wallet/transfer-eth',
@@ -177,30 +178,40 @@ $(document).ready(function () {
         )
             .then(
                 response => {
+
                     hideSpinner(button);
 
-                    $('input[name="transfer_eth_amount"]').val('');
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $('input[name="transfer_eth_amount"]').val('');
 
-                    $('#available_znx_amount').text(response.data.total);
+                            $('#available_znx_amount').text(response.data.total);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#transfer-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                close: function () {
-                                    window.location.reload();
-                                },
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#transfer-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        close: function () {
+                                            window.location.reload();
+                                        },
 
-                                elementParse: function (item) {
-                                    $(item.src).find('#znx_balance').text(response.data.balance);
+                                        elementParse: function (item) {
+                                            $(item.src).find('#znx_balance').text(response.data.balance);
+                                        }
+                                    }
                                 }
-                            }
+                            );
                         }
                     );
+
                 }
             )
             .catch(
@@ -233,39 +244,51 @@ $(document).ready(function () {
     $('#withdraw_btn').on('click', function (event) {
         event.preventDefault();
 
-
         const button = $(this);
         showSpinner(button);
         clearErrors();
 
-        const withdraw = {
-            address: $('input[name="withdraw_address"]').val()
-        }
+        const withdraw = processProtectionRequest(
+            'Withdraw ETH',
+            {
+                address: $('input[name="withdraw_address"]').val()
+            }
+        );
 
         axios.post(
             '/user/wallet/withdraw-eth',
             qs.stringify(withdraw)
         )
             .then(
-                () => {
+                response => {
+
                     hideSpinner(button);
 
-                    $('input[name="withdraw_address"]').val('');
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $('input[name="withdraw_address"]').val('');
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#withdraw-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                close: function () {
-                                    window.location.reload();
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#withdraw-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        close: function () {
+                                            window.location.reload();
+                                        }
+                                    }
                                 }
-                            }
+                            );
                         }
                     );
+
                 }
             )
             .catch(

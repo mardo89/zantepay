@@ -1,5 +1,65 @@
 require('./helpers');
 
+const processUserDelete = deleteButton => {
+
+    const button = deleteButton;
+    showSpinner(button);
+    clearErrors();
+
+    const userInfo = processProtectionRequest(
+        'Delete User',
+        {
+            'uid': $('#user-profile-id').val(),
+        }
+    )
+
+
+    axios.post(
+        '/admin/profile/remove',
+        qs.stringify(userInfo)
+    )
+        .then(
+            response => {
+                hideSpinner(button);
+
+                processProtectionResponse(
+                    response.status,
+                    () => {
+                        processUserDelete(deleteButton);
+                    },
+                    () => {
+                        $.magnificPopup.open(
+                            {
+                                items: {
+                                    src: '#remove-profile-modal'
+                                },
+                                type: 'inline',
+                                closeOnBgClick: true,
+                                callbacks: {
+                                    close: function () {
+                                        window.location = '/admin/users'
+                                    }
+                                }
+                            }
+                        );
+                    }
+                );
+
+            }
+        )
+        .catch(
+            error => {
+                hideSpinner(button);
+
+                const {message} = error.response.data;
+
+                showError(message)
+            }
+        )
+
+}
+
+
 $(document).ready(function () {
 
     // Change user role
@@ -8,26 +68,40 @@ $(document).ready(function () {
 
         clearErrors();
 
-        const userInfo = {
-            'uid': $('#user-profile-id').val(),
-            'role': $(this).val(),
-        }
+        const userInfo = processProtectionRequest(
+            'Change User Role',
+            {
+                'uid': $('#user-profile-id').val(),
+                'role': $(this).val(),
+            }
+        );
+
 
         axios.post(
             '/admin/profile',
             qs.stringify(userInfo)
         )
             .then(
-                () => {
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#save-profile-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
+                response => {
+
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('change');
+                        },
+                        () => {
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#save-profile-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true
+                                }
+                            );
                         }
                     );
+
                 }
             )
             .catch(
@@ -63,47 +137,7 @@ $(document).ready(function () {
         showConfirmation(
             'Are you sure do you want to delete this user?',
             () => {
-                const button = $(this);
-                showSpinner(button);
-                clearErrors();
-
-                const userInfo = {
-                    'uid': $('#user-profile-id').val(),
-                }
-
-                axios.post(
-                    '/admin/profile/remove',
-                    qs.stringify(userInfo)
-                )
-                    .then(
-                        () => {
-                            hideSpinner(button);
-
-                            $.magnificPopup.open(
-                                {
-                                    items: {
-                                        src: '#remove-profile-modal'
-                                    },
-                                    type: 'inline',
-                                    closeOnBgClick: true,
-                                    callbacks: {
-                                        close: function () {
-                                            window.location = '/admin/users'
-                                        }
-                                    }
-                                }
-                            );
-                        }
-                    )
-                    .catch(
-                        error => {
-                            hideSpinner(button);
-
-                            const {message} = error.response.data;
-
-                            showError(message)
-                        }
-                    )
+                processUserDelete($(this));
             }
         );
 

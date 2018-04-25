@@ -17,9 +17,14 @@ class ProtectAction extends Mailable
     public $event;
 
     /**
-     * @var string Alert message
+     * @var string Signature
      */
     public $signature;
+
+    /**
+     * @var string Action name
+     */
+    public $action;
 
     /**
      * Create a new message instance.
@@ -31,6 +36,7 @@ class ProtectAction extends Mailable
     public function __construct($mailData)
     {
         $this->signature = $mailData['signature'];
+        $this->action = $mailData['action'];
     }
 
     /**

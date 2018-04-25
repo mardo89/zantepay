@@ -92,6 +92,31 @@
     </div>
 </div>
 
+<!-- Protection modal -->
+<div class="logon-modal logon-modal--560 mfp-hide" id="protection-modal">
+    <div class="logon-modal-container">
+        <h3 class="h4" id="confirmation-message"></h3>
+        <div class="row justify-content-center">
+
+            <form id="frm_protection">
+
+                <div class="logon-modal-text">
+                    <p>This operation needs additional protection. Please provide secret key you received by email.</p>
+                </div>
+
+                <div class="logon-group">
+                    <input class="logon-field" type="text" name="signature" placeholder="Secret Key">
+                </div>
+
+                <div class="logon-submit">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
 <!-- JS scripts -->

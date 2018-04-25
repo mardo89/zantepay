@@ -52,41 +52,55 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
-        const profile = {
-            'first_name': $('input[name="f-name"]').val(),
-            'last_name': $('input[name="l-name"]').val(),
-            'email': $('input[name="email"]').val(),
-            'phone_number': $('input[name="tel"]').val(),
-            'area_code': $('select[name="area-code"]').val(),
-            'country': $('select[name="country"]').val(),
-            'state': $('select[name="state"]').val(),
-            'city': $('input[name="city"]').val(),
-            'address': $('input[name="address"]').val(),
-            'postcode': $('input[name="post-code"]').val(),
-            'passport': $('input[name="government"]').val(),
-            'expiration_date': $('input[name="expiry"]').val(),
-            'birth_date': $('input[name="birth"]').val(),
-            'birth_country': $('select[name="country-birth"]').val(),
-        }
+        const profile = processProtectionRequest(
+            'Save Profile',
+            {
+                'first_name': $('input[name="f-name"]').val(),
+                'last_name': $('input[name="l-name"]').val(),
+                'email': $('input[name="email"]').val(),
+                'phone_number': $('input[name="tel"]').val(),
+                'area_code': $('select[name="area-code"]').val(),
+                'country': $('select[name="country"]').val(),
+                'state': $('select[name="state"]').val(),
+                'city': $('input[name="city"]').val(),
+                'address': $('input[name="address"]').val(),
+                'postcode': $('input[name="post-code"]').val(),
+                'passport': $('input[name="government"]').val(),
+                'expiration_date': $('input[name="expiry"]').val(),
+                'birth_date': $('input[name="birth"]').val(),
+                'birth_country': $('select[name="country-birth"]').val(),
+            }
+        );
 
         axios.post(
             '/user/profile',
             qs.stringify(profile)
         )
             .then(
-                () => {
+                response => {
+
                     hideSpinner(button);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#profile-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#profile-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true
+                                }
+                            );
                         }
                     );
+
                 }
+
             )
             .catch(
                 error => {
