@@ -32,17 +32,6 @@ class IcoService
         $activePart = $this->ico->getActivePart();
         $previousPart = $this->ico->getPreviousPart();
 
-        $icoPartName = optional($activePart)->getName() ?? '';
-        $icoPartEndDate = optional($activePart)->getEndDate() ?? '';
-        $icoPartLimit = optional($activePart)->getLimit() ?? '';
-
-        $icoPartEthRate = optional($activePart)->getEthRate() ?? 0;
-        $icoPartEuroRate = optional($activePart)->getEuroRate() ?? 0;
-        $icoPartZnxRate = RateCalculator::toZnx(1, $icoPartEthRate);
-
-        $icoPartAmount = optional($activePart)->getAmount() ?? 0;
-        $icoPartRelativeBalance = optional($activePart)->getRelativeBalance() ?? 0;
-
         $prevPartAmount = Transactions::searchTransactionsAmount(
             [
                 ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX,
@@ -51,6 +40,17 @@ class IcoService
                 ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
             ]
         );
+
+        $icoPartName = optional($activePart)->getName() ?? '';
+        $icoPartEndDate = optional($activePart)->getEndDate() ?? '';
+        $icoPartLimit = optional($activePart)->getLimit() + $prevPartAmount ?? $prevPartAmount;
+
+        $icoPartEthRate = optional($activePart)->getEthRate() ?? 0;
+        $icoPartEuroRate = optional($activePart)->getEuroRate() ?? 0;
+        $icoPartZnxRate = RateCalculator::toZnx(1, $icoPartEthRate);
+
+        $icoPartAmount = optional($activePart)->getAmount() + $prevPartAmount ?? $prevPartAmount;
+        $icoPartRelativeBalance = $icoPartLimit > 0 ? $icoPartAmount / $icoPartLimit * 100 : 0;
 
         $ethLimit = RateCalculator::fromZnx($icoPartLimit, $icoPartEthRate);
         $ethAmount = RateCalculator::fromZnx($icoPartAmount, $icoPartEthRate);
@@ -71,7 +71,7 @@ class IcoService
             'euroRate' => (new CurrencyFormatter($icoPartEuroRate))->ethFormat()->get(),
             'relativeBalance' => [
                 'value' => $icoPartRelativeBalance,
-                'percent' => number_format($icoPartRelativeBalance * 100, 2),
+                'percent' => number_format($icoPartRelativeBalance, 2),
                 'progressClass' => $icoPartRelativeBalance > 50 ? 'is-left' : 'is-right'
             ]
         ];

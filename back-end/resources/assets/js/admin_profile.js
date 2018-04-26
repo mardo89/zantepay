@@ -135,7 +135,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         showConfirmation(
-            'Are you sure do you want to delete this user?',
+            'Are you sure you want to delete this user?',
             () => {
                 processUserDelete($(this));
             }

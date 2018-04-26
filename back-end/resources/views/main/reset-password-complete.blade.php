@@ -12,7 +12,7 @@
         </div>
 
         <div class="form-group">
-            <input id="signin_pwd" class="input-field" name="password" placeholder="Password" onfocus="this.type='password'">
+            <input id="signin_pwd" class="input-field" name="password" placeholder="Password" type="password">
         </div>
 
         <div class="form-group">

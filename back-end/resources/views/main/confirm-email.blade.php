@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="signin_pwd" class="input-field" name="password" placeholder="Password" onfocus="this.type='password'">
+                        <input id="signin_pwd" class="input-field" name="password" placeholder="Password" type="password">
                     </div>
 
                     <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Sign In</button>
