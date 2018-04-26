@@ -606,23 +606,24 @@ class UserController extends Controller
      */
     public function changePassword(Request $request)
     {
-        $user = Auth::user();
-
         $this->validate(
             $request,
             [
                 'current-password' => 'required|string',
-                'password' => 'required|string|min:6|confirmed|different:current-password',
+                'password' => 'required|string|min:6|different:current-password',
+                'password_confirmation' => 'required_with:password|same:password',
             ],
             ValidationMessages::getList(
                 [
                     'current-password' => 'Current Password',
-                    'password' => 'Password'
+                    'password' => 'Password',
+                    'password_confirmation' => 'Password Confirmation',
                 ],
                 [
                     'password.min' => 'The Password field must be at least 6 characters',
-                    'password.confirmed' => 'The Password confirmation does not match',
                     'password.different' => 'New password and current password should not be the same',
+                    'password_confirmation.required_with' => 'The Password Confirmation does not match',
+                    'password_confirmation.same' => 'The Password Confirmation does not match',
                 ]
             )
         );

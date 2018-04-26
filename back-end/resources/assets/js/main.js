@@ -459,7 +459,7 @@ $(document).ready(function () {
         const credentials = {
             email: $('#frm_signup input[name="email"]').val(),
             password: $('#frm_signup input[name="password"]').val(),
-            password_confirmation: $('#frm_signup input[name="confirm-password"]').val()
+            password_confirmation: $('#frm_signup input[name="password_confirmation"]').val()
         };
 
         axios.post(
@@ -519,7 +519,7 @@ $(document).ready(function () {
         const credentials = {
             email: $('#frm_invite_signup input[name="email"]').val(),
             password: $('#frm_invite_signup input[name="password"]').val(),
-            password_confirmation: $('#frm_invite_signup input[name="confirm-password"]').val()
+            password_confirmation: $('#frm_invite_signup input[name="password_confirmation"]').val()
         };
 
         axios.post(
@@ -635,7 +635,7 @@ $(document).ready(function () {
         const credentials = {
             token: $('#frm_change_password input[name="reset-token"]').val(),
             password: $('#frm_change_password input[name="password"]').val(),
-            password_confirmation: $('#frm_change_password input[name="confirm-password"]').val()
+            password_confirmation: $('#frm_change_password input[name="password_confirmation"]').val()
         };
 
         axios.post(
