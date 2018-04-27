@@ -274,10 +274,13 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
-        const user = {
-            'uid': $('#user-profile-id').val(),
-            'amount': $('.ico-pool input[name="znx-amount"]').val(),
-        }
+        const user = processProtectionRequest(
+            'Add ZNX from ICO pool',
+            {
+                'uid': $('#user-profile-id').val(),
+                'amount': $('.ico-pool input[name="znx-amount"]').val(),
+            }
+        )
 
         axios.post(
             '/admin/wallet/add-ico-znx',
@@ -285,25 +288,35 @@ $(document).ready(function () {
         )
             .then(
                 response => {
+
                     hideSpinner(button);
 
-                    $('.ico-pool input[name="znx-amount"]').val('');
-                    $('#total-znx-amount').html(response.data.totalAmount);
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $('.ico-pool input[name="znx-amount"]').val('');
+                            $('#total-znx-amount').html(response.data.totalAmount);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#add-ico-znx-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                elementParse: function (item) {
-                                    $(item.src).find('.znx_added').text(user.amount);
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#add-ico-znx-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        elementParse: function (item) {
+                                            $(item.src).find('.znx_added').text(user.amount);
+                                        }
+                                    }
                                 }
-                            }
+                            );
                         }
                     );
+
                 }
             )
             .catch(
@@ -340,10 +353,13 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
-        const user = {
-            'uid': $('#user-profile-id').val(),
-            'amount': $('.foundation-pool input[name="znx-amount"]').val(),
-        }
+        const user = processProtectionRequest(
+            'Add ZNX from Foundation pool',
+            {
+                'uid': $('#user-profile-id').val(),
+                'amount': $('.foundation-pool input[name="znx-amount"]').val(),
+            }
+        );
 
         axios.post(
             '/admin/wallet/add-foundation-znx',
@@ -351,25 +367,35 @@ $(document).ready(function () {
         )
             .then(
                 response => {
+
                     hideSpinner(button);
 
-                    $('.foundation-pool input[name="znx-amount"]').val('');
-                    $('#total-znx-amount').html(response.data.totalAmount);
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $('.foundation-pool input[name="znx-amount"]').val('');
+                            $('#total-znx-amount').html(response.data.totalAmount);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#add-foundation-znx-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                elementParse: function (item) {
-                                    $(item.src).find('.znx_added').text(user.amount);
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#add-foundation-znx-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        elementParse: function (item) {
+                                            $(item.src).find('.znx_added').text(user.amount);
+                                        }
+                                    }
                                 }
-                            }
+                            );
                         }
                     );
+
                 }
             )
             .catch(

@@ -98,8 +98,8 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('wallet', 'AdminController@wallet');
     Route::post('wallet', 'ManagerController@updateWallet');
-    Route::post('wallet/add-ico-znx', 'ManagerController@addIcoZnx');
-    Route::post('wallet/add-foundation-znx', 'ManagerController@addFoundationZnx');
+    Route::post('wallet/add-ico-znx', 'ManagerController@addIcoZnx')->middleware('action.protect');
+    Route::post('wallet/add-foundation-znx', 'ManagerController@addFoundationZnx')->middleware('action.protect');
     Route::post('wallet/grant-marketing-coins', 'AdminController@grantMarketingCoins');
     Route::post('wallet/grant-company-coins', 'AdminController@grantCompanyCoins');
 
