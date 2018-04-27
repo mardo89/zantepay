@@ -69,7 +69,9 @@
   flex 1
   align-items center
   justify-content space-between
-  @media screen and (max-width: 991px)
+  @media (min-width: 992px)
+    display flex !important
+  @media (max-width: 991px)
     display none
     float left
     margin-top 10px
