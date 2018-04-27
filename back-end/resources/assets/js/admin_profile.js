@@ -433,29 +433,42 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
-        const wallet = {
-            'uid': $('#user-profile-id').val(),
-            'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
-            'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val(),
-        }
+        const wallet = processProtectionRequest(
+            'Change user\'s wallet address',
+            {
+                'uid': $('#user-profile-id').val(),
+                'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
+                'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val(),
+            }
+        )
 
         axios.post(
             '/admin/wallet',
             qs.stringify(wallet)
         )
             .then(
-                () => {
+                response => {
+
                     hideSpinner(button);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#wallet-address-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#wallet-address-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true
+                                }
+                            );
                         }
                     );
+
                 }
             )
             .catch(
