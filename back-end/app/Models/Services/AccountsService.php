@@ -160,7 +160,7 @@ class AccountsService
         ProfilesService::removeProfile($user->id);
         InvitesService::removeInvites($user->id);
         DebitCardsService::removeDebitCard($user->id);
-        DocumentsService::removeDocuments($user->id);
+        DocumentsService::removeUserDocuments($user->id);
         SocialNetworkAccountsService::removeSocialNetworkAccount($user->id);
         ResetPasswordsService::removePasswordReset($user->email);
 
@@ -253,7 +253,7 @@ class AccountsService
     /**
      *  Get user by UID
      *
-     * @param int $userUID
+     * @param string $userUID
      *
      * @return User
      * @throws UserNotFoundException
@@ -405,7 +405,7 @@ class AccountsService
      *
      * @return boolean
      */
-    protected static function checkIdentity($userID)
+    public static function checkIdentity($userID)
     {
         $activeUser = self::getActiveUser();
 

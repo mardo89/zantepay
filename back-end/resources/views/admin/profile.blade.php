@@ -11,7 +11,7 @@
 @endsection
 
 @section('change-role')
-    @if($canEdit)
+    @if($allowEdit)
         <div class="form-group">
             <label class="field-label">Role:</label>
             <select name="user-role" class="input-field">
@@ -31,7 +31,7 @@
 @endsection
 
 @section('remove-user')
-    @if($canEdit)
+    @if($allowEdit)
         <button id="remove-user" class="mt-20 btn btn--medium btn--shadowed-light"> Delete User </button>
     @endif
 @endsection
