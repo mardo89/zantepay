@@ -672,7 +672,7 @@
 
 @section('footer')
 
-    <footer class="footer white-content" id="contacts">
+    <footer class="footer white-content">
         <div class="container">
             <div class="footer-partners" id="partners">
                 <div class="text-center">
@@ -766,7 +766,7 @@
                 </div>
             </div>
 
-            <div class="row footer-cont-group">
+            <div class="row footer-cont-group" id="contacts">
                 <div class="col-md-8 offset-md-2">
                     <div class="footer-cont-row">
                         <h2 class="h2 headline">Contact <br> details</h2>

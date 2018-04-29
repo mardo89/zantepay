@@ -132,21 +132,21 @@
                             <li>
                                 <a href="{{$menuPrefix}}#updates">Updates</a>
                             </li>
-
-                            <!-- <li>
-                                <a href="">Development</a>
-                                <ul>
-                                    <li><a href="">Wallet Beta</a></li>
-                                    <li><a href="">App Beta</a></li>
-                                    <li><a href="">Development roadmap</a></li>
-                                </ul>
-                            </li> -->
                             <li>
                                 <a href="{{$menuPrefix}}#channels">Channels</a>
                             </li>
                             <li>
                                 <a href="/faq">FAQ</a>
                             </li>
+                            <li class="m-dropdown">
+                                <a href="javascript:void();">Development</a>
+                                <ul>
+                                    <!-- <li><a href="">Wallet Beta</a></li> -->
+                                    <li><a href="">App Beta</a></li>
+                                    <!-- <li><a href="">Development roadmap</a></li> -->
+                                </ul>
+                            </li>
+                            <li><a href="#contacts">Contacts</a></li>
                         </ul>
                     </nav>
 

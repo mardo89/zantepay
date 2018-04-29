@@ -44,6 +44,9 @@
 .masthead
   padding 18px 0
   background #000
+  .container
+    @media (min-width 1310px)
+      width 1280px
   .logo
     display inline-block
     img
@@ -77,7 +80,7 @@
     margin-top 10px
     width 100%
 .navigation
-  margin-left 20px
+  margin-left 10px
   @media screen and (max-width: 991px)
     margin-left 0
   ul
@@ -101,18 +104,22 @@
         color #fff
         display inline-block
         border-right 1px solid $primary-color
-        padding 0 20px 
+        padding 0 18px 
         vertical-align top
         line-height 20px
-        font-size 16px
+        font-size 15px
         // transition color .2s
         transform translateZ(0)
-        @media screen and (max-width: 1199px)
-          font-size 14px
+        @media screen and (max-width: 1310px)
+          // font-size 15px
           padding 0 10px
+        @media screen and (max-width: 1199px)
+          font-size 12px
+          padding 0 7px
         @media screen and (max-width: 991px)
           border-right none
           padding 10px 5px
+          font-size 16px
       &.current-menu-item
         & > a
           color $primary-color
@@ -205,6 +212,9 @@
   padding 10px 0
   opacity 0
   visibility hidden
+  .container
+    @media (min-width 1310px)
+      width 1280px
   // transition all .3s
   &.is-active
     opacity 1
