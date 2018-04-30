@@ -4,20 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Search\Users;
-use App\Models\Services\BonusesService;
-use App\Models\Services\MailService;
+use App\Models\Services\DocumentsService;
 use App\Models\Services\ProfilesService;
 use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
-use App\Models\DB\Document;
 use App\Models\DB\User;
-use App\Models\DB\Verification;
 use App\Models\Validation\ValidationMessages;
 use App\Models\Wallet\Ico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 
 class ManagerController extends Controller
@@ -170,53 +166,12 @@ class ManagerController extends Controller
             )
         );
 
-        $userID = $request->input('uid');
-        $documentType = $request->input('type');
-
         DB::beginTransaction();
 
         try {
 
-            $user = User::where('uid', $userID)->first();
+            $verificationStatus = DocumentsService::approveUserDocuments($request->uid, $request->type);
 
-            if (is_null($user)) {
-                throw new \Exception('User does not exist');
-            }
-
-            $verification = $user->verification;
-
-            if ($documentType == Document::DOCUMENT_TYPE_IDENTITY) {
-
-                $verification->id_documents_status = Verification::DOCUMENTS_APPROVED;
-                $verification->id_decline_reason = '';
-
-                $verificationStatus = Verification::getStatus($verification->id_documents_status);
-
-                UsersService::changeUserStatus($user, User::USER_STATUS_IDENTITY_VERIFIED);
-
-            } else {
-
-                $verification->address_documents_status = Verification::DOCUMENTS_APPROVED;
-                $verification->address_decline_reason = '';
-
-                $verificationStatus = Verification::getStatus($verification->address_documents_status);
-
-                UsersService::changeUserStatus($user, User::USER_STATUS_ADDRESS_VERIFIED);
-
-            }
-
-            $verification->save();
-
-            $verificationComplete = $verification->id_documents_status == Verification::DOCUMENTS_APPROVED
-                && $verification->address_documents_status == Verification::DOCUMENTS_APPROVED;
-
-            if ($verificationComplete) {
-                UsersService::changeUserStatus($user, User::USER_STATUS_VERIFIED);
-
-                BonusesService::updateBonus($user);
-
-                MailService::sendApproveDocumentsEmail($user->email);
-            }
 
         } catch (\Exception $e) {
 
@@ -266,47 +221,11 @@ class ManagerController extends Controller
             )
         );
 
-        $userID = $request->input('uid');
-        $documentType = $request->input('type');
-        $declineReason = $request->input('reason', '');
-
         DB::beginTransaction();
 
         try {
-            $user = User::where('uid', $userID)->first();
 
-            if (is_null($user)) {
-                throw new \Exception('User does not exist');
-            }
-
-            $verification = $user->verification;
-
-            if ($documentType == Document::DOCUMENT_TYPE_IDENTITY) {
-
-                $verification->id_documents_status = Verification::DOCUMENTS_DECLINED;
-                $verification->id_decline_reason = $declineReason;
-
-                $verificationStatus = Verification::getStatus($verification->id_documents_status) . ' - ' . $verification->id_decline_reason;
-
-            } else {
-
-                $verification->address_documents_status = Verification::DOCUMENTS_DECLINED;
-                $verification->address_decline_reason = $declineReason;
-
-                $verificationStatus = Verification::getStatus($verification->address_documents_status) . ' - ' . $verification->address_decline_reason;
-            }
-
-            $verification->save();
-
-            // Change user status
-            if ($verification->id_documents_status == Verification::DOCUMENTS_APPROVED) {
-                UsersService::changeUserStatus($user, User::USER_STATUS_IDENTITY_VERIFIED);
-            } elseif ($verification->address_documents_status == Verification::DOCUMENTS_APPROVED) {
-                UsersService::changeUserStatus($user, User::USER_STATUS_ADDRESS_VERIFIED);
-            } else {
-                UsersService::changeUserStatus($user, User::USER_STATUS_NOT_VERIFIED);
-            }
-
+            $verificationStatus = DocumentsService::declineUserDocuments($request->uid, $request->type, $request->reason);
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -343,17 +262,21 @@ class ManagerController extends Controller
             'did' => 'required|string',
         ]);
 
-        $document = Document::where('did', $request->did)->first();
+        try {
 
-        if (!$document) {
+            $documentInfo = DocumentsService::getDocumentInfo($request->did);
+
+        } catch(\Exception $e) {
+
             return redirect('admin/users');
+
         }
 
-        $mimeType = Storage::mimeType($document->file_path);
-
         return response()->file(
-            storage_path('app/' . $document->file_path),
-            ['Content-Type' => $mimeType]
+            $documentInfo['documentFilePath'],
+            [
+                'Content-Type' => $documentInfo['documentMimeType']
+            ]
         );
     }
 

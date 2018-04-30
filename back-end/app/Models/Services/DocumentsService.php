@@ -3,7 +3,9 @@
 namespace App\Models\Services;
 
 
+use App\Exceptions\DocumentException;
 use App\Models\DB\Document;
+use App\Models\DB\User;
 use App\Models\DB\Verification;
 use Illuminate\Support\Facades\Storage;
 
@@ -85,6 +87,29 @@ class DocumentsService
     }
 
     /**
+     * Get info about document
+     *
+     * @param string $documentDID
+     *
+     * @return array
+     * @throws
+     */
+    public static function getDocumentInfo($documentDID)
+    {
+        $document = Document::where('did', $documentDID)->first();
+
+        if (!$document) {
+            throw new DocumentException('Document not found');
+        }
+
+        return [
+            'documentFilePath' => storage_path('app/' . $document->file_path),
+            'documentMimeType' => Storage::mimeType($document->file_path)
+
+        ];
+    }
+
+    /**
      * Get user's Documents
      *
      * @param int $userID
@@ -135,6 +160,106 @@ class DocumentsService
     }
 
     /**
+     * Approve user's Documents
+     *
+     * @param string $userUID
+     * @param int $documentsType
+     *
+     * @return string
+     * @throws
+     */
+    public static function approveUserDocuments($userUID, $documentsType)
+    {
+        $user = AccountsService::getUserByID($userUID);
+
+        $verification = self::getVerification($user);
+
+        if ($documentsType == Document::DOCUMENT_TYPE_IDENTITY) {
+
+            $verification->id_documents_status = Verification::DOCUMENTS_APPROVED;
+            $verification->id_decline_reason = '';
+
+            $verificationStatus = self::getVerificationStatus($verification->id_documents_status, $verification->id_decline_reason);
+
+            UsersService::changeUserStatus($user, User::USER_STATUS_IDENTITY_VERIFIED);
+
+        } else {
+
+            $verification->address_documents_status = Verification::DOCUMENTS_APPROVED;
+            $verification->address_decline_reason = '';
+
+            $verificationStatus = self::getVerificationStatus($verification->address_documents_status, $verification->address_decline_reason);
+
+            UsersService::changeUserStatus($user, User::USER_STATUS_ADDRESS_VERIFIED);
+
+        }
+
+        $verification->save();
+
+        if (self::verificationComplete($user)) {
+
+            UsersService::changeUserStatus($user, User::USER_STATUS_VERIFIED);
+
+            BonusesService::updateBonus($user);
+
+            MailService::sendApproveDocumentsEmail($user->email);
+
+        }
+
+        return $verificationStatus;
+    }
+
+    /**
+     * Decline user's Documents
+     *
+     * @param string $userUID
+     * @param int $documentsType
+     * @param string $declineReason
+     *
+     * @return string
+     * @throws
+     */
+    public static function declineUserDocuments($userUID, $documentsType, $declineReason)
+    {
+        $user = AccountsService::getUserByID($userUID);
+
+        $verification = self::getVerification($user);
+
+        if ($documentsType == Document::DOCUMENT_TYPE_IDENTITY) {
+
+            $verification->id_documents_status = Verification::DOCUMENTS_DECLINED;
+            $verification->id_decline_reason = $declineReason;
+
+            $verificationStatus = self::getVerificationStatus($verification->id_documents_status, $verification->id_decline_reason);
+        } else {
+
+            $verification->address_documents_status = Verification::DOCUMENTS_DECLINED;
+            $verification->address_decline_reason = $declineReason;
+
+            $verificationStatus = self::getVerificationStatus($verification->address_documents_status, $verification->address_decline_reason);
+        }
+
+        $verification->save();
+
+        // Change user status
+        if ($verification->id_documents_status == Verification::DOCUMENTS_APPROVED) {
+
+            UsersService::changeUserStatus($user, User::USER_STATUS_IDENTITY_VERIFIED);
+
+        } elseif ($verification->address_documents_status == Verification::DOCUMENTS_APPROVED) {
+
+            UsersService::changeUserStatus($user, User::USER_STATUS_ADDRESS_VERIFIED);
+
+        } else {
+
+            UsersService::changeUserStatus($user, User::USER_STATUS_NOT_VERIFIED);
+
+        }
+
+        return $verificationStatus;
+    }
+
+    /**
      * Get user's Documents
      *
      * @param int $userID
@@ -164,7 +289,8 @@ class DocumentsService
      *
      * @return array
      */
-    public static function getDocumentTypeID() {
+    public static function getDocumentTypeID()
+    {
 
         return [
             'idDocuments' => Document::DOCUMENT_TYPE_IDENTITY,
@@ -180,7 +306,8 @@ class DocumentsService
      *
      * @return Verification
      */
-    protected static function getVerification($user) {
+    protected static function getVerification($user)
+    {
         return $user->verification;
     }
 
@@ -192,7 +319,8 @@ class DocumentsService
      *
      * @return string
      */
-    protected static function getVerificationStatus($verificationStatus, $declineReason) {
+    protected static function getVerificationStatus($verificationStatus, $declineReason)
+    {
         $verificationStatusName = self::$verificationStatuses[$verificationStatus] ?? '';
 
         return $verificationStatus != Verification::DOCUMENTS_DECLINED
