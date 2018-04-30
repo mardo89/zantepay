@@ -11,5 +11,6 @@
     "/js/service.js": "/js/service.js",
     "/js/admin_wallet.js": "/js/admin_wallet.js",
     "/js/admin_users.js": "/js/admin_users.js",
-    "/js/admin_profile.js": "/js/admin_profile.js"
+    "/js/admin_profile.js": "/js/admin_profile.js",
+    "/js/mobile_app.js": "/js/mobile_app.js"
 }

@@ -1,1 +1,552 @@
-!function(e){var n={};function t(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,t),o.l=!0,o.exports}t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=50)}({1:function(e,n){var t=Object.assign||function(e){for(var n=1;n<arguments.length;n++){var t=arguments[n];for(var r in t)Object.prototype.hasOwnProperty.call(t,r)&&(e[r]=t[r])}return e};window.getSpinner=function(e){return $("<div />").addClass("spinner spinner--"+e).append($("<div />")).append($("<div />")).append($("<div />")).append($("<div />"))},window.showSpinner=function(e){e.addClass("is-loading").prop("disabled",!0),e.append(getSpinner(30))},window.hideSpinner=function(e){e.removeClass("is-loading").prop("disabled",!1),e.find(".spinner").remove()},window.clearErrors=function(){$(".form-error").removeClass("form-error"),$(".error-text").remove()},window.showError=function(e){$.magnificPopup.open({items:{src:"#error-modal"},type:"inline",closeOnBgClick:!0,callbacks:{elementParse:function(n){$(n.src).find("#error-message").text(e)}}})},window.validateFile=function(e){var n=e.type.match(/(.png)|(.jpeg)|(.jpg)|(.pdf)$/i),t=e.size.toFixed(0)<4194304;return!(!n||!t)},window.scrollToError=function(){$("html, body").animate({scrollTop:$(".form-error:eq(0)").offset().top},500)},window.showConfirmation=function(e,n,t){$.magnificPopup.open({items:{src:"#confirmation-modal"},type:"inline",showCloseBtn:!1,closeOnBgClick:!1,callbacks:{elementParse:function(t){$(t.src).find("#confirmation-message").text(e),$(t.src).find("#accept_action").on("click",function(e){e.preventDefault(),$.magnificPopup.close(),"function"==typeof n&&n()}),$(t.src).find("#reject_action").on("click",function(e){e.preventDefault(),$.magnificPopup.close()})}}})},window.showPopover=function(e){$(".popover").remove();var n=$("<div />").addClass("popover").append($("<i />").addClass("fa fa-check-circle")).append($("<div />").addClass("popover__content").html(e)).append($("<a />").addClass("popover__close").attr("href","").html("Close").on("click",function(e){e.preventDefault(),$(".popover").remove()}));$("body").prepend(n),setTimeout(function(){n.remove()},5e3)},window.showProtectionDialog=function(e){$.magnificPopup.open({items:{src:"#protection-modal"},type:"inline",showCloseBtn:!0,closeOnBgClick:!0,callbacks:{elementParse:function(n){$(n.src).find("#frm_protection").find('input[name="signature"]').val(""),$(n.src).find("#frm_protection").off("submit").on("submit",function(n){n.preventDefault(),sessionStorage.setItem("signature",$(this).find('input[name="signature"]').val()),$.magnificPopup.close(),e()})}}})},window.processProtectionRequest=function(e,n){var r=sessionStorage.getItem("signature");if(sessionStorage.removeItem("signature"),!r){var o=(new Date).valueOf();return sessionStorage.setItem("action_timestamp",o),t({},n,{action:e,action_timestamp:o})}return t({},n,{action_timestamp:sessionStorage.getItem("action_timestamp"),signature:r})},window.processProtectionResponse=function(e,n,t){205==e?"function"==typeof n&&showProtectionDialog(n):"function"==typeof t&&t()}},50:function(e,n,t){e.exports=t(51)},51:function(e,n,t){t(1);$(document).ready(function(){$(".wallet").on("click","#copy-address",function(e){e.preventDefault();var n=$(this).parents(".wallet").find(".address").text(),t=$("<input />").val(n);$(this).after(t),t.focus(),t.get(0).setSelectionRange(0,n.length),document.execCommand("copy"),t.remove()}),$(".create-address").on("click",function(e){var n=this;e.preventDefault();var t=$(this);showSpinner(t),clearErrors(),t.parent().after($("<div />").addClass("col col-md-12 mt-20 primary-color text-sm address-warning").append($("<span />").text("This operation can take up to 5 minutes. Please do not close or refresh this page."))),axios.post("/user/wallet/address",qs.stringify({})).then(function(e){hideSpinner(t),$(".address-warning").remove();var n=t.parent();n.before($("<div />").addClass("col col-sm-auto text-lg wordwrap address").text(e.data.address)).before($("<div />").addClass("col col-md-3").append($("<a />").addClass("btn btn--shadowed-light btn--medium btn--130 mt-sm-15").attr({id:"copy-address",href:""}).text("Copy"))),n.remove(),$.magnificPopup.open({items:{src:"#wallet-address-modal"},type:"inline",closeOnBgClick:!0})}).catch(function(e){hideSpinner(t),$(".address-warning").remove();var r=e.response.data.message;422==e.response.status?($(n).parents(".wallet-address-group").find('input[name="wallet-address"]').parent().addClass("form-error"),scrollToError()):showError(r)})}),$('.rate-calculator input[type="text"]').on("focus",function(e){clearErrors();var n=$(this).attr("name"),t=$('.rate-calculator input[name!="'+n+'"]').attr("name");$('input[name="'+n+'"]').val(""),$('input[name="'+t+'"]').val("")}),$('.rate-calculator input[type="text"]').on("keyup",function(e){var n=$(this).attr("name"),t=$('.rate-calculator input[name!="'+n+'"]').attr("name");if(0!==$(this).val().length){var r={};r[n]=$(this).val(),axios.post("/user/wallet/rate-calculator",qs.stringify(r)).then(function(e){clearErrors(),$('input[name="'+t+'"]').val(e.data.balance)}).catch(function(e){var n=e.response.data,t=n.errors,r=n.message;422==e.response.status?$.each(t,function(e,n){$('.rate-calculator input[name="'+e+'"]').parent().addClass("form-error")}):showError(r)})}else $('input[name="'+t+'"]').val("")}),$("#transfer_btn").on("click",function(e){var n=this;e.preventDefault(),showConfirmation("Are you sure you want to transfer ETH to ZNX?",function(){!function e(n){var t=n;showSpinner(t),clearErrors();var r=processProtectionRequest("Transfer ETH to ZNX",{eth_amount:$('input[name="transfer_eth_amount"]').val()});axios.post("/user/wallet/transfer-eth",qs.stringify(r)).then(function(r){hideSpinner(t),processProtectionResponse(r.status,function(){e(n)},function(){$('input[name="transfer_eth_amount"]').val(""),$("#available_znx_amount").text(r.data.total),$.magnificPopup.open({items:{src:"#transfer-modal"},type:"inline",closeOnBgClick:!0,callbacks:{close:function(){window.location.reload()},elementParse:function(e){$(e.src).find("#znx_balance").text(r.data.balance)}}})})}).catch(function(e){hideSpinner(t);var n=e.response.data,r=n.message,o=n.errors;422==e.response.status?($.each(o,function(e,n){$('input[name="transfer_'+e+'"]').parent().addClass("form-error"),$('input[name="transfer_'+e+'"]').after($("<span />").addClass("error-text").text(n))}),scrollToError()):showError(r)})}($(n))})}),$("#withdraw_btn").on("click",function(e){var n=this;e.preventDefault(),showConfirmation("Are you sure you want to withdraw ETH?",function(){!function e(n){var t=n;showSpinner(t),clearErrors();var r=processProtectionRequest("Withdraw ETH",{address:$('input[name="withdraw_address"]').val()});axios.post("/user/wallet/withdraw-eth",qs.stringify(r)).then(function(r){hideSpinner(t),processProtectionResponse(r.status,function(){e(n)},function(){$('input[name="withdraw_address"]').val(""),$.magnificPopup.open({items:{src:"#withdraw-modal"},type:"inline",closeOnBgClick:!0,callbacks:{close:function(){window.location.reload()}}})})}).catch(function(e){hideSpinner(t);var n=e.response.data,r=n.message,o=n.errors;422==e.response.status?($.each(o,function(e,n){$('input[name="withdraw_'+e+'"]').parent().addClass("form-error"),$('input[name="withdraw_'+e+'"]').after($("<span />").addClass("error-text").text(n))}),scrollToError()):showError(r)})}($(n))})}),$("#frm_welcome").on("submit",function(e){if(e.preventDefault(),clearErrors(),$('#welcome input[name="tc_item"]').length!==$('#welcome input[name="tc_item"]:checked').length)return $('#welcome input[name="tc_item"]').each(function(){$(this).prop("checked")||$(this).parents(".logon-group").addClass("form-error")}),!1;var n=$("<div />").addClass("spinner-container").css("height","50px").append($("<div />").addClass("spinner spinner--50").append($("<div />")).append($("<div />")).append($("<div />")).append($("<div />"))),t=$(this).find('input[type="submit"]');t.prop("disabled",!0).hide(),t.after(n),axios.post("/user/accept-terms",qs.stringify()).then(function(){window.location.reload()}).catch(function(e){t.prop("disabled",!1).show(),n.remove();var r=e.response.data.message;$(".logon-group").last().after($("<span />").addClass("error-text").text(r))})})})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 1:
+/***/ (function(module, exports) {
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+window.getSpinner = function (size) {
+
+    return $('<div />').addClass('spinner spinner--' + size).append($('<div />')).append($('<div />')).append($('<div />')).append($('<div />'));
+};
+
+window.showSpinner = function (element) {
+    element.addClass('is-loading').prop('disabled', true);
+    element.append(getSpinner(30));
+};
+
+window.hideSpinner = function (element) {
+    element.removeClass('is-loading').prop('disabled', false);
+    element.find('.spinner').remove();
+};
+
+// Errors
+window.clearErrors = function () {
+    $('.form-error').removeClass('form-error');
+    $('.error-text').remove();
+};
+
+window.showError = function (errorMessage) {
+    $.magnificPopup.open({
+        items: {
+            src: '#error-modal'
+        },
+        type: 'inline',
+        closeOnBgClick: true,
+        callbacks: {
+            elementParse: function elementParse(item) {
+                $(item.src).find('#error-message').text(errorMessage);
+            }
+        }
+    });
+};
+
+// Validate file
+window.validateFile = function (file) {
+    var isValidType = file.type.match(/(.png)|(.jpeg)|(.jpg)|(.pdf)$/i);
+    var isValidSize = file.size.toFixed(0) < 4194304;
+
+    if (isValidType && isValidSize) {
+        return true;
+    }
+
+    return false;
+};
+
+// Scroll to error
+window.scrollToError = function () {
+    $('html, body').animate({
+        scrollTop: $('.form-error:eq(0)').offset().top
+    }, 500);
+};
+
+// Show Confirmation dialog
+window.showConfirmation = function (confirmationMessage, onAccept, onReject) {
+    $.magnificPopup.open({
+        items: {
+            src: '#confirmation-modal'
+        },
+        type: 'inline',
+        showCloseBtn: false,
+        closeOnBgClick: false,
+        callbacks: {
+            elementParse: function elementParse(item) {
+                $(item.src).find('#confirmation-message').text(confirmationMessage);
+
+                $(item.src).find('#accept_action').on('click', function (e) {
+                    e.preventDefault();
+
+                    $.magnificPopup.close();
+
+                    if (typeof onAccept === 'function') {
+                        onAccept();
+                    }
+                });
+
+                $(item.src).find('#reject_action').on('click', function (e) {
+                    e.preventDefault();
+
+                    $.magnificPopup.close();
+
+                    if (typeof onReject === 'function') {
+                        onReject;
+                    }
+                });
+            }
+        }
+    });
+};
+
+// Show popover
+window.showPopover = function (popoverContent) {
+
+    $('.popover').remove();
+
+    var popover = $('<div />').addClass('popover').append($('<i />').addClass('fa fa-check-circle')).append($('<div />').addClass('popover__content').html(popoverContent)).append($('<a />').addClass('popover__close').attr('href', '').html('Close').on('click', function (e) {
+        e.preventDefault();
+
+        $('.popover').remove();
+    }));
+
+    $('body').prepend(popover);
+
+    setTimeout(function () {
+        popover.remove();
+    }, 5000);
+};
+
+// Show Protection dialog
+window.showProtectionDialog = function (onSubscribe) {
+
+    $.magnificPopup.open({
+        items: {
+            src: '#protection-modal'
+        },
+        type: 'inline',
+        showCloseBtn: true,
+        closeOnBgClick: true,
+        callbacks: {
+            elementParse: function elementParse(item) {
+                $(item.src).find('#frm_protection').find('input[name="signature"]').val('');
+
+                $(item.src).find('#frm_protection').off('submit').on('submit', function (e) {
+                    e.preventDefault();
+
+                    sessionStorage.setItem('signature', $(this).find('input[name="signature"]').val());
+
+                    $.magnificPopup.close();
+
+                    onSubscribe();
+                });
+            }
+        }
+    });
+};
+
+// Check protection status
+window.processProtectionRequest = function (action, requestParams) {
+    var signature = sessionStorage.getItem('signature');
+    sessionStorage.removeItem('signature');
+
+    if (!signature) {
+        var action_timestamp = new Date().valueOf();
+        sessionStorage.setItem('action_timestamp', action_timestamp);
+
+        return _extends({}, requestParams, {
+            action: action,
+            action_timestamp: action_timestamp
+        });
+    }
+
+    return _extends({}, requestParams, {
+        action_timestamp: sessionStorage.getItem('action_timestamp'),
+        signature: signature
+    });
+};
+
+// Check protection status
+window.processProtectionResponse = function (responseStatus, processWithProtection, processWithoutProtection) {
+
+    if (responseStatus == 205) {
+
+        if (typeof processWithProtection === 'function') {
+            showProtectionDialog(processWithProtection);
+        }
+    } else {
+
+        if (typeof processWithoutProtection === 'function') {
+            processWithoutProtection();
+        }
+    }
+};
+
+/***/ }),
+
+/***/ 52:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(53);
+
+
+/***/ }),
+
+/***/ 53:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1);
+
+var transferEth = function transferEth(transferButton) {
+
+    var button = transferButton;
+    showSpinner(button);
+    clearErrors();
+
+    var transfer = processProtectionRequest('Transfer ETH to ZNX', {
+        eth_amount: $('input[name="transfer_eth_amount"]').val()
+    });
+
+    axios.post('/user/wallet/transfer-eth', qs.stringify(transfer)).then(function (response) {
+
+        hideSpinner(button);
+
+        processProtectionResponse(response.status, function () {
+            transferEth(transferButton);
+        }, function () {
+            $('input[name="transfer_eth_amount"]').val('');
+
+            $('#available_znx_amount').text(response.data.total);
+
+            $.magnificPopup.open({
+                items: {
+                    src: '#transfer-modal'
+                },
+                type: 'inline',
+                closeOnBgClick: true,
+                callbacks: {
+                    close: function close() {
+                        window.location.reload();
+                    },
+
+                    elementParse: function elementParse(item) {
+                        $(item.src).find('#znx_balance').text(response.data.balance);
+                    }
+                }
+            });
+        });
+    }).catch(function (error) {
+        hideSpinner(button);
+
+        var _error$response$data = error.response.data,
+            message = _error$response$data.message,
+            errors = _error$response$data.errors;
+
+
+        if (error.response.status == 422) {
+
+            $.each(errors, function (field, error) {
+                $('input[name="transfer_' + field + '"]').parent().addClass('form-error');
+                $('input[name="transfer_' + field + '"]').after($('<span />').addClass('error-text').text(error));
+            });
+
+            scrollToError();
+        } else {
+            showError(message);
+        }
+    });
+};
+
+var withdrawEth = function withdrawEth(withdrawButton) {
+
+    var button = withdrawButton;
+    showSpinner(button);
+    clearErrors();
+
+    var withdraw = processProtectionRequest('Withdraw ETH', {
+        address: $('input[name="withdraw_address"]').val()
+    });
+
+    axios.post('/user/wallet/withdraw-eth', qs.stringify(withdraw)).then(function (response) {
+
+        hideSpinner(button);
+
+        processProtectionResponse(response.status, function () {
+            withdrawEth(withdrawButton);
+        }, function () {
+            $('input[name="withdraw_address"]').val('');
+
+            $.magnificPopup.open({
+                items: {
+                    src: '#withdraw-modal'
+                },
+                type: 'inline',
+                closeOnBgClick: true,
+                callbacks: {
+                    close: function close() {
+                        window.location.reload();
+                    }
+                }
+            });
+        });
+    }).catch(function (error) {
+        hideSpinner(button);
+
+        var _error$response$data2 = error.response.data,
+            message = _error$response$data2.message,
+            errors = _error$response$data2.errors;
+
+
+        if (error.response.status == 422) {
+
+            $.each(errors, function (field, error) {
+                $('input[name="withdraw_' + field + '"]').parent().addClass('form-error');
+                $('input[name="withdraw_' + field + '"]').after($('<span />').addClass('error-text').text(error));
+            });
+
+            scrollToError();
+        } else {
+            showError(message);
+        }
+    });
+};
+
+$(document).ready(function () {
+
+    $('.wallet').on('click', '#copy-address', function (e) {
+        e.preventDefault();
+
+        var address = $(this).parents('.wallet').find('.address').text();
+
+        var tmpEl = $('<input />').val(address);
+
+        $(this).after(tmpEl);
+
+        tmpEl.focus();
+
+        tmpEl.get(0).setSelectionRange(0, address.length);
+
+        document.execCommand("copy");
+
+        tmpEl.remove();
+    });
+
+    $('.create-address').on('click', function (event) {
+        var _this = this;
+
+        event.preventDefault();
+
+        var button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        button.parent().after($('<div />').addClass('col col-md-12 mt-20 primary-color text-sm address-warning').append($('<span />').text('This operation can take up to 5 minutes. Please do not close or refresh this page.')));
+
+        axios.post('/user/wallet/address', qs.stringify({})).then(function (response) {
+            hideSpinner(button);
+
+            $('.address-warning').remove();
+
+            var wrapper = button.parent();
+
+            wrapper.before($('<div />').addClass('col col-sm-auto text-lg wordwrap address').text(response.data.address)).before($('<div />').addClass('col col-md-3').append($('<a />').addClass('btn btn--shadowed-light btn--medium btn--130 mt-sm-15').attr({
+                id: 'copy-address',
+                href: ''
+            }).text('Copy')));
+
+            wrapper.remove();
+
+            $.magnificPopup.open({
+                items: {
+                    src: '#wallet-address-modal'
+                },
+                type: 'inline',
+                closeOnBgClick: true
+            });
+        }).catch(function (error) {
+            hideSpinner(button);
+
+            $('.address-warning').remove();
+
+            var message = error.response.data.message;
+
+
+            if (error.response.status == 422) {
+
+                $(_this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+
+                scrollToError();
+            } else {
+                showError(message);
+            }
+        });
+    });
+
+    $('.rate-calculator input[type="text"]').on('focus', function (event) {
+        clearErrors();
+
+        var fromCurrency = $(this).attr('name');
+        var toCurrency = $('.rate-calculator input[name!="' + fromCurrency + '"]').attr('name');
+
+        $('input[name="' + fromCurrency + '"]').val('');
+        $('input[name="' + toCurrency + '"]').val('');
+    });
+
+    $('.rate-calculator input[type="text"]').on('keyup', function (event) {
+
+        var fromCurrency = $(this).attr('name');
+        var toCurrency = $('.rate-calculator input[name!="' + fromCurrency + '"]').attr('name');
+
+        if ($(this).val().length === 0) {
+            $('input[name="' + toCurrency + '"]').val('');
+
+            return;
+        }
+
+        var calculatorParams = {};
+        calculatorParams[fromCurrency] = $(this).val();
+
+        axios.post('/user/wallet/rate-calculator', qs.stringify(calculatorParams)).then(function (response) {
+            clearErrors();
+
+            $('input[name="' + toCurrency + '"]').val(response.data.balance);
+        }).catch(function (error) {
+            var _error$response$data3 = error.response.data,
+                errors = _error$response$data3.errors,
+                message = _error$response$data3.message;
+
+
+            if (error.response.status == 422) {
+
+                $.each(errors, function (field, error) {
+                    $('.rate-calculator input[name="' + field + '"]').parent().addClass('form-error');
+                });
+            } else {
+                showError(message);
+            }
+        });
+    });
+
+    $('#transfer_btn').on('click', function (event) {
+        var _this2 = this;
+
+        event.preventDefault();
+
+        showConfirmation('Are you sure you want to transfer ETH to ZNX?', function () {
+            transferEth($(_this2));
+        });
+    });
+
+    $('#withdraw_btn').on('click', function (event) {
+        var _this3 = this;
+
+        event.preventDefault();
+
+        showConfirmation('Are you sure you want to withdraw ETH?', function () {
+            withdrawEth($(_this3));
+        });
+    });
+
+    $('#frm_welcome').on('submit', function (event) {
+        event.preventDefault();
+
+        clearErrors();
+
+        if ($('#welcome input[name="tc_item"]').length !== $('#welcome input[name="tc_item"]:checked').length) {
+
+            $('#welcome input[name="tc_item"]').each(function () {
+                if (!$(this).prop('checked')) {
+                    $(this).parents('.logon-group').addClass('form-error');
+                }
+            });
+
+            return false;
+        }
+
+        var spinner = $('<div />').addClass('spinner-container').css('height', '50px').append($('<div />').addClass('spinner spinner--50').append($('<div />')).append($('<div />')).append($('<div />')).append($('<div />')));
+
+        var button = $(this).find('input[type="submit"]');
+
+        button.prop('disabled', true).hide();
+        button.after(spinner);
+
+        axios.post('/user/accept-terms', qs.stringify()).then(function () {
+            window.location.reload();
+        }).catch(function (error) {
+            button.prop('disabled', false).show();
+            spinner.remove();
+
+            var message = error.response.data.message;
+
+
+            $('.logon-group').last().after($('<span />').addClass('error-text').text(message));
+        });
+    });
+});
+
+/***/ })
+
+/******/ });

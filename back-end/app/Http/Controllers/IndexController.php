@@ -362,6 +362,22 @@ class IndexController extends Controller
     }
 
     /**
+     * Mobile App page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function mobileApp()
+    {
+        return view(
+            'main.mobile-app',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+
+    /**
      * Send contact us email
      *
      * @param Request $request

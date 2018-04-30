@@ -1,1 +1,354 @@
-!function(e){var n={};function t(i){if(n[i])return n[i].exports;var o=n[i]={i:i,l:!1,exports:{}};return e[i].call(o.exports,o,o.exports,t),o.l=!0,o.exports}t.m=e,t.c=n,t.d=function(e,n,i){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:i})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=48)}({1:function(e,n){var t=Object.assign||function(e){for(var n=1;n<arguments.length;n++){var t=arguments[n];for(var i in t)Object.prototype.hasOwnProperty.call(t,i)&&(e[i]=t[i])}return e};window.getSpinner=function(e){return $("<div />").addClass("spinner spinner--"+e).append($("<div />")).append($("<div />")).append($("<div />")).append($("<div />"))},window.showSpinner=function(e){e.addClass("is-loading").prop("disabled",!0),e.append(getSpinner(30))},window.hideSpinner=function(e){e.removeClass("is-loading").prop("disabled",!1),e.find(".spinner").remove()},window.clearErrors=function(){$(".form-error").removeClass("form-error"),$(".error-text").remove()},window.showError=function(e){$.magnificPopup.open({items:{src:"#error-modal"},type:"inline",closeOnBgClick:!0,callbacks:{elementParse:function(n){$(n.src).find("#error-message").text(e)}}})},window.validateFile=function(e){var n=e.type.match(/(.png)|(.jpeg)|(.jpg)|(.pdf)$/i),t=e.size.toFixed(0)<4194304;return!(!n||!t)},window.scrollToError=function(){$("html, body").animate({scrollTop:$(".form-error:eq(0)").offset().top},500)},window.showConfirmation=function(e,n,t){$.magnificPopup.open({items:{src:"#confirmation-modal"},type:"inline",showCloseBtn:!1,closeOnBgClick:!1,callbacks:{elementParse:function(t){$(t.src).find("#confirmation-message").text(e),$(t.src).find("#accept_action").on("click",function(e){e.preventDefault(),$.magnificPopup.close(),"function"==typeof n&&n()}),$(t.src).find("#reject_action").on("click",function(e){e.preventDefault(),$.magnificPopup.close()})}}})},window.showPopover=function(e){$(".popover").remove();var n=$("<div />").addClass("popover").append($("<i />").addClass("fa fa-check-circle")).append($("<div />").addClass("popover__content").html(e)).append($("<a />").addClass("popover__close").attr("href","").html("Close").on("click",function(e){e.preventDefault(),$(".popover").remove()}));$("body").prepend(n),setTimeout(function(){n.remove()},5e3)},window.showProtectionDialog=function(e){$.magnificPopup.open({items:{src:"#protection-modal"},type:"inline",showCloseBtn:!0,closeOnBgClick:!0,callbacks:{elementParse:function(n){$(n.src).find("#frm_protection").find('input[name="signature"]').val(""),$(n.src).find("#frm_protection").off("submit").on("submit",function(n){n.preventDefault(),sessionStorage.setItem("signature",$(this).find('input[name="signature"]').val()),$.magnificPopup.close(),e()})}}})},window.processProtectionRequest=function(e,n){var i=sessionStorage.getItem("signature");if(sessionStorage.removeItem("signature"),!i){var o=(new Date).valueOf();return sessionStorage.setItem("action_timestamp",o),t({},n,{action:e,action_timestamp:o})}return t({},n,{action_timestamp:sessionStorage.getItem("action_timestamp"),signature:i})},window.processProtectionResponse=function(e,n,t){205==e?"function"==typeof n&&showProtectionDialog(n):"function"==typeof t&&t()}},48:function(e,n,t){e.exports=t(49)},49:function(e,n,t){t(1);var i=function(e,n,t){var i="width="+n+", height="+t+", resizable=no, scrollbars=yes, left="+(screen.availWidth-n)/2+", top="+(screen.availHeight-t)/2;window.open(e,"_blank",i)};$(document).ready(function(){$("#invite-friend").on("click",function(e){e.preventDefault();var n=$("#invite-friend");showSpinner(n),clearErrors();var t=$("#friend-email").val();axios.post("/user/invite-friend",qs.stringify({email:t})).then(function(e){hideSpinner(n),$('input[name="email"]').val(""),0===$("#invites-list tr td:contains('"+e.data.email+"')").length&&$("#invites-list tbody").prepend($("<tr />").attr("id",e.data.email).append($("<td />").css("width","100").addClass("col-center").append($("<div />").addClass("thumb-60").append($("<img />").attr("src","/images/avatar.png").attr("alt",e.data.email)))).append($("<td />").text(e.data.email)).append($("<td />").append($("<span />").addClass("primary-color").text(e.data.status))).append($("<td />").text("")).append($("<td />").text("")).append($("<td />").css("width","160").addClass("col-center").append($("<a />").attr("href","").addClass("send-link resend-invitation").text("Resend"))))}).catch(function(e){hideSpinner(n),console.error(e);var t=e.response.data,i=t.message,o=t.errors;422==e.response.status?($.each(o,function(e,n){$("#friend-email").parent().addClass("form-error"),$("#friend-email").after($("<span />").addClass("error-text").text(n))}),scrollToError()):showError(i)})}),$("#invites-list").on("click",".resend-invitation",function(e){e.preventDefault();var n=$(this).parents("tr").attr("id");axios.post("/user/invite-friend",qs.stringify({email:n})).catch(function(e){var n=e.response.data.message;showError(n)})}),$("#fb-share").on("click",function(e){e.preventDefault(),i($(this).attr("href"),640,400)}),$("#tw-share").on("click",function(e){e.preventDefault(),i($(this).attr("href"),640,255)}),$("#google-share").on("click",function(e){e.preventDefault(),i($(this).attr("href"),400,480)})})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 50);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 1:
+/***/ (function(module, exports) {
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+window.getSpinner = function (size) {
+
+    return $('<div />').addClass('spinner spinner--' + size).append($('<div />')).append($('<div />')).append($('<div />')).append($('<div />'));
+};
+
+window.showSpinner = function (element) {
+    element.addClass('is-loading').prop('disabled', true);
+    element.append(getSpinner(30));
+};
+
+window.hideSpinner = function (element) {
+    element.removeClass('is-loading').prop('disabled', false);
+    element.find('.spinner').remove();
+};
+
+// Errors
+window.clearErrors = function () {
+    $('.form-error').removeClass('form-error');
+    $('.error-text').remove();
+};
+
+window.showError = function (errorMessage) {
+    $.magnificPopup.open({
+        items: {
+            src: '#error-modal'
+        },
+        type: 'inline',
+        closeOnBgClick: true,
+        callbacks: {
+            elementParse: function elementParse(item) {
+                $(item.src).find('#error-message').text(errorMessage);
+            }
+        }
+    });
+};
+
+// Validate file
+window.validateFile = function (file) {
+    var isValidType = file.type.match(/(.png)|(.jpeg)|(.jpg)|(.pdf)$/i);
+    var isValidSize = file.size.toFixed(0) < 4194304;
+
+    if (isValidType && isValidSize) {
+        return true;
+    }
+
+    return false;
+};
+
+// Scroll to error
+window.scrollToError = function () {
+    $('html, body').animate({
+        scrollTop: $('.form-error:eq(0)').offset().top
+    }, 500);
+};
+
+// Show Confirmation dialog
+window.showConfirmation = function (confirmationMessage, onAccept, onReject) {
+    $.magnificPopup.open({
+        items: {
+            src: '#confirmation-modal'
+        },
+        type: 'inline',
+        showCloseBtn: false,
+        closeOnBgClick: false,
+        callbacks: {
+            elementParse: function elementParse(item) {
+                $(item.src).find('#confirmation-message').text(confirmationMessage);
+
+                $(item.src).find('#accept_action').on('click', function (e) {
+                    e.preventDefault();
+
+                    $.magnificPopup.close();
+
+                    if (typeof onAccept === 'function') {
+                        onAccept();
+                    }
+                });
+
+                $(item.src).find('#reject_action').on('click', function (e) {
+                    e.preventDefault();
+
+                    $.magnificPopup.close();
+
+                    if (typeof onReject === 'function') {
+                        onReject;
+                    }
+                });
+            }
+        }
+    });
+};
+
+// Show popover
+window.showPopover = function (popoverContent) {
+
+    $('.popover').remove();
+
+    var popover = $('<div />').addClass('popover').append($('<i />').addClass('fa fa-check-circle')).append($('<div />').addClass('popover__content').html(popoverContent)).append($('<a />').addClass('popover__close').attr('href', '').html('Close').on('click', function (e) {
+        e.preventDefault();
+
+        $('.popover').remove();
+    }));
+
+    $('body').prepend(popover);
+
+    setTimeout(function () {
+        popover.remove();
+    }, 5000);
+};
+
+// Show Protection dialog
+window.showProtectionDialog = function (onSubscribe) {
+
+    $.magnificPopup.open({
+        items: {
+            src: '#protection-modal'
+        },
+        type: 'inline',
+        showCloseBtn: true,
+        closeOnBgClick: true,
+        callbacks: {
+            elementParse: function elementParse(item) {
+                $(item.src).find('#frm_protection').find('input[name="signature"]').val('');
+
+                $(item.src).find('#frm_protection').off('submit').on('submit', function (e) {
+                    e.preventDefault();
+
+                    sessionStorage.setItem('signature', $(this).find('input[name="signature"]').val());
+
+                    $.magnificPopup.close();
+
+                    onSubscribe();
+                });
+            }
+        }
+    });
+};
+
+// Check protection status
+window.processProtectionRequest = function (action, requestParams) {
+    var signature = sessionStorage.getItem('signature');
+    sessionStorage.removeItem('signature');
+
+    if (!signature) {
+        var action_timestamp = new Date().valueOf();
+        sessionStorage.setItem('action_timestamp', action_timestamp);
+
+        return _extends({}, requestParams, {
+            action: action,
+            action_timestamp: action_timestamp
+        });
+    }
+
+    return _extends({}, requestParams, {
+        action_timestamp: sessionStorage.getItem('action_timestamp'),
+        signature: signature
+    });
+};
+
+// Check protection status
+window.processProtectionResponse = function (responseStatus, processWithProtection, processWithoutProtection) {
+
+    if (responseStatus == 205) {
+
+        if (typeof processWithProtection === 'function') {
+            showProtectionDialog(processWithProtection);
+        }
+    } else {
+
+        if (typeof processWithoutProtection === 'function') {
+            processWithoutProtection();
+        }
+    }
+};
+
+/***/ }),
+
+/***/ 50:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(51);
+
+
+/***/ }),
+
+/***/ 51:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1);
+
+var openShareWindow = function openShareWindow(url, windowWidth, windowHeight) {
+
+    var positionLeft = (screen.availWidth - windowWidth) / 2;
+    var positionTop = (screen.availHeight - windowHeight) / 2;
+    var params = "width=" + windowWidth + ", height=" + windowHeight + ", resizable=no, scrollbars=yes, left=" + positionLeft + ", top=" + positionTop;
+
+    window.open(url, '_blank', params);
+};
+
+$(document).ready(function () {
+
+    $('#invite-friend').on('click', function (event) {
+        event.preventDefault();
+
+        var button = $('#invite-friend');
+        showSpinner(button);
+        clearErrors();
+
+        var email = $('#friend-email').val();
+
+        axios.post('/user/invite-friend', qs.stringify({
+            email: email
+        })).then(function (response) {
+            hideSpinner(button);
+
+            $('input[name="email"]').val('');
+
+            if ($("#invites-list tr td:contains('" + response.data.email + "')").length === 0) {
+
+                $('#invites-list tbody').prepend($('<tr />').attr('id', response.data.email).append($('<td />').css('width', '100').addClass('col-center').append($('<div />').addClass('thumb-60').append($('<img />').attr('src', '/images/avatar.png').attr('alt', response.data.email)))).append($('<td />').text(response.data.email)).append($('<td />').append($('<span />').addClass('primary-color').text(response.data.status))).append($('<td />').text('')).append($('<td />').text('')).append($('<td />').css('width', '160').addClass('col-center').append($('<a />').attr('href', '').addClass('send-link resend-invitation').text('Resend'))));
+            }
+        }).catch(function (error) {
+            hideSpinner(button);
+
+            console.error(error);
+
+            var _error$response$data = error.response.data,
+                message = _error$response$data.message,
+                errors = _error$response$data.errors;
+
+
+            if (error.response.status == 422) {
+
+                $.each(errors, function (field, error) {
+                    $('#friend-email').parent().addClass('form-error');
+                    $('#friend-email').after($('<span />').addClass('error-text').text(error));
+                });
+
+                scrollToError();
+            } else {
+                showError(message);
+            }
+        });
+    });
+
+    $('#invites-list').on('click', '.resend-invitation', function (event) {
+        event.preventDefault();
+
+        var email = $(this).parents('tr').attr('id');
+
+        axios.post('/user/invite-friend', qs.stringify({
+            email: email
+        })).catch(function (error) {
+            var message = error.response.data.message;
+
+
+            showError(message);
+        });
+    });
+
+    $('#fb-share').on('click', function (event) {
+        event.preventDefault();
+
+        openShareWindow($(this).attr('href'), 640, 400);
+    });
+
+    $('#tw-share').on('click', function (event) {
+        event.preventDefault();
+
+        openShareWindow($(this).attr('href'), 640, 255);
+    });
+
+    $('#google-share').on('click', function (event) {
+        event.preventDefault();
+
+        openShareWindow($(this).attr('href'), 400, 480);
+    });
+});
+
+/***/ })
+
+/******/ });

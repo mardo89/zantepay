@@ -142,7 +142,7 @@
                                 <a href="javascript:void();">Development</a>
                                 <ul>
                                     <!-- <li><a href="">Wallet Beta</a></li> -->
-                                    <li><a href="">App Beta</a></li>
+                                    <li><a href="/mobile-app">App Beta</a></li>
                                     <!-- <li><a href="">Development roadmap</a></li> -->
                                 </ul>
                             </li>
@@ -279,6 +279,7 @@
 
 <!-- JS scripts -->
 <script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/mobile_app.js"></script>
 <script src="/js/components/particles.min.js"></script>
 <script src="/js/components/jquery.magnific-popup.min.js"></script>
 <script src="/js/components/circle-progress.min.js"></script>
