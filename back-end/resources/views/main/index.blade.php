@@ -32,6 +32,7 @@
                                     <li><a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
                                     </li>
                                     <li><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
+                                    <li><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -46,8 +47,7 @@
                 <div class="center-logo pos-r">
                     <img src="images/logo-large.png" alt="ZANTEPAY Logo">
                 </div>
-                <h1 class="h2 header__title text-uppercase">Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one
-                    card</h1>
+                <h1 class="h2 header__title text-uppercase">Spend BTC, LTC, ETH and Zantecoin in real life <br> with just one card</h1>
                 <div class="horizontal-btns">
                     <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260"
                        onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
@@ -95,6 +95,13 @@
             </div>
 
         @endif
+
+        <!-- <div class="hp-video-section container text-center">
+            <a href="https://www.youtube.com/watch?v=77rHG88rAb8" class="js-popup-video">
+                <i class="fa fa-youtube-play"></i>
+                <img src="images/zantecoin-thumb.jpg" srcset="images/zantecoin-thumb@2x.jpg 2x" alt="What is ZANTECOIN?">
+            </a>
+        </div> -->
 
     </header>
 
@@ -437,7 +444,6 @@
                         <div class="col-md-6 offset-lg-1">
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
-                                <li>Issued by Estonian GFC Good Finance Company, partner of Mastercard.</li>
                                 <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoin everywhere in the world.</li>
                                 <li>Connected directly to your ZANTEPAY wallet.</li>
                                 <li>Provides automatic highest trading price from partner exchanges. 1%exchange fee. No hidden charges.</li>
@@ -482,6 +488,9 @@
                     </div>
                 </div>
 
+                <div class="lp-headline-row">
+                    <h2 class="h2 headline">Earn ZANTECOINs with every <br> swipe of your ZANTEPAY card</h2>
+                </div>
                 <div class="row lp-row-2">
                     <div class="col-md-6 vertical-middle-col content-center">
                         <div class="lp-coin-value">
@@ -493,12 +502,54 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <h3 class="h2 headline">Earn ZANTECOINs with every <br> swipe of your ZANTEPAY card</h3>
-                        <ul class="styl-list">
-                            <li>Get 20% ZNX cashback on all purchases via ZANTEPAY debit card</li>
-                            <li>Spend ZNX as the local currency with ZANTEPAY card</li>
-                            <li>Exchange for Bitcoin and other cryptocurrencies</li>
-                        </ul>
+                        <div class="lp-table-group">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="50%">Debit Card total <br> turnover, EUR</th>
+                                        <th width="50%">Cashback</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1 - 1 mln</td>
+                                        <td>20%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 mln - 10 mln</td>
+                                        <td>15%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10 mln - 20 mln</td>
+                                        <td>12%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20 mln - 50 mln</td>
+                                        <td>5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50 mln - 100 mln</td>
+                                        <td>5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100 mln - 200 mln</td>
+                                        <td>3%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>200 mln - 300 mln</td>
+                                        <td>3%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>300 mln - 500 mln</td>
+                                        <td>2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>500 mln - 1 bln</td>
+                                        <td>2%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -637,17 +688,6 @@
                             Business School.</p>
                     </div>
                     <div class="col-lg-4">
-                        <img src="images/andrii.jpg" srcset="images/andrii@2x.jpg 2x" alt="Andriy Danchak">
-                        <h3 class="h4">Andriy Danchak <span style="font-size:0.83em;">CEO of GFC Good Finance Company AS </span>
-                        <a target="_blank" href="https://www.linkedin.com/in/andriydanchak/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
-                        </h3>
-                        
-                        <p>Andriy has more than 10 years of experience within the banking industry. Previously held an executive position in
-                            Raiffeisen and Standard Union Bank. Andriy possesses a deep knowledge of banking policies and regulations. As a
-                            CEO of GFC - a licensed payment institution and a principal member of Mastercard ®, his task is to work closely
-                            with ZANTEPAY on a debit card project.</p>
-                    </div>
-                    <div class="col-lg-4">
                         <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
                         <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span>
                         <a target="_blank" href="https://www.linkedin.com/in/juanalonsovillalobos/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
@@ -682,11 +722,6 @@
                     <div class="col-lg-4">
                         <a target="_blank" rel="nofollow" href="http://www.kryptoraha.ee">
                             <img src="images/estonian-crypto-association.png" srcset="images/estonian-crypto-association@2x.png 2x" alt="estonian crypto association">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="http://gfc.ee/">
-                            <img src="images/gfc.png" alt="gfc">
                         </a>
                     </div>
                     <div class="col-lg-4">
@@ -763,15 +798,24 @@
                         <h4><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226">Bitcointalk</a></h4>
                         <a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
                     </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA">YouTube</a></h4>
+                        <a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube-play"></i></a></li>
+                    </div>
                 </div>
             </div>
 
             <div class="row footer-cont-group" id="contacts">
                 <div class="col-md-8 offset-md-2">
-                    <div class="footer-cont-row">
+                    <div class="footer-cont-headline">
                         <h2 class="h2 headline">Contact <br> details</h2>
-                        <div class="footer-cont-text">For any questions please reach us at <a href="mailto:support@zantepay.com">support@zantepay.com</a>
-                            <br> or fill out the form below:
+                    </div>
+                    <div class="footer-cont-row row">
+                        <div class="col-md-6">
+                            <div class="footer-cont-text h5">ZANTEPAY OÜ <br> Rävala 19, 10143, <br> Tallinn, Estonia</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="footer-cont-text">For any questions please reach us at <a href="mailto:support@zantepay.com">support@zantepay.com</a> <br> or fill out the form below:</div>
                         </div>
                     </div>
                     <form id="frm_contact">

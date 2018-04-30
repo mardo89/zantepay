@@ -106,7 +106,7 @@ $(document).ready(function() {
   if ( $('.js-popup-link').length ) {
     $('.js-popup-link').magnificPopup({
       type:'inline',
-      midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+      midClick: true,
       mainClass: 'mfp-fade',
       fixedContentPos: false,
       callbacks: {
@@ -119,6 +119,22 @@ $(document).ready(function() {
       }
     });
   }
+
+  $('.js-popup-video').magnificPopup({
+      type: 'iframe',
+      midClick: true,
+      mainClass: 'mfp-fade',
+      fixedContentPos: false,
+      callbacks: {
+       open: function() {
+        $('body').addClass('noscroll');
+       },
+       close: function() {
+         $('body').removeClass('noscroll');
+       }
+      }
+  });
+
   
   if ( $('.js-open-noclose-popup').length ) {
     $('.js-open-noclose-popup').magnificPopup({

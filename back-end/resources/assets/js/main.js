@@ -194,6 +194,21 @@ $(document).ready(function () {
         });
     }
 
+    $('.js-popup-video').magnificPopup({
+        type: 'iframe',
+        midClick: true,
+        mainClass: 'mfp-fade',
+        fixedContentPos: false,
+        callbacks: {
+            open: function() {
+                $('body').addClass('noscroll');
+            },
+            close: function() {
+                $('body').removeClass('noscroll');
+            }
+        }
+    });
+
     if ( $('.js-open-noclose-popup').length ) {
         $('.js-open-noclose-popup').magnificPopup({
             type:'inline',
