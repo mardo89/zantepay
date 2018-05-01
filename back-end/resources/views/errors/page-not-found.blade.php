@@ -20,7 +20,7 @@
                             <div class="col-lg">
                                 Official channels:
                             </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-10">
                                 <ul class="social-list">
                                     <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
                                     <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
