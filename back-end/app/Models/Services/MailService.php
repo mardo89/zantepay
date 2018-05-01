@@ -69,6 +69,14 @@ class MailService
             'name' => 'Protect Action',
             'mailClass' => 'ProtectAction'
         ],
+        MailEvent::EVENT_TYPE_TOKEN_ADD => [
+            'name' => 'Token Add',
+            'mailClass' => 'TokenAdd'
+        ],
+        MailEvent::EVENT_TYPE_TOKEN_SALE => [
+            'name' => 'Token Sale',
+            'mailClass' => 'TokenSale'
+        ],
     ];
 
     /**
@@ -331,6 +339,42 @@ class MailService
         $data = [
             'signature' => $signature,
             'action' => $action,
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Token Add email
+     *
+     * @param string $email
+     * @param string $znxAmount
+     */
+    public static function sendTokenAddEmail($email, $znxAmount)
+    {
+        $event = MailEvent::EVENT_TYPE_TOKEN_ADD;
+        $to = $email;
+        $data = [
+            'znxAmount' => $znxAmount,
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Token Sale email
+     *
+     * @param string $email
+     * @param string $znxAmount
+     * @param string $ethAmount
+     */
+    public static function sendTokenSaleEmail($email, $znxAmount, $ethAmount)
+    {
+        $event = MailEvent::EVENT_TYPE_TOKEN_ADD;
+        $to = $email;
+        $data = [
+            'znxAmount' => $znxAmount,
+            'ethAmount' => $ethAmount,
         ];
 
         self::send($event, $to, $data);

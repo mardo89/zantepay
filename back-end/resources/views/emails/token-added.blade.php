@@ -120,13 +120,13 @@
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 24px; font-weight: bold;">
-                                                        You received: 4,175.0 ZNX 
+                                                        You received: {{ $znxAmount }}
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        Log into you account to see the balance: <a href="https://www.zantepay.com/" target="_blank" style="color:#f92112;outline: none; border: 0; text-decoration: none;">https://www.zantepay.com/</a>
+                                                        Log into you account to see the balance: <a href="{{ $loginLink }}" target="_blank" style="color:#f92112;outline: none; border: 0; text-decoration: none;">{{ $loginLink }}</a>
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>

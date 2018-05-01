@@ -120,13 +120,13 @@
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 24px; font-weight: bold;">
-                                                        Contribution Amount: 0.5 ETH 
+                                                        Contribution Amount: {{ $ethAmount }}
                                                     </td>
                                                 </tr>
                                                 <tr><td height="5" style="line-height:5px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 24px; font-weight: bold;">
-                                                        You received: 4,175.0 ZNX 
+                                                        You received: {{ $znxAmount }}
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
