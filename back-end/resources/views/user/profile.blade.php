@@ -177,9 +177,9 @@
 
             <div class="dashboard-group-sm p-t-60 mt-40">
                 <h2 class="h4 mb-20">Close Account:</h2>
-                <form action="">
+                <form id="frm_close_account">
                     <div class="checkbox checkbox--top mb-30">
-                        <input type="checkbox" name="close-account" id="check21"><label for="check21" >I understand that by clicking this checkbox, I am willing to close my ZANTEPAY account. All data related with this account will be deleted forever and it will not be possible to recover it (debit card, tokens etc). By closing account you agree with above mentioned terms.</label>
+                        <input type="checkbox" name="close-account-confirm" id="check21"><label for="check21" >I understand that by clicking this checkbox, I am willing to close my ZANTEPAY account. All data related with this account will be deleted forever and it will not be possible to recover it (debit card, tokens etc). By closing account you agree with above mentioned terms.</label>
                     </div>
                     <button type="submit" class="btn btn--shadowed-light btn--medium btn--160">Close Account</button>
                 </form>
@@ -197,6 +197,16 @@
             <h3 class="h4">SAVED!</h3>
             <div class="logon-modal-text">
                 <p>Your profile successfully saved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Close account confirmation -->
+    <div class="logon-modal mfp-hide" id="close-account-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">CLOSED!</h3>
+            <div class="logon-modal-text">
+                <p>Your account successfully closed.</p>
             </div>
         </div>
     </div>

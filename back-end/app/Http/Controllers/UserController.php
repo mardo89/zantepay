@@ -287,6 +287,42 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * Close user profile
+     *
+     * @param Request $request
+     *
+     * @return View
+     */
+    public function closeAccount(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            AccountsService::closeAccount();
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Error closing account',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
+        );
+    }
+
 
     /**
      * User profile settings

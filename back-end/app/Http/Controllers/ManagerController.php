@@ -16,6 +16,7 @@ use App\Models\DB\State;
 use App\Models\DB\User;
 use App\Models\DB\Verification;
 use App\Models\Validation\ValidationMessages;
+use App\Models\Wallet\CurrencyFormatter;
 use App\Models\Wallet\Ico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -546,7 +547,7 @@ class ManagerController extends Controller
 
             $ico = new Ico();
 
-            // Create Zantecoin transaction transaction
+            // Create Zantecoin transaction
             ZantecoinTransaction::create(
                 [
                     'user_id' => $user->id,
@@ -560,6 +561,11 @@ class ManagerController extends Controller
             $wallet = $user->wallet;
             $wallet->znx_amount += $amount;
             $wallet->save();
+
+            MailService::sendTokenAddEmail(
+                $user->email,
+                (new CurrencyFormatter($amount))->znxFormat()->withSuffix('ZNX')->get()
+            );
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -626,7 +632,7 @@ class ManagerController extends Controller
 
             $ico = new Ico();
 
-            // Create Zantecoin transaction transaction
+            // Create Zantecoin transaction
             ZantecoinTransaction::create(
                 [
                     'user_id' => $user->id,
@@ -640,6 +646,11 @@ class ManagerController extends Controller
             $wallet = $user->wallet;
             $wallet->znx_amount += $amount;
             $wallet->save();
+
+            MailService::sendTokenAddEmail(
+                $user->email,
+                (new CurrencyFormatter($amount))->znxFormat()->withSuffix('ZNX')->get()
+            );
 
         } catch (\Exception $e) {
             DB::rollback();
