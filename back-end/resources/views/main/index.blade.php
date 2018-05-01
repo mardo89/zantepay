@@ -144,7 +144,7 @@
                         <ul class="styl-list">
                             <li>New mainstream currency</li>
                             <li>BTC, ETH, LTC free conversion to ZNX</li>
-                            <li>Mastercard - accepted everywhere</li>
+                            <!-- <li>Mastercard - accepted everywhere</li> -->
                             <li>Can be used to cover service fees in ZANTEPAY ecosystem</li>
                             <li>50% discount on all services in ZANTEPAY ecosystem when using ZANTECOIN</li>
                             <li>ERC 20 token</li>
