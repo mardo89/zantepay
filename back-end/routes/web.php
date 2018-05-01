@@ -53,8 +53,11 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('states', 'UserController@getStates');
     Route::post('accept-terms', 'UserController@acceptTerms');
 
+
     Route::get('profile', 'UserController@profile');
     Route::post('profile', 'UserController@saveProfile');//->middleware('protect.action');
+
+    Route::post('close-account', 'UserController@closeAccount');//->middleware('protect.action');
 
     Route::get('profile-settings', 'UserController@profileSettings');
     Route::post('profile-settings/remove-document', 'UserController@removeDocument');

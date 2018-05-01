@@ -77,6 +77,10 @@ class MailService
             'name' => 'Token Sale',
             'mailClass' => 'TokenSale'
         ],
+        MailEvent::EVENT_TYPE_CLOSE_ACCOUNT => [
+            'name' => 'Close Account Admin',
+            'mailClass' => 'CloseAccountAdmin'
+        ],
     ];
 
     /**
@@ -370,11 +374,27 @@ class MailService
      */
     public static function sendTokenSaleEmail($email, $znxAmount, $ethAmount)
     {
-        $event = MailEvent::EVENT_TYPE_TOKEN_ADD;
+        $event = MailEvent::EVENT_TYPE_TOKEN_SALE;
         $to = $email;
         $data = [
             'znxAmount' => $znxAmount,
             'ethAmount' => $ethAmount,
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Close Account email
+     *
+     * @param string $email
+     */
+    public static function sendCloseAccountAdminEmail($email)
+    {
+        $event = MailEvent::EVENT_TYPE_TOKEN_SALE;
+        $to = env('CONTACT_EMAIL');
+        $data = [
+            'email' => $email,
         ];
 
         self::send($event, $to, $data);

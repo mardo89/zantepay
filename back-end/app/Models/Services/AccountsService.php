@@ -168,6 +168,20 @@ class AccountsService
     }
 
     /**
+     * Close Account
+     *
+     * @throws
+     */
+    public static function closeAccount()
+    {
+        $user = self::getActiveUser();
+
+        UsersService::changeUserStatus($user, User::USER_STATUS_CLOSED);
+
+        MailService::sendCloseAccountAdminEmail($user->email);
+    }
+
+    /**
      * Reset users password
      *
      * @param string email
