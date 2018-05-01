@@ -10,12 +10,12 @@
         <div class="h-banner">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 col-xl-7">
+                    <div class="col-lg-5 col-xl-6">
                         The only official URL for Zantepay is <a href="https://zantepay.com">https://zantepay.com</a>. If you receive
                         confirmation
                         of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
                     </div>
-                    <div class="col-md-6 col-xl-5">
+                    <div class="col-lg-7 col-xl-6">
                         <div class="row">
                             <div class="col-lg">
                                 Official channels:
@@ -32,6 +32,7 @@
                                     <li><a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
                                     </li>
                                     <li><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
+                                    <li><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube"></i></a></li>
                                 </ul>
                             </div>
                         </div>
