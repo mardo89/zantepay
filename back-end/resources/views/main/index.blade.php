@@ -48,13 +48,19 @@
                     <img src="images/logo-large.png" alt="ZANTEPAY Logo">
                 </div>
                 <h1 class="h2 header__title text-uppercase">Spend BTC, LTC, ETH and Zantecoin in real life <br> with just one card</h1>
-                <div class="horizontal-btns">
-                    <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260"
-                       onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
-                    <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
-                    <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
-                </div>
-                <h3 class="h4 text-uppercase"> 1 ETH = {{ $ico['znxRate'] }} ZNX<br><br> {{ $ico['name'] }} ends in</h3>
+                <div class="row p-t-60">
+                    <div class="col-lg-4 text-center">
+                        <img src="images/zantepay-card-mobile.png" srcset="images/zantepay-card-mobile@2x.png 2x" alt="Zantepay App">
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="horizontal-btns">
+                            <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--200"
+                               onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
+                            <a href="#team" class="scroll-button btn btn--shadowed-dark btn--200">Team</a>
+                            <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--200">Buy Tokens NOW</a>
+                        </div>
+                        <h3 class="h4 text-uppercase"> 1 ETH = {{ $ico['znxRate'] }} ZNX<br><br> {{ $ico['name'] }} ends in</h3>
+                    </div>
                 <div class="countdown">
                     <span class="js-countdown" data-date="{{ $ico['endDate'] }}"></span>
                 </div>
