@@ -161,6 +161,59 @@ class IndexController extends Controller
     }
 
     /**
+     * Save user in news letters
+     *
+     * @param Request $request
+     *
+     * @return View
+     */
+    public function saveNewsLetter(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|string|email|max:255',
+            ],
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                ]
+            )
+        );
+
+
+        DB::beginTransaction();
+
+        try {
+
+            $email = $request->input('email');
+
+            RegistrationsService::joinToNewsLetter($email);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Registration failed',
+                    'errors' => [
+                        'email' => 'Registration failed'
+                    ]
+                ],
+                422
+            );
+
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
+        );
+    }
+
+    /**
      * Confirm user activation
      *
      * @param Request $request

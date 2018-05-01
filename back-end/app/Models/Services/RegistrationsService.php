@@ -5,6 +5,7 @@ namespace App\Models\Services;
 use App\Models\DB\ExternalRedirect;
 use App\Models\DB\IcoRegistration;
 use App\Models\DB\Investor;
+use App\Models\DB\NewsLetter;
 use App\Models\Wallet\Currency;
 use Illuminate\Support\Facades\Session;
 
@@ -62,6 +63,32 @@ class RegistrationsService
             Session::get('externalLink'),
             $email,
             ExternalRedirect::ACTION_TYPE_REGISTRATION_INVESTOR
+        );
+    }
+
+    /**
+     * Join to news letters
+     *
+     * @param string $email
+     */
+    public static function joinToNewsLetter($email)
+    {
+        $accountExists = NewsLetter::where('email', $email)->count() > 0;
+
+        if ($accountExists) {
+            return;
+        }
+
+        NewsLetter::create(
+            [
+                'email' => $email,
+            ]
+        );
+
+        ExternalRedirect::addLink(
+            Session::get('externalLink'),
+            $email,
+            ExternalRedirect::ACTION_TYPE_REGISTRATION_NEWSLETTER
         );
     }
 

@@ -12,6 +12,7 @@ class ExternalRedirect extends Model
     const ACTION_TYPE_REGISTRATION = "Sign Up";
     const ACTION_TYPE_REGISTRATION_ICO = "Registration for Pre ICO";
     const ACTION_TYPE_REGISTRATION_INVESTOR = "Become An Investor";
+    const ACTION_TYPE_REGISTRATION_NEWSLETTER = "Join to newsletter";
 
     /**
      * The attributes that are mass assignable.

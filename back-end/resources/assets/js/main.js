@@ -107,13 +107,13 @@ $(document).ready(function () {
     }
 
     //hide hp banner and set cookies
-    $(document).on('click', '.js-close-banner', function() {
+    $(document).on('click', '.js-close-banner', function () {
         $(this).closest('.h-banner').removeClass('is-active');
         setCookie('hideNoticeBanner', 'true', {path: '/', expires: 86400}); //1day cookie
     });
 
     //show hp banner
-    if ( !getCookie('hideNoticeBanner') && $('.h-banner').length ) {
+    if (!getCookie('hideNoticeBanner') && $('.h-banner').length) {
         $('.h-banner').addClass('is-active');
     }
 
@@ -166,9 +166,9 @@ $(document).ready(function () {
     });
 
     //mobile dropdown
-    $(document).on('click', '.m-dropdown > a', function() {
-      $(this).toggleClass('is-active');
-      $(this).siblings('ul').slideToggle();
+    $(document).on('click', '.m-dropdown > a', function () {
+        $(this).toggleClass('is-active');
+        $(this).siblings('ul').slideToggle();
     });
 
     // Popups
@@ -194,32 +194,32 @@ $(document).ready(function () {
         });
     }
 
-    if ( $('.js-open-noclose-popup').length ) {
+    if ($('.js-open-noclose-popup').length) {
         $('.js-open-noclose-popup').magnificPopup({
-            type:'inline',
+            type: 'inline',
             midClick: true,
             showCloseBtn: false,
             closeOnBgClick: false,
             mainClass: 'mfp-fade',
             fixedContentPos: false,
             callbacks: {
-                open: function() {
-                   $('body').addClass('noscroll');
+                open: function () {
+                    $('body').addClass('noscroll');
                 },
-                close: function() {
+                close: function () {
                     $('body').removeClass('noscroll');
                 }
             }
         });
     }
-    $(document).on( 'click', '.js-close-popup', function() {
+    $(document).on('click', '.js-close-popup', function () {
         $.magnificPopup.close();
     });
 
     //accordion
-    $(document).on('click', '.js-accordion .accordion__head a', function() {
+    $(document).on('click', '.js-accordion .accordion__head a', function () {
         var thisID = $(this).attr('href');
-        if ( $(this).closest('.accordion__head').hasClass('is-active') ) {
+        if ($(this).closest('.accordion__head').hasClass('is-active')) {
             $(this).parents('.js-accordion').find('.accordion__head').removeClass('is-active');
             $(this).parents('.js-accordion').find('.accordion__body').slideUp();
         } else {
@@ -249,14 +249,14 @@ $(document).ready(function () {
     }
 
     //tabs
-    $(document).on('click', '.tabs-head a', function(e) {
+    $(document).on('click', '.tabs-head a', function (e) {
         e.preventDefault();
         var thisHref = $(this).attr('href');
         $(this).closest('.tabs-head').find('li').removeClass('is-active');
         $(thisHref).closest('.tabs-wrap').find('.tab-body').removeClass('is-active');
         $(this).parent().addClass('is-active');
         $(thisHref).addClass('is-active');
-        if ( thisHref != '#profile') {
+        if (thisHref != '#profile') {
             $('.dashboard-top-panel-row .form-group').hide();
         } else {
             $('.dashboard-top-panel-row .form-group').show();
@@ -264,7 +264,7 @@ $(document).ready(function () {
     });
 
     //open tabs by url
-    if ( location.hash && $('.tabs-head') ) {
+    if (location.hash && $('.tabs-head')) {
         var tabHref = location.hash;
         $('.tabs-head li').removeClass('is-active');
         $('.tab-body').removeClass('is-active');
@@ -273,10 +273,10 @@ $(document).ready(function () {
     }
 
     //open resset password by url
-    if ( location.hash == '#forgot-password' ) {
-        $.magnificPopup.open({items: {src: '#forgot-password'},type: 'inline'});
+    if (location.hash == '#forgot-password') {
+        $.magnificPopup.open({items: {src: '#forgot-password'}, type: 'inline'});
     }
-    
+
     //hp shapes
     if ($('#particles-js').length) {
         window.addEventListener("load", function () {
@@ -403,7 +403,12 @@ $(document).ready(function () {
     }
 
 
-
+    /**
+     *
+     ***********************************************************************************************************
+     ***********************************************************************************************************
+     *
+     */
 
     //Log in
     $('#frm_signin').on('submit', function (event) {
@@ -948,5 +953,3 @@ $(document).ready(function () {
     });
 
 });
-
-
