@@ -61,7 +61,8 @@
                         </div>
                         <h3 class="h4 text-uppercase"> 1 ETH = {{ $ico['znxRate'] }} ZNX<br><br> {{ $ico['name'] }} ends in</h3>
                     </div>
-                <div class="countdown">
+                </div>
+                <div class="countdown p-t-60">
                     <span class="js-countdown" data-date="{{ $ico['endDate'] }}"></span>
                 </div>
             </div>
