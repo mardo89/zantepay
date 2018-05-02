@@ -50,6 +50,10 @@ class AuthService
             throw new AuthException('Your account is disabled');
         }
 
+        if (optional($activeUser)->isClosed()) {
+            throw new AuthException('Your account is closed');
+        }
+
         $activeUser = AccountsService::getActiveUser();
 
         return self::getHomePage($activeUser->role);

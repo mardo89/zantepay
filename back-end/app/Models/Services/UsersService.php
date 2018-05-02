@@ -34,7 +34,8 @@ class UsersService
         User::USER_STATUS_VERIFIED => 'Verified',
         User::USER_STATUS_WITHDRAW_PENDING => 'Withdraw Pending',
         User::USER_STATUS_PENDING => 'T&C Pending',
-        User::USER_STATUS_VERIFICATION_PENDING => 'Documents uploaded'
+        User::USER_STATUS_VERIFICATION_PENDING => 'Documents uploaded',
+        User::USER_STATUS_CLOSED => 'Account Closed'
     ];
 
     /**

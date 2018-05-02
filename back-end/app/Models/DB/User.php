@@ -190,6 +190,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is deactivated
+     *
+     * @return boolean
+     */
+    public function isClosed() {
+        return $this->status == self::USER_STATUS_CLOSED;
+    }
+
+    /**
      * Automaticaly bcrypt password field
      *
      * @param $value

@@ -1078,6 +1078,11 @@ class UserController extends Controller
             $userWallet->commission_bonus -= $ethAmount;
             $userWallet->save();
 
+            MailService::sendTokenAddEmail(
+                $user->email,
+                (new CurrencyFormatter($znxAmount))->znxFormat()->withSuffix('ZNX')->get()
+            );
+
             $balance = (new CurrencyFormatter($znxAmount))->znxFormat()->get();
             $total = (new CurrencyFormatter($userWallet->znx_amount))->znxFormat()->withSuffix('ZNX tokens')->get();
 

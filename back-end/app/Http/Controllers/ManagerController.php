@@ -164,8 +164,8 @@ class ManagerController extends Controller
                 'name' => $user->first_name . ' ' . $user->last_name,
                 'avatar' => !is_null($user->avatar) ? $user->avatar : '/images/avatar.png',
                 'registered' => $user->created_at->format('m/d/Y'),
-                'status' => User::getStatus($user->status),
-                'role' => User::getRole($user->role),
+                'status' => UsersService::getUserStatus($user->status),
+                'role' => UsersService::getUserRole($user->role),
                 'hasReferrals' => $user->referrals->count() > 0 ? 'YES' : 'NO',
                 'profileLink' => action('ManagerController@profile', ['uid' => $user->uid]),
             ];

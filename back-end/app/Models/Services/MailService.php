@@ -391,7 +391,7 @@ class MailService
      */
     public static function sendCloseAccountAdminEmail($email)
     {
-        $event = MailEvent::EVENT_TYPE_TOKEN_SALE;
+        $event = MailEvent::EVENT_TYPE_CLOSE_ACCOUNT;
         $to = env('CONTACT_EMAIL');
         $data = [
             'email' => $email,

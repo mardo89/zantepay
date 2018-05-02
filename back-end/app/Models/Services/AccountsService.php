@@ -179,6 +179,8 @@ class AccountsService
         UsersService::changeUserStatus($user, User::USER_STATUS_CLOSED);
 
         MailService::sendCloseAccountAdminEmail($user->email);
+
+        AuthService::logoutUser();
     }
 
     /**
