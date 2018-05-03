@@ -117,6 +117,17 @@ $(document).ready(function () {
         $('.h-banner').addClass('is-active');
     }
 
+    //show newsletter panel
+    if ( !getCookie('hideNewsletterPanel') && $('.newsletter-panel').length ) {
+        $('.newsletter-panel').addClass('is-active');
+    }
+
+    //hide newsletter panel
+    $(document).on('click', '.js-close-panel', function() {
+        $(this).closest('.sticky-panel').removeClass('is-active');
+        setCookie('hideNewsletterPanel', 'true', {path: '/', expires: 60});
+    });
+
     // Count down
     if ($('.js-countdown').length) {
         var date = $('.js-countdown').data('date');
@@ -941,6 +952,51 @@ $(document).ready(function () {
                         }
                     );
 
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#idea_user_' + field).parents('.form-group').addClass('form-error');
+                            $('#idea_user_' + field).after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+    });
+
+    $('#frm_newsletter').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $(this).find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        axios.post(
+            'newsletter/join',
+            qs.stringify(
+                {
+                    'email': $(this).find('input[name="email"]').val(),
+                }
+            )
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+                    clearForm($('#frm_newsletter'));
+
+                    $('.sticky-panel').removeClass('is-active');
+                    setCookie('hideNewsletterPanel', 'true', {path: '/'});
+
+                    $.magnificPopup.close();
                 }
             )
             .catch(
