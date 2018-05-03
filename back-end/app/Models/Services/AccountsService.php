@@ -2,6 +2,7 @@
 
 namespace App\Models\Services;
 
+use App\Exceptions\AuthException;
 use App\Exceptions\PasswordException;
 use App\Exceptions\UserAccessException;
 use App\Exceptions\UserNotFoundException;
@@ -165,6 +166,25 @@ class AccountsService
         ResetPasswordsService::removePasswordReset($user->email);
 
         $user->delete();
+    }
+
+
+    /**
+     *  Activate user's account
+     *
+     * @param string $userUID
+     *
+     * @throws
+     */
+    public static function activateAccount($userUID)
+    {
+        $user = AccountsService::getUserByID($userUID);
+
+        if (!$user->isDisabled()) {
+            throw new AuthException('Your account is already activated.');
+        }
+
+        UsersService::changeUserStatus($user, User::USER_STATUS_PENDING);
     }
 
     /**

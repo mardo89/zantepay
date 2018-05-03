@@ -146,7 +146,7 @@
                                     <!-- <li><a href="">Development roadmap</a></li> -->
                                 </ul>
                             </li>
-                            <li><a href="#contacts">Contacts</a></li>
+                            <li><a href="{{$menuPrefix}}#contacts">Contacts</a></li>
                         </ul>
                     </nav>
 
@@ -274,6 +274,12 @@
         </div>
     </div>
 
+    <!-- Join our newsletter panel -->
+    <div class="sticky-panel newsletter-panel">
+        <a href="javascript:void(0)" class="fa fa-close js-close-panel" title="Close"></a>
+        <a href="#newsletter-modal" class="js-popup-link sticky-panel__text">Join our newsletter</a>
+    </div>
+
     <!-- join our newsletter -->
     <div class="logon-modal logon-modal--400 mfp-hide" id="newsletter-modal">
         <div class="logon-modal-container">
@@ -282,7 +288,7 @@
                 <p>Join our newsletter and get a chance to <br> <b>win a bonus in ZNX equal to</b></p>
                 <p class="primary-color" style="font-size: 60px;line-height: 1;margin-top: -10px;"><b>€ 300</b></p>
             </div>
-            <form action="">
+            <form id="frm_newsletter">
                 <div class="logon-group mb-30">
                     <input class="input-field text-center" type="email" name="email" placeholder="Your email">
                 </div>

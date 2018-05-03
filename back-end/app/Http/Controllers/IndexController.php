@@ -214,30 +214,6 @@ class IndexController extends Controller
     }
 
     /**
-     * Confirm user activation
-     *
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function confirmActivation(Request $request)
-    {
-        try {
-
-            $user = AccountsService::getUserByID($request->uid);
-
-            UsersService::changeUserStatus($user, User::USER_STATUS_PENDING);
-
-        } catch (\Exception $e) {
-
-            return redirect('/');
-
-        }
-
-        return view('main.confirm-email');
-    }
-
-    /**
      * Confirm user invitation
      *
      * @param Request $request
@@ -429,7 +405,6 @@ class IndexController extends Controller
         );
     }
 
-
     /**
      * Send contact us email
      *
@@ -575,6 +550,28 @@ class IndexController extends Controller
         return response()->json(
             []
         );
+    }
+
+    /**
+     * Confirm user activation
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function confirmActivation(Request $request)
+    {
+        try {
+
+            AccountsService::activateAccount($request->uid);
+
+        } catch (\Exception $e) {
+
+            return redirect('/');
+
+        }
+
+        return view('main.confirm-email');
     }
 
     /**
