@@ -5,6 +5,8 @@ namespace App\Models\Services;
 
 use App\Models\DB\Country;
 use App\Models\DB\Profile;
+use App\Models\DB\User;
+use App\Models\Wallet\Currency;
 
 class ProfilesService
 {
@@ -44,8 +46,8 @@ class ProfilesService
     public static function getInfo($userUID)
     {
         $user = AccountsService::getUserByID($userUID);
+        $profile = self::getProfile($user);
 
-        $profile = $user->profile;
         $profile->passportExpDate = self::convertDate($profile->passport_expiration_date);
         $profile->birthDate = self::convertDate($profile->birth_date);
         $profile->countryName = CountriesService::findCountry($profile->country_id);
@@ -88,6 +90,34 @@ class ProfilesService
 
 
     /**
+     * Add ZNX from ICO pull
+     *
+     * @param string $userUID
+     * @param string $address
+     * @param int $addressType
+     *
+     * @throws
+     */
+    public static function updateWalletAddress($userUID, $address, $addressType)
+    {
+        $user = AccountsService::getUserByID($userUID);
+
+        $profile = self::getProfile($user);
+
+        switch ($addressType) {
+            case Currency::CURRENCY_TYPE_BTC:
+                $profile->btc_wallet = $address;
+                break;
+
+            case Currency::CURRENCY_TYPE_ETH:
+                $profile->eth_wallet = $address;
+                break;
+        }
+
+        $profile->save();
+    }
+
+    /**
      * Convert date to the correct format for View
      *
      * @param string $date
@@ -97,5 +127,18 @@ class ProfilesService
     protected static function convertDate($date)
     {
         return is_null($date) ? '' : date('m/d/Y', strtotime($date));
+    }
+
+    /**
+     * Get user's profile
+     *
+     * @param User $user
+     *
+     * @return Profile
+     * @throws \App\Exceptions\UserNotFoundException
+     */
+    protected static function getProfile($user)
+    {
+        return $user->profile;
     }
 }

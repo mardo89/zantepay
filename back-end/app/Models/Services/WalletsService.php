@@ -69,4 +69,56 @@ class WalletsService
         return $currencies;
     }
 
+    /**
+     * Add ZNX from ICO pull
+     *
+     * @param string $userUID
+     * @param int $amount
+     *
+     * @return int
+     * @throws
+     */
+    public static function addIcoZnx($userUID, $amount)
+    {
+        $user = AccountsService::getUserByID($userUID);
+
+        TransactionsService::createAddIcoZnxTransaction($user->id, $amount);
+
+        return self::updateZnxAmount($user->wallet, $amount);
+    }
+
+    /**
+     * Add ZNX from ICO pull
+     *
+     * @param string $userUID
+     * @param int $amount
+     *
+     * @return int
+     * @throws
+     */
+    public static function addFoundationZnx($userUID, $amount)
+    {
+        $user = AccountsService::getUserByID($userUID);
+
+        TransactionsService::createAddFoundationZnxTransaction($user->id, $amount);
+
+        return self::updateZnxAmount($user->wallet, $amount);
+    }
+
+    /**
+     * Update ZNX amount
+     *
+     * @param Wallet $wallet
+     * @param int $amount
+     *
+     * @return int
+     */
+    protected static function updateZnxAmount($wallet, $amount)
+    {
+        $wallet->znx_amount += $amount;
+        $wallet->save();
+
+        return $wallet->znx_amount;
+    }
+
 }

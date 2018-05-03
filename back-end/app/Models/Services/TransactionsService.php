@@ -59,6 +59,9 @@ class TransactionsService
 
     /**
      * Create transaction when user receive bonus
+     *
+     * @param int $userID
+     * @param int $amount
      */
     public static function createBonusTransaction($userID, $amount) {
 
@@ -75,13 +78,43 @@ class TransactionsService
     }
 
     /**
-     * Remove user's ZNX Transactions
+     * Create transaction when user receive bonus
      *
      * @param int $userID
+     * @param int $amount
      */
-    public static function removeTransactions($userID)
-    {
-        ZantecoinTransaction::where('user_id', $userID)->delete();
+    public static function createAddIcoZnxTransaction($userID, $amount) {
+
+        self::createZnxTransaction(
+            [
+                'user_id' => $userID,
+                'amount' => $amount,
+                'ico_part' => (new IcoService())->getActivePart()->getID(),
+                'contribution_id' => 0,
+                'transaction_type' => ZantecoinTransaction::TRANSACTION_ADD_ICO_ZNX
+            ]
+        );
+
+    }
+
+    /**
+     * Create transaction when user receive bonus
+     *
+     * @param int $userID
+     * @param int $amount
+     */
+    public static function createAddFoundationZnxTransaction($userID, $amount) {
+
+        self::createZnxTransaction(
+            [
+                'user_id' => $userID,
+                'amount' => $amount,
+                'ico_part' => (new IcoService())->getActivePart()->getID(),
+                'contribution_id' => 0,
+                'transaction_type' => ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
+            ]
+        );
+
     }
 
     /**
@@ -100,6 +133,16 @@ class TransactionsService
                 'transaction_type' => $transactionData['transaction_type']
             ]
         );
+    }
+
+    /**
+     * Remove user's ZNX Transactions
+     *
+     * @param int $userID
+     */
+    public static function removeTransactions($userID)
+    {
+        ZantecoinTransaction::where('user_id', $userID)->delete();
     }
 
 }
