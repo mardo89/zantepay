@@ -142,7 +142,7 @@
                                 <a href="javascript:void();">Development</a>
                                 <ul>
                                     <!-- <li><a href="">Wallet Beta</a></li> -->
-                                    <li><a href="/mobile-app">App Beta</a></li>
+                                    <li><a href="/mobile-app">ZANTEPAY Wallet alfa</a></li>
                                     <!-- <li><a href="">Development roadmap</a></li> -->
                                 </ul>
                             </li>
