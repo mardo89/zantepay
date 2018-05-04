@@ -31,6 +31,7 @@ class IcoService
     {
         $activePart = $this->ico->getActivePart();
         $previousPart = $this->ico->getPreviousPart();
+        $lastPart = $this->ico->getIcoPartFour();
 
         $prevPartAmount = Transactions::searchTransactionsAmount(
             [
@@ -42,8 +43,9 @@ class IcoService
         );
 
         $icoPartName = optional($activePart)->getName() ?? '';
-        $icoPartEndDate = optional($activePart)->getEndDate() ?? '';
         $icoPartLimit = optional($activePart)->getLimit() + $prevPartAmount ?? $prevPartAmount;
+
+        $icoPartEndDate = optional($lastPart)->getEndDate() ?? '';
 
         $icoPartEthRate = optional($activePart)->getEthRate() ?? 0;
         $icoPartEuroRate = optional($activePart)->getEuroRate() ?? 0;

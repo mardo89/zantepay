@@ -62,7 +62,7 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'country' => 'numeric'
+                'country' => 'numeric|bail'
             ]
         );
 
@@ -175,20 +175,20 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'first_name' => 'alpha|max:100|nullable',
-                'last_name' => 'alpha|max:100|nullable',
-                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id . ',id',
-                'phone_number' => 'digits_between:5,20|nullable',
-                'area_code' => 'numeric',
-                'country' => 'numeric',
-                'state' => 'numeric',
-                'city' => 'alpha|max:100|nullable',
-                'address' => 'string|nullable',
-                'postcode' => 'string|max:10|nullable',
-                'passport' => 'string|max:50|nullable',
-                'expiration_date' => 'date|after_or_equal:tomorrow',
-                'birth_date' => 'date|before_or_equal:-18 year',
-                'birth_country' => 'numeric',
+                'first_name' => 'alpha|max:100|nullable|bail',
+                'last_name' => 'alpha|max:100|nullable|bail',
+                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id . ',id|bail',
+                'phone_number' => 'digits_between:5,20|nullable|bail',
+                'area_code' => 'numeric|bail',
+                'country' => 'numeric|bail',
+                'state' => 'numeric|bail',
+                'city' => 'alpha|max:100|nullable|bail',
+                'address' => 'string|nullable|bail',
+                'postcode' => 'string|max:10|nullable|bail',
+                'passport' => 'string|max:50|nullable|bail',
+                'expiration_date' => 'date|after_or_equal:tomorrow|bail',
+                'birth_date' => 'date|before_or_equal:-18 year|bail',
+                'birth_country' => 'numeric|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -468,7 +468,7 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'document_files' => 'required'
+                'document_files' => 'required|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -524,7 +524,7 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'address_files' => 'required'
+                'address_files' => 'required|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -583,8 +583,8 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'currency' => 'required|numeric',
-                'address' => 'required|string',
+                'currency' => 'required|numeric|bail',
+                'address' => 'required|string|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -645,9 +645,9 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'current-password' => 'required|string',
-                'password' => 'required|string|min:6|different:current-password',
-                'password_confirmation' => 'required_with:password|same:password',
+                'current-password' => 'required|string|bail',
+                'password' => 'required|string|min:6|max:32|different:current-password|bail',
+                'password_confirmation' => 'required_with:password|same:password|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -725,7 +725,7 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255'
+                'email' => 'required|string|email|max:255|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -937,8 +937,8 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'znx_amount' => 'integer|min:0|max:600000000|required_without:eth_amount',
-                'eth_amount' => 'numeric|min:0|max:200000|required_without:znx_amount'
+                'znx_amount' => 'integer|min:0|max:600000000|required_without:eth_amount|bail',
+                'eth_amount' => 'numeric|min:0|max:200000|required_without:znx_amount|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -1008,7 +1008,7 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'eth_amount' => 'numeric|min:0.1|max:200000|required'
+                'eth_amount' => 'required|numeric|min:0.1|max:200000|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -1123,7 +1123,7 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'address' => 'string|required',
+                'address' => 'required|string|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -1229,7 +1229,7 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'design' => 'required|integer'
+                'design' => 'required|integer|bail'
             ]
         );
 
@@ -1317,8 +1317,8 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'verify_later' => 'required|boolean',
-                'document_files' => 'required_if:verify_later,0'
+                'verify_later' => 'required|boolean|bail',
+                'document_files' => 'required_if:verify_later,0|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -1405,8 +1405,8 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'verify_later' => 'required|boolean',
-                'address_files' => 'required_if:verify_later,0'
+                'verify_later' => 'required|boolean|bail',
+                'address_files' => 'required_if:verify_later,0|bail'
             ],
             ValidationMessages::getList(
                 [

@@ -65,15 +65,15 @@ class ManagerController extends Controller
         $this->validate(
             $request,
             [
-                'role_filter' => 'array',
-                'status_filter' => 'array',
-                'referrer_filter' => 'array',
-                'name_filter' => 'string|nullable',
-                'date_from_filter' => 'date|nullable',
-                'date_to_filter' => 'date|nullable',
-                'page' => 'integer|min:1',
-                'sort_index' => 'integer',
-                'sort_order' => 'in:asc,desc',
+                'role_filter' => 'array|bail',
+                'status_filter' => 'array|bail',
+                'referrer_filter' => 'array|bail',
+                'name_filter' => 'string|nullable|bail',
+                'date_from_filter' => 'date|nullable|bail',
+                'date_to_filter' => 'date|nullable|bail',
+                'page' => 'integer|min:1|bail',
+                'sort_index' => 'integer|bail',
+                'sort_order' => 'in:asc,desc|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -306,8 +306,8 @@ class ManagerController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
-                'type' => 'required|integer',
+                'uid' => 'required|string|bail',
+                'type' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -400,9 +400,9 @@ class ManagerController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
-                'type' => 'required|integer',
-                'reason' => 'required|string',
+                'uid' => 'required|string|bail',
+                'type' => 'required|integer|bail',
+                'reason' => 'required|string|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -486,9 +486,11 @@ class ManagerController extends Controller
      */
     public function document(Request $request)
     {
-        $this->validate($request, [
-            'did' => 'required|string',
-        ]);
+        $this->validate(
+            $request, [
+                'did' => 'required|string|bail',
+            ]
+        );
 
         $document = Document::where('did', $request->did)->first();
 
@@ -516,8 +518,8 @@ class ManagerController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
-                'amount' => 'required|numeric'
+                'uid' => 'required|string|bail',
+                'amount' => 'required|numeric|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -601,8 +603,8 @@ class ManagerController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
-                'amount' => 'required|numeric'
+                'uid' => 'required|string|bail',
+                'amount' => 'required|numeric|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -686,9 +688,9 @@ class ManagerController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
-                'currency' => 'required|numeric',
-                'address' => 'string|nullable',
+                'uid' => 'required|string|bail',
+                'currency' => 'required|numeric|bail',
+                'address' => 'string|nullable|bail',
             ],
             ValidationMessages::getList(
                 [

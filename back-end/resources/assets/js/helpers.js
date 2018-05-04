@@ -84,7 +84,7 @@ window.showConfirmation = (confirmationMessage, onAccept, onReject) => {
                 elementParse: function (item) {
                     $(item.src).find('#confirmation-message').text(confirmationMessage);
 
-                    $(item.src).find('#accept_action').on('click', function (e) {
+                    $(item.src).find('#accept_action').off('click').on('click', function (e) {
                         e.preventDefault();
 
                         $.magnificPopup.close();
@@ -94,7 +94,7 @@ window.showConfirmation = (confirmationMessage, onAccept, onReject) => {
                         }
                     });
 
-                    $(item.src).find('#reject_action').on('click', function (e) {
+                    $(item.src).find('#reject_action').off('click').on('click', function (e) {
                         e.preventDefault();
 
                         $.magnificPopup.close();

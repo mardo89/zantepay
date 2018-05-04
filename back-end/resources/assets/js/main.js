@@ -125,7 +125,7 @@ $(document).ready(function () {
     //hide newsletter panel
     $(document).on('click', '.js-close-panel', function() {
         $(this).closest('.sticky-panel').removeClass('is-active');
-        setCookie('hideNewsletterPanel', 'true', {path: '/', expires: 60});
+        setCookie('hideNewsletterPanel', 'true', {path: '/', expires: 86400});
     });
 
     // Count down

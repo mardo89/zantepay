@@ -47,7 +47,7 @@ class UsersService
      */
     public static function getUserRole($userRole)
     {
-        return self::$userRoles[$userRole]['name'] ?? '';
+        return self::$userRoles[$userRole] ?? '';
     }
 
     /**

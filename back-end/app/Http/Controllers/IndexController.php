@@ -50,8 +50,8 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255',
-                'amount' => 'nullable|numeric'
+                'email' => 'required|email|max:255|bail',
+                'amount' => 'numeric|nullable|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -103,10 +103,10 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255|unique:investors',
-                'skype-id' => 'required|string|max:100|unique:investors,skype_id',
-                'first-name' => 'required|string|max:100',
-                'last-name' => 'required|string|max:100',
+                'email' => 'required|email|max:255|unique:investors|bail',
+                'skype-id' => 'required|string|max:100|unique:investors,skype_id|bail',
+                'first-name' => 'required|string|max:100|bail',
+                'last-name' => 'required|string|max:100|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -172,7 +172,7 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255',
+                'email' => 'required|email|max:255|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -417,9 +417,9 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'name' => 'required|alpha_num|max:255',
-                'email' => 'required|email|max:255',
-                'message' => 'required'
+                'name' => 'required|alpha_num|max:255|bail',
+                'email' => 'required|email|max:255|bail',
+                'message' => 'required|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -468,10 +468,10 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'subject' => 'required|string|max:50',
-                'name' => 'required|alpha_num|max:255',
-                'email' => 'required|string|email|max:255',
-                'question' => 'required'
+                'subject' => 'required|string|max:50|bail',
+                'name' => 'required|alpha_num|max:255|bail',
+                'email' => 'required|string|email|max:255|bail',
+                'question' => 'required|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -520,7 +520,7 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
+                'uid' => 'required|string|bail',
             ],
             ValidationMessages::getList(
                 [

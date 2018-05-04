@@ -38,8 +38,8 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
-                'role' => 'required|integer',
+                'uid' => 'required|string|bail',
+                'role' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -96,7 +96,7 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
+                'uid' => 'required|string|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -171,8 +171,8 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'address' => 'required|string',
-                'amount' => 'required|integer',
+                'address' => 'required|string|bail',
+                'amount' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -215,8 +215,8 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'address' => 'required|string',
-                'amount' => 'required|integer',
+                'address' => 'required|string|bail',
+                'amount' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -260,11 +260,11 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'part_filter' => 'string|nullable',
-                'status_filter' => 'array',
-                'page' => 'integer|min:1',
-                'sort_index' => 'integer',
-                'sort_order' => 'in:asc,desc',
+                'part_filter' => 'string|nullable|bail',
+                'status_filter' => 'array|bail',
+                'page' => 'integer|min:1|bail',
+                'sort_index' => 'integer|bail',
+                'sort_order' => 'in:asc,desc|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -323,11 +323,11 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'part_filter' => 'string|nullable',
-                'status_filter' => 'array',
-                'page' => 'integer|min:1',
-                'sort_index' => 'integer',
-                'sort_order' => 'in:asc,desc',
+                'part_filter' => 'string|nullable|bail',
+                'status_filter' => 'array|bail',
+                'page' => 'integer|min:1|bail',
+                'sort_index' => 'integer|bail',
+                'sort_order' => 'in:asc,desc|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -386,11 +386,11 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'part_filter' => 'string|nullable',
-                'status_filter' => 'array',
-                'page' => 'integer|min:1',
-                'sort_index' => 'integer',
-                'sort_order' => 'in:asc,desc',
+                'part_filter' => 'string|nullable|bail',
+                'status_filter' => 'array|bail',
+                'page' => 'integer|min:1|bail',
+                'sort_index' => 'integer|bail',
+                'sort_order' => 'in:asc,desc|bail',
             ],
             ValidationMessages::getList(
                 [

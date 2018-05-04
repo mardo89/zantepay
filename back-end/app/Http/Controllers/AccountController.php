@@ -33,9 +33,9 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6',
-                'password_confirmation' => 'required_with:password|same:password',
+                'email' => 'required|email|max:255|unique:users|bail',
+                'password' => 'required|string|min:6|max:32|bail',
+                'password_confirmation' => 'required_with:password|same:password|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -98,8 +98,8 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|email|max:255',
-                'password' => 'required'
+                'email' => 'required|email|max:255|bail',
+                'password' => 'required|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -182,7 +182,7 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255',
+                'email' => 'required|email|max:255|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -233,9 +233,9 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'token' => 'required|string',
-                'password' => 'required|string|min:6',
-                'password_confirmation' => 'required_with:password|same:password',
+                'token' => 'required|string|bail',
+                'password' => 'required|string|min:6|max:32|bail',
+                'password_confirmation' => 'required_with:password|same:password|bail',
             ],
             ValidationMessages::getList(
                 [
