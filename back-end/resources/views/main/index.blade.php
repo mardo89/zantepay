@@ -104,12 +104,12 @@
 
         @endif
 
-        <!-- <div class="hp-video-section container text-center">
-            <a href="https://www.youtube.com/watch?v=77rHG88rAb8" class="js-popup-video">
+        <div class="hp-video-section container text-center">
+            <a href="https://www.youtube.com/watch?v=7fuQrhaqXV8" class="js-popup-video">
                 <i class="fa fa-youtube-play"></i>
                 <img src="images/zantecoin-thumb.jpg" srcset="images/zantecoin-thumb@2x.jpg 2x" alt="What is ZANTECOIN?">
             </a>
-        </div> -->
+        </div>
 
     </header>
 
@@ -735,16 +735,6 @@
                     <div class="col-lg-4">
                         <a target="_blank" rel="nofollow" href="https://startupwiseguys.com/">
                             <img src="images/swg.png" srcset="images/swg@2x.png 2x" alt="StartupWiseGuys">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="http://www.financeestonia.eu/">
-                            <img src="images/finance_estonia.png" alt="finance estonia">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="https://e-resident.gov.ee/">
-                            <img src="images/e-residency.svg" alt="e-residency">
                         </a>
                     </div>
                     <div class="col-lg-4">
