@@ -33,6 +33,7 @@
                                     </li>
                                     <li><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
                                     <li><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube"></i></a></li>
+                                    <li><a target="_blank" href="https://www.linkedin.com/company/zantepay/"><i class="fa fa-linkedin"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -103,12 +104,12 @@
 
         @endif
 
-        <!-- <div class="hp-video-section container text-center">
-            <a href="https://www.youtube.com/watch?v=77rHG88rAb8" class="js-popup-video">
+        <div class="hp-video-section container text-center">
+            <a href="https://www.youtube.com/watch?v=7fuQrhaqXV8" class="js-popup-video">
                 <i class="fa fa-youtube-play"></i>
                 <img src="images/zantecoin-thumb.jpg" srcset="images/zantecoin-thumb@2x.jpg 2x" alt="What is ZANTECOIN?">
             </a>
-        </div> -->
+        </div>
 
     </header>
 
@@ -737,16 +738,6 @@
                         </a>
                     </div>
                     <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="http://www.financeestonia.eu/">
-                            <img src="images/finance_estonia.png" alt="finance estonia">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="https://e-resident.gov.ee/">
-                            <img src="images/e-residency.svg" alt="e-residency">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
                         <a target="_blank" rel="nofollow" href="https://www.home.neustar/">
                             <img src="images/neustar.svg" width="220" alt="neustar">
                         </a>
@@ -808,6 +799,10 @@
                     <div class="col-sm-3 col-6">
                         <h4><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA">YouTube</a></h4>
                         <a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube-play"></i></a></li>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.linkedin.com/company/zantepay/">LinkedIn</a></h4>
+                        <a target="_blank" href="https://www.linkedin.com/company/zantepay/"><i class="fa fa-linkedin"></i></a></li>
                     </div>
                 </div>
             </div>

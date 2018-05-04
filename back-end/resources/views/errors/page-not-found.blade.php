@@ -33,6 +33,7 @@
                                     </li>
                                     <li><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
                                     <li><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube"></i></a></li>
+                                    <li><a target="_blank" href="https://www.linkedin.com/company/zantepay/"><i class="fa fa-linkedin"></i></a></li>
                                 </ul>
                             </div>
                         </div>
