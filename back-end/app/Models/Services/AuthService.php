@@ -54,7 +54,7 @@ class AuthService
             throw new AuthException('Your account is closed');
         }
 
-        $activeUser = AccountsService::getActiveUser();
+        self::updateAuthToken($activeUser->id, $activeUser->email, $activeUser->password);
 
         return self::getHomePage($activeUser->role);
     }
@@ -109,6 +109,16 @@ class AuthService
     public static function logoutUser()
     {
         Auth::logout();
+    }
+
+    /**
+     * Update security token
+     *
+     * @param User $user
+     */
+    public static function updateAuthToken($userID, $userEmail, $userPassword)
+    {
+        Session::put('auth_token', bcrypt($userEmail . $userID . $userPassword));
     }
 
     /**

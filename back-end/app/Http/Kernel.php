@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
         'auth.manager' => \App\Http\Middleware\IsAuthenticatedManager::class,
         'protect.action' => \App\Http\Middleware\ProtectAction::class,
         'protect.login' => \App\Http\Middleware\ProtectLogin::class,
+        'protect.auth' => \App\Http\Middleware\ProtectAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,

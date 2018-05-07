@@ -246,6 +246,8 @@ class AccountsService
         ResetPasswordsService::removePasswordReset($user->email);
 
         MailService::sendChangePasswordEmail($user->email);
+
+        AuthService::updateAuthToken($user->id, $user->email, $user->password);
     }
 
     /**
@@ -265,6 +267,8 @@ class AccountsService
         }
 
         UsersService::changeUserPassword($user, $newPassword);
+
+        AuthService::updateAuthToken($user->id, $user->email, $user->password);
     }
 
     /**

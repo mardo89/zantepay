@@ -13,6 +13,7 @@ use App\Models\DB\Wallet;
 use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\AccountsService;
+use App\Models\Services\AuthService;
 use App\Models\Services\BonusesService;
 use App\Models\Services\InvitesService;
 use App\Models\Services\MailService;
@@ -47,6 +48,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('protect.auth');
     }
 
 
@@ -252,7 +254,11 @@ class UserController extends Controller
             $user->last_name = $request->last_name;
             $user->phone_number = $request->phone_number;
             $user->area_code = $request->area_code;
+            $user->need_relogin = 1;
             $user->save();
+
+            // Update Secret Token
+            AuthService::updateAuthToken($user->id, $user->email, $user->password);
 
             // Update profile
             $profile->country_id = $request->country;
@@ -786,9 +792,10 @@ class UserController extends Controller
         $ico = new Ico();
 
         $activeIcoPart = $ico->getActivePart();
+        $lastIcoPart = $ico->getIcoPartFour();
 
         $ethRate = optional($activeIcoPart)->getEthRate() ?? 0;
-        $endDate = optional($activeIcoPart)->getEndDate() ?? null;
+        $endDate = optional($lastIcoPart)->getEndDate() ?? null;
         $icoPartName = optional($activeIcoPart)->getName() ?? '';
 
         $userTransactions = [];
