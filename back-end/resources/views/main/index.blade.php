@@ -104,11 +104,14 @@
 
         @endif
 
-        <div class="hp-video-section container text-center">
-            <a href="https://www.youtube.com/watch?v=7fuQrhaqXV8" class="js-popup-video">
-                <i class="fa fa-youtube-play"></i>
-                <img src="images/zantecoin-thumb.jpg" srcset="images/zantecoin-thumb@2x.jpg 2x" alt="What is ZANTECOIN?">
-            </a>
+        <div class="hp-video-section container text-center white-content">
+            <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
+            <div>
+                <a href="https://www.youtube.com/watch?v=7fuQrhaqXV8" class="js-popup-video">
+                    <i class="fa fa-youtube-play"></i>
+                    <img src="images/zantecoin-thumb.jpg" srcset="images/zantecoin-thumb@2x.jpg 2x" alt="What is ZANTECOIN?">
+                </a>
+            </div>
         </div>
 
     </header>
@@ -118,21 +121,6 @@
 @section('main')
 
     <main class="main main-lp">
-        <section class="p-b-60 white-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <img src="images/zantepay-devices.png" srcset="images/zantepay-devices@2x.png 2x" alt="What is ZANTEPAY">
-                    </div>
-                    <div class="col-md-4 vertical-middle-col">
-                        <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
-                        <p>ZANTEPAY is a cryptocurrency multiwallet with a debit card. It allows you to spend your digital assets anytime,
-                            anywhere.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">
