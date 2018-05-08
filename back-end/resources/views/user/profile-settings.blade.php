@@ -27,7 +27,7 @@
                         </h2>
                         <div class="row">
                             <div class="col-md-6">
-                                @if($verification->id_documents_status == \App\Models\DB\Verification::DOCUMENTS_NOT_UPLOADED)
+                                @if(!$verification['id']['isDocumentsUploaded'])
                                     <div>Your passport / ID / driver’s license:</div>
 
                                     <form id="upload-identity-documents">
@@ -52,11 +52,11 @@
                                 @else
                                     <div class="headline-subline headline-mb">
                                         ID proof documents:
-                                        <span>{{ count($idDocuments) }} file uploaded | {{ $verification->idStatus }}</span>
+                                        <span>{{ count($idDocuments) }} file uploaded | {{ $verification['id']['statusName'] }}</span>
                                     </div>
                                     <ul class="files-list">
                                         @foreach($idDocuments as $document)
-                                            <li id="{{ $document['did'] }}">
+                                            <li id="{{ $document['id'] }}">
                                                 <i class="file-ico"></i>
                                                 <div class="file-name">{{ $document['name'] }}</div>
                                                 <a href="" class="cross-ico remove-document">×</a>
@@ -68,7 +68,7 @@
 
 
                             <div class="col-md-6">
-                                @if($verification->address_documents_status == \App\Models\DB\Verification::DOCUMENTS_NOT_UPLOADED)
+                                @if(!$verification['address']['isDocumentsUploaded'])
                                     <div>Your address proof documents:</div>
 
                                     <form id="upload-address-documents">
@@ -93,11 +93,11 @@
                                 @else
                                     <div class="headline-subline headline-mb">
                                         Address proof document:
-                                        <span>{{ count($addressDocuments) }} file uploaded | {{ $verification->addressStatus }}</span>
+                                        <span>{{ count($addressDocuments) }} file uploaded | {{ $verification['address']['statusName'] }}</span>
                                     </div>
                                     <ul class="files-list">
                                         @foreach($addressDocuments as $document)
-                                            <li id="{{ $document['did'] }}">
+                                            <li id="{{ $document['id'] }}">
                                                 <i class="file-ico"></i>
                                                 <div class="file-name">{{ $document['name'] }}</div>
                                                 <a href="" class="cross-ico remove-document">×</a>

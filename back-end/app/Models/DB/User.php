@@ -199,6 +199,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is Admin
+     *
+     * @return boolean
+     */
+    public function isAdmin() {
+        return $this->role == self::USER_ROLE_ADMIN;
+    }
+
+    /**
      * Automaticaly bcrypt password field
      *
      * @param $value

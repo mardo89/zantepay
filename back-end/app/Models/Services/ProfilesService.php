@@ -46,13 +46,8 @@ class ProfilesService
     public static function getInfo($userUID)
     {
         $user = AccountsService::getUserByID($userUID);
-        $profile = self::getProfile($user);
 
-        $profile->passportExpDate = self::convertDate($profile->passport_expiration_date);
-        $profile->birthDate = self::convertDate($profile->birth_date);
-        $profile->countryName = CountriesService::findCountry($profile->country_id);
-        $profile->stateName = CountriesService::findState($profile->state_id);
-        $profile->birthCountryName = CountriesService::findCountry($profile->birth_country_id);
+        $profile = self::getProfileInfo($user);
 
         $verification = DocumentsService::getVerificationInfo($user);
         $documents = DocumentsService::getUserDocuments($user->id);
@@ -88,6 +83,74 @@ class ProfilesService
         ];
     }
 
+    /**
+     * Get info about user's profile
+     *
+     * @param User $user
+     *
+     * @return Profile
+     * @throws
+     */
+    public static function getProfileInfo($user)
+    {
+        $profile = self::getProfile($user);
+
+        $profile->passportExpDate = self::convertDate($profile->passport_expiration_date);
+        $profile->birthDate = self::convertDate($profile->birth_date);
+        $profile->countryName = CountriesService::findCountry($profile->country_id);
+        $profile->stateName = CountriesService::findState($profile->state_id);
+        $profile->birthCountryName = CountriesService::findCountry($profile->birth_country_id);
+
+
+        return $profile;
+    }
+
+    /**
+     * Get info about user's profile settings
+     *
+     * @param User $user
+     *
+     * @return array
+     * @throws
+     */
+    public static function getProfileSettingsInfo($user)
+    {
+        $verification = DocumentsService::getVerificationInfo($user);
+
+        $documents = DocumentsService::getUserDocuments($user->id);
+        $documentsTypes = DocumentsService::getDocumentTypeID();
+
+        return [
+            'verification' => $verification,
+            'documents' => $documents,
+            'documentTypes' => $documentsTypes,
+        ];
+    }
+
+    /**
+     * Add ZNX from ICO pull
+     *
+     * @param User $user
+     * @param array $newProfile
+     *
+     * @throws
+     */
+    public static function updateProfile($user, $newProfile)
+    {
+        $profile = self::getProfile($user);
+
+        $profile->country_id = $newProfile['country'];
+        $profile->state_id = $newProfile['state'];
+        $profile->city = $newProfile['city'];
+        $profile->address = $newProfile['address'];
+        $profile->post_code = $newProfile['postcode'];
+        $profile->passport_id = $newProfile['passport'];
+        $profile->passport_expiration_date = date('Y-m-d H:i:s', strtotime($newProfile['expiration_date']));
+        $profile->birth_date = date('Y-m-d H:i:s', strtotime($newProfile['birth_date']));
+        $profile->birth_country_id = $newProfile['birth_country'];
+
+        $profile->save();
+    }
 
     /**
      * Add ZNX from ICO pull

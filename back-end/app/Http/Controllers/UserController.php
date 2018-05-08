@@ -16,8 +16,10 @@ use App\Models\Services\AccountsService;
 use App\Models\Services\AuthService;
 use App\Models\Services\BonusesService;
 use App\Models\Services\CountriesService;
+use App\Models\Services\DocumentsService;
 use App\Models\Services\InvitesService;
 use App\Models\Services\MailService;
+use App\Models\Services\ProfilesService;
 use App\Models\Services\RegistrationsService;
 use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
@@ -92,11 +94,7 @@ class UserController extends Controller
 
         try {
 
-            $user = AccountsService::getActiveUser();
-
-            UsersService::changeUserStatus($user, User::USER_STATUS_NOT_VERIFIED);
-
-            MailService::sendWelcomeEmail($user->email);
+            AccountsService::acceptTerms();
 
         } catch (\Exception $e) {
 
@@ -128,27 +126,19 @@ class UserController extends Controller
     public function profile()
     {
         // User
-        $user = Auth::user();
+        $user = AccountsService::getActiveUser();
 
         // Profile
-        $profile = $user->profile;
-
-        $profile->passportExpDate = is_null($profile->passport_expiration_date)
-            ? date('m/d/Y')
-            : date('m/d/Y', strtotime($profile->passport_expiration_date));
-
-        $profile->birthDate = is_null($profile->birth_date)
-            ? date('m/d/Y')
-            : date('m/d/Y', strtotime($profile->birth_date));
+        $profile = ProfilesService::getProfileInfo($user);
 
         // Countries List
-        $countries = Country::getCountriesList();
+        $countries = CountriesService::getCountries();;
 
         // States List
-        $states = State::getStatesList($profile->country_id);
+        $states = CountriesService::getCountryStates($profile->country_id);
 
         // Area Codes List
-        $codes = AreaCode::getCodesList($profile->country_id);
+        $codes = CountriesService::getCountryCodes($profile->country_id);
 
         return view(
             'user.profile',
@@ -172,7 +162,7 @@ class UserController extends Controller
      */
     public function saveProfile(Request $request)
     {
-        $user = Auth::user();
+        $user = AccountsService::getActiveUser();
 
         $this->validate(
             $request,
@@ -236,41 +226,34 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-            $profile = Profile::where('user_id', $user->id)->first();
-
-            if (!$profile) {
-                return response()->json(
-                    [
-                        'message' => 'Error updating profile',
-                        'errors' => []
-                    ],
-                    500
-                );
-            }
 
             // Update user main info
-            $user->email = $request->email;
-            $user->first_name = $request->first_name;
-            $user->last_name = $request->last_name;
-            $user->phone_number = $request->phone_number;
-            $user->area_code = $request->area_code;
-            $user->need_relogin = 1;
-            $user->save();
-
-            // Update Secret Token
-            AuthService::updateAuthToken($user->id, $user->email, $user->password);
+            UsersService::updateUser(
+                $user,
+                [
+                    'email' => $request->email,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'phone_number' => $request->phone_number,
+                    'area_code' => $request->area_code,
+                ]
+            );
 
             // Update profile
-            $profile->country_id = $request->country;
-            $profile->state_id = $request->state;
-            $profile->city = $request->city;
-            $profile->address = $request->address;
-            $profile->post_code = $request->postcode;
-            $profile->passport_id = $request->passport;
-            $profile->passport_expiration_date = date('Y-m-d H:i:s', strtotime($request->expiration_date));
-            $profile->birth_date = date('Y-m-d H:i:s', strtotime($request->birth_date));
-            $profile->birth_country_id = $request->birth_country;
-            $profile->save();
+            ProfilesService::updateProfile(
+                $user,
+                [
+                    'country' => $request->country,
+                    'state' => $request->state,
+                    'city' => $request->city,
+                    'address' => $request->address,
+                    'postcode' => $request->postcode,
+                    'passport' => $request->passport,
+                    'expiration_date' => date('Y-m-d H:i:s', strtotime($request->expiration_date)),
+                    'birth_date' => date('Y-m-d H:i:s', strtotime($request->birth_date)),
+                    'birth_country' => $request->birth_country,
+                ]
+            );
 
         } catch (\Exception $e) {
 
@@ -292,6 +275,7 @@ class UserController extends Controller
             []
         );
     }
+
 
     /**
      * Close user profile
@@ -338,45 +322,22 @@ class UserController extends Controller
     public function profileSettings()
     {
         // User
-        $user = Auth::user();
+        $user = AccountsService::getActiveUser();
+
         $user->accountVerified = $user->status == User::USER_STATUS_VERIFIED;
 
-        // Verification
-        $verification = $user->verification;
-        $verification->idStatus = Verification::getStatus($verification->id_documents_status);
-        $verification->addressStatus = Verification::getStatus($verification->address_documents_status);
+        $profile = ProfilesService::getProfileInfo($user);
 
-        // Documents
-        $userIDDocuments = [];
-        $userAddressDocuments = [];
-
-        $documents = Document::where('user_id', $user->id)->get();
-
-        foreach ($documents as $document) {
-            if ($document->document_type === Document::DOCUMENT_TYPE_IDENTITY) {
-                $userIDDocuments[] = [
-                    'did' => $document->did,
-                    'name' => basename($document->file_path)
-                ];
-            } else {
-                $userAddressDocuments[] = [
-                    'did' => $document->did,
-                    'name' => basename($document->file_path)
-                ];
-            }
-        }
-
-        // Wallet
-        $profile = $user->profile;
+        $profileSettings = ProfilesService::getProfileSettingsInfo($user);
 
         return view(
             'user.profile-settings',
             [
                 'user' => $user,
-                'verification' => $verification,
-                'idDocuments' => $userIDDocuments,
-                'addressDocuments' => $userAddressDocuments,
                 'profile' => $profile,
+                'verification' => $profileSettings['verification'],
+                'idDocuments' => $profileSettings['documents']['idDocuments'],
+                'addressDocuments' => $profileSettings['documents']['addressDocuments'],
             ]
         );
     }
@@ -394,54 +355,9 @@ class UserController extends Controller
 
         try {
 
-            $user = Auth::user();
+            $user = AccountsService::getActiveUser();
 
-            $document = Document::where('did', $request->did)->where('user_id', $user->id)->first();
-
-            if (!$document) {
-                return response()->json(
-                    [
-                        'message' => 'File not found',
-                        'errors' => []
-                    ],
-                    422
-                );
-            }
-
-            if (Storage::exists($document->file_path)) {
-                Storage::delete($document->file_path);
-            }
-
-            Document::destroy($document->id);
-
-            // Verification
-            $verification = $user->verification;
-
-            $idDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY);
-
-            if ($idDocuments->count() === 0) {
-                $verification->id_documents_status = Verification::DOCUMENTS_NOT_UPLOADED;
-                $verification->id_decline_reason = '';
-            }
-
-            $addressDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS);
-
-            if ($addressDocuments->count() === 0) {
-                $verification->address_documents_status = Verification::DOCUMENTS_NOT_UPLOADED;
-                $verification->address_decline_reason = '';
-            }
-
-            $verification->save();
-
-            // Change user status
-            if ($verification->id_documents_status == Verification::DOCUMENTS_APPROVED) {
-                UsersService::changeUserStatus($user, User::USER_STATUS_IDENTITY_VERIFIED);
-            } elseif ($verification->address_documents_status == Verification::DOCUMENTS_APPROVED) {
-                UsersService::changeUserStatus($user, User::USER_STATUS_ADDRESS_VERIFIED);
-            } else {
-                UsersService::changeUserStatus($user, User::USER_STATUS_NOT_VERIFIED);
-            }
-
+            DocumentsService::removeUserDocument($user, $request->did);
 
         } catch (\Exception $e) {
 
@@ -454,7 +370,6 @@ class UserController extends Controller
             );
 
         }
-
 
         return response()->json(
             []
@@ -490,7 +405,9 @@ class UserController extends Controller
 
         try {
 
-            $this->uploadIdentityFiles($request);
+            $user = AccountsService::getActiveUser();
+
+            DocumentsService::uploadIdentityFiles($user, $request);
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -546,7 +463,10 @@ class UserController extends Controller
 
         try {
 
-            $this->uploadAddressFiles($request);
+            $user = AccountsService::getActiveUser();
+
+            DocumentsService::uploadAddressFiles($user, $request);
+
 
         } catch (\Exception $e) {
 

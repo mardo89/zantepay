@@ -188,6 +188,18 @@ class AccountsService
     }
 
     /**
+     *  Accept terms and conditions
+     */
+    public static function acceptTerms()
+    {
+        $user = self::getActiveUser();
+
+        UsersService::changeUserStatus($user, User::USER_STATUS_NOT_VERIFIED);
+
+        MailService::sendWelcomeEmail($user->email);
+    }
+
+    /**
      * Close Account
      *
      * @throws

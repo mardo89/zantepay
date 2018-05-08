@@ -16,7 +16,21 @@ class CountriesService
      */
     public static function getCountries()
     {
-        return Country::all();
+        $countriesList = [];
+
+        foreach (Country::all() as $country) {
+            $countriesList[] = [
+                'id' => (int)$country->id,
+                'name' => $country->name
+            ];
+        }
+
+        $countriesList[] = [
+            'id' => 0,
+            'name' => 'Other country'
+        ];
+
+        return $countriesList;
     }
 
     /**
