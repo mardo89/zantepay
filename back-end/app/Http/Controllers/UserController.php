@@ -14,8 +14,10 @@ use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\AccountsService;
 use App\Models\Services\BonusesService;
+use App\Models\Services\CountriesService;
 use App\Models\Services\InvitesService;
 use App\Models\Services\MailService;
+use App\Models\Services\RegistrationsService;
 use App\Models\Services\UsersService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
@@ -66,10 +68,8 @@ class UserController extends Controller
             ]
         );
 
-        $country = $request->input('country');
-
-        $states = State::getStatesList($country);
-        $codes = AreaCode::getCodesList($country);
+        $states = CountriesService::getCountryStates($request->country);
+        $codes = CountriesService::getCountryCodes($request->country);
 
         return response()->json(
             [

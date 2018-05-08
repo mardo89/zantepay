@@ -3,6 +3,7 @@
 namespace App\Models\Services;
 
 
+use App\Models\DB\AreaCode;
 use App\Models\DB\Country;
 use App\Models\DB\State;
 
@@ -45,11 +46,31 @@ class CountriesService
     /**
      * Get States list for Country
      *
+     * @param int $countryID
+     *
      * @return array
      */
     public static function getCountryStates($countryID)
     {
-        return State::where('country_id', $countryID)->get();
+        $statesList = [];
+
+        $states = State::where('country_id', $countryID)->orderBy('name', 'asc')->get();
+
+        if (!is_null($states)) {
+            foreach ($states as $state) {
+                $statesList[] = [
+                    'id' => (int)$state->id,
+                    'name' => $state->name
+                ];
+            }
+        }
+
+        $statesList[] = [
+            'id' => 0,
+            'name' => 'Other state'
+        ];
+
+        return $statesList;
     }
 
     /**
@@ -64,6 +85,36 @@ class CountriesService
         $state = State::find($stateID);
 
         return !is_null($state) ? $state->name : '';
+    }
+
+    /**
+     * Get Codes list for Country
+     *
+     * @param int $countryID
+     *
+     * @return array
+     */
+    public static function getCountryCodes($countryID)
+    {
+        $codesList = [];
+
+        $areaCodes = AreaCode::where('country_id', $countryID)->orderBy('area_name', 'ASC')->get();
+
+        if (!is_null($areaCodes)) {
+            foreach ($areaCodes as $areaCode) {
+                $codesList[] = [
+                    'id' => (int)$areaCode->id,
+                    'code' => sprintf('(%s) %s %s', $areaCode->country_code, $areaCode->area_code, $areaCode->area_name)
+                ];
+            }
+        }
+
+        $codesList[] = [
+            'id' => 0,
+            'code' => 'Other code'
+        ];
+
+        return $codesList;
     }
 
 }
