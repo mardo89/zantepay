@@ -29,12 +29,12 @@
   min-height calc(100vh - 88px)
 
 .dashboard-left
-  width 50%
+  max-width 50%
   flex 0 0 50%
   padding-right 35px
   position relative
   @media screen and (max-width: 991px)
-    width 100%
+    max-width 100%
     flex 0 0 100%
     padding 0
     margin-bottom 50px
@@ -50,22 +50,22 @@
       display none
 
 .dashboard-left-wrap
-  width 65%
+  max-width 65%
   flex 0 0 65%
   position relative
   padding 50px 0 100px
   @media screen and (max-width: 991px)
-    width 100%
+    max-width 100%
     flex 0 0 100%
     padding 50px 0 0
 
 .dashboard-right
-  width 50%
+  max-width 50%
   flex: 0 0 50%
   padding-left 30px
   position relative
   @media screen and (max-width: 991px)
-    width 100%
+    max-width 100%
     flex 0 0 100%
     padding 0
   &:before
@@ -80,7 +80,7 @@
       display none
 
 .dashboard-right-wrap
-  width 35%
+  max-width 35%
   flex 0 0 35%
   padding 50px 0 100px 60px
   position relative
@@ -88,7 +88,7 @@
   background #f5f5f5
   border-left 1px solid #cfcfcf
   @media screen and (max-width: 991px)
-    width 100%
+    max-width 100%
     flex 0 0 100%
     padding 50px 0 100px
     border-left none
@@ -516,3 +516,66 @@
   position absolute
   bottom 30px
   right 35px
+
+.main-f-height
+  position absolute
+  left 0
+  right 0
+  top 50%
+  transform translateY(-50%)
+  @media (max-height: 650px)
+    position static
+    transform none
+    margin-top -80px
+    padding-bottom 150px
+
+.spin-logo
+  margin-bottom 45px
+  img
+    animation spin 2s infinite linear
+
+.maintenance-group
+  max-width 640px
+  margin auto
+  .h2
+    margin-bottom 35px
+  .btn
+    margin-top 35px
+
+.sticky-panel
+  position fixed
+  right 0
+  top 170px
+  width 240px
+  padding 15px 25px
+  padding-left 50px
+  background $primary-color
+  z-index 500
+  color #fff
+  transition transform .4s
+  transform translateX(100%)
+  opacity 0
+  visibility hidden
+  @media (max-width: 991px)
+    top 230px
+    position absolute
+  @media (max-width: 767px)
+    top 250px
+  @media (max-width: 410px)
+    top 300px
+  &.is-active
+    transform translateX(0)
+    opacity 1
+    visibility visible
+  a
+    color inherit
+    outline none
+  .fa
+    position absolute
+    left 20px
+    top 50%
+    text-decoration none
+    transform translateY(-50%)
+
+.sticky-panel__text
+  display inline-block

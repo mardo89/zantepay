@@ -10,6 +10,7 @@ class ValidationMessages
      */
     private static $defaultMessages = [
         'required' => 'The %s field is required',
+        'required_with' => 'The %s field is required',
         'string' => 'The %s field must be a string',
         'alpha_num' => 'The %s field may contain only letters and numbers',
         'email' => 'The %s field must contain correct email',
@@ -27,6 +28,7 @@ class ValidationMessages
         'before_or_equal' => 'The %s field is out of date',
         'after_or_equal' => 'The %s field is out of date',
         'different' => 'The %s field must be different',
+        'same' => 'The %s field must be same',
     ];
 
     /**

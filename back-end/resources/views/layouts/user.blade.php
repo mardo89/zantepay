@@ -108,7 +108,7 @@
             <form id="frm_protection">
 
                 <div class="logon-modal-text">
-                    <p>This operation needs additional protection. Please provide secret key you received by email.</p>
+                    <p>Please use the secret token from your email to confirm this operation.</p>
                 </div>
 
                 <div class="logon-group">
@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="logon-submit">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Confirm">
                 </div>
 
             </form>
@@ -134,68 +134,6 @@
 <script src="/js/components/jquery.countdown.min.js"></script>
 
 @yield('scripts')
-
-<!-- Jivosite -->
-<script type='text/javascript'>
-    (function () {
-        var widget_id = 'v9Bhvg9GGa';
-        var d = document;
-        var w = window;
-
-        function l() {
-            var s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.async = true;
-            s.src = '//code.jivosite.com/script/widget/' + widget_id;
-            var ss = document.getElementsByTagName('script')[0];
-            ss.parentNode.insertBefore(s, ss);
-        }
-
-        if (d.readyState == 'complete') {
-            l();
-        } else {
-            if (w.attachEvent) {
-                w.attachEvent('onload', l);
-            } else {
-                w.addEventListener('load', l, false);
-            }
-        }
-    })();
-</script>
-
-<!-- Sumo -->
-{{--<script src="//load.sumome.com/" data-sumo-site-id="1b320c3e8fabe2b7fc8de8f8f6a818fc6abdb6eb272f1b25fe8ca580f0bbf5f4"--}}
-{{--async="async"></script>--}}
-
-<!-- Useproof -->
-<script id=proof-script>!function () {
-        function b() {
-            var a = (new Date).getTime(), b = document.createElement('script');
-            b.type = 'text/javascript', b.async = !0, b.src = 'https://cdn.getmoreproof.com/embed/latest/proof.js?' + a;
-            var c = document.getElementsByTagName('script')[0];
-            c.parentNode.insertBefore(b, c)
-        }
-
-        var a = window;
-        a.attachEvent ? a.attachEvent('onload', b) : a.addEventListener('load', b, !1), window.proof_config = {
-            acc: 'zUljMP8UW6TQiskC506GpuxFCSv2',
-            v: '1.1'
-        }
-    }()</script>
-
-<!-- McAfee Kibo -->
-<script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110056018-1"></script>
-<script> window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-    gtag('config', 'UA-110056018-1');</script>
 
 </body>
 

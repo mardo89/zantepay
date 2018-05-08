@@ -50,8 +50,8 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255',
-                'amount' => 'nullable|numeric'
+                'email' => 'required|email|max:255|bail',
+                'amount' => 'numeric|nullable|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -103,10 +103,10 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255|unique:investors',
-                'skype-id' => 'required|string|max:100|unique:investors,skype_id',
-                'first-name' => 'required|string|max:100',
-                'last-name' => 'required|string|max:100',
+                'email' => 'required|email|max:255|unique:investors|bail',
+                'skype-id' => 'required|string|max:100|unique:investors,skype_id|bail',
+                'first-name' => 'required|string|max:100|bail',
+                'last-name' => 'required|string|max:100|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -161,27 +161,56 @@ class IndexController extends Controller
     }
 
     /**
-     * Confirm user activation
+     * Save user in news letters
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return View
      */
-    public function confirmActivation(Request $request)
+    public function saveNewsLetter(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|email|max:255|bail',
+            ],
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                ]
+            )
+        );
+
+
+        DB::beginTransaction();
+
         try {
 
-            $user = AccountsService::getUserByID($request->uid);
+            $email = $request->input('email');
 
-            UsersService::changeUserStatus($user, User::USER_STATUS_PENDING);
+            RegistrationsService::joinToNewsLetter($email);
 
         } catch (\Exception $e) {
 
-            return redirect('/');
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Registration failed',
+                    'errors' => [
+                        'email' => 'Registration failed'
+                    ]
+                ],
+                422
+            );
 
         }
 
-        return view('main.confirm-email');
+        DB::commit();
+
+        return response()->json(
+            []
+        );
     }
 
     /**
@@ -362,6 +391,21 @@ class IndexController extends Controller
     }
 
     /**
+     * Mobile App page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function mobileApp()
+    {
+        return view(
+            'main.mobile-app',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
      * Send contact us email
      *
      * @param Request $request
@@ -373,9 +417,9 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'name' => 'required|alpha_num|max:255',
-                'email' => 'required|email|max:255',
-                'message' => 'required'
+                'name' => 'required|alpha_num|max:255|bail',
+                'email' => 'required|email|max:255|bail',
+                'message' => 'required|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -424,10 +468,10 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'subject' => 'required|string|max:50',
-                'name' => 'required|alpha_num|max:255',
-                'email' => 'required|string|email|max:255',
-                'question' => 'required'
+                'subject' => 'required|string|max:50|bail',
+                'name' => 'required|alpha_num|max:255|bail',
+                'email' => 'required|string|email|max:255|bail',
+                'question' => 'required|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -476,7 +520,7 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
+                'uid' => 'required|string|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -506,6 +550,55 @@ class IndexController extends Controller
         return response()->json(
             []
         );
+    }
+
+    /**
+     * Confirm user activation
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function confirmActivation(Request $request)
+    {
+        try {
+
+            AccountsService::activateAccount($request->uid);
+
+        } catch (\Exception $e) {
+
+            return redirect('/');
+
+        }
+
+        return view('main.confirm-email');
+    }
+
+    /**
+     * Check if referrer exist and store him to the Session
+     *
+     * @param string $referrer
+     */
+    protected function checkReferrer($referrer)
+    {
+        if (!is_null($referrer)) {
+            $user = User::where('uid', $referrer)->first();
+
+            if (!is_null($user)) {
+                Session::put('referrer', $user->id);
+            }
+        }
+    }
+
+    /**
+     * Check external redirect
+     *
+     */
+    protected function checkExternals()
+    {
+        $externalLink = $_SERVER['HTTP_REFERER'] ?? '';
+
+        Session::put('externalLink', $externalLink);
     }
 
 }

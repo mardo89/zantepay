@@ -132,21 +132,21 @@
                             <li>
                                 <a href="{{$menuPrefix}}#updates">Updates</a>
                             </li>
-
-                            <!-- <li>
-                                <a href="">Development</a>
-                                <ul>
-                                    <li><a href="">Wallet Beta</a></li>
-                                    <li><a href="">App Beta</a></li>
-                                    <li><a href="">Development roadmap</a></li>
-                                </ul>
-                            </li> -->
                             <li>
                                 <a href="{{$menuPrefix}}#channels">Channels</a>
                             </li>
                             <li>
                                 <a href="/faq">FAQ</a>
                             </li>
+                            <li class="m-dropdown">
+                                <a href="javascript:void();">Development</a>
+                                <ul>
+                                    <!-- <li><a href="">Wallet Beta</a></li> -->
+                                    <li><a href="/mobile-app">ZANTEPAY Wallet alfa</a></li>
+                                    <!-- <li><a href="">Development roadmap</a></li> -->
+                                </ul>
+                            </li>
+                            <li><a href="{{$menuPrefix}}#contacts">Contacts</a></li>
                         </ul>
                     </nav>
 
@@ -192,7 +192,7 @@
                     <input id="signin_email" class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="logon-group">
-                    <input id="signin_pwd" class="logon-field" name="password" placeholder="Password" onfocus="this.type='password'">
+                    <input id="signin_pwd" class="logon-field" name="password" placeholder="Password" type="password">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
@@ -247,10 +247,10 @@
                     <input class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" name="password" placeholder="Password" onfocus="this.type='password'">
+                    <input class="logon-field" name="password" placeholder="Password" type="password">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" name="confirm-password" placeholder="Confirm Password" onfocus="this.type='password'">
+                    <input class="logon-field" name="password_confirmation" placeholder="Confirm Password" type="password">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">
@@ -274,11 +274,35 @@
         </div>
     </div>
 
+    <!-- Join our newsletter panel -->
+    <div class="sticky-panel newsletter-panel">
+        <a href="javascript:void(0)" class="fa fa-close js-close-panel" title="Close"></a>
+        <a href="#newsletter-modal" class="js-popup-link sticky-panel__text">Join our newsletter</a>
+    </div>
+
+    <!-- join our newsletter -->
+    <div class="logon-modal logon-modal--400 mfp-hide" id="newsletter-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4 text-uppercase">Join our newsletter</h3>
+            <div class="logon-modal-text">
+                <p>Join our newsletter and get a chance to <br> <b>win a bonus in ZNX equal to</b></p>
+                <p class="primary-color" style="font-size: 60px;line-height: 1;margin-top: -10px;"><b>€ 300</b></p>
+            </div>
+            <form id="frm_newsletter">
+                <div class="logon-group mb-30">
+                    <input class="input-field text-center" type="email" name="email" placeholder="Your email">
+                </div>
+                <input class="btn btn--shadowed-light btn--200" type="submit" value="Subscribe">
+            </form>
+        </div>
+    </div>
+
 @show
 
 
 <!-- JS scripts -->
 <script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/mobile_app.js"></script>
 <script src="/js/components/particles.min.js"></script>
 <script src="/js/components/jquery.magnific-popup.min.js"></script>
 <script src="/js/components/circle-progress.min.js"></script>

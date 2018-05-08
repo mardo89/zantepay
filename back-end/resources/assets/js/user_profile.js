@@ -130,6 +130,78 @@ $(document).ready(function () {
             )
     });
 
+    $('#frm_close_account').on('submit', function (event) {
+        event.preventDefault();
+
+        const confirmed = $(this).find('input[name="close-account-confirm"]').prop('checked');
+
+        if (!confirmed) {
+            showError('You have to confirm the closing of account by clicking the checkbox.');
+            return false;
+        }
+
+        const credentials = processProtectionRequest(
+            'Close Account',
+            {}
+        );
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        axios.post(
+            '/user/close-account',
+            qs.stringify(credentials)
+        )
+            .then(
+                response => {
+
+                    hideSpinner(button);
+
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('submit');
+                        },
+                        () => {
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#close-account-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        close: function close() {
+                                            window.location.reload();
+                                        }
+                                    }
+                                }
+                            );
+                        }
+                    );
+
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    if (error.response.status == 422) {
+
+                        $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').parent().addClass('form-error');
+
+                        scrollToError();
+
+                    } else {
+                        showError(message)
+                    }
+                }
+            )
+    });
+
 });
 
 

@@ -16,6 +16,7 @@ class ServiceController extends Controller
     public function __construct()
     {
         $this->middleware('auth.admin');
+        $this->middleware('protect.auth');
     }
 
     /**
@@ -47,11 +48,11 @@ class ServiceController extends Controller
         $this->validate(
             $request,
             [
-                'status_filter' => 'array',
-                'type_filter' => 'array',
-                'page' => 'integer|min:1',
-                'sort_index' => 'integer',
-                'sort_order' => 'in:asc,desc',
+                'status_filter' => 'array|bail',
+                'type_filter' => 'array|bail',
+                'page' => 'integer|min:1|bail',
+                'sort_index' => 'integer|bail',
+                'sort_order' => 'in:asc,desc|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -109,7 +110,7 @@ class ServiceController extends Controller
         $this->validate(
             $request,
             [
-                'id' => 'integer|required',
+                'id' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
                 [

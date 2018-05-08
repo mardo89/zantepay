@@ -31,7 +31,11 @@
                             </div>
                             <div class="col-sm-6">
                                 <p>Pre-order bonus tokens received: <br> 500 ZNX (locked)</p>
-                                <p><a href="/user/profile-settings">Verify account</a> to unlock bonus!!</p>
+                                <h3 class="h5">Terms:</h3>
+                                <ol>
+                                    <li><a href="/user/profile-settings">Verify account</a> to unlock bonus!!</li>
+                                    <li>Make a deposit to ZANTEPAY wallet or buy ZNX tokens from ICO to unlock your bonus. Bonus tokens will be available after ICO.</li>
+                                </ol>
                             </div>
                         </div>
                     </div>

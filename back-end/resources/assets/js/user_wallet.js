@@ -1,5 +1,165 @@
 require('./helpers');
 
+const transferEth = transferButton => {
+
+    const button = transferButton;
+    showSpinner(button);
+    clearErrors();
+
+    const transfer = processProtectionRequest(
+        'Transfer ETH to ZNX',
+        {
+            eth_amount: $('input[name="transfer_eth_amount"]').val()
+        }
+    );
+
+    axios.post(
+        '/user/wallet/transfer-eth',
+        qs.stringify(transfer)
+    )
+        .then(
+            response => {
+
+                hideSpinner(button);
+
+                processProtectionResponse(
+                    response.status,
+                    () => {
+                        transferEth(transferButton);
+                    },
+                    () => {
+                        $('input[name="transfer_eth_amount"]').val('');
+
+                        $('#available_znx_amount').text(response.data.total);
+
+                        $.magnificPopup.open(
+                            {
+                                items: {
+                                    src: '#transfer-modal'
+                                },
+                                type: 'inline',
+                                closeOnBgClick: true,
+                                callbacks: {
+                                    close: function () {
+                                        window.location.reload();
+                                    },
+
+                                    elementParse: function (item) {
+                                        $(item.src).find('#znx_balance').text(response.data.balance);
+                                    }
+                                }
+                            }
+                        );
+                    }
+                );
+
+            }
+        )
+        .catch(
+            error => {
+                hideSpinner(button);
+
+                const {message, errors} = error.response.data;
+
+                if (error.response.status == 422) {
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('input[name="transfer_' + field + '"]').parent().addClass('form-error');
+                            $('input[name="transfer_' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+
+                    scrollToError();
+
+                } else {
+                    showError(message);
+                }
+            }
+        )
+
+}
+
+const withdrawEth = withdrawButton => {
+
+    const button = withdrawButton;
+    showSpinner(button);
+    clearErrors();
+
+    const withdraw = processProtectionRequest(
+        'Withdraw ETH',
+        {
+            address: $('input[name="withdraw_address"]').val()
+        }
+    );
+
+    axios.post(
+        '/user/wallet/withdraw-eth',
+        qs.stringify(withdraw)
+    )
+        .then(
+            response => {
+
+                hideSpinner(button);
+
+                processProtectionResponse(
+                    response.status,
+                    () => {
+                        withdrawEth(withdrawButton);
+                    },
+                    () => {
+                        $('input[name="withdraw_address"]').val('');
+
+                        $.magnificPopup.open(
+                            {
+                                items: {
+                                    src: '#withdraw-modal'
+                                },
+                                type: 'inline',
+                                closeOnBgClick: true,
+                                callbacks: {
+                                    close: function () {
+                                        window.location.reload();
+                                    }
+                                }
+                            }
+                        );
+                    }
+                );
+
+            }
+        )
+        .catch(
+            error => {
+                hideSpinner(button);
+
+                const {message, errors} = error.response.data;
+
+                if (error.response.status == 422) {
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('input[name="withdraw_' + field + '"]').parent().addClass('form-error');
+                            $('input[name="withdraw_' + field + '"]').after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+
+                    scrollToError();
+
+                } else {
+                    showError(message);
+                }
+            }
+        )
+
+}
+
 $(document).ready(function () {
 
     $('.wallet').on('click', '#copy-address', function (e) {
@@ -161,161 +321,25 @@ $(document).ready(function () {
     $('#transfer_btn').on('click', function (event) {
         event.preventDefault();
 
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        const transfer = processProtectionRequest(
-            'Transfer ETH to ZNX',
-            {
-                eth_amount: $('input[name="transfer_eth_amount"]').val()
+        showConfirmation(
+            'Are you sure you want to transfer ETH to ZNX?',
+            () => {
+                transferEth($(this));
             }
         );
 
-        axios.post(
-            '/user/wallet/transfer-eth',
-            qs.stringify(transfer)
-        )
-            .then(
-                response => {
-
-                    hideSpinner(button);
-
-                    processProtectionResponse(
-                        response.status,
-                        () => {
-                            $(this).trigger('click');
-                        },
-                        () => {
-                            $('input[name="transfer_eth_amount"]').val('');
-
-                            $('#available_znx_amount').text(response.data.total);
-
-                            $.magnificPopup.open(
-                                {
-                                    items: {
-                                        src: '#transfer-modal'
-                                    },
-                                    type: 'inline',
-                                    closeOnBgClick: true,
-                                    callbacks: {
-                                        close: function () {
-                                            window.location.reload();
-                                        },
-
-                                        elementParse: function (item) {
-                                            $(item.src).find('#znx_balance').text(response.data.balance);
-                                        }
-                                    }
-                                }
-                            );
-                        }
-                    );
-
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {message, errors} = error.response.data;
-
-                    if (error.response.status == 422) {
-
-                        $.each(
-                            errors,
-                            (field, error) => {
-                                $('input[name="transfer_' + field + '"]').parent().addClass('form-error');
-                                $('input[name="transfer_' + field + '"]').after(
-                                    $('<span />').addClass('error-text').text(error)
-                                );
-                            }
-                        )
-
-                        scrollToError();
-
-                    } else {
-                        showError(message);
-                    }
-                }
-            )
     });
 
     $('#withdraw_btn').on('click', function (event) {
         event.preventDefault();
 
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        const withdraw = processProtectionRequest(
-            'Withdraw ETH',
-            {
-                address: $('input[name="withdraw_address"]').val()
+        showConfirmation(
+            'Are you sure you want to withdraw ETH?',
+            () => {
+                withdrawEth($(this));
             }
         );
 
-        axios.post(
-            '/user/wallet/withdraw-eth',
-            qs.stringify(withdraw)
-        )
-            .then(
-                response => {
-
-                    hideSpinner(button);
-
-                    processProtectionResponse(
-                        response.status,
-                        () => {
-                            $(this).trigger('click');
-                        },
-                        () => {
-                            $('input[name="withdraw_address"]').val('');
-
-                            $.magnificPopup.open(
-                                {
-                                    items: {
-                                        src: '#withdraw-modal'
-                                    },
-                                    type: 'inline',
-                                    closeOnBgClick: true,
-                                    callbacks: {
-                                        close: function () {
-                                            window.location.reload();
-                                        }
-                                    }
-                                }
-                            );
-                        }
-                    );
-
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {message, errors} = error.response.data;
-
-                    if (error.response.status == 422) {
-
-                        $.each(
-                            errors,
-                            (field, error) => {
-                                $('input[name="withdraw_' + field + '"]').parent().addClass('form-error');
-                                $('input[name="withdraw_' + field + '"]').after(
-                                    $('<span />').addClass('error-text').text(error)
-                                );
-                            }
-                        )
-
-                        scrollToError();
-
-                    } else {
-                        showError(message);
-                    }
-                }
-            )
     });
 
     $('#frm_welcome').on('submit', function (event) {

@@ -28,6 +28,7 @@ class User extends Authenticatable
     const USER_STATUS_WITHDRAW_PENDING = 5;
     const USER_STATUS_PENDING = 6;
     const USER_STATUS_VERIFICATION_PENDING = 7;
+    const USER_STATUS_CLOSED = 8;
 
     /**
      * The attributes that are mass assignable.
@@ -189,12 +190,12 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if user is admin
+     * Check if user is deactivated
      *
      * @return boolean
      */
-    public function isAdmin() {
-        return $this->role == self::USER_ROLE_ADMIN;
+    public function isClosed() {
+        return $this->status == self::USER_STATUS_CLOSED;
     }
 
     /**

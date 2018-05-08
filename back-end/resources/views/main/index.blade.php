@@ -10,17 +10,17 @@
         <div class="h-banner">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 col-xl-7">
+                    <div class="col-lg-5 col-xl-6">
                         The only official URL for Zantepay is <a href="https://zantepay.com">https://zantepay.com</a>. If you receive
                         confirmation
                         of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
                     </div>
-                    <div class="col-md-6 col-xl-5">
+                    <div class="col-lg-7 col-xl-6">
                         <div class="row">
                             <div class="col-lg">
                                 Official channels:
                             </div>
-                            <div class="col-lg-9">
+                            <div class="col-lg-10">
                                 <ul class="social-list">
                                     <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
                                     <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
@@ -32,6 +32,8 @@
                                     <li><a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
                                     </li>
                                     <li><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
+                                    <li><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube"></i></a></li>
+                                    <li><a target="_blank" href="https://www.linkedin.com/company/zantepay/"><i class="fa fa-linkedin"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -46,16 +48,22 @@
                 <div class="center-logo pos-r">
                     <img src="images/logo-large.png" alt="ZANTEPAY Logo">
                 </div>
-                <h1 class="h2 header__title text-uppercase">Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one
-                    card</h1>
-                <div class="horizontal-btns">
-                    <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--260"
-                       onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
-                    <a href="#team" class="scroll-button btn btn--shadowed-dark btn--260">Team</a>
-                    <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
+                <h1 class="h2 header__title text-uppercase">Spend BTC, LTC, ETH and Zantecoin in real life <br> with just one card</h1>
+                <div class="row p-t-60">
+                    <div class="col-lg-4 text-center">
+                        <img src="images/zantepay-card-mobile.png" srcset="images/zantepay-card-mobile@2x.png 2x" alt="Zantepay App">
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="horizontal-btns">
+                            <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}" target="_blank" class="btn btn--shadowed-dark btn--200"
+                               onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper</a>
+                            <a href="#team" class="scroll-button btn btn--shadowed-dark btn--200">Team</a>
+                            <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--200">Buy Tokens NOW</a>
+                        </div>
+                        <h3 class="h4 text-uppercase"> 1 ETH = {{ $ico['znxRate'] }} ZNX<br><br> {{ $ico['name'] }} ends in</h3>
+                    </div>
                 </div>
-                <h3 class="h4 text-uppercase"> 1 ETH = {{ $ico['znxRate'] }} ZNX<br><br> {{ $ico['name'] }} ends in</h3>
-                <div class="countdown">
+                <div class="countdown p-t-60">
                     <span class="js-countdown" data-date="{{ $ico['endDate'] }}"></span>
                 </div>
             </div>
@@ -87,14 +95,24 @@
                     </div>
                 </div>
 
-                <h3 class="h4 text-center">
+                <!-- <h3 class="h4 text-center">
                     Sold total during private sale and pre-ICO:
                     <p> {{ $ico['prevAmount'] }} ZNX</p>
-                </h3>
+                </h3> -->
 
             </div>
 
         @endif
+
+        <div class="hp-video-section container text-center white-content">
+            <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
+            <div>
+                <a href="https://www.youtube.com/watch?v=7fuQrhaqXV8" class="js-popup-video">
+                    <i class="fa fa-youtube-play"></i>
+                    <img src="images/zantecoin-thumb.jpg" srcset="images/zantecoin-thumb@2x.jpg 2x" alt="What is ZANTECOIN?">
+                </a>
+            </div>
+        </div>
 
     </header>
 
@@ -103,21 +121,6 @@
 @section('main')
 
     <main class="main main-lp">
-        <section class="p-b-60 white-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <img src="images/zantepay-devices.png" srcset="images/zantepay-devices@2x.png 2x" alt="What is ZANTEPAY">
-                    </div>
-                    <div class="col-md-4 vertical-middle-col">
-                        <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
-                        <p>ZANTEPAY is a cryptocurrency multiwallet with a debit card. It allows you to spend your digital assets anytime,
-                            anywhere.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">
@@ -131,7 +134,7 @@
                         <ul class="styl-list">
                             <li>New mainstream currency</li>
                             <li>BTC, ETH, LTC free conversion to ZNX</li>
-                            <li>Mastercard - accepted everywhere</li>
+                            <!-- <li>Mastercard - accepted everywhere</li> -->
                             <li>Can be used to cover service fees in ZANTEPAY ecosystem</li>
                             <li>50% discount on all services in ZANTEPAY ecosystem when using ZANTECOIN</li>
                             <li>ERC 20 token</li>
@@ -437,7 +440,6 @@
                         <div class="col-md-6 offset-lg-1">
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
-                                <li>Issued by Estonian GFC Good Finance Company, partner of Mastercard.</li>
                                 <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoin everywhere in the world.</li>
                                 <li>Connected directly to your ZANTEPAY wallet.</li>
                                 <li>Provides automatic highest trading price from partner exchanges. 1%exchange fee. No hidden charges.</li>
@@ -482,6 +484,9 @@
                     </div>
                 </div>
 
+                <div class="lp-headline-row">
+                    <h2 class="h2 headline">Earn ZANTECOINs with every <br> swipe of your ZANTEPAY card</h2>
+                </div>
                 <div class="row lp-row-2">
                     <div class="col-md-6 vertical-middle-col content-center">
                         <div class="lp-coin-value">
@@ -493,12 +498,54 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <h3 class="h2 headline">Earn ZANTECOINs with every <br> swipe of your ZANTEPAY card</h3>
-                        <ul class="styl-list">
-                            <li>Get 20% ZNX cashback on all purchases via ZANTEPAY debit card</li>
-                            <li>Spend ZNX as the local currency with ZANTEPAY card</li>
-                            <li>Exchange for Bitcoin and other cryptocurrencies</li>
-                        </ul>
+                        <div class="lp-table-group">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="50%">Debit Card total <br> turnover, EUR</th>
+                                        <th width="50%">Cashback</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1 - 1 mln</td>
+                                        <td>20%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 mln - 10 mln</td>
+                                        <td>15%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10 mln - 20 mln</td>
+                                        <td>12%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20 mln - 50 mln</td>
+                                        <td>5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50 mln - 100 mln</td>
+                                        <td>5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100 mln - 200 mln</td>
+                                        <td>3%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>200 mln - 300 mln</td>
+                                        <td>3%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>300 mln - 500 mln</td>
+                                        <td>2%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>500 mln - 1 bln</td>
+                                        <td>2%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -563,7 +610,7 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/pavel.jpg" srcset="images/pavel@2x.jpg 2x" alt="Pavel Boyko">
-                        <h3 class="h4">Pavel Boyko <span>Backend Team Lead</span></h3>
+                        <h3 class="h4">Pavel Boyko <span>Backend Team Lead</span> <a target="_blank" href="https://www.linkedin.com/in/pavel-boiko-a1123a3/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Pavel runs Advanced Software Development LTD (ASD), a Fintech software vendor. Pavel and his team has more than
                             10 year experience in delivering the variety of web applications, software engineering solutions, big data
                             analytics, mastering the hardest design, UX/UI tasks. Pavel believes in blockchain and the huge potential of the
@@ -637,17 +684,6 @@
                             Business School.</p>
                     </div>
                     <div class="col-lg-4">
-                        <img src="images/andrii.jpg" srcset="images/andrii@2x.jpg 2x" alt="Andriy Danchak">
-                        <h3 class="h4">Andriy Danchak <span style="font-size:0.83em;">CEO of GFC Good Finance Company AS </span>
-                        <a target="_blank" href="https://www.linkedin.com/in/andriydanchak/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
-                        </h3>
-                        
-                        <p>Andriy has more than 10 years of experience within the banking industry. Previously held an executive position in
-                            Raiffeisen and Standard Union Bank. Andriy possesses a deep knowledge of banking policies and regulations. As a
-                            CEO of GFC - a licensed payment institution and a principal member of Mastercard ®, his task is to work closely
-                            with ZANTEPAY on a debit card project.</p>
-                    </div>
-                    <div class="col-lg-4">
                         <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
                         <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span>
                         <a target="_blank" href="https://www.linkedin.com/in/juanalonsovillalobos/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
@@ -672,7 +708,7 @@
 
 @section('footer')
 
-    <footer class="footer white-content" id="contacts">
+    <footer class="footer white-content">
         <div class="container">
             <div class="footer-partners" id="partners">
                 <div class="text-center">
@@ -685,23 +721,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="http://gfc.ee/">
-                            <img src="images/gfc.png" alt="gfc">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
                         <a target="_blank" rel="nofollow" href="https://startupwiseguys.com/">
                             <img src="images/swg.png" srcset="images/swg@2x.png 2x" alt="StartupWiseGuys">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="http://www.financeestonia.eu/">
-                            <img src="images/finance_estonia.png" alt="finance estonia">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="https://e-resident.gov.ee/">
-                            <img src="images/e-residency.svg" alt="e-residency">
                         </a>
                     </div>
                     <div class="col-lg-4">
@@ -717,6 +738,11 @@
                     <div class="col-lg-4">
                         <a target="_blank" rel="nofollow" href="https://veriff.me/">
                             <img src="images/veriff.svg" alt="veriff">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a target="_blank" rel="nofollow" href="https://www.mongodb.com/">
+                            <img src="images/mongodb-logo-white.png"  srcset="images/mongodb-logo-white@2x.png 2x" alt="mongoDB">
                         </a>
                     </div>
                 </div>
@@ -744,7 +770,7 @@
                     </div>
                     <div class="col-sm-3 col-6">
                         <h4><a target="_blank" href="https://medium.com/@zantepay">Medium</a></h4>
-                        <a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-instagram"></i></a>
+                        <a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
                         <h4><a href="mailto:support@zantepay.com">Support</a></h4>
@@ -758,15 +784,28 @@
                         <h4><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226">Bitcointalk</a></h4>
                         <a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
                     </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA">YouTube</a></h4>
+                        <a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube-play"></i></a></li>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.linkedin.com/company/zantepay/">LinkedIn</a></h4>
+                        <a target="_blank" href="https://www.linkedin.com/company/zantepay/"><i class="fa fa-linkedin"></i></a></li>
+                    </div>
                 </div>
             </div>
 
-            <div class="row footer-cont-group">
+            <div class="row footer-cont-group" id="contacts">
                 <div class="col-md-8 offset-md-2">
-                    <div class="footer-cont-row">
+                    <div class="footer-cont-headline">
                         <h2 class="h2 headline">Contact <br> details</h2>
-                        <div class="footer-cont-text">For any questions please reach us at <a href="mailto:support@zantepay.com">support@zantepay.com</a>
-                            <br> or fill out the form below:
+                    </div>
+                    <div class="footer-cont-row row">
+                        <div class="col-md-6">
+                            <div class="footer-cont-text h5">ZANTEPAY OÜ <br> Rävala 19, 10143, <br> Tallinn, Estonia</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="footer-cont-text">For any questions please reach us at <a href="mailto:support@zantepay.com">support@zantepay.com</a> <br> or fill out the form below:</div>
                         </div>
                     </div>
                     <form id="frm_contact">

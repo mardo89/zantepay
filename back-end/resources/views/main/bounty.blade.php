@@ -178,6 +178,10 @@
                         <h4><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226">Bitcointalk</a></h4>
                         <a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
                     </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA">Youtube</a></h4>
+                        <a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube-play"></i></a></li>
+                    </div>
                 </div>
             </div>
             <div class="footer-logo">

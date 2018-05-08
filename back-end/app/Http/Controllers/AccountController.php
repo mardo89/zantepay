@@ -33,18 +33,21 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6|confirmed',
+                'email' => 'required|email|max:255|unique:users|bail',
+                'password' => 'required|string|min:6|max:32|bail',
+                'password_confirmation' => 'required_with:password|same:password|bail',
             ],
             ValidationMessages::getList(
                 [
                     'email' => 'Email',
-                    'password' => 'Password'
+                    'password' => 'Password',
+                    'password_confirmation' => 'Password Confirmation'
                 ],
                 [
                     'email.unique' => 'User with such Email already registered',
                     'password.min' => 'The Password field must be at least 6 characters',
-                    'password.confirmed' => 'The Password confirmation does not match',
+                    'password_confirmation.required_with' => 'The Password Confirmation does not match',
+                    'password_confirmation.same' => 'The Password Confirmation does not match',
                 ]
             )
         );
@@ -65,7 +68,7 @@ class AccountController extends Controller
                     'errors' => [
                         'email' => '',
                         'password' => '',
-                        'confirm-password' => 'Registration failed'
+                        'password_confirmation' => 'Registration failed'
                     ]
                 ],
                 422
@@ -95,8 +98,8 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|email|max:255',
-                'password' => 'required'
+                'email' => 'required|email|max:255|bail',
+                'password' => 'required|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -179,7 +182,7 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255',
+                'email' => 'required|email|max:255|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -230,17 +233,20 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'password' => 'required|string|min:6|confirmed',
-                'token' => 'required|string'
+                'token' => 'required|string|bail',
+                'password' => 'required|string|min:6|max:32|bail',
+                'password_confirmation' => 'required_with:password|same:password|bail',
             ],
             ValidationMessages::getList(
                 [
-                    'password' => 'Password',
                     'token' => 'Token',
+                    'password' => 'Password',
+                    'password_confirmation' => 'Password Confirmation',
                 ],
                 [
                     'password.min' => 'The Password field must be at least 6 characters',
-                    'password.confirmed' => 'The Password confirmation does not match',
+                    'password_confirmation.required_with' => 'The Password Confirmation does not match',
+                    'password_confirmation.same' => 'The Password Confirmation does not match',
                 ]
             )
         );

@@ -101,7 +101,7 @@
             <form id="frm_protection">
 
                 <div class="logon-modal-text">
-                    <p>This operation needs additional protection. Please provide secret key you received by email.</p>
+                    <p>Please use the secret token from your email to confirm this operation.</p>
                 </div>
 
                 <div class="logon-group">
@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="logon-submit">
-                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Subscribe">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Confirm">
                 </div>
 
             </form>
@@ -125,7 +125,6 @@
 <script src="/js/components/datepicker.js"></script>
 
 @yield('scripts')
-
 
 </body>
 

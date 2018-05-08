@@ -24,7 +24,7 @@ class IsAuthenticated
 
         $user = Auth::user();
 
-        if ($user->status == User::USER_STATUS_INACTIVE) {
+        if ($user->isDisabled() || $user->isClosed()) {
             return redirect('/');
         }
 

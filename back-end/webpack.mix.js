@@ -9,6 +9,7 @@ mix.webpackConfig({
 });
 
 mix.js('resources/assets/js/main.js', 'public/js')
+    .js('resources/assets/js/mobile_app.js', 'public/js')
     .js('resources/assets/js/user.js', 'public/js')
     .js('resources/assets/js/user_profile.js', 'public/js')
     .js('resources/assets/js/user_profile_settings.js', 'public/js')

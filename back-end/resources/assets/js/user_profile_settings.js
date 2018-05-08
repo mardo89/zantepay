@@ -231,7 +231,7 @@ $(document).ready(function () {
             {
                 'current-password': $(this).find('input[name="current-password"]').val(),
                 'password': $(this).find('input[name="password"]').val(),
-                'password_confirmation': $(this).find('input[name="confirm-password"]').val(),
+                'password_confirmation': $(this).find('input[name="password_confirmation"]').val(),
             }
         );
 

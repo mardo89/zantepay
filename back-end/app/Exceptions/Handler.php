@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +49,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+        if (!$request->ajax()) {
+
+            if ($exception instanceof NotFoundHttpException) {
+                return response()->view('errors.page-not-found', ['menuPrefix' => '/'], 500);
+            }
+
+            if ($exception instanceof Exception) {
+                return response()->view('errors.maintenance', ['menuPrefix' => '/'], 500);
+            }
+
+        }
+
         return parent::render($request, $exception);
     }
 }

@@ -117,6 +117,17 @@ $(document).ready(function () {
         $('.h-banner').addClass('is-active');
     }
 
+    //show newsletter panel
+    if ( !getCookie('hideNewsletterPanel') && $('.newsletter-panel').length ) {
+        $('.newsletter-panel').addClass('is-active');
+    }
+
+    //hide newsletter panel
+    $(document).on('click', '.js-close-panel', function() {
+        $(this).closest('.sticky-panel').removeClass('is-active');
+        setCookie('hideNewsletterPanel', 'true', {path: '/', expires: 86400});
+    });
+
     // Count down
     if ($('.js-countdown').length) {
         var date = $('.js-countdown').data('date');
@@ -193,6 +204,21 @@ $(document).ready(function () {
             }
         });
     }
+
+    $('.js-popup-video').magnificPopup({
+        type: 'iframe',
+        midClick: true,
+        mainClass: 'mfp-fade',
+        fixedContentPos: false,
+        callbacks: {
+            open: function() {
+                $('body').addClass('noscroll');
+            },
+            close: function() {
+                $('body').removeClass('noscroll');
+            }
+        }
+    });
 
     if ( $('.js-open-noclose-popup').length ) {
         $('.js-open-noclose-popup').magnificPopup({
@@ -402,6 +428,9 @@ $(document).ready(function () {
         });
     }
 
+
+
+
     //Log in
     $('#frm_signin').on('submit', function (event) {
         event.preventDefault();
@@ -459,7 +488,7 @@ $(document).ready(function () {
         const credentials = {
             email: $('#frm_signup input[name="email"]').val(),
             password: $('#frm_signup input[name="password"]').val(),
-            password_confirmation: $('#frm_signup input[name="confirm-password"]').val()
+            password_confirmation: $('#frm_signup input[name="password_confirmation"]').val()
         };
 
         axios.post(
@@ -519,7 +548,7 @@ $(document).ready(function () {
         const credentials = {
             email: $('#frm_invite_signup input[name="email"]').val(),
             password: $('#frm_invite_signup input[name="password"]').val(),
-            password_confirmation: $('#frm_invite_signup input[name="confirm-password"]').val()
+            password_confirmation: $('#frm_invite_signup input[name="password_confirmation"]').val()
         };
 
         axios.post(
@@ -635,7 +664,7 @@ $(document).ready(function () {
         const credentials = {
             token: $('#frm_change_password input[name="reset-token"]').val(),
             password: $('#frm_change_password input[name="password"]').val(),
-            password_confirmation: $('#frm_change_password input[name="confirm-password"]').val()
+            password_confirmation: $('#frm_change_password input[name="password_confirmation"]').val()
         };
 
         axios.post(
@@ -923,6 +952,51 @@ $(document).ready(function () {
                         }
                     );
 
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#idea_user_' + field).parents('.form-group').addClass('form-error');
+                            $('#idea_user_' + field).after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+                }
+            )
+    });
+
+    $('#frm_newsletter').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $(this).find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        axios.post(
+            'newsletter/join',
+            qs.stringify(
+                {
+                    'email': $(this).find('input[name="email"]').val(),
+                }
+            )
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+                    clearForm($('#frm_newsletter'));
+
+                    $('.sticky-panel').removeClass('is-active');
+                    setCookie('hideNewsletterPanel', 'true', {path: '/'});
+
+                    $.magnificPopup.close();
                 }
             )
             .catch(
