@@ -77,6 +77,8 @@ class AuthService
 
         $activeUser = AccountsService::getActiveUser();
 
+        self::updateAuthToken($activeUser->id, $activeUser->email, $activeUser->password);
+
         return self::getHomePage($activeUser->role);
     }
 
@@ -97,6 +99,8 @@ class AuthService
         }
 
         $activeUser = AccountsService::getActiveUser();
+
+        self::updateAuthToken($activeUser->id, $activeUser->email, $activeUser->password);
 
         return self::getHomePage($activeUser->role);
     }
