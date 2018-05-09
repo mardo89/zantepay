@@ -22,6 +22,7 @@ use App\Models\Services\MailService;
 use App\Models\Services\ProfilesService;
 use App\Models\Services\RegistrationsService;
 use App\Models\Services\UsersService;
+use App\Models\Services\WalletsService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\Country;
 use App\Models\DB\DebitCard;
@@ -504,8 +505,6 @@ class UserController extends Controller
      */
     public function updateWallet(Request $request)
     {
-        $user = Auth::user();
-
         $this->validate(
             $request,
             [
@@ -523,20 +522,10 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-            $profile = $user->profile;
 
-            switch ($request->currency) {
-//                case Currency::CURRENCY_TYPE_BTC:
-//                    $profile->btc_wallet = $request->address;
-//                    break;
+            $user = AccountsService::getActiveUser();
 
-                case Currency::CURRENCY_TYPE_ETH:
-                    $profile->eth_wallet = $request->address;
-                    break;
-
-            }
-
-            $profile->save();
+            ProfilesService::updateWalletAddress($user, $request->address, $request->currency);
 
         } catch (\Exception $e) {
 
@@ -646,8 +635,6 @@ class UserController extends Controller
      */
     public function saveInvitation(Request $request)
     {
-        $user = Auth::user();
-
         $this->validate(
             $request,
             [
@@ -661,21 +648,9 @@ class UserController extends Controller
         );
 
         try {
-            $email = $request->email;
 
-            $invite = Invite::where('user_id', $user->id)->where('email', $email)->first();
-
-            if (!$invite) {
-                $invite = Invite::create(
-                    [
-                        'user_id' => $user->id,
-                        'email' => $email
-                    ]
-                );
-            }
-
-            MailService::sendInviteFriendEmail($email, $user->uid);
-
+            $user = AccountsService::getActiveUser();
+            $invite = InvitesService::createInvite($user, $request->email);
 
         } catch (\Exception $e) {
 
@@ -690,10 +665,7 @@ class UserController extends Controller
         }
 
         return response()->json(
-            [
-                'email' => $invite['email'],
-                'status' => Invite::getStatus($invite['status'])
-            ]
+            $invite
         );
     }
 
@@ -705,83 +677,13 @@ class UserController extends Controller
      */
     public function wallet()
     {
-        $user = Auth::user();
+        $user = AccountsService::getActiveUser();
 
-        $wallet = $user->wallet;
-
-        $ico = new Ico();
-
-        $activeIcoPart = $ico->getActivePart();
-        $lastIcoPart = $ico->getIcoPartFour();
-
-        $ethRate = optional($activeIcoPart)->getEthRate() ?? 0;
-        $endDate = optional($lastIcoPart)->getEndDate() ?? null;
-        $icoPartName = optional($activeIcoPart)->getName() ?? '';
-
-        $userTransactions = [];
-
-        $contributionTransactions = $user->wallet->contributions ?? [];
-        $transferTransactions = $user->transferTransactions ?? [];
-        $withdrawTransactions = $user->withdrawTransactions ?? [];
-
-        foreach ($contributionTransactions as $contributionTransaction) {
-            $ethAmount = RateCalculator::weiToEth($contributionTransaction->amount);
-
-            $userTransactions[] = [
-                'date' => date('d.m.Y', $contributionTransaction->time_stamp),
-                'time' => date('H:i:s', $contributionTransaction->time_stamp),
-                'address' => $contributionTransaction->proxy,
-                'amount' => (new CurrencyFormatter($ethAmount))->ethFormat()->withSuffix('ETH')->get(),
-                'type' => 'Buy',
-                'status' => 'SUCCESS'
-            ];
-        }
-
-        foreach ($transferTransactions as $transferTransaction) {
-            $ethAmount = $transferTransaction->eth_amount;
-
-            $userTransactions[] = [
-                'date' => date('d.m.Y', strtotime($transferTransaction->created_at)),
-                'time' => date('H:i:s', strtotime($transferTransaction->created_at)),
-                'address' => '',
-                'amount' => (new CurrencyFormatter($ethAmount))->ethFormat()->withSuffix('ETH')->get(),
-                'type' => 'Transfer',
-                'status' => 'SUCCESS'
-            ];
-        }
-
-        foreach ($withdrawTransactions as $withdrawTransaction) {
-            $ethAmount = $withdrawTransaction->amount;
-
-            $userTransactions[] = [
-                'date' => date('d.m.Y', strtotime($withdrawTransaction->created_at)),
-                'time' => date('H:i:s', strtotime($withdrawTransaction->created_at)),
-                'address' => $withdrawTransaction->wallet_address,
-                'amount' => (new CurrencyFormatter($ethAmount))->ethFormat()->withSuffix('ETH')->get(),
-                'type' => 'Withdraw',
-                'status' => $withdrawTransaction->status
-            ];
-        }
-
-        $ethAddressAction = EthAddressAction::where('user_id', $user->id)->get()->last();
-
-        $availableZnxAmount = (new CurrencyFormatter($wallet->znx_amount))->znxFormat()->withSuffix('ZNX tokens')->get();
+        $walletInfo = WalletsService::getInfo($user);
 
         return view(
             'user.wallet',
-            [
-                'wallet' => $wallet,
-                'availableAmount' => $availableZnxAmount,
-                'gettingAddress' => optional($ethAddressAction)->status === EthAddressAction::STATUS_IN_PROGRESS,
-                'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
-                'ico' => [
-                    'znx_rate' => (new CurrencyFormatter($ethRate))->ethFormat()->get(),
-                    'end_date' => $endDate ? date('Y/m/d H:i:s', strtotime($endDate)) : '',
-                    'part_name' => $icoPartName
-                ],
-                'transactions' => $userTransactions,
-                'showWelcome' => $user->status == User::USER_STATUS_PENDING
-            ]
+            $walletInfo
         );
     }
 

@@ -2,8 +2,11 @@
 
 namespace App\Models\Services;
 
+use App\Models\DB\EthAddressAction;
+use App\Models\DB\User;
 use App\Models\DB\Wallet;
 use App\Models\Wallet\Currency;
+use App\Models\Wallet\CurrencyFormatter;
 
 class WalletsService
 {
@@ -103,6 +106,43 @@ class WalletsService
         TransactionsService::createAddFoundationZnxTransaction($user->id, $amount);
 
         return self::updateZnxAmount($user->wallet, $amount);
+    }
+
+    /**
+     * Get info about user's wallet
+     *
+     * @param User $user
+     *
+     * @return array
+     */
+    public static function getInfo($user) {
+        $wallet = $user->wallet;
+
+        $icoInfo = (new IcoService())->getInfo();
+
+        $ethRate = $icoInfo['ethRate'];
+        $endDate = $icoInfo['endDate'];
+        $icoPartName = $icoInfo['name'];
+
+        $userTransactions = TransactionsService::getUserTransactions($user);
+
+        $ethAddressAction = EthAddressAction::where('user_id', $user->id)->get()->last();
+
+        $availableZnxAmount = (new CurrencyFormatter($wallet->znx_amount))->znxFormat()->withSuffix('ZNX tokens')->get();
+
+        return [
+            'wallet' => $wallet,
+            'availableAmount' => $availableZnxAmount,
+            'gettingAddress' => optional($ethAddressAction)->status === EthAddressAction::STATUS_IN_PROGRESS,
+            'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
+            'ico' => [
+                'znx_rate' => (new CurrencyFormatter($ethRate))->ethFormat()->get(),
+                'end_date' => $endDate ? date('Y/m/d H:i:s', strtotime($endDate)) : '',
+                'part_name' => $icoPartName
+            ],
+            'transactions' => $userTransactions,
+            'showWelcome' => $user->status == User::USER_STATUS_PENDING
+        ];
     }
 
     /**

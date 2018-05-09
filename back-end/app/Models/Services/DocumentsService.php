@@ -394,7 +394,9 @@ class DocumentsService
         $files->data = [];
         $files->rules = [];
 
-        foreach ($request->document_files as $index => $file) {
+        $filesList = $documentType === Document::DOCUMENT_TYPE_IDENTITY ? $request->document_files : $request->address_files;
+
+        foreach ($filesList as $index => $file) {
             $fileName = 'document_' . $user->uid . '_' . $index;
 
             $files->data[$fileName] = $file;

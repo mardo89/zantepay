@@ -131,7 +131,7 @@ class ManagerController extends Controller
 
         try {
 
-            $profileInfo = ProfilesService::getInfo($request->uid);
+            $profileInfo = AccountsService::getInfo($request->uid);
 
         } catch (\Exception $e) {
 
@@ -411,7 +411,9 @@ class ManagerController extends Controller
 
         try {
 
-            ProfilesService::updateWalletAddress($request->uid, $request->address, $request->currency);
+            $user = AccountsService::getUserByID($request->uid);
+
+            ProfilesService::updateWalletAddress($user, $request->address, $request->currency);
 
         } catch (\Exception $e) {
 

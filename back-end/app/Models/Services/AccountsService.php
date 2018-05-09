@@ -465,6 +465,54 @@ class AccountsService
     }
 
     /**
+     * Get info about user's account
+     *
+     * @param string $userUID
+     *
+     * @return array
+     * @throws
+     */
+    public static function getInfo($userUID)
+    {
+        $user = self::getUserByID($userUID);
+
+        $profile = ProfilesService::getProfileInfo($user);
+
+        $verification = DocumentsService::getVerificationInfo($user);
+        $documents = DocumentsService::getUserDocuments($user->id);
+        $documentsTypes = DocumentsService::getDocumentTypeID();
+
+        $referrer = self::getReferrer($user->referrer);
+        $referrerEmail = is_null($referrer) ? (is_null($user->referrer) ? '' : 'User deleted') : $referrer->email;
+
+        $debitCardDesign = DebitCardsService::getDebitCardDesign($user->id);
+        $debitCard = [
+            'isWhite' => DebitCardsService::isDebitCardWhile($debitCardDesign),
+            'isRed' => DebitCardsService::isDebitCardRed($debitCardDesign),
+        ];
+
+        $wallet = $user->wallet;
+
+        $rolesList = UsersService::getUserRoles();
+
+        $allowEdit = !self::checkIdentity($user->id);
+
+        return [
+            'user' => $user,
+            'profile' => $profile,
+            'verification' => $verification,
+            'documents' => $documents,
+            'documentTypes' => $documentsTypes,
+            'referrer' => $referrerEmail,
+            'debitCard' => $debitCard,
+            'wallet' => $wallet,
+            'userRoles' => $rolesList,
+            'allowEdit' => $allowEdit
+        ];
+    }
+
+
+    /**
      * Check if user exist
      *
      * @param mixed $user

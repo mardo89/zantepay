@@ -199,6 +199,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is pending
+     *
+     * @return boolean
+     */
+    public function isPending() {
+        return $this->status == self::USER_STATUS_PENDING;
+    }
+
+    /**
      * Check if user is Admin
      *
      * @return boolean

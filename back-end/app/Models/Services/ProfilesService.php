@@ -38,54 +38,6 @@ class ProfilesService
     /**
      * Get info about user's profile
      *
-     * @param string $userUID
-     *
-     * @return array
-     * @throws
-     */
-    public static function getInfo($userUID)
-    {
-        $user = AccountsService::getUserByID($userUID);
-
-        $profile = self::getProfileInfo($user);
-
-        $verification = DocumentsService::getVerificationInfo($user);
-        $documents = DocumentsService::getUserDocuments($user->id);
-        $documentsTypes = DocumentsService::getDocumentTypeID();
-
-        $referrer = AccountsService::getReferrer($user->referrer);
-        $referrerEmail = is_null($referrer) ? (is_null($user->referrer) ? '' : 'User deleted') : $referrer->email;
-
-        $debitCardDesign = DebitCardsService::getDebitCardDesign($user->id);
-        $debitCard = [
-            'isWhite' => DebitCardsService::isDebitCardWhile($debitCardDesign),
-            'isRed' => DebitCardsService::isDebitCardRed($debitCardDesign),
-        ];
-
-        $wallet = $user->wallet;
-
-        $rolesList = UsersService::getUserRoles();
-
-        $allowEdit = !AccountsService::checkIdentity($user->id);
-
-        return [
-            'user' => $user,
-            'profile' => $profile,
-            'verification' => $verification,
-            'documents' => $documents,
-            'documentTypes' => $documentsTypes,
-            'referrer' => $referrerEmail,
-            'debitCard' => $debitCard,
-            'wallet' => $wallet,
-            'userRoles' => $rolesList,
-            'allowEdit' => $allowEdit
-
-        ];
-    }
-
-    /**
-     * Get info about user's profile
-     *
      * @param User $user
      *
      * @return Profile
@@ -155,16 +107,14 @@ class ProfilesService
     /**
      * Add ZNX from ICO pull
      *
-     * @param string $userUID
+     * @param User $user
      * @param string $address
      * @param int $addressType
      *
      * @throws
      */
-    public static function updateWalletAddress($userUID, $address, $addressType)
+    public static function updateWalletAddress($user, $address, $addressType)
     {
-        $user = AccountsService::getUserByID($userUID);
-
         $profile = self::getProfile($user);
 
         switch ($addressType) {
