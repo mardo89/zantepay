@@ -144,6 +144,34 @@
             </div>
         </section>
 
+        <div class="lp-section-one white-content">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="h2 headline text-left">Expert reviews</h2>
+                </div>
+                <div class="row p-t-60 mt-20 lp-rate text-center">
+                    <div class="col-md-4 mb-20">
+                        <a href="https://www.trackico.io/ico/zantepay/" target="_blank" rel="nofollow" title="ZANTEPAY on TrackICO">
+                            <img border="0" src="https://www.trackico.io/widget/square/zantepay/400.png" width="150px" height="150px" alt="ZANTEPAY TrackICO rating">
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-20">
+                        <div>
+                            <img src="images/icobench.png" width="200" alt="ICObench Logo">
+                        </div>
+                        <a href="https://icobench.com/ico/zantepay" target="_blank" rel="nofollow" title="Zantepay on ICObench">
+                            <img border="0" src="https://icobench.com/rated/zantepay?shape=horizontal&size=m" width="200" alt="Zantepay ICO rating"/>
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-20">
+                        <a href="https://foundico.com/ico/zantepay.html" target="_blank" rel="nofollow" title="ZANTEPAY on Foundico.com">
+                            <img width="150" height="150" border="0" src="https://foundico.com/widget/?p=12067&f=s" alt="ZANTEPAY score on Foundico.com" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section class="lp-section-artifical white-content">
             <div class="container">
                 <h3 class="h2 headline">Artificial intelligence <span>at core</span></h3>
