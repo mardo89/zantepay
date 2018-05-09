@@ -25,6 +25,12 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6">
+                            <div class="form-group profile_middle_name">
+                                <label class="field-label" for="field12">Middle name:</label>
+                                <input class="input-field" type="text" name="m-name" maxlength="100" value="">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
                             <div class="form-group profile_last_name">
                                 <label class="field-label" for="field2">Last name:</label>
                                 <input class="input-field" type="text" name="l-name" maxlength="100" value="{{ $user->last_name }}">
@@ -36,8 +42,6 @@
                                 <input class="input-field" type="email" name="email" value="{{ $user->email }}">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-6 col-lg-3">
                             <div class="form-group">
                                 <label class="field-label" for="field23">Area code:</label>
@@ -55,7 +59,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 col-lg-3">
                             <div class="form-group profile_phone_number">
                                 <label class="field-label" for="field4">Phone number:</label>
                                 <input class="input-field" type="text" name="tel" maxlength="20" value="{{ $user->phone_number }}">
