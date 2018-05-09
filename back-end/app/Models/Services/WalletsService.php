@@ -146,6 +146,18 @@ class WalletsService
     }
 
     /**
+     * Update ETH address
+     *
+     * @param User $user
+     * @param string $address
+     */
+    public static function updateEtheriumAddress($wallet, $address)
+    {
+        $wallet->eth_wallet = $address;
+        $wallet->save();
+    }
+
+    /**
      * Update ZNX amount
      *
      * @param Wallet $wallet

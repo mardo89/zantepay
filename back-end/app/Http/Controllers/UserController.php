@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\EtheriumException;
 use App\Mail\DebitCardPreOrder;
 use App\Mail\InviteFriend;
 use App\Mail\Welcome;
@@ -17,6 +18,7 @@ use App\Models\Services\AuthService;
 use App\Models\Services\BonusesService;
 use App\Models\Services\CountriesService;
 use App\Models\Services\DocumentsService;
+use App\Models\Services\EtheriumService;
 use App\Models\Services\InvitesService;
 use App\Models\Services\MailService;
 use App\Models\Services\ProfilesService;
@@ -695,50 +697,17 @@ class UserController extends Controller
      */
     public function createWalletAddress()
     {
-        $user = Auth::user();
-
-        $lastAction = EthAddressAction::where('user_id', $user->id)->get()->last();
-
-        if (optional($lastAction)->status === EthAddressAction::STATUS_IN_PROGRESS || optional($lastAction)->status === EthAddressAction::STATUS_COMPLETE) {
-            return response()->json(
-                [
-                    'message' => 'Operation in-progress or Etherium address already exists.',
-                    'errors' => []
-                ],
-                500
-            );
-        }
-
-        $ethAddressAction = EthAddressAction::create(
-            [
-                'user_id' => $user->id,
-            ]
-        );
-
         try {
-            $operationID = EtheriumApi::getAddressOID($user->uid);
 
-            $ethAddressAction->operation_id = $operationID;
-            $ethAddressAction->save();
+            $user = Auth::user();
 
-            $address = EtheriumApi::createAddress($operationID);
-
-            $ethAddressAction->status = EthAddressAction::STATUS_COMPLETE;
-            $ethAddressAction->save();
-
-            $wallet = $user->wallet;
-            $wallet->eth_wallet = $address;
-            $wallet->save();
+            $address = EtheriumService::createAddress($user);
 
         } catch (\Exception $e) {
 
-            $ethAddressAction->status = EthAddressAction::STATUS_FAILED;
-            $ethAddressAction->error_message = $e->getMessage();
-            $ethAddressAction->save();
-
             return response()->json(
                 [
-                    'message' => 'Error creating Wallet Addresss',
+                    'message' => ($e instanceof EtheriumException) ? $e->getMessage() : 'Error creating Wallet Addresss',
                     'errors' => []
                 ],
                 500
@@ -748,7 +717,7 @@ class UserController extends Controller
 
         return response()->json(
             [
-                'address' => $wallet->eth_wallet
+                'address' => $address
             ]
         );
     }
