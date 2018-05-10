@@ -12,7 +12,6 @@ use App\Models\DB\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
-use Mockery\Exception;
 
 class AccountsService
 {
@@ -36,8 +35,7 @@ class AccountsService
             ]
         );
 
-        ExternalRedirect::addLink(
-            Session::get('externalLink'),
+        RedirectsService::trackRedirect(
             $email,
             ExternalRedirect::ACTION_TYPE_REGISTRATION
         );

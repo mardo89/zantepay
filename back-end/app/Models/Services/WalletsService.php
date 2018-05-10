@@ -158,6 +158,67 @@ class WalletsService
     }
 
     /**
+     * Update Debit Card bonus
+     *
+     * @param Wallet $wallet
+     * @param int $amount
+     */
+    public static function updateDebitCardBonus($wallet, $amount)
+    {
+        $wallet->debit_card_bonus = $amount;
+        $wallet->save();
+    }
+
+    /**
+     * Update Referral Bonus
+     *
+     * @param Wallet $wallet
+     * @param int $amount
+     */
+    public static function updateReferralBonus($wallet, $amount)
+    {
+        $wallet->referral_bonus += $amount;
+        $wallet->save();
+    }
+
+    /**
+     * Update Commission Bonus
+     *
+     * @param Wallet $wallet
+     * @param int $amount
+     */
+    public static function updateCommissionBonus($wallet, $amount)
+    {
+        $wallet->commission_bonus += $amount;
+        $wallet->save();
+    }
+
+    /**
+     * Set Commission Bonus to 0
+     *
+     * @param Wallet $wallet
+     */
+    public static function zeroCommissionBonus($wallet)
+    {
+        $wallet->commission_bonus = 0;
+        $wallet->save();
+    }
+
+    /**
+     * Transfer Commission Bonus to ZNX
+     *
+     * @param Wallet $wallet
+     * @param float $commissionAmount
+     * @param int $znxAmount
+     */
+    public static function transferCommissionBonus($wallet, $commissionAmount, $znxAmount)
+    {
+        self::updateCommissionBonus($wallet, -$commissionAmount);
+
+        self::updateZnxAmount($wallet, $znxAmount);
+    }
+
+    /**
      * Update ZNX amount
      *
      * @param Wallet $wallet

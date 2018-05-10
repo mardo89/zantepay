@@ -30,30 +30,4 @@ class Verification extends Model
      */
     protected $hidden = [];
 
-    /**
-     * Return status name
-     *
-     * @param int $status
-     *
-     * @return string
-     */
-    public static function getStatus($status) {
-        switch ($status) {
-            case self::DOCUMENTS_NOT_UPLOADED:
-                return 'Documents not uploaded';
-
-            case self::DOCUMENTS_UPLOADED:
-                return 'Pending approval';
-
-            case self::DOCUMENTS_APPROVED:
-                return 'Documents approved';
-
-            case self::DOCUMENTS_DECLINED:
-                return 'Documents declined';
-
-            default:
-                return '';
-        }
-    }
-
 }

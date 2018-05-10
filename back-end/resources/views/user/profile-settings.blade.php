@@ -18,7 +18,7 @@
                     <div class="dashboard-col-wrap">
                         <h2 class="h4 headline-mb headline-subline">
                             Account verification:
-                            @if(!$user->accountVerified)
+                            @if(!$user->isVerified())
                                 <span>Account requires verification</span>
                             @else
                                 <span>Account verified</span>

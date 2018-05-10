@@ -3,48 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EtheriumException;
-use App\Mail\DebitCardPreOrder;
-use App\Mail\InviteFriend;
-use App\Mail\Welcome;
-use App\Models\DB\AreaCode;
-use App\Models\DB\Contribution;
-use App\Models\DB\EthAddressAction;
-use App\Models\DB\TransferTransaction;
-use App\Models\DB\Wallet;
-use App\Models\DB\WithdrawTransaction;
-use App\Models\DB\ZantecoinTransaction;
+use App\Exceptions\TransactionException;
 use App\Models\Services\AccountsService;
-use App\Models\Services\AuthService;
-use App\Models\Services\BonusesService;
 use App\Models\Services\CountriesService;
+use App\Models\Services\DebitCardsService;
 use App\Models\Services\DocumentsService;
 use App\Models\Services\EtheriumService;
 use App\Models\Services\InvitesService;
-use App\Models\Services\MailService;
 use App\Models\Services\ProfilesService;
-use App\Models\Services\RegistrationsService;
+use App\Models\Services\TransactionsService;
 use App\Models\Services\UsersService;
 use App\Models\Services\WalletsService;
-use App\Models\Wallet\Currency;
-use App\Models\DB\Country;
-use App\Models\DB\DebitCard;
-use App\Models\DB\Document;
-use App\Models\DB\Invite;
-use App\Models\DB\Profile;
-use App\Models\DB\State;
-use App\Models\DB\User;
-use App\Models\DB\Verification;
 use App\Models\Validation\ValidationMessages;
-use App\Models\Wallet\CurrencyFormatter;
-use App\Models\Wallet\EtheriumApi;
-use App\Models\Wallet\Ico;
-use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 
 class UserController extends Controller
@@ -324,10 +297,7 @@ class UserController extends Controller
      */
     public function profileSettings()
     {
-        // User
         $user = AccountsService::getActiveUser();
-
-        $user->accountVerified = $user->status == User::USER_STATUS_VERIFIED;
 
         $profile = ProfilesService::getProfileInfo($user);
 
@@ -747,29 +717,8 @@ class UserController extends Controller
         );
 
         try {
-            $ico = new Ico();
 
-            if (isset($request->znx_amount)) {
-                $ethAmountParts = RateCalculator::znxToEth($request->znx_amount, time(), $ico);
-
-                $ethAmount = 0;
-
-                foreach ($ethAmountParts as $ethAmountPart) {
-                    $ethAmount += $ethAmountPart['amount'];
-                }
-
-                $balance = (new CurrencyFormatter($ethAmount))->ethFormat()->get();
-            } else {
-                $znxAmountParts = RateCalculator::ethToZnx($request->eth_amount, time(), $ico);
-
-                $znxAmount = 0;
-
-                foreach ($znxAmountParts as $znxAmountPart) {
-                    $znxAmount += $znxAmountPart['amount'];
-                }
-
-                $balance = (new CurrencyFormatter($znxAmount))->znxFormat()->get();
-            }
+            $balance = EtheriumService::exchangeCalculator($request->znx_amount, $request->eth_amount);
 
         } catch (\Exception $e) {
 
@@ -801,8 +750,6 @@ class UserController extends Controller
      */
     public function transferEth(Request $request)
     {
-        $user = Auth::user();
-
         $this->validate(
             $request,
             [
@@ -819,70 +766,13 @@ class UserController extends Controller
             )
         );
 
-        $userWallet = $user->wallet;
-        $ethAmount = (float)$request->eth_amount;
-
-        if ($userWallet->commission_bonus < $ethAmount) {
-            return response()->json(
-                [
-                    'message' => 'Not enough ETH to transfer',
-                    'errors' => []
-                ],
-                500
-            );
-        }
-
-        $ethAmount = $request->eth_amount;
-
         DB::beginTransaction();
 
         try {
 
-            // Create transaction
-            $transferTransaction = TransferTransaction::create(
-                [
-                    'user_id' => $user->id,
-                    'eth_amount' => $ethAmount,
-                ]
-            );
+            $user = AccountsService::getActiveUser();
 
-            // Convert ETH to ZNX
-            $ico = new Ico();
-
-            $znxAmountParts = RateCalculator::ethToZnx($ethAmount, time(), $ico);
-
-            $znxAmount = 0;
-
-            foreach ($znxAmountParts as $znxAmountPart) {
-                ZantecoinTransaction::create(
-                    [
-                        'user_id' => $user->id,
-                        'amount' => $znxAmountPart['amount'],
-                        'ico_part' => $znxAmountPart['icoPart'],
-                        'contribution_id' => $transferTransaction->id,
-                        'transaction_type' => ZantecoinTransaction::TRANSACTION_COMMISSION_TO_ZNX
-                    ]
-                );
-
-                $znxAmount += $znxAmountPart['amount'];
-            }
-
-            // Update transaction
-            $transferTransaction->znx_amount = $znxAmount;
-            $transferTransaction->save();
-
-            // Update Wallet
-            $userWallet->znx_amount += $znxAmount;
-            $userWallet->commission_bonus -= $ethAmount;
-            $userWallet->save();
-
-            MailService::sendTokenAddEmail(
-                $user->email,
-                (new CurrencyFormatter($znxAmount))->znxFormat()->withSuffix('ZNX')->get()
-            );
-
-            $balance = (new CurrencyFormatter($znxAmount))->znxFormat()->get();
-            $total = (new CurrencyFormatter($userWallet->znx_amount))->znxFormat()->withSuffix('ZNX tokens')->get();
+            $balance = TransactionsService::createTransferZnxTransaction($user, $request->eth_amount);
 
         } catch (\Exception $e) {
 
@@ -890,7 +780,7 @@ class UserController extends Controller
 
             return response()->json(
                 [
-                    'message' => $e->getMessage(),//'Error transferring ETH',
+                    'message' => ($e instanceof TransactionException) ? $e->getMessage() : 'Error transferring ETH',
                     'errors' => []
                 ],
                 500
@@ -900,10 +790,7 @@ class UserController extends Controller
         DB::commit();
 
         return response()->json(
-            [
-                'balance' => $balance,
-                'total' => $total
-            ]
+            $balance
         );
     }
 
@@ -916,8 +803,6 @@ class UserController extends Controller
      */
     public function withdrawEth(Request $request)
     {
-        $user = Auth::user();
-
         $this->validate(
             $request,
             [
@@ -930,37 +815,13 @@ class UserController extends Controller
             )
         );
 
-        $userWallet = $user->wallet;
-
-        if ($userWallet->commission_bonus == 0) {
-            return response()->json(
-                [
-                    'message' => 'Not enough ETH to withdraw',
-                    'errors' => []
-                ],
-                500
-            );
-        }
-
         DB::beginTransaction();
 
         try {
-            // Create transaction
-            WithdrawTransaction::create(
-                [
-                    'user_id' => $user->id,
-                    'amount' => $userWallet->commission_bonus,
-                    'wallet_address' => $request->address
-                ]
-            );
 
-            // Set commission bonus to 0
-            $userWallet->commission_bonus = 0;
-            $userWallet->save();
+            $user = AccountsService::getActiveUser();
 
-            // Update user status
-            $user->status = User::USER_STATUS_WITHDRAW_PENDING;
-            $user->save();
+            TransactionsService::createWithdrawEthTransaction($user, $request->address);
 
         } catch (\Exception $e) {
 
@@ -990,26 +851,15 @@ class UserController extends Controller
      */
     public function debitCard()
     {
-        $user = Auth::user();
+        $user = AccountsService::getActiveUser();
 
-        $card = DebitCard::where('user_id', $user->id)->first();
-
-        if (!is_null($card)) {
+        if (DebitCardsService::checkDebitCard($user->id)) {
             return redirect()->action(
                 'UserController@debitCardSuccess'
             );
         }
 
-        $userDebitCard = [
-            'design' => is_null($card) ? DebitCard::DESIGN_WHITE : $card->design
-        ];
-
-        return view(
-            'user.debit-card-design',
-            [
-                'debitCard' => $userDebitCard
-            ]
-        );
+        return view('user.debit-card-design');
     }
 
 
@@ -1022,8 +872,6 @@ class UserController extends Controller
      */
     public function saveDebitCard(Request $request)
     {
-        $user = Auth::user();
-
         $this->validate(
             $request,
             [
@@ -1035,26 +883,9 @@ class UserController extends Controller
 
         try {
 
-            $userDebitCard = [
-                'user_id' => $user->id,
-                'design' => $request->design
-            ];
+            $user = AccountsService::getActiveUser();
 
-            $card = DebitCard::where('user_id', $user->id)->first();
-
-            if (!$card) {
-
-                DebitCard::create($userDebitCard);
-
-                BonusesService::updateBonus($user);
-
-                MailService::sendOrderDebitCardEmail($user->email, $user->uid, $userDebitCard['design']);
-
-            } else {
-
-                DebitCard::where('user_id', $user->id)->update($userDebitCard);
-
-            }
+            DebitCardsService::createDebitCard($user, $request->design);
 
         } catch (\Exception $e) {
 
@@ -1081,197 +912,15 @@ class UserController extends Controller
 
 
     /**
-     * Debit card documents
-     *
-     * @return View
-     */
-    public function debitCardIdentityDocuments()
-    {
-        $user = Auth::user();
-
-        $card = DebitCard::where('user_id', $user->id)->first();
-
-        if (!is_null($card)) {
-            return redirect()->action(
-                'UserController@debitCardSuccess'
-            );
-        }
-
-        return view(
-            'user.debit-card-documents'
-        );
-    }
-
-
-    /**
-     * Save debit card id documents
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function uploadDCIdentityDocuments(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'verify_later' => 'required|boolean|bail',
-                'document_files' => 'required_if:verify_later,0|bail'
-            ],
-            ValidationMessages::getList(
-                [
-                    'verify_later' => 'Verify Later',
-                    'document_files' => 'Document Files'
-                ],
-                [
-                    'document_files.required_if' => 'Please select files to download',
-                ]
-            )
-        );
-
-        if ($request->verify_later != 1) {
-
-            DB::beginTransaction();
-
-            try {
-
-                $this->uploadIdentityFiles($request);
-
-            } catch (\Exception $e) {
-
-                DB::rollback();
-
-                $code = $e->getCode();
-
-                $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
-                $errors = $code == 422 ? [$e->getMessage()] : [];
-
-                return response()->json(
-                    [
-                        'message' => $message,
-                        'errors' => $errors
-                    ],
-                    $code == 422 ? 422 : 500
-                );
-
-            }
-
-            DB::commit();
-
-        }
-
-        return response()->json(
-            [
-                'nextStep' => action('UserController@debitCardAddressDocuments')
-            ]
-        );
-    }
-
-
-    /**
-     * Debit card address
-     *
-     * @return View
-     */
-    public function debitCardAddressDocuments()
-    {
-        $user = Auth::user();
-
-        $card = DebitCard::where('user_id', $user->id)->first();
-
-        if (!is_null($card)) {
-            return redirect()->action(
-                'UserController@debitCardSuccess'
-            );
-        }
-
-        return view(
-            'user.debit-card-address'
-        );
-    }
-
-
-    /**
-     * Save debit card address documents
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function uploadDCAddressDocuments(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'verify_later' => 'required|boolean|bail',
-                'address_files' => 'required_if:verify_later,0|bail'
-            ],
-            ValidationMessages::getList(
-                [
-                    'verify_later' => 'Verify Later',
-                    'address_files' => 'Address Files'
-                ],
-                [
-                    'address_files.required_if' => 'Please select files to download',
-                ]
-            )
-        );
-
-        if ($request->verify_later != 1) {
-
-            DB::beginTransaction();
-
-            try {
-
-                $this->uploadAddressFiles($request);
-
-            } catch (\Exception $e) {
-
-                DB::rollback();
-
-                $code = $e->getCode();
-
-                $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
-                $errors = $code == 422 ? [$e->getMessage()] : [];
-
-                return response()->json(
-                    [
-                        'message' => $message,
-                        'errors' => $errors
-                    ],
-                    $code == 422 ? 422 : 500
-                );
-            }
-
-            DB::commit();
-
-        }
-
-        return response()->json(
-            [
-                'nextStep' => action('UserController@debitCardSuccess')
-            ]
-        );
-    }
-
-
-    /**
      * Invite friends
      *
      * @return View
      */
     public function debitCardSuccess()
     {
-        $user = Auth::user();
+        $user = AccountsService::getActiveUser();
 
-        // Debit Card
-        $debitCard = DebitCard::where('user_id', $user->id)->first();
-
-        if (!is_null($debitCard)) {
-            $userDebitCard = $debitCard->design;
-        } else {
-            $userDebitCard = null;
-        }
+        $userDebitCard = DebitCardsService::getDebitCardDesign($user->id);
 
         return view(
             'user.debit-card-success',
@@ -1280,136 +929,6 @@ class UserController extends Controller
                 'debitCard' => $userDebitCard
             ]
         );
-    }
-
-
-    /**
-     * Upload identity files
-     *
-     * @param Request $request
-     *
-     * @throws \Exception
-     */
-    protected function uploadIdentityFiles($request)
-    {
-        $user = Auth::user();
-
-        $files = new \stdClass();
-        $files->data = [];
-        $files->rules = [];
-
-        foreach ($request->document_files as $index => $file) {
-            $fileName = 'document_' . $user->uid . '_' . $index;
-
-            $files->data[$fileName] = $file;
-            $files->rules[$fileName] = 'file|max:4096|mimetypes:image/jpeg,image/png,application/pdf';
-        }
-
-        if (Validator::make($files->data, $files->rules)->fails()) {
-            throw new \Exception('Incorrect files format', 422);
-        }
-
-        $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->get();
-
-        // delete old files
-        foreach ($oldDocuments as $document) {
-            if (Storage::exists($document->file_path)) {
-                Storage::delete($document->file_path);
-            }
-        }
-
-        // Empty DB records
-        Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_IDENTITY)->delete();
-
-        // insert new files
-        foreach ($files->data as $fileName => $file) {
-            $newFileName = $fileName . '.' . $file->getClientOriginalExtension();
-
-            $pathToFile = $file->storeAs('documents/id', $newFileName);
-
-            Document::create(
-                [
-                    'user_id' => $user->id,
-                    'document_type' => Document::DOCUMENT_TYPE_IDENTITY,
-                    'did' => uniqid(),
-                    'file_path' => $pathToFile
-                ]
-            );
-        }
-
-        // Verification
-        $verification = $user->verification;
-        $verification->id_documents_status = Verification::DOCUMENTS_UPLOADED;
-        $verification->id_decline_reason = '';
-        $verification->save();
-
-        // Change Status
-        UsersService::changeUserStatus($user, User::USER_STATUS_VERIFICATION_PENDING);
-    }
-
-
-    /**
-     * Upload address files
-     *
-     * @param Request $request
-     *
-     * @throws \Exception
-     */
-    protected function uploadAddressFiles($request)
-    {
-        $user = Auth::user();
-
-        $files = new \stdClass();
-        $files->data = [];
-        $files->rules = [];
-
-        foreach ($request->address_files as $index => $file) {
-            $fileName = 'document_' . $user->uid . '_' . $index;
-
-            $files->data[$fileName] = $file;
-            $files->rules[$fileName] = 'file|max:4096|mimetypes:image/jpeg,image/png,application/pdf';
-        }
-
-        if (Validator::make($files->data, $files->rules)->fails()) {
-            throw new \Exception('Incorrect files format', 422);
-        }
-
-        $oldDocuments = Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->get();
-
-        // delete old files
-        foreach ($oldDocuments as $document) {
-            if (Storage::exists($document->file_path)) {
-                Storage::delete($document->file_path);
-            }
-        }
-
-        // Empty DB records
-        Document::where('user_id', $user->id)->where('document_type', Document::DOCUMENT_TYPE_ADDRESS)->delete();
-
-        // insert new files
-        foreach ($files->data as $fileName => $file) {
-            $newFileName = $fileName . '.' . $file->getClientOriginalExtension();
-
-            $pathToFile = $file->storeAs('documents/address', $newFileName);
-
-            Document::create(
-                [
-                    'user_id' => $user->id,
-                    'document_type' => Document::DOCUMENT_TYPE_ADDRESS,
-                    'did' => uniqid(),
-                    'file_path' => $pathToFile
-                ]
-            );
-        }
-
-        // Verification
-        $verification = $user->verification;
-        $verification->address_documents_status = Verification::DOCUMENTS_UPLOADED;
-        $verification->address_decline_reason = '';
-        $verification->save();
-
-        // Change Status
-        UsersService::changeUserStatus($user, User::USER_STATUS_VERIFICATION_PENDING);
     }
 
 }

@@ -7,18 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class DebitCard extends Model
 {
     /**
-     * Not selected
+     * Debit Card Designs
      */
     const DESIGN_NOT_SELECTED = 0;
-
-    /**
-     * White Design
-     */
     const DESIGN_WHITE = 1;
-
-    /**
-     * Red Design
-     */
     const DESIGN_RED = 2;
 
     /**
@@ -36,4 +28,5 @@ class DebitCard extends Model
      * @var array
      */
     protected $hidden = [];
+
 }

@@ -29,9 +29,7 @@ class BonusesService
         // user bonus
         $bonusAmount = Wallet::DEBIT_CARD_BONUS;
 
-        $wallet = $user->wallet;
-        $wallet->debit_card_bonus = $bonusAmount;
-        $wallet->save();
+        WalletsService::updateDebitCardBonus($user->wallet, $bonusAmount);
 
         TransactionsService::createBonusTransaction($user->id, $bonusAmount);
 
@@ -44,9 +42,7 @@ class BonusesService
 
         $bonusAmount = Wallet::REFERRAL_BONUS;
 
-        $wallet = $referrer->wallet;
-        $wallet->referral_bonus += $bonusAmount;
-        $wallet->save();
+        WalletsService::updateReferralBonus($referrer->wallet, $bonusAmount);
 
         TransactionsService::createBonusTransaction($referrer->id, $bonusAmount);
     }

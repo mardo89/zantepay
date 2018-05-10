@@ -2,8 +2,13 @@
 
 namespace App\Models\Services;
 
+use App\Exceptions\TransactionException;
+use App\Models\DB\TransferTransaction;
+use App\Models\DB\User;
+use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Wallet\CurrencyFormatter;
+use App\Models\Wallet\Ico;
 use App\Models\Wallet\RateCalculator;
 
 class TransactionsService
@@ -80,7 +85,7 @@ class TransactionsService
     }
 
     /**
-     * Create transaction when user receive bonus
+     * Create transaction when admin add ZNX to user from ICO pool
      *
      * @param int $userID
      * @param int $amount
@@ -100,7 +105,7 @@ class TransactionsService
     }
 
     /**
-     * Create transaction when user receive bonus
+     * Create transaction when admin add ZNX to user from Foundation pool
      *
      * @param int $userID
      * @param int $amount
@@ -117,6 +122,100 @@ class TransactionsService
             ]
         );
 
+    }
+
+    /**
+     * Create transaction when user transfer commission bonus to ZNX
+     *
+     * @param User $user
+     * @param int $amount
+     *
+     * @return array
+     * @throws
+     */
+    public static function createTransferZnxTransaction($user, $amount) {
+
+        $userWallet = $user->wallet;
+
+        if ($userWallet->commission_bonus < $amount) {
+            throw new TransactionException('Not enough ETH to transfer');
+        }
+
+        // Create transaction
+        $transferTransaction = TransferTransaction::create(
+            [
+                'user_id' => $user->id,
+                'eth_amount' => $amount,
+            ]
+        );
+
+        // Convert ETH to ZNX
+        $ico = new Ico();
+
+        $znxAmountParts = RateCalculator::ethToZnx($amount, time(), $ico);
+
+        $znxAmount = 0;
+
+        foreach ($znxAmountParts as $znxAmountPart) {
+            self::createZnxTransaction(
+                [
+                    'user_id' => $user->id,
+                    'amount' => $znxAmountPart['amount'],
+                    'ico_part' => $znxAmountPart['icoPart'],
+                    'contribution_id' => $transferTransaction->id,
+                    'transaction_type' => ZantecoinTransaction::TRANSACTION_COMMISSION_TO_ZNX
+                ]
+            );
+
+            $znxAmount += $znxAmountPart['amount'];
+        }
+
+        // Update transaction
+        $transferTransaction->znx_amount = $znxAmount;
+        $transferTransaction->save();
+
+        // Update Wallet
+        WalletsService::transferCommissionBonus($userWallet, $amount, $znxAmount);
+
+        MailService::sendTokenAddEmail(
+            $user->email,
+            (new CurrencyFormatter($znxAmount))->znxFormat()->withSuffix('ZNX')->get()
+        );
+
+        return [
+            'balance' => (new CurrencyFormatter($znxAmount))->znxFormat()->get(),
+            'total' => (new CurrencyFormatter($userWallet->znx_amount))->znxFormat()->withSuffix('ZNX tokens')->get()
+        ];
+    }
+
+    /**
+     * Create transaction when user withdraw commission bonus
+     *
+     * @param User $user
+     * @param string $address
+     *
+     * @throws
+     */
+    public static function createWithdrawEthTransaction($user, $address) {
+
+        $userWallet = $user->wallet;
+
+        if ($userWallet->commission_bonus == 0) {
+            throw new TransactionException('Not enough ETH to withdraw');
+        }
+
+        // Create transaction
+        WithdrawTransaction::create(
+            [
+                'user_id' => $user->id,
+                'amount' => $userWallet->commission_bonus,
+                'wallet_address' => $address
+            ]
+        );
+
+        WalletsService::zeroCommissionBonus($userWallet);
+
+        UsersService::changeUserStatus($user, User::USER_STATUS_WITHDRAW_PENDING);
     }
 
     /**

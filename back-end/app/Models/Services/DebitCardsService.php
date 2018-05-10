@@ -71,6 +71,30 @@ class DebitCardsService
     }
 
     /**
+     * Create user's Debit Card
+     *
+     * @param User $user
+     * @param int $design
+     */
+    public static function createDebitCard($user, $design)
+    {
+        if (self::checkDebitCard($user->id)) {
+            return;
+        }
+
+        DebitCard::create(
+            [
+                'user_id' => $user->id,
+                'design' => $design
+            ]
+        );
+
+        BonusesService::updateBonus($user);
+
+        MailService::sendOrderDebitCardEmail($user->email, $user->uid, $design);
+    }
+
+    /**
      * Remove user's Debit Card
      *
      * @param int $userID

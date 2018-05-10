@@ -5,7 +5,10 @@ namespace App\Models\Services;
 
 use App\Exceptions\EtheriumException;
 use App\Models\DB\EthAddressAction;
+use App\Models\Wallet\CurrencyFormatter;
 use App\Models\Wallet\EtheriumApi;
+use App\Models\Wallet\Ico;
+use App\Models\Wallet\RateCalculator;
 
 class EtheriumService
 {
@@ -57,5 +60,41 @@ class EtheriumService
         return $address;
     }
 
+    /**
+     * Calculate exchange amount
+     *
+     * @param $znxAmount
+     * @param $ethAmount
+     *
+     * @return sting
+     */
+    public static function exchangeCalculator($znxAmount, $ethAmount) {
 
+        $ico = new Ico();
+
+        if (!is_null($znxAmount)) {
+            $ethAmountParts = RateCalculator::znxToEth($znxAmount, time(), $ico);
+
+            $ethAmount = 0;
+
+            foreach ($ethAmountParts as $ethAmountPart) {
+                $ethAmount += $ethAmountPart['amount'];
+            }
+
+            $balance = (new CurrencyFormatter($ethAmount))->ethFormat()->get();
+
+        } else {
+            $znxAmountParts = RateCalculator::ethToZnx($ethAmount, time(), $ico);
+
+            $znxAmount = 0;
+
+            foreach ($znxAmountParts as $znxAmountPart) {
+                $znxAmount += $znxAmountPart['amount'];
+            }
+
+            $balance = (new CurrencyFormatter($znxAmount))->znxFormat()->get();
+        }
+
+        return $balance;
+    }
 }
