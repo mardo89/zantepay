@@ -52,7 +52,7 @@ class IcoService
         $icoPartZnxRate = RateCalculator::toZnx(1, $icoPartEthRate);
 
         $icoPartAmount = optional($activePart)->getAmount() + $prevPartAmount ?? $prevPartAmount;
-        $icoPartRelativeBalance = $icoPartLimit > 0 ? $icoPartAmount / $icoPartLimit * 100 : 0;
+        $icoPartRelativeBalance = $icoPartLimit > 0 ? $icoPartAmount / $icoPartLimit : 0;
 
         $ethLimit = RateCalculator::fromZnx($icoPartLimit, $icoPartEthRate);
         $ethAmount = RateCalculator::fromZnx($icoPartAmount, $icoPartEthRate);
@@ -73,7 +73,7 @@ class IcoService
             'euroRate' => (new CurrencyFormatter($icoPartEuroRate))->ethFormat()->get(),
             'relativeBalance' => [
                 'value' => $icoPartRelativeBalance,
-                'percent' => number_format($icoPartRelativeBalance, 2),
+                'percent' => number_format($icoPartRelativeBalance * 100, 2),
                 'progressClass' => $icoPartRelativeBalance > 50 ? 'is-left' : 'is-right'
             ]
         ];

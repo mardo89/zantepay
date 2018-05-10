@@ -149,16 +149,16 @@ class RestoreContributions extends Command
                 }
             }
 
-            // Save information about contribution operation
-            ContributionAction::create(
-                [
-                    'contributions_found' => count($contributions['contributions']),
-                    'action_type' => ContributionAction::ACTION_TYPE_RESTORE,
-                    'continuation_token' => $continuationToken,
-                ]
-            );
-
         }
+
+        // Save information about contribution operation
+        ContributionAction::create(
+            [
+                'contributions_found' => count($contributions['contributions']),
+                'action_type' => ContributionAction::ACTION_TYPE_RESTORE,
+                'continuation_token' => $continuationToken,
+            ]
+        );
 
         $this->info('done!');
         $this->info('');

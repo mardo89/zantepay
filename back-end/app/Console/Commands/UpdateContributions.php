@@ -117,16 +117,16 @@ class UpdateContributions extends Command
                     }
                 }
 
-                // Save information about contribution operation
-                ContributionAction::create(
-                    [
-                        'contributions_found' => count($contributions['contributions']),
-                        'action_type' => ContributionAction::ACTION_TYPE_UPDATE,
-                        'continuation_token' => $contributions['continuation_token'],
-                    ]
-                );
-
             }
+
+            // Save information about contribution operation
+            ContributionAction::create(
+                [
+                    'contributions_found' => count($contributions['contributions']),
+                    'action_type' => ContributionAction::ACTION_TYPE_UPDATE,
+                    'continuation_token' => $contributions['continuation_token'],
+                ]
+            );
 
         } catch (\Exception $e) {
 
