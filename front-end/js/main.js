@@ -513,33 +513,29 @@ $(document).ready(function() {
   
   var newsletterTimeoutHandle;
   function openNewsletterPopup() {
-    newsletterTimeoutHandle = window.setTimeout(function() {
-      $('a[href="#newsletter-modal"]').trigger('click');
-      setCookie('hideNewsletterPopup', 'true', {path: '/', expires: 86400}); //1day cookie
-    }, 6000);
+      newsletterTimeoutHandle = window.setTimeout(function() {
+          $.magnificPopup.open({
+              items: {
+                  src: '#newsletter-modal'
+              },
+              type:'inline',
+              midClick: true,
+              mainClass: 'mfp-fade',
+              fixedContentPos: false,
+              callbacks: {
+                  open: function() {
+                      $('body').addClass('noscroll');
+                  },
+                  close: function() {
+                      $('body').removeClass('noscroll');
+                  }
+              }
+          });
+          setCookie('hideNewsletterPopup', 'true', {path: '/', expires: 86400}); //1day cookie
+      }, 6000);
   }
 
-  if( $('a[href="#newsletter-modal"]').length ) {
-    if ( !getCookie('hideNewsletterPopup') ) {
+  if( $('#newsletter-modal').length && !getCookie('hideNewsletterPopup')) {
       openNewsletterPopup();
-    } 
-  }
-  if ( $('.js-popup-newsletter').length ) {
-    $('.js-popup-newsletter').magnificPopup({
-      type:'inline',
-      midClick: true,
-      mainClass: 'mfp-fade',
-      fixedContentPos: false,
-      callbacks: {
-       open: function() {
-        $('body').addClass('noscroll');
-        setCookie('hideNewsletterPopup', 'true', {path: '/', expires: 86400});
-        clearTimeout(newsletterTimeoutHandle);
-       },
-       close: function() {
-         $('body').removeClass('noscroll');
-       }
-      }
-    });
   }
 });

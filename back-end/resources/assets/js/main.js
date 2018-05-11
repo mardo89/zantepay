@@ -117,46 +117,33 @@ $(document).ready(function () {
         $('.h-banner').addClass('is-active');
     }
 
-    //show newsletter panel
-    if ( !getCookie('hideNewsletterPanel') && $('.newsletter-panel').length ) {
-        $('.newsletter-panel').addClass('is-active');
-    }
-
-    //hide newsletter panel
-    $(document).on('click', '.js-close-panel', function() {
-        $(this).closest('.sticky-panel').removeClass('is-active');
-        setCookie('hideNewsletterPanel', 'true', {path: '/', expires: 86400});
-    });
-
     //newsletter auto popup
     var newsletterTimeoutHandle;
     function openNewsletterPopup() {
         newsletterTimeoutHandle = window.setTimeout(function() {
-            $('a[href="#newsletter-modal"]').trigger('click');
+            $.magnificPopup.open({
+                items: {
+                    src: '#newsletter-modal'
+                },
+                type:'inline',
+                midClick: true,
+                mainClass: 'mfp-fade',
+                fixedContentPos: false,
+                callbacks: {
+                    open: function() {
+                        $('body').addClass('noscroll');
+                    },
+                    close: function() {
+                        $('body').removeClass('noscroll');
+                    }
+                }
+            });
             setCookie('hideNewsletterPopup', 'true', {path: '/', expires: 86400}); //1day cookie
         }, 6000);
     }
 
-    if( $('a[href="#newsletter-modal"]').length && !getCookie('hideNewsletterPopup')) {
+    if( $('#newsletter-modal').length && !getCookie('hideNewsletterPopup')) {
         openNewsletterPopup();
-    }
-    if ( $('.js-popup-newsletter').length ) {
-        $('.js-popup-newsletter').magnificPopup({
-            type:'inline',
-            midClick: true,
-            mainClass: 'mfp-fade',
-            fixedContentPos: false,
-            callbacks: {
-                open: function() {
-                    $('body').addClass('noscroll');
-                    setCookie('hideNewsletterPopup', 'true', {path: '/', expires: 86400});
-                    clearTimeout(newsletterTimeoutHandle);
-                },
-                close: function() {
-                    $('body').removeClass('noscroll');
-                }
-            }
-        });
     }
 
     // Count down
