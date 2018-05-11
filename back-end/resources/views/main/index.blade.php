@@ -183,6 +183,24 @@
                 <div class="lp-feed">
                     <div class="row">
                         <div class="col-lg-6">
+                            <a href="https://medium.com/@zantepay/zantepay-we-are-moving-forward-with-mastercard-integration-99fd14a925fd" target="_blank" class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-05-08">2018 / 08 / 05</time>
+                                    <p>Mastercard and GFC meeting in Tallinn office </p>
+                                </div>
+                            </a>
+                            <a href="https://youtu.be/7fuQrhaqXV8" target="_blank" class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-05-02">2018 / 02 / 05 </time>
+                                    <p>Zantepay official video launch</p>
+                                </div>
+                            </a>
+                            <a href="https://zantepay.com/mobile-app" target="_blank" class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-04-24">2018 / 24 / 04</time>
+                                    <p>ZANTEPAY wallet alfa launch</p>
+                                </div>
+                            </a>
                             <a href="https://www.cryptocapitalworld.com" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-20">2018 / 20 / 04</time>
@@ -195,26 +213,26 @@
                                     <p>Bounty program launch</p>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/zantepay/" target="_blank" class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-04-16">2018 / 16 / 04</time>
-                                    <p>Zantepay on Instagram is live</p>
-                                </div>
-                            </a>
-                            <div class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-04-15">2018 / 15 / 04</time>
-                                    <p>ICO kick-off</p>
-                                </div>
-                            </div>
-                            <div class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-04-12">2018 / 12 / 04</time>
-                                    <p>Whitepaper in Korean, Chinese, Portuguese, German, French, and Arabic is up</p>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-lg-6">
+                          <a href="https://www.instagram.com/zantepay/" target="_blank" class="lp-feed__col">
+                              <div class="lp-feed__text">
+                                  <time datetime="2018-04-16">2018 / 16 / 04</time>
+                                  <p>Zantepay on Instagram is live</p>
+                              </div>
+                          </a>
+                          <div class="lp-feed__col">
+                              <div class="lp-feed__text">
+                                  <time datetime="2018-04-15">2018 / 15 / 04</time>
+                                  <p>ICO kick-off</p>
+                              </div>
+                          </div>
+                          <div class="lp-feed__col">
+                              <div class="lp-feed__text">
+                                  <time datetime="2018-04-12">2018 / 12 / 04</time>
+                                  <p>Whitepaper in Korean, Chinese, Portuguese, German, French, and Arabic is up</p>
+                              </div>
+                          </div>
                             <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Russian.pdf" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-11">2018 / 11 / 04</time>
@@ -225,24 +243,6 @@
                                 <div class="lp-feed__text">
                                     <time datetime="2018-03-30">2018 / 10 / 04</time>
                                     <p>Whitepaper in Japanese is up on the website</p>
-                                </div>
-                            </a>
-                            <a href="https://medium.com/@zantepay/zantepay-and-gfc-sign-a-preliminary-agreement-on-debit-cards-bf2ba13cc987" target="_blank" class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-04-03">2018 / 03 / 04</time>
-                                    <p>ZANTEPAY and GFC sign a preliminary agreement on debit cards</p>
-                                </div>
-                            </a>
-                            <!-- <div class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-03-23">2018 / 23 / 03</time>
-                                    <p>Higher level security integration start</p>
-                                </div>
-                            </div> -->
-                            <a href="https://www.facebook.com/ZANTEPAY/photos/a.141550459837098.1073741828.133209457337865/166399440685533/?type=3&theater" target="_blank" class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-03-23">2018 / 20 / 03</time>
-                                    <p>Security Summit 2018</p>
                                 </div>
                             </a>
                         </div>
@@ -605,6 +605,11 @@
                             technology and telecom branch for the brands like HP and Nokia. Then she moved on to online-based consulting
                             business and recently into the fin tech branch. Lena believes that her corporate experience, leadership and
                             passion for the technology make her a valuable asset for the team.</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="images/daniel.jpg" srcset="images/daniel@2x.jpg 2x" alt="Daniel Raissar">
+                        <h3 class="h4">Daniel Raissar <span>CTO</span> <a target="_blank" href="https://www.linkedin.com/in/daniel-raissar-58684848/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
+                        <p>Daniel is an early adaptor of cryptocurrencies. BScIT from IT College. One of the founding members of Estonian Cryptocurrency Association. Has the experience of trading cryptocurrencies successfully for over 5 years.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/ron.jpg" srcset="images/ron@2x.jpg 2x" alt="Ron Luvistsuk">
