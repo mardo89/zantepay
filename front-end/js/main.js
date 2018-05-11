@@ -510,4 +510,36 @@ $(document).ready(function() {
     // }, 1);
     return false;
   });
+  
+  var newsletterTimeoutHandle;
+  function openNewsletterPopup() {
+    newsletterTimeoutHandle = window.setTimeout(function() {
+      $('a[href="#newsletter-modal"]').trigger('click');
+      setCookie('showNewsletterPopup', 'true', {path: '/', expires: 86400}); //1day cookie
+    }, 6000);
+  }
+
+  if( $('a[href="#newsletter-modal"]').length ) {
+    if ( !getCookie('showNewsletterPopup') ) {
+      openNewsletterPopup();
+    } 
+  }
+  if ( $('.js-popup-newsletter').length ) {
+    $('.js-popup-newsletter').magnificPopup({
+      type:'inline',
+      midClick: true,
+      mainClass: 'mfp-fade',
+      fixedContentPos: false,
+      callbacks: {
+       open: function() {
+        $('body').addClass('noscroll');
+        setCookie('showNewsletterPopup', 'true', {path: '/', expires: 86400});
+        clearTimeout(newsletterTimeoutHandle);
+       },
+       close: function() {
+         $('body').removeClass('noscroll');
+       }
+      }
+    });
+  }
 });

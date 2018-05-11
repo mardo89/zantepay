@@ -277,7 +277,7 @@
     <!-- Join our newsletter panel -->
     <div class="sticky-panel newsletter-panel">
         <a href="javascript:void(0)" class="fa fa-close js-close-panel" title="Close"></a>
-        <a href="#newsletter-modal" class="js-popup-link sticky-panel__text">Join our newsletter</a>
+        <a href="#newsletter-modal" class="js-popup-newsletter sticky-panel__text">Join our newsletter</a>
     </div>
 
     <!-- join our newsletter -->
