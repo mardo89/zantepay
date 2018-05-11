@@ -183,6 +183,12 @@
                 <div class="lp-feed">
                     <div class="row">
                         <div class="col-lg-6">
+                            <a href="https://medium.com/@zantepay/zantepay-welcomes-daniel-raissar-as-new-chief-technology-officer-aa3049149a19" target="_blank" class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-05-11">2018 / 11 / 05</time>
+                                    <p>Daniel Raissar joins ZANTEPAY as new CTO </p>
+                                </div>
+                            </a>
                             <a href="https://medium.com/@zantepay/zantepay-we-are-moving-forward-with-mastercard-integration-99fd14a925fd" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-05-08">2018 / 08 / 05</time>
@@ -207,14 +213,14 @@
                                     <p>Meet us on April 25th-26th at Crypto Capital World - World‘s Largest Conference For Crypto Investments </p>
                                 </div>
                             </a>
-                            <a href="https://bitcointalk.org/index.php?topic=3338226" target="_blank" class="lp-feed__col">
+                        </div>
+                        <div class="col-lg-6">
+                          <a href="https://bitcointalk.org/index.php?topic=3338226" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-17">2018 / 17 / 04</time>
                                     <p>Bounty program launch</p>
                                 </div>
                             </a>
-                        </div>
-                        <div class="col-lg-6">
                           <a href="https://www.instagram.com/zantepay/" target="_blank" class="lp-feed__col">
                               <div class="lp-feed__text">
                                   <time datetime="2018-04-16">2018 / 16 / 04</time>
@@ -237,12 +243,6 @@
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-11">2018 / 11 / 04</time>
                                     <p>Whitepaper in Russian language is available</p>
-                                </div>
-                            </a>
-                            <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Japanese.pdf" target="_blank" class="lp-feed__col">
-                                <div class="lp-feed__text">
-                                    <time datetime="2018-03-30">2018 / 10 / 04</time>
-                                    <p>Whitepaper in Japanese is up on the website</p>
                                 </div>
                             </a>
                         </div>

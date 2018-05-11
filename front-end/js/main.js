@@ -515,12 +515,12 @@ $(document).ready(function() {
   function openNewsletterPopup() {
     newsletterTimeoutHandle = window.setTimeout(function() {
       $('a[href="#newsletter-modal"]').trigger('click');
-      setCookie('showNewsletterPopup', 'true', {path: '/', expires: 86400}); //1day cookie
+      setCookie('hideNewsletterPopup', 'true', {path: '/', expires: 86400}); //1day cookie
     }, 6000);
   }
 
   if( $('a[href="#newsletter-modal"]').length ) {
-    if ( !getCookie('showNewsletterPopup') ) {
+    if ( !getCookie('hideNewsletterPopup') ) {
       openNewsletterPopup();
     } 
   }
@@ -533,7 +533,7 @@ $(document).ready(function() {
       callbacks: {
        open: function() {
         $('body').addClass('noscroll');
-        setCookie('showNewsletterPopup', 'true', {path: '/', expires: 86400});
+        setCookie('hideNewsletterPopup', 'true', {path: '/', expires: 86400});
         clearTimeout(newsletterTimeoutHandle);
        },
        close: function() {
