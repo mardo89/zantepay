@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\DebitCardPreOrder;
-use App\Mail\InviteFriend;
-use App\Mail\Welcome;
 use App\Models\DB\AreaCode;
-use App\Models\DB\Contribution;
 use App\Models\DB\EthAddressAction;
 use App\Models\DB\TransferTransaction;
-use App\Models\DB\Wallet;
 use App\Models\DB\WithdrawTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\AccountsService;
 use App\Models\Services\AuthService;
 use App\Models\Services\BonusesService;
+use App\Models\Services\DocumentsService;
 use App\Models\Services\InvitesService;
 use App\Models\Services\MailService;
 use App\Models\Services\UsersService;
@@ -35,7 +31,6 @@ use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -1193,11 +1188,11 @@ class UserController extends Controller
 
 
     /**
-     * Debit card design
+     * Debit card country
      *
      * @return View
      */
-    public function debitCard()
+    public function debitCardCountry()
     {
         $user = Auth::user();
 
@@ -1208,6 +1203,60 @@ class UserController extends Controller
                 'UserController@debitCardSuccess'
             );
         }
+
+        $verificationComplete = DocumentsService::verificationComplete($user);
+
+        return view(
+            'user.debit-card-country',
+            [
+                'isVerified' => $verificationComplete
+            ]
+        );
+    }
+
+
+    /**
+     * Save debit card country
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function saveDebitCardCountry(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'country' => 'required|bail'
+            ],
+            ValidationMessages::getList(
+                [
+                    'country' => 'Country'
+                ],
+                [
+                    'country.required' => 'Please select your country',
+                ]
+            )
+
+        );
+
+        return response()->json(
+            [
+                'nextStep' => action('UserController@debitCardDesign')
+            ]
+        );
+    }
+
+    /**
+     * Debit card design
+     *
+     * @return View
+     */
+    public function debitCardDesign()
+    {
+        $user = Auth::user();
+
+        $card = DebitCard::where('user_id', $user->id)->first();
 
         $userDebitCard = [
             'design' => is_null($card) ? DebitCard::DESIGN_WHITE : $card->design
@@ -1229,7 +1278,7 @@ class UserController extends Controller
      *
      * @return json
      */
-    public function saveDebitCard(Request $request)
+    public function saveDebitCardDesign(Request $request)
     {
         $user = Auth::user();
 
@@ -1283,7 +1332,7 @@ class UserController extends Controller
 
         return response()->json(
             [
-                'nextStep' => action('UserController@debitCardIdentityDocuments')
+                'nextStep' => action('UserController@debitCardSuccess')
             ]
         );
     }

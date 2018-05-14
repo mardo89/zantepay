@@ -47,7 +47,7 @@ class AuthService
         $activeUser = AccountsService::getActiveUser();
 
         if (optional($activeUser)->isDisabled()) {
-            throw new AuthException('Your account is disabled');
+            throw new AuthException('Your email account is not confirmed yet. Check your inbox/spam folder to confirm your account.');
         }
 
         if (optional($activeUser)->isClosed()) {
