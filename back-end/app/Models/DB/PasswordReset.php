@@ -26,4 +26,5 @@ class PasswordReset extends Model
      * @var bool Disable timestamps
      */
     public $timestamps = false;
+
 }

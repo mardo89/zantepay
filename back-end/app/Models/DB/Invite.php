@@ -29,26 +29,4 @@ class Invite extends Model
      */
     protected $hidden = [];
 
-    /**
-     * Get status
-     *
-     * @param int $status
-     *
-     * @return string
-     */
-    public static function getStatus($status) {
-        switch ($status) {
-            case self::INVITATION_STATUS_PENDING:
-                return 'Invitation pending';
-
-            case self::INVITATION_STATUS_VERIFYING:
-                return 'Verification not finished';
-
-            case self::INVITATION_STATUS_COMPLETE:
-                return 'Signed up!';
-
-            default:
-                return 'Invitation pending';
-        }
-    }
 }

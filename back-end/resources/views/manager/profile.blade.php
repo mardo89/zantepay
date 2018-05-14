@@ -104,7 +104,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="field-label" for="field8">Postcode:</label>
-                                        <input class="input-field" type="text" name="postcode" id="field8" value="{{ $profile->postcode }}"
+                                        <input class="input-field" type="text" name="postcode" id="field8" value="{{ $profile->post_code }}"
                                                readonly>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@
                                     <div class="form-group">
                                         <label class="field-label" for="field12">Country of birth:</label>
                                         <input class="input-field" type="text" name="country-birth" id="field12"
-                                               value="{{ $profile->birth_country }}" readonly>
+                                               value="{{ $profile->birthCountryName }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +159,7 @@
                             <h2 class="h4 headline-mb">Passport/ID/Driver's license:</h2>
                             <div class="row">
                                 <div class="col-md-5">
-                                    @foreach($idDocuments as $document)
+                                    @foreach($documents['idDocuments'] as $document)
                                         @if($document['type'] == 'application/pdf')
                                             <object width="100%" height="300px" type="application/pdf"
                                                     data="{{ $document['src'] }}"></object>
@@ -179,10 +179,10 @@
                                     @endforeach
                                 </div>
 
-                                @if($verification->id_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
+                                @if($verification['id']['isDocumentsUploaded'])
                                     <div class="col-md-3 col-sm-4 col-5 text-center mb-20 document-actions">
                                         <input type="hidden" name="document-type"
-                                               value="{{ \App\Models\DB\Document::DOCUMENT_TYPE_IDENTITY }}">
+                                               value="{{ $documentTypes['idDocuments'] }}">
 
                                         <button type="button"
                                                 class="mt-40 mb-20 btn btn--medium btn--shadowed-light btn--full-w decline-documents">
@@ -199,12 +199,12 @@
                                         <div class="form-group">
                                             <label class="field-label" for="field12">Reason:</label>
                                             <input class="input-field" type="text" name="decline-reason" id="field12"
-                                                   value="{{ $verification->id_decline_reason }}">
+                                                   value="{{ $verification['id']['declineReason'] }}">
                                         </div>
                                     </div>
                                 @else
                                     <div class="col-md-3 col-sm-4 col-5 mb-20 document-status">
-                                        {{ $verification->idStatusName }}
+                                        {{ $verification['id']['statusName'] }}
                                     </div>
                                 @endif
                             </div>
@@ -214,7 +214,7 @@
                             <h2 class="h4 headline-mb">Proof of address:</h2>
                             <div class="row">
                                 <div class="col-md-5">
-                                    @foreach($addressDocuments as $document)
+                                    @foreach($documents['addressDocuments'] as $document)
                                         @if($document['type'] == 'application/pdf')
                                             <object width="100%" height="300px" type="application/pdf"
                                                     data="{{ $document['src'] }}"></object>
@@ -234,10 +234,10 @@
                                     @endforeach
                                 </div>
 
-                                @if($verification->address_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
+                                @if($verification['address']['isDocumentsUploaded'])
                                     <div class="col-md-3 col-sm-4 col-5 text-center mb-20 document-actions">
                                         <input type="hidden" name="document-type"
-                                               value="{{ \App\Models\DB\Document::DOCUMENT_TYPE_ADDRESS }}">
+                                               value="{{ $documentTypes['addressDocuments'] }}">
 
                                         <button type="button"
                                                 class="mt-40 mb-20 btn btn--medium btn--shadowed-light btn--full-w decline-documents">
@@ -254,11 +254,11 @@
                                         <div class="form-group">
                                             <label class="field-label" for="field13">Reason:</label>
                                             <input class="input-field" type="text" name="decline-reason" id="field13"
-                                                   value="{{ $verification->address_decline_reason }}">
+                                                   value="{{ $verification['address']['declineReason'] }}">
                                         </div>
                                     </div>
                                 @else
-                                    {{ $verification->addressStatusName }}
+                                    {{ $verification['address']['statusName'] }}
                                 @endif
                             </div>
                         </div>
@@ -367,9 +367,9 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                @if($debitCard === \App\Models\DB\DebitCard::DESIGN_WHITE)
+                                @if($debitCard['isWhite'])
                                     <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x" alt="ZANTEPAY Card">
-                                @elseif($debitCard === \App\Models\DB\DebitCard::DESIGN_RED)
+                                @elseif($debitCard['isRed'])
                                     <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x" alt="ZANTEPAY Card">
                                 @else
                                     Debit Card not selected

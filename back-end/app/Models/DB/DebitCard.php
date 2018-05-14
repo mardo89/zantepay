@@ -7,18 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class DebitCard extends Model
 {
     /**
-     * Not selected
+     * Debit Card Designs
      */
     const DESIGN_NOT_SELECTED = 0;
-
-    /**
-     * White Design
-     */
     const DESIGN_WHITE = 1;
-
-    /**
-     * Red Design
-     */
     const DESIGN_RED = 2;
 
     /**
@@ -36,52 +28,5 @@ class DebitCard extends Model
      * @var array
      */
     protected $hidden = [];
-
-    /**
-     * Return card design name
-     *
-     * @param int $design
-     *
-     * @return string
-     */
-    public static function getDesign($design)
-    {
-        switch ($design) {
-            case self::DESIGN_WHITE:
-                return 'White';
-
-            case self::DESIGN_RED:
-                return 'Red';
-
-            case self::DESIGN_NOT_SELECTED:
-                return 'Not selected';
-
-            default:
-                return '';
-        }
-    }
-
-    /**
-     * Return card design list
-     *
-     * @return array
-     */
-    public static function getCardsList()
-    {
-        return [
-            [
-                'id' => self::DESIGN_NOT_SELECTED,
-                'name' => self::getDesign(self::DESIGN_NOT_SELECTED)
-            ],
-            [
-                'id' => self::DESIGN_WHITE,
-                'name' => self::getDesign(self::DESIGN_WHITE)
-            ],
-            [
-                'id' => self::DESIGN_RED,
-                'name' => self::getDesign(self::DESIGN_RED)
-            ]
-        ];
-    }
 
 }

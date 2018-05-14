@@ -12,7 +12,6 @@ use App\Models\DB\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
-use Mockery\Exception;
 
 class AccountsService
 {
@@ -36,8 +35,7 @@ class AccountsService
             ]
         );
 
-        ExternalRedirect::addLink(
-            Session::get('externalLink'),
+        RedirectsService::trackRedirect(
             $email,
             ExternalRedirect::ACTION_TYPE_REGISTRATION
         );
@@ -161,7 +159,7 @@ class AccountsService
         ProfilesService::removeProfile($user->id);
         InvitesService::removeInvites($user->id);
         DebitCardsService::removeDebitCard($user->id);
-        DocumentsService::removeDocuments($user->id);
+        DocumentsService::removeUserDocuments($user->id);
         SocialNetworkAccountsService::removeSocialNetworkAccount($user->id);
         ResetPasswordsService::removePasswordReset($user->email);
 
@@ -185,6 +183,18 @@ class AccountsService
         }
 
         UsersService::changeUserStatus($user, User::USER_STATUS_PENDING);
+    }
+
+    /**
+     *  Accept terms and conditions
+     */
+    public static function acceptTerms()
+    {
+        $user = self::getActiveUser();
+
+        UsersService::changeUserStatus($user, User::USER_STATUS_NOT_VERIFIED);
+
+        MailService::sendWelcomeEmail($user->email);
     }
 
     /**
@@ -293,7 +303,7 @@ class AccountsService
     /**
      *  Get user by UID
      *
-     * @param int $userUID
+     * @param string $userUID
      *
      * @return User
      * @throws UserNotFoundException
@@ -445,12 +455,60 @@ class AccountsService
      *
      * @return boolean
      */
-    protected static function checkIdentity($userID)
+    public static function checkIdentity($userID)
     {
         $activeUser = self::getActiveUser();
 
         return $activeUser->id === $userID;
     }
+
+    /**
+     * Get info about user's account
+     *
+     * @param string $userUID
+     *
+     * @return array
+     * @throws
+     */
+    public static function getInfo($userUID)
+    {
+        $user = self::getUserByID($userUID);
+
+        $profile = ProfilesService::getProfileInfo($user);
+
+        $verification = DocumentsService::getVerificationInfo($user);
+        $documents = DocumentsService::getUserDocuments($user->id);
+        $documentsTypes = DocumentsService::getDocumentTypeID();
+
+        $referrer = self::getReferrer($user->referrer);
+        $referrerEmail = is_null($referrer) ? (is_null($user->referrer) ? '' : 'User deleted') : $referrer->email;
+
+        $debitCardDesign = DebitCardsService::getDebitCardDesign($user->id);
+        $debitCard = [
+            'isWhite' => DebitCardsService::isDebitCardWhile($debitCardDesign),
+            'isRed' => DebitCardsService::isDebitCardRed($debitCardDesign),
+        ];
+
+        $wallet = $user->wallet;
+
+        $rolesList = UsersService::getUserRoles();
+
+        $allowEdit = !self::checkIdentity($user->id);
+
+        return [
+            'user' => $user,
+            'profile' => $profile,
+            'verification' => $verification,
+            'documents' => $documents,
+            'documentTypes' => $documentsTypes,
+            'referrer' => $referrerEmail,
+            'debitCard' => $debitCard,
+            'wallet' => $wallet,
+            'userRoles' => $rolesList,
+            'allowEdit' => $allowEdit
+        ];
+    }
+
 
     /**
      * Check if user exist

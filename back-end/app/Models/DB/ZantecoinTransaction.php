@@ -30,4 +30,5 @@ class ZantecoinTransaction extends Model
      * @var array
      */
     protected $hidden = [];
+
 }

@@ -121,7 +121,7 @@
                             <div class="form-group profile_postcode">
                                 <label class="field-label" for="field7">Postcode:</label>
                                 <input class="input-field" type="text" name="post-code" maxlength="10"
-                                       value="{{ $profile->postcode }}">
+                                       value="{{ $profile->post_code }}">
                             </div>
                         </div>
                     </div>

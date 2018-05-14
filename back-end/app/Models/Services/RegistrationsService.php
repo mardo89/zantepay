@@ -29,8 +29,7 @@ class RegistrationsService
             ]
         );
 
-        ExternalRedirect::addLink(
-            Session::get('externalLink'),
+        RedirectsService::trackRedirect(
             $email,
             ExternalRedirect::ACTION_TYPE_REGISTRATION_ICO
         );
@@ -59,8 +58,7 @@ class RegistrationsService
             ]
         );
 
-        ExternalRedirect::addLink(
-            Session::get('externalLink'),
+        RedirectsService::trackRedirect(
             $email,
             ExternalRedirect::ACTION_TYPE_REGISTRATION_INVESTOR
         );

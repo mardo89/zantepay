@@ -573,32 +573,4 @@ class IndexController extends Controller
 
         return view('main.confirm-email');
     }
-
-    /**
-     * Check if referrer exist and store him to the Session
-     *
-     * @param string $referrer
-     */
-    protected function checkReferrer($referrer)
-    {
-        if (!is_null($referrer)) {
-            $user = User::where('uid', $referrer)->first();
-
-            if (!is_null($user)) {
-                Session::put('referrer', $user->id);
-            }
-        }
-    }
-
-    /**
-     * Check external redirect
-     *
-     */
-    protected function checkExternals()
-    {
-        $externalLink = $_SERVER['HTTP_REFERER'] ?? '';
-
-        Session::put('externalLink', $externalLink);
-    }
-
 }

@@ -20,7 +20,7 @@ class BonusesService
     public static function updateBonus($user)
     {
         $documentsVerified = DocumentsService::verificationComplete($user);
-        $hasDebitCard = DebitCardsService::checkDebitCard($user);
+        $hasDebitCard = DebitCardsService::checkDebitCard($user->id);
 
         if (!$documentsVerified || !$hasDebitCard) {
             return;
@@ -29,9 +29,7 @@ class BonusesService
         // user bonus
         $bonusAmount = Wallet::DEBIT_CARD_BONUS;
 
-        $wallet = $user->wallet;
-        $wallet->debit_card_bonus = $bonusAmount;
-        $wallet->save();
+        WalletsService::updateDebitCardBonus($user->wallet, $bonusAmount);
 
         TransactionsService::createBonusTransaction($user->id, $bonusAmount);
 
@@ -44,9 +42,7 @@ class BonusesService
 
         $bonusAmount = Wallet::REFERRAL_BONUS;
 
-        $wallet = $referrer->wallet;
-        $wallet->referral_bonus += $bonusAmount;
-        $wallet->save();
+        WalletsService::updateReferralBonus($referrer->wallet, $bonusAmount);
 
         TransactionsService::createBonusTransaction($referrer->id, $bonusAmount);
     }
@@ -60,7 +56,7 @@ class BonusesService
      */
     public static function getReferralBonus($referral)
     {
-        $hasDebitCard = DebitCardsService::checkDebitCard($referral);
+        $hasDebitCard = DebitCardsService::checkDebitCard($referral->id);
         $documentsVerified = DocumentsService::verificationComplete($referral);
 
         $referralBonus = $hasDebitCard ? Wallet::REFERRAL_BONUS : 0;

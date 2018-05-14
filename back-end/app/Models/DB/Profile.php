@@ -25,4 +25,5 @@ class Profile extends Model
         'passport_id', 'passport_expiration_date',
         'birth_date', 'birth_country_id', 'eth_wallet'
     ];
+
 }
