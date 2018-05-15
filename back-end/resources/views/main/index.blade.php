@@ -25,7 +25,7 @@
                                     <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
                                     <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
                                     <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
-                                    <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
+                                    <li><a target="_blank" href="https://t.me/zantepay_ico"><i class="fa fa-telegram"></i></a></li>
                                     <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
                                     <li><a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
                                     </li>
@@ -189,6 +189,12 @@
                 <div class="lp-feed">
                     <div class="row">
                         <div class="col-lg-6">
+                            <a href="https://medium.com/@zantepay/zantepay-weekly-update-7-14th-of-may-2018-3a059e513184" target="_blank" class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-05-14">2018 / 14 / 05</time>
+                                    <p>ZANTEPAY weekly update 7–14th of May 2018</p>
+                                </div>
+                            </a>
                             <a href="https://medium.com/@zantepay/zantepay-welcomes-daniel-raissar-as-new-chief-technology-officer-aa3049149a19" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-05-11">2018 / 11 / 05</time>
@@ -221,36 +227,36 @@
                             </a>
                         </div>
                         <div class="col-lg-6">
-                          <a href="https://bitcointalk.org/index.php?topic=3338226" target="_blank" class="lp-feed__col">
+                            <a href="https://www.cryptocapitalworld.com" target="_blank" class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-04-20">2018 / 20 / 04</time>
+                                    <p>Meet us on April 25th-26th at Crypto Capital World - World‘s Largest Conference For Crypto Investments </p>
+                                </div>
+                            </a>
+                            <a href="https://bitcointalk.org/index.php?topic=3338226" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
                                     <time datetime="2018-04-17">2018 / 17 / 04</time>
                                     <p>Bounty program launch</p>
                                 </div>
                             </a>
-                          <a href="https://www.instagram.com/zantepay/" target="_blank" class="lp-feed__col">
-                              <div class="lp-feed__text">
-                                  <time datetime="2018-04-16">2018 / 16 / 04</time>
-                                  <p>Zantepay on Instagram is live</p>
-                              </div>
-                          </a>
-                          <div class="lp-feed__col">
-                              <div class="lp-feed__text">
-                                  <time datetime="2018-04-15">2018 / 15 / 04</time>
-                                  <p>ICO kick-off</p>
-                              </div>
-                          </div>
-                          <div class="lp-feed__col">
-                              <div class="lp-feed__text">
-                                  <time datetime="2018-04-12">2018 / 12 / 04</time>
-                                  <p>Whitepaper in Korean, Chinese, Portuguese, German, French, and Arabic is up</p>
-                              </div>
-                          </div>
-                            <a href="https://zantepay.com/storage/Zantepay_Whitepaper_Russian.pdf" target="_blank" class="lp-feed__col">
+                            <a href="https://www.instagram.com/zantepay/" target="_blank" class="lp-feed__col">
                                 <div class="lp-feed__text">
-                                    <time datetime="2018-04-11">2018 / 11 / 04</time>
-                                    <p>Whitepaper in Russian language is available</p>
+                                    <time datetime="2018-04-16">2018 / 16 / 04</time>
+                                    <p>Zantepay on Instagram is live</p>
                                 </div>
                             </a>
+                            <div class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-04-15">2018 / 15 / 04</time>
+                                    <p>ICO kick-off</p>
+                                </div>
+                            </div>
+                            <div class="lp-feed__col">
+                                <div class="lp-feed__text">
+                                    <time datetime="2018-04-12">2018 / 12 / 04</time>
+                                    <p>Whitepaper in Korean, Chinese, Portuguese, German, French, and Arabic is up</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <p class="h5 mt-20">New updates are coming every Friday.</p>
@@ -818,8 +824,8 @@
                         <a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
-                        <h4><a target="_blank" href="http://telegram.me/zantepay">Telegram</a></h4>
-                        <a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a>
+                        <h4><a target="_blank" href="https://t.me/zantepay_ico">Telegram</a></h4>
+                        <a target="_blank" href="https://t.me/zantepay_ico"><i class="fa fa-telegram"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
                         <h4><a target="_blank" href="https://www.instagram.com/zantepay">Instagram</a></h4>

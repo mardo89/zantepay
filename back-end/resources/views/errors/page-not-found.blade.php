@@ -25,7 +25,7 @@
                                     <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
                                     <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
                                     <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
-                                    <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
+                                    <li><a target="_blank" href="https://t.me/zantepay_ico"><i class="fa fa-telegram"></i></a></li>
                                     <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
                                     <li><a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
                                     </li>

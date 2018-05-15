@@ -267,7 +267,7 @@
                                                                                 alt="Website"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="http://telegram.me/zantepay" target="_blank" style="outline: none; border: 0;"><img 
+                                                                    <a href="https://t.me/zantepay_ico" target="_blank" style="outline: none; border: 0;"><img 
                                                                                 src="{{ url('/') . "/images/telegram-ico.png" }}" width="42" height="42" 
                                                                                 style="display:block;outline:0;border:0;width:42px;height:42px" 
                                                                                 alt="Telegram"></a>

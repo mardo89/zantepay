@@ -155,8 +155,8 @@
                         <a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
-                        <h4><a target="_blank" href="http://telegram.me/zantepay">Telegram</a></h4>
-                        <a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a>
+                        <h4><a target="_blank" href="https://t.me/zantepay_ico">Telegram</a></h4>
+                        <a target="_blank" href="https://t.me/zantepay_ico"><i class="fa fa-telegram"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
                         <h4><a target="_blank" href="https://www.instagram.com/zantepay">Instagram</a></h4>

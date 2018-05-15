@@ -25,7 +25,7 @@
                     If your rank changes during the campaign, you must contact the campaign manager, Trugad in a bitcointalk PM.<br>
                     Using multi-accounts, cheating and spamming are not allowed. It will result getting all of your accounts permanently banned from the campaign.<br>
                     <strong>Weekly reports in this thread.</strong><br>
-                    <strong>All participants MUST be in the group (<a href="http://telegram.me/zantepay" target="_blank">Zantepay Telegram ANN group</a> and <a href="http://telegram.me/zantepay" target="_blank">Zantepay Telegram Chat group</a>) until the end of ICO.</strong></p>
+                    <strong>All participants MUST be in the group (<a href="https://t.me/zantepay_ico" target="_blank">Zantepay Telegram ANN group</a> and <a href="https://t.me/zantepay_ico" target="_blank">Zantepay Telegram Chat group</a>) until the end of ICO.</strong></p>
                 <p class="primary-color"><strong>At final calculation of points in each campaign the rating system will be used. TOP-40 receive additional points, depending on the place in rating.</strong></p>
                 <p class="primary-color"><strong>For example:</strong><br>
                     1st: + 20% <br>
@@ -46,7 +46,7 @@
 
                 <h3 class="h4 mt-40 mb-20">How to join:</h3>
                 <ul class="styl-list styl-list--sm">
-                    <li>Subscribe to our <a href="http://telegram.me/zantepay" target="_blank">Telegram</a></li>
+                    <li>Subscribe to our <a href="https://t.me/zantepay_ico" target="_blank">Telegram</a></li>
                     <li>At least 10 posts in week. </li>
                     <li>You must not discuss bounty topics in the telegram group. Please keep all bounty conversations to this thread only or PM Trugad in Telegram.</li>
                     <li>The task of participants is to give the constructive answers to others members’ questions, to provoke activity in chat if it “sleeps”, if you have an opportunity - invite people to chat, share your positive opinion about the project.</li>
