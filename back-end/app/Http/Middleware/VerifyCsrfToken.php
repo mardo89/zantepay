@@ -21,5 +21,6 @@ class VerifyCsrfToken extends Middleware
         'account/login',
         'account/logout',
         'account/reset-password',
+        'account/verify/callback',
     ];
 }

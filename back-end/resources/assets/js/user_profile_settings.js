@@ -7,6 +7,49 @@ const resetForms = () => {
 
 }
 
+const initVerify = () => {
+
+    const veriff = Veriff({
+        apiKey: '09928dac-7bea-4413-9ade-79fdd5145d01',
+        parentId: 'verify-user',
+        onSession: function(err, response) {
+
+            if (response.status === 'success' && response.verification !== undefined) {
+
+                const session = {
+                    'session_id': response.verification.id,
+                    'session_token': response.verification.sessionToken,
+                }
+
+                const verificationUrl = response.verification.url;
+
+                axios.post(
+                    '/user/verify',
+                    qs.stringify(session)
+                )
+                    .then(
+                        () => {
+                            location.replace(verificationUrl);
+                        }
+                    )
+                    .catch(
+                        error => {
+                            const {message} = error.response.data;
+
+                            showError(message);
+                        }
+                    )
+
+            } else {
+                showError('Verification failed')
+            }
+
+        }
+    });
+
+    veriff.mount();
+}
+
 $(document).ready(function () {
 
     $('.remove-document').on('click', function (event) {
@@ -423,6 +466,7 @@ $(document).ready(function () {
 
     $('#address-files, #document-files').trigger('change');
 
+    initVerify();
 });
 
 

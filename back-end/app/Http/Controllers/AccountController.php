@@ -6,6 +6,7 @@ use App\Exceptions\AuthException;
 use App\Models\Services\AccountsService;
 use App\Models\Services\AuthService;
 use App\Models\Services\ResetPasswordsService;
+use App\Models\Services\VerificationService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -337,6 +338,45 @@ class AccountController extends Controller
         }
 
         return redirect($redirectUrl);
+    }
+
+    /**
+     * Process verification response
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function trackVerifyResponse(Request $request)
+    {
+
+        try {
+
+            $requestParams = $request->json()->all();
+
+            $apiResponse = [
+                'signature' => $request->header('x-signature'),
+                'session_id' => $requestParams['verification']['id'],
+                'response_status' => $requestParams['verification']['status'],
+                'response_code' => $requestParams['verification']['code'],
+                'fail_reason' => $requestParams['verification']['reason'],
+            ];
+
+            VerificationService::trackVerificationResponse($requestParams['status'], $apiResponse);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            exit(var_dump($e->getMessage()));
+            /**
+             * Email to Mardo about wrong verification
+             */
+        }
+
+        return response()->json(
+            []
+        );
     }
 
 }

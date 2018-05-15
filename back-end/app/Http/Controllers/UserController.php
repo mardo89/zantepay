@@ -13,11 +13,13 @@ use App\Models\Services\InvitesService;
 use App\Models\Services\ProfilesService;
 use App\Models\Services\TransactionsService;
 use App\Models\Services\UsersService;
+use App\Models\Services\VerificationService;
 use App\Models\Services\WalletsService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Psy\Util\Json;
 
 
 class UserController extends Controller
@@ -301,16 +303,14 @@ class UserController extends Controller
 
         $profile = ProfilesService::getProfileInfo($user);
 
-        $profileSettings = ProfilesService::getProfileSettingsInfo($user);
+        $verificationPending = VerificationService::verificationPending($user->verification);
 
         return view(
             'user.profile-settings',
             [
                 'user' => $user,
                 'profile' => $profile,
-                'verification' => $profileSettings['verification'],
-                'idDocuments' => $profileSettings['documents']['idDocuments'],
-                'addressDocuments' => $profileSettings['documents']['addressDocuments'],
+                'verificationPending' => $verificationPending
             ]
         );
     }
@@ -978,6 +978,49 @@ class UserController extends Controller
                 'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
                 'debitCard' => $userDebitCard
             ]
+        );
+    }
+
+    /**
+     * Save data from Verify.me request
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function trackVerifyRequest(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'session_id' => 'required|string|bail',
+                'session_token' => 'required|string|bail'
+            ]
+        );
+
+
+        try {
+
+            $user = AccountsService::getActiveUser();
+
+            VerificationService::trackVerificationRequest($user->verification, $request->session_id, $request->session_token);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Verification error',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
+
+        return response()->json(
+            []
         );
     }
 

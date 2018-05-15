@@ -42,6 +42,7 @@ Route::group(['prefix' => 'account'], function () {
     Route::get('google', 'AccountController@toGoogleProvider');
     Route::get('google/callback', 'AccountController@GoogleProviderCallback');
 
+    Route::post('verify/callback', 'AccountController@trackVerifyResponse');
 });
 
 
@@ -59,10 +60,12 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::post('close-account', 'UserController@closeAccount')->middleware('protect.action');
 
+    Route::post('verify', 'UserController@trackVerifyRequest');
+
     Route::get('profile-settings', 'UserController@profileSettings');
-    Route::post('profile-settings/remove-document', 'UserController@removeDocument');
-    Route::post('profile-settings/upload-identity-documents', 'UserController@uploadIdentityDocuments');
-    Route::post('profile-settings/upload-address-documents', 'UserController@uploadAddressDocuments');
+//    Route::post('profile-settings/remove-document', 'UserController@removeDocument');
+//    Route::post('profile-settings/upload-identity-documents', 'UserController@uploadIdentityDocuments');
+//    Route::post('profile-settings/upload-address-documents', 'UserController@uploadAddressDocuments');
     Route::post('profile-settings/change-password', 'UserController@changePassword')->middleware('protect.action');
     Route::post('profile-settings/update-wallet', 'UserController@updateWallet')->middleware('protect.action');
 

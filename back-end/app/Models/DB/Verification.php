@@ -15,6 +15,14 @@ class Verification extends Model
     const DOCUMENTS_DECLINED = 3;
 
     /**
+     * Verification statuses
+     */
+    const VERIFICATION_PENDING = 0;
+    const VERIFICATION_IN_PROGRESS = 1;
+    const VERIFICATION_SUCCESS = 2;
+    const VERIFICATION_FAILED = 3;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -29,5 +37,12 @@ class Verification extends Model
      * @var array
      */
     protected $hidden = [];
+
+    /**
+     * Get user
+     */
+    public function user() {
+        return $this->belongsTo('App\Models\DB\User', 'user_id', 'id');
+    }
 
 }
