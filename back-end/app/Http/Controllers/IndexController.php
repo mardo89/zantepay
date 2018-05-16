@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Services\AccountsService;
+use App\Models\Services\FeedService;
 use App\Models\Services\IcoService;
 use App\Models\Services\MailService;
 use App\Models\Services\RegistrationsService;
@@ -33,7 +34,8 @@ class IndexController extends Controller
             'main.index',
             [
                 'menuPrefix' => '',
-                'ico' => (new IcoService())->getInfo()
+                'ico' => (new IcoService())->getInfo(),
+                'feed' => (new FeedService())->getItems()
             ]
         );
     }
