@@ -65,7 +65,7 @@ class RegistrationsService
     }
 
     /**
-     * Join to news letters
+     * Join to newsletter
      *
      * @param string $email
      */
@@ -88,6 +88,27 @@ class RegistrationsService
             $email,
             ExternalRedirect::ACTION_TYPE_REGISTRATION_NEWSLETTER
         );
+    }
+
+    /**
+     * Get newsletter emails
+     *
+     * @return array
+     */
+    public static function getNewsLetterInfo()
+    {
+        $newsLetterInfo = [];
+
+        $newsletters = NewsLetter::orderBy('id', 'desc')->get();
+
+        foreach ($newsletters as $newsletter) {
+            $newsLetterInfo[] = [
+                'email' => $newsletter->email,
+                'joined' => $newsletter->created_at->format('m/d/Y')
+            ];
+        }
+
+        return $newsLetterInfo;
     }
 
 }

@@ -21,7 +21,11 @@ class FeedService
     public function getItems() {
         $rss = [];
 
-        $feedItems = $this->read();
+        try {
+            $feedItems = $this->read();
+        } catch (\Exception $e) {
+            $feedItems = [];
+        }
 
         foreach ($feedItems as $feedItem) {
             $rss[] = [

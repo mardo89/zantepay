@@ -8,6 +8,7 @@ use App\Models\Search\Transactions;
 use App\Models\DB\GrantCoinsTransaction;
 use App\Models\Services\AccountsService;
 use App\Models\Services\IcoService;
+use App\Models\Services\RegistrationsService;
 use App\Models\Services\TokensService;
 use App\Models\Services\TransactionsService;
 use App\Models\Services\UsersService;
@@ -436,6 +437,23 @@ class AdminController extends Controller
         return response()->json(
             $transactionsList
         );
+    }
+
+    /**
+     * Newsletter
+     *
+     * @return View
+     */
+    public function newsletter()
+    {
+
+        return view(
+            'admin.newsletter',
+            [
+                'newsletters' => RegistrationsService::getNewsLetterInfo(),
+            ]
+        );
+
     }
 
 }

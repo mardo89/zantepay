@@ -116,6 +116,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('wallet/search-ico-transactions', 'AdminController@searchIcoTransactions');
     Route::get('wallet/search-marketing-transactions', 'AdminController@searchMarketingTransactions');
     Route::get('wallet/search-company-transactions', 'AdminController@searchCompanyTransactions');
+
+    Route::get('newsletter', 'AdminController@newsletter');
 });
 
 /**
