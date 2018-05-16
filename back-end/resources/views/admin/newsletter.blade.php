@@ -10,6 +10,8 @@
 
     <main class="main main-dashboard">
         <div class="container">
+            <a href="newsletter/export" class="mb-20 btn btn--medium btn--shadowed-light" target="_blank"> Import to
+                CSV </a>
 
             <div class="table-responsive-200">
                 <table id="events-list" class="inv-table table-black">
@@ -38,8 +40,4 @@
         </div>
     </main>
 
-@endsection
-
-@section('scripts')
-    <script src="/js/service.js" type="text/javascript"></script>
 @endsection

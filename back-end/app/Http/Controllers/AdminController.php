@@ -456,4 +456,14 @@ class AdminController extends Controller
 
     }
 
+    /**
+     * Import newsletter emails to CSV file
+     *
+     * @return File
+     */
+    public function exportNewsletter()
+    {
+        return RegistrationsService::exportNewsLetterInfo();
+    }
+
 }

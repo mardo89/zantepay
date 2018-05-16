@@ -111,4 +111,28 @@ class RegistrationsService
         return $newsLetterInfo;
     }
 
+    /**
+     * Export newsletter emails to Excel
+     *
+     * @return array
+     */
+    public static function exportNewsLetterInfo()
+    {
+        $newsLetterInfo = self::getNewsLetterInfo();
+
+        $df = fopen("php://output", 'w');
+
+        fputcsv($df, array_keys(reset($newsLetterInfo)));
+
+        foreach($newsLetterInfo as $row)     {
+            fputcsv($df, $row);
+        }
+
+        header('Content-Type: text/csv');
+        header("Content-Type: application/download");
+        header("Content-Disposition: attachment;filename=newsletters.csv");
+
+        fpassthru($df);
+    }
+
 }

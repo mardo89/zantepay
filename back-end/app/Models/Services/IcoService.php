@@ -51,7 +51,7 @@ class IcoService
         $icoPartEuroRate = optional($activePart)->getEuroRate() ?? 0;
         $icoPartZnxRate = RateCalculator::toZnx(1, $icoPartEthRate);
 
-        $icoPartAmount = optional($activePart)->getAmount() + $prevPartAmount ?? $prevPartAmount;
+        $icoPartAmount = $prevPartAmount;
         $icoPartRelativeBalance = $icoPartLimit > 0 ? $icoPartAmount / $icoPartLimit : 0;
 
         $ethLimit = RateCalculator::fromZnx($icoPartLimit, $icoPartEthRate);
