@@ -993,8 +993,7 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'session_id' => 'required|string|bail',
-                'session_token' => 'required|string|bail'
+                'session_id' => 'required|string|bail'
             ]
         );
 
@@ -1003,7 +1002,7 @@ class UserController extends Controller
 
             $user = AccountsService::getActiveUser();
 
-            VerificationService::trackVerificationRequest($user->verification, $request->session_id, $request->session_token);
+            VerificationService::trackVerificationRequest($user->verification, $request->session_id);
 
         } catch (\Exception $e) {
 

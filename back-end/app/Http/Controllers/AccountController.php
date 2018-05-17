@@ -295,6 +295,7 @@ class AccountController extends Controller
      */
     public function FacebookProviderCallback()
     {
+        DB::beginTransaction();
 
         try {
 
@@ -302,9 +303,13 @@ class AccountController extends Controller
 
         } catch (\Exception $e) {
 
+            DB::rollback();
+
             $redirectUrl = '/';
 
         }
+
+        DB::commit();
 
         return redirect($redirectUrl);
     }
@@ -326,6 +331,7 @@ class AccountController extends Controller
      */
     public function GoogleProviderCallback()
     {
+        DB::beginTransaction();
 
         try {
 
@@ -333,9 +339,13 @@ class AccountController extends Controller
 
         } catch (\Exception $e) {
 
+            DB::rollback();
+
             $redirectUrl = '/';
 
         }
+
+        DB::commit();
 
         return redirect($redirectUrl);
     }

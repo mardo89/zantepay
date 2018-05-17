@@ -38,12 +38,10 @@ class VerificationService
      *
      * @param Verification $verification
      * @param string $sessionID
-     * @param string $sessionToken
      */
-    public static function trackVerificationRequest($verification, $sessionID, $sessionToken)
+    public static function trackVerificationRequest($verification, $sessionID)
     {
         $verification->session_id = $sessionID;
-        $verification->session_token = $sessionToken;
         $verification->status = Verification::VERIFICATION_IN_PROGRESS;
         $verification->save();
     }

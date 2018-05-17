@@ -14,12 +14,11 @@ class AddVeriffMeFields extends Migration
     public function up()
     {
         Schema::table('verifications', function (Blueprint $table) {
-            $table->string('session_id')->after('address_decline_reason');
-            $table->text('session_token')->after('session_id');
-            $table->string('response_status')->after('session_token');
-            $table->string('response_code')->after('response_status');
-            $table->string('fail_reason')->after('response_code');
-            $table->integer('status')->default(0)->after('fail_reason');
+            $table->string('session_id')->after('address_decline_reason')->default('');
+            $table->string('response_status')->after('session_id')->default('');
+            $table->string('response_code')->after('response_status')->default('');
+            $table->string('fail_reason')->after('response_code')->default('');
+            $table->integer('status')->after('fail_reason')->default(0);
         });
 
     }
@@ -33,7 +32,6 @@ class AddVeriffMeFields extends Migration
     {
         Schema::table('verifications', function (Blueprint $table) {
             $table->dropColumn('session_id');
-            $table->dropColumn('session_token');
             $table->dropColumn('response_status');
             $table->dropColumn('response_code');
             $table->dropColumn('fail_reason');

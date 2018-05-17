@@ -17,8 +17,7 @@ const initVerify = () => {
             if (response.status === 'success' && response.verification !== undefined) {
 
                 const session = {
-                    'session_id': response.verification.id,
-                    'session_token': response.verification.sessionToken,
+                    'session_id': response.verification.id
                 }
 
                 const verificationUrl = response.verification.url;
