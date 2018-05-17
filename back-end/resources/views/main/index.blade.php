@@ -150,37 +150,6 @@
             </div>
         </section>
 
-        <section class="lp-section-artifical white-content">
-            <div class="container">
-                <h3 class="h2 headline">Artificial intelligence <span>at core</span></h3>
-                <div class="row">
-                    <div class="col-lg-7 col-md-6">
-                        <div class="lp-head">
-                            <img class="lp-head-img" src="images/head.png" srcset="images/head@2x.png 2x"
-                                 alt="Artificial intelligence at core">
-                            <img class="lp-head-lines" src="images/head-lines.png" srcset="images/head-lines@2x.png 2x" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-6 lp-head-text">
-                        <ul class="lp-features-list styl-list">
-                            <li><span>Live chat</span><i class="sprite sprite-chat-icon"></i></li>
-                            <li><span>Facebook messenger</span><i class="sprite sprite-messenger-icon"></i></li>
-                            <li><span>FAQ</span><i class="sprite sprite-faq-icon"></i></li>
-                            <li><span>KYC</span><i class="sprite sprite-kyc-icon"></i></li>
-                            <li><span>Email</span><i class="sprite sprite-email-icon"></i></li>
-                            <li><span>Marketing analysis</span><i class="sprite sprite-analysis-icon"></i></li>
-                            <li><span>Twitter</span><i class="sprite sprite-twitter-icon"></i></li>
-                        </ul>
-                        <p>
-                            <span class="h4 primary-color text-uppercase">OUR ULTIMATE GOAL IS</span>
-                            <br>
-                            To build the multiwallet where all <br> the processes are managed by AI
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <div class="lp-section-feed white-content" id="updates">
             <div class="container">
 
@@ -480,22 +449,6 @@
                         </div>
                     </div>
 
-                    <div class="row lp-row-2">
-                        <div class="col-lg-6 offset-lg-3">
-                            <div class="lp-znx-wrap">
-                                <div class="lp-znx-img">
-                                    <div class="lp-znx-txt"><span>500</span> ZNX</div>
-                                </div>
-                                <ul class="lp-znx-list">
-                                    <li>Pre-Sale value: <span>30€</span></li>
-                                    <li>ICO I value: <span>50€</span></li>
-                                    <li>ICO II value: <span>70€</span></li>
-                                    <li>ICO III value: <span>125€</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="text-center lp-row-3">
                         <!-- <div class="text text-uppercase">FIRST 1000 CARDS GET A BONUS OF 1000 ZNX!</div> -->
                         <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-light" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
@@ -744,7 +697,7 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/oscar.jpg" srcset="images/oscar@2x.jpg 2x" alt="Oscar Sanjuan">
-                        <h3 class="h4 h4--auto">Oscar Sanjuan <span style="font-size:0.83em;">Serial Entrepreneur, Mentor and Cloud Computing Expert, Master in Web Engineering and Ph.D. in Artificial Intelligence.</span>
+                        <h3 class="h4 h4--auto">Oscar Sanjuan <span style="font-size:0.83em;">Serial Entrepreneur, Mentor and Cloud Computing Expert, Master in Web Engineering and Ph.D in Artificial Intelligence</span>
                         <a target="_blank" href="https://www.linkedin.com/in/osanjuan/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
                         </h3>
                         <p>With 20 years of experience in Computer Science and Information Technologies, He has published over 160 articles in journals and conferences. He has taught more than 60 seminars and conferences in Europe and Latin America on Software Engineering. Oscar spends his time building successful Engineering Teams and supporting organizations on their travel to the Cloud in both Private and Public Sectors.</p>
@@ -811,8 +764,12 @@
                         <a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
-                        <h4><a target="_blank" href="https://t.me/zantepay_ico">Telegram</a></h4>
+                        <h4><a target="_blank" href="https://t.me/zantepay_ico">Telegram ICO</a></h4>
                         <a target="_blank" href="https://t.me/zantepay_ico"><i class="fa fa-telegram"></i></a>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <h4><a target="_blank" href="http://telegram.me/zantepay">Telegram Channel</a></h4>
+                        <a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
                         <h4><a target="_blank" href="https://www.instagram.com/zantepay">Instagram</a></h4>

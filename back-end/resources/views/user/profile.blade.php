@@ -36,7 +36,7 @@
                                 <input class="input-field" type="text" name="l-name" maxlength="100" value="{{ $user->last_name }}">
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-6"></div>
+                        <div class="col-lg-3 hidden-lg"></div>
                         <div class="col-lg-3 col-sm-6">
                             <div class="form-group profile_email">
                                 <label class="field-label" for="field3">Email:</label>
