@@ -448,18 +448,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <div class="text-center lp-row-3">
-                        <!-- <div class="text text-uppercase">FIRST 1000 CARDS GET A BONUS OF 1000 ZNX!</div> -->
-                        <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-light" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
-                        @guest
-                            <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Buy Tokens NOW</a>
-                        @endguest
-
-                        @auth
-                            <a href="user/wallet" class="btn btn--shadowed-light">Buy Tokens NOW</a>
-                        @endauth
-                    </div>
                 </div>
             </section>
         </div>
