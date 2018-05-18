@@ -13,7 +13,6 @@ const initVerify = () => {
         apiKey: '09928dac-7bea-4413-9ade-79fdd5145d01',
         parentId: 'verify-user',
         onSession: function(err, response) {
-
             if (response.status === 'success' && response.verification !== undefined) {
 
                 const session = {
@@ -46,7 +45,12 @@ const initVerify = () => {
         }
     });
 
-    veriff.mount();
+    veriff.mount({
+        formLabel: {
+            givenName: 'First Name',
+            lastName: 'Last Name'
+        }
+    });
 }
 
 $(document).ready(function () {
@@ -464,6 +468,17 @@ $(document).ready(function () {
     })
 
     $('#address-files, #document-files').trigger('change');
+
+    $('body').on('submit', 'form[name="veriff-form"]',function(event) {
+
+        const button = $(this).find('input[type="submit"]');
+        button.hide();
+        button.after(
+            $('<button />').addClass('btn btn--shadowed-light btn--medium').attr('id', 'veriff-loader').text('Start Verification')
+        );
+
+        showSpinner($('#veriff-loader'))
+    });
 
     initVerify();
 });

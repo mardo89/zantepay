@@ -13,10 +13,10 @@ class VerificationService
      * @var array Verification Statuses
      */
     public static $verificationStatuses = [
-        Verification::VERIFICATION_PENDING => 'Not Verified',
-        Verification::VERIFICATION_IN_PROGRESS => 'Verification In-Progress',
+        Verification::VERIFICATION_PENDING => 'Not verified',
+        Verification::VERIFICATION_IN_PROGRESS => 'Verification in progress',
         Verification::VERIFICATION_SUCCESS => 'Verified',
-        Verification::VERIFICATION_FAILED => 'Verification Failed',
+        Verification::VERIFICATION_FAILED => 'Verification failed',
     ];
 
     /**
@@ -43,6 +43,9 @@ class VerificationService
     {
         $verification->session_id = $sessionID;
         $verification->status = Verification::VERIFICATION_IN_PROGRESS;
+        $verification->response_status = '';
+        $verification->response_code = '';
+        $verification->fail_reason = '';
         $verification->save();
     }
 
@@ -124,6 +127,24 @@ class VerificationService
         $isFailed = $verification->status == Verification::VERIFICATION_FAILED;
 
         return ($isPending || $isFailed);
+    }
+
+    /**
+     * Get verification status
+     *
+     * @param Verification $verification
+     *
+     * @return boolean
+     */
+    public static function verificationStatus($verification)
+    {
+        $statusName = self::getVerificationStatus($verification->status);
+
+        if ($verification->status === Verification::VERIFICATION_FAILED) {
+            $statusName .= ' - ' . $verification->fail_reason;
+        }
+
+        return $statusName;
     }
 
     /**

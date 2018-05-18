@@ -305,12 +305,15 @@ class UserController extends Controller
 
         $verificationPending = VerificationService::verificationPending($user->verification);
 
+        $verificationStatus = VerificationService::verificationStatus($user->verification);
+
         return view(
             'user.profile-settings',
             [
                 'user' => $user,
                 'profile' => $profile,
-                'verificationPending' => $verificationPending
+                'verificationPending' => $verificationPending,
+                'verificationStatus' => $verificationStatus
             ]
         );
     }

@@ -18,97 +18,94 @@
                     <div class="dashboard-col-wrap">
                         <h2 class="h4 headline-mb headline-subline">
                             Account verification:
-                            @if($verificationPending)
-                                <span>Account requires verification</span>
-                            @else
-                                <span>Account verified</span>
-                            @endif
-
+                            <span>{{ $verificationStatus }}</span>
                         </h2>
+
                         <div class="row">
 
-                            <div id="verify-user"></div>
-
+                            @if($verificationPending)
+                                <div id="verify-user"></div>
+                            @endif
 
                             {{--<div class="col-md-6">--}}
-                                {{--@if(!$verification['id']['isDocumentsUploaded'])--}}
-                                    {{--<div>Your passport / ID / driver’s license:</div>--}}
+                            {{--@if(!$verification['id']['isDocumentsUploaded'])--}}
+                            {{--<div>Your passport / ID / driver’s license:</div>--}}
 
-                                    {{--<form id="upload-identity-documents">--}}
-                                        {{--<div class="drag-drop-area">--}}
-                                            {{--<div class="drag-drop-container">--}}
-                                                {{--<div class="drag-drop-ico"></div>--}}
-                                                {{--<div class="drag-drop-text">Click to open explorer</div>--}}
-                                                {{--<label>--}}
-                                                    {{--<span class="btn btn--shadowed-light btn--medium">Choose file</span>--}}
-                                                    {{--<input id="document-files" type="file" name="id_files" multiple="multiple"--}}
-                                                           {{--title='Click to add Files'>--}}
-                                                {{--</label>--}}
-                                                {{--<div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document--}}
-                                                    {{--should not be bigger than 4 Mb.--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
+                            {{--<form id="upload-identity-documents">--}}
+                            {{--<div class="drag-drop-area">--}}
+                            {{--<div class="drag-drop-container">--}}
+                            {{--<div class="drag-drop-ico"></div>--}}
+                            {{--<div class="drag-drop-text">Click to open explorer</div>--}}
+                            {{--<label>--}}
+                            {{--<span class="btn btn--shadowed-light btn--medium">Choose file</span>--}}
+                            {{--<input id="document-files" type="file" name="id_files" multiple="multiple"--}}
+                            {{--title='Click to add Files'>--}}
+                            {{--</label>--}}
+                            {{--<div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document--}}
+                            {{--should not be bigger than 4 Mb.--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
 
-                                        {{--<button type="submit" class="btn btn--shadowed-light btn--medium">Upload Documents</button>--}}
-                                    {{--</form>--}}
+                            {{--<button type="submit" class="btn btn--shadowed-light btn--medium">Upload Documents</button>--}}
+                            {{--</form>--}}
 
-                                {{--@else--}}
-                                    {{--<div class="headline-subline headline-mb">--}}
-                                        {{--ID proof documents:--}}
-                                        {{--<span>{{ count($idDocuments) }} file uploaded | {{ $verification['id']['statusName'] }}</span>--}}
-                                    {{--</div>--}}
-                                    {{--<ul class="files-list">--}}
-                                        {{--@foreach($idDocuments as $document)--}}
-                                            {{--<li id="{{ $document['id'] }}">--}}
-                                                {{--<i class="file-ico"></i>--}}
-                                                {{--<div class="file-name">{{ $document['name'] }}</div>--}}
-                                                {{--<a href="" class="cross-ico remove-document">×</a>--}}
-                                            {{--</li>--}}
-                                        {{--@endforeach--}}
-                                    {{--</ul>--}}
-                                {{--@endif--}}
+                            {{--@else--}}
+                            {{--<div class="headline-subline headline-mb">--}}
+                            {{--ID proof documents:--}}
+                            {{--<span>{{ count($idDocuments) }} file uploaded | {{ $verification['id']['statusName'] }}</span>--}}
+                            {{--</div>--}}
+                            {{--<ul class="files-list">--}}
+                            {{--@foreach($idDocuments as $document)--}}
+                            {{--<li id="{{ $document['id'] }}">--}}
+                            {{--<i class="file-ico"></i>--}}
+                            {{--<div class="file-name">{{ $document['name'] }}</div>--}}
+                            {{--<a href="" class="cross-ico remove-document">×</a>--}}
+                            {{--</li>--}}
+                            {{--@endforeach--}}
+                            {{--</ul>--}}
+                            {{--@endif--}}
                             {{--</div>--}}
 
 
                             {{--<div class="col-md-6">--}}
-                                {{--@if(!$verification['address']['isDocumentsUploaded'])--}}
-                                    {{--<div>Your address proof documents:</div>--}}
+                            {{--@if(!$verification['address']['isDocumentsUploaded'])--}}
+                            {{--<div>Your address proof documents:</div>--}}
 
-                                    {{--<form id="upload-address-documents">--}}
-                                        {{--<div class="drag-drop-area">--}}
-                                            {{--<div class="drag-drop-container">--}}
-                                                {{--<div class="drag-drop-ico"></div>--}}
-                                                {{--<div class="drag-drop-text">Click to open explorer</div>--}}
-                                                {{--<label>--}}
-                                                    {{--<span class="btn btn--shadowed-light btn--medium">Choose file</span>--}}
-                                                    {{--<input id="address-files" type="file" name="address_files" multiple="multiple"--}}
-                                                           {{--title='Click to add Files'>--}}
-                                                {{--</label>--}}
-                                                {{--<div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document--}}
-                                                    {{--should not be bigger than 4 Mb.--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
+                            {{--<form id="upload-address-documents">--}}
+                            {{--<div class="drag-drop-area">--}}
+                            {{--<div class="drag-drop-container">--}}
+                            {{--<div class="drag-drop-ico"></div>--}}
+                            {{--<div class="drag-drop-text">Click to open explorer</div>--}}
+                            {{--<label>--}}
+                            {{--<span class="btn btn--shadowed-light btn--medium">Choose file</span>--}}
+                            {{--<input id="address-files" type="file" name="address_files" multiple="multiple"--}}
+                            {{--title='Click to add Files'>--}}
+                            {{--</label>--}}
+                            {{--<div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document--}}
+                            {{--should not be bigger than 4 Mb.--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
 
-                                        {{--<button type="submit" class="btn btn--shadowed-light btn--medium">Upload Documents</button>--}}
-                                    {{--</form>--}}
+                            {{--<button type="submit" class="btn btn--shadowed-light btn--medium">Upload Documents</button>--}}
+                            {{--</form>--}}
 
-                                {{--@else--}}
-                                    {{--<div class="headline-subline headline-mb">--}}
-                                        {{--Address proof document:--}}
-                                        {{--<span>{{ count($addressDocuments) }} file uploaded | {{ $verification['address']['statusName'] }}</span>--}}
-                                    {{--</div>--}}
-                                    {{--<ul class="files-list">--}}
-                                        {{--@foreach($addressDocuments as $document)--}}
-                                            {{--<li id="{{ $document['id'] }}">--}}
-                                                {{--<i class="file-ico"></i>--}}
-                                                {{--<div class="file-name">{{ $document['name'] }}</div>--}}
-                                                {{--<a href="" class="cross-ico remove-document">×</a>--}}
-                                            {{--</li>--}}
-                                        {{--@endforeach--}}
-                                    {{--</ul>--}}
-                                {{--@endif--}}
+                            {{--@else--}}
+                            {{--<div class="headline-subline headline-mb">--}}
+                            {{--Address proof document:--}}
+                            {{--<span>{{ count($addressDocuments) }} file uploaded | {{ $verification['address']['statusName'] }}</span>--}}
+                            {{--</div>--}}
+                            {{--<ul class="files-list">--}}
+                            {{--@foreach($addressDocuments as $document)--}}
+                            {{--<li id="{{ $document['id'] }}">--}}
+                            {{--<i class="file-ico"></i>--}}
+                            {{--<div class="file-name">{{ $document['name'] }}</div>--}}
+                            {{--<a href="" class="cross-ico remove-document">×</a>--}}
+                            {{--</li>--}}
+                            {{--@endforeach--}}
+                            {{--</ul>--}}
+                            {{--@endif--}}
                             {{--</div>--}}
                         </div>
                     </div>
@@ -170,7 +167,8 @@
                                     </div>
 
                                     <div class="checkbox">
-                                        <input type="checkbox" id="check2" class="owner-confirm"><label for="check2" class="text-sm">Hereby
+                                        <input type="checkbox" id="check2" class="owner-confirm"><label for="check2"
+                                                                                                        class="text-sm">Hereby
                                             I confirm that I am the owner of this account</label>
                                     </div>
                                 </form>
@@ -250,7 +248,6 @@
 @endsection
 
 @section('scripts')
-    <link rel="stylesheet" href="https://cdn.veriff.me/sdk/js/styles.css"/>
     <script src="/js/user_profile_settings.js" type="text/javascript"></script>
     <script src="https://cdn.veriff.me/sdk/js/veriff.min.js"></script>
 @endsection

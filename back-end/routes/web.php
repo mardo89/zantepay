@@ -56,9 +56,9 @@ Route::group(['prefix' => 'user'], function () {
 
 
     Route::get('profile', 'UserController@profile');
-    Route::post('profile', 'UserController@saveProfile')->middleware('protect.action');
+    Route::post('profile', 'UserController@saveProfile');//->middleware('protect.action');
 
-    Route::post('close-account', 'UserController@closeAccount')->middleware('protect.action');
+    Route::post('close-account', 'UserController@closeAccount');//->middleware('protect.action');
 
     Route::post('verify', 'UserController@trackVerifyRequest');
 
@@ -66,8 +66,8 @@ Route::group(['prefix' => 'user'], function () {
 //    Route::post('profile-settings/remove-document', 'UserController@removeDocument');
 //    Route::post('profile-settings/upload-identity-documents', 'UserController@uploadIdentityDocuments');
 //    Route::post('profile-settings/upload-address-documents', 'UserController@uploadAddressDocuments');
-    Route::post('profile-settings/change-password', 'UserController@changePassword')->middleware('protect.action');
-    Route::post('profile-settings/update-wallet', 'UserController@updateWallet')->middleware('protect.action');
+    Route::post('profile-settings/change-password', 'UserController@changePassword');//->middleware('protect.action');
+    Route::post('profile-settings/update-wallet', 'UserController@updateWallet');//->middleware('protect.action');
 
     Route::get('invite-friend', 'UserController@invite');
     Route::post('invite-friend', 'UserController@saveInvitation');
@@ -75,8 +75,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('wallet', 'UserController@wallet');
     Route::post('wallet/address', 'UserController@createWalletAddress');
     Route::post('wallet/rate-calculator', 'UserController@rateCalculator');
-    Route::post('wallet/transfer-eth', 'UserController@transferEth')->middleware('protect.action');
-    Route::post('wallet/withdraw-eth', 'UserController@withdrawEth')->middleware('protect.action');
+    Route::post('wallet/transfer-eth', 'UserController@transferEth');//->middleware('protect.action');
+    Route::post('wallet/withdraw-eth', 'UserController@withdrawEth');//->middleware('protect.action');
 
     Route::get('debit-card', 'UserController@debitCardCountry');
     Route::post('debit-card', 'UserController@saveDebitCardCountry');
