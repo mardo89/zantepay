@@ -203,7 +203,6 @@
                             @endforeach
                         </div>
                     </div>
-                    <p class="h5 mt-20">New updates are coming every Friday.</p>
                 </div>
 
             </div>
