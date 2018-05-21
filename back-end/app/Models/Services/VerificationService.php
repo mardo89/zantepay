@@ -4,6 +4,7 @@ namespace App\Models\Services;
 
 
 use App\Exceptions\VerificationException;
+use App\Models\DB\User;
 use App\Models\DB\Verification;
 
 class VerificationService
@@ -59,46 +60,51 @@ class VerificationService
      */
     public static function trackVerificationResponse($status, $apiResponse)
     {
-        if ($status != 'success') {
-            throw new VerificationException('Verification failure');
-        }
+        try {
 
-        $verification = Verification::where('session_id', $apiResponse['session_id'])->first();
+            if ($status != 'success') {
+                throw new VerificationException('Verification failure');
+            }
 
-        if (!$verification) {
-            throw new VerificationException('Unknown session id');
-        }
+            $verification = Verification::where('session_id', $apiResponse['session_id'])->first();
 
-        /**
-         * check signature
-         */
+            if (!$verification) {
+                throw new VerificationException('Unknown session id');
+            }
 
-        $verification->response_status = $apiResponse['response_status'];
-        $verification->response_code = $apiResponse['response_code'];
+            $verification->response_status = $apiResponse['response_status'];
+            $verification->response_code = $apiResponse['response_code'];
 
-        if ($apiResponse['response_code'] == '9001') {
-            $verification->status = Verification::VERIFICATION_SUCCESS;
-        } else {
-            $verification->status = Verification::VERIFICATION_FAILED;
-            $verification->fail_reason = $apiResponse['fail_reason'];
-        }
+            if ($apiResponse['response_code'] == '9001') {
+                $verification->status = Verification::VERIFICATION_SUCCESS;
+            } else {
+                $verification->status = Verification::VERIFICATION_FAILED;
+                $verification->fail_reason = $apiResponse['fail_reason'];
+            }
 
-        $verification->save();
-
-        if (self::verificationComplete($verification)) {
+            $verification->save();
 
             $user = $verification->user;
 
-            UsersService::changeUserStatus($user, User::USER_STATUS_VERIFIED);
+            if (self::verificationComplete($verification)) {
 
-//            BonusesService::updateBonus($user);
+                UsersService::changeUserStatus($user, User::USER_STATUS_VERIFIED);
 
-            MailService::sendApproveDocumentsEmail($user->email);
+                MailService::sendAccountApprovedEmail($user->email);
 
-        } else {
-            /**
-             * Send email about fail
-             */
+            } else {
+
+                MailService::sendAccountNotApprovedEmail($user->email);
+
+            }
+
+
+        } catch (\Exception $e) {
+
+            MailService::sendAccountVerificationAdminEmail($status, $apiResponse, $e->getMessage());
+
+            throw new VerificationException('Verification failure');
+
         }
     }
 

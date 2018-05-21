@@ -81,6 +81,18 @@ class MailService
             'name' => 'Close Account Admin',
             'mailClass' => 'CloseAccountAdmin'
         ],
+        MailEvent::EVENT_TYPE_ACCOUNT_APPROVED => [
+            'name' => 'Account Approved',
+            'mailClass' => 'AccountApproved'
+        ],
+        MailEvent::EVENT_TYPE_ACCOUNT_NOT_APPROVED => [
+            'name' => 'Account Not Approved',
+            'mailClass' => 'AccountNotApproved'
+        ],
+        MailEvent::EVENT_TYPE_ACCOUNT_VERIFICATION_ADMIN => [
+            'name' => 'Account Verification Admin',
+            'mailClass' => 'AccountVerificationAdmin'
+        ],
     ];
 
     /**
@@ -395,6 +407,54 @@ class MailService
         $to = env('CONTACT_EMAIL');
         $data = [
             'email' => $email,
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Account Approved email
+     *
+     * @param string $email
+     */
+    public static function sendAccountApprovedEmail($email)
+    {
+        $event = MailEvent::EVENT_TYPE_ACCOUNT_APPROVED;
+        $to = $email;
+        $data = [];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Account Not Approved email
+     *
+     * @param string $email
+     */
+    public static function sendAccountNotApprovedEmail($email)
+    {
+        $event = MailEvent::EVENT_TYPE_ACCOUNT_NOT_APPROVED;
+        $to = $email;
+        $data = [];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Account Not Approved email
+     *
+     * @param string $status
+     * @param array $response
+     * @param string $error
+     */
+    public static function sendAccountVerificationAdminEmail($status, $response, $error)
+    {
+        $event = MailEvent::EVENT_TYPE_ACCOUNT_VERIFICATION_ADMIN;
+        $to = env('CONTACT_EMAIL');
+        $data = [
+            'status' => $status,
+            'response' => $response,
+            'error' => $error,
         ];
 
         self::send($event, $to, $data);

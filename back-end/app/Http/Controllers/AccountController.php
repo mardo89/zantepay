@@ -359,6 +359,7 @@ class AccountController extends Controller
      */
     public function trackVerifyResponse(Request $request)
     {
+        DB::beginTransaction();
 
         try {
 
@@ -370,6 +371,7 @@ class AccountController extends Controller
                 'response_status' => $requestParams['verification']['status'],
                 'response_code' => $requestParams['verification']['code'],
                 'fail_reason' => $requestParams['verification']['reason'],
+                'acceptance_time' => $requestParams['verification']['acceptanceTime']
             ];
 
             VerificationService::trackVerificationResponse($requestParams['status'], $apiResponse);
@@ -378,11 +380,10 @@ class AccountController extends Controller
 
             DB::rollback();
 
-            exit(var_dump($e->getMessage()));
-            /**
-             * Email to Mardo about wrong verification
-             */
+
         }
+
+        DB::commit();
 
         return response()->json(
             []

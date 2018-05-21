@@ -133,5 +133,5 @@ Route::group(['prefix' => 'service'], function () {
 });
 
 //Route::get('/test-email', function () {
-//    return new \App\Mail\DebitCardPreOrder('000000', 0);
+//    return new \App\Mail\AccountApproved();
 //});

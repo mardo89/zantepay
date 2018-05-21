@@ -33,6 +33,9 @@ class MailEvent extends Model
     const EVENT_TYPE_TOKEN_ADD = 14;
     const EVENT_TYPE_TOKEN_SALE = 15;
     const EVENT_TYPE_CLOSE_ACCOUNT = 16;
+    const EVENT_TYPE_ACCOUNT_APPROVED = 17;
+    const EVENT_TYPE_ACCOUNT_NOT_APPROVED = 18;
+    const EVENT_TYPE_ACCOUNT_VERIFICATION_ADMIN = 19;
 
     /**
      * The attributes that are mass assignable.

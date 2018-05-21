@@ -155,7 +155,7 @@
                                                                style="max-width:384px;">
                                                             <tr>
                                                                 <td align="center" valign="top">
-                                                                    <a href="#" target="_blank"
+                                                                    <a href="{{ $accountLink }}" target="_blank"
                                                                        style="outline: none; border: 0;"><img
                                                                                 src="{{ url('/') . "/images/btn-3.png"}}" width="384" height="54"
                                                                                 style="display:block;outline:0;border:0;width:100%;height:auto"
