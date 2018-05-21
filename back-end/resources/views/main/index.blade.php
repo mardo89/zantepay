@@ -606,12 +606,6 @@
                             role at KPMG, led retail and banking sector engagements. He has MBA from American University of Armenia. </p>
                     </div>
                     <div class="col-lg-4">
-                        <img src="images/levon.jpg" srcset="images/levon@2x.jpg 2x" alt="Levon Hayrapetyan">
-                        <h3 class="h4">Levon Hayrapetyan <span>Smart Contracts Developer</span> <a target="_blank" href="https://www.linkedin.com/in/levonhayrapetyan/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
-                        <p>Levon is an experienced software engineer specializing in cloud technologies and blockchain. Levon brings in
-                            experience from Microsoft. He has Masters of Computer Science and Applied Mathematics.</p>
-                    </div>
-                    <div class="col-lg-4">
                         <img src="images/oleg.jpg" srcset="images/oleg@2x.jpg 2x" alt="Oleg Pyvovarenko">
                         <h3 class="h4">Oleg Pyvovarenko <span>DM Team Lead</span> <a target="_blank" href="https://www.linkedin.com/in/oleg-pyvovarenko-b307b324/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
                         <p>Data-driven product marketing manager with 7+ years of experience in various global projects. Experienced in

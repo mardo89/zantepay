@@ -63,61 +63,10 @@
                     <nav class="navigation">
                         <ul>
                             <li class="m-dropdown">
-                                <a href="javascript:void(0);">Whitepaper</a>
-                                <ul>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">English
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Russian.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Russian');">Russian
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Chinese.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Chinese');">Chinese
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Japanese.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Japanese');">Japanese
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Korean.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Korean');">Korean
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Arabic.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Arabic');">Arabic
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_French.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper French');">French
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_German.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper German');">German
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Spanish.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Spanish');">Spanish
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Portuguese.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Portuguese');">Portuguese
-                                        </a>
-                                    </li>
-                                </ul>
+                                <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
+                                   onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper
+                                </a>
                             </li>
-
                             <li>
                                 <a href="{{$menuPrefix}}#ico">ICO</a>
                             </li>
