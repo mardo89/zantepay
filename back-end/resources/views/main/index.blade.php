@@ -677,8 +677,8 @@
                             new technology to a mainstream product and leverages the benefits of new technology to drive adoption. </p>
                     </div>
                     <div class="col-lg-4">
-                        <img src="images/oscar.jpg" srcset="images/oscar@2x.jpg 2x" alt="Oscar Sanjuan">
-                        <h3 class="h4 h4--auto">Oscar Sanjuan <span style="font-size:0.83em;">Serial Entrepreneur, Mentor and Cloud Computing Expert, Master in Web Engineering and Ph.D in Artificial Intelligence</span>
+                        <img src="images/oscar.jpg" srcset="images/oscar@2x.jpg 2x" alt="Oscar Sanjuán Martínez">
+                        <h3 class="h4 h4--auto">Oscar Sanjuán Martínez <span style="font-size:0.83em;">Serial Entrepreneur, Mentor and Cloud Computing Expert, Master in Web Engineering and Ph.D in Artificial Intelligence</span>
                         <a target="_blank" href="https://www.linkedin.com/in/osanjuan/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
                         </h3>
                         <p>With 20 years of experience in Computer Science and Information Technologies, He has published over 160 articles in journals and conferences. He has taught more than 60 seminars and conferences in Europe and Latin America on Software Engineering. Oscar spends his time building successful Engineering Teams and supporting organizations on their travel to the Cloud in both Private and Public Sectors.</p>
