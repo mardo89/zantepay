@@ -639,7 +639,7 @@
                     </div>
                     <div class="col-lg-4">
                         <img src="images/cristobal.jpg" srcset="images/cristobal@2x.jpg 2x" alt="Cristobal Alonso">
-                        <h3 class="h4">Cristobal Alonso <span style="font-size:0.83em;">Global CEO @ Startup Wise Guys</span>
+                        <h3 class="h4">Cristobal Alonso <span style="font-size:0.83em;">Founder/ Global CEO @ SWG</span>
                         <a target="_blank" href="https://www.linkedin.com/in/cristobalalonso/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
                         </h3>
                         <p>Cristobal is the Global Capo of Startup Wise Guys – Europe’s leading B2B accelerator and the leading acceleration
@@ -650,19 +650,15 @@
                             investor, and lately as an advisor.</p>
                     </div>
                     <div class="col-lg-4">
-                        <img src="images/rauno.jpg" srcset="images/rauno@2x.jpg 2x" alt="Rauno Klettenberg">
-                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia </span>
-                        <a target="_blank" href="https://www.linkedin.com/in/rauno-klettenberg-48521a30/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
+                        <img src="images/oscar.jpg" srcset="images/oscar@2x.jpg 2x" alt="Oscar Sanjuán Martínez">
+                        <h3 class="h4 h4--auto">Oscar Sanjuán Martínez <span style="font-size:0.83em;">Cloud Computing Expert, Master in Web Engineering and Ph.D. in Artificial Intelligence</span>
+                        <a target="_blank" href="https://www.linkedin.com/in/osanjuan/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
                         </h3>
-                        <p>Ex Chairman of the Board at Nasdaq Tallinn. Ex General Manager of Handelsbanken. Member of the Board at Finance
-                            Estonia. Rauno is an experienced Board Member with a demonstrated history of working in the financial services
-                            industry. Expert in Asset Management, Management, Mergers & Acquisitions, and Financial Risk. He is a strong
-                            business development professional with a Master's Degree focused in Accounting and Finance from Estonian
-                            Business School.</p>
+                        <p>With 20 years of experience in Computer Science and Information Technologies, He has published over 160 articles in journals and conferences. He has taught more than 60 seminars and conferences in Europe and Latin America on Software Engineering. Oscar spends his time building successful Engineering Teams and supporting organizations on their travel to the Cloud in both Private and Public Sectors.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/juan.jpg" srcset="images/juan@2x.jpg 2x" alt="Juan Alonso-Villalobos">
-                        <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director  @ Startup Wise Guys</span>
+                        <h3 class="h4">Juan Alonso-Villalobos <span style="font-size:0.83em;">Fintech Programs Managing Director @ SWG</span>
                         <a target="_blank" href="https://www.linkedin.com/in/juanalonsovillalobos/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
                         </h3>
                         <p>Spanish serial entrepreneur. More than 20 years in retail banking and payments interationally. Senior Advisor to
@@ -677,11 +673,15 @@
                             new technology to a mainstream product and leverages the benefits of new technology to drive adoption. </p>
                     </div>
                     <div class="col-lg-4">
-                        <img src="images/oscar.jpg" srcset="images/oscar@2x.jpg 2x" alt="Oscar Sanjuán Martínez">
-                        <h3 class="h4 h4--auto">Oscar Sanjuán Martínez <span style="font-size:0.83em;">Serial Entrepreneur, Mentor and Cloud Computing Expert, Master in Web Engineering and Ph.D in Artificial Intelligence</span>
-                        <a target="_blank" href="https://www.linkedin.com/in/osanjuan/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
+                        <img src="images/rauno.jpg" srcset="images/rauno@2x.jpg 2x" alt="Rauno Klettenberg">
+                        <h3 class="h4">Rauno Klettenberg <span style="font-size:0.83em;">Board Member at FinanceEstonia </span>
+                        <a target="_blank" href="https://www.linkedin.com/in/rauno-klettenberg-48521a30/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a>
                         </h3>
-                        <p>With 20 years of experience in Computer Science and Information Technologies, He has published over 160 articles in journals and conferences. He has taught more than 60 seminars and conferences in Europe and Latin America on Software Engineering. Oscar spends his time building successful Engineering Teams and supporting organizations on their travel to the Cloud in both Private and Public Sectors.</p>
+                        <p>Ex Chairman of the Board at Nasdaq Tallinn. Ex General Manager of Handelsbanken. Member of the Board at Finance
+                            Estonia. Rauno is an experienced Board Member with a demonstrated history of working in the financial services
+                            industry. Expert in Asset Management, Management, Mergers & Acquisitions, and Financial Risk. He is a strong
+                            business development professional with a Master's Degree focused in Accounting and Finance from Estonian
+                            Business School.</p>
                     </div>
                 </div>
             </div>
