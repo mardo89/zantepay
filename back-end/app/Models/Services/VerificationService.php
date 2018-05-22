@@ -109,6 +109,30 @@ class VerificationService
     }
 
     /**
+     * Track information about verification response
+     *
+     * @param User $user
+     *
+     * @return string
+     * @throws
+     */
+    public static function resetVerification($user)
+    {
+        $verification = $user->verification;
+
+        $verification->session_id = '';
+        $verification->status = Verification::VERIFICATION_PENDING;
+        $verification->response_status = '';
+        $verification->response_code = '';
+        $verification->fail_reason = '';
+        $verification->save();
+
+        MailService::sendAccountNotApprovedEmail($user->email);
+
+        return self::getVerificationStatus($verification->status);
+    }
+
+    /**
      * Check if documents verification is complete
      *
      * @param Verification $verification
@@ -133,6 +157,18 @@ class VerificationService
         $isFailed = $verification->status == Verification::VERIFICATION_FAILED;
 
         return ($isPending || $isFailed);
+    }
+
+    /**
+     * Check if user need verification
+     *
+     * @param Verification $verification
+     *
+     * @return boolean
+     */
+    public static function verificationInProgress($verification)
+    {
+        return $verification->status == Verification::VERIFICATION_IN_PROGRESS;
     }
 
     /**

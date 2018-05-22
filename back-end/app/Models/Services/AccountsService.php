@@ -476,9 +476,8 @@ class AccountsService
 
         $profile = ProfilesService::getProfileInfo($user);
 
-        $verification = DocumentsService::getVerificationInfo($user);
-        $documents = DocumentsService::getUserDocuments($user->id);
-        $documentsTypes = DocumentsService::getDocumentTypeID();
+        $verificationStatus = VerificationService::verificationStatus($user->verification);
+        $verificationPending = VerificationService::verificationInProgress($user->verification);
 
         $referrer = self::getReferrer($user->referrer);
         $referrerEmail = is_null($referrer) ? (is_null($user->referrer) ? '' : 'User deleted') : $referrer->email;
@@ -498,9 +497,8 @@ class AccountsService
         return [
             'user' => $user,
             'profile' => $profile,
-            'verification' => $verification,
-            'documents' => $documents,
-            'documentTypes' => $documentsTypes,
+            'verificationStatus' => $verificationStatus,
+            'verificationPending' => $verificationPending,
             'referrer' => $referrerEmail,
             'debitCard' => $debitCard,
             'wallet' => $wallet,

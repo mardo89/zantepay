@@ -143,40 +143,34 @@ $(document).ready(function () {
 
     });
 
-    // Approve documents
-    $('.approve-documents').on('click', function (event) {
+    // Reset verification
+    $('#reset-verification').on('click', function (event) {
         event.preventDefault();
 
         const button = $(this);
         showSpinner(button);
         clearErrors();
 
-        const document = {
+        const user = {
             'uid': $('#user-profile-id').val(),
-            'type': $(this).parent().find('input[name="document-type"]').val(),
         }
 
         axios.post(
-            'document/approve',
-            qs.stringify(document)
+            'verification/reset',
+            qs.stringify(user)
         )
             .then(
                 response => {
+
                     hideSpinner(button);
 
-                    let parentRow = $(this).parents('.row');
-
-                    parentRow.find('.document-actions').before(
-                        $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
-                    );
-
-                    parentRow.find('.document-actions').remove();
-                    parentRow.find('.document-reason').remove();
+                    $('#verification-status').html(response.data.verificationStatus);
+                    button.remove();
 
                     $.magnificPopup.open(
                         {
                             items: {
-                                src: '#approve-documents-modal'
+                                src: '#reset-verification-modal'
                             },
                             type: 'inline',
                             closeOnBgClick: true
@@ -196,75 +190,128 @@ $(document).ready(function () {
 
     });
 
-    // Decline documents
-    $('.decline-documents').on('click', function (event) {
-        event.preventDefault();
-
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        const document = {
-            'uid': $('#user-profile-id').val(),
-            'type': $(this).parent().find('input[name="document-type"]').val(),
-            'reason': $(this).parents('.row').find('input[name="decline-reason"]').val()
-        }
-
-        axios.post(
-            'document/decline',
-            qs.stringify(document)
-        )
-            .then(
-                response => {
-                    hideSpinner(button);
-
-                    let parentRow = $(this).parents('.row');
-
-                    parentRow.find('.document-actions').before(
-                        $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
-                    );
-
-                    parentRow.find('.document-actions').remove();
-                    parentRow.find('.document-reason').remove();
-
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#decline-documents-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
-                        }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {message, errors} = error.response.data;
-
-                    if (error.response.status == 422) {
-
-                        $.each(
-                            errors,
-                            (field, error) => {
-                                $(this).parents('.row').find('input[name="decline-reason"]').parent().addClass('form-error');
-                                $(this).parents('.row').find('input[name="decline-reason"]').after(
-                                    $('<span />').addClass('error-text').text(error)
-                                );
-                            }
-                        )
-
-                        scrollToError();
-
-                    } else {
-                        showError(message);
-                    }
-                }
-            )
-
-    });
+    // // Approve documents
+    // $('.approve-documents').on('click', function (event) {
+    //     event.preventDefault();
+    //
+    //     const button = $(this);
+    //     showSpinner(button);
+    //     clearErrors();
+    //
+    //     const document = {
+    //         'uid': $('#user-profile-id').val(),
+    //         'type': $(this).parent().find('input[name="document-type"]').val(),
+    //     }
+    //
+    //     axios.post(
+    //         'document/approve',
+    //         qs.stringify(document)
+    //     )
+    //         .then(
+    //             response => {
+    //                 hideSpinner(button);
+    //
+    //                 let parentRow = $(this).parents('.row');
+    //
+    //                 parentRow.find('.document-actions').before(
+    //                     $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
+    //                 );
+    //
+    //                 parentRow.find('.document-actions').remove();
+    //                 parentRow.find('.document-reason').remove();
+    //
+    //                 $.magnificPopup.open(
+    //                     {
+    //                         items: {
+    //                             src: '#approve-documents-modal'
+    //                         },
+    //                         type: 'inline',
+    //                         closeOnBgClick: true
+    //                     }
+    //                 );
+    //             }
+    //         )
+    //         .catch(
+    //             error => {
+    //                 hideSpinner(button);
+    //
+    //                 const {message} = error.response.data;
+    //
+    //                 showError(message)
+    //             }
+    //         )
+    //
+    // });
+    //
+    // // Decline documents
+    // $('.decline-documents').on('click', function (event) {
+    //     event.preventDefault();
+    //
+    //     const button = $(this);
+    //     showSpinner(button);
+    //     clearErrors();
+    //
+    //     const document = {
+    //         'uid': $('#user-profile-id').val(),
+    //         'type': $(this).parent().find('input[name="document-type"]').val(),
+    //         'reason': $(this).parents('.row').find('input[name="decline-reason"]').val()
+    //     }
+    //
+    //     axios.post(
+    //         'document/decline',
+    //         qs.stringify(document)
+    //     )
+    //         .then(
+    //             response => {
+    //                 hideSpinner(button);
+    //
+    //                 let parentRow = $(this).parents('.row');
+    //
+    //                 parentRow.find('.document-actions').before(
+    //                     $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
+    //                 );
+    //
+    //                 parentRow.find('.document-actions').remove();
+    //                 parentRow.find('.document-reason').remove();
+    //
+    //                 $.magnificPopup.open(
+    //                     {
+    //                         items: {
+    //                             src: '#decline-documents-modal'
+    //                         },
+    //                         type: 'inline',
+    //                         closeOnBgClick: true
+    //                     }
+    //                 );
+    //             }
+    //         )
+    //         .catch(
+    //             error => {
+    //                 hideSpinner(button);
+    //
+    //                 const {message, errors} = error.response.data;
+    //
+    //                 if (error.response.status == 422) {
+    //
+    //                     $.each(
+    //                         errors,
+    //                         (field, error) => {
+    //                             $(this).parents('.row').find('input[name="decline-reason"]').parent().addClass('form-error');
+    //                             $(this).parents('.row').find('input[name="decline-reason"]').after(
+    //                                 $('<span />').addClass('error-text').text(error)
+    //                             );
+    //                         }
+    //                     )
+    //
+    //                     scrollToError();
+    //
+    //                 } else {
+    //                     showError(message);
+    //                 }
+    //             }
+    //         )
+    //
+    // });
 
     // Add ZNX ammount
     $('#add-ico-znx').on('click', function (event) {

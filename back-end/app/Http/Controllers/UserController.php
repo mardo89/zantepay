@@ -319,156 +319,156 @@ class UserController extends Controller
     }
 
 
-    /**
-     * Remove document
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function removeDocument(Request $request)
-    {
-
-        try {
-
-            $user = AccountsService::getActiveUser();
-
-            DocumentsService::removeUserDocument($user, $request->did);
-
-        } catch (\Exception $e) {
-
-            return response()->json(
-                [
-                    'message' => 'Error deleting file',
-                    'errors' => []
-                ],
-                500
-            );
-
-        }
-
-        return response()->json(
-            []
-        );
-    }
-
-
-    /**
-     * Upload identity documents
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function uploadIdentityDocuments(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'document_files' => 'required|bail'
-            ],
-            ValidationMessages::getList(
-                [
-                    'document_files' => 'Document Files'
-                ],
-                [
-                    'document_files.required' => 'Please select files to download',
-                ]
-            )
-        );
-
-        DB::beginTransaction();
-
-        try {
-
-            $user = AccountsService::getActiveUser();
-
-            DocumentsService::uploadIdentityFiles($user, $request);
-
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            $code = $e->getCode();
-
-            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
-            $errors = $code == 422 ? [$e->getMessage()] : [];
-
-            return response()->json(
-                [
-                    'message' => $message,
-                    'errors' => $errors
-                ],
-                $code == 422 ? 422 : 500
-            );
-
-        }
-
-        DB::commit();
-
-        return response()->json(
-            []
-        );
-    }
-
-
-    /**
-     * Upload address documents
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function uploadAddressDocuments(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'address_files' => 'required|bail'
-            ],
-            ValidationMessages::getList(
-                [
-                    'address_files' => 'Address Files'
-                ],
-                [
-                    'address_files.required' => 'Please select files to download',
-                ]
-            )
-        );
-
-        DB::beginTransaction();
-
-        try {
-
-            $user = AccountsService::getActiveUser();
-
-            DocumentsService::uploadAddressFiles($user, $request);
-
-
-        } catch (\Exception $e) {
-
-            DB::rollback();
-
-            $code = $e->getCode();
-
-            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
-            $errors = $code == 422 ? [$e->getMessage()] : [];
-
-            return response()->json(
-                [
-                    'message' => $message,
-                    'errors' => $errors
-                ],
-                $code == 422 ? 422 : 500
-            );
-
-        }
-
-        DB::commit();
-
-        return response()->json(
-            []
-        );
-    }
+//    /**
+//     * Remove document
+//     *
+//     * @param Request $request
+//     *
+//     * @return json
+//     */
+//    public function removeDocument(Request $request)
+//    {
+//
+//        try {
+//
+//            $user = AccountsService::getActiveUser();
+//
+//            DocumentsService::removeUserDocument($user, $request->did);
+//
+//        } catch (\Exception $e) {
+//
+//            return response()->json(
+//                [
+//                    'message' => 'Error deleting file',
+//                    'errors' => []
+//                ],
+//                500
+//            );
+//
+//        }
+//
+//        return response()->json(
+//            []
+//        );
+//    }
+//
+//
+//    /**
+//     * Upload identity documents
+//     *
+//     * @param Request $request
+//     *
+//     * @return json
+//     */
+//    public function uploadIdentityDocuments(Request $request)
+//    {
+//        $this->validate(
+//            $request,
+//            [
+//                'document_files' => 'required|bail'
+//            ],
+//            ValidationMessages::getList(
+//                [
+//                    'document_files' => 'Document Files'
+//                ],
+//                [
+//                    'document_files.required' => 'Please select files to download',
+//                ]
+//            )
+//        );
+//
+//        DB::beginTransaction();
+//
+//        try {
+//
+//            $user = AccountsService::getActiveUser();
+//
+//            DocumentsService::uploadIdentityFiles($user, $request);
+//
+//        } catch (\Exception $e) {
+//            DB::rollback();
+//
+//            $code = $e->getCode();
+//
+//            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
+//            $errors = $code == 422 ? [$e->getMessage()] : [];
+//
+//            return response()->json(
+//                [
+//                    'message' => $message,
+//                    'errors' => $errors
+//                ],
+//                $code == 422 ? 422 : 500
+//            );
+//
+//        }
+//
+//        DB::commit();
+//
+//        return response()->json(
+//            []
+//        );
+//    }
+//
+//
+//    /**
+//     * Upload address documents
+//     *
+//     * @param Request $request
+//     *
+//     * @return json
+//     */
+//    public function uploadAddressDocuments(Request $request)
+//    {
+//        $this->validate(
+//            $request,
+//            [
+//                'address_files' => 'required|bail'
+//            ],
+//            ValidationMessages::getList(
+//                [
+//                    'address_files' => 'Address Files'
+//                ],
+//                [
+//                    'address_files.required' => 'Please select files to download',
+//                ]
+//            )
+//        );
+//
+//        DB::beginTransaction();
+//
+//        try {
+//
+//            $user = AccountsService::getActiveUser();
+//
+//            DocumentsService::uploadAddressFiles($user, $request);
+//
+//
+//        } catch (\Exception $e) {
+//
+//            DB::rollback();
+//
+//            $code = $e->getCode();
+//
+//            $message = $code == 422 ? $e->getMessage() : 'Error uploading files';
+//            $errors = $code == 422 ? [$e->getMessage()] : [];
+//
+//            return response()->json(
+//                [
+//                    'message' => $message,
+//                    'errors' => $errors
+//                ],
+//                $code == 422 ? 422 : 500
+//            );
+//
+//        }
+//
+//        DB::commit();
+//
+//        return response()->json(
+//            []
+//        );
+//    }
 
 
     /**

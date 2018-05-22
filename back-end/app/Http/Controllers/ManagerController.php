@@ -8,6 +8,7 @@ use App\Models\Services\AccountsService;
 use App\Models\Services\DocumentsService;
 use App\Models\Services\ProfilesService;
 use App\Models\Services\UsersService;
+use App\Models\Services\VerificationService;
 use App\Models\Services\WalletsService;
 use App\Models\Wallet\Currency;
 use App\Models\DB\User;
@@ -146,24 +147,22 @@ class ManagerController extends Controller
     }
 
     /**
-     * Approve document
+     * Reset user verification
      *
      * @param Request $request
      *
-     * @return Json
+     * @return json
      */
-    public function approveDocument(Request $request)
+    public function resetVerification(Request $request)
     {
         $this->validate(
             $request,
             [
                 'uid' => 'required|string',
-                'type' => 'required|integer',
             ],
             ValidationMessages::getList(
                 [
                     'uid' => 'User ID',
-                    'type' => 'Document Type',
                 ]
             )
         );
@@ -172,8 +171,9 @@ class ManagerController extends Controller
 
         try {
 
-            $verificationStatus = DocumentsService::approveUserDocuments($request->uid, $request->type);
+            $user = AccountsService::getUserByID($request->uid);
 
+            $verificationStatus = VerificationService::resetVerification($user);
 
         } catch (\Exception $e) {
 
@@ -181,7 +181,7 @@ class ManagerController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Error approving documents',
+                    'message' => 'Error resetting verification',
                     'errors' => []
                 ],
                 500
@@ -193,94 +193,147 @@ class ManagerController extends Controller
 
         return response()->json(
             [
-                'status' => $verificationStatus
+                'verificationStatus' => $verificationStatus
             ]
         );
     }
 
-    /**
-     * Decline document
-     *
-     * @param Request $request
-     *
-     * @return Json
-     */
-    public function declineDocument(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'uid' => 'required|string',
-                'type' => 'required|integer',
-                'reason' => 'required|string',
-            ],
-            ValidationMessages::getList(
-                [
-                    'uid' => 'User ID',
-                    'type' => 'Document Type',
-                    'reason' => 'Decline Reason',
-                ]
-            )
-        );
-
-        DB::beginTransaction();
-
-        try {
-
-            $verificationStatus = DocumentsService::declineUserDocuments($request->uid, $request->type, $request->reason);
-
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            return response()->json(
-                [
-                    'message' => 'Error declining documents',
-                    'errors' => []
-                ],
-                500
-            );
-
-        }
-
-        DB::commit();
-
-        return response()->json(
-            [
-                'status' => $verificationStatus
-            ]
-        );
-    }
-
-    /**
-     * Show user document
-     *
-     * @param Request $request
-     *
-     * @return File
-     */
-    public function document(Request $request)
-    {
-        $this->validate($request, [
-            'did' => 'required|string',
-        ]);
-
-        try {
-
-            $documentInfo = DocumentsService::getDocumentInfo($request->did);
-
-        } catch(\Exception $e) {
-
-            return redirect('admin/users');
-
-        }
-
-        return response()->file(
-            $documentInfo['documentFilePath'],
-            [
-                'Content-Type' => $documentInfo['documentMimeType']
-            ]
-        );
-    }
+//    /**
+//     * Approve document
+//     *
+//     * @param Request $request
+//     *
+//     * @return Json
+//     */
+//    public function approveDocument(Request $request)
+//    {
+//        $this->validate(
+//            $request,
+//            [
+//                'uid' => 'required|string',
+//                'type' => 'required|integer',
+//            ],
+//            ValidationMessages::getList(
+//                [
+//                    'uid' => 'User ID',
+//                    'type' => 'Document Type',
+//                ]
+//            )
+//        );
+//
+//        DB::beginTransaction();
+//
+//        try {
+//
+//            $verificationStatus = DocumentsService::approveUserDocuments($request->uid, $request->type);
+//
+//
+//        } catch (\Exception $e) {
+//
+//            DB::rollback();
+//
+//            return response()->json(
+//                [
+//                    'message' => 'Error approving documents',
+//                    'errors' => []
+//                ],
+//                500
+//            );
+//
+//        }
+//
+//        DB::commit();
+//
+//        return response()->json(
+//            [
+//                'status' => $verificationStatus
+//            ]
+//        );
+//    }
+//
+//    /**
+//     * Decline document
+//     *
+//     * @param Request $request
+//     *
+//     * @return Json
+//     */
+//    public function declineDocument(Request $request)
+//    {
+//        $this->validate(
+//            $request,
+//            [
+//                'uid' => 'required|string',
+//                'type' => 'required|integer',
+//                'reason' => 'required|string',
+//            ],
+//            ValidationMessages::getList(
+//                [
+//                    'uid' => 'User ID',
+//                    'type' => 'Document Type',
+//                    'reason' => 'Decline Reason',
+//                ]
+//            )
+//        );
+//
+//        DB::beginTransaction();
+//
+//        try {
+//
+//            $verificationStatus = DocumentsService::declineUserDocuments($request->uid, $request->type, $request->reason);
+//
+//        } catch (\Exception $e) {
+//            DB::rollback();
+//
+//            return response()->json(
+//                [
+//                    'message' => 'Error declining documents',
+//                    'errors' => []
+//                ],
+//                500
+//            );
+//
+//        }
+//
+//        DB::commit();
+//
+//        return response()->json(
+//            [
+//                'status' => $verificationStatus
+//            ]
+//        );
+//    }
+//
+//    /**
+//     * Show user document
+//     *
+//     * @param Request $request
+//     *
+//     * @return File
+//     */
+//    public function document(Request $request)
+//    {
+//        $this->validate($request, [
+//            'did' => 'required|string',
+//        ]);
+//
+//        try {
+//
+//            $documentInfo = DocumentsService::getDocumentInfo($request->did);
+//
+//        } catch(\Exception $e) {
+//
+//            return redirect('admin/users');
+//
+//        }
+//
+//        return response()->file(
+//            $documentInfo['documentFilePath'],
+//            [
+//                'Content-Type' => $documentInfo['documentMimeType']
+//            ]
+//        );
+//    }
 
     /**
      * Add ZNX from ICO pool
