@@ -35,6 +35,16 @@ class VerificationService
     }
 
     /**
+     * Remove user's Verification
+     *
+     * @param int $userID
+     */
+    public static function removeVerification($userID)
+    {
+        Verification::where('user_id', $userID)->delete();
+    }
+
+    /**
      * Track information about verification request
      *
      * @param Verification $verification
@@ -187,6 +197,23 @@ class VerificationService
         }
 
         return $statusName;
+    }
+
+    /**
+     * Get list of verification statuses
+     */
+    public static function getVerificationStatuses()
+    {
+        $verificationStatusesList = [];
+
+        foreach (self::$verificationStatuses as $statusID => $statusName) {
+            $verificationStatusesList[] = [
+                'id' => $statusID,
+                'name' => $statusName,
+            ];
+        }
+
+        return $verificationStatusesList;
     }
 
     /**

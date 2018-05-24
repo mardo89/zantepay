@@ -2,6 +2,7 @@
 
 @section('main-menu')
     <li class="current-menu-item"><a href="mail-events">Mail Events</a></li>
+    <li><a href="verification">Verification</a></li>
 @endsection
 
 @section('content')
@@ -89,5 +90,5 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/service.js" type="text/javascript"></script>
+    <script src="/js/service-mail-events.js" type="text/javascript"></script>
 @endsection

@@ -12,12 +12,14 @@
     <!-- Social Networks  Open Graph -->
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:title" content="ZANTEPAY"/>
-    <meta name="twitter:description" content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
+    <meta name="twitter:description"
+          content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
     <meta name="twitter:image" content="{{ asset('images/fb_share.jpg') }}"/>
 
     <meta property="og:url" content="{{ asset('/') }}"/>
     <meta property="og:title" content="ZANTEPAY"/>
-    <meta property="og:description" content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
+    <meta property="og:description"
+          content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
     <meta property="og:image" content="{{ asset('images/fb_share.jpg') }}"/>
     <!-- End Open Graph -->
 
@@ -37,7 +39,8 @@
 <body>
 
 <!--[if lt IE 10]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a>
     to improve your experience.</p>
 <![endif]-->
 
@@ -102,8 +105,10 @@
                     <div class="masthead__right">
                         @guest
                             <div class="logon-btns">
-                                <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Log In</a>
-                                <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
+                                <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Log
+                                    In</a>
+                                <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign
+                                    Up</a>
                             </div>
                         @endguest
 
@@ -176,7 +181,8 @@
         <div class="logon-modal-container">
             <h3 class="h4">RIGHT ON!</h3>
             <div class="logon-modal-text">
-                <p>By now you should have received an email from us. To reset your account password please click the link in the email.</p>
+                <p>By now you should have received an email from us. To reset your account password please click the
+                    link in the email.</p>
             </div>
         </div>
     </div>
@@ -199,7 +205,8 @@
                     <input class="logon-field" name="password" placeholder="Password" type="password">
                 </div>
                 <div class="logon-group">
-                    <input class="logon-field" name="password_confirmation" placeholder="Confirm Password" type="password">
+                    <input class="logon-field" name="password_confirmation" placeholder="Confirm Password"
+                           type="password">
                 </div>
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">
@@ -215,7 +222,8 @@
         <div class="logon-modal-container">
             <h3 class="h4">RIGHT ON!</h3>
             <div class="logon-modal-text">
-                <p>Thank you for registering with ZANTEPAY. By now you should have received a confirmation email from us. To activate your
+                <p>Thank you for registering with ZANTEPAY. By now you should have received a confirmation email from
+                    us. To activate your
                     account please click the link in the email.</p>
             </div>
 
@@ -285,20 +293,7 @@
 {{--async="async"></script>--}}
 
 <!-- Useproof -->
-<script id=proof-script>!function () {
-        function b() {
-            var a = (new Date).getTime(), b = document.createElement('script');
-            b.type = 'text/javascript', b.async = !0, b.src = 'https://cdn.getmoreproof.com/embed/latest/proof.js?' + a;
-            var c = document.getElementsByTagName('script')[0];
-            c.parentNode.insertBefore(b, c)
-        }
-
-        var a = window;
-        a.attachEvent ? a.attachEvent('onload', b) : a.addEventListener('load', b, !1), window.proof_config = {
-            acc: 'zUljMP8UW6TQiskC506GpuxFCSv2',
-            v: '1.1'
-        }
-    }()</script>
+<script src='https://cdn.useproof.com/proof.js?acc=zUljMP8UW6TQiskC506GpuxFCSv2' async></script>
 
 <!-- McAfee Kibo -->
 <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>

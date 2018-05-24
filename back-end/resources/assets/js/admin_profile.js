@@ -143,53 +143,6 @@ $(document).ready(function () {
 
     });
 
-    // Reset verification
-    $('#reset-verification').on('click', function (event) {
-        event.preventDefault();
-
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        const user = {
-            'uid': $('#user-profile-id').val(),
-        }
-
-        axios.post(
-            'verification/reset',
-            qs.stringify(user)
-        )
-            .then(
-                response => {
-
-                    hideSpinner(button);
-
-                    $('#verification-status').html(response.data.verificationStatus);
-                    button.remove();
-
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#reset-verification-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
-                        }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {message} = error.response.data;
-
-                    showError(message)
-                }
-            )
-
-    });
-
     // // Approve documents
     // $('.approve-documents').on('click', function (event) {
     //     event.preventDefault();

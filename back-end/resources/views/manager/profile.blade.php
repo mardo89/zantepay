@@ -169,18 +169,11 @@
                         </div>
 
                         <div class="dashboard-group">
+
                             <h2 class="h4 headline-mb primary-color">Verification: </h2>
 
                             <div id="verification-status" class="headline-mb">{{ $verificationStatus }}</div>
 
-                            @if($verificationPending)
-                                <div class="row">
-                                    <button id="reset-verification" type="button"
-                                            class="field-btn btn btn--shadowed-light btn--medium">
-                                        Reset Verification
-                                    </button>
-                                </div>
-                            @endif
                         </div>
                     </div>
                     <!-- END tab Documents -->

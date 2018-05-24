@@ -67,7 +67,7 @@ class InvitesService
 
             $inviteStatus = Invite::INVITATION_STATUS_VERIFYING;
 
-            if (DocumentsService::verificationComplete($referral)) {
+            if (VerificationService::verificationComplete($referral->verification)) {
                 $inviteStatus = Invite::INVITATION_STATUS_COMPLETE;
             }
 

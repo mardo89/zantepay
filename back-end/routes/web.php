@@ -102,7 +102,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('profile', 'AdminController@saveProfile')->middleware('protect.action');
     Route::post('profile/remove', 'AdminController@removeProfile')->middleware('protect.action');
 
-    Route::post('verification/reset', 'ManagerController@resetVerification');
 //    Route::get('document', 'ManagerController@document');
 //    Route::post('document/approve', 'ManagerController@approveDocument');
 //    Route::post('document/decline', 'ManagerController@declineDocument');
@@ -130,6 +129,10 @@ Route::group(['prefix' => 'service'], function () {
     Route::get('mail-events', 'ServiceController@mailEvents');
     Route::get('mail-events/search', 'ServiceController@searchMailEvents');
     Route::post('mail-events/process', 'ServiceController@processMailEvent');
+
+    Route::get('verification', 'ServiceController@verification');
+    Route::get('verification/search', 'ServiceController@searchVerificationInfo');
+    Route::post('verification/reset', 'ServiceController@resetVerification');
 
 });
 
