@@ -9,6 +9,7 @@ use App\Exceptions\UserNotFoundException;
 use App\Models\DB\ExternalRedirect;
 use App\Models\DB\SocialNetworkAccount;
 use App\Models\DB\User;
+use App\Models\DB\Verification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
@@ -159,7 +160,7 @@ class AccountsService
         ProfilesService::removeProfile($user->id);
         InvitesService::removeInvites($user->id);
         DebitCardsService::removeDebitCard($user->id);
-        DocumentsService::removeUserDocuments($user->id);
+        VerificationService::removeVerification($user->id);
         SocialNetworkAccountsService::removeSocialNetworkAccount($user->id);
         ResetPasswordsService::removePasswordReset($user->email);
 
@@ -539,7 +540,7 @@ class AccountsService
 
         ProfilesService::createProfile($user->id);
 
-        DocumentsService::createVerification($user->id);
+        VerificationService::createVerification($user->id);
 
         WalletsService::createWallet($user->id);
 

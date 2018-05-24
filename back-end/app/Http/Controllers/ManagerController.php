@@ -146,58 +146,6 @@ class ManagerController extends Controller
         );
     }
 
-    /**
-     * Reset user verification
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function resetVerification(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'uid' => 'required|string',
-            ],
-            ValidationMessages::getList(
-                [
-                    'uid' => 'User ID',
-                ]
-            )
-        );
-
-        DB::beginTransaction();
-
-        try {
-
-            $user = AccountsService::getUserByID($request->uid);
-
-            $verificationStatus = VerificationService::resetVerification($user);
-
-        } catch (\Exception $e) {
-
-            DB::rollback();
-
-            return response()->json(
-                [
-                    'message' => 'Error resetting verification',
-                    'errors' => []
-                ],
-                500
-            );
-
-        }
-
-        DB::commit();
-
-        return response()->json(
-            [
-                'verificationStatus' => $verificationStatus
-            ]
-        );
-    }
-
 //    /**
 //     * Approve document
 //     *

@@ -19,7 +19,7 @@ class BonusesService
      */
     public static function updateBonus($user)
     {
-        $documentsVerified = DocumentsService::verificationComplete($user);
+        $documentsVerified = VerificationService::verificationComplete($user->verification);
         $hasDebitCard = DebitCardsService::checkDebitCard($user->id);
 
         if (!$documentsVerified || !$hasDebitCard) {
@@ -57,7 +57,7 @@ class BonusesService
     public static function getReferralBonus($referral)
     {
         $hasDebitCard = DebitCardsService::checkDebitCard($referral->id);
-        $documentsVerified = DocumentsService::verificationComplete($referral);
+        $documentsVerified = VerificationService::verificationComplete($referral->verification);
 
         $referralBonus = $hasDebitCard ? Wallet::REFERRAL_BONUS : 0;
         $bonusStatus = $documentsVerified ? '(locked - account is not verified)' : '';
