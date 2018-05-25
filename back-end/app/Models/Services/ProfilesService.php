@@ -53,7 +53,6 @@ class ProfilesService
         $profile->stateName = CountriesService::findState($profile->state_id);
         $profile->birthCountryName = CountriesService::findCountry($profile->birth_country_id);
 
-
         return $profile;
     }
 
@@ -80,7 +79,7 @@ class ProfilesService
     }
 
     /**
-     * Add ZNX from ICO pull
+     * Update user profile
      *
      * @param User $user
      * @param array $newProfile
@@ -91,7 +90,10 @@ class ProfilesService
     {
         $profile = self::getProfile($user);
 
-        $profile->country_id = $newProfile['country'];
+        if (empty($profile->country_id)) {
+            $profile->country_id = $newProfile['country'];
+        }
+
         $profile->state_id = $newProfile['state'];
         $profile->city = $newProfile['city'];
         $profile->address = $newProfile['address'];
@@ -103,6 +105,40 @@ class ProfilesService
 
         $profile->save();
     }
+
+    /**
+     * Update user country
+     *
+     * @param User $user
+     * @param integer $countryID
+     *
+     * @throws
+     */
+    public static function updateProfileCountry($user, $countryID)
+    {
+        $profile = self::getProfile($user);
+
+        $profile->country_id = $countryID;
+
+        $profile->save();
+    }
+
+
+    /**
+     * Update user country
+     *
+     * @param User $user
+     *
+     * @return boolean
+     * @throws
+     */
+    public static function isEuropeCitizenship($user)
+    {
+        $profile = self::getProfile($user);
+
+        return CountriesService::isEurope($profile->country_id);
+    }
+
 
     /**
      * Add ZNX from ICO pull

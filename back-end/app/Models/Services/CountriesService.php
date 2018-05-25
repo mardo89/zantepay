@@ -9,6 +9,10 @@ use App\Models\DB\State;
 
 class CountriesService
 {
+    protected static $europeCountries = [
+        14, 21, 33, 54, 56, 57, 58, 68, 74, 75, 82, 85, 99, 105, 107, 120, 126, 127, 135, 155, 175, 176, 180, 197, 198, 205, 211, 230
+    ];
+
     /**
      * Get Countries list
      *
@@ -45,6 +49,32 @@ class CountriesService
         $country = Country::find($countryID);
 
         return !is_null($country) ? $country->name : '';
+    }
+
+    /**
+     * Find Country Code
+     *
+     * @param string $countryName
+     *
+     * @return string
+     */
+    public static function getCountry($countryName)
+    {
+        $country = Country::where('name', $countryName)->first();
+
+        return optional($country)->id;
+    }
+
+    /**
+     * Check if country is in Europe
+     *
+     * @param int $countryID
+     *
+     * @return boolean
+     */
+    public static function isEurope($countryID)
+    {
+        return in_array($countryID, self::$europeCountries);
     }
 
     /**

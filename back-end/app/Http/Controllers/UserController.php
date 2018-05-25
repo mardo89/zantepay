@@ -861,47 +861,24 @@ class UserController extends Controller
             );
         }
 
-        $verificationComplete = DocumentsService::verificationComplete($user);
+        if (!VerificationService::verificationComplete($user->verification)) {
 
-        return view(
-            'user.debit-card-country',
-            [
-                'isVerified' => $verificationComplete
-            ]
-        );
-    }
-
-
-    /**
-     * Save debit card country
-     *
-     * @param Request $request
-     *
-     * @return json
-     */
-    public function saveDebitCardCountry(Request $request)
-    {
-        $this->validate(
-            $request,
-            [
-                'country' => 'required|bail'
-            ],
-            ValidationMessages::getList(
+            return view(
+                'user.debit-card-verify',
                 [
-                    'country' => 'Country'
-                ],
-                [
-                    'country.required' => 'Please select your country',
+                    'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
                 ]
-            )
+            );
 
-        );
+        }
 
-        return response()->json(
-            [
-                'nextStep' => action('UserController@debitCardDesign')
-            ]
-        );
+        if (!ProfilesService::isEuropeCitizenship($user)) {
+
+            return view('user.debit-card-country');
+
+        }
+
+        return view('user.debit-card-design');
     }
 
 

@@ -17,53 +17,50 @@
                     <h2 class="h4">Current pre-order is currently available for EU countries only. To get a card pre-order bonus you have to be a citizen of listed countries and get your verification approved.</h2>
                 </div>
             </div>
+
             <div class="row">
+
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
-                    <form id="dc_country">
-                        <div class="step0-container">
-                            <div class="text-center mt-15">
-                                <div class="form-group">
-                                    <select name="card-country" class="input-field">
-                                        <option selected disabled>Select your country</option>
-                                        <option value="Austria">Austria</option>
-                                        <option value="Belgium">Belgium</option>
-                                        <option value="Bulgaria">Bulgaria</option>
-                                        <option value="Croatia">Croatia</option>
-                                        <option value="Cyprus">Cyprus</option>
-                                        <option value="Czech Republic">Czech Republic</option>
-                                        <option value="Denmark">Denmark</option>
-                                        <option value="Estonia">Estonia</option>
-                                        <option value="Finland">Finland</option>
-                                        <option value="France">France</option>
-                                        <option value="Germany">Germany</option>
-                                        <option value="Greece">Greece</option>
-                                        <option value="Hungary">Hungary</option>
-                                        <option value="Ireland">Ireland</option>
-                                        <option value="Italy">Italy</option>
-                                        <option value="Latvia">Latvia</option>
-                                        <option value="Lithuania">Lithuania</option>
-                                        <option value="Luxembourg">Luxembourg</option>
-                                        <option value="Malta">Malta</option>
-                                        <option value="Netherlands">Netherlands</option>
-                                        <option value="Poland">Poland</option>
-                                        <option value="Portugal">Portugal</option>
-                                        <option value="Romania">Romania</option>
-                                        <option value="Slovakia">Slovakia</option>
-                                        <option value="Slovenia">Slovenia</option>
-                                        <option value="Spain">Spain</option>
-                                        <option value="Sweden">Sweden</option>
-                                        <option value="United Kingdom (UK)">United Kingdom (UK)</option>
-                                    </select>
-                                </div>
-                                <div class="card-submit">
-                                    <div class="card-submit-wrap">
-                                        <input class="btn btn--shadowed-light btn--medium btn--160" type="submit" value="Next">
-                                    </div>
-                                </div>
+                    <div class="step0-container">
+                        <div class="text-center mt-15">
+                            <div class="form-group">
+                                <ul>
+                                    <li>Austria</li>
+                                    <li>Belgium</li>
+                                    <li>Bulgaria</li>
+                                    <li>Croatia</li>
+                                    <li>Cyprus</li>
+                                    <li>Czech Republic</li>
+                                    <li>Denmark</li>
+                                    <li>Estonia</li>
+                                    <li>Finland</li>
+                                    <li>France</li>
+                                    <li>Germany</li>
+                                    <li>Greece</li>
+                                    <li>Hungary</li>
+                                    <li>Ireland</li>
+                                    <li>Italy</li>
+                                    <li>Latvia</li>
+                                    <li>Lithuania</li>
+                                    <li>Luxembourg</li>
+                                    <li>Malta</li>
+                                    <li>Netherlands</li>
+                                    <li>Poland</li>
+                                    <li>Portugal</li>
+                                    <li>Romania</li>
+                                    <li>Slovakia</li>
+                                    <li>Slovenia</li>
+                                    <li>Spain</li>
+                                    <li>Sweden</li>
+                                    <li>United Kingdom (UK)</li>
+                                </ul>
                             </div>
-                    </form>
+                        </div>
+                    </div>
                 </div>
+
             </div>
+
         </div>
     </main>
 

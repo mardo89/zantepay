@@ -21,7 +21,7 @@
                                 <a href="#profile">Profile</a>
                             </li>
                             <li>
-                                <a href="#documents">Documents</a>
+                                <a href="#documents">Verification</a>
                             </li>
                             <li>
                                 <a href="#account-wallets">Account & Wallets</a>
