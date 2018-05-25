@@ -23,37 +23,35 @@
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
                     <div class="step0-container">
                         <div class="text-center mt-15">
-                            <div class="form-group">
-                                <ul>
-                                    <li>Austria</li>
-                                    <li>Belgium</li>
-                                    <li>Bulgaria</li>
-                                    <li>Croatia</li>
-                                    <li>Cyprus</li>
-                                    <li>Czech Republic</li>
-                                    <li>Denmark</li>
-                                    <li>Estonia</li>
-                                    <li>Finland</li>
-                                    <li>France</li>
-                                    <li>Germany</li>
-                                    <li>Greece</li>
-                                    <li>Hungary</li>
-                                    <li>Ireland</li>
-                                    <li>Italy</li>
-                                    <li>Latvia</li>
-                                    <li>Lithuania</li>
-                                    <li>Luxembourg</li>
-                                    <li>Malta</li>
-                                    <li>Netherlands</li>
-                                    <li>Poland</li>
-                                    <li>Portugal</li>
-                                    <li>Romania</li>
-                                    <li>Slovakia</li>
-                                    <li>Slovenia</li>
-                                    <li>Spain</li>
-                                    <li>Sweden</li>
-                                    <li>United Kingdom (UK)</li>
-                                </ul>
+                            <div class="row">
+                                <div class="col-xl-6">Austria</div>
+                                <div class="col-xl-6">Belgium</div>
+                                <div class="col-xl-6">Bulgaria</div>
+                                <div class="col-xl-6">Croatia</div>
+                                <div class="col-xl-6">Cyprus</div>
+                                <div class="col-xl-6">Czech Republic</div>
+                                <div class="col-xl-6">Denmark</div>
+                                <div class="col-xl-6">Estonia</div>
+                                <div class="col-xl-6">Finland</div>
+                                <div class="col-xl-6">France</div>
+                                <div class="col-xl-6">Germany</div>
+                                <div class="col-xl-6">Greece</div>
+                                <div class="col-xl-6">Hungary</div>
+                                <div class="col-xl-6">Ireland</div>
+                                <div class="col-xl-6">Italy</div>
+                                <div class="col-xl-6">Latvia</div>
+                                <div class="col-xl-6">Lithuania</div>
+                                <div class="col-xl-6">Luxembourg</div>
+                                <div class="col-xl-6">Malta</div>
+                                <div class="col-xl-6">Netherlands</div>
+                                <div class="col-xl-6">Poland</div>
+                                <div class="col-xl-6">Portugal</div>
+                                <div class="col-xl-6">Romania</div>
+                                <div class="col-xl-6">Slovakia</div>
+                                <div class="col-xl-6">Slovenia</div>
+                                <div class="col-xl-6">Spain</div>
+                                <div class="col-xl-6">Sweden</div>
+                                <div class="col-xl-6">United Kingdom (UK)</div>
                             </div>
                         </div>
                     </div>
