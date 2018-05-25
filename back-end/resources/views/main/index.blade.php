@@ -452,27 +452,27 @@
                             </ul>
                         </div>
                     </div>
-                </div>
 
-                <div class="lp-arch-group">
-                    <div class="text-center">
-                        <h2 class="h2 headline">ZANTEPAY <span>payment architecture</span></h2>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <img src="images/zantepay-payment-architecture.png" alt="ZANTEPAY payments architecture">
+                    <div class="lp-arch-group">
+                        <div class="text-center">
+                            <h2 class="h2 headline">ZANTEPAY <span>payment architecture</span></h2>
                         </div>
-                        <div class="col-lg-6">
-                            <ol class="num-list">
-                                <li>Bob swipes the card in the shop. </li>
-                                <li>Card provider sends request to Zantepay backend;</li>
-                                <li>Zantepay backend is connected with exchange through API to determine BTC market price;</li>
-                                <li>Zantepay backend takes information from Bob ‘s wallet on his BTC balance and calculates how much Bob can spend with debit card;</li>
-                                <li>Zantepay backend sends information to Card provider;</li>
-                                <li>Card provider confirms transaction (in accordance with transaction limits);</li>
-                                <li>Card provider confirms transaction;</li>
-                                <li>Amount of BTC from Bob ‘s wallet will be deducted;</li>
-                            </ol>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="images/zantepay-payment-architecture.png" alt="ZANTEPAY payments architecture">
+                            </div>
+                            <div class="col-lg-6">
+                                <ol class="num-list">
+                                    <li>Bob swipes the card in the shop. </li>
+                                    <li>Card provider sends request to Zantepay backend;</li>
+                                    <li>Zantepay backend is connected with exchange through API to determine BTC market price;</li>
+                                    <li>Zantepay backend takes information from Bob ‘s wallet on his BTC balance and calculates how much Bob can spend with debit card;</li>
+                                    <li>Zantepay backend sends information to Card provider;</li>
+                                    <li>Card provider confirms transaction (in accordance with transaction limits);</li>
+                                    <li>Card provider confirms transaction;</li>
+                                    <li>Amount of BTC from Bob ‘s wallet will be deducted;</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
