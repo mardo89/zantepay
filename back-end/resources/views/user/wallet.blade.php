@@ -392,6 +392,12 @@
                     </div>
                 </div>
 
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="tc_item" id="check16"><label for="check16">I agree to receive emails/notifications from ZANTEPAY</label>
+                    </div>
+                </div>
+
                 <div class="logon-submit">
                     <div class="row justify-content-center">
                         <div class="col-sm-4 col-6">
