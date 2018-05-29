@@ -22,8 +22,8 @@ class User extends Authenticatable
      */
     const USER_STATUS_INACTIVE = 0;
     const USER_STATUS_NOT_VERIFIED = 1;
-    const USER_STATUS_IDENTITY_VERIFIED = 2;
-    const USER_STATUS_ADDRESS_VERIFIED = 3;
+//    const USER_STATUS_IDENTITY_VERIFIED = 2;
+//    const USER_STATUS_ADDRESS_VERIFIED = 3;
     const USER_STATUS_VERIFIED = 4;
     const USER_STATUS_WITHDRAW_PENDING = 5;
     const USER_STATUS_PENDING = 6;

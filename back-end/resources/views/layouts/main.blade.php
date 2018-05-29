@@ -201,16 +201,25 @@
                 <div class="logon-group">
                     <input class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
+
                 <div class="logon-group">
                     <input class="logon-field" name="password" placeholder="Password" type="password">
                 </div>
+
                 <div class="logon-group">
                     <input class="logon-field" name="password_confirmation" placeholder="Confirm Password"
                            type="password">
                 </div>
+
+                <div class="logon-group">
+                    <div class="g-recaptcha" data-sitekey="{{ $captcha }}"></div>
+                    <input name="captcha" type="hidden">
+                </div>
+
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">
                 </div>
+
                 <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
             </form>
 
@@ -307,7 +316,11 @@
     }
 
     gtag('js', new Date());
-    gtag('config', 'UA-110056018-1');</script>
+    gtag('config', 'UA-110056018-1');
+</script>
+
+<!-- Google Captcha -->
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
 </body>
 </html>

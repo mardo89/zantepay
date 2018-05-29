@@ -35,7 +35,8 @@ class IndexController extends Controller
             [
                 'menuPrefix' => '',
                 'ico' => (new IcoService())->getInfo(),
-                'feed' => (new FeedService())->getItems()
+                'feed' => (new FeedService())->getItems(),
+                'captcha' => env('CAPTCHA_KEY')
             ]
         );
     }

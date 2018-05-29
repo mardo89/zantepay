@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\AuthException;
+use App\Exceptions\CaptchaException;
 use App\Models\Services\AccountsService;
 use App\Models\Services\AuthService;
+use App\Models\Services\CaptchaService;
 use App\Models\Services\ResetPasswordsService;
 use App\Models\Services\VerificationService;
 use App\Models\Validation\ValidationMessages;
@@ -37,18 +39,21 @@ class AccountController extends Controller
                 'email' => 'required|email|max:255|unique:users|bail',
                 'password' => 'required|string|min:6|max:32|bail',
                 'password_confirmation' => 'required_with:password|same:password|bail',
+                'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
                     'email' => 'Email',
                     'password' => 'Password',
-                    'password_confirmation' => 'Password Confirmation'
+                    'password_confirmation' => 'Password Confirmation',
+                    'captcha' => 'Captcha'
                 ],
                 [
                     'email.unique' => 'User with such Email already registered',
                     'password.min' => 'The Password field must be at least 6 characters',
                     'password_confirmation.required_with' => 'The Password Confirmation does not match',
                     'password_confirmation.same' => 'The Password Confirmation does not match',
+                    'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
         );
@@ -57,11 +62,21 @@ class AccountController extends Controller
 
         try {
 
+            CaptchaService::checkCaptcha($request->captcha);
+
             $uid = AccountsService::registerUser($request->email, $request->password);
 
         } catch (\Exception $e) {
 
             DB::rollback();
+
+            $message = 'Registration failed';
+            $status = 422;
+
+            if ($e instanceof CaptchaException) {
+                $message = $e->getMessage();
+                $status = 500;
+            }
 
             return response()->json(
                 [
@@ -69,10 +84,11 @@ class AccountController extends Controller
                     'errors' => [
                         'email' => '',
                         'password' => '',
-                        'password_confirmation' => 'Registration failed'
+                        'password_confirmation' => '',
+                        'captcha' => $message
                     ]
                 ],
-                422
+                $status
             );
 
         }
@@ -365,6 +381,9 @@ class AccountController extends Controller
 
             $requestParams = $request->json()->all();
 
+            $citizenship =  $requestParams['verification']['person']['citizenship'] ?? '';
+            $nationality =  $requestParams['verification']['person']['nationality'] ?? '';
+
             $apiResponse = [
                 'signature' => $request->header('x-signature'),
                 'session_id' => $requestParams['verification']['id'],
@@ -372,7 +391,7 @@ class AccountController extends Controller
                 'response_code' => $requestParams['verification']['code'],
                 'fail_reason' => $requestParams['verification']['reason'],
                 'acceptance_time' => $requestParams['verification']['acceptanceTime'],
-                'citizenship' => $requestParams['verification']['additionalVerifiedData']['citizenship']
+                'citizenship' => ($citizenship !== '') ? $citizenship : $nationality
             ];
 
             VerificationService::trackVerificationResponse($requestParams['status'], $apiResponse);
