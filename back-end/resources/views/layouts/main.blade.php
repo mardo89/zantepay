@@ -238,7 +238,7 @@
             <div class="logon-modal-text">
                 <p>Join our newsletter and get a chance to <br> <b>win a bonus in ZNX equal to</b></p>
                 <p class="primary-color" style="font-size: 60px;line-height: 1;margin: -25px 0 20px;"><b>€ 300</b></p>
-                <p>Winner will be announced 28.05.2018</p>
+                <p>Winner will be announced 04.06.2018</p>
             </div>
             <form id="frm_newsletter">
                 <div class="logon-group mb-30">
