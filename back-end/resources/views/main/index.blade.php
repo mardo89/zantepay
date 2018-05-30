@@ -363,7 +363,7 @@
 
         <section class="lp-section-four white-content" id="ico">
             <div class="container">
-                <div class="row lp-row-1">
+                <div class="row lp-row-1 content-center">
                     <div class="col-sm-6 text-center">
                         <h3 class="h2 headline">ICO <br> 50.000.000</h3>
                         <div class="lp-image-container4">
