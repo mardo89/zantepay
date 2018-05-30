@@ -365,19 +365,12 @@
             <div class="container">
                 <div class="row lp-row-1">
                     <div class="col-sm-6 text-center">
-                        <h3 class="h2 headline">ICO <br> 600.000.000</h3>
+                        <h3 class="h2 headline">ICO <br> 50.000.000</h3>
                         <div class="lp-image-container4">
                             <img src="images/ICO.png" alt="ICO">
                         </div>
-                        <h2 class="h2 headline ico-chart-headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }}
+                        <h2 class="h2 headline ico-chart-headline mb-30">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }}
                                 ETH</span></h2>
-                    </div>
-                    <div class="col-sm-6 text-center">
-                        <h3 class="h2 headline">Token <br> distribution</h3>
-                        <div class="lp-image-container4">
-                            <img src="images/token-distribution.png" alt="Token Distribution">
-                        </div>
-                        <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
                         @guest
                             <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
                         @endguest
