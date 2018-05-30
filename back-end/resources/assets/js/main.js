@@ -540,6 +540,7 @@ $(document).ready(function () {
             .catch(
                 error => {
                     hideSpinner(button);
+                    clearErrors()
 
                     const {errors} = error.response.data;
 
@@ -554,10 +555,8 @@ $(document).ready(function () {
                     )
 
                     if (error.response.status == 500) {
-                        clearErrors()
                         grecaptcha.reset();
                     }
-
                 }
             )
     });
@@ -573,7 +572,8 @@ $(document).ready(function () {
         const credentials = {
             email: $('#frm_invite_signup input[name="email"]').val(),
             password: $('#frm_invite_signup input[name="password"]').val(),
-            password_confirmation: $('#frm_invite_signup input[name="password_confirmation"]').val()
+            password_confirmation: $('#frm_invite_signup input[name="password_confirmation"]').val(),
+            captcha: grecaptcha.getResponse()
         };
 
         axios.post(
@@ -610,6 +610,7 @@ $(document).ready(function () {
             .catch(
                 error => {
                     hideSpinner(button);
+                    clearErrors();
 
                     const {errors} = error.response.data;
 
@@ -622,6 +623,10 @@ $(document).ready(function () {
                             );
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset();
+                    }
                 }
             )
     });

@@ -231,6 +231,7 @@ class IndexController extends Controller
             'main.confirm-invitation',
             [
                 'referralToken' => $request->ref,
+                'captcha' => env('CAPTCHA_KEY')
             ]
         );
     }

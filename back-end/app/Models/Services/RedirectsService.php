@@ -17,7 +17,7 @@ class RedirectsService
     {
         $externalLink = Session::get('externalLink');
 
-        if ($externalLink) {
+        if (!$externalLink) {
             return;
         }
 

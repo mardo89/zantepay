@@ -47,6 +47,11 @@
                         <input class="input-field" type="hidden" name="referral" value="{{ $referralToken }}" readonly>
                     </div>
 
+                    <div class="logon-group">
+                        <div class="g-recaptcha" data-sitekey="{{ $captcha }}"></div>
+                        <input name="captcha" type="hidden">
+                    </div>
+
                     <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Sign Up</button>
 
                     <hr>
@@ -79,3 +84,6 @@
     </div>
 
 @endsection
+
+<!-- Google Captcha -->
+<script src='https://www.google.com/recaptcha/api.js'></script>

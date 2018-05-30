@@ -82,9 +82,6 @@ class AccountController extends Controller
                 [
                     'message' => 'Error creating user',
                     'errors' => [
-                        'email' => '',
-                        'password' => '',
-                        'password_confirmation' => '',
                         'captcha' => $message
                     ]
                 ],
