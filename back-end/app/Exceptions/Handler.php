@@ -49,7 +49,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-
         if (!$request->ajax()) {
 
             if ($exception instanceof NotFoundHttpException) {

@@ -54,13 +54,17 @@ class CountriesService
     /**
      * Find Country Code
      *
-     * @param string $countryName
+     * @param string $country
      *
      * @return string
      */
-    public static function getCountry($countryName)
+    public static function getCountry($country)
     {
-        $country = Country::where('name', $countryName)->first();
+        $country = Country::where(
+            function ($query) use ($country) {
+                $query->where('name', $country)->orWhere('shortname', $country);
+            }
+        )->first();
 
         return optional($country)->id;
     }

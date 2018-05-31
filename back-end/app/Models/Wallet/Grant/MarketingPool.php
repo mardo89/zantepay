@@ -9,7 +9,7 @@ class MarketingPool extends Pool
     /**
      * @var int Marketing coins limit
      */
-    protected $znxLimit = 600000000;
+    protected $znxLimit = 1150000000;
 
     /**
      * Init params

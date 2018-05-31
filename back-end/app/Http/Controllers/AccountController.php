@@ -130,7 +130,7 @@ class AccountController extends Controller
 
         try {
 
-            $userPage = AuthService::loginUser($request->email, $request->password);
+            $auth = AuthService::loginUser($request->email, $request->password);
 
         } catch (\Exception $e) {
 
@@ -149,9 +149,7 @@ class AccountController extends Controller
         }
 
         return response()->json(
-            [
-                'userPage' => $userPage
-            ]
+            $auth
         );
     }
 
@@ -378,6 +376,8 @@ class AccountController extends Controller
 
             $requestParams = $request->json()->all();
 
+            file_put_contents('/tmp/veriff.me', json_encode($requestParams) . PHP_EOL . PHP_EOL, FILE_APPEND);
+
             $citizenship =  $requestParams['verification']['person']['citizenship'] ?? '';
             $nationality =  $requestParams['verification']['person']['nationality'] ?? '';
 
@@ -388,7 +388,7 @@ class AccountController extends Controller
                 'response_code' => $requestParams['verification']['code'],
                 'fail_reason' => $requestParams['verification']['reason'],
                 'acceptance_time' => $requestParams['verification']['acceptanceTime'],
-                'citizenship' => ($citizenship !== '') ? $citizenship : $nationality
+                'country' => ($citizenship !== '') ? $citizenship : $nationality
             ];
 
             VerificationService::trackVerificationResponse($requestParams['status'], $apiResponse);
@@ -397,6 +397,7 @@ class AccountController extends Controller
 
             DB::rollback();
 
+            exit($e->getMessage());
         }
 
         DB::commit();

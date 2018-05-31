@@ -12,6 +12,7 @@ use App\Models\DB\User;
 use App\Models\Services\UsersService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -29,6 +30,7 @@ class IndexController extends Controller
     {
         AccountsService::setReferrer($request->ref);
         AccountsService::setExternals();
+
 
         return view(
             'main.index',

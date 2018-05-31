@@ -28,7 +28,7 @@ class AuthService
      * @param string $email
      * @param string $password
      *
-     * @return string
+     * @return array
      * @throws
      */
     public static function loginUser($email, $password)
@@ -46,17 +46,28 @@ class AuthService
 
         $activeUser = AccountsService::getActiveUser();
 
-        if (optional($activeUser)->isDisabled()) {
-            throw new AuthException('Your email account is not confirmed yet. Check your inbox/spam folder to confirm your account.');
-        }
-
         if (optional($activeUser)->isClosed()) {
             throw new AuthException('Your account is closed');
         }
 
+        if (optional($activeUser)->isDisabled()) {
+
+            Auth::logout();
+
+            return [
+                'userPage' => '',
+                'uid' => $activeUser->uid
+            ];
+
+//            throw new AuthException('Your email account is not confirmed yet. Check your inbox/spam folder to confirm your account.', 500);
+        }
+
         self::updateAuthToken($activeUser->id, $activeUser->email, $activeUser->password);
 
-        return self::getHomePage($activeUser->role);
+        return [
+            'userPage' => self::getHomePage($activeUser->role),
+            'uid' => $activeUser->uid
+        ];
     }
 
     /**

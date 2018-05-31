@@ -102,7 +102,7 @@ class VerificationService
 
                 MailService::sendAccountApprovedEmail($user->email);
 
-                $country = CountriesService::getCountry($apiResponse['citizenship']);
+                $country = CountriesService::getCountry($apiResponse['country']);
 
                 if ($country) {
                     ProfilesService::updateProfileCountry($user, $country);

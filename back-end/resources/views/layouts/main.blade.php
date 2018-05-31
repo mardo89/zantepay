@@ -212,7 +212,7 @@
                 </div>
 
                 <div class="logon-group">
-                    <div class="g-recaptcha" data-sitekey="{{ $captcha }}"></div>
+                    <div class="g-recaptcha" data-sitekey="{{$captcha}}"></div>
                     <input name="captcha" type="hidden">
                 </div>
 
