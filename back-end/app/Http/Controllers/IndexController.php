@@ -423,7 +423,7 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'name' => 'required|alpha_num|max:255|bail',
+                'name' => 'required|string|max:255|bail',
                 'email' => 'required|email|max:255|bail',
                 'message' => 'required|bail'
             ],
@@ -475,7 +475,7 @@ class IndexController extends Controller
             $request,
             [
                 'subject' => 'required|string|max:50|bail',
-                'name' => 'required|alpha_num|max:255|bail',
+                'name' => 'required|string|max:255|bail',
                 'email' => 'required|string|email|max:255|bail',
                 'question' => 'required|bail'
             ],
