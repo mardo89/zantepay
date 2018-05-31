@@ -23,9 +23,17 @@ class AccountsService
      * @param string $password
      *
      * @return User
+     * @throws
      */
     public static function registerUser($email, $password)
     {
+
+        $registeredAt = Session::get('registered_at', time());
+
+        if (time() - $registeredAt <= 300) {
+            throw new AuthException('There has been a registration from your computer recently. Please try again in 5 minutes.');
+        }
+
         $uid = uniqid();
 
         self::createUser(
@@ -42,6 +50,8 @@ class AccountsService
         );
 
         MailService::sendActivateAccountEmail($email, $uid);
+
+        Session::put('registered_at', time());
 
         return $uid;
     }

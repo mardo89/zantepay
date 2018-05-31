@@ -73,7 +73,7 @@ class AccountController extends Controller
             $message = 'Registration failed';
             $status = 422;
 
-            if ($e instanceof CaptchaException) {
+            if ($e instanceof CaptchaException || $e instanceof AuthException) {
                 $message = $e->getMessage();
                 $status = 500;
             }
