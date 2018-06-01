@@ -30,7 +30,9 @@ class AccountsService
 
         $registeredAt = Session::get('registered_at', time());
 
-        if (time() - $registeredAt <= 300) {
+        $registrationPeriod = time() - $registeredAt;
+
+        if ($registrationPeriod > 0 && $registrationPeriod < 300) {
             throw new AuthException('There has been a registration from your computer recently. Please try again in 5 minutes.');
         }
 
