@@ -64,15 +64,19 @@ class UserController extends Controller
     /**
      * Accept Terms
      *
-     * @return View
+     * @param Request $request
+     *
+     * @return Json
      */
-    public function acceptTerms()
+    public function acceptTerms(Request $request)
     {
         DB::beginTransaction();
 
         try {
 
-            AccountsService::acceptTerms();
+            $toNewsletters = (bool) $request->to_newsletters;
+
+            AccountsService::acceptTerms($toNewsletters);
 
         } catch (\Exception $e) {
 

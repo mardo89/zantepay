@@ -198,14 +198,20 @@ class AccountsService
 
     /**
      *  Accept terms and conditions
+     *
+     * @param bool $toNewsletters
      */
-    public static function acceptTerms()
+    public static function acceptTerms($toNewsletters)
     {
         $user = self::getActiveUser();
 
         UsersService::changeUserStatus($user, User::USER_STATUS_NOT_VERIFIED);
 
         MailService::sendWelcomeEmail($user->email);
+
+        if ($toNewsletters === true) {
+            RegistrationsService::joinToNewsLetter($user->email);
+        }
     }
 
     /**

@@ -380,9 +380,13 @@ $(document).ready(function () {
         button.prop('disabled', true).hide();
         button.after(spinner);
 
+        const toNewsletters = {
+            to_newsletters: $('#welcome input[name="to_newsletters"]:checked').length
+        };
+
         axios.post(
             '/user/accept-terms',
-            qs.stringify()
+            qs.stringify(toNewsletters)
         )
             .then(
                 () => {
