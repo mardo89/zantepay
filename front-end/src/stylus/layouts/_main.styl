@@ -579,3 +579,194 @@
 
 .sticky-panel__text
   display inline-block
+
+.endpoint-group
+  display flex
+  max-width 435px
+  margin auto
+  align-items center
+  @media (max-width: 575px)
+    display block
+  .endpoint-circle
+    max-width 220px
+    flex 0 0 220px
+    @media (max-width: 575px)
+      margin 0 auto 20px
+  .endpoint-text
+    max-width calc(100% - 220px)
+    flex 0 0 calc(100% - 220px)
+    span
+      display block
+    @media (max-width: 575px)
+      margin auto
+      max-width 100%
+      text-align center
+
+.endpoint-circle
+  display flex
+  width 220px
+  height 220px
+  text-align center
+  padding 15px
+  justify-content center
+  align-items center
+  align-content center
+  background url('../images/ellipse@2x.png') no-repeat center
+  background-size contain
+  flex-wrap wrap
+  &--lg
+    width 300px
+    height 300px
+  span
+    display block
+    width 100%
+    flex-wrap 400
+    color #0c1015
+    font-size 30px
+    &.primary-color
+      font-size 60px
+      font-weight 300
+      color $primary-color
+
+.endpoint-text
+  text-align center
+  color #fff
+  span
+    font-size 24px
+    text-transform uppercase
+    &.primary-color
+      font-size 77px
+      font-weight 700
+      line-height 1
+
+.affiliate-head
+  padding-bottom 110px
+  .heading
+    text-align center
+    margin-bottom 65px
+    .h2
+      margin-bottom 20px
+
+.affiliate-body
+  background #f9f9f9
+  padding 125px 0 100px
+
+.affiliate-steps__group
+  padding-top 40px
+  padding-bottom 40px
+  & > div
+    position relative
+    &:first-of-type
+      &:before
+        content ''
+        position absolute
+        top -80px
+        bottom -80px
+        width 1px
+        background $primary-color
+        right 0
+        @media (max-width: 991px)
+          display none
+      &:after
+        content ''
+        position absolute
+        top 50%
+        transform translateY(-50%)
+        width 19px
+        height 19px
+        background #0c1015
+        border 5px solid #f9f9f9
+        box-shadow  0 0 0 1px $primary-color
+        border-radius 50%
+        right -9px
+        z-index 10
+        @media (max-width: 991px)
+          display none
+
+  &:first-of-type
+    & > div
+      &:first-of-type
+        &:before
+          top 50%
+  &:last-of-type
+    & > div
+      &:first-of-type
+        &:before
+          right 50%
+          bottom 100%
+        &:after
+          display none
+  &.row-reverse
+    & > div
+      &:first-of-type
+        &:before
+          right auto
+          left -1px
+        &:after
+          right auto
+          left -10px
+  .endpoint-circle
+    margin auto
+    max-width 100%
+    @media (max-width: 767px)
+      margin-bottom 20px
+
+.affiliate-step
+  max-width 385px
+  margin auto
+  text-align left
+  p
+    line-height 1.4
+  ol
+    margin-top 5px !important
+  li
+    line-height 1.4
+
+.endpoint-headline
+  padding-left 35px
+  padding-top 2px
+  padding-bottom 2px
+  position relative
+  font-size 24px
+  line-height 1.5
+  margin 20px 0
+  strong
+    font-weight 700
+    color $primary-color
+  &:before
+    content ''
+    position absolute
+    left 0
+    top 0
+    bottom 0
+    width 1px
+    background $primary-color
+    box-shadow 0 0 10px $primary-color
+  p,
+  ul,
+  ol
+    margin 0
+    
+.affiliate-awards
+  padding 140px 0 80px
+  @media (max-width: 767px)
+    padding-bottom 0
+  .heading
+    text-align center
+    margin-bottom 65px
+    .h2
+      margin-bottom 20px
+.awards-group
+  margin 50px 0
+  @media (max-width: 767px)
+    text-align center
+    .headline
+      display inline-block
+      text-align left
+      margin-top 30px
+      margin-bottom 50px
+
+.endpoint-estimate
+  margin 20px 0 -30px
+  @media (max-width: 767px)
+    margin 20px 0

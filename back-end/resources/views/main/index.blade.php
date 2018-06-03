@@ -771,7 +771,7 @@
                         <a target="_blank" href="https://t.me/zantepay_ico"><i class="fa fa-telegram"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
-                        <h4><a target="_blank" href="http://telegram.me/zantepay">Telegram Channel</a></h4>
+                        <h4><a target="_blank" href="http://telegram.me/zantepay" style="font-size: 0.95em;">Telegram Channel</a></h4>
                         <a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a>
                     </div>
                     <div class="col-sm-3 col-6">
