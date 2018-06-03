@@ -249,7 +249,12 @@
                 <p class="primary-color" style="font-size: 60px;line-height: 1;margin: -25px 0 20px;"><b>€ 300</b></p>
                 <p>Winner will be announced 04.06.2018</p>
             </div>
-            <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://app.mailjet.com/widget/iframe/2gIc/77A" width="100%" height="auto"></iframe>
+            <form id="frm_newsletter">
+                <div class="logon-group mb-30">
+                    <input class="input-field text-center" type="email" name="email" placeholder="Your email">
+                </div>
+                <input class="btn btn--shadowed-light btn--200" type="submit" value="Subscribe">
+            </form>
         </div>
     </div>
 
