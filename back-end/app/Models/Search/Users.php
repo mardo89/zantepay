@@ -121,4 +121,12 @@ class Users
         ];
     }
 
+    /**
+     * Return total number of registered users
+     *
+     * @return int
+     */
+    public static function getTotalUsers() {
+        return User::count();
+    }
 }
