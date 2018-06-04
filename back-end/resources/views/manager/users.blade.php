@@ -44,6 +44,15 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-lg-4 col-sm-4 mb-20 col-vertical-line-right">
+                            <h2 class="h4 headline-mb">Total users:</h2>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h1>{{$usersCount}}</h1>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

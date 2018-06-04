@@ -41,7 +41,8 @@ class ManagerController extends Controller
             $this->getViewPrefix() . 'users',
             [
                 'roles' => UsersService::getUserRoles(),
-                'statuses' => UsersService::getUserStatuses()
+                'statuses' => UsersService::getUserStatuses(),
+                'usersCount' => Users::getTotalUsers()
             ]
         );
 
