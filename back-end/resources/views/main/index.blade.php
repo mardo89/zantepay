@@ -429,11 +429,9 @@
                                 <img src="images/card.png" srcset="images/card@2x.png 2x" alt="Zantpay Debit Card">
                             </div>
                             <div class="text-center">
-                                <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Verify & Pre-order a FREE Debit
-                                    Card</a>
-                                <p class="text-regular">Pre-order free debit card and receive 500ZNX!</p>
-                                <p class="text-regular">Invite a friend to pre-order debit card. <br> RECEIVE 500ZNX WHEN PREORDER IS
-                                    FINISHED! <br> Your friend gets 500ZNX.</p>
+                                <p class="text-regular">ZANTEPAY FREE debit card pre-order will be available shortly after ICO (after 15th July).</p>
+                                <p class="text-regular">First 1000 card pre-orders will get rewarded 500 ZNX in bonus.</p>
+                                <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Sign up and participate in ICO</a>
                             </div>
                         </div>
                         <div class="col-md-6 offset-lg-1">
