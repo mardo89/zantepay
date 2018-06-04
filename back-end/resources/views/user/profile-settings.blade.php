@@ -21,6 +21,8 @@
                             <span>{{ $verificationStatus }}</span>
                         </h2>
 
+                        <h4 class="primary-color headline-mb">Please use Google Chrome or Mozilla Firefox to perform a verification</h4>
+
                         <div class="row">
 
                             @if($verificationPending)

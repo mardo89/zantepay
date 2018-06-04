@@ -78,15 +78,16 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('wallet/transfer-eth', 'UserController@transferEth');//->middleware('protect.action');
     Route::post('wallet/withdraw-eth', 'UserController@withdrawEth');//->middleware('protect.action');
 
-    Route::get('debit-card', 'UserController@debitCardCountry');
-    Route::post('debit-card', 'UserController@saveDebitCardCountry');
-    Route::get('debit-card-design', 'UserController@debitCardDesign');
-    Route::post('debit-card-design', 'UserController@saveDebitCardDesign');
-    Route::get('debit-card-documents', 'UserController@debitCardIdentityDocuments');
-    Route::post('debit-card-documents', 'UserController@uploadDCIdentityDocuments');
-    Route::get('debit-card-address', 'UserController@debitCardAddressDocuments');
-    Route::post('debit-card-address', 'UserController@uploadDCAddressDocuments');
-    Route::get('debit-card-success', 'UserController@debitCardSuccess');
+    Route::get('debit-card', 'UserController@debitCardPreorder');
+//    Route::get('debit-card', 'UserController@debitCardCountry');
+//    Route::post('debit-card', 'UserController@saveDebitCardCountry');
+//    Route::get('debit-card-design', 'UserController@debitCardDesign');
+//    Route::post('debit-card-design', 'UserController@saveDebitCardDesign');
+//    Route::get('debit-card-documents', 'UserController@debitCardIdentityDocuments');
+//    Route::post('debit-card-documents', 'UserController@uploadDCIdentityDocuments');
+//    Route::get('debit-card-address', 'UserController@debitCardAddressDocuments');
+//    Route::post('debit-card-address', 'UserController@uploadDCAddressDocuments');
+//    Route::get('debit-card-success', 'UserController@debitCardSuccess');
 
 });
 

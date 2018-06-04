@@ -851,6 +851,16 @@ class UserController extends Controller
     }
 
     /**
+     * Debit card preorder
+     *
+     * @return View
+     */
+    public function debitCardPreorder()
+    {
+        return view('user.debit-card-preorder');
+    }
+
+    /**
      * Debit card country
      *
      * @return View
