@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 
 class IndexController extends Controller
@@ -404,6 +405,21 @@ class IndexController extends Controller
     {
         return view(
             'main.mobile-app',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Affiliate page
+     *
+     * @return View
+     */
+    public function affiliate()
+    {
+        return view(
+            'main.affiliate',
             [
                 'menuPrefix' => '/',
             ]

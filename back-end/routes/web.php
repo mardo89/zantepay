@@ -20,6 +20,7 @@ Route::get('blogs-article-campaign', 'IndexController@blogsBountyCampaign');
 Route::get('support-campaign', 'IndexController@supportBountyCampaign');
 Route::get('telegram-campaign', 'IndexController@telegramBountyCampaign');
 Route::get('mobile-app', 'IndexController@mobileApp');
+Route::get('affiliate', 'IndexController@affiliate');
 Route::post('contact-us', 'IndexController@contactUs');
 Route::post('question', 'IndexController@question');
 Route::post('activate-account', 'IndexController@activateAccount');
