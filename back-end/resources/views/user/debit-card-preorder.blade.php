@@ -24,12 +24,12 @@
                 <div class="row">
                     <div class="col-md-6 col-xl-5 offset-xl-1">
                         <div class="text-center">
-                            <img src="/images/wh-card.jpg" srcset="images/wh-card@2x.jpg 2x" alt="White Visa Debit Card">
+                            <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x" alt="White Debit Card">
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-5">
                         <div class="text-center">
-                            <img src="/images/red-card.jpg" srcset="images/red-card@2x.jpg 2x" alt="Red Visa Debit Card">
+                            <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x" alt="Red Debit Card">
                         </div>
                     </div>
                 </div>
