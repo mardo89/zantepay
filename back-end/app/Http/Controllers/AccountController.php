@@ -130,22 +130,30 @@ class AccountController extends Controller
 
         try {
 
+            CaptchaService::checkCaptcha($request->captcha);
+
             $auth = AuthService::loginUser($request->email, $request->password);
 
         } catch (\Exception $e) {
 
-            $message = ($e instanceof AuthException) ? $e->getMessage() : 'Authentification failed';
+            $message = 'Authentification failed';
+            $status = 422;
+
+            if ($e instanceof CaptchaException || $e instanceof AuthException) {
+                $message = $e->getMessage();
+                $status = 500;
+            }
 
             return response()->json(
                 [
-                    'message' => $message,
+                    'message' => 'Error creating user',
                     'errors' => [
-                        'email' => '',
-                        'password' => $message
+                        'captcha' => $message
                     ]
                 ],
-                422
+                $status
             );
+
         }
 
         return response()->json(

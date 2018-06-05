@@ -471,7 +471,8 @@ $(document).ready(function () {
 
         const credentials = {
             email: $('#frm_signin input[name="email"]').val(),
-            password: $('#frm_signin input[name="password"]').val()
+            password: $('#frm_signin input[name="password"]').val(),
+            captcha: grecaptcha.getResponse()
         };
 
         axios.post(
@@ -523,6 +524,9 @@ $(document).ready(function () {
                         }
                     )
 
+                    if (error.response.status == 500) {
+                        grecaptcha.reset();
+                    }
                 }
             )
     });
