@@ -66,9 +66,19 @@
                     <nav class="navigation">
                         <ul>
                             <li class="m-dropdown">
-                                <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
-                                   onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper
-                                </a>
+                                <a href="javascript:void();">Whitepaper</a>
+                                <ul>
+                                    <li class="m-dropdown">
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">English
+                                        </a>
+                                    </li>
+                                    <li class="m-dropdown">
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Russian.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper russian');">Russian
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="{{$menuPrefix}}#ico">ICO</a>
