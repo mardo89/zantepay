@@ -43,7 +43,7 @@
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thanks for visiting ZANTEPAY! Per your request, we have successfully changed your password.</span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thank you for being part of our community and pre-ordering ZANTEPAY debit card. Thank you for believing in and supporting our vision. Your early signup bonus 500ZNX will be unlocked in your ZANTEPAY account after you account is verified. We will start user verification process within couple of weeks. </span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">

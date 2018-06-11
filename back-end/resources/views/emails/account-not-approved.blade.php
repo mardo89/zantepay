@@ -43,7 +43,7 @@
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Please confirm that you would like to&nbsp;create an&nbsp;account with ZANTEPAY by&nbsp;verifying your email address below. Once it&nbsp;is&nbsp;done, you will be&nbsp;able to&nbsp;log in&nbsp;and start using the cryptocurrency wallet of&nbsp;the future!</span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Hi there, Your ZANTEPAY account hasn't been approved. Please check your profile settings.</span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
