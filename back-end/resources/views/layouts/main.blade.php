@@ -66,9 +66,19 @@
                     <nav class="navigation">
                         <ul>
                             <li class="m-dropdown">
-                                <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
-                                   onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">Whitepaper
-                                </a>
+                                <a href="javascript:void();">Whitepaper</a>
+                                <ul>
+                                    <li class="m-dropdown">
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">English
+                                        </a>
+                                    </li>
+                                    <li class="m-dropdown">
+                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Russian.pdf') }}"
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper russian');">Russian
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="{{$menuPrefix}}#ico">ICO</a>
@@ -252,9 +262,8 @@
         <div class="logon-modal-container">
             <h3 class="h4 text-uppercase">Join our newsletter</h3>
             <div class="logon-modal-text">
-                <p>Join our newsletter and get a chance to <br> <b>win a bonus in ZNX equal to</b></p>
-                <p class="primary-color" style="font-size: 60px;line-height: 1;margin: -25px 0 20px;"><b>€ 300</b></p>
-                <p>Winner will be announced 11.06.2018</p>
+                <p>Join ZANTEPAY newsletter and get a chance to win 300 EUR worth of ZNX every week!</p>
+                <p class="primary-color" style="font-size: 60px;line-height: 1;margin: -25px 0 30px;"><b>€ 300</b></p>
             </div>
             <form id="frm_newsletter">
                 <div class="logon-group mb-30">
