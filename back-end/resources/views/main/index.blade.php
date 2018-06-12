@@ -56,14 +56,19 @@
                     <div class="col-lg-8 p-t-40">
                         <div class="row mb-10">
                             <div class="col-lg-6">
-                                <h3 class="h2 text-uppercase mb-30"> 1 ETH = {{ $ico['znxRate'] }} ZNX</h3>
+                                <h3 class="h2 text-uppercase mb-30">
+                                    <div style="display: inline-block;text-align: left;">
+                                        1 ETH = {{ $ico['znxRate'] }} ZNX <br>
+                                        1 ZNX = {{ $ico['euroRate'] }} €
+                                    </div>
+                                </h3>
                             </div>
                             <div class="col-lg-6">
                                 @guest
-                                    <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--200">Buy Tokens NOW</a>
+                                    <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--200 mt-20">Buy Tokens NOW</a>
                                 @endguest
                                 @auth
-                                    <a href="user/wallet" class="btn btn--shadowed-dark btn--200">Buy Tokens NOW</a>
+                                    <a href="user/wallet" class="btn btn--shadowed-dark btn--200 mt-20">Buy Tokens NOW</a>
                                 @endauth
                             </div>
                         </div>
@@ -71,6 +76,7 @@
                             <h3 class="h4 text-uppercase">{{ $ico['name'] }} ends in</h3>
                             <span class="js-countdown" data-date="{{ $ico['endDate'] }}"></span>
                         </div>
+                        <div class="text-center h4">ICO III 15.05 19:00 (GMT + 3) - 15.07 19:00 (GMT + 3) 1 ZNX = 0.25 €</div>
                     </div>
                 </div>
             </div>
