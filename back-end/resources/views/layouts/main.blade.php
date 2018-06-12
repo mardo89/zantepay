@@ -161,7 +161,7 @@
                 </div>
 
                 <div class="logon-group">
-                    <div class="g-recaptcha" data-sitekey="{{$captcha}}"></div>
+                    <div id="sign-in-recaptcha" class="form-recaptcha"></div>
                     <input name="captcha" type="hidden">
                 </div>
 
@@ -229,7 +229,7 @@
                 </div>
 
                 <div class="logon-group">
-                    <div class="g-recaptcha" data-sitekey="{{$captcha}}"></div>
+                    <div id="sign-up-recaptcha" class="form-recaptcha"></div>
                     <input name="captcha" type="hidden">
                 </div>
 
@@ -331,7 +331,28 @@
 </script>
 
 <!-- Google Captcha -->
-<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+
+    var signInWidgetID;
+    var signUpWidgetID;
+
+    var onloadCallback = function() {
+
+        signInWidgetID = grecaptcha.render('sign-in-recaptcha', {
+            'sitekey' : '{{$captcha}}',
+            'theme' : 'light'
+        });
+
+        signUpWidgetID = grecaptcha.render(document.getElementById('sign-up-recaptcha'), {
+            'sitekey' : '{{$captcha}}',
+            'theme' : 'light'
+        });
+
+    };
+
+</script>
+
+<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit'></script>
 
 </body>
 </html>

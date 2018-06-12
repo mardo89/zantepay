@@ -472,7 +472,7 @@ $(document).ready(function () {
         const credentials = {
             email: $('#frm_signin input[name="email"]').val(),
             password: $('#frm_signin input[name="password"]').val(),
-            captcha: grecaptcha.getResponse()
+            captcha: grecaptcha.getResponse(signInWidgetID)
         };
 
         axios.post(
@@ -525,7 +525,7 @@ $(document).ready(function () {
                     )
 
                     if (error.response.status == 500) {
-                        grecaptcha.reset();
+                        grecaptcha.reset(signInWidgetID);
                     }
                 }
             )
@@ -543,8 +543,10 @@ $(document).ready(function () {
             email: $('#frm_signup input[name="email"]').val(),
             password: $('#frm_signup input[name="password"]').val(),
             password_confirmation: $('#frm_signup input[name="password_confirmation"]').val(),
-            captcha: grecaptcha.getResponse()
+            captcha: grecaptcha.getResponse(signUpWidgetID)
         };
+
+        console.log(credentials);
 
         axios.post(
             '/account/register',
@@ -591,7 +593,7 @@ $(document).ready(function () {
                     )
 
                     if (error.response.status == 500) {
-                        grecaptcha.reset();
+                        grecaptcha.reset(signUpWidgetID);
                     }
                 }
             )
@@ -661,7 +663,7 @@ $(document).ready(function () {
                     )
 
                     if (error.response.status == 500) {
-                        grecaptcha.reset();
+                        grecaptcha.reset(signUpWidgetID);
                     }
                 }
             )
