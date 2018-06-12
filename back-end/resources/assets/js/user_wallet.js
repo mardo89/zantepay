@@ -178,6 +178,8 @@ $(document).ready(function () {
         document.execCommand("copy");
 
         tmpEl.remove();
+
+        showPopover('Address copied to clipboard');
     })
 
     $('.create-address').on('click', function (event) {
