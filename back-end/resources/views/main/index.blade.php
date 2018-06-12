@@ -841,10 +841,14 @@
                 </div>
             </div>
             
-            <div class="footer-logo">
+            <div class="footer-logo mb-30">
                 <a href="/" title="ZANTEPAY">
                     <img src="images/logo-large.png" alt="ZANTEPAY Logo">
                 </a>
+            </div>
+            <div class="text-center"> 
+                <h3 class="h2 mb-30">JOIN OUR NEWSLETTER</h3>
+                <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://app.mailjet.com/widget/iframe/2gIc/77E" width="100%" height="140"></iframe>
             </div>
             <div class="footer-menu">
                 <ul>
