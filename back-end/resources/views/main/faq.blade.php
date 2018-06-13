@@ -229,13 +229,13 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-12 logon-group text-center">
 								<div id="ticket_user_captcha" class="form-recaptcha"></div>
 								<input name="captcha" type="hidden">
 							</div>
 						</div>
 
-						<div class="text-center mt-20">
+						<div class="text-center mt-10">
 							<input class="btn btn--160 btn--shadowed-light" type="submit" value="Send">
 						</div>
 					</form>
@@ -262,13 +262,13 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-12 logon-group text-center">
 								<div id="idea_user_captcha" class="form-recaptcha"></div>
 								<input name="captcha" type="hidden">
 							</div>
 						</div>
 
-						<div class="text-center mt-20">
+						<div class="text-center mt-10">
 							<input class="btn btn--160 btn--shadowed-light" type="submit" value="Send">
 						</div>
 					</form>

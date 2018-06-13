@@ -76,7 +76,7 @@
                             <h3 class="h4 text-uppercase">{{ $ico['name'] }} ends in</h3>
                             <span class="js-countdown" data-date="{{ $ico['endDate'] }}"></span>
                         </div>
-                        <div class="text-center h4">ICO III 15.05 19:00 (GMT + 3) - 15.07 19:00 (GMT + 3) 1 ZNX = 0.25 €</div>
+                        <div class="text-center h4">ICO III 15.06 19:00 (GMT + 3) - 15.07 19:00 (GMT + 3) 1 ZNX = 0.25 €</div>
                     </div>
                 </div>
             </div>
@@ -840,7 +840,7 @@
                                       placeholder="Your message"></textarea>
                         </div>
 
-                        <div class="logon-group">
+                        <div class="logon-group text-center">
                             <div id="contact-captcha" class="form-recaptcha"></div>
                             <input name="captcha" type="hidden">
                         </div>
