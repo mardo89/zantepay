@@ -833,6 +833,12 @@
                             <textarea id="contact-message" class="lp-form-textarea" rows="5" name="message"
                                       placeholder="Your message"></textarea>
                         </div>
+
+                        <div class="logon-group">
+                            <div id="contact-captcha" class="form-recaptcha"></div>
+                            <input name="captcha" type="hidden">
+                        </div>
+
                         <div class="text-center">
                             <input class="btn btn--shadowed-dark btn--160" type="submit" value="Send"
                                    onclick="ga('send',  'event',  'button', 'onclick', 'send');">
@@ -992,5 +998,40 @@
             </form>
         </div>
     </div>
+
+@endsection
+
+
+@section('scripts')
+
+	<!-- Google Captcha -->
+	<script>
+
+        var signInWidgetID;
+        var signUpWidgetID;
+        var contactUsWidgetID;
+
+        var onloadCallback = function() {
+
+            signInWidgetID = grecaptcha.render('sign-in-recaptcha', {
+                'sitekey' : '{{$captcha}}',
+                'theme' : 'light'
+            });
+
+            signUpWidgetID = grecaptcha.render(document.getElementById('sign-up-recaptcha'), {
+                'sitekey' : '{{$captcha}}',
+                'theme' : 'light'
+            });
+
+            contactUsWidgetID = grecaptcha.render(document.getElementById('contact-captcha'), {
+                'sitekey' : '{{$captcha}}',
+                'theme' : 'light'
+            });
+
+        };
+
+	</script>
+
+	<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit'></script>
 
 @endsection

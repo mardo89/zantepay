@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CaptchaException;
 use App\Models\Services\AccountsService;
+use App\Models\Services\CaptchaService;
 use App\Models\Services\FeedService;
 use App\Models\Services\IcoService;
 use App\Models\Services\MailService;
@@ -454,20 +456,28 @@ class IndexController extends Controller
 
         try {
 
+	        CaptchaService::checkCaptcha($request->captcha);
+
             MailService::sendContactUsEmail($request->email, $request->name, $request->message);
 
         } catch (\Exception $e) {
 
+	        $message = 'Can not send a message';
+	        $status = 422;
+
+	        if ($e instanceof CaptchaException) {
+		        $message = $e->getMessage();
+		        $status = 500;
+	        }
+
             return response()->json(
                 [
-                    'message' => $e->getMessage(),//'Can not send a message',
+                    'message' => $message,
                     'errors' => [
-                        'name' => '',
-                        'message' => '',
-                        'email' => 'Can not send a message'
+	                    'captcha' => $message
                     ]
                 ],
-                422
+                $status
             );
 
         }
@@ -506,21 +516,29 @@ class IndexController extends Controller
 
         try {
 
+	        CaptchaService::checkCaptcha($request->captcha);
+
             MailService::sendQuestionEmail($request->email, $request->name, $request->question, $request->subject);
 
         } catch (\Exception $e) {
 
-            return response()->json(
-                [
-                    'message' => 'Can not send a question',
-                    'errors' => [
-                        'name' => '',
-                        'question' => '',
-                        'email' => 'Can not send a question'
-                    ]
-                ],
-                422
-            );
+	        $message = 'Can not send a message';
+	        $status = 422;
+
+	        if ($e instanceof CaptchaException) {
+		        $message = $e->getMessage();
+		        $status = 500;
+	        }
+
+	        return response()->json(
+		        [
+			        'message' => $message,
+			        'errors' => [
+				        'captcha' => $message
+			        ]
+		        ],
+		        $status
+	        );
 
         }
 

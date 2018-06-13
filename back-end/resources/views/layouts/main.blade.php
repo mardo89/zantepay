@@ -280,6 +280,14 @@
 <script src="/js/components/circle-progress.min.js"></script>
 <script src="/js/components/jquery.countdown.min.js"></script>
 
+<!-- Additional scripts -->
+@yield('scripts')
+
+
+
+
+
+
 <!-- Jivosite -->
 <script type='text/javascript'>
     (function () {
@@ -330,29 +338,6 @@
     gtag('config', 'UA-110056018-1');
 </script>
 
-<!-- Google Captcha -->
-<script>
-
-    var signInWidgetID;
-    var signUpWidgetID;
-
-    var onloadCallback = function() {
-
-        signInWidgetID = grecaptcha.render('sign-in-recaptcha', {
-            'sitekey' : '{{$captcha}}',
-            'theme' : 'light'
-        });
-
-        signUpWidgetID = grecaptcha.render(document.getElementById('sign-up-recaptcha'), {
-            'sitekey' : '{{$captcha}}',
-            'theme' : 'light'
-        });
-
-    };
-
-</script>
-
-<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit'></script>
 
 </body>
 </html>

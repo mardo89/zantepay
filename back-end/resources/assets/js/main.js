@@ -891,7 +891,8 @@ $(document).ready(function () {
                 {
                     'name': $('#contact-name').val(),
                     'email': $('#contact-email').val(),
-                    'message': $('#contact-message').val()
+                    'message': $('#contact-message').val(),
+                    'captcha': grecaptcha.getResponse(contactUsWidgetID)
                 }
             )
         )
@@ -899,6 +900,8 @@ $(document).ready(function () {
                 () => {
                     hideSpinner(button);
                     clearForm($('#frm_contact'));
+
+                    grecaptcha.reset(contactUsWidgetID);
 
                     $.magnificPopup.open(
                         {
@@ -928,6 +931,10 @@ $(document).ready(function () {
 
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(contactUsWidgetID);
+                    }
                 }
             )
     });
@@ -947,7 +954,8 @@ $(document).ready(function () {
                     'subject': 'New Ticket Submitted',
                     'name': $('#ticket_user_name').val(),
                     'email': $('#ticket_user_email').val(),
-                    'question': $('#ticket_user_question').val()
+                    'question': $('#ticket_user_question').val(),
+                    'captcha': grecaptcha.getResponse(ticketWidgetID)
                 }
             )
         )
@@ -983,6 +991,10 @@ $(document).ready(function () {
                             );
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(ticketWidgetID);
+                    }
                 }
             )
     });
@@ -1001,7 +1013,8 @@ $(document).ready(function () {
                     'subject': 'New Idea Submitted',
                     'name': $('#idea_user_name').val(),
                     'email': $('#idea_user_email').val(),
-                    'question': $('#idea_user_question').val()
+                    'question': $('#idea_user_question').val(),
+                    'captcha': grecaptcha.getResponse(ideaWidgetID)
                 }
             )
         )
@@ -1037,6 +1050,10 @@ $(document).ready(function () {
                             );
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(ideaWidgetID);
+                    }
                 }
             )
     });
