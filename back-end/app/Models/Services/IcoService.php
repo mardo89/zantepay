@@ -45,7 +45,7 @@ class IcoService
         $icoPartName = optional($activePart)->getName() ?? '';
         $icoPartLimit = optional($activePart)->getLimit() + $prevPartAmount ?? $prevPartAmount;
 
-        $icoPartEndDate = optional($lastPart)->getEndDate() ?? '';
+        $icoPartEndDate = optional($activePart)->getEndDate() ?? '';
 
         $icoPartEthRate = optional($activePart)->getEthRate() ?? 0;
         $icoPartEuroRate = optional($activePart)->getEuroRate() ?? 0;

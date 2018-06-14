@@ -6,6 +6,7 @@ use App\Exceptions\AuthException;
 use App\Exceptions\PasswordException;
 use App\Exceptions\UserAccessException;
 use App\Exceptions\UserNotFoundException;
+use App\Models\DB\Affiliate;
 use App\Models\DB\ExternalRedirect;
 use App\Models\DB\SocialNetworkAccount;
 use App\Models\DB\User;
@@ -466,6 +467,26 @@ class AccountsService
 
         Session::put('externalLink', $externalLink);
     }
+
+	/**
+	 * Track affiliate
+	 *
+	 * @param string $trackId
+	 */
+	public static function trackAffiliate($trackId)
+	{
+		if (is_null($trackId)) {
+			return;
+		}
+
+		Affiliate::create(
+			[
+				'track_id' => $trackId
+			]
+		);
+
+		AffiliatesService::registerAffiliate($trackId);
+	}
 
     /**
      * Check if current user is the same as logged user

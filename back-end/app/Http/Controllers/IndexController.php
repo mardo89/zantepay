@@ -33,7 +33,7 @@ class IndexController extends Controller
     {
         AccountsService::setReferrer($request->ref);
         AccountsService::setExternals();
-
+        AccountsService::trackAffiliate($request->track_id);
 
         return view(
             'main.index',
