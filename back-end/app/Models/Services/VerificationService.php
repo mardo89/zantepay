@@ -100,6 +100,8 @@ class VerificationService
 
                 UsersService::changeUserStatus($user, User::USER_STATUS_VERIFIED);
 
+	            AffiliatesService::trackCPL($user->affiliate);
+
                 MailService::sendAccountApprovedEmail($user->email);
 
                 $country = CountriesService::getCountry($apiResponse['country']);

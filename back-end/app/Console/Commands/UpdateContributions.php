@@ -7,6 +7,7 @@ use App\Models\DB\ContributionAction;
 use App\Models\DB\User;
 use App\Models\DB\Wallet;
 use App\Models\DB\ZantecoinTransaction;
+use App\Models\Services\AffiliatesService;
 use App\Models\Services\MailService;
 use App\Models\Wallet\CurrencyFormatter;
 use App\Models\Wallet\EtheriumApi;
@@ -113,6 +114,11 @@ class UpdateContributions extends Command
                             $referrerWallet->commission_bonus += Wallet::COMMISSION_BONUS * $ethAmount;
                             $referrerWallet->save();
                         }
+
+	                    // Apply Affiliate bonus
+	                    if (!is_null($user->affiliate)) {
+                        	AffiliatesService::trackCPA($user->affiliate, $ethAmount);
+	                    }
 
                     }
                 }
