@@ -52,6 +52,7 @@
                 <div class="row p-t-60">
                     <div class="col-lg-4 text-center">
                         <img src="images/zantepay-card-mobile.png" srcset="images/zantepay-card-mobile@2x.png 2x" alt="Zantepay App">
+                        <a href="https://medium.com/@zantepay" target="_blank" class="btn btn--shadowed-dark btn--260 mt-35">Check on status</a>
                     </div>
                     <div class="col-lg-8 p-t-40">
                         <div class="row mb-10">
@@ -116,6 +117,38 @@
             </div>
 
         @endif
+
+        <div class="hp-list-bt-section text-center white-content">
+            <div class="container">
+                <h2 class="h2 headline">ZANTECOIN will be listed at...</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-30">
+                        <a href="https://idex.market/eth/aura" target="_blank" rel="nofollow">
+                            <img src="images/idex.jpg" width="200" alt="idex.market">
+                        </a>
+                        <h3 class="h5">Decentralized Ethereum asset exchange</h3>
+                    </div>
+                    <div class="col-md-4 mb-30">
+                        <a href="https://coinplace.pro/" target="_blank" rel="nofollow">
+                            <img src="images/coinplace.jpg" width="200" alt="coinplace.pro">
+                        </a>
+                        <h3 class="h5">Most advance P2P cryptocurrency exchange</h3>
+                    </div>
+                    <div class="col-md-4 mb-30">
+                        <a href="https://bisq.network/" target="_blank" rel="nofollow">
+                            <img src="images/bisq-network.jpg" width="200" alt="bisq.network">
+                        </a>
+                        <h3 class="h5">Decentralized P2P exchange</h3>
+                    </div>
+                </div>
+                <div class="p-t-60 text-center">
+                    <div class="h4">
+                        <div class="text-uppercase">For business proposals & partnership</div>
+                        <a href="mailto:support@zantepay.com">support@zantepay.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="hp-video-section container text-center white-content">
             <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
