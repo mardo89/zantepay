@@ -45,8 +45,6 @@
                                 <span class="primary-color">48h</span>
                                 <span>RALLY</span>
                             </div>
-                            <p class="endpoint-estimate">Start 00.00 (GMT+3) 16.06.2018 <br> Finish 23.59 (GMT+3)
-                                17.06.2018</p>
                         </div>
                         <div class="col-md-6">
                             <div class="affiliate-step">
