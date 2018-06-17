@@ -471,21 +471,21 @@ class AccountsService
 	/**
 	 * Track affiliate
 	 *
-	 * @param string $trackId
+	 * @param string $trackID
 	 */
-	public static function trackAffiliate($trackId)
+	public static function trackAffiliate($trackID)
 	{
-		if (is_null($trackId)) {
+		if (is_null($trackID)) {
 			return;
 		}
 
 		Affiliate::create(
 			[
-				'track_id' => $trackId
+				'track_id' => $trackID
 			]
 		);
 
-		AffiliatesService::registerAffiliate($trackId);
+		Session::put('affiliate', $trackID);
 	}
 
     /**
@@ -570,10 +570,15 @@ class AccountsService
     protected static function createUser($userInfo)
     {
         $referrer = Session::get('referrer');
+	    $affiliate = Session::get('affiliate');
 
         if (!is_null($referrer)) {
             $userInfo['referrer'] = $referrer;
         }
+
+	    if (!is_null($affiliate)) {
+		    $userInfo['affiliate'] = $affiliate;
+	    }
 
         $user = User::create($userInfo);
 
@@ -584,6 +589,9 @@ class AccountsService
         WalletsService::createWallet($user->id);
 
         Session::forget('referrer');
+	    Session::forget('affiliate');
+
+	    AffiliatesService::trackCPL($user->affiliate);
 
         return $user;
     }
