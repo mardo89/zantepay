@@ -679,6 +679,7 @@ $(document).ready(function () {
 
         const credentials = {
             email: $('#frm_forgot_password input[name="email"]').val(),
+            captcha: grecaptcha.getResponse(resetPasswordWidgetID)
         };
 
         axios.post(
@@ -717,6 +718,10 @@ $(document).ready(function () {
                             );
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(resetPasswordWidgetID);
+                    }
                 }
             )
     });

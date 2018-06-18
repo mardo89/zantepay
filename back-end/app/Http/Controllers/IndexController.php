@@ -442,13 +442,18 @@ class IndexController extends Controller
             [
                 'name' => 'required|string|max:255|bail',
                 'email' => 'required|email|max:255|bail',
-                'message' => 'required|bail'
+                'message' => 'required|bail',
+	            'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
                     'name' => 'Name',
                     'email' => 'Email',
                     'message' => 'Message',
+	                'captcha' => 'Captcha'
+                ],
+                [
+	                'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
 
@@ -502,7 +507,8 @@ class IndexController extends Controller
                 'subject' => 'required|string|max:50|bail',
                 'name' => 'required|string|max:255|bail',
                 'email' => 'required|string|email|max:255|bail',
-                'question' => 'required|bail'
+                'question' => 'required|bail',
+	            'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -510,6 +516,10 @@ class IndexController extends Controller
                     'name' => 'Name',
                     'email' => 'Email',
                     'question' => 'Question',
+	                'captcha' => 'Captcha'
+                ],
+                [
+	                'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
         );

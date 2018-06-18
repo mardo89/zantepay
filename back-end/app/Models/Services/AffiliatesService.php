@@ -28,7 +28,7 @@ class AffiliatesService
 	public static function trackCPA($trackId, $sum)
 	{
 
-		self::sendGetRequest(self::TRACK_CPA_URL . $trackId . '/' . $sum . '/?currency=eth');
+		self::sendGetRequest(self::TRACK_CPA_URL . $trackId . '/' . $sum . '?currency=eth');
 
 	}
 

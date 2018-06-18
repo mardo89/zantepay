@@ -1048,6 +1048,7 @@
 
         var signInWidgetID;
         var signUpWidgetID;
+        var resetPasswordWidgetID;
         var contactUsWidgetID;
 
         var onloadCallback = function() {
@@ -1063,6 +1064,11 @@
             });
 
             contactUsWidgetID = grecaptcha.render(document.getElementById('contact-captcha'), {
+                'sitekey' : '{{$captcha}}',
+                'theme' : 'light'
+            });
+
+            resetPasswordWidgetID = grecaptcha.render(document.getElementById('reset-password-recaptcha'), {
                 'sitekey' : '{{$captcha}}',
                 'theme' : 'light'
             });

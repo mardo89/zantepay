@@ -182,13 +182,22 @@
         <div class="logon-modal-container">
             <h3 class="h4">Forgot Password?</h3><br>
             <form id="frm_forgot_password">
+
                 <div class="logon-group">
                     <input class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
+
+                <div class="logon-group">
+                    <div id="reset-password-recaptcha" class="form-recaptcha"></div>
+                    <input name="captcha" type="hidden">
+                </div>
+
                 <div class="logon-submit mt-35">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Reset Password">
                 </div>
+
                 <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
+
             </form>
         </div>
     </div>

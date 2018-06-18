@@ -76,6 +76,19 @@ $(document).ready(function () {
                 response => {
                     hideSpinner(button);
 
+                    if ($('#total_found').length === 0) {
+
+                        $('#users-list')
+                            .before(
+                                $('<p />')
+                                    .addClass('primary-color pull-right')
+                                    .attr('id', 'total_found')
+                            )
+
+                    }
+
+                    $('#total_found').html('Total found: <strong>' + response.data.totalFound + '</strong>');
+
                     $('#users-list tbody').empty();
                     $('.pagination .page-item').empty().hide();
 

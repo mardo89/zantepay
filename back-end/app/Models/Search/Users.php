@@ -105,6 +105,8 @@ class Users
             ];
         }
 
+        $totalFound = count($usersList);
+
         // Paginator
         $rowsPerPage = 25;
 
@@ -113,6 +115,7 @@ class Users
 
 
         return [
+        	'totalFound' => $totalFound,
             'usersList' => $usersList,
             'paginator' => [
                 'currentPage' => $page,

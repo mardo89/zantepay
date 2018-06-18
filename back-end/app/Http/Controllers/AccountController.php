@@ -113,16 +113,19 @@ class AccountController extends Controller
             $request,
             [
                 'email' => 'required|email|max:255|bail',
-                'password' => 'required|bail'
+                'password' => 'required|bail',
+	            'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
                     'email' => 'Email',
                     'password' => 'Password',
+	                'captcha' => 'Captcha'
                 ],
                 [
                     'email.required' => 'Enter email',
                     'password.required' => 'Enter password',
+	                'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
 
@@ -203,10 +206,15 @@ class AccountController extends Controller
             $request,
             [
                 'email' => 'required|email|max:255|bail',
+	            'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
                     'email' => 'Email',
+	                'captcha' => 'Captcha'
+                ],
+                [
+	                'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
         );
@@ -215,21 +223,31 @@ class AccountController extends Controller
 
         try {
 
+	        CaptchaService::checkCaptcha($request->captcha);
+
             AccountsService::resetPassword($request->email);
 
         } catch (\Exception $e) {
 
             DB::rollback();
 
-            return response()->json(
-                [
-                    'message' => 'Can not restore password',
-                    'errors' => [
-                        'email' => 'Error restoring password'
-                    ]
-                ],
-                422
-            );
+	        $message = 'Error restoring password';
+	        $status = 422;
+
+	        if ($e instanceof CaptchaException) {
+		        $message = $e->getMessage();
+		        $status = 500;
+	        }
+
+	        return response()->json(
+		        [
+			        'message' => $message,
+			        'errors' => [
+				        'captcha' => $message
+			        ]
+		        ],
+		        $status
+	        );
 
         }
 
