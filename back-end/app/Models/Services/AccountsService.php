@@ -52,7 +52,7 @@ class AccountsService
             ExternalRedirect::ACTION_TYPE_REGISTRATION
         );
 
-        MailService::sendActivateAccountEmail($email, $uid);
+		self::sendActivationEmail($uid);
 
         Session::put('registered_at', time());
 
@@ -180,6 +180,36 @@ class AccountsService
         $user->delete();
     }
 
+	/**
+	 * Send activation email
+	 *
+	 * @param string $uid
+	 *
+	 * @return boolean
+	 * @throws UserNotFoundException
+	 */
+	public static function sendActivationEmail($uid) {
+
+		$sentAt = Session::get('sent_activation__at', time());
+
+		$sentPeriod = time() - $sentAt;
+
+		if ($sentPeriod > 0 && $sentPeriod < 300) {
+			return false;
+		}
+
+		$user = self::findUser(
+			[
+				'uid' => $uid
+			]
+		);
+
+		MailService::sendActivateAccountEmail($user->email, $user->uid);
+
+		Session::put('sent_activation__at', time());
+
+		return true;
+	}
 
     /**
      *  Activate user's account

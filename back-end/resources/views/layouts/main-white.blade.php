@@ -80,5 +80,9 @@
 <script src="/js/main.js" type="text/javascript"></script>
 <script src="/js/components/jquery.magnific-popup.min.js"></script>
 
+<!-- Additional scripts -->
+@yield('scripts')
+
+
 </body>
 </html>

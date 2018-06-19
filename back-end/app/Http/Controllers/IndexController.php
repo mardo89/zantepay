@@ -580,13 +580,7 @@ class IndexController extends Controller
 
         try {
 
-            $user = AccountsService::findUser(
-                [
-                    'uid' => $request->uid
-                ]
-            );
-
-            MailService::sendActivateAccountEmail($user->email, $user->uid);
+        	AccountsService::sendActivationEmail($request->uid);
 
         } catch (\Exception $e) {
 
