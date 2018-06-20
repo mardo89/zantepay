@@ -48,8 +48,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="affiliate-step">
-                                <div class="endpoint-headline"><p>First top 5 will get <strong>5% extra</strong> through
-                                        Affiliate campaigns that will end on July, 15th.</p></div>
+                                <div class="endpoint-headline">
+                                    <p class="h4">Awards: </p>
+                                    <ol>
+                                        <li><strong>3000€</strong></li>
+                                        <li><strong>2000€</strong></li>
+                                        <li><strong>1000€</strong></li>
+                                    </ol>
+                                </div>
+                                <p class="text-uppercase">
+                                    <span style="font-size:0.97em;">Total affiliates 48h turnover min 25 000 €</span>
+                                </p>
                             </div>
                         </div>
                     </div>

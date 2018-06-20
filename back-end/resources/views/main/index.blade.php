@@ -118,27 +118,49 @@
 
         @endif
 
-        <div class="hp-list-bt-section text-center white-content">
+    </header>
+
+@endsection
+
+@section('main')
+
+    <main class="main main-lp">
+        <div class="hp-list-bt-section text-center">
             <div class="container">
-                <h2 class="h2 headline">ZANTECOIN will be listed at...</h2>
-                <div class="row">
-                    <div class="col-md-4 mb-30">
+                <div class="headline-group">
+                    <h2 class="h2 headline">ZANTECOIN official exchanges</h2>
+                    <img src="images/shield.png" srcset="images/shield@2x.png 2x" alt="shield">
+                </div>
+                <div class="row content-center">
+                    <div class="col-md-4 mb-50">
                         <a href="https://idex.market/eth/aura" target="_blank" rel="nofollow">
                             <img src="images/idex.jpg" width="200" alt="idex.market">
                         </a>
-                        <h3 class="h5">Decentralized Ethereum asset exchange</h3>
+                        <h3 class="h5"><a href="https://idex.market/eth/aura" target="_blank" rel="nofollow">Decentralized Ethereum asset exchange</a></h3>
                     </div>
-                    <div class="col-md-4 mb-30">
+                    <div class="col-md-4 mb-50">
                         <a href="https://coinplace.pro/" target="_blank" rel="nofollow">
                             <img src="images/coinplace.jpg" width="200" alt="coinplace.pro">
                         </a>
-                        <h3 class="h5">Most advance P2P cryptocurrency exchange</h3>
+                        <h3 class="h5"><a href="https://coinplace.pro/" target="_blank" rel="nofollow">Most advance P2P cryptocurrency exchange</a></h3>
                     </div>
-                    <div class="col-md-4 mb-30">
+                    <div class="col-md-4 mb-50">
                         <a href="https://bisq.network/" target="_blank" rel="nofollow">
                             <img src="images/bisq-network.jpg" width="200" alt="bisq.network">
                         </a>
-                        <h3 class="h5">Decentralized P2P exchange</h3>
+                        <h3 class="h5"><a href="https://bisq.network/" target="_blank" rel="nofollow">Decentralized P2P exchange</a></h3>
+                    </div>
+                    <div class="col-md-4 mb-50">
+                        <a href="https://www.pexo.in/" target="_blank" rel="nofollow">
+                            <img src="images/pexo-logo.jpg" width="200" alt="pexo.in">
+                        </a>
+                        <h3 class="h5"><a href="https://www.pexo.in/" target="_blank" rel="nofollow">India cryptocurrency exchange on mobile</a></h3>
+                    </div>
+                    <div class="col-md-4 mb-50">
+                        <a href="https://extradecoin.com/#/" target="_blank" rel="nofollow">
+                            <img src="images/extradecoin.jpg" width="200" alt="extradecoin">
+                        </a>
+                        <h3 class="h5"><a href="https://extradecoin.com/#/" target="_blank" rel="nofollow">Future Vietnam cryptocurrency exchange</a></h3>
                     </div>
                 </div>
                 <div class="p-t-60 text-center">
@@ -150,23 +172,18 @@
             </div>
         </div>
 
-        <div class="hp-video-section container text-center white-content">
-            <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
-            <div>
-                <a href="https://www.youtube.com/watch?v=7fuQrhaqXV8" class="js-popup-video">
-                    <i class="fa fa-youtube-play"></i>
-                    <img src="images/zantecoin-thumb.jpg" srcset="images/zantecoin-thumb@2x.jpg 2x" alt="What is ZANTECOIN?">
-                </a>
+        <div class="hp-video-section text-center">
+            <div class="container">
+                <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
+                <div>
+                    <a href="https://www.youtube.com/watch?v=7fuQrhaqXV8" class="js-popup-video">
+                        <i class="fa fa-youtube-play"></i>
+                        <img src="images/zantecoin-thumb.jpg" srcset="images/zantecoin-thumb@2x.jpg 2x" alt="What is ZANTECOIN?">
+                    </a>
+                </div>
             </div>
         </div>
-
-    </header>
-
-@endsection
-
-@section('main')
-
-    <main class="main main-lp">
+        
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">
