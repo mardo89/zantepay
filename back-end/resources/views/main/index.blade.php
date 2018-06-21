@@ -151,10 +151,10 @@
                         <h3 class="h5"><a href="https://bisq.network/" target="_blank" rel="nofollow">Decentralized P2P exchange</a></h3>
                     </div>
                     <div class="col-md-4 mb-50">
-                        <a href="https://www.pexo.in/" target="_blank" rel="nofollow">
+                        <a href="https://goo.gl/2whc1v" target="_blank" rel="nofollow">
                             <img src="images/pexo-logo.jpg" width="200" alt="pexo.in">
                         </a>
-                        <h3 class="h5"><a href="https://www.pexo.in/" target="_blank" rel="nofollow">India cryptocurrency exchange on mobile</a></h3>
+                        <h3 class="h5"><a href="https://goo.gl/2whc1v" target="_blank" rel="nofollow">India cryptocurrency exchange on mobile</a></h3>
                     </div>
                     <div class="col-md-4 mb-50">
                         <a href="https://extradecoin.com/#/" target="_blank" rel="nofollow">
