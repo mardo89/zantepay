@@ -759,6 +759,12 @@
                             business development professional with a Master's Degree focused in Accounting and Finance from Estonian
                             Business School.</p>
                     </div>
+                    <div class="col-lg-4">
+                        <img src="images/duyen.jpg" srcset="images/duyen@2x.jpg 2x" alt="Duyen Tran">
+                        <h3 class="h4">Duyen Tran <span>CEO of Extradecoin.com <br> Founder of Tokenstart.io </span>
+                        </h3>
+                        <p>Investor and Expert with more than 10 years in Financial Industry. Expert of Stock Market and Blockchain Technology. Duyen is an advisor and investor in various blockchain projects and startups. Founder of Tokenstart.io - a blockchain company. Own crypto fund and a few blockchain projects.</p>
+                    </div>
                 </div>
             </div>
         </div>
