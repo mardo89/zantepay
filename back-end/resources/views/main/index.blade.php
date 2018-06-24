@@ -157,12 +157,6 @@
                         <h3 class="h5"><a href="https://goo.gl/2whc1v" target="_blank" rel="nofollow">Android based trading platform in India</a></h3>
                     </div>
                     <div class="col-md-4 mb-50">
-                        <a href="https://extradecoin.com/#/" target="_blank" rel="nofollow">
-                            <img src="images/extradecoin.jpg" width="200" alt="extradecoin">
-                        </a>
-                        <h3 class="h5"><a href="https://extradecoin.com/#/" target="_blank" rel="nofollow">Vietnamese cryptocurrency exchange</a></h3>
-                    </div>
-                    <div class="col-md-4 mb-50">
                         <a href="https://www.hotbit.io/" target="_blank" rel="nofollow">
                             <img src="images/hotbit.jpg" width="200" alt="hotbit">
                         </a>
