@@ -1,5 +1,79 @@
 require('./helpers');
 
+const saveState = () => {
+
+    const roleFilter = [];
+
+    $('input[name="role-filter"]:checked').each(function () {
+        roleFilter.push($(this).val());
+    });
+
+    const referrerFilter = [];
+
+    $('input[name="referrer-filter"]:checked').each(function () {
+        referrerFilter.push($(this).val());
+    });
+
+    const statusFilter = [];
+
+    $('input[name="status-filter"]:checked').each(function () {
+        statusFilter.push($(this).val());
+    });
+
+    const dateFromFilter = $('input[name="date_from_filter"]').val();
+    const dateToFilter = $('input[name="date_to_filter"]').val();
+    const searchFilter = $('input[name="search-by-email"]').val();
+
+    const userFormState = {
+        'roleFilter': roleFilter,
+        'referrerFilter': referrerFilter,
+        'statusFilter': statusFilter,
+        'dateFromFilter': dateFromFilter,
+        'dateToFilter': dateToFilter,
+        'searchFilter': searchFilter
+    }
+
+
+    sessionStorage.setItem('userFormState', JSON.stringify(userFormState));
+};
+
+
+const restoreState = () => {
+
+    let userFormState = sessionStorage.getItem('userFormState');
+
+    if (!userFormState) {
+        return;
+    }
+
+    userFormState = JSON.parse(userFormState);
+
+    $('input[name="role-filter"]').each(function () {
+        if (userFormState.roleFilter.indexOf($(this).val()) === -1) {
+            $(this).prop('checked', false);
+        }
+    });
+
+    $('input[name="referrer-filter"]').each(function () {
+        if (userFormState.referrerFilter.indexOf($(this).val()) === -1) {
+            $(this).prop('checked', false);
+        }
+    });
+
+    $('input[name="status-filter"]').each(function () {
+        if (userFormState.statusFilter.indexOf($(this).val()) === -1) {
+            $(this).prop('checked', false);
+        }
+    });
+
+    $('input[name="date_from_filter"]').val(userFormState.dateFromFilter);
+    $('input[name="date_to_filter"]').val(userFormState.dateToFilter);
+    $('input[name="search-by-email"]').val(userFormState.searchFilter);
+
+    $('#search_user_frm').trigger('submit');
+
+}
+
 $(document).ready(function () {
 
     $('#search_user_frm').on('submit', function (event) {
@@ -75,6 +149,8 @@ $(document).ready(function () {
             .then(
                 response => {
                     hideSpinner(button);
+
+                    saveState();
 
                     if ($('#total_found').length === 0) {
 
@@ -233,6 +309,83 @@ $(document).ready(function () {
 
         $('#search_user_frm').trigger('submit');
     });
+
+    $('.search-cross').on('click', function (event) {
+
+        event.preventDefault();
+
+        $('input[name="search-by-email"]').val('');
+
+    });
+
+    $('#import_users').on('click', function (event) {
+        event.preventDefault();
+
+        // roles filter
+        const roleFilter = [];
+
+        $('#search_user_frm').find('input[name="role-filter"]:checked').each(function () {
+            roleFilter.push($(this).val());
+        });
+
+        // status filter
+        const statusFilter = [];
+
+        $('#search_user_frm').find('input[name="status-filter"]:checked').each(function () {
+            statusFilter.push($(this).val());
+        });
+
+        // referrer
+        const referrerFilter = [];
+
+        $('#search_user_frm').find('input[name="referrer-filter"]:checked').each(function () {
+            referrerFilter.push($(this).val());
+        });
+
+        // email / name
+        const nameFilter = $('#search_user_frm').find('input[name="search-by-email"]').val();
+
+        // date filter
+        const dateFromFiler = $('#search_user_frm').find('input[name="date_from_filter"]').val();
+        const dateToFiler = $('#search_user_frm').find('input[name="date_to_filter"]').val();
+
+        // page
+        const activePage = parseInt($('.page-item.active .page-link').html());
+        const page = isNaN(activePage) ? 1 : activePage;
+
+        // sort
+        let sortIndex = 2;
+        let sortOrder = 'desc';
+
+        if ($('.sort.sort-asc').length) {
+            sortIndex = $('.sort.sort-asc').index();
+            sortOrder = 'asc';
+        }
+
+        if ($('.sort.sort-desc').length) {
+            sortIndex = $('.sort.sort-desc').index();
+            sortOrder = 'desc';
+        }
+
+        const params = {
+            'role_filter': roleFilter,
+            'status_filter': statusFilter,
+            'referrer_filter': referrerFilter,
+            'name_filter': nameFilter,
+            'date_from_filter': dateFromFiler,
+            'date_to_filter': dateToFiler,
+            'page': page,
+            'sort_index': sortIndex,
+            'sort_order': sortOrder
+        };
+
+        const fileUrl = '/admin/users/import?' + jQuery.param( params );
+
+        window.open(fileUrl, '_blank');
+
+    });
+
+    restoreState();
 
 });
 

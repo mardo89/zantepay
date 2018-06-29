@@ -99,6 +99,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('users', 'ManagerController@users');
     Route::get('users/search', 'ManagerController@searchUsers');
+	Route::get('users/import', 'ManagerController@importUsers');
 
     Route::get('profile', 'ManagerController@profile');
     Route::post('profile', 'AdminController@saveProfile')->middleware('protect.action');
@@ -120,7 +121,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('wallet/search-company-transactions', 'AdminController@searchCompanyTransactions');
 
     Route::get('newsletter', 'AdminController@newsletter');
-    Route::get('newsletter/export', 'AdminController@exportNewsletter');
+    Route::get('newsletter/import', 'AdminController@importNewsletter');
 });
 
 /**

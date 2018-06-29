@@ -461,7 +461,7 @@ class AdminController extends Controller
      *
      * @return File
      */
-    public function exportNewsletter()
+    public function importNewsletter()
     {
         return RegistrationsService::exportNewsLetterInfo();
     }

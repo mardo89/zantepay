@@ -7,7 +7,7 @@ use App\Models\Services\AccountsService;
 use App\Models\Services\MailService;
 use Illuminate\Console\Command;
 
-class ResetVerification extends Command
+class RemoveClosedAccounts extends Command
 {
     /**
      * The name and signature of the console command.

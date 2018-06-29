@@ -121,6 +121,77 @@ class ManagerController extends Controller
         );
     }
 
+	/**
+	 * Import users
+	 *
+	 * @param Request $request
+	 *
+	 * @return mixed
+	 */
+	public function importUsers(Request $request)
+	{
+		$this->validate(
+			$request,
+			[
+				'role_filter' => 'array',
+				'status_filter' => 'array',
+				'referrer_filter' => 'array',
+				'name_filter' => 'string|nullable',
+				'date_from_filter' => 'date|nullable',
+				'date_to_filter' => 'date|nullable',
+				'page' => 'integer|min:1',
+				'sort_index' => 'integer',
+				'sort_order' => 'in:asc,desc',
+			],
+			ValidationMessages::getList(
+				[
+					'role_filter' => 'Role Filter',
+					'status_filter' => 'Status Filter',
+					'referrer_filter' => 'Referrer Filter',
+					'name_filter' => 'Name Filter',
+					'date_from_filter' => 'Date From Filter',
+					'date_to_filter' => 'Date To Filter',
+					'page' => 'Page',
+					'sort_index' => 'Sort Column',
+					'sort_order' => 'Sort Order',
+				]
+			)
+		);
+
+		try {
+
+			$filters = [
+				'role_filter' => $request->role_filter,
+				'status_filter' => $request->status_filter,
+				'referrer_filter' => $request->referrer_filter,
+				'name_filter' => $request->name_filter,
+				'date_from_filter' => $request->date_from_filter,
+				'date_to_filter' => $request->date_to_filter,
+				'page' => $request->page,
+			];
+
+			$sort = [
+				'sort_index' => $request->sort_index,
+				'sort_order' => $request->sort_order,
+			];
+
+			$export = Users::importUsers($filters, $sort);
+
+		} catch (\Exception $e) {
+
+			return response()->json(
+				[
+					'message' => $e->getMessage(),//'Error while export users',
+					'errors' => []
+				],
+				500
+			);
+
+		}
+
+		return $export;
+	}
+
     /**
      * User profile
      *

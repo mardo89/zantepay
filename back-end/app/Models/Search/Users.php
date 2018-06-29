@@ -10,9 +10,9 @@ use App\Models\Services\UsersService;
 class Users
 {
     /**
-     * Transactions per page
+     * Users per page
      */
-    const TRANSACTIONS_PER_PAGE = 25;
+    private static $usersPerPage = 25;
 
     /**
      * Search transactions info for Admin -> Grant tables
@@ -108,11 +108,12 @@ class Users
         $totalFound = count($usersList);
 
         // Paginator
-        $rowsPerPage = 25;
+	    $totalPages = 1;
 
-        $totalPages = ceil(count($usersList) / $rowsPerPage);
-        $usersList = array_slice($usersList, ($page - 1) * $rowsPerPage, $rowsPerPage);
-
+	    if (self::$usersPerPage > 0) {
+		    $totalPages = ceil(count($usersList) / self::$usersPerPage);
+		    $usersList = array_slice($usersList, ($page - 1) * self::$usersPerPage, self::$usersPerPage);
+	    }
 
         return [
         	'totalFound' => $totalFound,
@@ -132,4 +133,42 @@ class Users
     public static function getTotalUsers() {
         return User::count();
     }
+
+	/**
+	 * Search users for export to csv
+	 *
+	 * @param array $filters
+	 * @param array $sort
+	 *
+	 * @return array
+	 */
+	public static function importUsers($filters, $sort) {
+
+		self::$usersPerPage = 0;
+
+		$searchResults = self::searchUsers($filters, $sort);
+
+		$exportList = [];
+
+		foreach ($searchResults['usersList'] as $user) {
+			$exportList[] = [
+				'Email' => $user['email']
+			];
+		}
+
+		$df = fopen("php://output", 'w');
+
+		fputcsv($df, array_keys(reset($exportList)));
+
+		foreach($exportList as $row)     {
+			fputcsv($df, $row);
+		}
+
+		header('Content-Type: text/csv');
+		header("Content-Type: application/download");
+		header("Content-Disposition: attachment;filename=users.csv");
+
+		fpassthru($df);
+	}
+
 }
