@@ -46,12 +46,12 @@
         <div class="header__content white-content">
             <div class="container">
                 <div class="center-logo pos-r">
-                    <img src="images/logo-large.png" alt="ZANTEPAY Logo">
+                    <img src="/images/logo-large.png" alt="ZANTEPAY Logo">
                 </div>
                 <h1 class="h2 header__title text-uppercase">Spend BTC, LTC, ETH and Zantecoin in real life <br> with just one card</h1>
                 <div class="row p-t-60">
                     <div class="col-lg-4 text-center">
-                        <img src="images/zantepay-card-mobile.png" srcset="images/zantepay-card-mobile@2x.png 2x" alt="Zantepay App">
+                        <img src="/images/zantepay-card-mobile.png" srcset="/images/zantepay-card-mobile@2x.png 2x" alt="Zantepay App">
                         <a href="https://medium.com/@zantepay" target="_blank" class="btn btn--shadowed-dark btn--260 mt-35">Check on status</a>
                     </div>
                     <div class="col-lg-8 p-t-40">
@@ -875,7 +875,7 @@
             
             <div class="footer-logo mb-30">
                 <a href="/" title="ZANTEPAY">
-                    <img src="images/logo-large.png" alt="ZANTEPAY Logo">
+                    <img src="/images/logo-large.png" alt="ZANTEPAY Logo">
                 </a>
             </div>
             <div class="text-center"> 

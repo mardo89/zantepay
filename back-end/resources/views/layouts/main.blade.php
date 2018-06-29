@@ -61,7 +61,7 @@
             <div class="masthead__row">
                 <div class="masthead__left">
                     <a href="/" class="logo" title="ZANTEPAY">
-                        <img src="images/logo-large.png" alt="ZANTEPAY Logo">
+                        <img src="/images/logo-large.png" alt="ZANTEPAY Logo">
                     </a>
                 </div>
 

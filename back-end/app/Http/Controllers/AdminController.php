@@ -15,6 +15,7 @@ use App\Models\Services\UsersService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class AdminController extends Controller
@@ -463,7 +464,9 @@ class AdminController extends Controller
      */
     public function importNewsletter()
     {
-        return RegistrationsService::exportNewsLetterInfo();
+        $export = RegistrationsService::exportNewsLetterInfo();
+
+	    return Storage::download($export['file'], 'newsletters', $export['headers']);
     }
 
 }

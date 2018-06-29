@@ -15,8 +15,10 @@ use App\Models\DB\User;
 use App\Models\Validation\ValidationMessages;
 use App\Models\Wallet\Ico;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class ManagerController extends Controller
@@ -189,7 +191,7 @@ class ManagerController extends Controller
 
 		}
 
-		return $export;
+		return Storage::download($export['file'], 'users', $export['headers']);
 	}
 
     /**

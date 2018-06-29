@@ -8,6 +8,7 @@ use App\Models\DB\Investor;
 use App\Models\DB\NewsLetter;
 use App\Models\Wallet\Currency;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class RegistrationsService
 {
@@ -103,8 +104,8 @@ class RegistrationsService
 
         foreach ($newsletters as $newsletter) {
             $newsLetterInfo[] = [
-                'email' => $newsletter->email,
-                'joined' => $newsletter->created_at->format('m/d/Y')
+                'Email' => $newsletter->email,
+                'Joined' => $newsletter->created_at->format('m/d/Y')
             ];
         }
 
@@ -118,21 +119,36 @@ class RegistrationsService
      */
     public static function exportNewsLetterInfo()
     {
+	    $fileName = 'imports/newsletters_' . AccountsService::getActiveUser()->id . '.csv';
+
+	    Storage::put($fileName, '');
+
+	    $filePath = Storage::path($fileName);
+
         $newsLetterInfo = self::getNewsLetterInfo();
 
-        $df = fopen("php://output", 'w');
+        $file = fopen($filePath, 'w');
 
-        fputcsv($df, array_keys(reset($newsLetterInfo)));
+        fputcsv($file, array_keys(reset($newsLetterInfo)));
 
         foreach($newsLetterInfo as $row)     {
-            fputcsv($df, $row);
+            fputcsv($file, $row);
         }
 
-        header('Content-Type: text/csv');
-        header("Content-Type: application/download");
-        header("Content-Disposition: attachment;filename=newsletters.csv");
+        fclose($file);
 
-        fpassthru($df);
+	    $headers = [
+		    "Content-type" => "text/csv; application/download",
+		    "Content-Disposition" => "attachment;filename=newsletters.csv",
+		    "Pragma" => "no-cache",
+		    "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+		    "Expires" => "0"
+	    ];
+
+	    return [
+		    'file' => $fileName,
+		    'headers' => $headers
+	    ];
     }
 
 }

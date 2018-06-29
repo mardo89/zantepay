@@ -186,7 +186,7 @@
             </div>
             <div class="footer-logo">
                 <a href="/" title="ZANTEPAY">
-                    <img src="images/logo-large.png" alt="ZANTEPAY Logo">
+                    <img src="/images/logo-large.png" alt="ZANTEPAY Logo">
                 </a>
             </div>
             <div class="footer-menu">

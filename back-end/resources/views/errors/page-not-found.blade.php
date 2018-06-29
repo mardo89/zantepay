@@ -54,7 +54,7 @@
             <div class="container">
                 <div class="maintenance-group text-center">
                     <div class="spin-logo">
-                        <img src="images/spin-logo.png" src="images/spin-logo.png" alt="">
+                        <img src="/images/spin-logo.png" alt="">
                     </div>
                     <h2 class="h2 text-uppercase">404 Error</h2>
                     <p>We are really sorry but the page you requested cannot be found.<br> it seems that the page you were trying to reach doesn’t exist anymore, or maybe it has just moved. We think the best thing to do is to start again from the home page. Feel free to contact us if the problem persists or if you definitely can not find what you are looking for. Thank you very much.</p>
