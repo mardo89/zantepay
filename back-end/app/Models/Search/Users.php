@@ -162,7 +162,7 @@ class Users
 
 		foreach ($searchResults['usersList'] as $user) {
 			$exportList[] = [
-				'Email' => $user['email']
+				'email' => $user['email']
 			];
 		}
 

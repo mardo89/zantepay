@@ -104,8 +104,8 @@ class RegistrationsService
 
         foreach ($newsletters as $newsletter) {
             $newsLetterInfo[] = [
-                'Email' => $newsletter->email,
-                'Joined' => $newsletter->created_at->format('m/d/Y')
+                'email' => $newsletter->email,
+                'joined' => $newsletter->created_at->format('m/d/Y')
             ];
         }
 
