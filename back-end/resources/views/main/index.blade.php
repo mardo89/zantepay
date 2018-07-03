@@ -162,6 +162,12 @@
                         </a>
                         <h3 class="h5"><a href="https://www.hotbit.io/" target="_blank" rel="nofollow">Cryptocurrency exchange with a global reach</a></h3>
                     </div>
+                    <div class="col-md-4 mb-50">
+                        <a href="https://www.wolowz.com/" target="_blank" rel="nofollow">
+                            <img src="images/wolowz.png" width="200" alt="hotbit">
+                        </a>
+                        <h3 class="h5"><a href="https://www.wolowz.com/" target="_blank" rel="nofollow">Swiss cryptocurrency exchange</a></h3>
+                    </div>
                 </div>
                 <div class="p-t-60 text-center">
                     <div class="h4">
