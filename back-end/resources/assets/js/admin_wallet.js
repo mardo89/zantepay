@@ -65,13 +65,13 @@ const searchUser = (type, part, table, url, allowGrant) => {
 
                         if (allowGrant) {
                             transactionStatus = transaction.status === ''
-                                ? '<button class="btn btn--medium btn--shadowed-light" type="button">Issue Token</button>'
+                                ? '<button class="btn btn--medium btn--shadowed-light grant_ico_coins" type="button">Issue Token</button>'
                                 : transaction.status;
                         }
 
                         table.find('tbody')
                             .append(
-                                $('<tr />')
+                                $('<tr />').data('uid', transaction.uid)
                                     .append(
                                         $('<td />').html(transaction.user)
                                     )
@@ -132,6 +132,52 @@ const searchUser = (type, part, table, url, allowGrant) => {
 }
 
 $(document).ready(function () {
+
+    // Grant Ico Coins
+    $(document).on('click', '.grant_ico_coins', function (event) {
+        event.preventDefault();
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const row = $(this).parents('tr');
+
+        const grantInfo = {
+            'uid': row.data('uid'),
+            'address': row.find('td:eq(1)').text().trim(),
+            'amount': row.find('td:eq(2)').text().trim()
+        }
+
+        axios.post(
+            '/admin/wallet/grant-ico-coins',
+            qs.stringify(grantInfo)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#grant-coins-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
+    });
 
     // Grant Marketing Coins
     $('#grant_marketing_coins').on('click', function (event) {
@@ -218,6 +264,7 @@ $(document).ready(function () {
                 }
             )
     });
+
 
     // Run requests to search ico transactions
     $('#ico_part_filter li').each(function () {

@@ -33,7 +33,7 @@ class Pool
     }
 
     /**
-     * Check Marketing Coins limit
+     * Check if limit reached
      *
      * @param int $amount
      *
@@ -41,7 +41,7 @@ class Pool
      */
     public function reachLimit($amount)
     {
-        return ($this->znxAmount + $amount) <= $this->znxLimit;
+        return $amount > $this->getBalance();
     }
 
     /**

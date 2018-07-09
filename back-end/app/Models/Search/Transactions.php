@@ -65,6 +65,7 @@ class Transactions
             $userName = $user->first_name . ' ' . $user->last_name;
 
             $usersList[] = [
+	            'uid' => $user->uid,
                 'user' => trim($userName) != '' ? $userName : $user->email,
                 'address' => $user->profile->eth_wallet,
                 'amount' => $icoAmount,

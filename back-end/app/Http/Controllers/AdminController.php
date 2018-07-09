@@ -162,6 +162,52 @@ class AdminController extends Controller
 
     }
 
+	/**
+	 * Grant ICO Coins
+	 *
+	 * @param Request $request
+	 *
+	 * @return JSON
+	 */
+	public function grantIcoCoins(Request $request)
+	{
+		$this->validate(
+			$request,
+			[
+				'uid' => 'required|string|bail',
+				'address' => 'required|string|bail',
+				'amount' => 'required|integer|bail',
+			],
+			ValidationMessages::getList(
+				[
+					'uid' => 'User ID',
+					'address' => 'Wallet Address',
+					'amount' => 'Grant ZNX Amount',
+				]
+			)
+		);
+
+		try {
+
+			TokensService::grantIcoTokens($request->address, $request->amount, $request->uid);
+
+		} catch (\Exception $e) {
+
+			return response()->json(
+				[
+					'message' => 'Error granting ICO Coins',
+					'errors' => []
+				],
+				500
+			);
+
+		}
+
+		return response()->json(
+			[]
+		);
+	}
+
     /**
      * Grant Marketing Coins
      *
