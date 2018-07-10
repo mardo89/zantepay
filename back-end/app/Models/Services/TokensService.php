@@ -12,186 +12,239 @@ use App\Models\Wallet\Grant;
 
 class TokensService
 {
-    /**
-     * @var array Transaction Statuses
-     */
-    public static $transactionStatuses = [
-        GrantCoinsTransaction::STATUS_IN_PROGRESS => 'In-Progress',
-        GrantCoinsTransaction::STATUS_COMPLETE => 'Success',
-        GrantCoinsTransaction::STATUS_FAILED => 'Failed'
-    ];
+	/**
+	 * @var array Transaction Statuses
+	 */
+	public static $transactionStatuses = [
+		GrantCoinsTransaction::STATUS_IN_PROGRESS => 'In-Progress',
+		GrantCoinsTransaction::STATUS_COMPLETE => 'Success',
+		GrantCoinsTransaction::STATUS_FAILED => 'Failed'
+	];
 
-    /**
-     * Grant ICO Tokens
-     *
-     * @param string $address
-     * @param int $amount
-     * @param string $uid
-     *
-     * @throws \Exception
-     */
-    public static function grantIcoTokens($address, $amount, $uid)
-    {
-    	$user = AccountsService::getUserByID($uid);
+	/**
+	 * Grant ICO Tokens
+	 *
+	 * @param string $address
+	 * @param int $amount
+	 * @param string $uid
+	 *
+	 * @throws \Exception
+	 */
+	public static function grantIcoTokens($address, $amount, $uid)
+	{
+		$user = AccountsService::getUserByID($uid);
 
-    	$userGrantAddress = $user->profile->eth_wallet;
-    	$userZnxAmount = $user->wallet->znx_amount;
+		$userGrantAddress = $user->profile->eth_wallet;
 
-	    if (!$address) {
-		    throw new GrantTokensException('Proxy Address can not be empty.');
-	    }
+		$userZnxAmount = Transactions::searchTransactionsAmount(TransactionsService::getIcoTransactionTypes());
 
-    	if (!$address || $address != $userGrantAddress) {
-		    throw new GrantTokensException('Incorrect Proxy Address.');
-	    }
+		if (!$address) {
+			throw new GrantTokensException('Proxy Address can not be empty.');
+		}
 
-	    if ($amount != $userZnxAmount) {
-		    throw new GrantTokensException('Incorrect Amount.');
-	    }
+		if ($address != $userGrantAddress) {
+			throw new GrantTokensException('Incorrect Proxy Address.');
+		}
 
-	    $pool = (new Grant())->icoPool();
+		if ($amount != $userZnxAmount) {
+			throw new GrantTokensException('Incorrect Amount.');
+		}
 
-    	if ($pool->reachLimit($amount)) {
-		    throw new GrantTokensException('Pool limit was reached.');
-	    }
+		$pool = (new Grant())->icoPool();
 
-        self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_ICO_TOKENS);
-    }
+		if ($pool->reachLimit($amount)) {
+			throw new GrantTokensException('Pool limit was reached.');
+		}
 
-    /**
-     * Grant Marketing Tokens
-     *
-     * @param string $address
-     * @param int $amount
-     *
-     * @throws \Exception
-     */
-    public static function grantMarketingTokens($address, $amount)
-    {
-	    if (!$address) {
-		    throw new GrantTokensException('Beneficiary Address can not be empty.');
-	    }
+		self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_ICO_TOKENS);
+	}
 
-	    $pool = (new Grant())->marketingPool();
+	/**
+	 * Grant Marketing Tokens
+	 *
+	 * @param string $address
+	 * @param int $amount
+	 * @param string $uid
+	 *
+	 * @throws \Exception
+	 */
+	public static function grantMarketingTokens($address, $amount, $uid)
+	{
+		if ($uid) {
 
-	    if ($pool->reachLimit($amount)) {
-		    throw new GrantTokensException('Pool limit was reached.');
-	    }
+			$user = AccountsService::getUserByID($uid);
 
-        self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_MARKETING_TOKENS);
-    }
+			$userGrantAddress = $user->profile->eth_wallet;
+			$userZnxAmount = Transactions::searchTransactionsAmount(TransactionsService::getMarketingTransactionTypes());
 
-    /**
-     * Grant Company Tokens
-     *
-     * @param string $address
-     * @param int $amount
-     *
-     * @throws \Exception
-     */
-    public static function grantCompanyTokens($address, $amount)
-    {
-	    if (!$address) {
-		    throw new GrantTokensException('Beneficiary Address can not be empty.');
-	    }
+			if (!$address) {
+				throw new GrantTokensException('Proxy Address can not be empty.');
+			}
 
-	    $pool = (new Grant())->companyPool();
+			if ($address != $userGrantAddress) {
+				throw new GrantTokensException('Incorrect Proxy Address.');
+			}
 
-	    if ($pool->reachLimit($amount)) {
-		    throw new GrantTokensException('Pool limit was reached.');
-	    }
+			if ($amount != $userZnxAmount) {
+				throw new GrantTokensException('Incorrect Amount.');
+			}
 
-        self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_COMPANY_TOKENS);
-    }
+		}
+
+		$pool = (new Grant())->marketingPool();
+
+		if ($pool->reachLimit($amount)) {
+			throw new GrantTokensException('Pool limit was reached.');
+		}
+
+		self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_MARKETING_TOKENS);
+	}
+
+	/**
+	 * Grant Company Tokens
+	 *
+	 * @param string $address
+	 * @param int $amount
+	 * @param string $uid
+	 *
+	 * @throws \Exception
+	 */
+	public static function grantCompanyTokens($address, $amount, $uid)
+	{
+		if ($uid) {
+
+			$user = AccountsService::getUserByID($uid);
+
+			$userGrantAddress = $user->profile->eth_wallet;
+			$userZnxAmount = Transactions::searchTransactionsAmount(TransactionsService::getCompanyTransactionTypes());
+
+			if (!$address) {
+				throw new GrantTokensException('Proxy Address can not be empty.');
+			}
+
+			if ($address != $userGrantAddress) {
+				throw new GrantTokensException('Incorrect Proxy Address.');
+			}
+
+			if ($amount != $userZnxAmount) {
+				throw new GrantTokensException('Incorrect Amount.');
+			}
+
+		}
+
+		$pool = (new Grant())->companyPool();
+
+		if ($pool->reachLimit($amount)) {
+			throw new GrantTokensException('Pool limit was reached.');
+		}
+
+		self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_COMPANY_TOKENS);
+	}
 
 
-    /**
-     * Grant Tokens
-     *
-     * @param string $address
-     * @param int $amount
-     * @param string $type
-     *
-     * @throws \Exception
-     */
-    protected static function grantTokens($address, $amount, $type)
-    {
-        $transaction = GrantCoinsTransaction::create(
-            [
-                'address' => $address,
-                'amount' => $amount,
-                'type' => $type,
-            ]
-        );
+	/**
+	 * Grant Tokens
+	 *
+	 * @param string $address
+	 * @param int $amount
+	 * @param string $type
+	 *
+	 * @throws \Exception
+	 */
+	protected static function grantTokens($address, $amount, $type)
+	{
+		$transaction = GrantCoinsTransaction::create(
+			[
+				'address' => $address,
+				'amount' => $amount,
+				'type' => $type,
+			]
+		);
 
-        try {
+		try {
 
-            $operationID = EtheriumApi::getCoinsOID($type, $amount, $address);
+			$operationID = EtheriumApi::getCoinsOID($type, $amount, $address);
 
-            $transaction->operation_id = $operationID;
-            $transaction->save();
+			$transaction->operation_id = $operationID;
+			$transaction->save();
 
-            $transactionStatus = EtheriumApi::checkCoinsStatus($operationID);
+			$transactionStatus = EtheriumApi::checkCoinsStatus($operationID);
 
-            switch ($transactionStatus) {
-                case 'success':
-                    $transaction->status = GrantCoinsTransaction::STATUS_COMPLETE;
-                    break;
+			switch ($transactionStatus) {
+				case 'success':
+					$transaction->status = GrantCoinsTransaction::STATUS_COMPLETE;
+					break;
 
-                case 'failure':
-                    $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
-                    break;
+				case 'failure':
+					$transaction->status = GrantCoinsTransaction::STATUS_FAILED;
+					break;
 
-                default:
-                    $transaction->status = GrantCoinsTransaction::STATUS_IN_PROGRESS;
-            }
+				default:
+					$transaction->status = GrantCoinsTransaction::STATUS_IN_PROGRESS;
+			}
 
-            $transaction->save();
+			$transaction->save();
 
-        } catch (\Exception $e) {
+		} catch (\Exception $e) {
 
-            $transaction->status = GrantCoinsTransaction::STATUS_FAILED;
-            $transaction->save();
+			$transaction->status = GrantCoinsTransaction::STATUS_FAILED;
+			$transaction->save();
 
-            throw new \Exception('Error granting tokens');
-        }
+			throw new \Exception('Error granting tokens');
+		}
 
-    }
+	}
 
-    /**
-     * Return transaction status
-     *
-     * @param int $transactionStatus
-     *
-     * @return string
-     */
-    public static function getTransactionStatus($transactionStatus)
-    {
-        return self::$transactionStatuses[$transactionStatus] ?? '';
-    }
+	/**
+	 * Return transaction status
+	 *
+	 * @param int $transactionStatus
+	 *
+	 * @return string
+	 */
+	public static function getTransactionStatus($transactionStatus)
+	{
+		return self::$transactionStatuses[$transactionStatus] ?? '';
+	}
 
-    /**
-     * Return balance of Granting Tokens
-     *
-     * @return array
-     */
-    public static function getGrantBalance()
-    {
-        $grant = new Grant();
+	/**
+	 * Return available transaction statuses
+	 *
+	 * @return array
+	 */
+	public static function getTransactionStatuses()
+	{
+		$transactionStatuses = [];
 
-        $foundationGranted = Transactions::searchTransactionsAmount(
-            [
-                ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
-            ]
-        );
+		foreach (self::$transactionStatuses as $statusID => $statusName) {
+			$transactionStatuses[] = ['id' => $statusID, 'name' => $statusName];
+		}
 
-        $companyBalance = $grant->companyPool()->getLimit() - $foundationGranted;
-        $marketingBalance = $grant->marketingPool()->getLimit();
+		return $transactionStatuses;
+	}
 
-        return [
-            'marketing_balance' => $marketingBalance,
-            'company_balance' => $companyBalance,
-        ];
-    }
+	/**
+	 * Return balance of Granting Tokens
+	 *
+	 * @return array
+	 */
+	public static function getGrantBalance()
+	{
+		$grant = new Grant();
+
+		$foundationGranted = Transactions::searchTransactionsAmount(
+			[
+				ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
+			]
+		);
+
+		$companyBalance = $grant->companyPool()->getLimit() - $foundationGranted;
+		$marketingBalance = $grant->marketingPool()->getLimit();
+
+		return [
+			'marketing_balance' => $marketingBalance,
+			'company_balance' => $companyBalance,
+		];
+	}
 
 }

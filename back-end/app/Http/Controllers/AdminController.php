@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\GrantTokensException;
 use App\Exceptions\UserAccessException;
 use App\Exceptions\UserNotFoundException;
+use App\Models\DB\ZantecoinTransaction;
 use App\Models\Search\Transactions;
 use App\Models\DB\GrantCoinsTransaction;
 use App\Models\Services\AccountsService;
@@ -156,6 +157,7 @@ class AdminController extends Controller
         return view(
             'admin.wallet',
             [
+            	'transactionStatuses' => TokensService::getTransactionStatuses(),
                 'ico' => (new IcoService())->getAdminInfo(),
                 'balance' => TokensService::getGrantBalance()
             ]
@@ -236,7 +238,7 @@ class AdminController extends Controller
 
         try {
 
-            TokensService::grantMarketingTokens($request->address, $request->amount);
+            TokensService::grantMarketingTokens($request->address, $request->amount, $request->uid);
 
         } catch (\Exception $e) {
 
@@ -282,7 +284,7 @@ class AdminController extends Controller
 
         try {
 
-            TokensService::grantCompanyTokens($request->address, $request->amount);
+            TokensService::grantCompanyTokens($request->address, $request->amount, $request->uid);
 
         } catch (\Exception $e) {
 
