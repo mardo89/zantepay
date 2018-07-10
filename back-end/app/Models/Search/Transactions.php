@@ -33,22 +33,27 @@ class Transactions
         $sortIndex = $sort['sort_index'] ?? 0;
         $sortOrder = $sort['sort_order'] ?? 'desc';
 
-        $users = User::with('profile')->get();
+        $users = User::get();
         $grantCoinsTransactions = GrantCoinsTransaction::where('type', $grantTypeFilter)->get();
         $znxTransactions = ZantecoinTransaction::whereIn('transaction_type', $znxTypeFilter)->get();
+
+        $usersZnxTransactions = [];
+
+        foreach ($znxTransactions as $znxTransaction) {
+        	$usersZnxTransactions[$znxTransaction->user_id][] = $znxTransaction;
+        }
 
         // Generate users list
         $usersList = [];
 
         foreach ($users as $user) {
 
-            $userZnxTransactions = $znxTransactions->where('user_id', $user->id);
-
-            $icoAmount = $userZnxTransactions->sum('amount');
-
+            $userZnxTransactions = isset($usersZnxTransactions[$user->id]) ? collect($usersZnxTransactions[$user->id]) : collect([]);//$znxTransactions->where('user_id', $user->id);
 
             if ($partFilter != '') {
                 $icoAmount = $userZnxTransactions->where('ico_part', $partFilter)->sum('amount');
+            } else {
+	            $icoAmount = $userZnxTransactions->sum('amount');
             }
 
             if ($icoAmount == 0) {
