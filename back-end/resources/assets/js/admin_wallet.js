@@ -6,7 +6,9 @@ const searchUser = (type, part, table, url, allowGrant) => {
     // status filter
     const statusFilter = [];
 
-    // @todo Collect status filters
+    $('input[name="' + type + '_status_filter"]:checked').each(function () {
+        statusFilter.push($(this).val());
+    });
 
     // page
     const paginator = table.next('nav').find('.pagination');
@@ -65,7 +67,7 @@ const searchUser = (type, part, table, url, allowGrant) => {
 
                         if (allowGrant) {
                             transactionStatus = transaction.status === ''
-                                ? '<button class="btn btn--medium btn--shadowed-light grant_ico_coins" type="button">Issue Token</button>'
+                                ? '<button class="btn btn--medium btn--shadowed-light grant_' + type + '_coins"  type="button">Issue Token</button>'
                                 : transaction.status;
                         }
 
@@ -133,7 +135,7 @@ const searchUser = (type, part, table, url, allowGrant) => {
 
 $(document).ready(function () {
 
-    // Grant Ico Coins
+    // Issue ICO/Marketing/Company Coins
     $(document).on('click', '.grant_ico_coins', function (event) {
         event.preventDefault();
 
@@ -178,6 +180,97 @@ $(document).ready(function () {
                 }
             )
     });
+
+    $(document).on('click', '.grant_marketing_coins', function (event) {
+        event.preventDefault();
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const row = $(this).parents('tr');
+
+        const grantInfo = {
+            'uid': row.data('uid'),
+            'address': row.find('td:eq(1)').text().trim(),
+            'amount': row.find('td:eq(2)').text().trim()
+        }
+
+        axios.post(
+            '/admin/wallet/grant-marketing-coins',
+            qs.stringify(grantInfo)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#grant-coins-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
+    });
+
+    $(document).on('click', '.grant_company_coins', function (event) {
+        event.preventDefault();
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const row = $(this).parents('tr');
+
+        const grantInfo = {
+            'uid': row.data('uid'),
+            'address': row.find('td:eq(1)').text().trim(),
+            'amount': row.find('td:eq(2)').text().trim()
+        }
+
+        axios.post(
+            '/admin/wallet/grant-company-coins',
+            qs.stringify(grantInfo)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#grant-coins-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
+    });
+
 
     // Grant Marketing Coins
     $('#grant_marketing_coins').on('click', function (event) {
