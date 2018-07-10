@@ -492,7 +492,6 @@
                             </div>
                             <div class="text-center">
                                 <p class="text-regular">ZANTEPAY FREE debit card pre-order will be available shortly after ICO (after 15th July).</p>
-                                <p class="text-regular">First 1000 card pre-orders will get rewarded 500 ZNX in bonus.</p>
                                 <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Sign up and participate in ICO</a>
                             </div>
                         </div>
@@ -502,7 +501,6 @@
                                 <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoin everywhere in the world.</li>
                                 <li>Connected directly to your ZANTEPAY wallet.</li>
                                 <li>Provides automatic highest trading price from partner exchanges. 1%exchange fee. No hidden charges.</li>
-                                <li>20% cashback in ZANTECOIN.</li>
                             </ul>
                         </div>
                     </div>
@@ -548,16 +546,7 @@
                     <h2 class="h2 headline">Earn ZANTECOINs with every <br> swipe of your ZANTEPAY card</h2>
                 </div>
                 <div class="row lp-row-2">
-                    <div class="col-md-6 vertical-middle-col content-center">
-                        <div class="lp-coin-value">
-                            <div class="lp-coin-text"> 20% <span
-                                        class="h4">ZANTECOINs cashback <br> on all purchases <br> via Debit card</span></div>
-                            <div class="lp-coin-img">
-                                <img src="images/Coin.png" srcset="images/Coin@2x.png 2x" alt="ZANTEPAY Coin">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8 offset-md-2">
                         <div class="lp-table-group">
                             <table class="table">
                                 <thead>
