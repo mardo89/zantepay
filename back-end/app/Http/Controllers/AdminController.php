@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\GrantTokensException;
 use App\Exceptions\UserAccessException;
 use App\Exceptions\UserNotFoundException;
 use App\Models\Search\Transactions;
@@ -175,7 +176,7 @@ class AdminController extends Controller
 			$request,
 			[
 				'uid' => 'required|string|bail',
-				'address' => 'required|string|bail',
+//				'address' => 'required|string|bail',
 				'amount' => 'required|integer|bail',
 			],
 			ValidationMessages::getList(
@@ -193,9 +194,11 @@ class AdminController extends Controller
 
 		} catch (\Exception $e) {
 
+			$message = $e instanceof GrantTokensException ? $e->getMessage() : 'Error granting ICO Coins';
+
 			return response()->json(
 				[
-					'message' => 'Error granting ICO Coins',
+					'message' => $message,
 					'errors' => []
 				],
 				500
@@ -220,7 +223,7 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'address' => 'required|string|bail',
+//                'address' => 'required|string|bail',
                 'amount' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
@@ -237,13 +240,15 @@ class AdminController extends Controller
 
         } catch (\Exception $e) {
 
-            return response()->json(
-                [
-                    'message' => 'Error granting Marketing Coins',
-                    'errors' => []
-                ],
-                500
-            );
+	        $message = $e instanceof GrantTokensException ? $e->getMessage() : 'Error granting Marketing Coins';
+
+	        return response()->json(
+		        [
+			        'message' => $message,
+			        'errors' => []
+		        ],
+		        500
+	        );
 
         }
 
@@ -264,7 +269,7 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'address' => 'required|string|bail',
+//                'address' => 'required|string|bail',
                 'amount' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
@@ -281,13 +286,15 @@ class AdminController extends Controller
 
         } catch (\Exception $e) {
 
-            return response()->json(
-                [
-                    'message' => 'Error granting Company Coins',
-                    'errors' => []
-                ],
-                500
-            );
+	        $message = $e instanceof GrantTokensException ? $e->getMessage() : 'Error granting Company Coins';
+
+	        return response()->json(
+		        [
+			        'message' => $message,
+			        'errors' => []
+		        ],
+		        500
+	        );
 
         }
 

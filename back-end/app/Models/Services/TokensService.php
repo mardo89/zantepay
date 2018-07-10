@@ -3,6 +3,7 @@
 namespace App\Models\Services;
 
 
+use App\Exceptions\GrantTokensException;
 use App\Models\DB\GrantCoinsTransaction;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Search\Transactions;
@@ -36,18 +37,22 @@ class TokensService
     	$userGrantAddress = $user->profile->eth_wallet;
     	$userZnxAmount = $user->wallet->znx_amount;
 
+	    if (!$address) {
+		    throw new GrantTokensException('Proxy Address can not be empty.');
+	    }
+
     	if (!$address || $address != $userGrantAddress) {
-    		throw new \Exception('Wrong wallet address');
+		    throw new GrantTokensException('Incorrect Proxy Address.');
 	    }
 
 	    if ($amount != $userZnxAmount) {
-		    throw new \Exception('Wrong amount');
+		    throw new GrantTokensException('Incorrect Amount.');
 	    }
 
 	    $pool = (new Grant())->icoPool();
 
     	if ($pool->reachLimit($amount)) {
-		    throw new \Exception('Pool limit was reached.');
+		    throw new GrantTokensException('Pool limit was reached.');
 	    }
 
         self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_ICO_TOKENS);
@@ -64,13 +69,13 @@ class TokensService
     public static function grantMarketingTokens($address, $amount)
     {
 	    if (!$address) {
-		    throw new \Exception('Wallet address is empty.');
+		    throw new GrantTokensException('Beneficiary Address can not be empty.');
 	    }
 
 	    $pool = (new Grant())->marketingPool();
 
 	    if ($pool->reachLimit($amount)) {
-		    throw new \Exception('Pool limit was reached.');
+		    throw new GrantTokensException('Pool limit was reached.');
 	    }
 
         self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_MARKETING_TOKENS);
@@ -87,13 +92,13 @@ class TokensService
     public static function grantCompanyTokens($address, $amount)
     {
 	    if (!$address) {
-		    throw new \Exception('Wallet address is empty.');
+		    throw new GrantTokensException('Beneficiary Address can not be empty.');
 	    }
 
 	    $pool = (new Grant())->companyPool();
 
 	    if ($pool->reachLimit($amount)) {
-		    throw new \Exception('Pool limit was reached.');
+		    throw new GrantTokensException('Pool limit was reached.');
 	    }
 
         self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_COMPANY_TOKENS);

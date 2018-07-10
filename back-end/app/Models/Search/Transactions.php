@@ -48,7 +48,7 @@ class Transactions
 
         foreach ($users as $user) {
 
-            $userZnxTransactions = isset($usersZnxTransactions[$user->id]) ? collect($usersZnxTransactions[$user->id]) : collect([]);//$znxTransactions->where('user_id', $user->id);
+            $userZnxTransactions = isset($usersZnxTransactions[$user->id]) ? collect($usersZnxTransactions[$user->id]) : collect([]);
 
             if ($partFilter != '') {
                 $icoAmount = $userZnxTransactions->where('ico_part', $partFilter)->sum('amount');
