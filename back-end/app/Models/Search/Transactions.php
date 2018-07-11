@@ -63,7 +63,7 @@ class Transactions
             $grantCoinTransaction = $grantCoinsTransactions->where('address', $user->profile->eth_wallet)->first();
             $transactionStatus = $grantCoinTransaction ? TokensService::getTransactionStatus($grantCoinTransaction->status) : '';
 
-            if (count($statusFilter) > 0 && !in_array($transactionStatus, $statusFilter)) {
+            if (count($statusFilter) > 0 && !is_null($grantCoinTransaction) && !in_array($grantCoinTransaction->status, $statusFilter)) {
                 continue;
             }
 

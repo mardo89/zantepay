@@ -113,9 +113,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('wallet', 'ManagerController@updateWallet')->middleware('protect.action');
     Route::post('wallet/add-ico-znx', 'ManagerController@addIcoZnx')->middleware('protect.action');
     Route::post('wallet/add-foundation-znx', 'ManagerController@addFoundationZnx')->middleware('protect.action');
-//    Route::post('wallet/grant-ico-coins', 'AdminController@grantIcoCoins');
-//    Route::post('wallet/grant-marketing-coins', 'AdminController@grantMarketingCoins');
-//    Route::post('wallet/grant-company-coins', 'AdminController@grantCompanyCoins');
+    Route::post('wallet/grant-ico-coins', 'AdminController@grantIcoCoins');
+    Route::post('wallet/grant-marketing-coins', 'AdminController@grantMarketingCoins');
+    Route::post('wallet/grant-company-coins', 'AdminController@grantCompanyCoins');
 
     Route::get('wallet/search-ico-transactions', 'AdminController@searchIcoTransactions');
     Route::get('wallet/search-marketing-transactions', 'AdminController@searchMarketingTransactions');
