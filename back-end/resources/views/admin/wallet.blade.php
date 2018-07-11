@@ -94,11 +94,18 @@
 
 					<div class="row justify-content-end mb-10">
 
+						<div class="col-sm col-sm-auto">
+							<div class="checkbox">
+								<input type="checkbox" name="ico_status_filter" id="ico_check_pending" value="-1" checked>
+								<label for="ico_check_pending">Pending</label>
+							</div>
+						</div>
+
 						@foreach($transactionStatuses as $transactionStatus)
 
 							<div class="col-sm col-sm-auto">
 								<div class="checkbox">
-									<input type="checkbox" name="ico_status_filter" id="ico_check_{{ $transactionStatus['id'] }}" val="{{ $transactionStatus['id'] }}">
+									<input type="checkbox" name="ico_status_filter" id="ico_check_{{ $transactionStatus['id'] }}" value="{{ $transactionStatus['id'] }}" checked>
 									<label for="ico_check_{{ $transactionStatus['id'] }}">{{ $transactionStatus['name'] }}</label>
 								</div>
 							</div>
@@ -282,11 +289,18 @@
 
 					<div class="row justify-content-end mb-10">
 
+						<div class="col-sm col-sm-auto">
+							<div class="checkbox">
+								<input type="checkbox" name="marketing_status_filter" id="marketing_check_pending" value="-1" checked>
+								<label for="marketing_check_pending">Pending</label>
+							</div>
+						</div>
+
 						@foreach($transactionStatuses as $transactionStatus)
 
 							<div class="col-sm col-sm-auto">
 								<div class="checkbox">
-									<input type="checkbox" name="marketing_status_filter" id="marketing_check_{{ $transactionStatus['id'] }}" val="{{ $transactionStatus['id'] }}">
+									<input type="checkbox" name="marketing_status_filter" id="marketing_check_{{ $transactionStatus['id'] }}" value="{{ $transactionStatus['id'] }}" checked>
 									<label for="marketing_check_{{ $transactionStatus['id'] }}">{{ $transactionStatus['name'] }}</label>
 								</div>
 							</div>
@@ -466,11 +480,18 @@
 
 					<div class="row justify-content-end mb-10">
 
+						<div class="col-sm col-sm-auto">
+							<div class="checkbox">
+								<input type="checkbox" name="foundation_status_filter" id="company_check_pending" value="-1" checked>
+								<label for="company_check_pending">Pending</label>
+							</div>
+						</div>
+
 						@foreach($transactionStatuses as $transactionStatus)
 
 							<div class="col-sm col-sm-auto">
 								<div class="checkbox">
-									<input type="checkbox" name="company_status_filter" id="company_check_{{ $transactionStatus['id'] }}" val="{{ $transactionStatus['id'] }}">
+									<input type="checkbox" name="foundation_status_filter" id="company_check_{{ $transactionStatus['id'] }}" value="{{ $transactionStatus['id'] }}" checked>
 									<label for="company_check_{{ $transactionStatus['id'] }}">{{ $transactionStatus['name'] }}</label>
 								</div>
 							</div>

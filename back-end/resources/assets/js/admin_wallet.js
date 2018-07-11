@@ -427,6 +427,16 @@ $(document).ready(function () {
         searchUser('ico', icoPart, table, '/admin/wallet/search-ico-transactions', tabID === 'total');
     });
 
+    $('input[name="ico_status_filter"]').on('click', function() {
+
+        const table = $('.ico_transactions_block.is-active').find('table');
+        const tabID = $('.ico_transactions_block.is-active').attr('id');
+        const icoPart = $('#ico_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+
+        searchUser('ico', icoPart, table, '/admin/wallet/search-ico-transactions', tabID === 'total');
+
+    });
+
 
     // Run requests to search marketing transactions
     $('#marketing_part_filter li').each(function () {
@@ -496,6 +506,16 @@ $(document).ready(function () {
         searchUser('marketing', icoPart, table, '/admin/wallet/search-marketing-transactions', tabID === 'company-total');
     });
 
+    $('input[name="marketing_status_filter"]').on('click', function() {
+
+        const table = $('.marketing_transactions_block.is-active').find('table');
+        const tabID = $('.marketing_transactions_block.is-active').attr('id');
+        const icoPart = $('#marketing_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+
+        searchUser('marketing', icoPart, table, '/admin/wallet/search-marketing-transactions', tabID === 'marketing-total');
+
+    });
+
 
     // Run requests to search company transactions
     $('#company_part_filter li').each(function () {
@@ -563,6 +583,16 @@ $(document).ready(function () {
         const icoPart = $('#company_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
 
         searchUser('company', icoPart, table, '/admin/wallet/search-company-transactions', tabID === 'company-total');
+    });
+
+    $('input[name="foundation_status_filter"]').on('click', function() {
+
+        const table = $('.company_transactions_block.is-active').find('table');
+        const tabID = $('.company_transactions_block.is-active').attr('id');
+        const icoPart = $('#company_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+
+        searchUser('foundation', icoPart, table, '/admin/wallet/search-company-transactions', tabID === 'company-total');
+
     });
 
 });
