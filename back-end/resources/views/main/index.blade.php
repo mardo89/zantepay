@@ -213,6 +213,54 @@
             </div>
         </section>
 
+        <section class="lp-section-projects white-content text-center">
+            <div class="container">
+                <h2 class="h2 headline">ZANTECOIN <br> ecosystem projects</h2>
+                <div class="lp-proj-wrap">
+                    <div class="row">
+                        <div class="col-md-4 lp-proj-wrap__left">
+                            <div class="lp-proj-group">
+                                <h3 class="text-lg">Crypto exchange service</h3>
+                                <img src="images/crypto-exchange-service.png" srcset="images/crypto-exchange-service@2x.png 2x" alt="Crypto exchange service">
+                            </div>
+                            <div class="lp-proj-group">
+                                <h3 class="text-lg">NFC contactless payment app</h3>
+                                <img src="images/nfc-payment-app.png" srcset="images/nfc-payment-app@2x.png 2x" alt="NFC contactless payment app">
+                            </div>
+                        </div>
+                        <div class="col-md-4 lp-proj-wrap__center">
+                            <div class="lp-proj-coin">
+                                <div class="lp-coin-line lp-coin-line--t-left"></div>
+                                <div class="lp-coin-line lp-coin-line--b-left"></div>
+                                <div class="lp-coin-line lp-coin-line--t-right"></div>
+                                <div class="lp-coin-line lp-coin-line--b-right"></div>
+                                <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" width="240" alt="ZANTECOIN">
+                            </div>
+                        </div>
+                        <div class="col-md-4 lp-proj-wrap__right">
+                            <div class="lp-proj-group">
+                                <h3 class="text-lg">Multiwallet integrated <br> with debit card <br> (centralized system)</h3>
+                                <img src="images/wh-card-sm.png" srcset="images/wh-card-sm@2x.png 2x" width="267" alt="Multiwallet integrated with debit card">
+                            </div>
+                            <div class="lp-proj-group">
+                                <h3 class="text-lg">Decentralized multiwallet app</h3>
+                                <img src="images/iphone-wallets.png" srcset="images/iphone-wallets@2x.png 2x" width="148" alt="Decentralized multiwallet app">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="lp-section-markets white-content">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="h2 headline">ZANTECOIN <br> ecosystem projects</h2>
+                    <img src="images/map.svg" width="945" alt="ZANTECOIN ecosystem projects">
+                </div>
+            </div>
+        </section>
+
         <div class="lp-section-feed white-content" id="updates">
             <div class="container">
 

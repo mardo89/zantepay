@@ -938,3 +938,110 @@ a.lp-feed__col
       text-decoration none !important
       &:hover
         color $primary-color
+
+.lp-section-projects
+  padding 50px 0
+  .headline
+    display inline-block
+    text-align left
+    margin-bottom 30px
+  .text-lg
+    margin 0 0 30px
+
+.lp-section-markets
+  padding 80px 0 40px
+  .headline
+    display inline-block
+    text-align left
+    margin-bottom 70px
+
+.lp-proj-group
+  min-height 270px
+  @media (max-width: 767px)
+    margin-top 50px
+  &:first-of-type
+    margin-bottom 70px
+    @media (max-width: 767px)
+      margin 50px 0 0
+
+.lp-proj-coin
+  display inline-block
+  width 270px
+  height 270px
+  border-radius 50%
+  background rgba($primary-color, .4)
+  padding 20px 10px 20px 15px
+  box-shadow 0 0 0 40px rgba($primary-color, .12)
+  margin-top 200px
+  position relative
+  @media (max-width: 1199px)
+    width 200px
+    height 200px
+    padding 15px 10px 15px 15px
+    box-shadow 0 0 0 25px rgba($primary-color, .12)
+    margin-top 250px
+  @media (max-width: 767px)
+    margin-top 100px
+    margin-bottom 50px
+
+.lp-coin-line
+  width 150px
+  height 2px
+  position relative
+  background $primary-color
+  position absolute
+  @media (max-width: 1199px)
+    width 110px
+  @media (max-width: 991px)
+    width 70px
+  
+  &:before
+  &:after
+    content ''
+    position absolute
+    top 50%
+    transform translateY(-50%)
+    width 8px
+    height 8px
+    border-radius 50%
+    background $primary-color
+  &:before
+    left 0
+  &:after
+    right 0
+  &--b-left
+  &--t-left
+    right 100%
+    margin-right -20px
+    @media (max-width: 767px)
+      transform-origin right
+      transform rotate(90deg) !important
+      right 50%
+      transform translateX(50%)
+      margin 0
+  &--b-left
+  &--b-right
+    bottom 10px
+    @media (max-width: 767px)
+      bottom -80px
+  &--t-left
+  &--t-right
+    top 10px
+    @media (max-width: 767px)
+      top -10px
+  &--b-right
+  &--t-right
+    left 100%
+    margin-left -20px
+    @media (max-width: 767px)
+      display none
+  &--t-left
+  &--b-right
+    transform rotate(30deg)
+  &--t-right
+  &--b-left
+    transform rotate(-30deg)
+  &--t-right
+    width 130px
+    @media (max-width: 1199px)
+      width 70px
