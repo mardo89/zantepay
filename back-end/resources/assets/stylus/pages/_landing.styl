@@ -1045,3 +1045,33 @@ a.lp-feed__col
     width 130px
     @media (max-width: 1199px)
       width 70px
+
+.lp-markets-list
+  clearlist()
+  text-align left
+  margin-top 20px
+  li
+    margin-bottom 15px
+    font-size 24px
+    font-weight 700
+    @media (max-width: 767px)
+      font-size 18px
+    .mark-circle
+      margin-right 30px
+      @media (max-width: 767px)
+        margin-right 15px
+
+.mark-circle
+  display inline-block
+  vertical-align middle
+  width 50px
+  height 40px
+  border-radius 20px
+  @media (max-width: 767px)
+    width 40px
+    height 30px
+    border-radius 15px
+  &--white
+    background #fff
+  &--red
+    background $primary-color

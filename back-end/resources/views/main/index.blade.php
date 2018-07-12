@@ -257,6 +257,10 @@
                 <div class="text-center">
                     <h2 class="h2 headline">ZANTECOIN <br> ecosystem projects</h2>
                     <img src="images/map.svg" width="945" alt="ZANTECOIN ecosystem projects">
+                    <ul class="lp-markets-list">
+                        <li><i class="mark-circle mark-circle--white"></i> Debit Card</li>
+                        <li><i class="mark-circle mark-circle--red"></i> Decentralized App</li>
+                    </ul>
                 </div>
             </div>
         </section>
