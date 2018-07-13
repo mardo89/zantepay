@@ -182,9 +182,9 @@
             <div class="container">
                 <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
                 <div>
-                    <a href="https://www.youtube.com/watch?v=7fuQrhaqXV8" class="js-popup-video">
+                    <a href="https://www.youtube.com/watch?v=rFuLRWWcvU8" class="js-popup-video">
                         <i class="fa fa-youtube-play"></i>
-                        <img src="images/zantecoin-thumb.jpg" srcset="images/zantecoin-thumb@2x.jpg 2x" alt="What is ZANTECOIN?">
+                        <img src="images/mardo-zantepay.jpg" alt="What is ZANTEPAY">
                     </a>
                 </div>
             </div>
