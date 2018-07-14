@@ -52,71 +52,19 @@
                 <div class="row p-t-60">
                     <div class="col-lg-4 text-center">
                         <img src="/images/zantepay-card-mobile.png" srcset="/images/zantepay-card-mobile@2x.png 2x" alt="Zantepay App">
-                        <a href="https://medium.com/@zantepay" target="_blank" class="btn btn--shadowed-dark btn--260 mt-35">Check on status</a>
                     </div>
-                    <div class="col-lg-8 p-t-40">
-                        <div class="row mb-10">
-                            <div class="col-lg-6">
-                                <h3 class="h2 text-uppercase mb-30">
-                                    <div style="display: inline-block;text-align: left;">
-                                        1 ETH = {{ $ico['znxRate'] }} ZNX <br>
-                                        1 ZNX = {{ $ico['euroRate'] }} €
-                                    </div>
-                                </h3>
-                            </div>
-                            <div class="col-lg-6">
-                                @guest
-                                    <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--200 mt-20">Buy Tokens NOW</a>
-                                @endguest
-                                @auth
-                                    <a href="user/wallet" class="btn btn--shadowed-dark btn--200 mt-20">Buy Tokens NOW</a>
-                                @endauth
-                            </div>
-                        </div>
-                        <div class="countdown">
-                            <h3 class="h4 text-uppercase">{{ $ico['name'] }} ends in</h3>
-                            <span class="js-countdown" data-date="{{ $ico['endDate'] }}"></span>
-                        </div>
-                        <div class="text-center h4">ICO III 15.06 19:00 (GMT + 3) - 15.07 19:00 (GMT + 3) 1 ZNX = 0.25 €</div>
+                    <div class="col-lg-8 p-t-40 ico-over-text">
+                        <p>ICO is over!</p>
+                        <p>More than 7,000 participants. <br> Token distribution will start soon!</p>
+                        <p>Big thank you for your support!</p>
                     </div>
+                </div>
+                <div class="text-center p-t-60"> 
+                    <h3 class="h2 mb-30">Join ZANTEPAY newsletter for updates</h3>
+                    <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://app.mailjet.com/widget/iframe/2gIc/77E" width="100%" height="140"></iframe>
                 </div>
             </div>
         </div>
-
-        @if($ico['showProgress'])
-
-            <div class="white-content container">
-
-                <div class="ico-progress">
-                    <div class="ico-progress-left">
-                        <span class="h4">ZNX</span>
-                        <span class="text-lg text-lg-center">0</span>
-                        <span class="text-lg">ETH</span>
-                    </div>
-                    <div class="ico-progress-bar">
-                        <!-- please use "is-right" class if <50% and "is-left" if >50% -->
-                        <div class="ico-progress-bar-group {{ $ico['relativeBalance']['progressClass'] }}"
-                             style="width:{{ $ico['relativeBalance']['percent'] }}%;">
-                            <span class="h4">{{ $ico['znxAmount'] }}</span>
-                            <span class="text-lg">{{ $ico['ethAmount'] }}</span>
-                            <div class="ico-progress-bar-line"></div>
-                            <img src="images/coin-ico.png" srcset="images/coin-ico@2x.png 2x" alt="ZANTECOIN">
-                        </div>
-                    </div>
-                    <div class="ico-progress-right">
-                        <span class="h4">{{ $ico['znxLimit'] }}</span>
-                        <span class="text-lg">{{ $ico['ethLimit'] }}</span>
-                    </div>
-                </div>
-
-                <!-- <h3 class="h4 text-center">
-                    Sold total during private sale and pre-ICO:
-                    <p> {{ $ico['prevAmount'] }} ZNX</p>
-                </h3> -->
-
-            </div>
-
-        @endif
 
     </header>
 
@@ -325,31 +273,9 @@
 
         <div class="lp-section-two white-content">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-6 col-md-7 offset-lg-1 lp-pre-ico-col">
-                        <h2 class="h2 headline">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}
-                                €</span><span>1 ZNX = {{ $ico['ethRate'] }} ETH</span></h2>
-                    </div>
-                    <div class="col-md-5 text-center">
-                        <div class="lp-progress-wrap">
-                            <div class="js-lp-progress-blured lp-progress-blured"></div>
-                            <div class="js-lp-progress lp-progress-top" data-percent="{{ $ico['relativeBalance']['value'] }}"></div>
-                            <div class="lp-progress-text"> {{ $ico['relativeBalance']['percent'] }}% <span>distributed</span>
-                            </div>
-                        </div>
-                        <p class="h4">{{ $ico['znxAmount'] }} ZNX distributed</p>
-                    </div>
-                </div>
-
-                <div class="lp-section-two-btn">
-                    <!-- <a href="#sign-up-preico" class="js-popup-link btn btn--shadowed-dark btn--260" onclick=" ga('send',  'event',  'button', 'onclick', 'register_for_pre_ico');">Register For Pre-ICO</a> -->
-                    @guest
-                        <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
-                    @endguest
-
-                    @auth
-                        <a href="user/wallet" class="btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
-                    @endauth
+                <div class="text-center"> 
+                    <h3 class="h2 mb-30">JOIN OUR NEWSLETTER</h3>
+                    <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://app.mailjet.com/widget/iframe/2gIc/77E" width="100%" height="140"></iframe>
                 </div>
             </div>
         </div>
@@ -475,46 +401,11 @@
             </div>
         </div>
 
-        <section class="lp-section-four white-content" id="ico">
-            <div class="container">
-                <div class="row lp-row-1 content-center">
-                    <div class="col-sm-6 text-center">
-                        <h3 class="h2 headline">ICO <br> 50.000.000</h3>
-                        <div class="lp-image-container4">
-                            <img src="images/ICO.png" alt="ICO">
-                        </div>
-                        <h2 class="h2 headline ico-chart-headline mb-30">{{ $ico['name'] }} <span>1 ZNX = {{ $ico['euroRate'] }}€</span><span>1 ZNX = {{ $ico['ethRate'] }}
-                                ETH</span></h2>
-                        @guest
-                            <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
-                        @endguest
-
-                        @auth
-                            <a href="user/wallet" class="btn btn--shadowed-dark btn--260">Buy Tokens NOW</a>
-                        @endauth
-                    </div>
-                </div>
-
-                <div class="row row-revert">
-                    <div class="col-md-6 offset-md-1">
-                        <div class="border-right-image">
-                            <img src="images/refer-friend.jpg" alt="Refer a friend">
-                        </div>
-                    </div>
-                    <div class="col-md-5 vertical-middle-col">
-                        <h3 class="h2 headline">Refer a friend for a <span>20% commission</span></h3>
-                        <p>Each holder of ZANTECOIN (ZNX) tokens will be entitled to a referral commission, paid weekly; this will be
-                            constituted of 20% net transaction revenue.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <div class="lp-bg-1">
             <section class="lp-section-five">
                 <div class="container">
                     <div class="row row-revert">
-                        <div class="col-md-7">
+                        <div class="col-md-7 content-center">
                             <img src="images/iPhone-debit.jpg" srcset="images/iPhone-debit@2x.jpg 2x" alt="ZanteWallet">
                         </div>
                         <div class="col-md-5 vertical-middle-col">
@@ -541,10 +432,6 @@
                         <div class="col-lg-5 col-md-6 content-center">
                             <div class="lp-image-container2">
                                 <img src="images/card.png" srcset="images/card@2x.png 2x" alt="Zantpay Debit Card">
-                            </div>
-                            <div class="text-center">
-                                <p class="text-regular">ZANTEPAY FREE debit card pre-order will be available shortly after ICO (after 15th July).</p>
-                                <a href="#sign-up-modal" class="js-popup-link btn btn--shadowed-light">Sign up and participate in ICO</a>
                             </div>
                         </div>
                         <div class="col-md-6 offset-lg-1">
