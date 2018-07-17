@@ -53,12 +53,16 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td class="col-left">ETH</td>
+                                            <td>{{ $ico['znx_rate'] }}</td>
+                                        </tr>
+                                        <tr>
                                             <td class="col-left">EUR</td>
                                             <td>0.25</td>
                                         </tr>
                                         <tr>
                                             <td class="col-left">USD</td>
-                                            <td>0.28</td>
+                                            <td>0.29</td>
                                         </tr>
                                     </tbody>
                                 </table>
