@@ -47,7 +47,7 @@ class Ico
             return $this->icoPartFour;
         }
 
-        return null;
+        return $this->icoPartFour;
     }
 
     /**
@@ -74,7 +74,7 @@ class Ico
             return $this->icoPartFour;
         }
 
-        return null;
+        return $this->icoPartFour;
     }
 
     /**
@@ -102,7 +102,7 @@ class Ico
             return $this->icoPartFour;
         }
 
-        return null;
+        return $this->icoPartFour;
     }
 
     /**
