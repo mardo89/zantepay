@@ -103,7 +103,7 @@ class IcoService
                 $icoName .= ' (starts ' . $startDate . ')';
             }
 
-            if ($icoPart->getID() === $this->ico->getActivePart()->getID()) {
+            if ($this->ico->getActivePart() && $icoPart->getID() === $this->ico->getActivePart()->getID()) {
                 $icoName .= ' - current';
             }
 
