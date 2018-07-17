@@ -282,6 +282,7 @@
 
         <section class="lp-section-three" id="roadmap">
             <div class="container">
+                <div class="p-b-60 h2 text-center mb-30">Roadmap update coming soon</div>
                 <div class="row p-b-60">
                     <div class="offset-md-2 col-md-3 vertical-middle-col"><span class="h2 primary-color text-uppercase">Roadmap</span></div>
                     <div class="col-md-6">

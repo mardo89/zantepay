@@ -13,64 +13,6 @@
     <main class="main main-dashboard main-panel-layout">
         <div id="particles-js" class="particles-js-black"></div>
         <div class="container">
-            <div class="panel">
-                <div class="mb-20">
-                    <h2 class="h4 headline-mb">Buy ZNX tokens now:</h2>
-                    <div class="row row-middle rate-calculator">
-                        <div class="col col-md-3 col-lg-auto">
-                            <div class="form-group text-regular">You will get</div>
-                        </div>
-                        <div class="col-lg-4 col-md-9">
-                            <div class="input-group form-group">
-                                <label for="field10">ZNX tokens</label>
-                                <input class="input-field" type="text" name="znx_amount" id="field10" placeholder="Enter amount">
-                            </div>
-                        </div>
-                        <div class="col col-md-3 col-lg-auto">
-                            <div class="form-group text-regular">For</div>
-                        </div>
-                        <div class="col-lg-4 col-md-9">
-                            <div class="input-group form-group">
-                                <label for="field11">ETH</label>
-                                <input class="input-field" type="text" name="eth_amount" id="field11" placeholder="Enter amount">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="mb-20 text-regular">Your personal Ethereum address to fund this account:</div>
-                    <div class="row row-middle wallet">
-                        @if ($gettingAddress)
-                            <div class="col col-md-3">
-                                <a href="" class="btn btn--shadowed-light btn--medium mt-sm-15 is-loading" disabled>
-                                    Create Address
-                                    <div class="spinner spinner--30">
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col col-md-12 mt-20 primary-color text-sm address-warning">
-                                Your request is pending. Please refresh the page to see the result.
-                            </div>
-                        @elseif($wallet->eth_wallet)
-                            <div class="col col-sm-auto text-lg wordwrap address">{{ $wallet->eth_wallet }}</div>
-
-                            <div class="col col-md-3">
-                                <a id="copy-address" href="" class="btn btn--shadowed-light btn--medium btn--130 mt-sm-15">Copy</a>
-                            </div>
-                        @else
-                            <div class="col col-md-3">
-                                <a href="" class="btn btn--shadowed-light btn--medium mt-sm-15 create-address">Create Address</a>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-sm-12 col-xl-6">
                     <div class="panel">
@@ -95,54 +37,31 @@
                                 </table>
                             </div>
                         </div>
-                        <div>
-                            <h2 class="h4 headline-mb">Refer a friend for a 20% commission:</h2>
-                            <div class="row row-middle">
-                                <div class="col-md-2">
-                                    <label for="field3" class="field-label">Referral link:</label>
-                                </div>
-                                <div class="col-lg-6 col-md-5">
-                                    <div class="field-group">
-                                        <input class="input-field" type="text" name="referral" id="field3" value="{{ $referralLink }}"
-                                               readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-5">
-                                    <button id="copy-link" type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
-                                        Copy Link
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-xl-6">
                     <div class="panel">
-                        <div class="dashboard-group">
+                        <div class="mb-10">
                             <h2 class="h4 headline-mb">ZANTECOIN (ZNX) price:</h2>
                             <div class="table-responsive-500">
                                 <table class="table-black table-3-cols">
                                     <thead>
-                                    <tr>
-                                        <th>Cryptocurrency</th>
-                                        <th>Coin</th>
-                                        <th>Price</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Currency</th>
+                                            <th>Price</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="col-left">Ethereum</td>
-                                        <td>ETH</td>
-                                        <td>{{ $ico['znx_rate'] }}</td>
-                                    </tr>
+                                        <tr>
+                                            <td class="col-left">EUR</td>
+                                            <td>0.25</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-left">USD</td>
+                                            <td>0.28</td>
+                                        </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="h4 mb-20">{{ $ico['part_name'] }} ends in:</h2>
-                            <div class="countdown">
-                                <span class="js-countdown" data-date="{{ $ico['end_date'] }}"></span>
                             </div>
                         </div>
                     </div>
