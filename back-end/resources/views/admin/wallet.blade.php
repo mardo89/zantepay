@@ -30,6 +30,7 @@
 
 					<div class="dashboard-group">
 						<p id="metamask_missing"></p>
+						<p id="contract"></p>
 
 						<div class="row">
 							<div class="col-md-7 dashboard-group">
@@ -44,7 +45,7 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<input class="input-field" type="text" id="new_zantecoin_owner_address"
-											       placeholder="Fill new owner address">
+														 placeholder="Fill new owner address">
 										</div>
 									</div>
 									<div class="col col-sm-auto">
@@ -67,6 +68,25 @@
 
 						<!-- TODO: this part is demo. Need to connect user wallet addresses database -->
 						<h2 class="h4 headline-mb">Issue ICO coins</h2>
+						<h3 class="h5 mb-10">Fill beneficiary address and amount in ZNX to grant marketing coins</h3>
+						<p>Curently available: <span id="ico_coins_available"></span> out of <span id="total_ico_coins_supply"></span> ZNX</p>
+						<div class="row row-middle mt-20">
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="text-regular mb-10"><label for="ico_coins_address">Beneficiary address</label></div>
+									<input class="input-field" type="text" id="ico_coins_address" placeholder="Set beneficiary address">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="text-regular mb-10"><label for="ico_coins_amount">Number of ZNX to grant</label></div>
+									<input class="input-field" type="text" id="ico_coins_amount" placeholder="Set amount to issue">
+								</div>
+							</div>
+							<div class="col col-sm-auto">
+								<button class=" mt-10 btn btn--medium btn--shadowed-light" type="submit" id="issue_ico_coins">Issue Token</button>
+							</div>
+						</div>
 						<div class="table-responsive-500 table--left">
 							<table id="ico-participants" class="table table-black">
 								<thead>
@@ -259,16 +279,16 @@
 					<!-- Grant Marketing Coins -->
 
 					<div class="dashboard-group">
-						<h2 class="h4 headline-mb">Grant Marketing Coins. &nbsp; &nbsp; Total left: {{ $balance['marketing_balance'] }}</h2>
-						<p><b>Fill beneficiary address and amount in ZNX to grant marketing coins</b></p>
-
+						<h2 class="h4 headline-mb">Grant Marketing Coins. {{-- &nbsp; &nbsp; Total left: {{ $balance['marketing_balance'] }} --}}</h2>
+						<h3 class="h5 mb-10">Fill beneficiary address and amount in ZNX to grant marketing coins</h3>
+						<p>Curently available: <span id="ico_coins_available"></span> out of <span id="total_ico_coins_supply"></span> ZNX</p>
 						<div class="row row-middle mt-20">
 
 							<div class="col-md-4">
 								<div class="form-group">
 									<div class="text-regular mb-10"><label for="grant_marketing_address">Beneficiary addres</label></div>
 									<input class="input-field" type="text" id="grant_marketing_address"
-									       placeholder="Set beneficiary address">
+												 placeholder="Set beneficiary address">
 								</div>
 							</div>
 
@@ -455,8 +475,9 @@
 					<!-- Grant Company coins -->
 
 					<div>
-						<h2 class="h4 headline-mb">Grant Company Coins. &nbsp; &nbsp; Total left: {{ $balance['company_balance'] }}</h2>
-						<p><b>Fill beneficiary address and amount in ZNX to Grant Company coins</b></p>
+						<h2 class="h4 headline-mb">Grant Company Coins. {{-- &nbsp; &nbsp; Total left: {{ $balance['company_balance'] }} --}}</h2>
+						<h3 class="h5 mb-10">Fill beneficiary address and amount in ZNX to Grant Company coins</h3>
+						<p>Curently available: <span id="grant_company_available"></span> out of <span id="total_grant_company_supply"></span> ZNX</p>
 						<div class="row row-middle mt-20">
 							<div class="col-md-4">
 								<div class="form-group">
@@ -691,7 +712,7 @@
 									<div class="form-group">
 										<div class="mb-10 text-regular"><label for="new_wallet_address">Set new Wallet</label></div>
 										<input class="input-field" type="text" id="new_crowdsale_wallet_address"
-										       placeholder="Fill new wallet address">
+													 placeholder="Fill new wallet address">
 									</div>
 								</div>
 								<div class="col col-sm-auto">
