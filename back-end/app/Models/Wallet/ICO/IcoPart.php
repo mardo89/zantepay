@@ -4,6 +4,7 @@ namespace App\Models\Wallet\ICO;
 
 use App\Models\DB\Contribution;
 use App\Models\DB\EthRate;
+use App\Models\DB\UsdRate;
 use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\TransactionsService;
 
@@ -49,6 +50,11 @@ class IcoPart
      */
     protected $euroZnxRate;
 
+	/**
+	 * @var float ICO usd rate
+	 */
+	protected $usdZnxRate;
+
     /**
      * IcoPart constructor.
      */
@@ -70,8 +76,10 @@ class IcoPart
             ->sum('amount');
 
         $ethEuroRate = optional(EthRate::where('currency_type', EthRate::CURRENCY_TYPE_EURO)->first())->rate ?? 0;
+	    $usdEuroRate = optional(UsdRate::where('currency_type', EthRate::CURRENCY_TYPE_EURO)->first())->rate ?? 0;
 
         $this->ethZnxRate = $this->euroZnxRate / $ethEuroRate;
+	    $this->usdZnxRate = $this->euroZnxRate * $usdEuroRate;
     }
 
     /**
@@ -123,6 +131,16 @@ class IcoPart
     {
         return $this->euroZnxRate;
     }
+
+	/**
+	 * Get USD to ZNX Rate
+	 *
+	 * @return int
+	 */
+	public function getUsdRate()
+	{
+		return $this->usdZnxRate;
+	}
 
     /**
      * Get ZNX balance

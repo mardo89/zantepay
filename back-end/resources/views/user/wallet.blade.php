@@ -54,15 +54,15 @@
                                     <tbody>
                                         <tr>
                                             <td class="col-left">ETH</td>
-                                            <td>{{ $ico['znx_rate'] }}</td>
+                                            <td>{{ $ico['eth_rate'] }}</td>
                                         </tr>
                                         <tr>
                                             <td class="col-left">EUR</td>
-                                            <td>0.25</td>
+                                            <td>{{ $ico['euro_rate'] }}</td>
                                         </tr>
                                         <tr>
                                             <td class="col-left">USD</td>
-                                            <td>0.29</td>
+                                            <td>{{ $ico['usd_rate'] }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

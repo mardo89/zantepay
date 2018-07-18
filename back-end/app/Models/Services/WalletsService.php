@@ -121,6 +121,8 @@ class WalletsService
         $icoInfo = (new IcoService())->getInfo();
 
         $ethRate = $icoInfo['ethRate'];
+	    $euroRate = $icoInfo['euroRate'];
+	    $usdRate = $icoInfo['usdRate'];
         $endDate = $icoInfo['endDate'];
         $icoPartName = $icoInfo['name'];
 
@@ -136,7 +138,9 @@ class WalletsService
             'gettingAddress' => optional($ethAddressAction)->status === EthAddressAction::STATUS_IN_PROGRESS,
             'referralLink' => action('IndexController@confirmInvitation', ['ref' => $user->uid]),
             'ico' => [
-                'znx_rate' => (new CurrencyFormatter($ethRate))->ethFormat()->get(),
+                'eth_rate' => (new CurrencyFormatter($ethRate))->ethFormat()->get(),
+	            'euro_rate' => $euroRate,
+	            'usd_rate' => $usdRate,
                 'end_date' => $endDate ? date('Y/m/d H:i:s', strtotime($endDate)) : '',
                 'part_name' => $icoPartName
             ],
