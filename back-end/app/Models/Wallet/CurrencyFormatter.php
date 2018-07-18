@@ -62,6 +62,17 @@ class CurrencyFormatter
         return $this;
     }
 
+	/**
+	 * Format value as Currency
+	 *
+	 * @return $this
+	 */
+	public function currencyFormat() {
+		$this->formattedValue = number_format($this->originalValue, 2, '.', '');
+
+		return $this;
+	}
+
     /**
      * Add prefix
      *

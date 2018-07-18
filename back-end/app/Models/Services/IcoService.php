@@ -72,7 +72,7 @@ class IcoService
             'znxRate' => (new CurrencyFormatter($icoPartZnxRate))->znxFormat()->get(),
             'ethRate' => (new CurrencyFormatter($icoPartEthRate))->ethFormat()->get(),
             'euroRate' => (new CurrencyFormatter($icoPartEuroRate))->ethFormat()->get(),
-	        'usdRate' => (new CurrencyFormatter($icoPartUsdRate))->ethFormat()->get(),
+	        'usdRate' => (new CurrencyFormatter($icoPartUsdRate))->currencyFormat()->get(),
             'relativeBalance' => [
                 'value' => $icoPartRelativeBalance,
                 'percent' => number_format($icoPartRelativeBalance * 100, 2),
