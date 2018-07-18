@@ -13,9 +13,9 @@
     <main class="main main-dashboard main-panel-layout">
         <div id="particles-js" class="particles-js-black"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-xl-6">
-                    <div class="panel">
+            <div class="panel">
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="dashboard-group">
                             <h2 class="h4 headline-mb">Wallet:</h2>
                             <div class="table-responsive-500">
@@ -38,9 +38,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-xl-6">
-                    <div class="panel">
+                    <div class="col-md-6">
                         <div class="mb-10">
                             <h2 class="h4 headline-mb">ZANTECOIN (ZNX) price:</h2>
                             <div class="table-responsive-500">
