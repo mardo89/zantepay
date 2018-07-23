@@ -6,9 +6,11 @@ window.onload = function () {
         web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
     }
 }
-var ZanteCoinContract = web3.eth.contract([{
+var ZanteCoinContract = web3.eth.contract([
+    {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "name": "_owner",
                 "type": "address"
@@ -38,7 +40,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "constant": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "name": "_spender",
                 "type": "address"
             },
@@ -48,17 +51,20 @@ var ZanteCoinContract = web3.eth.contract([{
             }
         ],
         "name": "approve",
-        "outputs": [{
-            "name": "success",
-            "type": "bool"
-        }],
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
     },
     {
         "constant": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "name": "_participant",
                 "type": "address"
             },
@@ -75,7 +81,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "constant": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "name": "_participant",
                 "type": "address"
             },
@@ -92,7 +99,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "name": "_owner",
                 "type": "address"
@@ -108,7 +116,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "name": "_from",
                 "type": "address"
@@ -124,7 +133,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "name": "_from",
                 "type": "address"
@@ -140,7 +150,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "name": "_participant",
                 "type": "address"
@@ -161,7 +172,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "name": "_from",
                 "type": "address"
@@ -182,7 +194,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "anonymous": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "indexed": true,
                 "name": "_participant",
                 "type": "address"
@@ -203,7 +216,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "constant": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "name": "_participant",
                 "type": "address"
             },
@@ -220,7 +234,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "constant": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "name": "_to",
                 "type": "address"
             },
@@ -230,17 +245,20 @@ var ZanteCoinContract = web3.eth.contract([{
             }
         ],
         "name": "transfer",
-        "outputs": [{
-            "name": "success",
-            "type": "bool"
-        }],
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
     },
     {
         "constant": false,
-        "inputs": [{
+        "inputs": [
+            {
                 "name": "_from",
                 "type": "address"
             },
@@ -254,20 +272,24 @@ var ZanteCoinContract = web3.eth.contract([{
             }
         ],
         "name": "transferFrom",
-        "outputs": [{
-            "name": "success",
-            "type": "bool"
-        }],
+        "outputs": [
+            {
+                "name": "success",
+                "type": "bool"
+            }
+        ],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
     },
     {
         "constant": false,
-        "inputs": [{
-            "name": "_newOwner",
-            "type": "address"
-        }],
+        "inputs": [
+            {
+                "name": "_newOwner",
+                "type": "address"
+            }
+        ],
         "name": "transferOwnership",
         "outputs": [],
         "payable": false,
@@ -287,7 +309,8 @@ var ZanteCoinContract = web3.eth.contract([{
     },
     {
         "constant": true,
-        "inputs": [{
+        "inputs": [
+            {
                 "name": "_owner",
                 "type": "address"
             },
@@ -297,17 +320,20 @@ var ZanteCoinContract = web3.eth.contract([{
             }
         ],
         "name": "allowance",
-        "outputs": [{
-            "name": "remaining",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "remaining",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
     },
     {
         "constant": true,
-        "inputs": [{
+        "inputs": [
+            {
                 "name": "",
                 "type": "address"
             },
@@ -317,40 +343,50 @@ var ZanteCoinContract = web3.eth.contract([{
             }
         ],
         "name": "allowed",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
     },
     {
         "constant": true,
-        "inputs": [{
-            "name": "_owner",
-            "type": "address"
-        }],
+        "inputs": [
+            {
+                "name": "_owner",
+                "type": "address"
+            }
+        ],
         "name": "balanceOf",
-        "outputs": [{
-            "name": "balance",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "balance",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
     },
     {
         "constant": true,
-        "inputs": [{
-            "name": "",
-            "type": "address"
-        }],
+        "inputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
         "name": "balances",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -359,10 +395,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "COIN_SUPPLY_COMPANY_TOTAL",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -371,10 +409,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "COIN_SUPPLY_ICO_PHASE_0",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -383,10 +423,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "COIN_SUPPLY_ICO_PHASE_1",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -395,10 +437,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "COIN_SUPPLY_ICO_PHASE_2",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -407,10 +451,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "COIN_SUPPLY_ICO_PHASE_3",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -419,10 +465,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "COIN_SUPPLY_ICO_TOTAL",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -431,10 +479,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "COIN_SUPPLY_MKT_TOTAL",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -443,10 +493,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "COIN_SUPPLY_TOTAL",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -455,10 +507,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "coinsIssuedCmp",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -467,10 +521,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "coinsIssuedIco",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -479,10 +535,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "coinsIssuedMkt",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -491,10 +549,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "coinsIssuedTotal",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -503,10 +563,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "DATE_ICO_END",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -515,10 +577,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "DATE_ICO_START",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -527,10 +591,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "decimals",
-        "outputs": [{
-            "name": "",
-            "type": "uint8"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint8"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -539,10 +605,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "MAX_CONTRIBUTION",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -551,10 +619,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "MIN_CONTRIBUTION",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -563,10 +633,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "name",
-        "outputs": [{
-            "name": "",
-            "type": "string"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -575,10 +647,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "newOwner",
-        "outputs": [{
-            "name": "",
-            "type": "address"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -587,10 +661,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "owner",
-        "outputs": [{
-            "name": "",
-            "type": "address"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -599,10 +675,12 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "symbol",
-        "outputs": [{
-            "name": "",
-            "type": "string"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -611,16 +689,18 @@ var ZanteCoinContract = web3.eth.contract([{
         "constant": true,
         "inputs": [],
         "name": "totalSupply",
-        "outputs": [{
-            "name": "",
-            "type": "uint256"
-        }],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
     }
 ]);
-var ContractAddress = "0x10bc17087d048281206953507f6Ad54Cc3180AC8";
+var ContractAddress = "0xeffea57067e02999fdcd0bb45c0f1071a29472d9";
 var zanteCoin = ZanteCoinContract.at(ContractAddress);
 
 // Coin symbol

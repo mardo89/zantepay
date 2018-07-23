@@ -281,7 +281,7 @@
 					<div class="dashboard-group">
 						<h2 class="h4 headline-mb">Grant Marketing Coins. {{-- &nbsp; &nbsp; Total left: {{ $balance['marketing_balance'] }} --}}</h2>
 						<h3 class="h5 mb-10">Fill beneficiary address and amount in ZNX to grant marketing coins</h3>
-						<p>Curently available: <span id="ico_coins_available"></span> out of <span id="total_ico_coins_supply"></span> ZNX</p>
+						<p>Curently available: <span id="grant_marketing_available"></span> out of <span id="total_grant_marketing_supply"></span> ZNX</p>
 						<div class="row row-middle mt-20">
 
 							<div class="col-md-4">
