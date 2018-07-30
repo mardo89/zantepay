@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-lg-11">
                             <h2 class="h4 headline-mb">Invite friends and earn 20% commission!</h2>
-                            <p>Each holder of Zpay tokens will be entitled to a referral commission, paid weekly; this will be
+                            <p>Each holder of ZPAY tokens will be entitled to a referral commission, paid weekly; this will be
                                 constituted of 20% net transaction revenue.</p>
 
                             <div class="row row-bottom dashboard-group-md">
@@ -88,7 +88,7 @@
                     <tr>
                         <th colspan="2">Name</th>
                         <th>Status</th>
-                        <th>Bonus (Zpay)</th>
+                        <th>Bonus (ZPAY)</th>
                         <th>Commission (ETH)</th>
                         <th></th>
                     </tr>

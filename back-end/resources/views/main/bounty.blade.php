@@ -11,7 +11,7 @@ f@extends('layouts.main')
         <div class="header__content header__lp white-content">
             <div class="container">
                 <h1 class="h2 header__title text-uppercase mb-5">Bounty campaign</h1>
-                <p>We’re excited to offer the opportunity for you to partner with us. Contribute to our network and earn great rewards. This is why we’ve launched our ZANTEPAY Bounty Program, where you can earn Zpay nearly every day! Participation in our Bounty Programs is easy, registration is simple, and you're simply a task away from earning big.</p>
+                <p>We’re excited to offer the opportunity for you to partner with us. Contribute to our network and earn great rewards. This is why we’ve launched our ZANTEPAY Bounty Program, where you can earn ZPAY nearly every day! Participation in our Bounty Programs is easy, registration is simple, and you're simply a task away from earning big.</p>
             </div>
         </div>
 
@@ -31,7 +31,7 @@ f@extends('layouts.main')
                             <img src="images/circle-chart.png" srcset="images/circle-chart@2x.png 2x" alt="Bounty token distribution">
                             <h3>
                                 <strong>6.000.000</strong>
-                                Zpay tokens
+                                ZPAY tokens
                             </h3>
                         </div>
                     </div>
@@ -39,31 +39,31 @@ f@extends('layouts.main')
                         <ul class="bounty-list">
                             <li>
                                 <i class="bounty-percent" style="background: #f92112;">30%</i>
-                                <p>Twitter Campaign &nbsp; <span>1.800.000 Zpay</span></p>
+                                <p>Twitter Campaign &nbsp; <span>1.800.000 ZPAY</span></p>
                             </li>
                             <li>
                                 <i class="bounty-percent" style="background: #99dc59;">30%</i>
-                                <p>Facebook Campaign &nbsp; <span>1.800.000 Zpay</span></p>
+                                <p>Facebook Campaign &nbsp; <span>1.800.000 ZPAY</span></p>
                             </li>
                             <li>
                                 <i class="bounty-percent" style="background: #93519b;">14%</i>
-                                <p>YouTube Campaign &nbsp; <span>840.000 Zpay</span></p>
+                                <p>YouTube Campaign &nbsp; <span>840.000 ZPAY</span></p>
                             </li>
                             <li>
                                 <i class="bounty-percent" style="background: #ff3a2c;">10%</i>
-                                <p>Blogs, Article Campaign &nbsp; <span>600.000 Zpay</span></p>
+                                <p>Blogs, Article Campaign &nbsp; <span>600.000 ZPAY</span></p>
                             </li>
                             <li>
                                 <i class="bounty-percent" style="background: #3c76f8;">10%</i>
-                                <p>Support Campaign &nbsp; <span>600.000 Zpay</span></p>
+                                <p>Support Campaign &nbsp; <span>600.000 ZPAY</span></p>
                             </li>
                             <li>
                                 <i class="bounty-percent" style="background: #ff902c;">5%</i>
-                                <p>Telegram Campaign &nbsp; <span>300.000 Zpay</span></p>
+                                <p>Telegram Campaign &nbsp; <span>300.000 ZPAY</span></p>
                             </li>
                             <li>
                                 <i class="bounty-percent" style="background: #83cfd2;">1%</i>
-                                <p>Other &nbsp; <span>60.000 Zpay</span></p>
+                                <p>Other &nbsp; <span>60.000 ZPAY</span></p>
                             </li>
                         </ul>
                     </div>

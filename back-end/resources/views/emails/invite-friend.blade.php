@@ -43,7 +43,7 @@
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">You’ve been invited to join ZANTEPAY and pre-order a totally free debit card. Connected to your ZANTEPAY wallet, the card will allow you to make purchases in Bitcoin, Litecoin, Ethereum and Zpay everywhere in the world. After pre-order is finished, you’ll get 500 Zpay as a bonus!</span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">You’ve been invited to join ZANTEPAY and pre-order a totally free debit card. Connected to your ZANTEPAY wallet, the card will allow you to make purchases in Bitcoin, Litecoin, Ethereum and ZPAY everywhere in the world. After pre-order is finished, you’ll get 500 ZPAY as a bonus!</span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
@@ -132,8 +132,8 @@
                                                         style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
                                                         You’ve been invited to join ZANTEPAY and pre-order a totally free debit card.
                                                         Connected to your ZANTEPAY wallet, the card will allow you to make purchases in
-                                                        Bitcoin, Litecoin, Ethereum and Zpay everywhere in the world. After pre-order
-                                                        is finished, you’ll get 500 Zpay as a bonus!
+                                                        Bitcoin, Litecoin, Ethereum and ZPAY everywhere in the world. After pre-order
+                                                        is finished, you’ll get 500 ZPAY as a bonus!
                                                     </td>
                                                 </tr>
                                                 <tr>

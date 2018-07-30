@@ -22,16 +22,18 @@
                                 <table class="table-transparent table-3-cols">
                                     <thead>
                                     <tr>
-                                        <th>ICO Zpay</th>
-                                        <th>Card pre-order bonuses</th>
-                                        <th>Card referral bonus</th>
+                                        <th>Symbol</th>
+                                        <th>Currency</th>
+                                        <th>Balance</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
+                                        <td><img src="images/zpay-logo.png" srcset="images/zpay-logo@2x.png 2x" alt="zpay"></td>
+                                        <td>ZPAY</td>
                                         <td>{{ $wallet->znx_amount }}</td>
-                                        <td>{{ $wallet->debit_card_bonus }}</td>
-                                        <td>{{ $wallet->referral_bonus }}</td>
+                                        {{-- <td>{{ $wallet->debit_card_bonus }}</td> --}}
+                                        {{-- <td>{{ $wallet->referral_bonus }}</td> --}}
                                     </tr>
                                     </tbody>
                                 </table>
@@ -40,7 +42,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-10">
-                            <h2 class="h4 headline-mb">Zpay price:</h2>
+                            <h2 class="h4 headline-mb">ZPAY price:</h2>
                             <div class="table-responsive-500">
                                 <table class="table-black table-3-cols">
                                     <thead>
@@ -76,7 +78,7 @@
 
                 <div class="row">
                     <div class="col-lg-6 mb-md-30">
-                        <h2 class="h4 headline-mb">Transfer ETH to Zpay:</h2>
+                        <h2 class="h4 headline-mb">Transfer ETH to ZPAY:</h2>
                         <div class="row row-middle mt-40">
                             <div class="col-lg-2 col-md-3">
                                 <div class="form-group text-regular"><label for="field14">Amount:</label></div>
@@ -187,7 +189,7 @@
                     <div class="form-group">
                         <label class="field-label" for="field9">Receive:</label>
                         <input class="input-field" type="text" name="ZNX" id="field9">
-                        <span class="sub-field-label">Zpay</span>
+                        <span class="sub-field-label">ZPAY</span>
                     </div>
                 </div>
             </div>
@@ -221,7 +223,7 @@
                     <div class="form-group">
                         <label class="field-label" for="field11">Receive:</label>
                         <input class="input-field" type="text" name="ZNX" id="field11">
-                        <span class="sub-field-label">Zpay</span>
+                        <span class="sub-field-label">ZPAY</span>
                     </div>
                 </div>
             </div>
@@ -247,7 +249,7 @@
             <h3 class="h4">TRANSFERED!</h3>
             <div class="logon-modal-text">
                 <p>
-                    <span id="znx_balance"> </span> Zpay successfully transferred!
+                    <span id="znx_balance"> </span> ZPAY successfully transferred!
                 </p>
             </div>
         </div>

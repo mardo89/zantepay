@@ -19,7 +19,7 @@
                         <a href="profile-settings" class="btn btn--shadowed-light">Verify Account</a>
                     </div>
                     <div>
-                        <h2 class="h4 headline-mb">Earn 500Zpay just by referring friends to pre-order ZANTEPAY card:</h2>
+                        <h2 class="h4 headline-mb">Earn 500ZPAY just by referring friends to pre-order ZANTEPAY card:</h2>
                         <div class="row row-bottom" style="max-width: 650px;">
                             <div class="col-md-7">
                                 <div class="field-group">

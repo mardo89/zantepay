@@ -138,7 +138,7 @@
                                                 <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="left" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 14px; color: #474747; line-height: 24px; font-weight: normal;">
-                                                        <b>3.</b> You can find your Ethereum deposit address to buy Zpay.
+                                                        <b>3.</b> You can find your Ethereum deposit address to buy ZPAY.
                                                     </td>
                                                 </tr>
                                                 <tr><td height="10" style="line-height:10px; font-size: 0;">&nbsp;</td></tr>
@@ -180,7 +180,7 @@
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top">
-                                                    <img src="{{ url('/') . "/images/get-500znx.jpg" }}" width="381" height="290" style=    "display:block;outline:0;border:0;width:381px;height:290px" alt="Get 500 Zpay">
+                                                    <img src="{{ url('/') . "/images/get-500znx.jpg" }}" width="381" height="290" style=    "display:block;outline:0;border:0;width:381px;height:290px" alt="Get 500 ZPAY">
                                                     </td>
                                                 </tr>
                                                 <tr><td height="25" style="line-height:25px; font-size: 0;">&nbsp;</td></tr>

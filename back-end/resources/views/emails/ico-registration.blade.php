@@ -99,7 +99,7 @@
                                                 <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        Ordering a debit card is totally <b>FREE</b>. When the pre-ordering of a debit card is finalized, you will receive 600 Zpay as a sign-up bonus.
+                                                        Ordering a debit card is totally <b>FREE</b>. When the pre-ordering of a debit card is finalized, you will receive 600 ZPAY as a sign-up bonus.
                                                     </td>
                                                 </tr>
                                                 <tr><td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td></tr>
@@ -108,7 +108,7 @@
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" >
                                                             <tr>
                                                                 <td align="right" valign="middle" width="50%" style="text-align:right; font-family: Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: bold;">
-                                                                    The value of 600Zpay:
+                                                                    The value of 600ZPAY:
                                                                 </td>
                                                                 <td align="left" valign="middle" width="50%" style="padding-left:30px; text-align:left; font-family: Verdana, Arial, sans-serif; font-size: 16px; color: #474747; line-height: 28px; font-weight: normal;">
                                                                     Pre-ICO <b>30€</b><br>

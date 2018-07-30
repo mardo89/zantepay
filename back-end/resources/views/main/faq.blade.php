@@ -40,11 +40,11 @@
 							<div class="accordion__head is-active">
 								<a href="#ac-item1">
 									<i class="fa fa-chevron-down" aria-hidden="true"></i>
-									<h3 class="text-lg">When and what exchanges ZANTEPAY token (Zpay) is going to be listed on?</h3>
+									<h3 class="text-lg">When and what exchanges ZANTEPAY token (ZPAY) is going to be listed on?</h3>
 								</a>
 							</div>
 							<div class="accordion__body" id="ac-item1" style="display: block;">
-								<p>Zpay token is going to be tradable after the ICO is complete, latest in August 2018. ZANTEPAY team is working
+								<p>ZPAY token is going to be tradable after the ICO is complete, latest in August 2018. ZANTEPAY team is working
 									actively on getting listed on several exchanges. Follow the further announcements.</p>
 							</div>
 						</div>
@@ -128,11 +128,11 @@
 							<div class="accordion__head is-active">
 								<a href="#ac-item01">
 									<i class="fa fa-chevron-down" aria-hidden="true"></i>
-									<h3 class="text-lg">When and what exchanges ZANTEPAY token (Zpay) is going to be listed on?</h3>
+									<h3 class="text-lg">When and what exchanges ZANTEPAY token (ZPAY) is going to be listed on?</h3>
 								</a>
 							</div>
 							<div class="accordion__body" id="ac-item01" style="display: block;">
-								<p>Zpay token is going to be tradable after the ICO is complete, latest in August 2018. ZANTEPAY team is working
+								<p>ZPAY token is going to be tradable after the ICO is complete, latest in August 2018. ZANTEPAY team is working
 									actively on getting listed on several exchanges. Follow the further announcements.</p>
 							</div>
 						</div>

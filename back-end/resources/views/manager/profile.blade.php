@@ -187,7 +187,7 @@
                                         <table class="table-transparent">
                                             <thead>
                                             <tr>
-                                                <th width="25%">Total Zpay</th>
+                                                <th width="25%">Total ZPAY</th>
                                                 <th width="25%">Commission (BTC)</th>
                                                 <th width="25%">Commission (ETH)</th>
                                             </tr>
@@ -208,19 +208,19 @@
 
                                         <div class="col-md-12">
                                             <div class="dashboard-group-sm ico-pool">
-                                                <label for="field24" class="field-label">Add Zpay from ICO pool:</label>
+                                                <label for="field24" class="field-label">Add ZPAY from ICO pool:</label>
                                                 <div class="row row-middle">
                                                     <div class="col-lg-7 col-md-7">
                                                         <div class="field-group">
                                                             <input class="input-field" type="text" name="znx-amount"
                                                                    id="field24"
-                                                                   placeholder="Zpay amount">
+                                                                   placeholder="ZPAY amount">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5">
                                                         <button id="add-ico-znx" type="button"
                                                                 class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
-                                                            Add Zpay
+                                                            Add ZPAY
                                                         </button>
                                                     </div>
                                                 </div>
@@ -229,20 +229,20 @@
 
                                         <div class="col-md-12">
                                             <div class="dashboard-group-sm foundation-pool">
-                                                <label for="field24" class="field-label">Add Zpay from Foundation
+                                                <label for="field24" class="field-label">Add ZPAY from Foundation
                                                     pool:</label>
                                                 <div class="row row-middle">
                                                     <div class="col-lg-7 col-md-7">
                                                         <div class="field-group">
                                                             <input class="input-field" type="text" name="znx-amount"
                                                                    id="field24"
-                                                                   placeholder="Zpay amount">
+                                                                   placeholder="ZPAY amount">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5">
                                                         <button id="add-foundation-znx" type="button"
                                                                 class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
-                                                            Add Zpay
+                                                            Add ZPAY
                                                         </button>
                                                     </div>
                                                 </div>
@@ -260,8 +260,8 @@
                                         <table class="table-transparent">
                                             <thead>
                                             <tr>
-                                                <th width="33.333%">Card referral bonus (Zpay)</th>
-                                                <th width="33.333%">Card pre-order bonuses (Zpay)</th>
+                                                <th width="33.333%">Card referral bonus (ZPAY)</th>
+                                                <th width="33.333%">Card pre-order bonuses (ZPAY)</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -408,7 +408,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">Added!</h3>
             <div class="logon-modal-text">
-                <p>You have successfully transferred <span class="znx_added"></span> Zpay from ICO pool.</p>
+                <p>You have successfully transferred <span class="znx_added"></span> ZPAY from ICO pool.</p>
             </div>
         </div>
     </div>
@@ -418,7 +418,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">Added!</h3>
             <div class="logon-modal-text">
-                <p>You have successfully transferred <span class="znx_added"></span> Zpay from Foundation pool.</p>
+                <p>You have successfully transferred <span class="znx_added"></span> ZPAY from Foundation pool.</p>
             </div>
         </div>
     </div>
