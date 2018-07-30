@@ -30,16 +30,16 @@
 
                             </div>
                             <div class="col-sm-6">
-                                <p>Pre-order bonus tokens received: <br> 500 ZNX</p>
+                                <p>Pre-order bonus tokens received: <br> 500 Zpay</p>
                                 <h3 class="h5">Terms:</h3>
                                 <ol>
-                                    <li>Make a deposit to ZANTEPAY wallet or buy ZNX tokens from ICO to unlock your bonus. Bonus tokens will be available after ICO.</li>
+                                    <li>Make a deposit to ZANTEPAY wallet or buy Zpay tokens from ICO to unlock your bonus. Bonus tokens will be available after ICO.</li>
                                 </ol>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <h2 class="h4 headline-mb">Earn 500ZNX just by referring friends to pre-order ZANTEPAY card:</h2>
+                        <h2 class="h4 headline-mb">Earn 500Zpay just by referring friends to pre-order ZANTEPAY card:</h2>
                         <div class="row row-bottom" style="max-width: 650px;">
                             <div class="col-md-7">
                                 <div class="field-group">

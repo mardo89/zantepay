@@ -15,7 +15,7 @@
                         <h2 class="h2 headline headline--black">Verify and pre-order a <span class="primary-color">FREE</span> card</h2>
                     </div>
                     <div class="col-md-4 pl-0">
-                        <img src="images/get-500-znx.png" srcset="images/get-500-znx@2x.png 2x" alt="get 500 ZNX">
+                        <img src="images/get-500-znx.png" srcset="images/get-500-znx@2x.png 2x" alt="get 500 Zpay">
                     </div>
                 </div>
             </div>

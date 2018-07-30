@@ -43,7 +43,7 @@
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thank you for being part of our community and contributing to ZANTEPAY. Thank you for taking the time to understand our project. Thank you for believing in and supporting our vision. And thank you for taking the first step toward that vision by becoming one of the first to hold the ZNX cryptocurrency.</span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thank you for being part of our community and contributing to ZANTEPAY. Thank you for taking the time to understand our project. Thank you for believing in and supporting our vision. And thank you for taking the first step toward that vision by becoming one of the first to hold the Zpay cryptocurrency.</span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
@@ -108,7 +108,7 @@
                                                 <tr><td height="40" style="line-height:40px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        Thank you for being part of our community and contributing to ZANTEPAY. Thank you for taking the time to understand our project. Thank you for believing in and supporting our vision. And thank you for taking the first step toward that vision by becoming one of the first to hold the ZNX cryptocurrency.
+                                                        Thank you for being part of our community and contributing to ZANTEPAY. Thank you for taking the time to understand our project. Thank you for believing in and supporting our vision. And thank you for taking the first step toward that vision by becoming one of the first to hold the Zpay cryptocurrency.
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
@@ -132,7 +132,7 @@
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        As announced previously, ZNX will become available on after 15 July, 2018.
+                                                        As announced previously, Zpay will become available on after 15 July, 2018.
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>

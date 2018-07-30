@@ -47,8 +47,8 @@
                         </div>
                         <div class="card-text-wrap">
                             <ul class="triangle-list">
-                                <li>Pre-order bonus: 500 ZNX</li>
-                                <li>20% cashback in ZNX</li>
+                                <li>Pre-order bonus: 500 Zpay</li>
+                                <li>20% cashback in Zpay</li>
                                 <li>FREE DEBIT CARD</li>
                                 <li>Exchange fee: BTC to EUR 1%, Altcoin to EUR 1,5%</li>
                             </ul>

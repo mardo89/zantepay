@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one card!">
+    <meta name="description" content="Spend Bitcoin, Litecoin, Ethereum and Zpay in real life with just one card!">
 
     <title>ZANTEPAY - Bringing cryptocurrency to the mainstream</title>
 
@@ -281,7 +281,7 @@
         <div class="logon-modal-container">
             <h3 class="h4 text-uppercase">Join our newsletter</h3>
             <div class="logon-modal-text">
-                <p>Join ZANTEPAY newsletter and get a chance to win 300 EUR worth of ZNX every week!</p>
+                <p>Join ZANTEPAY newsletter and get a chance to win 300 EUR worth of Zpay every week!</p>
                 <p class="primary-color" style="font-size: 60px;line-height: 1;margin: -25px 0 30px;"><b>€ 300</b></p>
             </div>
             <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://app.mailjet.com/widget/iframe/2gIc/77A" width="100%" height="auto"></iframe>

@@ -43,7 +43,7 @@
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thank you for being part of our community and pre-ordering ZANTEPAY debit card. Thank you for believing in and supporting our vision. Your early signup bonus 500ZNX will be unlocked in your ZANTEPAY account after you account is verified. We will start user verification process within couple of weeks. </span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thank you for being part of our community and pre-ordering ZANTEPAY debit card. Thank you for believing in and supporting our vision. Your early signup bonus 500Zpay will be unlocked in your ZANTEPAY account after you account is verified. We will start user verification process within couple of weeks. </span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
@@ -114,7 +114,7 @@
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 28px; font-weight: normal;">
-                                                        Your early signup bonus 500ZNX will be unlocked in your ZANTEPAY account after you account is verified. We will start user verification process within couple of weeks. 
+                                                        Your early signup bonus 500Zpay will be unlocked in your ZANTEPAY account after you account is verified. We will start user verification process within couple of weeks. 
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
@@ -142,7 +142,7 @@
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>
                                                 <tr>
                                                     <td align="center" valign="top" style="font-family:Verdana, Arial, sans-serif; font-size: 15px; color: #474747; line-height: 24px; font-weight: bold;">
-                                                        Earn 500ZNX just by referring your friends to pre-order FREE card.
+                                                        Earn 500Zpay just by referring your friends to pre-order FREE card.
                                                     </td>
                                                 </tr>
                                                 <tr><td height="20" style="line-height:20px; font-size: 0;">&nbsp;</td></tr>

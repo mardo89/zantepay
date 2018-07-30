@@ -45,16 +45,16 @@
 
         <div class="header__content white-content">
             <div class="container">
-                <h1 class="h2 header__title text-uppercase p-b-60">Spend BTC, LTC, ETH and Zantecoin in real life <br> with just one card</h1>
+                <h1 class="h2 header__title text-uppercase p-b-60">Spend BTC, LTC, ETH and Zpay in real life <br> with just one card</h1>
                 <div class="lp-proj-wrap">
                     <div class="row">
                         <div class="col-md-4 lp-proj-wrap__left">
                             <div class="lp-proj-group">
-                                <h3 class="text-lg">Crypto exchange service</h3>
+                                <h3 class="text-lg mb-20">Crypto exchange service</h3>
                                 <img src="images/crypto-exchange-service.png" srcset="images/crypto-exchange-service@2x.png 2x" alt="Crypto exchange service">
                             </div>
                             <div class="lp-proj-group">
-                                <h3 class="text-lg">NFC contactless payment app</h3>
+                                <h3 class="text-lg mb-20">NFC contactless payment app</h3>
                                 <img src="images/nfc-payment-app.png" srcset="images/nfc-payment-app@2x.png 2x" alt="NFC contactless payment app">
                             </div>
                         </div>
@@ -64,16 +64,16 @@
                                 <div class="lp-coin-line lp-coin-line--b-left"></div>
                                 <div class="lp-coin-line lp-coin-line--t-right"></div>
                                 <div class="lp-coin-line lp-coin-line--b-right"></div>
-                                <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" width="240" alt="ZANTECOIN">
+                                <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" width="240" alt="Zpay">
                             </div>
                         </div>
                         <div class="col-md-4 lp-proj-wrap__right">
                             <div class="lp-proj-group">
-                                <h3 class="text-lg">Multiwallet integrated <br> with debit card <br> (centralized system)</h3>
+                                <h3 class="text-lg mb-20">Multiwallet integrated <br> with debit card <br> (centralized system)</h3>
                                 <img src="images/wh-card-sm.png" srcset="images/wh-card-sm@2x.png 2x" width="267" alt="Multiwallet integrated with debit card">
                             </div>
                             <div class="lp-proj-group">
-                                <h3 class="text-lg">Decentralized multiwallet app</h3>
+                                <h3 class="text-lg mb-20">Decentralized multiwallet app</h3>
                                 <img src="images/iphone-wallets.png" srcset="images/iphone-wallets@2x.png 2x" width="148" alt="Decentralized multiwallet app">
                             </div>
                         </div>
@@ -92,7 +92,7 @@
         <div class="hp-list-bt-section text-center">
             <div class="container">
                 <div class="headline-group">
-                    <h2 class="h2 headline">ZANTECOIN official exchanges</h2>
+                    <h2 class="h2 headline">Zpay official exchanges</h2>
                     <img src="images/shield.png" srcset="images/shield@2x.png 2x" alt="shield">
                 </div>
                 <div class="row content-center">
@@ -157,19 +157,19 @@
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">
-                    <h3 class="h2 headline text-left">ZANTECOIN - The Most <br> Valuable Coin </h3>
+                    <h3 class="h2 headline text-left">Zpay - The Most <br> Valuable Coin </h3>
                 </div>
                 <div class="row vertical-middle-col mt-40 p-t-30">
                     <div class="text-center col-lg-3 col-sm-4 offset-lg-1">
-                        <img src="images/zantecoin2.png" srcset="images/zantecoin2@2x.png 2x" alt="Zantecoin">
+                        <img src="images/zantecoin2.png" srcset="images/zantecoin2@2x.png 2x" alt="Zpay">
                     </div>
                     <div class="col-lg-7 col-sm-8 offset-lg-1">
                         <ul class="styl-list">
                             <li>New mainstream currency</li>
-                            <li>BTC, ETH, LTC free conversion to ZNX</li>
+                            <li>BTC, ETH, LTC free conversion to Zpay</li>
                             <!-- <li>Mastercard - accepted everywhere</li> -->
                             <li>Can be used to cover service fees in ZANTEPAY ecosystem</li>
-                            <li>50% discount on all services in ZANTEPAY ecosystem when using ZANTECOIN</li>
+                            <li>50% discount on all services in ZANTEPAY ecosystem when using Zpay</li>
                             <li>ERC 20 token</li>
                         </ul>
                     </div>
@@ -180,8 +180,8 @@
         <section class="lp-section-markets white-content">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="h2 headline">ZANTECOIN <br> ecosystem projects</h2>
-                    <img src="images/map.svg" width="945" alt="ZANTECOIN ecosystem projects">
+                    <h2 class="h2 headline">Zpay <br> ecosystem projects</h2>
+                    <img src="images/map.svg" width="945" alt="Zpay ecosystem projects">
                     <ul class="lp-markets-list">
                         <li><i class="mark-circle mark-circle--white"></i> Debit Card</li>
                         <li><i class="mark-circle mark-circle--red"></i> Decentralized App</li>
@@ -276,7 +276,7 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Beginning of the ZANTECOIN pre-sale <span>March 15<sup>th</sup></span></h3>
+                                <h3 class="h2 headline">Beginning of the Zpay pre-sale <span>March 15<sup>th</sup></span></h3>
                                 <p>Token distribution Debit Card pre-ordering start.</p>
                             </div>
                         </div>
@@ -285,7 +285,7 @@
                     <div class="row row-revert p-tb-40">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container3">
-                                <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" alt="Rocket Image">
+                                <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" alt="Zpay">
                             </div>
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
@@ -305,7 +305,7 @@
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
                                 <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q3</span></h3>
-                                <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
+                                <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zpay integration with Debit card and Wallet.</p>
                             </div>
                         </div>
                     </div>
@@ -320,7 +320,7 @@
                         <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0 content-center">
                             <div class="lp-content-col">
                                 <h3 class="h2 headline">Debit card launch <span>2018 Q4</span></h3>
-                                <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zantecoin integration with Debit card and Wallet.</p>
+                                <p>Debit card launch. Bitcoin, Litecoin, Ethereum and Zpay integration with Debit card and Wallet.</p>
                             </div>
                         </div>
                     </div>
@@ -389,12 +389,12 @@
                         <div class="col-md-5 vertical-middle-col">
                             <h2 class="h2 headline">What is <span>ZANTEPAY wallet</span></h2>
                             <ul class="styl-list">
-                                <li>The ZANTEPAY wallet application will let you purchase, sell, send, receive and exchange your ZANTECOINs
+                                <li>The ZANTEPAY wallet application will let you purchase, sell, send, receive and exchange your Zpays
                                     in the simplest and safest way possible.
                                 </li>
                                 <li>Its beauty and its ease of use.</li>
                                 <li>Your latest ZANTEPAY card transactions or your exchange history.</li>
-                                <li>You will also have the option to manage Bitcoin, Litecoin, Ethereum and Zantecoin directly from your
+                                <li>You will also have the option to manage Bitcoin, Litecoin, Ethereum and Zpay directly from your
                                     ZANTEPAY wallet and assign your wallets to your ZANTEPAY card according to the selected preferences.
                                 </li>
                                 <li>Buy BTC and altcoins with SEPA payment or with debit/credit card.</li>
@@ -415,7 +415,7 @@
                         <div class="col-md-6 offset-lg-1">
                             <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
                             <ul class="styl-list">
-                                <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zantecoin everywhere in the world.</li>
+                                <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or Zpay everywhere in the world.</li>
                                 <li>Connected directly to your ZANTEPAY wallet.</li>
                                 <li>Provides automatic highest trading price from partner exchanges. 1%exchange fee. No hidden charges.</li>
                             </ul>
@@ -775,11 +775,11 @@
         <div class="logon-modal-container">
             <h3 class="h4">REGISTER FOR PRE-ICO</h3>
             <div class="logon-modal-text">
-                <p>ZANTECOIN’s Token Pre-ICO is created for investors with prior cryptocurrency experience. Please pay attention that the
+                <p>Zpay’s Token Pre-ICO is created for investors with prior cryptocurrency experience. Please pay attention that the
                     minimum transaction amount is 0.1 ETH. For investors from the US the min investment amount is 10 ETH. To apply, please
                     contact <a href="mailto:support@zantepay.com">support@zantepay.com</a>. </p>
-                <p>The actual opening date for the ZANTECOIN’s public Token Sale is on March 15<sup>th</sup>, 2018. To participate in
-                    ZANTECOIN’s Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
+                <p>The actual opening date for the Zpay’s public Token Sale is on March 15<sup>th</sup>, 2018. To participate in
+                    Zpay’s Token Pre-ICO, please enter you email below. You will be notified, once Pre-ICO starts.</p>
             </div>
 
             <form id="frm_ico_registration">
@@ -803,7 +803,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">THANK YOU!</h3>
             <div class="logon-modal-text">
-                <p>Your application has been submitted. Once the ZANTECOIN pre-ICO starts, you'll get a personal invitation to participate
+                <p>Your application has been submitted. Once the Zpay pre-ICO starts, you'll get a personal invitation to participate
                     in it.</p>
                 <div>Enjoy your day!</div>
             </div>
@@ -827,7 +827,7 @@
             <h3 class="h4">BECOME OUR SEED INVESTOR</h3>
             <div class="logon-modal-text">
                 <p>We are starting with ZANTEPAY ICO on 15<sup>th</sup> of March. At the moment we are looking for seed investors, offering
-                    ZNX tokens at
+                    Zpay tokens at
                     the discounted price. If you are interested to become a seed investor, please fill out the contact form and we will get
                     back to you.</p>
             </div>

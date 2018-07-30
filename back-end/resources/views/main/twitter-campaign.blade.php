@@ -53,7 +53,7 @@
                     <li>7 tweet (maximum) in a week and retweet of all tweets in our group.  </li>
                     <li>1 tweet per day.  </li>
                     <li>Posts older than this reporting week are not accepted.</li>
-                    <li>All tweets have to be with a hashtag #Zantepay #Zantecoin  #newmainstreamcryptocurrency and link <a href="{{ asset('/') }}" target="_blank">{{ asset('/') }}</a>.</li>
+                    <li>All tweets have to be with a hashtag #Zantepay #Zpay  #newmainstreamcryptocurrency and link <a href="{{ asset('/') }}" target="_blank">{{ asset('/') }}</a>.</li>
                     <li>Your account must be at least 6 month old.</li>
                     <li>Your audit score must be more than 90%.</li>
                     <li>Do not RT tweets replying to other users.</li>
