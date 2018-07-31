@@ -29,7 +29,7 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><img src="images/zpay-logo.png" srcset="images/zpay-logo@2x.png 2x" alt="zpay"></td>
+                                        <td><img src="/images/zpay-logo.png" srcset="/images/zpay-logo@2x.png 2x" alt="zpay"></td>
                                         <td>ZPAY</td>
                                         <td>{{ $wallet->znx_amount }}</td>
                                         {{-- <td>{{ $wallet->debit_card_bonus }}</td> --}}
