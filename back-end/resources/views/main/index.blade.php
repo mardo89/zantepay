@@ -64,7 +64,7 @@
                                 <div class="lp-coin-line lp-coin-line--b-left"></div>
                                 <div class="lp-coin-line lp-coin-line--t-right"></div>
                                 <div class="lp-coin-line lp-coin-line--b-right"></div>
-                                <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" width="240" alt="ZPAY">
+                                <img src="images/zpay-lg-white.png" alt="ZPAY">
                             </div>
                         </div>
                         <div class="col-md-4 lp-proj-wrap__right">
