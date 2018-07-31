@@ -70,8 +70,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('profile-settings/change-password', 'UserController@changePassword');//->middleware('protect.action');
     Route::post('profile-settings/update-wallet', 'UserController@updateWallet');//->middleware('protect.action');
 
-    Route::get('invite-friend', 'UserController@invite');
-    Route::post('invite-friend', 'UserController@saveInvitation');
+//    Route::get('invite-friend', 'UserController@invite');
+//    Route::post('invite-friend', 'UserController@saveInvitation');
 
     Route::get('wallet', 'UserController@wallet');
     Route::post('wallet/address', 'UserController@createWalletAddress');

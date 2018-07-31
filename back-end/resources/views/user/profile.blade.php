@@ -3,7 +3,6 @@
 @section('main-menu')
     <li class="current-menu-item"><a href="profile">Profile</a></li>
     <li><a href="profile-settings">Verify Account</a></li>
-    <li><a href="invite-friend">Refer a Friend</a></li>
     <li><a href="wallet">Wallet</a></li>
     <li><a href="debit-card">ZANTEPAY Debit Card</a></li>
 @endsection
