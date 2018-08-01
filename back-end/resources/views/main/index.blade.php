@@ -31,7 +31,6 @@
                                     </li>
                                     <li><a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
                                     </li>
-                                    <li><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
                                     <li><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube"></i></a></li>
                                     <li><a target="_blank" href="https://www.linkedin.com/company/zantepay/"><i class="fa fa-linkedin"></i></a></li>
                                 </ul>
@@ -684,10 +683,6 @@
                     <div class="col-sm-3 col-6">
                         <h4><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY">Reddit</a></h4>
                         <a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a>
-                    </div>
-                    <div class="col-sm-3 col-6">
-                        <h4><a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226">Bitcointalk</a></h4>
-                        <a target="_blank" href="https://bitcointalk.org/index.php?topic=3338226"><i class="fa fa-bitcoin"></i></a></li>
                     </div>
                     <div class="col-sm-3 col-6">
                         <h4><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA">YouTube</a></h4>

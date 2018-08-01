@@ -280,10 +280,10 @@
     <div class="logon-modal logon-modal--400 mfp-hide" id="newsletter-modal">
         <div class="logon-modal-container">
             <h3 class="h4 text-uppercase">Join our newsletter</h3>
-            <div class="logon-modal-text">
-                <p>Join our newsletter and be on top of the latest updates and development.</p>
-            </div>
             <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://app.mailjet.com/widget/iframe/2gIc/77A" width="100%" height="auto"></iframe>
+            <div class="logon-modal-text">
+                <p class="mt-mb-0">Join our newsletter and be on top of the latest updates and development.</p>
+            </div>
         </div>
     </div>
 
