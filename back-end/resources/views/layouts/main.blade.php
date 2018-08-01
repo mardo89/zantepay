@@ -94,9 +94,9 @@
                                 <a href="{{$menuPrefix}}#ico">ICO</a>
                             </li>
 
-                            <li>
-                                <a href="/bounty">Bounty</a>
-                            </li>
+                            {{--<li>--}}
+                                {{--<a href="/bounty">Bounty</a>--}}
+                            {{--</li>--}}
 
                             <li>
                                 <a href="{{$menuPrefix}}#team">Team</a>
