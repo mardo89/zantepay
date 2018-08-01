@@ -281,8 +281,7 @@
         <div class="logon-modal-container">
             <h3 class="h4 text-uppercase">Join our newsletter</h3>
             <div class="logon-modal-text">
-                <p>Join ZANTEPAY newsletter and get a chance to win 300 EUR worth of ZPAY every week!</p>
-                <p class="primary-color" style="font-size: 60px;line-height: 1;margin: -25px 0 30px;"><b>€ 300</b></p>
+                <p>Join our newsletter and be on top of the latest updates and development.</p>
             </div>
             <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://app.mailjet.com/widget/iframe/2gIc/77A" width="100%" height="auto"></iframe>
         </div>
