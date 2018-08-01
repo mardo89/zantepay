@@ -11,8 +11,7 @@
 
     <main class="main" style="overflow: hidden;">
         <div class="container">
-            <div class="dashboard-container">
-
+            <div>
                 <div class="dashboard-left-wrap">
                     <div class="dashboard-col-wrap">
                         <h2 class="h4 headline-mb headline-subline">
@@ -144,7 +143,7 @@
                     {{--</div>--}}
                     {{--</div>--}}
 
-                    <div class="dashboard-col-wrap">
+                    {{-- <div class="dashboard-col-wrap">
                         <h2 class="h4 mb-20">Ethereum wallet:</h2>
                         <div class="row">
                             <div class="col-lg-11 wallet-address-group">
@@ -175,10 +174,10 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
-                <div class="dashboard-right-wrap">
+                {{-- <div class="dashboard-right-wrap">
                     <form id="change-password">
                         <h2 class="h4 headline-mb">Change password:</h2>
                         <div class="form-group">
@@ -196,7 +195,7 @@
 
                         <button type="submit" class="btn btn--shadowed-light btn--medium">Change Password</button>
                     </form>
-                </div>
+                </div> --}}
 
             </div>
         </div>

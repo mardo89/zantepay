@@ -138,7 +138,7 @@
                     </div>
                 </div>
 
-                <div class="dashboard-group-sm">
+                {{-- <div class="dashboard-group-sm">
                     <h2 class="h4 headline-mb">Identification:</h2>
                     <div class="row">
                         <div class="col-lg-3 col-sm-6">
@@ -186,12 +186,65 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <button id="save-profile" type="button" class="btn btn--shadowed-light btn--medium btn--160">Save
                 </button>
 
             </form>
+            
+            <div class="p-t-60">
+                <h2 class="h4 mb-20">Change password:</h2>
+                <form id="change-password">
+                    <div class="row dashboard-group-sm">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="field-label" for="field1">Current password:</label>
+                                <input class="input-field" name="current-password" id="field1" type="password">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="field-label" for="field2">New password:</label>
+                                <input class="input-field" name="password" id="field2" type="password">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="form-group">
+                                <label class="field-label" for="field3">Confirm password:</label>
+                                <input class="input-field" name="password_confirmation" id="field3" type="password">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn--shadowed-light btn--medium">Change Password</button>
+                </form>
+            </div>
+
+            <div class="row p-t-60">
+                <div class="col-lg-9">
+                    <h2 class="h4 mb-20">Ethereum wallet:</h2>
+                    <div class="wallet-address-group">
+                        <form action="">
+                            <input type="hidden" name="wallet-currency"
+                                   value="{{ \App\Models\Wallet\Currency::CURRENCY_TYPE_ETH }}"/>
+                            <div class="form-group">
+                                <label class="field-label" for="field4">ETH wallet address:</label>
+                                <input class="input-field" type="text" name="wallet-address" id="field5"
+                                                                                   value="{{ $profile->eth_wallet }}">
+                            </div>
+
+                            <div class="checkbox form-group">
+                                <input type="checkbox" id="check2" class="owner-confirm"><label for="check2" class="text-sm">Hereby
+                                    I confirm that I am the owner of this account</label>
+                            </div>
+
+                            <button type="submit" class="btn btn--shadowed-light btn--medium update-wallet">
+                                Change Address
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
             <div class="dashboard-group-sm p-t-60 mt-40">
                 <h2 class="h4 mb-20">Close Account:</h2>
