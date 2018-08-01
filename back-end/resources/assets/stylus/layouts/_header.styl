@@ -43,6 +43,10 @@
     z-index 400
 .masthead
   padding 18px 0
+  background #000
+  .container
+    @media (min-width 1310px)
+      width 1280px
   .logo
     display inline-block
     img
@@ -68,13 +72,15 @@
   flex 1
   align-items center
   justify-content space-between
-  @media screen and (max-width: 991px)
+  @media (min-width: 992px)
+    display flex !important
+  @media (max-width: 991px)
     display none
     float left
     margin-top 10px
     width 100%
 .navigation
-  margin-left 20px
+  margin-left 10px
   @media screen and (max-width: 991px)
     margin-left 0
   ul
@@ -98,18 +104,22 @@
         color #fff
         display inline-block
         border-right 1px solid $primary-color
-        padding 0 20px 
+        padding 0 18px 
         vertical-align top
         line-height 20px
-        font-size 16px
+        font-size 15px
         // transition color .2s
         transform translateZ(0)
-        @media screen and (max-width: 1199px)
-          font-size 14px
+        @media screen and (max-width: 1310px)
+          // font-size 15px
           padding 0 10px
+        @media screen and (max-width: 1199px)
+          font-size 12px
+          padding 0 7px
         @media screen and (max-width: 991px)
           border-right none
           padding 10px 5px
+          font-size 16px
       &.current-menu-item
         & > a
           color $primary-color
@@ -184,7 +194,7 @@
   .center-logo
     margin-bottom 30px
   .h4
-    margin 70px 0 60px
+    margin 50px 0 20px
   // .h2
   //   max-width 900px
   //   margin auto
@@ -202,6 +212,9 @@
   padding 10px 0
   opacity 0
   visibility hidden
+  .container
+    @media (min-width 1310px)
+      width 1280px
   // transition all .3s
   &.is-active
     opacity 1
@@ -221,16 +234,38 @@
   .social-list 
     vertical-align bottom
     li
-      margin 0 4px
+      margin 4px
     a
-      width 30px
-      height 30px
+      width 40px
+      height 40px
       border 2px solid
-      line-height 25px
-      font-size 15px
+      line-height 35px
+      font-size 20px
+      @media (max-width 1310px)
+        width 35px
+        height 35px
+        line-height 30px
+        font-size 18px
+      @media (max-width 1199px)
+        width 32px
+        height 32px
+        line-height 27px
+        font-size 17px
+      @media (max-width 480px)
+        width 30px
+        height 30px
+        line-height 25px
+        font-size 15px
       &:hover
         color #fff
         background rgba(#fff, .2)
+      .fa
+        line-height inherit
+  .col-lg-9
+    @media screen and (max-width 1199px)
+      padding-left 0
+    @media screen and (max-width 767px)
+      padding-left 15px
   .col-lg
     padding-top 10px
     padding-bottom 10px

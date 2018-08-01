@@ -9,11 +9,11 @@
         <input type="hidden" name="reset-token" value="{{ $resetToken }}"/>
 
         <div class="form-group">
-            <input id="signup_pwd" class="input-field" type="password" name="password" placeholder="Password" autocomplete="off">
+            <input id="signup_pwd" class="input-field" name="password" placeholder="Password" type="password">
         </div>
 
         <div class="form-group">
-            <input id="signup_cnf_pwd" class="input-field" type="password" name="confirm-password" placeholder="Confirm Password" autocomplete="off">
+            <input id="signup_cnf_pwd" class="input-field" name="password_confirmation" placeholder="Confirm Password" type="password">
         </div>
 
         <div class="form-group">

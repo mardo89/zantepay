@@ -2,8 +2,7 @@
 
 @section('main-menu')
     <li><a href="profile">Profile</a></li>
-    <li><a href="profile-settings">Profile Settings</a></li>
-    <li><a href="invite-friend">Refer a Friend</a></li>
+    <li><a href="profile-settings">Verify Account</a></li>
     <li class="current-menu-item"><a href="wallet">Wallet</a></li>
     <li><a href="debit-card">ZANTEPAY Debit Card</a></li>
 @endsection
@@ -14,135 +13,58 @@
         <div id="particles-js" class="particles-js-black"></div>
         <div class="container">
             <div class="panel">
-                <div class="mb-20">
-                    <h2 class="h4 headline-mb">Buy ZNX tokens now:</h2>
-                    <div class="row row-middle rate-calculator">
-                        <div class="col col-md-3 col-lg-auto">
-                            <div class="form-group text-regular">You will get</div>
-                        </div>
-                        <div class="col-lg-4 col-md-9">
-                            <div class="input-group form-group">
-                                <label for="field10">ZNX tokens</label>
-                                <input class="input-field" type="text" name="znx_amount" id="field10" placeholder="Enter amount">
-                            </div>
-                        </div>
-                        <div class="col col-md-3 col-lg-auto">
-                            <div class="form-group text-regular">For</div>
-                        </div>
-                        <div class="col-lg-4 col-md-9">
-                            <div class="input-group form-group">
-                                <label for="field11">ETH</label>
-                                <input class="input-field" type="text" name="eth_amount" id="field11" placeholder="Enter amount">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="mb-20 text-regular">Your personal Ethereum address to fund this account:</div>
-                    <div class="row row-middle wallet">
-                        @if ($gettingAddress)
-                            <div class="col col-md-3">
-                                <a href="" class="btn btn--shadowed-light btn--medium mt-sm-15 is-loading" disabled>
-                                    Create Address
-                                    <div class="spinner spinner--30">
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col col-md-12 mt-20 primary-color text-sm address-warning">
-                                Your request is pending. Please refresh the page to see the result.
-                            </div>
-                        @elseif($wallet->eth_wallet)
-                            <div class="col col-sm-auto text-lg wordwrap address">{{ $wallet->eth_wallet }}</div>
-
-                            <div class="col col-md-3">
-                                <a id="copy-address" href="" class="btn btn--shadowed-light btn--medium btn--130 mt-sm-15">Copy</a>
-                            </div>
-                        @else
-                            <div class="col col-md-3">
-                                <a href="" class="btn btn--shadowed-light btn--medium mt-sm-15 create-address">Create Address</a>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-xl-6">
-                    <div class="panel">
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="dashboard-group">
                             <h2 class="h4 headline-mb">Wallet:</h2>
                             <div class="table-responsive-500">
                                 <table class="table-transparent table-3-cols">
                                     <thead>
                                     <tr>
-                                        <th>ICO ZNX</th>
-                                        <th>Card pre-order bonuses</th>
-                                        <th>Card referral bonus</th>
+                                        <th>Symbol</th>
+                                        <th>Currency</th>
+                                        <th>Balance</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
+                                        <td><img src="/images/zpay-logo.png" srcset="/images/zpay-logo@2x.png 2x" alt="zpay"></td>
+                                        <td>ZPAY</td>
                                         <td>{{ $wallet->znx_amount }}</td>
-                                        <td>{{ $wallet->debit_card_bonus }}</td>
-                                        <td>{{ $wallet->referral_bonus }}</td>
+                                        {{-- <td>{{ $wallet->debit_card_bonus }}</td> --}}
+                                        {{-- <td>{{ $wallet->referral_bonus }}</td> --}}
                                     </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="h4 headline-mb">Refer a friend for a 20% commission:</h2>
-                            <div class="row row-middle">
-                                <div class="col-md-2">
-                                    <label for="field3" class="field-label">Referral link:</label>
-                                </div>
-                                <div class="col-lg-6 col-md-5">
-                                    <div class="field-group">
-                                        <input class="input-field" type="text" name="referral" id="field3" value="{{ $referralLink }}"
-                                               readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-5">
-                                    <button id="copy-link" type="button" class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
-                                        Copy Link
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-xl-6">
-                    <div class="panel">
-                        <div class="dashboard-group">
-                            <h2 class="h4 headline-mb">ZANTECOIN (ZNX) price:</h2>
+                    <div class="col-md-6">
+                        <div class="mb-10">
+                            <h2 class="h4 headline-mb">ZPAY price:</h2>
                             <div class="table-responsive-500">
                                 <table class="table-black table-3-cols">
                                     <thead>
-                                    <tr>
-                                        <th>Cryptocurrency</th>
-                                        <th>Coin</th>
-                                        <th>Price</th>
-                                    </tr>
+                                        <tr>
+                                            <th>Currency</th>
+                                            <th>Price</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="col-left">Ethereum</td>
-                                        <td>ETH</td>
-                                        <td>{{ $ico['znx_rate'] }}</td>
-                                    </tr>
+                                        <tr>
+                                            <td class="col-left">ETH</td>
+                                            <td>{{ $ico['eth_rate'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-left">EUR</td>
+                                            <td>{{ $ico['euro_rate'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-left">USD</td>
+                                            <td>{{ $ico['usd_rate'] }}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                        <div>
-                            <h2 class="h4 mb-20">{{ $ico['part_name'] }} ends in:</h2>
-                            <div class="countdown">
-                                <span class="js-countdown" data-date="{{ $ico['end_date'] }}"></span>
                             </div>
                         </div>
                     </div>
@@ -155,7 +77,7 @@
 
                 <div class="row">
                     <div class="col-lg-6 mb-md-30">
-                        <h2 class="h4 headline-mb">Transfer ETH to ZNX:</h2>
+                        <h2 class="h4 headline-mb">Transfer ETH to ZPAY:</h2>
                         <div class="row row-middle mt-40">
                             <div class="col-lg-2 col-md-3">
                                 <div class="form-group text-regular"><label for="field14">Amount:</label></div>
@@ -266,7 +188,7 @@
                     <div class="form-group">
                         <label class="field-label" for="field9">Receive:</label>
                         <input class="input-field" type="text" name="ZNX" id="field9">
-                        <span class="sub-field-label">ZNX</span>
+                        <span class="sub-field-label">ZPAY</span>
                     </div>
                 </div>
             </div>
@@ -300,7 +222,7 @@
                     <div class="form-group">
                         <label class="field-label" for="field11">Receive:</label>
                         <input class="input-field" type="text" name="ZNX" id="field11">
-                        <span class="sub-field-label">ZNX</span>
+                        <span class="sub-field-label">ZPAY</span>
                     </div>
                 </div>
             </div>
@@ -326,7 +248,7 @@
             <h3 class="h4">TRANSFERED!</h3>
             <div class="logon-modal-text">
                 <p>
-                    <span id="znx_balance"> </span> ZNX successfully transferred!
+                    <span id="znx_balance"> </span> ZPAY successfully transferred!
                 </p>
             </div>
         </div>
@@ -337,7 +259,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">TRANSFERED!</h3>
             <div class="logon-modal-text">
-                <p>You have successfully submitted a withdraw request!</p>
+                <p>You have successfully submitted a withdrawal request!</p>
             </div>
         </div>
     </div>
@@ -389,6 +311,12 @@
                     <div class="checkbox">
                         <input type="checkbox" name="tc_item" id="check15"><label for="check15">Citizens and residents from the US, South
                             Korea and China are not allowed to contribute during the ICO.</label>
+                    </div>
+                </div>
+
+                <div class="logon-group text-left">
+                    <div class="checkbox">
+                        <input type="checkbox" name="to_newsletters" id="check16"><label for="check16">I agree to receive emails/notifications from ZANTEPAY</label>
                     </div>
                 </div>
 

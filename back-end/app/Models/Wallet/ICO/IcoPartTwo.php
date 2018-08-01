@@ -13,7 +13,7 @@ class IcoPartTwo extends IcoPart
 
     protected $icoEndDate = '15.05.2018 19:00:00';
 
-    protected $icoZnxLimit = 70000000;
+    protected $icoZnxLimit = 5000000;
 
     protected $icoZnxAmount = 0;
 

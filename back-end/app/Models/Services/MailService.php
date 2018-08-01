@@ -65,6 +65,34 @@ class MailService
             'name' => 'Check Contributions Alert',
             'mailClass' => 'CheckContributionMail'
         ],
+        MailEvent::EVENT_TYPE_PROTECT_ACTION => [
+            'name' => 'Protect Action',
+            'mailClass' => 'ProtectAction'
+        ],
+        MailEvent::EVENT_TYPE_TOKEN_ADD => [
+            'name' => 'Token Add',
+            'mailClass' => 'TokenAdd'
+        ],
+        MailEvent::EVENT_TYPE_TOKEN_SALE => [
+            'name' => 'Token Sale',
+            'mailClass' => 'TokenSale'
+        ],
+        MailEvent::EVENT_TYPE_CLOSE_ACCOUNT => [
+            'name' => 'Close Account Admin',
+            'mailClass' => 'CloseAccountAdmin'
+        ],
+        MailEvent::EVENT_TYPE_ACCOUNT_APPROVED => [
+            'name' => 'Account Approved',
+            'mailClass' => 'AccountApproved'
+        ],
+        MailEvent::EVENT_TYPE_ACCOUNT_NOT_APPROVED => [
+            'name' => 'Account Not Approved',
+            'mailClass' => 'AccountNotApproved'
+        ],
+        MailEvent::EVENT_TYPE_ACCOUNT_VERIFICATION_ADMIN => [
+            'name' => 'Account Verification Admin',
+            'mailClass' => 'AccountVerificationAdmin'
+        ],
     ];
 
     /**
@@ -308,6 +336,125 @@ class MailService
         $to = env('SERVICE_EMAIL');
         $data = [
             'contributions' => $contributionsList
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Protect Action email
+     *
+     * @param string $email
+     * @param string $signature
+     * @param string $action
+     */
+    public static function sendProtectActionEmail($email, $signature, $action)
+    {
+        $event = MailEvent::EVENT_TYPE_PROTECT_ACTION;
+        $to = $email;
+        $data = [
+            'signature' => $signature,
+            'action' => $action,
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Token Add email
+     *
+     * @param string $email
+     * @param string $znxAmount
+     */
+    public static function sendTokenAddEmail($email, $znxAmount)
+    {
+        $event = MailEvent::EVENT_TYPE_TOKEN_ADD;
+        $to = $email;
+        $data = [
+            'znxAmount' => $znxAmount,
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Token Sale email
+     *
+     * @param string $email
+     * @param string $znxAmount
+     * @param string $ethAmount
+     */
+    public static function sendTokenSaleEmail($email, $znxAmount, $ethAmount)
+    {
+        $event = MailEvent::EVENT_TYPE_TOKEN_SALE;
+        $to = $email;
+        $data = [
+            'znxAmount' => $znxAmount,
+            'ethAmount' => $ethAmount,
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Close Account email
+     *
+     * @param string $email
+     */
+    public static function sendCloseAccountAdminEmail($email)
+    {
+        $event = MailEvent::EVENT_TYPE_CLOSE_ACCOUNT;
+        $to = env('CONTACT_EMAIL');
+        $data = [
+            'email' => $email,
+        ];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Account Approved email
+     *
+     * @param string $email
+     */
+    public static function sendAccountApprovedEmail($email)
+    {
+        $event = MailEvent::EVENT_TYPE_ACCOUNT_APPROVED;
+        $to = $email;
+        $data = [];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Account Not Approved email
+     *
+     * @param string $email
+     */
+    public static function sendAccountNotApprovedEmail($email)
+    {
+        $event = MailEvent::EVENT_TYPE_ACCOUNT_NOT_APPROVED;
+        $to = $email;
+        $data = [];
+
+        self::send($event, $to, $data);
+    }
+
+    /**
+     * Send Account Not Approved email
+     *
+     * @param string $status
+     * @param array $response
+     * @param string $error
+     */
+    public static function sendAccountVerificationAdminEmail($status, $response, $error)
+    {
+        $event = MailEvent::EVENT_TYPE_ACCOUNT_VERIFICATION_ADMIN;
+        $to = env('CONTACT_EMAIL');
+        $data = [
+            'status' => $status,
+            'response' => $response,
+            'error' => $error,
         ];
 
         self::send($event, $to, $data);

@@ -7,6 +7,52 @@ const resetForms = () => {
 
 }
 
+const initVerify = () => {
+
+    const veriff = Veriff({
+        apiKey: '09928dac-7bea-4413-9ade-79fdd5145d01',
+        parentId: 'verify-user',
+        onSession: function(err, response) {
+            if (response.status === 'success' && response.verification !== undefined) {
+
+                const session = {
+                    'session_id': response.verification.id
+                }
+
+                const verificationUrl = response.verification.url;
+
+                axios.post(
+                    '/user/verify',
+                    qs.stringify(session)
+                )
+                    .then(
+                        () => {
+                            location.replace(verificationUrl);
+                        }
+                    )
+                    .catch(
+                        error => {
+                            const {message} = error.response.data;
+
+                            showError(message);
+                        }
+                    )
+
+            } else {
+                showError('Verification failed')
+            }
+
+        }
+    });
+
+    veriff.mount({
+        formLabel: {
+            givenName: 'First Name',
+            lastName: 'Last Name'
+        }
+    });
+}
+
 $(document).ready(function () {
 
     $('.remove-document').on('click', function (event) {
@@ -226,32 +272,44 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
-        const password = {
-            'current-password': $(this).find('input[name="current-password"]').val(),
-            'password': $(this).find('input[name="password"]').val(),
-            'password_confirmation': $(this).find('input[name="confirm-password"]').val(),
-        }
-
+        const password = processProtectionRequest(
+            'Change Password',
+            {
+                'current-password': $(this).find('input[name="current-password"]').val(),
+                'password': $(this).find('input[name="password"]').val(),
+                'password_confirmation': $(this).find('input[name="password_confirmation"]').val(),
+            }
+        );
 
         axios.post(
             '/user/profile-settings/change-password',
             qs.stringify(password)
         )
             .then(
-                () => {
+                response => {
+
                     hideSpinner(button);
 
-                    $('#change-password input[type="password"]').val('');
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('submit');
+                        },
+                        () => {
+                            $('#change-password input[type="password"]').val('');
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#change-password-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#change-password-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true
+                                }
+                            );
                         }
                     );
+
                 }
             )
             .catch(
@@ -291,10 +349,13 @@ $(document).ready(function () {
             return false;
         }
 
-        const wallet = {
-            'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
-            'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val(),
-        }
+        const wallet = processProtectionRequest(
+            'Change Wallet Address',
+            {
+                'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
+                'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val(),
+            }
+        );
 
         const button = $(this);
         showSpinner(button);
@@ -305,20 +366,30 @@ $(document).ready(function () {
             qs.stringify(wallet)
         )
             .then(
-                () => {
+                response => {
+
                     hideSpinner(button);
 
-                    $(this).parents('.wallet-address-group').find('.owner-confirm').prop('checked', false);
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $(this).parents('.wallet-address-group').find('.owner-confirm').prop('checked', false);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#wallet-address-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#wallet-address-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true
+                                }
+                            );
                         }
                     );
+
                 }
             )
             .catch(
@@ -398,6 +469,18 @@ $(document).ready(function () {
 
     $('#address-files, #document-files').trigger('change');
 
+    $('body').on('submit', 'form[name="veriff-form"]',function(event) {
+
+        const button = $(this).find('input[type="submit"]');
+        button.hide();
+        button.after(
+            $('<button />').addClass('btn btn--shadowed-light btn--medium').attr('id', 'veriff-loader').text('Start Verification')
+        );
+
+        showSpinner($('#veriff-loader'))
+    });
+
+    initVerify();
 });
 
 

@@ -5,24 +5,43 @@
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Spend Bitcoin, Litecoin, Ethereum and Zantecoin in real life with just one card!">
+    <meta name="description" content="Spend Bitcoin, Litecoin, Ethereum and ZPAY in real life with just one card!">
 
     <title>ZANTEPAY - Bringing cryptocurrency to the mainstream</title>
 
     <!-- Social Networks  Open Graph -->
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:title" content="ZANTEPAY"/>
-    <meta name="twitter:description" content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
+    <meta name="twitter:description"
+          content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
     <meta name="twitter:image" content="{{ asset('images/fb_share.jpg') }}"/>
 
     <meta property="og:url" content="{{ asset('/') }}"/>
     <meta property="og:title" content="ZANTEPAY"/>
-    <meta property="og:description" content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
+    <meta property="og:description"
+          content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
     <meta property="og:image" content="{{ asset('images/fb_share.jpg') }}"/>
     <!-- End Open Graph -->
 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
     <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/main.css">
@@ -30,7 +49,8 @@
 <body>
 
 <!--[if lt IE 10]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a>
     to improve your experience.</p>
 <![endif]-->
 
@@ -41,7 +61,7 @@
             <div class="masthead__row">
                 <div class="masthead__left">
                     <a href="/" class="logo" title="ZANTEPAY">
-                        <img src="images/logo-large.png" alt="ZANTEPAY Logo">
+                        <img src="/images/logo-large.png" alt="ZANTEPAY Logo">
                     </a>
                 </div>
 
@@ -56,91 +76,59 @@
                     <nav class="navigation">
                         <ul>
                             <li class="m-dropdown">
-                                <a href="javascript:void(0);">Whitepaper</a>
+                                <a href="javascript:void();">Whitepaper</a>
                                 <ul>
-                                    <li>
+                                    <li class="m-dropdown">
                                         <a href="{{ asset('storage/Zantepay_Whitepaper.pdf') }}"
                                            onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper');">English
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="m-dropdown">
                                         <a href="{{ asset('storage/Zantepay_Whitepaper_Russian.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Russian');">Russian
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Chinese.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Chinese');">Chinese
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Japanese.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Japanese');">Japanese
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Korean.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Korean');">Korean
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Arabic.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Arabic');">Arabic
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_French.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper French');">French
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_German.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper German');">German
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Spanish.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Spanish');">Spanish
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('storage/Zantepay_Whitepaper_Portuguese.pdf') }}"
-                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper Portuguese');">Portuguese
+                                           onclick="ga('send',  'event',  'button', 'onclick', 'whitepaper russian');">Russian
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-
                             <li>
                                 <a href="{{$menuPrefix}}#ico">ICO</a>
                             </li>
 
-                            <!-- <li><a href="">Bounty</a></li> -->
+                            <li>
+                                <a href="/bounty">Bounty</a>
+                            </li>
 
                             <li>
                                 <a href="{{$menuPrefix}}#team">Team</a>
                             </li>
-
-                            <!-- <li>
-                                <a href="">Development</a>
-                                <ul>
-                                    <li><a href="">Wallet Beta</a></li>
-                                    <li><a href="">App Beta</a></li>
-                                    <li><a href="">Development roadmap</a></li>
-                                </ul>
-                            </li> -->
-
+                            <li>
+                                <a href="{{$menuPrefix}}#updates">Updates</a>
+                            </li>
+                            <li>
+                                <a href="{{$menuPrefix}}#channels">Channels</a>
+                            </li>
                             <li>
                                 <a href="/faq">FAQ</a>
                             </li>
+                            <li class="m-dropdown">
+                                <a href="javascript:void();">Development</a>
+                                <ul>
+                                    <!-- <li><a href="">Wallet Beta</a></li> -->
+                                    <li><a href="/mobile-app">ZANTEPAY Wallet alfa</a></li>
+                                    <!-- <li><a href="">Development roadmap</a></li> -->
+                                </ul>
+                            </li>
+                            <li><a href="{{$menuPrefix}}#contacts">Contacts</a></li>
                         </ul>
                     </nav>
 
                     <div class="masthead__right">
                         @guest
                             <div class="logon-btns">
-                                <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Log In</a>
-                                <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign Up</a>
+                                <a href="#sign-in-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Log
+                                    In</a>
+                                <a href="#sign-up-modal" class="js-popup-link btn btn--small btn--shadowed-dark">Sign
+                                    Up</a>
                             </div>
                         @endguest
 
@@ -177,9 +165,16 @@
                 <div class="logon-group">
                     <input id="signin_email" class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
+
                 <div class="logon-group">
-                    <input id="signin_pwd" class="logon-field" type="password" name="password" placeholder="Password" autocomplete="off">
+                    <input id="signin_pwd" class="logon-field" name="password" placeholder="Password" type="password">
                 </div>
+
+                <div class="logon-group">
+                    <div id="sign-in-recaptcha" class="form-recaptcha"></div>
+                    <input name="captcha" type="hidden">
+                </div>
+
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign In">
                 </div>
@@ -197,13 +192,22 @@
         <div class="logon-modal-container">
             <h3 class="h4">Forgot Password?</h3><br>
             <form id="frm_forgot_password">
+
                 <div class="logon-group">
                     <input class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
+
+                <div class="logon-group">
+                    <div id="reset-password-recaptcha" class="form-recaptcha"></div>
+                    <input name="captcha" type="hidden">
+                </div>
+
                 <div class="logon-submit mt-35">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Reset Password">
                 </div>
+
                 <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
+
             </form>
         </div>
     </div>
@@ -213,7 +217,8 @@
         <div class="logon-modal-container">
             <h3 class="h4">RIGHT ON!</h3>
             <div class="logon-modal-text">
-                <p>By now you should have received an email from us. To reset your account password please click the link in the email.</p>
+                <p>By now you should have received an email from us. To reset your account password please click the
+                    link in the email.</p>
             </div>
         </div>
     </div>
@@ -232,15 +237,25 @@
                 <div class="logon-group">
                     <input class="logon-field" type="email" name="email" placeholder="Email">
                 </div>
+
                 <div class="logon-group">
-                    <input class="logon-field" type="password" name="password" placeholder="Password" autocomplete="off">
+                    <input class="logon-field" name="password" placeholder="Password" type="password">
                 </div>
+
                 <div class="logon-group">
-                    <input class="logon-field" type="password" name="confirm-password" placeholder="Confirm Password" autocomplete="off">
+                    <input class="logon-field" name="password_confirmation" placeholder="Confirm Password"
+                           type="password">
                 </div>
+
+                <div class="logon-group">
+                    <div id="sign-up-recaptcha" class="form-recaptcha"></div>
+                    <input name="captcha" type="hidden">
+                </div>
+
                 <div class="logon-submit">
                     <input class="btn btn--shadowed-light btn--260" type="submit" value="Sign Up">
                 </div>
+
                 <a href="#sign-in-modal" class="js-popup-link logon-link">Sign In</a>
             </form>
 
@@ -252,11 +267,24 @@
         <div class="logon-modal-container">
             <h3 class="h4">RIGHT ON!</h3>
             <div class="logon-modal-text">
-                <p>Thank you for registering with ZANTEPAY. By now you should have received a confirmation email from us. To activate your
+                <p>Thank you for registering with ZANTEPAY. By now you should have received a confirmation email from
+                    us. To activate your
                     account please click the link in the email.</p>
             </div>
 
             <a href="" id="resend-registration-email" class="btn btn--shadowed-light btn--260">Resend Email</a>
+        </div>
+    </div>
+
+    <!-- join our newsletter -->
+    <div class="logon-modal logon-modal--400 mfp-hide" id="newsletter-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4 text-uppercase">Join our newsletter</h3>
+            <div class="logon-modal-text">
+                <p>Join ZANTEPAY newsletter and get a chance to win 300 EUR worth of ZPAY every week!</p>
+                <p class="primary-color" style="font-size: 60px;line-height: 1;margin: -25px 0 30px;"><b>€ 300</b></p>
+            </div>
+            <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://app.mailjet.com/widget/iframe/2gIc/77A" width="100%" height="auto"></iframe>
         </div>
     </div>
 
@@ -265,10 +293,19 @@
 
 <!-- JS scripts -->
 <script src="/js/main.js" type="text/javascript"></script>
+<script src="/js/mobile_app.js"></script>
 <script src="/js/components/particles.min.js"></script>
 <script src="/js/components/jquery.magnific-popup.min.js"></script>
 <script src="/js/components/circle-progress.min.js"></script>
 <script src="/js/components/jquery.countdown.min.js"></script>
+
+<!-- Additional scripts -->
+@yield('scripts')
+
+
+
+
+
 
 <!-- Jivosite -->
 <script type='text/javascript'>
@@ -303,20 +340,7 @@
 {{--async="async"></script>--}}
 
 <!-- Useproof -->
-<script id=proof-script>!function () {
-        function b() {
-            var a = (new Date).getTime(), b = document.createElement('script');
-            b.type = 'text/javascript', b.async = !0, b.src = 'https://cdn.getmoreproof.com/embed/latest/proof.js?' + a;
-            var c = document.getElementsByTagName('script')[0];
-            c.parentNode.insertBefore(b, c)
-        }
-
-        var a = window;
-        a.attachEvent ? a.attachEvent('onload', b) : a.addEventListener('load', b, !1), window.proof_config = {
-            acc: 'zUljMP8UW6TQiskC506GpuxFCSv2',
-            v: '1.1'
-        }
-    }()</script>
+<script src='https://cdn.useproof.com/proof.js?acc=zUljMP8UW6TQiskC506GpuxFCSv2' async></script>
 
 <!-- McAfee Kibo -->
 <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
@@ -330,7 +354,9 @@
     }
 
     gtag('js', new Date());
-    gtag('config', 'UA-110056018-1');</script>
+    gtag('config', 'UA-110056018-1');
+</script>
+
 
 </body>
 </html>

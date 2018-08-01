@@ -25,7 +25,7 @@ $(document).ready(function () {
 
         // sort
         let sortIndex = 0;
-        let sortOrder = 'asc';
+        let sortOrder = 'desc';
 
         if ($('.sort.sort-asc').length) {
             sortIndex = $('.sort.sort-asc').index();
@@ -191,7 +191,6 @@ $(document).ready(function () {
         $('#search_mail_events_frm').trigger('submit');
     });
 
-
     $('#events-list').on('click', '.resend-email',function(e) {
         e.preventDefault();
 
@@ -225,6 +224,7 @@ $(document).ready(function () {
             )
 
     });
+
 });
 
 

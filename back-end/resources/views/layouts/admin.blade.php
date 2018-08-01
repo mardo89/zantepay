@@ -8,8 +8,25 @@
 
     <title>ZANTEPAY</title>
 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
     <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/main.css">
@@ -85,6 +102,31 @@
     </div>
 </div>
 
+<!-- Protection modal -->
+<div class="logon-modal logon-modal--560 mfp-hide" id="protection-modal">
+    <div class="logon-modal-container">
+        <h3 class="h4" id="confirmation-message"></h3>
+        <div class="row justify-content-center">
+
+            <form id="frm_protection">
+
+                <div class="logon-modal-text">
+                    <p>Please use the secret token from your email to confirm this operation.</p>
+                </div>
+
+                <div class="logon-group">
+                    <input class="logon-field" type="text" name="signature" placeholder="Secret Key">
+                </div>
+
+                <div class="logon-submit">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Confirm">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
 <!-- JS scripts -->
@@ -93,7 +135,6 @@
 <script src="/js/components/datepicker.js"></script>
 
 @yield('scripts')
-
 
 </body>
 

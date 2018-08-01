@@ -84,7 +84,7 @@ window.showConfirmation = (confirmationMessage, onAccept, onReject) => {
                 elementParse: function (item) {
                     $(item.src).find('#confirmation-message').text(confirmationMessage);
 
-                    $(item.src).find('#accept_action').on('click', function (e) {
+                    $(item.src).find('#accept_action').off('click').on('click', function (e) {
                         e.preventDefault();
 
                         $.magnificPopup.close();
@@ -94,7 +94,7 @@ window.showConfirmation = (confirmationMessage, onAccept, onReject) => {
                         }
                     });
 
-                    $(item.src).find('#reject_action').on('click', function (e) {
+                    $(item.src).find('#reject_action').off('click').on('click', function (e) {
                         e.preventDefault();
 
                         $.magnificPopup.close();
@@ -140,5 +140,79 @@ window.showPopover = popoverContent => {
         },
         5000
     );
+
+}
+
+// Show Protection dialog
+window.showProtectionDialog = onSubscribe => {
+
+    $.magnificPopup.open(
+        {
+            items: {
+                src: '#protection-modal'
+            },
+            type: 'inline',
+            showCloseBtn: true,
+            closeOnBgClick: true,
+            callbacks: {
+                elementParse: function (item) {
+                    $(item.src).find('#frm_protection').find('input[name="signature"]').val('');
+
+                    $(item.src).find('#frm_protection').off('submit').on('submit', function (e) {
+                        e.preventDefault();
+
+                        sessionStorage.setItem('signature', $(this).find('input[name="signature"]').val());
+
+                        $.magnificPopup.close();
+
+                        onSubscribe();
+
+                    });
+                }
+            }
+        }
+    );
+
+}
+
+// Check protection status
+window.processProtectionRequest = (action, requestParams) => {
+    const signature = sessionStorage.getItem('signature');
+    sessionStorage.removeItem('signature');
+
+    if (!signature) {
+        const action_timestamp = (new Date()).valueOf();
+        sessionStorage.setItem('action_timestamp', action_timestamp);
+
+        return {
+            ...requestParams,
+            action: action,
+            action_timestamp: action_timestamp
+        }
+    }
+
+    return {
+        ...requestParams,
+        action_timestamp: sessionStorage.getItem('action_timestamp'),
+        signature: signature
+    }
+}
+
+// Check protection status
+window.processProtectionResponse = (responseStatus, processWithProtection, processWithoutProtection) => {
+
+    if (responseStatus == 205) {
+
+        if (typeof processWithProtection === 'function') {
+            showProtectionDialog(processWithProtection);
+        }
+
+    } else {
+
+        if (typeof processWithoutProtection === 'function') {
+            processWithoutProtection();
+        }
+
+    }
 
 }

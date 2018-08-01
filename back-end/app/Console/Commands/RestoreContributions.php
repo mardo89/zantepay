@@ -116,7 +116,7 @@ class RestoreContributions extends Command
 
             // add contributions to the DB
             foreach ($contributions['contributions'] as $contribution) {
-                $contribution = Contribution::create(
+                $contributionInfo = Contribution::create(
                     [
                         'operation_id' => $contribution->operationId,
                         'proxy' => $contribution->proxy,
@@ -125,11 +125,11 @@ class RestoreContributions extends Command
                     ]
                 );
 
-                $ethAmount = RateCalculator::weiToEth($contribution->amount);
+                $ethAmount = RateCalculator::weiToEth($contributionInfo->amount);
 
-                $znxAmountParts = RateCalculator::ethToZnx($ethAmount, $contribution->timestamp, $ico);
+                $znxAmountParts = RateCalculator::ethToZnx($ethAmount, $contributionInfo->time_stamp, $ico);
 
-                $userWallet = Wallet::where('eth_wallet', $contribution->proxy)->first();
+                $userWallet = Wallet::where('eth_wallet', $contributionInfo->proxy)->first();
 
                 if (!is_null($userWallet)) {
 
@@ -139,7 +139,7 @@ class RestoreContributions extends Command
                                 'user_id' => $userWallet->user->id,
                                 'amount' => $znxAmountPart['amount'],
                                 'ico_part' => $znxAmountPart['icoPart'],
-                                'contribution_id' => $contribution->id,
+                                'contribution_id' => $contributionInfo->id,
                                 'transaction_type' => ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX
                             ]
                         );
@@ -149,16 +149,16 @@ class RestoreContributions extends Command
                 }
             }
 
-            // Save information about contribution operation
-            ContributionAction::create(
-                [
-                    'contributions_found' => count($contributions['contributions']),
-                    'action_type' => ContributionAction::ACTION_TYPE_RESTORE,
-                    'continuation_token' => $continuationToken,
-                ]
-            );
-
         }
+
+        // Save information about contribution operation
+        ContributionAction::create(
+            [
+                'contributions_found' => count($contributions['contributions']),
+                'action_type' => ContributionAction::ACTION_TYPE_RESTORE,
+                'continuation_token' => $continuationToken,
+            ]
+        );
 
         $this->info('done!');
         $this->info('');

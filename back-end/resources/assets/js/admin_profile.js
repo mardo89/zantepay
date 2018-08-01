@@ -1,5 +1,65 @@
 require('./helpers');
 
+const processUserDelete = deleteButton => {
+
+    const button = deleteButton;
+    showSpinner(button);
+    clearErrors();
+
+    const userInfo = processProtectionRequest(
+        'Delete User',
+        {
+            'uid': $('#user-profile-id').val(),
+        }
+    )
+
+
+    axios.post(
+        '/admin/profile/remove',
+        qs.stringify(userInfo)
+    )
+        .then(
+            response => {
+                hideSpinner(button);
+
+                processProtectionResponse(
+                    response.status,
+                    () => {
+                        processUserDelete(deleteButton);
+                    },
+                    () => {
+                        $.magnificPopup.open(
+                            {
+                                items: {
+                                    src: '#remove-profile-modal'
+                                },
+                                type: 'inline',
+                                closeOnBgClick: true,
+                                callbacks: {
+                                    close: function () {
+                                        window.location = '/admin/users'
+                                    }
+                                }
+                            }
+                        );
+                    }
+                );
+
+            }
+        )
+        .catch(
+            error => {
+                hideSpinner(button);
+
+                const {message} = error.response.data;
+
+                showError(message)
+            }
+        )
+
+}
+
+
 $(document).ready(function () {
 
     // Change user role
@@ -8,26 +68,40 @@ $(document).ready(function () {
 
         clearErrors();
 
-        const userInfo = {
-            'uid': $('#user-profile-id').val(),
-            'role': $(this).val(),
-        }
+        const userInfo = processProtectionRequest(
+            'Change User Role',
+            {
+                'uid': $('#user-profile-id').val(),
+                'role': $(this).val(),
+            }
+        );
+
 
         axios.post(
             '/admin/profile',
             qs.stringify(userInfo)
         )
             .then(
-                () => {
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#save-profile-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
+                response => {
+
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('change');
+                        },
+                        () => {
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#save-profile-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true
+                                }
+                            );
                         }
                     );
+
                 }
             )
             .catch(
@@ -61,176 +135,136 @@ $(document).ready(function () {
         event.preventDefault();
 
         showConfirmation(
-            'Are you sure do you want to delete this user?',
+            'Are you sure you want to delete this user?',
             () => {
-                const button = $(this);
-                showSpinner(button);
-                clearErrors();
-
-                const userInfo = {
-                    'uid': $('#user-profile-id').val(),
-                }
-
-                axios.post(
-                    '/admin/profile/remove',
-                    qs.stringify(userInfo)
-                )
-                    .then(
-                        () => {
-                            hideSpinner(button);
-
-                            $.magnificPopup.open(
-                                {
-                                    items: {
-                                        src: '#remove-profile-modal'
-                                    },
-                                    type: 'inline',
-                                    closeOnBgClick: true,
-                                    callbacks: {
-                                        close: function () {
-                                            window.location = '/admin/users'
-                                        }
-                                    }
-                                }
-                            );
-                        }
-                    )
-                    .catch(
-                        error => {
-                            hideSpinner(button);
-
-                            const {message} = error.response.data;
-
-                            showError(message)
-                        }
-                    )
+                processUserDelete($(this));
             }
         );
 
     });
 
-    // Approve documents
-    $('.approve-documents').on('click', function (event) {
-        event.preventDefault();
-
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        const document = {
-            'uid': $('#user-profile-id').val(),
-            'type': $(this).parent().find('input[name="document-type"]').val(),
-        }
-
-        axios.post(
-            'document/approve',
-            qs.stringify(document)
-        )
-            .then(
-                response => {
-                    hideSpinner(button);
-
-                    let parentRow = $(this).parents('.row');
-
-                    parentRow.find('.document-actions').before(
-                        $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
-                    );
-
-                    parentRow.find('.document-actions').remove();
-                    parentRow.find('.document-reason').remove();
-
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#approve-documents-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
-                        }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {message} = error.response.data;
-
-                    showError(message)
-                }
-            )
-
-    });
-
-    // Decline documents
-    $('.decline-documents').on('click', function (event) {
-        event.preventDefault();
-
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        const document = {
-            'uid': $('#user-profile-id').val(),
-            'type': $(this).parent().find('input[name="document-type"]').val(),
-            'reason': $(this).parents('.row').find('input[name="decline-reason"]').val()
-        }
-
-        axios.post(
-            'document/decline',
-            qs.stringify(document)
-        )
-            .then(
-                response => {
-                    hideSpinner(button);
-
-                    let parentRow = $(this).parents('.row');
-
-                    parentRow.find('.document-actions').before(
-                        $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
-                    );
-
-                    parentRow.find('.document-actions').remove();
-                    parentRow.find('.document-reason').remove();
-
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#decline-documents-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
-                        }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {message, errors} = error.response.data;
-
-                    if (error.response.status == 422) {
-
-                        $.each(
-                            errors,
-                            (field, error) => {
-                                $(this).parents('.row').find('input[name="decline-reason"]').parent().addClass('form-error');
-                                $(this).parents('.row').find('input[name="decline-reason"]').after(
-                                    $('<span />').addClass('error-text').text(error)
-                                );
-                            }
-                        )
-
-                        scrollToError();
-
-                    } else {
-                        showError(message);
-                    }
-                }
-            )
-
-    });
+    // // Approve documents
+    // $('.approve-documents').on('click', function (event) {
+    //     event.preventDefault();
+    //
+    //     const button = $(this);
+    //     showSpinner(button);
+    //     clearErrors();
+    //
+    //     const document = {
+    //         'uid': $('#user-profile-id').val(),
+    //         'type': $(this).parent().find('input[name="document-type"]').val(),
+    //     }
+    //
+    //     axios.post(
+    //         'document/approve',
+    //         qs.stringify(document)
+    //     )
+    //         .then(
+    //             response => {
+    //                 hideSpinner(button);
+    //
+    //                 let parentRow = $(this).parents('.row');
+    //
+    //                 parentRow.find('.document-actions').before(
+    //                     $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
+    //                 );
+    //
+    //                 parentRow.find('.document-actions').remove();
+    //                 parentRow.find('.document-reason').remove();
+    //
+    //                 $.magnificPopup.open(
+    //                     {
+    //                         items: {
+    //                             src: '#approve-documents-modal'
+    //                         },
+    //                         type: 'inline',
+    //                         closeOnBgClick: true
+    //                     }
+    //                 );
+    //             }
+    //         )
+    //         .catch(
+    //             error => {
+    //                 hideSpinner(button);
+    //
+    //                 const {message} = error.response.data;
+    //
+    //                 showError(message)
+    //             }
+    //         )
+    //
+    // });
+    //
+    // // Decline documents
+    // $('.decline-documents').on('click', function (event) {
+    //     event.preventDefault();
+    //
+    //     const button = $(this);
+    //     showSpinner(button);
+    //     clearErrors();
+    //
+    //     const document = {
+    //         'uid': $('#user-profile-id').val(),
+    //         'type': $(this).parent().find('input[name="document-type"]').val(),
+    //         'reason': $(this).parents('.row').find('input[name="decline-reason"]').val()
+    //     }
+    //
+    //     axios.post(
+    //         'document/decline',
+    //         qs.stringify(document)
+    //     )
+    //         .then(
+    //             response => {
+    //                 hideSpinner(button);
+    //
+    //                 let parentRow = $(this).parents('.row');
+    //
+    //                 parentRow.find('.document-actions').before(
+    //                     $('<div />').addClass('col-md-3 col-sm-4 col-5 mb-20 document-status').html(response.data.status)
+    //                 );
+    //
+    //                 parentRow.find('.document-actions').remove();
+    //                 parentRow.find('.document-reason').remove();
+    //
+    //                 $.magnificPopup.open(
+    //                     {
+    //                         items: {
+    //                             src: '#decline-documents-modal'
+    //                         },
+    //                         type: 'inline',
+    //                         closeOnBgClick: true
+    //                     }
+    //                 );
+    //             }
+    //         )
+    //         .catch(
+    //             error => {
+    //                 hideSpinner(button);
+    //
+    //                 const {message, errors} = error.response.data;
+    //
+    //                 if (error.response.status == 422) {
+    //
+    //                     $.each(
+    //                         errors,
+    //                         (field, error) => {
+    //                             $(this).parents('.row').find('input[name="decline-reason"]').parent().addClass('form-error');
+    //                             $(this).parents('.row').find('input[name="decline-reason"]').after(
+    //                                 $('<span />').addClass('error-text').text(error)
+    //                             );
+    //                         }
+    //                     )
+    //
+    //                     scrollToError();
+    //
+    //                 } else {
+    //                     showError(message);
+    //                 }
+    //             }
+    //         )
+    //
+    // });
 
     // Add ZNX ammount
     $('#add-ico-znx').on('click', function (event) {
@@ -240,10 +274,13 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
-        const user = {
-            'uid': $('#user-profile-id').val(),
-            'amount': $('.ico-pool input[name="znx-amount"]').val(),
-        }
+        const user = processProtectionRequest(
+            'Add ZNX from ICO pool',
+            {
+                'uid': $('#user-profile-id').val(),
+                'amount': $('.ico-pool input[name="znx-amount"]').val(),
+            }
+        )
 
         axios.post(
             '/admin/wallet/add-ico-znx',
@@ -251,25 +288,35 @@ $(document).ready(function () {
         )
             .then(
                 response => {
+
                     hideSpinner(button);
 
-                    $('.ico-pool input[name="znx-amount"]').val('');
-                    $('#total-znx-amount').html(response.data.totalAmount);
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $('.ico-pool input[name="znx-amount"]').val('');
+                            $('#total-znx-amount').html(response.data.totalAmount);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#add-ico-znx-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                elementParse: function (item) {
-                                    $(item.src).find('.znx_added').text(user.amount);
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#add-ico-znx-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        elementParse: function (item) {
+                                            $(item.src).find('.znx_added').text(user.amount);
+                                        }
+                                    }
                                 }
-                            }
+                            );
                         }
                     );
+
                 }
             )
             .catch(
@@ -306,10 +353,13 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
-        const user = {
-            'uid': $('#user-profile-id').val(),
-            'amount': $('.foundation-pool input[name="znx-amount"]').val(),
-        }
+        const user = processProtectionRequest(
+            'Add ZNX from Foundation pool',
+            {
+                'uid': $('#user-profile-id').val(),
+                'amount': $('.foundation-pool input[name="znx-amount"]').val(),
+            }
+        );
 
         axios.post(
             '/admin/wallet/add-foundation-znx',
@@ -317,25 +367,35 @@ $(document).ready(function () {
         )
             .then(
                 response => {
+
                     hideSpinner(button);
 
-                    $('.foundation-pool input[name="znx-amount"]').val('');
-                    $('#total-znx-amount').html(response.data.totalAmount);
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $('.foundation-pool input[name="znx-amount"]').val('');
+                            $('#total-znx-amount').html(response.data.totalAmount);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#add-foundation-znx-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true,
-                            callbacks: {
-                                elementParse: function (item) {
-                                    $(item.src).find('.znx_added').text(user.amount);
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#add-foundation-znx-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true,
+                                    callbacks: {
+                                        elementParse: function (item) {
+                                            $(item.src).find('.znx_added').text(user.amount);
+                                        }
+                                    }
                                 }
-                            }
+                            );
                         }
                     );
+
                 }
             )
             .catch(
@@ -373,29 +433,42 @@ $(document).ready(function () {
         showSpinner(button);
         clearErrors();
 
-        const wallet = {
-            'uid': $('#user-profile-id').val(),
-            'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
-            'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val(),
-        }
+        const wallet = processProtectionRequest(
+            'Change user\'s wallet address',
+            {
+                'uid': $('#user-profile-id').val(),
+                'currency': $(this).parents('.wallet-address-group').find('input[name="wallet-currency"]').val(),
+                'address': $(this).parents('.wallet-address-group').find('input[name="wallet-address"]').val(),
+            }
+        )
 
         axios.post(
             '/admin/wallet',
             qs.stringify(wallet)
         )
             .then(
-                () => {
+                response => {
+
                     hideSpinner(button);
 
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#wallet-address-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
+                    processProtectionResponse(
+                        response.status,
+                        () => {
+                            $(this).trigger('click');
+                        },
+                        () => {
+                            $.magnificPopup.open(
+                                {
+                                    items: {
+                                        src: '#wallet-address-modal'
+                                    },
+                                    type: 'inline',
+                                    closeOnBgClick: true
+                                }
+                            );
                         }
                     );
+
                 }
             )
             .catch(

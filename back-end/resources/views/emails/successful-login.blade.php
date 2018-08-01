@@ -43,7 +43,7 @@
 <body style="margin: 0; padding: 0;">
 <center class="wrapper" style="width:100%;table-layout:fixed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
     <span class="preheader"
-          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Thanks for visiting ZANTEPAY! Per your request, we have successfully changed your password.</span>
+          style="display: none !important; visibility: hidden; opacity: 0; color: #fff; height: 0; width: 0; font-size: 1px;">Successful login from new IP. Hello! The system has detected that your account is logged in from an unused IP address.</span>
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;">
         <tr>
             <td align="center" bgcolor="#f0f0f0" style="background-color: #f0f0f0;">
@@ -241,24 +241,24 @@
                                     <tr>
                                         <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                             <!--[if mso]>
-                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="370">
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0" width="480">
                                                 <tr>
-                                                    <td align="center" valign="top" width="370">
+                                                    <td align="center" valign="top" width="480">
                                             <![endif]-->
                                             <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                   style="max-width:370px;">
+                                                   style="max-width:480px;">
                                                 <tr>
                                                     <td height="30" style="line-height:30px; font-size: 0;">&nbsp;</td>
                                                 </tr>
                                                 <tr>
                                                     <td align="center" height="100%" valign="top" width="100%" style="padding: 0;">
                                                         <!--[if mso]>
-                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="370">
+                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="480">
                                                             <tr>
-                                                                <td align="center" valign="top" width="370">
+                                                                <td align="center" valign="top" width="480">
                                                         <![endif]-->
                                                         <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
-                                                               style="max-width:370px;">
+                                                               style="max-width:480px;">
                                                             <tr>
                                                                 <td align="center" valign="top">
                                                                     <a href="https://www.zantepay.com" target="_blank" style="outline: none; border: 0;"><img 
@@ -267,7 +267,7 @@
                                                                                 alt="Website"></a>
                                                                 </td>
                                                                 <td align="center" valign="top">
-                                                                    <a href="http://telegram.me/zantepay" target="_blank" style="outline: none; border: 0;"><img 
+                                                                    <a href="https://t.me/zantepay_ico" target="_blank" style="outline: none; border: 0;"><img 
                                                                                 src="{{ url('/') . "/images/telegram-ico.png" }}" width="42" height="42" 
                                                                                 style="display:block;outline:0;border:0;width:42px;height:42px" 
                                                                                 alt="Telegram"></a>
@@ -301,6 +301,24 @@
                                                                                 src="{{ url('/') . "/images/reddit-ico.png" }}" width="42" height="42" 
                                                                                 style="display:block;outline:0;border:0;width:42px;height:42px" 
                                                                                 alt="Reddit"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="https://bitcointalk.org/index.php?topic=3338226" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/bitcointalk-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="Bitcointalk"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA" target="_blank" style="outline: none; border: 0;"><img 
+                                                                                src="{{ url('/') . "/images/youtube-ico.png" }}" width="42" height="42" 
+                                                                                style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                                alt="YouTube"></a>
+                                                                </td>
+                                                                <td align="center" valign="top">
+                                                                    <a href="https://www.linkedin.com/company/zantepay/" target="_blank" style="outline: none; border: 0;"><img 
+                                                                              src="{{ url('/') . "/images/linkedin-ico.png" }}" width="42" height="42" 
+                                                                              style="display:block;outline:0;border:0;width:42px;height:42px" 
+                                                                              alt="LinkedIn"></a>
                                                                 </td>
                                                             </tr>
                                                         </table>

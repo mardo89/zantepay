@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\GrantTokensException;
 use App\Exceptions\UserAccessException;
 use App\Exceptions\UserNotFoundException;
+use App\Models\DB\ZantecoinTransaction;
 use App\Models\Search\Transactions;
 use App\Models\DB\GrantCoinsTransaction;
-use App\Models\DB\ZantecoinTransaction;
 use App\Models\Services\AccountsService;
 use App\Models\Services\IcoService;
+use App\Models\Services\RegistrationsService;
 use App\Models\Services\TokensService;
+use App\Models\Services\TransactionsService;
 use App\Models\Services\UsersService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 class AdminController extends Controller
@@ -24,6 +28,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth.admin');
+        $this->middleware('protect.auth');
     }
 
     /**
@@ -38,8 +43,8 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
-                'role' => 'required|integer',
+                'uid' => 'required|string|bail',
+                'role' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -53,11 +58,7 @@ class AdminController extends Controller
 
         try {
 
-            $user = AccountsService::findUserStrict(
-                [
-                    'uid' =>  $request->uid
-                ]
-            );
+            $user = AccountsService::getUserByID($request->uid);
 
             UsersService::changeUserRole($user, $request->role);
 
@@ -100,7 +101,7 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
+                'uid' => 'required|string|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -113,13 +114,7 @@ class AdminController extends Controller
 
         try {
 
-            $user = AccountsService::findUserStrict(
-                [
-                    'uid' =>  $request->uid
-                ]
-            );
-
-            UsersService::removeUser($user);
+            AccountsService::removeUser($request->uid);
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -162,12 +157,61 @@ class AdminController extends Controller
         return view(
             'admin.wallet',
             [
-                'ico' => IcoService::getInfo(),
+            	'transactionStatuses' => TokensService::getTransactionStatuses(),
+                'ico' => (new IcoService())->getAdminInfo(),
                 'balance' => TokensService::getGrantBalance()
             ]
         );
 
     }
+
+	/**
+	 * Grant ICO Coins
+	 *
+	 * @param Request $request
+	 *
+	 * @return JSON
+	 */
+	public function grantIcoCoins(Request $request)
+	{
+		$this->validate(
+			$request,
+			[
+				'uid' => 'required|string|bail',
+//				'address' => 'required|string|bail',
+				'amount' => 'required|integer|bail',
+			],
+			ValidationMessages::getList(
+				[
+					'uid' => 'User ID',
+					'address' => 'Wallet Address',
+					'amount' => 'Grant ZNX Amount',
+				]
+			)
+		);
+
+		try {
+
+			TokensService::grantIcoTokens($request->address, $request->amount, $request->uid);
+
+		} catch (\Exception $e) {
+
+			$message = $e instanceof GrantTokensException ? $e->getMessage() : 'Error granting ICO Coins';
+
+			return response()->json(
+				[
+					'message' => $message,
+					'errors' => []
+				],
+				500
+			);
+
+		}
+
+		return response()->json(
+			[]
+		);
+	}
 
     /**
      * Grant Marketing Coins
@@ -181,8 +225,8 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'address' => 'required|string',
-                'amount' => 'required|integer',
+//                'address' => 'required|string|bail',
+                'amount' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -194,17 +238,19 @@ class AdminController extends Controller
 
         try {
 
-            TokensService::grantMarketingTokens($request->address, $request->amount);
+            TokensService::grantMarketingTokens($request->address, $request->amount, $request->uid);
 
         } catch (\Exception $e) {
 
-            return response()->json(
-                [
-                    'message' => 'Error granting Marketing Coins',
-                    'errors' => []
-                ],
-                500
-            );
+	        $message = $e instanceof GrantTokensException ? $e->getMessage() : 'Error granting Marketing Coins';
+
+	        return response()->json(
+		        [
+			        'message' => $message,
+			        'errors' => []
+		        ],
+		        500
+	        );
 
         }
 
@@ -225,8 +271,8 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'address' => 'required|string',
-                'amount' => 'required|integer',
+//                'address' => 'required|string|bail',
+                'amount' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -238,17 +284,19 @@ class AdminController extends Controller
 
         try {
 
-            TokensService::grantCompanyTokens($request->address, $request->amount);
+            TokensService::grantCompanyTokens($request->address, $request->amount, $request->uid);
 
         } catch (\Exception $e) {
 
-            return response()->json(
-                [
-                    'message' => 'Error granting Company Coins',
-                    'errors' => []
-                ],
-                500
-            );
+	        $message = $e instanceof GrantTokensException ? $e->getMessage() : 'Error granting Company Coins';
+
+	        return response()->json(
+		        [
+			        'message' => $message,
+			        'errors' => []
+		        ],
+		        500
+	        );
 
         }
 
@@ -270,11 +318,11 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-                'part_filter' => 'string|nullable',
-                'status_filter' => 'array',
-                'page' => 'integer|min:1',
-                'sort_index' => 'integer',
-                'sort_order' => 'in:asc,desc',
+                'part_filter' => 'string|nullable|bail',
+                'status_filter' => 'array|bail',
+                'page' => 'integer|min:1|bail',
+                'sort_index' => 'integer|bail',
+                'sort_order' => 'in:asc,desc|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -291,7 +339,7 @@ class AdminController extends Controller
 
             $filters = [
                 'grant_type_filter' => GrantCoinsTransaction::GRANT_ICO_TOKENS,
-                'znx_type_filter' => ZantecoinTransaction::getIcoTransactionTypes(),
+                'znx_type_filter' => TransactionsService::getIcoTransactionTypes(),
                 'part_filter' => $request->part_filter,
                 'status_filter' => $request->status_filter,
                 'page' => $request->page,
@@ -322,22 +370,22 @@ class AdminController extends Controller
     }
 
     /**
-     * Search Foundation transactions
+     * Search Marketing transactions
      *
      * @param Request $request
      *
      * @return JSON
      */
-    public function searchFoundationTransactions(Request $request)
+    public function searchMarketingTransactions(Request $request)
     {
         $this->validate(
             $request,
             [
-                'part_filter' => 'string|nullable',
-                'status_filter' => 'array',
-                'page' => 'integer|min:1',
-                'sort_index' => 'integer',
-                'sort_order' => 'in:asc,desc',
+                'part_filter' => 'string|nullable|bail',
+                'status_filter' => 'array|bail',
+                'page' => 'integer|min:1|bail',
+                'sort_index' => 'integer|bail',
+                'sort_order' => 'in:asc,desc|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -353,8 +401,8 @@ class AdminController extends Controller
         try {
 
             $filters = [
-                'grant_type_filter' => GrantCoinsTransaction::GRANT_COMPANY_TOKENS,
-                'znx_type_filter' => ZantecoinTransaction::getFoundationTransactionTypes(),
+                'grant_type_filter' => GrantCoinsTransaction::GRANT_MARKETING_TOKENS,
+                'znx_type_filter' => TransactionsService::getMarketingTransactionTypes(),
                 'part_filter' => $request->part_filter,
                 'status_filter' => $request->status_filter,
                 'page' => $request->page,
@@ -382,6 +430,98 @@ class AdminController extends Controller
         return response()->json(
             $transactionsList
         );
+    }
+
+    /**
+     * Search Company transactions
+     *
+     * @param Request $request
+     *
+     * @return JSON
+     */
+    public function searchCompanyTransactions(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'part_filter' => 'string|nullable|bail',
+                'status_filter' => 'array|bail',
+                'page' => 'integer|min:1|bail',
+                'sort_index' => 'integer|bail',
+                'sort_order' => 'in:asc,desc|bail',
+            ],
+            ValidationMessages::getList(
+                [
+                    'part_filter' => 'ICO Part',
+                    'status_filter' => 'Status Filter',
+                    'page' => 'Page',
+                    'sort_index' => 'Sort Column',
+                    'sort_order' => 'Sort Order',
+                ]
+            )
+        );
+
+        try {
+
+            $filters = [
+                'grant_type_filter' => GrantCoinsTransaction::GRANT_COMPANY_TOKENS,
+                'znx_type_filter' => TransactionsService::getCompanyTransactionTypes(),
+                'part_filter' => $request->part_filter,
+                'status_filter' => $request->status_filter,
+                'page' => $request->page,
+            ];
+
+            $sort = [
+                'sort_index' => $request->sort_index,
+                'sort_order' => $request->sort_order,
+            ];
+
+            $transactionsList = Transactions::searchICOTransactions($filters, $sort);
+
+        } catch (\Exception $e) {
+
+            return response()->json(
+                [
+                    'message' => 'Error while searching transactions',
+                    'errors' => []
+                ],
+                500
+            );
+
+        }
+
+        return response()->json(
+            $transactionsList
+        );
+    }
+
+    /**
+     * Newsletter
+     *
+     * @return View
+     */
+    public function newsletter()
+    {
+
+        return view(
+            'admin.newsletter',
+            [
+                'newsletters' => RegistrationsService::getNewsLetterInfo(),
+            ]
+        );
+
+    }
+
+    /**
+     * Import newsletter emails to CSV file
+     *
+     * @return File
+     */
+    public function importNewsletter()
+    {
+        $export = RegistrationsService::exportNewsLetterInfo();
+
+	    return Storage::download($export['file'], 'newsletters', $export['headers']);
     }
 
 }

@@ -8,8 +8,25 @@
 
     <title>ZANTEPAY</title>
 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
     <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,500,700" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/main.css">
@@ -91,6 +108,34 @@
     </div>
 </div>
 
+
+<!-- Protection modal -->
+<div class="logon-modal logon-modal--560 mfp-hide" id="protection-modal">
+    <div class="logon-modal-container">
+        <h3 class="h4" id="confirmation-message"></h3>
+        <div class="row justify-content-center">
+
+            <form id="frm_protection">
+
+                <div class="logon-modal-text">
+                    <p>Please use the secret token from your email to confirm this operation.</p>
+                </div>
+
+                <div class="logon-group">
+                    <input class="logon-field" type="text" name="signature" placeholder="Secret Key">
+                </div>
+
+                <div class="logon-submit">
+                    <input class="btn btn--shadowed-light btn--260" type="submit" value="Confirm">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
 <!-- JS scripts -->
 <script src="/js/user.js" type="text/javascript"></script>
 <script src="/js/components/particles.min.js"></script>
@@ -99,68 +144,6 @@
 <script src="/js/components/jquery.countdown.min.js"></script>
 
 @yield('scripts')
-
-<!-- Jivosite -->
-<script type='text/javascript'>
-    (function () {
-        var widget_id = 'v9Bhvg9GGa';
-        var d = document;
-        var w = window;
-
-        function l() {
-            var s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.async = true;
-            s.src = '//code.jivosite.com/script/widget/' + widget_id;
-            var ss = document.getElementsByTagName('script')[0];
-            ss.parentNode.insertBefore(s, ss);
-        }
-
-        if (d.readyState == 'complete') {
-            l();
-        } else {
-            if (w.attachEvent) {
-                w.attachEvent('onload', l);
-            } else {
-                w.addEventListener('load', l, false);
-            }
-        }
-    })();
-</script>
-
-<!-- Sumo -->
-{{--<script src="//load.sumome.com/" data-sumo-site-id="1b320c3e8fabe2b7fc8de8f8f6a818fc6abdb6eb272f1b25fe8ca580f0bbf5f4"--}}
-{{--async="async"></script>--}}
-
-<!-- Useproof -->
-<script id=proof-script>!function () {
-        function b() {
-            var a = (new Date).getTime(), b = document.createElement('script');
-            b.type = 'text/javascript', b.async = !0, b.src = 'https://cdn.getmoreproof.com/embed/latest/proof.js?' + a;
-            var c = document.getElementsByTagName('script')[0];
-            c.parentNode.insertBefore(b, c)
-        }
-
-        var a = window;
-        a.attachEvent ? a.attachEvent('onload', b) : a.addEventListener('load', b, !1), window.proof_config = {
-            acc: 'zUljMP8UW6TQiskC506GpuxFCSv2',
-            v: '1.1'
-        }
-    }()</script>
-
-<!-- McAfee Kibo -->
-<script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110056018-1"></script>
-<script> window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-    gtag('config', 'UA-110056018-1');</script>
 
 </body>
 

@@ -2,8 +2,7 @@
 
 @section('main-menu')
     <li><a href="profile">Profile</a></li>
-    <li class="current-menu-item"><a href="profile-settings">Profile Settings</a></li>
-    <li><a href="invite-friend">Refer a Friend</a></li>
+    <li class="current-menu-item"><a href="profile-settings">Verify Account</a></li>
     <li><a href="wallet">Wallet</a></li>
     <li><a href="debit-card">ZANTEPAY Debit Card</a></li>
 @endsection
@@ -18,94 +17,97 @@
                     <div class="dashboard-col-wrap">
                         <h2 class="h4 headline-mb headline-subline">
                             Account verification:
-                            @if(!$user->accountVerified)
-                                <span>Account requires verification</span>
-                            @else
-                                <span>Account verified</span>
+                            <span>{{ $verificationStatus }}</span>
+                        </h2>
+
+                        <h4 class="primary-color headline-mb">Please use Google Chrome or Mozilla Firefox to perform a verification</h4>
+
+                        <div class="row">
+
+                            @if($verificationPending)
+                                <div id="verify-user"></div>
                             @endif
 
-                        </h2>
-                        <div class="row">
-                            <div class="col-md-6">
-                                @if($verification->id_documents_status == \App\Models\DB\Verification::DOCUMENTS_NOT_UPLOADED)
-                                    <div>Your passport / ID / driver’s license:</div>
+                            {{--<div class="col-md-6">--}}
+                            {{--@if(!$verification['id']['isDocumentsUploaded'])--}}
+                            {{--<div>Your passport / ID / driver’s license:</div>--}}
 
-                                    <form id="upload-identity-documents">
-                                        <div class="drag-drop-area">
-                                            <div class="drag-drop-container">
-                                                <div class="drag-drop-ico"></div>
-                                                <div class="drag-drop-text">Click to open explorer</div>
-                                                <label>
-                                                    <span class="btn btn--shadowed-light btn--medium">Choose file</span>
-                                                    <input id="document-files" type="file" name="id_files" multiple="multiple"
-                                                           title='Click to add Files'>
-                                                </label>
-                                                <div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document
-                                                    should not be bigger than 4 Mb.
-                                                </div>
-                                            </div>
-                                        </div>
+                            {{--<form id="upload-identity-documents">--}}
+                            {{--<div class="drag-drop-area">--}}
+                            {{--<div class="drag-drop-container">--}}
+                            {{--<div class="drag-drop-ico"></div>--}}
+                            {{--<div class="drag-drop-text">Click to open explorer</div>--}}
+                            {{--<label>--}}
+                            {{--<span class="btn btn--shadowed-light btn--medium">Choose file</span>--}}
+                            {{--<input id="document-files" type="file" name="id_files" multiple="multiple"--}}
+                            {{--title='Click to add Files'>--}}
+                            {{--</label>--}}
+                            {{--<div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document--}}
+                            {{--should not be bigger than 4 Mb.--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
 
-                                        <button type="submit" class="btn btn--shadowed-light btn--medium">Upload Documents</button>
-                                    </form>
+                            {{--<button type="submit" class="btn btn--shadowed-light btn--medium">Upload Documents</button>--}}
+                            {{--</form>--}}
 
-                                @else
-                                    <div class="headline-subline headline-mb">
-                                        ID proof documents:
-                                        <span>{{ count($idDocuments) }} file uploaded | {{ $verification->idStatus }}</span>
-                                    </div>
-                                    <ul class="files-list">
-                                        @foreach($idDocuments as $document)
-                                            <li id="{{ $document['did'] }}">
-                                                <i class="file-ico"></i>
-                                                <div class="file-name">{{ $document['name'] }}</div>
-                                                <a href="" class="cross-ico remove-document">×</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </div>
+                            {{--@else--}}
+                            {{--<div class="headline-subline headline-mb">--}}
+                            {{--ID proof documents:--}}
+                            {{--<span>{{ count($idDocuments) }} file uploaded | {{ $verification['id']['statusName'] }}</span>--}}
+                            {{--</div>--}}
+                            {{--<ul class="files-list">--}}
+                            {{--@foreach($idDocuments as $document)--}}
+                            {{--<li id="{{ $document['id'] }}">--}}
+                            {{--<i class="file-ico"></i>--}}
+                            {{--<div class="file-name">{{ $document['name'] }}</div>--}}
+                            {{--<a href="" class="cross-ico remove-document">×</a>--}}
+                            {{--</li>--}}
+                            {{--@endforeach--}}
+                            {{--</ul>--}}
+                            {{--@endif--}}
+                            {{--</div>--}}
 
 
-                            <div class="col-md-6">
-                                @if($verification->address_documents_status == \App\Models\DB\Verification::DOCUMENTS_NOT_UPLOADED)
-                                    <div>Your address proof documents:</div>
+                            {{--<div class="col-md-6">--}}
+                            {{--@if(!$verification['address']['isDocumentsUploaded'])--}}
+                            {{--<div>Your address proof documents:</div>--}}
 
-                                    <form id="upload-address-documents">
-                                        <div class="drag-drop-area">
-                                            <div class="drag-drop-container">
-                                                <div class="drag-drop-ico"></div>
-                                                <div class="drag-drop-text">Click to open explorer</div>
-                                                <label>
-                                                    <span class="btn btn--shadowed-light btn--medium">Choose file</span>
-                                                    <input id="address-files" type="file" name="address_files" multiple="multiple"
-                                                           title='Click to add Files'>
-                                                </label>
-                                                <div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document
-                                                    should not be bigger than 4 Mb.
-                                                </div>
-                                            </div>
-                                        </div>
+                            {{--<form id="upload-address-documents">--}}
+                            {{--<div class="drag-drop-area">--}}
+                            {{--<div class="drag-drop-container">--}}
+                            {{--<div class="drag-drop-ico"></div>--}}
+                            {{--<div class="drag-drop-text">Click to open explorer</div>--}}
+                            {{--<label>--}}
+                            {{--<span class="btn btn--shadowed-light btn--medium">Choose file</span>--}}
+                            {{--<input id="address-files" type="file" name="address_files" multiple="multiple"--}}
+                            {{--title='Click to add Files'>--}}
+                            {{--</label>--}}
+                            {{--<div class="drag-drop-text">Accepted file formats: png, jpeg, pdf. <br> The document--}}
+                            {{--should not be bigger than 4 Mb.--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
 
-                                        <button type="submit" class="btn btn--shadowed-light btn--medium">Upload Documents</button>
-                                    </form>
+                            {{--<button type="submit" class="btn btn--shadowed-light btn--medium">Upload Documents</button>--}}
+                            {{--</form>--}}
 
-                                @else
-                                    <div class="headline-subline headline-mb">
-                                        Address proof document:
-                                        <span>{{ count($addressDocuments) }} file uploaded | {{ $verification->addressStatus }}</span>
-                                    </div>
-                                    <ul class="files-list">
-                                        @foreach($addressDocuments as $document)
-                                            <li id="{{ $document['did'] }}">
-                                                <i class="file-ico"></i>
-                                                <div class="file-name">{{ $document['name'] }}</div>
-                                                <a href="" class="cross-ico remove-document">×</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </div>
+                            {{--@else--}}
+                            {{--<div class="headline-subline headline-mb">--}}
+                            {{--Address proof document:--}}
+                            {{--<span>{{ count($addressDocuments) }} file uploaded | {{ $verification['address']['statusName'] }}</span>--}}
+                            {{--</div>--}}
+                            {{--<ul class="files-list">--}}
+                            {{--@foreach($addressDocuments as $document)--}}
+                            {{--<li id="{{ $document['id'] }}">--}}
+                            {{--<i class="file-ico"></i>--}}
+                            {{--<div class="file-name">{{ $document['name'] }}</div>--}}
+                            {{--<a href="" class="cross-ico remove-document">×</a>--}}
+                            {{--</li>--}}
+                            {{--@endforeach--}}
+                            {{--</ul>--}}
+                            {{--@endif--}}
+                            {{--</div>--}}
                         </div>
                     </div>
 
@@ -166,7 +168,8 @@
                                     </div>
 
                                     <div class="checkbox">
-                                        <input type="checkbox" id="check2" class="owner-confirm"><label for="check2" class="text-sm">Hereby
+                                        <input type="checkbox" id="check2" class="owner-confirm"><label for="check2"
+                                                                                                        class="text-sm">Hereby
                                             I confirm that I am the owner of this account</label>
                                     </div>
                                 </form>
@@ -180,15 +183,15 @@
                         <h2 class="h4 headline-mb">Change password:</h2>
                         <div class="form-group">
                             <label class="field-label" for="field1">Current password:</label>
-                            <input class="input-field" type="password" name="current-password" id="field1" autocomplete="off">
+                            <input class="input-field" name="current-password" id="field1" type="password">
                         </div>
                         <div class="form-group">
                             <label class="field-label" for="field2">New password:</label>
-                            <input class="input-field" type="password" name="password" id="field2" autocomplete="off">
+                            <input class="input-field" name="password" id="field2" type="password">
                         </div>
                         <div class="form-group dashboard-group-md">
                             <label class="field-label" for="field3">Confirm password:</label>
-                            <input class="input-field" type="password" name="confirm-password" id="field3" autocomplete="off">
+                            <input class="input-field" name="password_confirmation" id="field3" type="password">
                         </div>
 
                         <button type="submit" class="btn btn--shadowed-light btn--medium">Change Password</button>
@@ -247,4 +250,5 @@
 
 @section('scripts')
     <script src="/js/user_profile_settings.js" type="text/javascript"></script>
+    <script src="https://cdn.veriff.me/sdk/js/veriff.min.js"></script>
 @endsection

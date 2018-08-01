@@ -6,10 +6,8 @@ namespace App\Exceptions;
 class AuthException extends \Exception
 {
 
-    public function __construct()
+    public function __construct($message)
     {
-        $message = 'Authentication failed';
-
         parent::__construct($message);
     }
 

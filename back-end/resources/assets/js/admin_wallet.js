@@ -6,7 +6,9 @@ const searchUser = (type, part, table, url, allowGrant) => {
     // status filter
     const statusFilter = [];
 
-    // @todo Collect status filters
+    $('input[name="' + type + '_status_filter"]:checked').each(function () {
+        statusFilter.push($(this).val());
+    });
 
     // page
     const paginator = table.next('nav').find('.pagination');
@@ -65,13 +67,13 @@ const searchUser = (type, part, table, url, allowGrant) => {
 
                         if (allowGrant) {
                             transactionStatus = transaction.status === ''
-                                ? '<button class="btn btn--medium btn--shadowed-light" type="button">Issue Token</button>'
+                                ? '<button class="btn btn--medium btn--shadowed-light grant_' + type + '_coins"  type="button">Issue Token</button>'
                                 : transaction.status;
                         }
 
                         table.find('tbody')
                             .append(
-                                $('<tr />')
+                                $('<tr />').data('uid', transaction.uid)
                                     .append(
                                         $('<td />').html(transaction.user)
                                     )
@@ -131,8 +133,144 @@ const searchUser = (type, part, table, url, allowGrant) => {
 
 }
 
-
 $(document).ready(function () {
+
+    // Issue ICO/Marketing/Company Coins
+    $(document).on('click', '.grant_ico_coins', function (event) {
+        event.preventDefault();
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const row = $(this).parents('tr');
+
+        const grantInfo = {
+            'uid': row.data('uid'),
+            'address': row.find('td:eq(1)').text().trim(),
+            'amount': row.find('td:eq(2)').text().trim()
+        }
+
+        axios.post(
+            '/admin/wallet/grant-ico-coins',
+            qs.stringify(grantInfo)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#grant-coins-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
+    });
+
+    $(document).on('click', '.grant_marketing_coins', function (event) {
+        event.preventDefault();
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const row = $(this).parents('tr');
+
+        const grantInfo = {
+            'uid': row.data('uid'),
+            'address': row.find('td:eq(1)').text().trim(),
+            'amount': row.find('td:eq(2)').text().trim()
+        }
+
+        axios.post(
+            '/admin/wallet/grant-marketing-coins',
+            qs.stringify(grantInfo)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#grant-coins-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
+    });
+
+    $(document).on('click', '.grant_company_coins', function (event) {
+        event.preventDefault();
+
+        const button = $(this);
+        showSpinner(button);
+        clearErrors();
+
+        const row = $(this).parents('tr');
+
+        const grantInfo = {
+            'uid': row.data('uid'),
+            'address': row.find('td:eq(1)').text().trim(),
+            'amount': row.find('td:eq(2)').text().trim()
+        }
+
+        axios.post(
+            '/admin/wallet/grant-company-coins',
+            qs.stringify(grantInfo)
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+
+                    $.magnificPopup.open(
+                        {
+                            items: {
+                                src: '#grant-coins-modal'
+                            },
+                            type: 'inline',
+                            closeOnBgClick: true
+                        }
+                    );
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message} = error.response.data;
+
+                    showError(message)
+                }
+            )
+    });
+
 
     // Grant Marketing Coins
     $('#grant_marketing_coins').on('click', function (event) {
@@ -220,6 +358,7 @@ $(document).ready(function () {
             )
     });
 
+
     // Run requests to search ico transactions
     $('#ico_part_filter li').each(function () {
         const icoPart = $(this).attr('id');
@@ -288,16 +427,27 @@ $(document).ready(function () {
         searchUser('ico', icoPart, table, '/admin/wallet/search-ico-transactions', tabID === 'total');
     });
 
-    // Run requests to search foundation transactions
-    $('#foundation_part_filter li').each(function () {
+    $('input[name="ico_status_filter"]').on('click', function() {
+
+        const table = $('.ico_transactions_block.is-active').find('table');
+        const tabID = $('.ico_transactions_block.is-active').attr('id');
+        const icoPart = $('#ico_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+
+        searchUser('ico', icoPart, table, '/admin/wallet/search-ico-transactions', tabID === 'total');
+
+    });
+
+
+    // Run requests to search marketing transactions
+    $('#marketing_part_filter li').each(function () {
         const icoPart = $(this).attr('id');
         const tabID = $(this).find('a').attr('href');
         const table = $(tabID).find('table');
 
-        searchUser('foundation', icoPart, table, '/admin/wallet/search-foundation-transactions', tabID === '#foundation-total');
+        searchUser('marketing', icoPart, table, '/admin/wallet/search-marketing-transactions', tabID === '#marketing-total');
     });
 
-    $('.foundation_transactions_block .pagination').on('click', '.page-link', function (e) {
+    $('.marketing_transactions_block .pagination').on('click', '.page-link', function (e) {
         e.preventDefault();
 
         const parent = $(this).parents('.pagination');
@@ -329,14 +479,14 @@ $(document).ready(function () {
         activeItem.removeClass('active');
         nextItem.addClass('active');
 
-        const table = $(this).parents('.foundation_transactions_block').find('table');
-        const tabID = $(this).parents('.foundation_transactions_block').attr('id');
-        const icoPart = $('#foundation_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+        const table = $(this).parents('.marketing_transactions_block').find('table');
+        const tabID = $(this).parents('.marketing_transactions_block').attr('id');
+        const icoPart = $('#marketing_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
 
-        searchUser('foundation', icoPart, table, '/admin/wallet/search-foundation-transactions', tabID === 'foundation-total');
+        searchUser('marketing', icoPart, table, '/admin/wallet/search-marketing-transactions', tabID === 'company-total');
     });
 
-    $('.foundation_transactions_block  .sort').on('click', function (e) {
+    $('.marketing_transactions_block  .sort').on('click', function (e) {
         e.preventDefault();
 
         if ($(this).hasClass('sort-asc')) {
@@ -350,10 +500,99 @@ $(document).ready(function () {
         }
 
         const table = $(this).parents('table');
-        const tabID = $(this).parents('.foundation_transactions_block').attr('id');
-        const icoPart = $('#foundation_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+        const tabID = $(this).parents('.marketing_transactions_block').attr('id');
+        const icoPart = $('#marketing_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
 
-        searchUser('foundation', icoPart, table, '/admin/wallet/search-foundation-transactions', tabID === 'foundation-total');
+        searchUser('marketing', icoPart, table, '/admin/wallet/search-marketing-transactions', tabID === 'company-total');
+    });
+
+    $('input[name="marketing_status_filter"]').on('click', function() {
+
+        const table = $('.marketing_transactions_block.is-active').find('table');
+        const tabID = $('.marketing_transactions_block.is-active').attr('id');
+        const icoPart = $('#marketing_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+
+        searchUser('marketing', icoPart, table, '/admin/wallet/search-marketing-transactions', tabID === 'marketing-total');
+
+    });
+
+
+    // Run requests to search company transactions
+    $('#company_part_filter li').each(function () {
+        const icoPart = $(this).attr('id');
+        const tabID = $(this).find('a').attr('href');
+        const table = $(tabID).find('table');
+
+        searchUser('company', icoPart, table, '/admin/wallet/search-company-transactions', tabID === '#company-total');
+    });
+
+    $('.company_transactions_block .pagination').on('click', '.page-link', function (e) {
+        e.preventDefault();
+
+        const parent = $(this).parents('.pagination');
+
+        let activeItem = parent.find('.page-item.active');
+        let nextItem = $(this).parents('.page-item');
+
+        if ($(this).hasClass('prev-page-link')) {
+            activeItem = parent.find('.page-item.active');
+            nextItem = activeItem.prev();
+
+            if (nextItem.find('.prev-page-link').length) {
+                return false;
+            }
+
+        }
+
+        if ($(this).hasClass('next-page-link')) {
+
+            activeItem = parent.find('.page-item.active');
+            nextItem = activeItem.next();
+
+            if (nextItem.find('.next-page-link').length) {
+                return false;
+            }
+
+        }
+
+        activeItem.removeClass('active');
+        nextItem.addClass('active');
+
+        const table = $(this).parents('.company_transactions_block').find('table');
+        const tabID = $(this).parents('.company_transactions_block').attr('id');
+        const icoPart = $('#company_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+
+        searchUser('foundation', icoPart, table, '/admin/wallet/search-company-transactions', tabID === 'company-total');
+    });
+
+    $('.company_transactions_block  .sort').on('click', function (e) {
+        e.preventDefault();
+
+        if ($(this).hasClass('sort-asc')) {
+            $('.sort').removeClass('sort-asc').removeClass('sort-desc');
+
+            $(this).addClass('sort-desc');
+        } else {
+            $('.sort').removeClass('sort-asc').removeClass('sort-desc');
+
+            $(this).addClass('sort-asc');
+        }
+
+        const table = $(this).parents('table');
+        const tabID = $(this).parents('.company_transactions_block').attr('id');
+        const icoPart = $('#company_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+
+        searchUser('company', icoPart, table, '/admin/wallet/search-company-transactions', tabID === 'company-total');
+    });
+
+    $('input[name="foundation_status_filter"]').on('click', function() {
+
+        const table = $('.company_transactions_block.is-active').find('table');
+        const tabID = $('.company_transactions_block.is-active').attr('id');
+        const icoPart = $('#company_part_filter').find('a[href="#' + tabID + '"]').parent().attr('id');
+
+        searchUser('foundation', icoPart, table, '/admin/wallet/search-company-transactions', tabID === 'company-total');
+
     });
 
 });

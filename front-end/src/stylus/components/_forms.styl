@@ -242,6 +242,18 @@ select.input-field
       & + label:after
         transform translateY(-50%) rotate(45deg) scale(1)
         opacity 1
+  &--top
+    label
+      &:before
+        top 12px
+        transform translateY(0)
+      &:after
+        top 18px
+        transform translateY(0) rotate(45deg) scale(0)
+    input[type="checkbox"]
+      &:checked
+        & + label:after
+          transform translateY(0) rotate(45deg) scale(1)
 
 .form-error
   input[type="text"],
@@ -317,3 +329,21 @@ select.input-field
   padding-top 20px
   .textarea-field
     min-height 120px
+
+
+form.veriff-container 
+  width 100%
+  margin 0 0 20px
+  max-width 420px
+  padding 0 15px
+  .veriff-text
+    @extend .input-field
+    margin-bottom 20px
+  .veriff-label
+    @extend .field-label
+    font-family 'Exo 2',sans-serif
+    font-weight 500
+    font-size 18px
+    color #232323
+  .veriff-submit
+    @extend .btn, .btn--shadowed-light, .btn--medium

@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     /**
-     * Identification status
-     */
-    const IDENTIFICATION_NOT_APPROVED = 0;
-
-    const IDENTIFICATION_APPROVED = 1;
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -32,4 +25,5 @@ class Profile extends Model
         'passport_id', 'passport_expiration_date',
         'birth_date', 'birth_country_id', 'eth_wallet'
     ];
+
 }

@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DB\ExternalRedirect;
-use App\Models\DB\ZantecoinTransaction;
-use App\Models\Search\Transactions;
+use App\Exceptions\CaptchaException;
+use App\Models\Services\AccountsService;
+use App\Models\Services\CaptchaService;
+use App\Models\Services\FeedService;
+use App\Models\Services\IcoService;
 use App\Models\Services\MailService;
-use App\Models\Services\UsersService;
-use App\Models\Wallet\Currency;
-use App\Models\DB\IcoRegistration;
-use App\Models\DB\Investor;
-use App\Models\DB\PasswordReset;
+use App\Models\Services\RegistrationsService;
+use App\Models\Services\ResetPasswordsService;
 use App\Models\DB\User;
+use App\Models\Services\UsersService;
 use App\Models\Validation\ValidationMessages;
-use App\Models\Wallet\CurrencyFormatter;
-use App\Models\Wallet\Ico;
-use App\Models\Wallet\RateCalculator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 
 class IndexController extends Controller
@@ -32,66 +31,16 @@ class IndexController extends Controller
      */
     public function main(Request $request)
     {
-        $this->checkReferrer($request->ref);
-
-        $this->checkExternals();
-
-        $ico = new Ico();
-
-        $activePart = $ico->getActivePart();
-        $previousPart = $ico->getPreviousPart();
-
-        $icoPartName = optional($activePart)->getName() ?? '';
-        $icoPartEndDate = optional($activePart)->getEndDate() ?? '';
-        $icoPartLimit = optional($activePart)->getLimit() ?? '';
-
-        $icoPartEthRate = optional($activePart)->getEthRate() ?? 0;
-        $icoPartEuroRate = optional($activePart)->getEuroRate() ?? 0;
-        $icoPartZnxRate = RateCalculator::toZnx(1, $icoPartEthRate);
-
-        $icoPartAmount = optional($activePart)->getAmount() ?? 0;
-        $icoPartRelativeBalance = optional($activePart)->getRelativeBalance() ?? 0;
-
-        $prevPartAmount = Transactions::searchTransactionsAmount(
-            [
-                ZantecoinTransaction::TRANSACTION_ETH_TO_ZNX,
-                ZantecoinTransaction::TRANSACTION_ADD_ICO_ZNX,
-                ZantecoinTransaction::TRANSACTION_COMMISSION_TO_ZNX,
-                ZantecoinTransaction::TRANSACTION_ADD_FOUNDATION_ZNX
-            ]
-        );
-
-        $ethLimit = RateCalculator::fromZnx($icoPartLimit, $icoPartEthRate);
-        $ethAmount = RateCalculator::fromZnx($icoPartAmount, $icoPartEthRate);
-
-        $showProgress = !is_null($previousPart);
+        AccountsService::setReferrer($request->ref);
+        AccountsService::setExternals();
+        AccountsService::trackAffiliate($request->track_id);
 
         return view(
             'main.index',
             [
                 'menuPrefix' => '',
-                'currency' => [
-                    'btc' => Currency::CURRENCY_TYPE_BTC,
-                    'eth' => Currency::CURRENCY_TYPE_ETH,
-                ],
-                'ico' => [
-                    'name' => $icoPartName,
-                    'showProgress' => $showProgress,
-                    'endDate' => date('Y/m/d H:i:s', strtotime($icoPartEndDate)),
-                    'znxLimit' => number_format($icoPartLimit, 0, ',', '.'),
-                    'znxAmount' => number_format($icoPartAmount, 0, ',', '.'),
-                    'prevAmount' => number_format($prevPartAmount, 0, ',', '.'),
-                    'ethLimit' => number_format($ethLimit, 0, ',', '.'),
-                    'ethAmount' => number_format($ethAmount, 0, ',', '.'),
-                    'znxRate' => (new CurrencyFormatter($icoPartZnxRate))->znxFormat()->get(),
-                    'ethRate' => (new CurrencyFormatter($icoPartEthRate))->ethFormat()->get(),
-                    'euroRate' => (new CurrencyFormatter($icoPartEuroRate))->ethFormat()->get(),
-                    'relativeBalance' => [
-                        'value' => $icoPartRelativeBalance,
-                        'percent' => number_format($icoPartRelativeBalance * 100, 2),
-                        'progressClass' => $icoPartRelativeBalance > 50 ? 'is-left' : 'is-right'
-                    ]
-                ]
+                'ico' => (new IcoService())->getInfo(),
+                'feed' => (new FeedService())->getItems()
             ]
         );
     }
@@ -108,8 +57,8 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255',
-                'amount' => 'nullable|numeric'
+                'email' => 'required|email|max:255|bail',
+                'amount' => 'numeric|nullable|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -119,31 +68,11 @@ class IndexController extends Controller
             )
         );
 
-        $email = $request->input('email');
-        $amount = $request->input('amount', 0);
-        $currencyType = Currency::CURRENCY_TYPE_ETH;
-        $currency = Currency::getCurrency($currencyType);
-
         DB::beginTransaction();
 
         try {
 
-            IcoRegistration::create(
-                [
-                    'email' => $email,
-                    'currency' => $currencyType,
-                    'amount' => $amount,
-                ]
-            );
-
-            ExternalRedirect::addLink(
-                Session::get('externalLink'),
-                $email,
-                ExternalRedirect::ACTION_TYPE_REGISTRATION_ICO
-            );
-
-            MailService::sendIcoRegistrationEmail($email);
-            MailService::sendIcoRegistrationAdminEmail($email, $currency, $amount);
+            RegistrationsService::registerForPreIco($request->email, $request->amount);
 
         } catch (\Exception $e) {
 
@@ -181,10 +110,10 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255|unique:investors',
-                'skype-id' => 'required|string|max:100|unique:investors,skype_id',
-                'first-name' => 'required|string|max:100',
-                'last-name' => 'required|string|max:100',
+                'email' => 'required|email|max:255|unique:investors|bail',
+                'skype-id' => 'required|string|max:100|unique:investors,skype_id|bail',
+                'first-name' => 'required|string|max:100|bail',
+                'last-name' => 'required|string|max:100|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -200,29 +129,17 @@ class IndexController extends Controller
             )
         );
 
-        $email = $request->input('email');
-        $skype = $request->input('skype-id');
-        $firstName = $request->input('first-name');
-        $lastName = $request->input('last-name');
 
         DB::beginTransaction();
 
         try {
 
-            Investor::create(
-                [
-                    'email' => $email,
-                    'skype_id' => $skype,
-                    'first_name' => $firstName,
-                    'last_name' => $lastName,
-                ]
-            );
+            $email = $request->input('email');
+            $skype = $request->input('skype-id');
+            $firstName = $request->input('first-name');
+            $lastName = $request->input('last-name');
 
-            ExternalRedirect::addLink(
-                Session::get('externalLink'),
-                $email,
-                ExternalRedirect::ACTION_TYPE_REGISTRATION_INVESTOR
-            );
+            RegistrationsService::becomeInvestor($email, $skype, $firstName, $lastName);
 
         } catch (\Exception $e) {
 
@@ -251,25 +168,56 @@ class IndexController extends Controller
     }
 
     /**
-     * Confirm user activation
+     * Save user in news letters
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return View
      */
-    public function confirmActivation(Request $request)
+    public function saveNewsLetter(Request $request)
     {
-        $userID = $request->input('uid', '');
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|email|max:255|bail',
+            ],
+            ValidationMessages::getList(
+                [
+                    'email' => 'Email',
+                ]
+            )
+        );
 
-        $user = User::where('uid', $userID)->first();;
 
-        if (!$user || $user->status != User::USER_STATUS_INACTIVE) {
-            return redirect('/');
+        DB::beginTransaction();
+
+        try {
+
+            $email = $request->input('email');
+
+            RegistrationsService::joinToNewsLetter($email);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            return response()->json(
+                [
+                    'message' => 'Registration failed',
+                    'errors' => [
+                        'email' => 'Registration failed'
+                    ]
+                ],
+                422
+            );
+
         }
 
-        $user->changeStatus(User::USER_STATUS_PENDING);
+        DB::commit();
 
-        return view('main.confirm-email');
+        return response()->json(
+            []
+        );
     }
 
     /**
@@ -281,12 +229,13 @@ class IndexController extends Controller
      */
     public function confirmInvitation(Request $request)
     {
-        $this->checkReferrer($request->ref);
+        AccountsService::setReferrer($request->ref);
 
         return view(
             'main.confirm-invitation',
             [
                 'referralToken' => $request->ref,
+                'captcha' => env('CAPTCHA_KEY')
             ]
         );
     }
@@ -300,26 +249,15 @@ class IndexController extends Controller
      */
     public function resetPassword(Request $request)
     {
-        $resetToken = $request->input('rt', '');
+        try {
+            $resetToken = $request->input('rt', '');
 
-        $resetInfo = PasswordReset::where('token', $resetToken)
-            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 15 MINUTE)'))
-            ->first();
+            ResetPasswordsService::checkPasswordReset($resetToken);
 
-        // Check for expiration date
-        if (is_null($resetInfo)) {
+        } catch (\Exception $e) {
+
             return view('main.reset-password-fail');
-        }
 
-        $resetEmail = $resetInfo->email;
-
-        $lastResetInfo = PasswordReset::where('email', $resetEmail)
-            ->orderBy('created_at', 'desc')
-            ->first();
-
-        // Check if there is no other tokens after current
-        if (is_null($lastResetInfo) || $lastResetInfo->token !== $resetToken) {
-            return view('main.reset-password-fail');
         }
 
         return view(
@@ -356,6 +294,141 @@ class IndexController extends Controller
     }
 
     /**
+     * Bounty page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function bounty()
+    {
+        return view(
+            'main.bounty',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Twitter Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function twitterBountyCampaign()
+    {
+        return view(
+            'main.twitter-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Facebook Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function facebookBountyCampaign()
+    {
+        return view(
+            'main.facebook-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Youtube Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function youtubeBountyCampaign()
+    {
+        return view(
+            'main.youtube-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Blog Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function blogsBountyCampaign()
+    {
+        return view(
+            'main.blogs-article-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Support Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function supportBountyCampaign()
+    {
+        return view(
+            'main.support-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Telegram Bounty Campaign
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function telegramBountyCampaign()
+    {
+        return view(
+            'main.telegram-campaign',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Mobile App page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function mobileApp()
+    {
+        return view(
+            'main.mobile-app',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
+     * Affiliate page
+     *
+     * @return View
+     */
+    public function affiliate()
+    {
+        return view(
+            'main.affiliate',
+            [
+                'menuPrefix' => '/',
+            ]
+        );
+    }
+
+    /**
      * Send contact us email
      *
      * @param Request $request
@@ -367,15 +440,20 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'name' => 'required|alpha_num|max:255',
-                'email' => 'required|email|max:255',
-                'message' => 'required'
+                'name' => 'required|string|max:255|bail',
+                'email' => 'required|email|max:255|bail',
+                'message' => 'required|bail',
+	            'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
                     'name' => 'Name',
                     'email' => 'Email',
                     'message' => 'Message',
+	                'captcha' => 'Captcha'
+                ],
+                [
+	                'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
 
@@ -383,20 +461,28 @@ class IndexController extends Controller
 
         try {
 
+	        CaptchaService::checkCaptcha($request->captcha);
+
             MailService::sendContactUsEmail($request->email, $request->name, $request->message);
 
         } catch (\Exception $e) {
 
+	        $message = 'Can not send a message';
+	        $status = 422;
+
+	        if ($e instanceof CaptchaException) {
+		        $message = $e->getMessage();
+		        $status = 500;
+	        }
+
             return response()->json(
                 [
-                    'message' => $e->getMessage(),//'Can not send a message',
+                    'message' => $message,
                     'errors' => [
-                        'name' => '',
-                        'message' => '',
-                        'email' => 'Can not send a message'
+	                    'captcha' => $message
                     ]
                 ],
-                422
+                $status
             );
 
         }
@@ -418,10 +504,11 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'subject' => 'required|string|max:50',
-                'name' => 'required|alpha_num|max:255',
-                'email' => 'required|string|email|max:255',
-                'question' => 'required'
+                'subject' => 'required|string|max:50|bail',
+                'name' => 'required|string|max:255|bail',
+                'email' => 'required|string|email|max:255|bail',
+                'question' => 'required|bail',
+	            'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
@@ -429,27 +516,39 @@ class IndexController extends Controller
                     'name' => 'Name',
                     'email' => 'Email',
                     'question' => 'Question',
+	                'captcha' => 'Captcha'
+                ],
+                [
+	                'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
         );
 
         try {
 
+	        CaptchaService::checkCaptcha($request->captcha);
+
             MailService::sendQuestionEmail($request->email, $request->name, $request->question, $request->subject);
 
         } catch (\Exception $e) {
 
-            return response()->json(
-                [
-                    'message' => 'Can not send a question',
-                    'errors' => [
-                        'name' => '',
-                        'question' => '',
-                        'email' => 'Can not send a question'
-                    ]
-                ],
-                422
-            );
+	        $message = 'Can not send a message';
+	        $status = 422;
+
+	        if ($e instanceof CaptchaException) {
+		        $message = $e->getMessage();
+		        $status = 500;
+	        }
+
+	        return response()->json(
+		        [
+			        'message' => $message,
+			        'errors' => [
+				        'captcha' => $message
+			        ]
+		        ],
+		        $status
+	        );
 
         }
 
@@ -470,7 +569,7 @@ class IndexController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string',
+                'uid' => 'required|string|bail',
             ],
             ValidationMessages::getList(
                 [
@@ -481,11 +580,7 @@ class IndexController extends Controller
 
         try {
 
-            $user = UsersService::findUserByUid($request->uid);
-
-            if ($user) {
-                MailService::sendActivateAccountEmail($user->email, $user->uid);
-            }
+        	AccountsService::sendActivationEmail($request->uid);
 
         } catch (\Exception $e) {
 
@@ -500,32 +595,25 @@ class IndexController extends Controller
         );
     }
 
-
     /**
-     * Check if referrer exist and store him to the Session
+     * Confirm user activation
      *
-     * @param string $referrer
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    protected function checkReferrer($referrer)
+    public function confirmActivation(Request $request)
     {
-        if (!is_null($referrer)) {
-            $user = User::where('uid', $referrer)->first();
+        try {
 
-            if (!is_null($user)) {
-                Session::put('referrer', $user->id);
-            }
+            AccountsService::activateAccount($request->uid);
+
+        } catch (\Exception $e) {
+
+            return redirect('/');
+
         }
+
+        return view('main.confirm-email');
     }
-
-    /**
-     * Check external redirect
-     *
-     */
-    protected function checkExternals()
-    {
-        $externalLink = $_SERVER['HTTP_REFERER'] ?? '';
-
-        Session::put('externalLink', $externalLink);
-    }
-
 }

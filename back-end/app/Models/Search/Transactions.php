@@ -33,22 +33,27 @@ class Transactions
         $sortIndex = $sort['sort_index'] ?? 0;
         $sortOrder = $sort['sort_order'] ?? 'desc';
 
-        $users = User::with('profile')->get();
+        $users = User::get();
         $grantCoinsTransactions = GrantCoinsTransaction::where('type', $grantTypeFilter)->get();
         $znxTransactions = ZantecoinTransaction::whereIn('transaction_type', $znxTypeFilter)->get();
+
+        $usersZnxTransactions = [];
+
+        foreach ($znxTransactions as $znxTransaction) {
+        	$usersZnxTransactions[$znxTransaction->user_id][] = $znxTransaction;
+        }
 
         // Generate users list
         $usersList = [];
 
         foreach ($users as $user) {
 
-            $userZnxTransactions = $znxTransactions->where('user_id', $user->id);
-
-            $icoAmount = $userZnxTransactions->sum('amount');
-
+            $userZnxTransactions = isset($usersZnxTransactions[$user->id]) ? collect($usersZnxTransactions[$user->id]) : collect([]);
 
             if ($partFilter != '') {
                 $icoAmount = $userZnxTransactions->where('ico_part', $partFilter)->sum('amount');
+            } else {
+	            $icoAmount = $userZnxTransactions->sum('amount');
             }
 
             if ($icoAmount == 0) {
@@ -58,13 +63,14 @@ class Transactions
             $grantCoinTransaction = $grantCoinsTransactions->where('address', $user->profile->eth_wallet)->first();
             $transactionStatus = $grantCoinTransaction ? TokensService::getTransactionStatus($grantCoinTransaction->status) : '';
 
-            if (count($statusFilter) > 0 && !in_array($transactionStatus, $statusFilter)) {
+            if (count($statusFilter) > 0 && !is_null($grantCoinTransaction) && !in_array($grantCoinTransaction->status, $statusFilter)) {
                 continue;
             }
 
             $userName = $user->first_name . ' ' . $user->last_name;
 
             $usersList[] = [
+	            'uid' => $user->uid,
                 'user' => trim($userName) != '' ? $userName : $user->email,
                 'address' => $user->profile->eth_wallet,
                 'amount' => $icoAmount,

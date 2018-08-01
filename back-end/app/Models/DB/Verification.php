@@ -15,6 +15,14 @@ class Verification extends Model
     const DOCUMENTS_DECLINED = 3;
 
     /**
+     * Verification statuses
+     */
+    const VERIFICATION_PENDING = 0;
+    const VERIFICATION_IN_PROGRESS = 1;
+    const VERIFICATION_SUCCESS = 2;
+    const VERIFICATION_FAILED = 3;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -31,29 +39,10 @@ class Verification extends Model
     protected $hidden = [];
 
     /**
-     * Return status name
-     *
-     * @param int $status
-     *
-     * @return string
+     * Get user
      */
-    public static function getStatus($status) {
-        switch ($status) {
-            case self::DOCUMENTS_NOT_UPLOADED:
-                return 'Documents not uploaded';
-
-            case self::DOCUMENTS_UPLOADED:
-                return 'Pending approval';
-
-            case self::DOCUMENTS_APPROVED:
-                return 'Documents approved';
-
-            case self::DOCUMENTS_DECLINED:
-                return 'Documents declined';
-
-            default:
-                return '';
-        }
+    public function user() {
+        return $this->belongsTo('App\Models\DB\User', 'user_id', 'id');
     }
 
 }

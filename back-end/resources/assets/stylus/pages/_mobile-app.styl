@@ -1,0 +1,247 @@
+.app-preloader
+  background $black-color
+  transition all .3s
+  position fixed
+  top 0
+  left 0
+  right 0
+  bottom 0
+  z-index 900
+  &.is-hidden
+    opacity 0
+    visibility hidden
+
+.app-preloader__container
+  position absolute
+  top 50%
+  left 50%
+  transform translateX(-50%) translateY(-50%)
+
+.c-preloder
+  height 200px
+  width 200px
+  transform rotate(-135deg)
+
+.c-preloder__object
+  border-radius 50% 50% 50% 50%
+  position absolute
+  border-top 5px solid $primary-color
+  border-bottom 5px solid transparent
+  border-left  5px solid $primary-color
+  border-right 5px solid transparent
+  animation animateLoader 2s infinite 
+
+#object_one
+  left 75px
+  top 75px
+  width 50px
+  height 50px
+
+#object_two
+  left 65px
+  top 65px
+  width 70px
+  height 70px
+  animation-delay 0.2s
+
+#object_three
+  left 55px
+  top 55px
+  width 90px
+  height 90px
+  animation-delay 0.4s
+
+#object_four
+  left 45px
+  top 45px
+  width 110px
+  height 110px
+  animation-delay 0.6s
+
+@keyframes animateLoader
+  50%
+    transform rotate(360deg) scale(0.8) 
+
+@keyframes flashLinks
+  0%
+    border 1px solid transparent
+    background transparent
+  50%
+    border 1px solid $primary-color
+    background rgba($primary-color, .3) 
+  100%
+    border 1px solid transparent
+    background transparent
+
+.main-mobile-app
+  background #1D2029
+  padding 50px 0
+  min-height calc(100vh - 74px)
+  overflow hidden
+  @media (max-width: 750px)
+    padding 0
+
+.mobile-app-container
+  width 405px
+  margin auto
+  @media (max-width: 450px)
+    position relative
+    left 50%
+    transform translateX(-50%)
+
+.app-steps
+  position relative
+  padding-bottom 198%
+  cursor default
+  cursor url('../images/mobile-app/mobile-cursor.png') 39 39,auto
+  @media (max-width: 850px)
+    transform scale(0.9)
+  @media (max-width: 750px)
+    transform scale(0.8)
+  &:active
+    cursor url('../images/mobile-app/mobile-cursor-tap.png') 39 39,auto
+  a
+    cursor pointer
+    cursor url('../images/mobile-app/mobile-cursor-hover.png') 39 39,auto
+
+.app-step
+  position absolute
+  top 0
+  left 0
+  right 0
+  // transition all .1s
+  opacity 0
+  visibility hidden
+  transform translateZ(0)
+  &.is-active
+    opacity 1
+    visibility visible
+    z-index 10
+  &#blank-screen
+    transform translateZ(0) scale(0)
+    transition opacity .8s, visibility .8s, transform 1.5s
+    &.is-zoomed
+      transform translateZ(0) scale(1)
+  &#start-screen
+    transition all .8s
+
+.link-area
+  position absolute
+  &.is-active
+    animation flashLinks 0.8s
+
+.signup-area
+  width 211px
+  height 43px
+  bottom 269px
+  left 50%
+  transform translateX(-50%)
+  &--fb
+    bottom 214px
+  &--gl
+    bottom 158px
+  &--another
+    bottom 105px
+    width 235px
+
+#sign-up
+  .signup-area
+    margin-bottom -17px
+
+#sign-in
+  .signup-area
+    margin-bottom 39px
+
+.signin-area
+  width 92px
+  height 35px
+  bottom 52px
+  left 50%
+  transform translateX(-50%)
+
+.md-bottom-area
+  width 165px
+  height 68px
+  bottom 98px
+  &--receive
+    left 34px
+  &--send
+    left 205px
+
+.bottom-area
+  width 56px
+  height 64px
+  bottom 30px
+  left 34px
+  &--price
+    left 34px
+  &--debit
+    left 105px
+  &--wallets
+    left 175px
+  &--history
+    left 243px
+  &--account
+    left 314px
+
+.currency-area
+  width 20px
+  height 20px
+  top 87px
+  left 119px
+
+.currency-cancel-area
+  width 318px
+  height 56px
+  bottom 45px
+  left 43px
+
+.top-area
+  width 137px
+  height 37px
+  top 130px
+  &--deposit
+    left 66px
+  &--withdrawal
+    left 201px
+
+.h-more-area
+  width 48px
+  height 31px
+  right 49px
+  &--1
+    top 214px
+  &--2
+    top 261px
+  &--3
+    top 307px
+  &--4
+    top 354px
+  &--5
+    top 400px
+
+.transaction-back-area
+  width 46px
+  height 25px
+  left 35px
+  top 77px
+
+.account-area
+  right 52px
+  top 200px
+  width 25px
+  height 30px
+  &--1
+    top 307px
+  &--2
+    top 363px
+  &--3
+    top 418px
+  &--4
+    top 474px
+
+.account-signout-area
+  width 107px
+  height 30px
+  bottom 186px
+  left 150px

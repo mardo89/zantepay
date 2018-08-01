@@ -107,14 +107,44 @@ $(document).ready(function () {
     }
 
     //hide hp banner and set cookies
-    $(document).on('click', '.js-close-banner', function() {
+    $(document).on('click', '.js-close-banner', function () {
         $(this).closest('.h-banner').removeClass('is-active');
         setCookie('hideNoticeBanner', 'true', {path: '/', expires: 86400}); //1day cookie
     });
 
     //show hp banner
-    if ( !getCookie('hideNoticeBanner') && $('.h-banner').length ) {
+    if (!getCookie('hideNoticeBanner') && $('.h-banner').length) {
         $('.h-banner').addClass('is-active');
+    }
+
+    //newsletter auto popup
+    var newsletterTimeoutHandle;
+
+    function openNewsletterPopup() {
+        newsletterTimeoutHandle = window.setTimeout(function () {
+            $.magnificPopup.open({
+                items: {
+                    src: '#newsletter-modal'
+                },
+                type: 'inline',
+                midClick: true,
+                mainClass: 'mfp-fade',
+                fixedContentPos: false,
+                callbacks: {
+                    open: function () {
+                        $('body').addClass('noscroll');
+                    },
+                    close: function () {
+                        $('body').removeClass('noscroll');
+                    }
+                }
+            });
+            setCookie('hideNewsletterPopup', 'true', {path: '/', expires: 86400}); //1day cookie
+        }, 6000);
+    }
+
+    if ($('#newsletter-modal').length && !getCookie('hideNewsletterPopup')) {
+        openNewsletterPopup();
     }
 
     // Count down
@@ -166,9 +196,9 @@ $(document).ready(function () {
     });
 
     //mobile dropdown
-    $(document).on('click', '.m-dropdown > a', function() {
-      $(this).toggleClass('is-active');
-      $(this).siblings('ul').slideToggle();
+    $(document).on('click', '.m-dropdown > a', function () {
+        $(this).toggleClass('is-active');
+        $(this).siblings('ul').slideToggle();
     });
 
     // Popups
@@ -189,37 +219,65 @@ $(document).ready(function () {
                     $(item.src).find('form').each(
                         (index, element) => clearForm($(element))
                     );
+                },
+                beforeClose: function () {
+
+                    // Remove Resend Email button from login form
+                    if ($('#frm_signin').find('#resend-registration-email').length) {
+
+                        $('#frm_signin').find('#resend-registration-email').remove();
+
+                        $('#frm_signin').find('input[type="submit"]').show();
+
+                    }
+
                 }
             }
         });
     }
 
-    if ( $('.js-open-noclose-popup').length ) {
+    $('.js-popup-video').magnificPopup({
+        type: 'iframe',
+        midClick: true,
+        mainClass: 'mfp-fade',
+        fixedContentPos: false,
+        callbacks: {
+            open: function () {
+                $('body').addClass('noscroll');
+            },
+            close: function () {
+                $('body').removeClass('noscroll');
+            }
+        }
+    });
+
+    if ($('.js-open-noclose-popup').length) {
         $('.js-open-noclose-popup').magnificPopup({
-            type:'inline',
+            type: 'inline',
             midClick: true,
             showCloseBtn: false,
             closeOnBgClick: false,
             mainClass: 'mfp-fade',
             fixedContentPos: false,
             callbacks: {
-                open: function() {
-                   $('body').addClass('noscroll');
+                open: function () {
+                    $('body').addClass('noscroll');
                 },
-                close: function() {
+                close: function () {
                     $('body').removeClass('noscroll');
                 }
             }
         });
     }
-    $(document).on( 'click', '.js-close-popup', function() {
+
+    $(document).on('click', '.js-close-popup', function () {
         $.magnificPopup.close();
     });
 
     //accordion
-    $(document).on('click', '.js-accordion .accordion__head a', function() {
+    $(document).on('click', '.js-accordion .accordion__head a', function () {
         var thisID = $(this).attr('href');
-        if ( $(this).closest('.accordion__head').hasClass('is-active') ) {
+        if ($(this).closest('.accordion__head').hasClass('is-active')) {
             $(this).parents('.js-accordion').find('.accordion__head').removeClass('is-active');
             $(this).parents('.js-accordion').find('.accordion__body').slideUp();
         } else {
@@ -249,14 +307,14 @@ $(document).ready(function () {
     }
 
     //tabs
-    $(document).on('click', '.tabs-head a', function(e) {
+    $(document).on('click', '.tabs-head a', function (e) {
         e.preventDefault();
         var thisHref = $(this).attr('href');
         $(this).closest('.tabs-head').find('li').removeClass('is-active');
         $(thisHref).closest('.tabs-wrap').find('.tab-body').removeClass('is-active');
         $(this).parent().addClass('is-active');
         $(thisHref).addClass('is-active');
-        if ( thisHref != '#profile') {
+        if (thisHref != '#profile') {
             $('.dashboard-top-panel-row .form-group').hide();
         } else {
             $('.dashboard-top-panel-row .form-group').show();
@@ -264,7 +322,7 @@ $(document).ready(function () {
     });
 
     //open tabs by url
-    if ( location.hash && $('.tabs-head') ) {
+    if (location.hash && $('.tabs-head')) {
         var tabHref = location.hash;
         $('.tabs-head li').removeClass('is-active');
         $('.tab-body').removeClass('is-active');
@@ -273,10 +331,10 @@ $(document).ready(function () {
     }
 
     //open resset password by url
-    if ( location.hash == '#forgot-password' ) {
-        $.magnificPopup.open({items: {src: '#forgot-password'},type: 'inline'});
+    if (location.hash == '#forgot-password') {
+        $.magnificPopup.open({items: {src: '#forgot-password'}, type: 'inline'});
     }
-    
+
     //hp shapes
     if ($('#particles-js').length) {
         window.addEventListener("load", function () {
@@ -402,6 +460,7 @@ $(document).ready(function () {
         });
     }
 
+
     //Log in
     $('#frm_signin').on('submit', function (event) {
         event.preventDefault();
@@ -412,7 +471,8 @@ $(document).ready(function () {
 
         const credentials = {
             email: $('#frm_signin input[name="email"]').val(),
-            password: $('#frm_signin input[name="password"]').val()
+            password: $('#frm_signin input[name="password"]').val(),
+            captcha: grecaptcha.getResponse(signInWidgetID)
         };
 
         axios.post(
@@ -423,9 +483,29 @@ $(document).ready(function () {
                 response => {
                     hideSpinner(button);
 
-                    $.magnificPopup.close();
 
-                    window.location = response.data.userPage;
+                    if (response.data.userPage !== '') {
+                        $.magnificPopup.close();
+
+                        window.location = response.data.userPage;
+                    } else {
+
+                        $('#frm_signin input[name="password"]').after(
+                            $('<span />').addClass('error-text').text('Your email account is not confirmed yet. Check your inbox/spam folder to confirm your account.')
+                        );
+
+                        button.after(
+                            $('<div />').addClass('btn btn--shadowed-light btn--260').attr('id', 'resend-registration-email').html('Resend Email')
+                                .on('click', function (event) {
+                                    event.preventDefault();
+
+                                    sendActivationEmail(response.data.uid)
+                                })
+                        );
+
+                        button.hide();
+
+                    }
                 }
             )
             .catch(
@@ -444,6 +524,9 @@ $(document).ready(function () {
                         }
                     )
 
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(signInWidgetID);
+                    }
                 }
             )
     });
@@ -459,8 +542,11 @@ $(document).ready(function () {
         const credentials = {
             email: $('#frm_signup input[name="email"]').val(),
             password: $('#frm_signup input[name="password"]').val(),
-            password_confirmation: $('#frm_signup input[name="confirm-password"]').val()
+            password_confirmation: $('#frm_signup input[name="password_confirmation"]').val(),
+            captcha: grecaptcha.getResponse(signUpWidgetID)
         };
+
+        console.log(credentials);
 
         axios.post(
             '/account/register',
@@ -492,6 +578,7 @@ $(document).ready(function () {
             .catch(
                 error => {
                     hideSpinner(button);
+                    clearErrors()
 
                     const {errors} = error.response.data;
 
@@ -504,6 +591,10 @@ $(document).ready(function () {
                             );
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(signUpWidgetID);
+                    }
                 }
             )
     });
@@ -519,7 +610,8 @@ $(document).ready(function () {
         const credentials = {
             email: $('#frm_invite_signup input[name="email"]').val(),
             password: $('#frm_invite_signup input[name="password"]').val(),
-            password_confirmation: $('#frm_invite_signup input[name="confirm-password"]').val()
+            password_confirmation: $('#frm_invite_signup input[name="password_confirmation"]').val(),
+            captcha: grecaptcha.getResponse()
         };
 
         axios.post(
@@ -546,7 +638,7 @@ $(document).ready(function () {
                         window.location = '/';
                     });
 
-                    $('#resend-registration-email').on('click', function (event) {
+                    $('#resend-registration-email').off().on('click', function (event) {
                         event.preventDefault();
 
                         sendActivationEmail(response.data.uid)
@@ -556,6 +648,7 @@ $(document).ready(function () {
             .catch(
                 error => {
                     hideSpinner(button);
+                    clearErrors();
 
                     const {errors} = error.response.data;
 
@@ -568,6 +661,10 @@ $(document).ready(function () {
                             );
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(signUpWidgetID);
+                    }
                 }
             )
     });
@@ -582,6 +679,7 @@ $(document).ready(function () {
 
         const credentials = {
             email: $('#frm_forgot_password input[name="email"]').val(),
+            captcha: grecaptcha.getResponse(resetPasswordWidgetID)
         };
 
         axios.post(
@@ -620,6 +718,10 @@ $(document).ready(function () {
                             );
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(resetPasswordWidgetID);
+                    }
                 }
             )
     });
@@ -635,7 +737,7 @@ $(document).ready(function () {
         const credentials = {
             token: $('#frm_change_password input[name="reset-token"]').val(),
             password: $('#frm_change_password input[name="password"]').val(),
-            password_confirmation: $('#frm_change_password input[name="confirm-password"]').val()
+            password_confirmation: $('#frm_change_password input[name="password_confirmation"]').val()
         };
 
         axios.post(
@@ -794,7 +896,8 @@ $(document).ready(function () {
                 {
                     'name': $('#contact-name').val(),
                     'email': $('#contact-email').val(),
-                    'message': $('#contact-message').val()
+                    'message': $('#contact-message').val(),
+                    'captcha': grecaptcha.getResponse(contactUsWidgetID)
                 }
             )
         )
@@ -802,6 +905,8 @@ $(document).ready(function () {
                 () => {
                     hideSpinner(button);
                     clearForm($('#frm_contact'));
+
+                    grecaptcha.reset(contactUsWidgetID);
 
                     $.magnificPopup.open(
                         {
@@ -831,6 +936,10 @@ $(document).ready(function () {
 
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(contactUsWidgetID);
+                    }
                 }
             )
     });
@@ -850,7 +959,8 @@ $(document).ready(function () {
                     'subject': 'New Ticket Submitted',
                     'name': $('#ticket_user_name').val(),
                     'email': $('#ticket_user_email').val(),
-                    'question': $('#ticket_user_question').val()
+                    'question': $('#ticket_user_question').val(),
+                    'captcha': grecaptcha.getResponse(ticketWidgetID)
                 }
             )
         )
@@ -886,6 +996,10 @@ $(document).ready(function () {
                             );
                         }
                     )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(ticketWidgetID);
+                    }
                 }
             )
     });
@@ -904,7 +1018,8 @@ $(document).ready(function () {
                     'subject': 'New Idea Submitted',
                     'name': $('#idea_user_name').val(),
                     'email': $('#idea_user_email').val(),
-                    'question': $('#idea_user_question').val()
+                    'question': $('#idea_user_question').val(),
+                    'captcha': grecaptcha.getResponse(ideaWidgetID)
                 }
             )
         )
@@ -923,6 +1038,55 @@ $(document).ready(function () {
                         }
                     );
 
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {errors} = error.response.data;
+
+                    $.each(
+                        errors,
+                        (field, error) => {
+                            $('#idea_user_' + field).parents('.form-group').addClass('form-error');
+                            $('#idea_user_' + field).after(
+                                $('<span />').addClass('error-text').text(error)
+                            );
+                        }
+                    )
+
+                    if (error.response.status == 500) {
+                        grecaptcha.reset(ideaWidgetID);
+                    }
+                }
+            )
+    });
+
+    $('#frm_newsletter').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $(this).find('input[type="submit"]');
+        showSpinner(button, 50);
+        clearErrors();
+
+        axios.post(
+            'newsletter/join',
+            qs.stringify(
+                {
+                    'email': $(this).find('input[name="email"]').val(),
+                }
+            )
+        )
+            .then(
+                () => {
+                    hideSpinner(button);
+                    clearForm($('#frm_newsletter'));
+
+                    $('.sticky-panel').removeClass('is-active');
+                    setCookie('hideNewsletterPanel', 'true', {path: '/'});
+
+                    $.magnificPopup.close();
                 }
             )
             .catch(

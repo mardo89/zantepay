@@ -2,8 +2,7 @@
 
 @section('main-menu')
     <li><a href="profile">Profile</a></li>
-    <li><a href="profile-settings">Profile Settings</a></li>
-    <li><a href="invite-friend">Refer a Friend</a></li>
+    <li><a href="profile-settings">Verify Account</a></li>
     <li><a href="wallet">Wallet</a></li>
     <li class="current-menu-item"><a href="debit-card">ZANTEPAY Debit Card</a></li>
 @endsection
@@ -30,13 +29,16 @@
 
                             </div>
                             <div class="col-sm-6">
-                                <p>Pre-order bonus tokens received: <br> 500 ZNX (locked)</p>
-                                <p><a href="/user/profile-settings">Verify account</a> to unlock bonus!!</p>
+                                <p>Pre-order bonus tokens received: <br> 500 ZPAY</p>
+                                <h3 class="h5">Terms:</h3>
+                                <ol>
+                                    <li>Make a deposit to ZANTEPAY wallet or buy ZPAY tokens from ICO to unlock your bonus. Bonus tokens will be available after ICO.</li>
+                                </ol>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <h2 class="h4 headline-mb">Earn 500ZNX just by referring friends to pre-order ZANTEPAY card:</h2>
+                        <h2 class="h4 headline-mb">Earn 500ZPAY just by referring friends to pre-order ZANTEPAY card:</h2>
                         <div class="row row-bottom" style="max-width: 650px;">
                             <div class="col-md-7">
                                 <div class="field-group">

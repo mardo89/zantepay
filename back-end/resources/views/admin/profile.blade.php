@@ -3,6 +3,7 @@
 @section('main-menu')
     <li class="current-menu-item"><a href="users">Users</a></li>
     <li><a href="wallet">Wallet</a></li>
+    <li><a href="newsletter">Newsletter</a></li>
 @endsection
 
 @section('main-menu')
@@ -11,7 +12,7 @@
 @endsection
 
 @section('change-role')
-    @if($canEdit)
+    @if($allowEdit)
         <div class="form-group">
             <label class="field-label">Role:</label>
             <select name="user-role" class="input-field">
@@ -31,7 +32,7 @@
 @endsection
 
 @section('remove-user')
-    @if($canEdit)
+    @if($allowEdit)
         <button id="remove-user" class="mt-20 btn btn--medium btn--shadowed-light"> Delete User </button>
     @endif
 @endsection

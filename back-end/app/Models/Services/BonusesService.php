@@ -19,17 +19,19 @@ class BonusesService
      */
     public static function updateBonus($user)
     {
-        $documentsVerified = DocumentsService::verificationComplete($user);
-        $hasDebitCard = DebitCardsService::checkDebitCard($user);
+        $documentsVerified = VerificationService::verificationComplete($user->verification);
+        $hasDebitCard = DebitCardsService::checkDebitCard($user->id);
 
         if (!$documentsVerified || !$hasDebitCard) {
             return;
         }
 
         // user bonus
-        $wallet = $user->wallet;
-        $wallet->debit_card_bonus = Wallet::DEBIT_CARD_BONUS;
-        $wallet->save();
+        $bonusAmount = Wallet::DEBIT_CARD_BONUS;
+
+        WalletsService::updateDebitCardBonus($user->wallet, $bonusAmount);
+
+        TransactionsService::createBonusTransaction($user->id, $bonusAmount);
 
         // referrer bonus
         $referrer = AccountsService::getReferrer($user->referrer);
@@ -38,9 +40,11 @@ class BonusesService
             return;
         }
 
-        $wallet = $referrer->wallet;
-        $wallet->referral_bonus += Wallet::REFERRAL_BONUS;
-        $wallet->save();
+        $bonusAmount = Wallet::REFERRAL_BONUS;
+
+        WalletsService::updateReferralBonus($referrer->wallet, $bonusAmount);
+
+        TransactionsService::createBonusTransaction($referrer->id, $bonusAmount);
     }
 
     /**
@@ -52,8 +56,8 @@ class BonusesService
      */
     public static function getReferralBonus($referral)
     {
-        $hasDebitCard = DebitCardsService::checkDebitCard($referral);
-        $documentsVerified = DocumentsService::verificationComplete($referral);
+        $hasDebitCard = DebitCardsService::checkDebitCard($referral->id);
+        $documentsVerified = VerificationService::verificationComplete($referral->verification);
 
         $referralBonus = $hasDebitCard ? Wallet::REFERRAL_BONUS : 0;
         $bonusStatus = $documentsVerified ? '(locked - account is not verified)' : '';

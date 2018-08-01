@@ -24,7 +24,12 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="signin_pwd" class="input-field" type="password" name="password" placeholder="Password" autocomplete="off">
+                        <input id="signin_pwd" class="input-field" name="password" placeholder="Password" type="password">
+                    </div>
+
+                    <div class="logon-group">
+                        <div id="sign-in-recaptcha" class="form-recaptcha"></div>
+                        <input name="captcha" type="hidden">
                     </div>
 
                     <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Sign In</button>
@@ -42,3 +47,22 @@
     </div>
 
 @endsection
+
+<!-- Google Captcha -->
+<script>
+
+    var signInWidgetID;
+
+    var onloadCallback = function() {
+
+        signInWidgetID = grecaptcha.render('sign-in-recaptcha', {
+            'sitekey' : '{{$captcha}}',
+            'theme' : 'light'
+        });
+
+
+    };
+
+</script>
+
+<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit'></script>

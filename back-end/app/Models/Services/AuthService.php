@@ -21,36 +21,6 @@ class AuthService
         User::USER_ROLE_SALES => '/admin/users',
         User::USER_ROLE_USER => '/user/wallet',
     ];
-    /**
-     *  Register new user
-     *
-     * @param string $email
-     * @param string $password
-     *
-     * @return User
-     */
-    public static function registerUser($email, $password)
-    {
-        $uid = uniqid();
-
-        self::createUser(
-            [
-                'email' => $email,
-                'password' => $password,
-                'uid' => $uid
-            ]
-        );
-
-        ExternalRedirect::addLink(
-            Session::get('externalLink'),
-            $email,
-            ExternalRedirect::ACTION_TYPE_REGISTRATION
-        );
-
-        MailService::sendActivateAccountEmail($email, $uid);
-
-        return $uid;
-    }
 
     /**
      *  Login user
@@ -58,6 +28,7 @@ class AuthService
      * @param string $email
      * @param string $password
      *
+     * @return array
      * @throws
      */
     public static function loginUser($email, $password)
@@ -75,9 +46,74 @@ class AuthService
 
         $activeUser = AccountsService::getActiveUser();
 
-        if (optional($activeUser)->isDisabled()) {
-            throw new AuthException('Your account is disabled');
+        if (optional($activeUser)->isClosed()) {
+            throw new AuthException('Your account is closed');
         }
+
+        if (optional($activeUser)->isDisabled()) {
+
+            Auth::logout();
+
+            return [
+                'userPage' => '',
+                'uid' => $activeUser->uid
+            ];
+
+//            throw new AuthException('Your email account is not confirmed yet. Check your inbox/spam folder to confirm your account.', 500);
+        }
+
+        self::updateAuthToken($activeUser->id, $activeUser->email, $activeUser->password);
+
+        return [
+            'userPage' => self::getHomePage($activeUser->role),
+            'uid' => $activeUser->uid
+        ];
+    }
+
+    /**
+     *  Login user with Facebook
+     *
+     * @return string
+     * @throws
+     */
+    public static function loginWithFacebook()
+    {
+        $userID = AccountsService::registerFacebookUser();
+
+        $isAuthorized = Auth::loginUsingId($userID);
+
+        if (!$isAuthorized) {
+            throw new AuthException('Authentification failed.');
+        }
+
+        $activeUser = AccountsService::getActiveUser();
+
+        self::updateAuthToken($activeUser->id, $activeUser->email, $activeUser->password);
+
+        return self::getHomePage($activeUser->role);
+    }
+
+    /**
+     *  Login user with Google
+     *
+     * @return string
+     * @throws
+     */
+    public static function loginWithGoogle()
+    {
+        $userID = AccountsService::registerGoogleUser();
+
+        $isAuthorized = Auth::loginUsingId($userID);
+
+        if (!$isAuthorized) {
+            throw new AuthException('Authentification failed.');
+        }
+
+        $activeUser = AccountsService::getActiveUser();
+
+        self::updateAuthToken($activeUser->id, $activeUser->email, $activeUser->password);
+
+        return self::getHomePage($activeUser->role);
     }
 
     /**
@@ -91,55 +127,13 @@ class AuthService
     }
 
     /**
-     * Check password with existing hash
+     * Update security token
      *
-     * @param string $password
-     * @param string $hash
-     *
-     * @return bool
+     * @param User $user
      */
-    public static function checkPassword($password, $hash) {
-        return password_verify($password, $hash);
-    }
-
-    /**
-     * Create user with profile, wallet, documents
-     *
-     * @param array $userInfo
-     *
-     * @return User
-     */
-    protected static function createUser($userInfo)
+    public static function updateAuthToken($userID, $userEmail, $userPassword)
     {
-        $referrer = Session::get('referrer');
-
-        if (!is_null($referrer)) {
-            $userInfo['referrer'] = $referrer;
-        }
-
-        $user = User::create($userInfo);
-
-        Profile::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Verification::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Wallet::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Session::forget('referrer');
-
-        return $user;
+        Session::put('auth_token', bcrypt($userEmail . $userID . $userPassword));
     }
 
     /**
@@ -149,7 +143,7 @@ class AuthService
      *
      * @return string
      */
-    protected function getHomePage($userRole)
+    protected static function getHomePage($userRole)
     {
         return self::$homePages[$userRole] ?? '/';
     }

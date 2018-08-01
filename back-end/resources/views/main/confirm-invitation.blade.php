@@ -15,7 +15,7 @@
                         <h2 class="h2 headline headline--black">Verify and pre-order a <span class="primary-color">FREE</span> card</h2>
                     </div>
                     <div class="col-md-4 pl-0">
-                        <img src="images/get-500-znx.png" srcset="images/get-500-znx@2x.png 2x" alt="get 500 ZNX">
+                        <img src="images/get-500-znx.png" srcset="images/get-500-znx@2x.png 2x" alt="get 500 ZPAY">
                     </div>
                 </div>
             </div>
@@ -35,16 +35,21 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="signup_pwd" class="input-field" type="password" name="password" placeholder="Password" autocomplete="off">
+                        <input id="signup_pwd" class="input-field" name="password" placeholder="Password" type="password">
                     </div>
 
                     <div class="form-group">
-                        <input id="signup_cnf_pwd" class="input-field" type="password" name="confirm-password"
-                               placeholder="Confirm Password" autocomplete="off">
+                        <input id="signup_cnf_pwd" class="input-field" name="password_confirmation"
+                               placeholder="Confirm Password" type="password">
                     </div>
 
                     <div class="form-group">
                         <input class="input-field" type="hidden" name="referral" value="{{ $referralToken }}" readonly>
+                    </div>
+
+                    <div class="logon-group">
+                        <div class="g-recaptcha form-recaptcha" data-sitekey="{{ $captcha }}"></div>
+                        <input name="captcha" type="hidden">
                     </div>
 
                     <button type="submit" class="btn btn--shadowed-light btn--160 mt-20">Sign Up</button>
@@ -79,3 +84,6 @@
     </div>
 
 @endsection
+
+<!-- Google Captcha -->
+<script src='https://www.google.com/recaptcha/api.js'></script>

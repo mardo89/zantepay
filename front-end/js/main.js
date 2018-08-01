@@ -106,7 +106,7 @@ $(document).ready(function() {
   if ( $('.js-popup-link').length ) {
     $('.js-popup-link').magnificPopup({
       type:'inline',
-      midClick: true, // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+      midClick: true,
       mainClass: 'mfp-fade',
       fixedContentPos: false,
       callbacks: {
@@ -119,6 +119,22 @@ $(document).ready(function() {
       }
     });
   }
+
+  $('.js-popup-video').magnificPopup({
+      type: 'iframe',
+      midClick: true,
+      mainClass: 'mfp-fade',
+      fixedContentPos: false,
+      callbacks: {
+       open: function() {
+        $('body').addClass('noscroll');
+       },
+       close: function() {
+         $('body').removeClass('noscroll');
+       }
+      }
+  });
+
   
   if ( $('.js-open-noclose-popup').length ) {
     $('.js-open-noclose-popup').magnificPopup({
@@ -456,4 +472,70 @@ $(document).ready(function() {
     $(this).toggleClass('is-active');
     $(this).siblings('ul').slideToggle();
   });
+
+
+  // ALPHA APP
+  //preloader
+  $(window).on('load', function() {
+    $('.app-preloader').addClass('is-hidden');
+    $('#blank-screen').addClass('is-zoomed');
+    setTimeout(function() {
+      $('#blank-screen').removeClass('is-active');
+      $('#start-screen').addClass('is-active')
+    }, 1600);
+  });
+
+  //flash animation for links
+  $(document).on('click', '.app-step img', function() {
+    var links = $(this).siblings('.link-area');
+    if ( !links.hasClass('is-active') ) {
+      links.addClass('is-active');
+      setTimeout(function() {
+        links.removeClass('is-active');
+      }, 1000);
+    }
+  });
+
+  //tabs
+  $(document).on('click', '.link-area', function(e) {
+    // e.preventDefault();
+    var tabId = $(this).attr('href');
+    $('.app-step').removeClass('is-active');
+    $(tabId).addClass('is-active');
+
+    //disable hash jumping
+    // var windowTop = $(window).scrollTop();
+    // setTimeout(function() {
+    //   window.scrollTo(0, windowTop);
+    // }, 1);
+    return false;
+  });
+  
+  var newsletterTimeoutHandle;
+  function openNewsletterPopup() {
+      newsletterTimeoutHandle = window.setTimeout(function() {
+          $.magnificPopup.open({
+              items: {
+                  src: '#newsletter-modal'
+              },
+              type:'inline',
+              midClick: true,
+              mainClass: 'mfp-fade',
+              fixedContentPos: false,
+              callbacks: {
+                  open: function() {
+                      $('body').addClass('noscroll');
+                  },
+                  close: function() {
+                      $('body').removeClass('noscroll');
+                  }
+              }
+          });
+          setCookie('hideNewsletterPopup', 'true', {path: '/', expires: 86400}); //1day cookie
+      }, 6000);
+  }
+
+  if( $('#newsletter-modal').length && !getCookie('hideNewsletterPopup')) {
+      openNewsletterPopup();
+  }
 });

@@ -8,8 +8,10 @@
     "/js/user_profile_settings.js": "/js/user_profile_settings.js",
     "/js/user_profile.js": "/js/user_profile.js",
     "/js/user_debit_card.js": "/js/user_debit_card.js",
-    "/js/service.js": "/js/service.js",
+    "/js/service-verification.js": "/js/service-verification.js",
+    "/js/service-mail-events.js": "/js/service-mail-events.js",
     "/js/admin_wallet.js": "/js/admin_wallet.js",
     "/js/admin_users.js": "/js/admin_users.js",
-    "/js/admin_profile.js": "/js/admin_profile.js"
+    "/js/admin_profile.js": "/js/admin_profile.js",
+    "/js/mobile_app.js": "/js/mobile_app.js"
 }

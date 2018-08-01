@@ -43,6 +43,5 @@ class SystemAlert extends Mailable
     {
         return $this->subject($this->event)
             ->view('emails.system-alert');
-
     }
 }

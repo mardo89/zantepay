@@ -13,14 +13,15 @@
                 <input type="hidden" id="user-profile-id" value="{{ $user->uid }}">
 
                 <div class="dashboard-top-panel">
-                    <a href="/admin/users" class="back-arrow"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back</a>
+                    <a href="/admin/users" class="back-arrow"><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        Back</a>
                     <div class="dashboard-top-panel-row">
                         <ul class="tabs-head">
                             <li class="is-active">
                                 <a href="#profile">Profile</a>
                             </li>
                             <li>
-                                <a href="#documents">Documents</a>
+                                <a href="#documents">Verification</a>
                             </li>
                             <li>
                                 <a href="#account-wallets">Account & Wallets</a>
@@ -39,28 +40,32 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="field-label" for="field3">First Name:</label>
-                                        <input class="input-field" type="text" name="f-name" id="field3" value="{{ $user->first_name }}"
+                                        <input class="input-field" type="text" name="f-name" id="field3"
+                                               value="{{ $user->first_name }}"
                                                readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="field-label" for="field4">Last Name:</label>
-                                        <input class="input-field" type="text" name="l-name" id="field4" value="{{ $user->last_name }}"
+                                        <input class="input-field" type="text" name="l-name" id="field4"
+                                               value="{{ $user->last_name }}"
                                                readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="field-label" for="field5">Email:</label>
-                                        <input class="input-field" type="email" name="email" id="field5" value="{{ $user->email }}"
+                                        <input class="input-field" type="email" name="email" id="field5"
+                                               value="{{ $user->email }}"
                                                readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="field-label" for="field5">Phone Number:</label>
-                                        <input class="input-field" type="text" name="phone" id="field5" value="{{ $user->phone_number }}"
+                                        <input class="input-field" type="text" name="phone" id="field5"
+                                               value="{{ $user->phone_number }}"
                                                readonly>
                                     </div>
                                 </div>
@@ -73,7 +78,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="field-label" for="field6">Country:</label>
-                                        <input class="input-field" type="text" name="city" id="field16" value="{{ $profile->countryName }}"
+                                        <input class="input-field" type="text" name="city" id="field16"
+                                               value="{{ $profile->countryName }}"
                                                readonly>
                                     </div>
                                 </div>
@@ -81,14 +87,16 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="field-label" for="field6">State / Country:</label>
-                                        <input class="input-field" type="text" name="city" id="field17" value="{{ $profile->stateName }}"
+                                        <input class="input-field" type="text" name="city" id="field17"
+                                               value="{{ $profile->stateName }}"
                                                readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="field-label" for="field6">City:</label>
-                                        <input class="input-field" type="text" name="city" id="field6" value="{{ $profile->city }}"
+                                        <input class="input-field" type="text" name="city" id="field6"
+                                               value="{{ $profile->city }}"
                                                readonly>
                                     </div>
                                 </div>
@@ -97,14 +105,16 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="field-label" for="field7">Address:</label>
-                                        <input class="input-field" type="text" name="address" id="field7" value="{{ $profile->address }}"
+                                        <input class="input-field" type="text" name="address" id="field7"
+                                               value="{{ $profile->address }}"
                                                readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="field-label" for="field8">Postcode:</label>
-                                        <input class="input-field" type="text" name="postcode" id="field8" value="{{ $profile->postcode }}"
+                                        <input class="input-field" type="text" name="postcode" id="field8"
+                                               value="{{ $profile->post_code }}"
                                                readonly>
                                     </div>
                                 </div>
@@ -131,8 +141,10 @@
                                     <div class="form-group">
                                         <label class="field-label" for="field10">Passport / ID expiry date:</label>
                                         <div class="date-picker-wrap">
-                                            <input class="input-field date-picker-inp" type="text" name="expiry" id="field10"
-                                                   data-toggle="datepicker" value="{{ $profile->passportExpDate }}" disabled>
+                                            <input class="input-field date-picker-inp" type="text" name="expiry"
+                                                   id="field10"
+                                                   data-toggle="datepicker" value="{{ $profile->passportExpDate }}"
+                                                   disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +152,8 @@
                                     <div class="form-group">
                                         <label class="field-label" for="field11">Date of birth:</label>
                                         <div class="date-picker-wrap">
-                                            <input class="input-field date-picker-inp" type="text" name="birth" id="field11"
+                                            <input class="input-field date-picker-inp" type="text" name="birth"
+                                                   id="field11"
                                                    data-toggle="datepicker" value="{{ $profile->birthDate }}" disabled>
                                         </div>
                                     </div>
@@ -149,118 +162,18 @@
                                     <div class="form-group">
                                         <label class="field-label" for="field12">Country of birth:</label>
                                         <input class="input-field" type="text" name="country-birth" id="field12"
-                                               value="{{ $profile->birth_country }}" readonly>
+                                               value="{{ $profile->birthCountryName }}" readonly>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="dashboard-group-lg">
-                            <h2 class="h4 headline-mb">Passport/ID/Driver's license:</h2>
-                            <div class="row">
-                                <div class="col-md-5">
-                                    @foreach($idDocuments as $document)
-                                        @if($document['type'] == 'application/pdf')
-                                            <object width="100%" height="300px" type="application/pdf"
-                                                    data="{{ $document['src'] }}"></object>
-
-                                            <a href="{{ $document['src'] }}" target="_blank"
-                                               class="mt-40 mb-20 btn btn--small btn--shadowed-light">
-                                                View
-                                            </a>
-                                        @else
-                                            <img width="100%" src="{{ $document['src'] }}"/>
-
-                                            <a href="{{ $document['src'] }}" target="_blank"
-                                               class="mt-40 mb-20 btn btn--small btn--shadowed-light">
-                                                View
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </div>
-
-                                @if($verification->id_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
-                                    <div class="col-md-3 col-sm-4 col-5 text-center mb-20 document-actions">
-                                        <input type="hidden" name="document-type"
-                                               value="{{ \App\Models\DB\Document::DOCUMENT_TYPE_IDENTITY }}">
-
-                                        <button type="button"
-                                                class="mt-40 mb-20 btn btn--medium btn--shadowed-light btn--full-w decline-documents">
-                                            Decline
-                                        </button>
-
-                                        <button type="button"
-                                                class="mb-20 btn btn--medium btn--shadowed-light btn--full-w approve-documents">
-                                            Approve
-                                        </button>
-                                    </div>
-
-                                    <div class="col-md-4 document-reason">
-                                        <div class="form-group">
-                                            <label class="field-label" for="field12">Reason:</label>
-                                            <input class="input-field" type="text" name="decline-reason" id="field12"
-                                                   value="{{ $verification->id_decline_reason }}">
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="col-md-3 col-sm-4 col-5 mb-20 document-status">
-                                        {{ $verification->idStatusName }}
-                                    </div>
-                                @endif
                             </div>
                         </div>
 
                         <div class="dashboard-group">
-                            <h2 class="h4 headline-mb">Proof of address:</h2>
-                            <div class="row">
-                                <div class="col-md-5">
-                                    @foreach($addressDocuments as $document)
-                                        @if($document['type'] == 'application/pdf')
-                                            <object width="100%" height="300px" type="application/pdf"
-                                                    data="{{ $document['src'] }}"></object>
 
-                                            <a href="{{ $document['src'] }}" target="_blank"
-                                               class="mt-40 mb-20 btn btn--small btn--shadowed-light">
-                                                View
-                                            </a>
-                                        @else
-                                            <img width="500px" src="{{ $document['src'] }}"/>
+                            <h2 class="h4 headline-mb primary-color">Verification: </h2>
 
-                                            <a href="{{ $document['src'] }}" target="_blank"
-                                               class="mt-40 mb-20 btn btn--small btn--shadowed-light">
-                                                View
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </div>
+                            <div id="verification-status" class="headline-mb">{{ $verificationStatus }}</div>
 
-                                @if($verification->address_documents_status == \App\Models\DB\Verification::DOCUMENTS_UPLOADED)
-                                    <div class="col-md-3 col-sm-4 col-5 text-center mb-20 document-actions">
-                                        <input type="hidden" name="document-type"
-                                               value="{{ \App\Models\DB\Document::DOCUMENT_TYPE_ADDRESS }}">
-
-                                        <button type="button"
-                                                class="mt-40 mb-20 btn btn--medium btn--shadowed-light btn--full-w decline-documents">
-                                            Decline
-                                        </button>
-
-                                        <button type="button"
-                                                class="mb-20 btn btn--medium btn--shadowed-light btn--full-w approve-documents">
-                                            Approve
-                                        </button>
-                                    </div>
-
-                                    <div class="col-md-4 document-reason">
-                                        <div class="form-group">
-                                            <label class="field-label" for="field13">Reason:</label>
-                                            <input class="input-field" type="text" name="decline-reason" id="field13"
-                                                   value="{{ $verification->address_decline_reason }}">
-                                        </div>
-                                    </div>
-                                @else
-                                    {{ $verification->addressStatusName }}
-                                @endif
-                            </div>
                         </div>
                     </div>
                     <!-- END tab Documents -->
@@ -274,7 +187,7 @@
                                         <table class="table-transparent">
                                             <thead>
                                             <tr>
-                                                <th width="25%">Total ZNX</th>
+                                                <th width="25%">Total ZPAY</th>
                                                 <th width="25%">Commission (BTC)</th>
                                                 <th width="25%">Commission (ETH)</th>
                                             </tr>
@@ -295,18 +208,19 @@
 
                                         <div class="col-md-12">
                                             <div class="dashboard-group-sm ico-pool">
-                                                <label for="field24" class="field-label">Add ZNX from ICO pool:</label>
+                                                <label for="field24" class="field-label">Add ZPAY from ICO pool:</label>
                                                 <div class="row row-middle">
                                                     <div class="col-lg-7 col-md-7">
                                                         <div class="field-group">
-                                                            <input class="input-field" type="text" name="znx-amount" id="field24"
-                                                                   placeholder="ZNX amount">
+                                                            <input class="input-field" type="text" name="znx-amount"
+                                                                   id="field24"
+                                                                   placeholder="ZPAY amount">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5">
                                                         <button id="add-ico-znx" type="button"
                                                                 class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
-                                                            Add ZNX
+                                                            Add ZPAY
                                                         </button>
                                                     </div>
                                                 </div>
@@ -315,18 +229,20 @@
 
                                         <div class="col-md-12">
                                             <div class="dashboard-group-sm foundation-pool">
-                                                <label for="field24" class="field-label">Add ZNX from Foundation pool:</label>
+                                                <label for="field24" class="field-label">Add ZPAY from Foundation
+                                                    pool:</label>
                                                 <div class="row row-middle">
                                                     <div class="col-lg-7 col-md-7">
                                                         <div class="field-group">
-                                                            <input class="input-field" type="text" name="znx-amount" id="field24"
-                                                                   placeholder="ZNX amount">
+                                                            <input class="input-field" type="text" name="znx-amount"
+                                                                   id="field24"
+                                                                   placeholder="ZPAY amount">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-5 col-md-5">
                                                         <button id="add-foundation-znx" type="button"
                                                                 class="field-btn btn btn--shadowed-light btn--medium btn--full-w">
-                                                            Add ZNX
+                                                            Add ZPAY
                                                         </button>
                                                     </div>
                                                 </div>
@@ -344,8 +260,8 @@
                                         <table class="table-transparent">
                                             <thead>
                                             <tr>
-                                                <th width="33.333%">Card referral bonus (ZNX)</th>
-                                                <th width="33.333%">Card pre-order bonuses (ZNX)</th>
+                                                <th width="33.333%">Card referral bonus (ZPAY)</th>
+                                                <th width="33.333%">Card pre-order bonuses (ZPAY)</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -359,7 +275,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="field-label" for="field28">Referrer:</label>
-                                    <input class="input-field" type="text" name="" id="field28" readonly value="{{ $referrer }}" readonly>
+                                    <input class="input-field" type="text" name="" id="field28" readonly
+                                           value="{{ $referrer }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -367,10 +284,12 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                @if($debitCard === \App\Models\DB\DebitCard::DESIGN_WHITE)
-                                    <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x" alt="ZANTEPAY Card">
-                                @elseif($debitCard === \App\Models\DB\DebitCard::DESIGN_RED)
-                                    <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x" alt="ZANTEPAY Card">
+                                @if($debitCard['isWhite'])
+                                    <img src="/images/wh-card.jpg" srcset="/images/wh-card@2x.jpg 2x"
+                                         alt="ZANTEPAY Card">
+                                @elseif($debitCard['isRed'])
+                                    <img src="/images/red-card.jpg" srcset="/images/red-card@2x.jpg 2x"
+                                         alt="ZANTEPAY Card">
                                 @else
                                     Debit Card not selected
                                 @endif
@@ -405,7 +324,8 @@
 
                                         <div class="col-lg-7 col-md-7">
                                             <div class="field-group">
-                                                <input class="input-field" type="text" name="wallet-address" id="field23"
+                                                <input class="input-field" type="text" name="wallet-address"
+                                                       id="field23"
                                                        value="{{ $profile->eth_wallet }}">
                                             </div>
                                         </div>
@@ -454,6 +374,16 @@
     @yield('admin-popups')
 
     <!-- Approve documents -->
+    <div class="logon-modal mfp-hide" id="reset-verification-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">Success!</h3>
+            <div class="logon-modal-text">
+                <p>Verification was reset.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approve documents -->
     <div class="logon-modal mfp-hide" id="approve-documents-modal">
         <div class="logon-modal-container">
             <h3 class="h4">Approved!</h3>
@@ -478,7 +408,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">Added!</h3>
             <div class="logon-modal-text">
-                <p>You have successfully transferred <span class="znx_added"></span> ZNX from ICO pool.</p>
+                <p>You have successfully transferred <span class="znx_added"></span> ZPAY from ICO pool.</p>
             </div>
         </div>
     </div>
@@ -488,7 +418,7 @@
         <div class="logon-modal-container">
             <h3 class="h4">Added!</h3>
             <div class="logon-modal-text">
-                <p>You have successfully transferred <span class="znx_added"></span> ZNX from Foundation pool.</p>
+                <p>You have successfully transferred <span class="znx_added"></span> ZPAY from Foundation pool.</p>
             </div>
         </div>
     </div>

@@ -28,14 +28,35 @@ class UsersService
      */
     public static $userStatuses = [
         User::USER_STATUS_INACTIVE => 'In-Active',
+        User::USER_STATUS_PENDING => 'T&C Pending',
         User::USER_STATUS_NOT_VERIFIED => 'Not Verified',
-        User::USER_STATUS_IDENTITY_VERIFIED => 'Identity Verified',
-        User::USER_STATUS_ADDRESS_VERIFIED => 'Address Verified',
+//        User::USER_STATUS_IDENTITY_VERIFIED => 'Identity Verified',
+//        User::USER_STATUS_ADDRESS_VERIFIED => 'Address Verified',
         User::USER_STATUS_VERIFIED => 'Verified',
         User::USER_STATUS_WITHDRAW_PENDING => 'Withdraw Pending',
-        User::USER_STATUS_PENDING => 'T&C Pending',
-        User::USER_STATUS_VERIFICATION_PENDING => 'Documents uploaded'
+        User::USER_STATUS_VERIFICATION_PENDING => 'Documents uploaded',
+        User::USER_STATUS_CLOSED => 'Account Closed'
     ];
+
+    /**
+     * Return user role
+     *
+     * @param User $user
+     * @param array $userData
+     *
+     */
+    public static function updateUser($user, $userData)
+    {
+        $user->email = $userData['email'];
+        $user->first_name = $userData['first_name'];
+        $user->last_name = $userData['last_name'];
+        $user->phone_number = $userData['phone_number'];
+        $user->area_code = $userData['area_code'];
+
+        $user->save();
+
+        AuthService::updateAuthToken($user->id, $user->email, $user->password);
+    }
 
     /**
      * Return user role
@@ -46,7 +67,7 @@ class UsersService
      */
     public static function getUserRole($userRole)
     {
-        return self::$userRoles[$userRole]['name'] ?? '';
+        return self::$userRoles[$userRole] ?? '';
     }
 
     /**
@@ -75,7 +96,7 @@ class UsersService
      */
     public static function changeUserRole(User $user, $userRole)
     {
-        if(array_key_exists($userRole, self::$userRoles)) {
+        if (array_key_exists($userRole, self::$userRoles)) {
             $user->role = $userRole;
             $user->save();
         }
@@ -110,7 +131,7 @@ class UsersService
     }
 
     /**
-     * Change user role
+     * Change user status
      *
      * @param mixed $user
      * @param int $userStatus
@@ -119,33 +140,24 @@ class UsersService
      */
     public static function changeUserStatus(User $user, $userStatus)
     {
-        if(array_key_exists($userStatus, self::$userStatuses)) {
+        if (array_key_exists($userStatus, self::$userStatuses)) {
             $user->status = $userStatus;
             $user->save();
         }
     }
 
     /**
-     * Remove user
+     * Change user password
      *
-     * @param User $user
+     * @param mixed $user
+     * @param string $userPassword
      *
      * @throws
      */
-    public static function removeUser($user)
+    public static function changeUserPassword(User $user, $userPassword)
     {
-        Profile::where('user_id', $user->id)->delete();
-        PasswordReset::where('email', $user->email)->delete();
-        SocialNetworkAccount::where('user_id', $user->id)->delete();
-
-        InvitesService::removeInvites($user->id);
-        DebitCardsService::removeDebitCard($user->id);
-        DocumentsService::removeDocuments($user->id);
-
-        ZantecoinTransaction::where('user_id', $user->id)->delete();
-        Wallet::where('user_id', $user->id)->delete();
-
-        $user->delete();
+        $user->password = $userPassword;
+        $user->save();
     }
 
 }

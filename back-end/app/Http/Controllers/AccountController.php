@@ -2,26 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ActivateAccount;
-use App\Mail\ChangePassword;
-use App\Mail\ResetPassword;
-use App\Models\DB\ExternalRedirect;
-use App\Models\DB\PasswordReset;
-use App\Models\DB\Profile;
-use App\Models\DB\SocialNetworkAccount;
-use App\Models\DB\Verification;
-use App\Models\DB\Wallet;
-use App\Models\DB\User;
-use App\Models\Services\MailService;
+use App\Exceptions\AuthException;
+use App\Exceptions\CaptchaException;
+use App\Models\Services\AccountsService;
+use App\Models\Services\AuthService;
+use App\Models\Services\CaptchaService;
+use App\Models\Services\ResetPasswordsService;
+use App\Models\Services\VerificationService;
 use App\Models\Validation\ValidationMessages;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
-use Mockery\Exception;
 
 
 class AccountController extends Controller
@@ -45,59 +36,56 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6|confirmed',
+                'email' => 'required|email|max:255|unique:users|bail',
+                'password' => 'required|string|min:6|max:32|bail',
+                'password_confirmation' => 'required_with:password|same:password|bail',
+                'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
                     'email' => 'Email',
-                    'password' => 'Password'
+                    'password' => 'Password',
+                    'password_confirmation' => 'Password Confirmation',
+                    'captcha' => 'Captcha'
                 ],
                 [
                     'email.unique' => 'User with such Email already registered',
                     'password.min' => 'The Password field must be at least 6 characters',
-                    'password.confirmed' => 'The Password confirmation does not match',
+                    'password_confirmation.required_with' => 'The Password Confirmation does not match',
+                    'password_confirmation.same' => 'The Password Confirmation does not match',
+                    'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
         );
-
-        $email = $request->input('email');
-        $password = $request->input('password');
 
         DB::beginTransaction();
 
         try {
 
-            $userInfo = $this->createUser(
-                [
-                    'email' => $email,
-                    'password' => User::hashPassword($password),
-                    'uid' => uniqid()
-                ]
-            );
+            CaptchaService::checkCaptcha($request->captcha);
 
-            ExternalRedirect::addLink(
-                Session::get('externalLink'),
-                $email,
-                ExternalRedirect::ACTION_TYPE_REGISTRATION
-            );
-
-            MailService::sendActivateAccountEmail($userInfo['email'], $userInfo['uid']);
+            $uid = AccountsService::registerUser($request->email, $request->password);
 
         } catch (\Exception $e) {
 
             DB::rollback();
 
+            $message = 'Registration failed';
+            $status = 422;
+
+            if ($e instanceof CaptchaException || $e instanceof AuthException) {
+                $message = $e->getMessage();
+                $status = 500;
+            }
+
             return response()->json(
                 [
                     'message' => 'Error creating user',
                     'errors' => [
-                        'email' => '',
-                        'password' => '',
-                        'confirm-password' => 'Registration failed'
+                        'captcha' => $message
                     ]
                 ],
-                422
+                $status
             );
 
         }
@@ -106,7 +94,7 @@ class AccountController extends Controller
 
         return response()->json(
             [
-                'uid' => $userInfo['uid']
+                'uid' => $uid
             ]
         );
 
@@ -124,61 +112,55 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|email|max:255',
-                'password' => 'required'
+                'email' => 'required|email|max:255|bail',
+                'password' => 'required|bail',
+	            'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
                     'email' => 'Email',
                     'password' => 'Password',
+	                'captcha' => 'Captcha'
                 ],
                 [
                     'email.required' => 'Enter email',
                     'password.required' => 'Enter password',
+	                'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
 
         );
 
-        $email = $request->input('email', '');
-        $password = $request->input('password', '');
-
         try {
-            $isAuthorized = Auth::attempt(
-                [
-                    'email' => $email,
-                    'password' => $password,
-                ]
-            );
 
-            if (!$isAuthorized) {
-                throw new AuthenticationException('Login or password incorrect');
-            }
+            CaptchaService::checkCaptcha($request->captcha);
 
-            if (Auth::user()->status === User::USER_STATUS_INACTIVE) {
-                throw new AuthenticationException('Your account is disabled');
-            }
+            $auth = AuthService::loginUser($request->email, $request->password);
 
         } catch (\Exception $e) {
 
-            $message = ($e instanceof AuthenticationException) ? $e->getMessage() : 'Authentification failed';
+            $message = 'Authentification failed';
+            $status = 422;
+
+            if ($e instanceof CaptchaException || $e instanceof AuthException) {
+                $message = $e->getMessage();
+                $status = 500;
+            }
 
             return response()->json(
                 [
-                    'message' => $message,
+                    'message' => 'Error creating user',
                     'errors' => [
-                        'email' => '',
-                        'password' => $message
+                        'captcha' => $message
                     ]
                 ],
-                422
+                $status
             );
+
         }
 
         return response()->json(
-            [
-                'userPage' => $this->getUserPage(Auth::user()->role)
-            ]
+            $auth
         );
     }
 
@@ -189,7 +171,7 @@ class AccountController extends Controller
     {
         try {
 
-            Auth::logout();
+            AuthService::logoutUser();
 
         } catch (\Exception $e) {
 
@@ -223,46 +205,49 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'required|string|email|max:255|exists:users,email',
+                'email' => 'required|email|max:255|bail',
+	            'captcha' => 'required|string|bail'
             ],
             ValidationMessages::getList(
                 [
                     'email' => 'Email',
+	                'captcha' => 'Captcha'
                 ],
                 [
-                    'email.exists' => 'There is no user with such email'
+	                'captcha.required' => 'Invalid captcha. Please try again.',
                 ]
             )
         );
-
-        $email = $request->input('email');
 
         DB::beginTransaction();
 
         try {
 
-            $resetInfo = PasswordReset::create(
-                [
-                    'email' => $email,
-                    'token' => uniqid()
-                ]
-            );
+	        CaptchaService::checkCaptcha($request->captcha);
 
-            MailService::sendResetPasswordEmail($resetInfo['email'], $resetInfo['token']);
+            AccountsService::resetPassword($request->email);
 
         } catch (\Exception $e) {
 
             DB::rollback();
 
-            return response()->json(
-                [
-                    'message' => 'Can not restore password',
-                    'errors' => [
-                        'email' => 'Error restoring password'
-                    ]
-                ],
-                422
-            );
+	        $message = 'Error restoring password';
+	        $status = 422;
+
+	        if ($e instanceof CaptchaException) {
+		        $message = $e->getMessage();
+		        $status = 500;
+	        }
+
+	        return response()->json(
+		        [
+			        'message' => $message,
+			        'errors' => [
+				        'captcha' => $message
+			        ]
+		        ],
+		        $status
+	        );
 
         }
 
@@ -286,53 +271,29 @@ class AccountController extends Controller
         $this->validate(
             $request,
             [
-                'password' => 'required|string|min:6|confirmed',
-                'token' => 'required|string'
+                'token' => 'required|string|bail',
+                'password' => 'required|string|min:6|max:32|bail',
+                'password_confirmation' => 'required_with:password|same:password|bail',
             ],
             ValidationMessages::getList(
                 [
-                    'password' => 'Password',
                     'token' => 'Token',
+                    'password' => 'Password',
+                    'password_confirmation' => 'Password Confirmation',
                 ],
                 [
                     'password.min' => 'The Password field must be at least 6 characters',
-                    'password.confirmed' => 'The Password confirmation does not match',
+                    'password_confirmation.required_with' => 'The Password Confirmation does not match',
+                    'password_confirmation.same' => 'The Password Confirmation does not match',
                 ]
             )
         );
-
-        $resetInfo = PasswordReset::where('token', $request->token)
-            ->where('created_at', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 15 MINUTE)'))
-            ->first();
-
-        if (is_null($resetInfo)) {
-            return response()->json(
-                [
-                    'nextStep' => action('IndexController@resetPassword')
-                ]
-            );
-        }
-
-        $user = User::where('email', $resetInfo->email)->first();
-
-        if (is_null($user)) {
-            return response()->json(
-                [
-                    'nextStep' => action('IndexController@resetPassword')
-                ]
-            );
-        }
 
         DB::beginTransaction();
 
         try {
 
-            $user->password = User::hashPassword($request->password);
-            $user->save();
-
-            PasswordReset::where('email', $user->email)->delete();
-
-            MailService::sendChangePasswordEmail($user->email);
+            AccountsService::savePassword($request->token, $request->password);
 
         } catch (\Exception $e) {
 
@@ -355,73 +316,6 @@ class AccountController extends Controller
     }
 
     /**
-     * Create user with profile and wallet
-     *
-     * @param array $userInfo
-     *
-     * @return array
-     */
-    protected function createUser($userInfo)
-    {
-        $referrer = Session::get('referrer');
-
-        if (!is_null($referrer)) {
-            $userInfo['referrer'] = $referrer;
-        }
-
-        $user = User::create($userInfo);
-
-        Profile::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Verification::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Wallet::create(
-            [
-                'user_id' => $user['id']
-            ]
-        );
-
-        Session::forget('referrer');
-
-        return $user;
-    }
-
-    /**
-     * Return user home page
-     *
-     * @param int $userRole
-     *
-     * @return string
-     */
-    protected function getUserPage($userRole)
-    {
-        switch ($userRole) {
-            case User::USER_ROLE_ADMIN:
-                return '/admin/users';
-
-            case User::USER_ROLE_MANAGER:
-                return '/admin/users';
-
-            case User::USER_ROLE_SALES:
-                return '/admin/users';
-
-            case User::USER_ROLE_USER:
-                return '/user/wallet';
-
-            default:
-                return '/';
-        }
-    }
-
-    /**
      * Redirect to Facebook
      * @return redirect
      */
@@ -438,72 +332,23 @@ class AccountController extends Controller
      */
     public function FacebookProviderCallback()
     {
+        DB::beginTransaction();
 
         try {
 
-            $snUser = Socialite::driver('facebook')->user();
-
-            $userNameParts = explode(' ', $snUser->getName());
-
-            $snAccount = SocialNetworkAccount::where('user_token', $snUser->getId())
-                ->where('social_network_id', SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK)
-                ->first();
-
-            if (!$snAccount) {
-
-                $userInfo = User::where('email', $snUser->email)->first();
-
-                if (!$userInfo) {
-
-                    // register a new User
-                    $userInfo = $this->createUser(
-                        [
-                            'email' => $snUser->email,
-                            'password' => User::hashPassword(uniqid()),
-                            'uid' => uniqid(),
-                            'status' => User::USER_STATUS_PENDING,
-                            'first_name' => $userNameParts[1] ?? "",
-                            'last_name' => $userNameParts[0] ?? "",
-                            'avatar' => $snUser->avatar,
-                        ]
-                    );
-
-                }
-
-                //create social network account
-                SocialNetworkAccount::create(
-                    [
-                        'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_FACEBOOK,
-                        'user_token' => $snUser->getId(),
-                        'user_id' => $userInfo->id
-                    ]
-                );
-
-                $userID = $userInfo['id'];
-
-            } else {
-
-                $userID = $snAccount->user->id;
-
-            }
-
-            $isAuthorized = Auth::loginUsingId($userID);
-
-            if (!$isAuthorized) {
-                throw new Exception('Authentification failed.');
-            }
+            $redirectUrl = AuthService::loginWithFacebook();
 
         } catch (\Exception $e) {
 
-            return redirect()->action('IndexController@main');
+            DB::rollback();
+
+            $redirectUrl = '/';
 
         }
 
-        return redirect(
-            $this->getUserPage(
-                Auth::user()->role
-            )
-        );
+        DB::commit();
+
+        return redirect($redirectUrl);
     }
 
     /**
@@ -523,71 +368,68 @@ class AccountController extends Controller
      */
     public function GoogleProviderCallback()
     {
+        DB::beginTransaction();
 
         try {
 
-            $snUser = Socialite::driver('google')->user();
-
-            $userNameParts = explode(' ', $snUser->getName());
-
-            $snAccount = SocialNetworkAccount::where('user_token', $snUser->getId())
-                ->where('social_network_id', SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE)
-                ->first();
-
-            if (!$snAccount) {
-
-                $userInfo = User::where('email', $snUser->email)->first();
-
-                if (!$userInfo) {
-
-                    // register a new User
-                    $userInfo = $this->createUser(
-                        [
-                            'email' => $snUser->email,
-                            'password' => User::hashPassword(uniqid()),
-                            'uid' => uniqid(),
-                            'status' => User::USER_STATUS_PENDING,
-                            'first_name' => $userNameParts[0] ?? "",
-                            'last_name' => $userNameParts[1] ?? "",
-                            'avatar' => $snUser->avatar,
-                        ]
-                    );
-
-                }
-
-                //create social network account
-                SocialNetworkAccount::create(
-                    [
-                        'social_network_id' => SocialNetworkAccount::SOCIAL_NETWORK_GOOGLE,
-                        'user_token' => $snUser->getId(),
-                        'user_id' => $userInfo->id
-                    ]
-                );
-
-                $userID = $userInfo['id'];
-
-            } else {
-
-                $userID = $snAccount->user->id;
-
-            }
-
-            $isAuthorized = Auth::loginUsingId($userID);
-
-            if (!$isAuthorized) {
-                throw new Exception('Authentification failed.');
-            }
+            $redirectUrl = AuthService::loginWithGoogle();
 
         } catch (\Exception $e) {
 
-            return redirect()->action('IndexController@main');
+            DB::rollback();
+
+            $redirectUrl = '/';
 
         }
 
-        return redirect(
-            $this->getUserPage(
-                Auth::user()->role
-            )
+        DB::commit();
+
+        return redirect($redirectUrl);
+    }
+
+    /**
+     * Process verification response
+     *
+     * @param Request $request
+     *
+     * @return json
+     */
+    public function trackVerifyResponse(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $requestParams = $request->json()->all();
+
+            file_put_contents('/tmp/veriff.me', json_encode($requestParams) . PHP_EOL . PHP_EOL, FILE_APPEND);
+
+            $citizenship =  $requestParams['verification']['person']['citizenship'] ?? '';
+            $nationality =  $requestParams['verification']['person']['nationality'] ?? '';
+
+            $apiResponse = [
+                'signature' => $request->header('x-signature'),
+                'session_id' => $requestParams['verification']['id'],
+                'response_status' => $requestParams['verification']['status'],
+                'response_code' => $requestParams['verification']['code'],
+                'fail_reason' => $requestParams['verification']['reason'],
+                'acceptance_time' => $requestParams['verification']['acceptanceTime'],
+                'country' => ($citizenship !== '') ? $citizenship : $nationality
+            ];
+
+            VerificationService::trackVerificationResponse($requestParams['status'], $apiResponse);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            exit($e->getMessage());
+        }
+
+        DB::commit();
+
+        return response()->json(
+            []
         );
     }
 

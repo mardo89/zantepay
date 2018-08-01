@@ -2,8 +2,7 @@
 
 @section('main-menu')
     <li><a href="profile">Profile</a></li>
-    <li><a href="profile-settings">Profile Settings</a></li>
-    <li><a href="invite-friend">Refer a Friend</a></li>
+    <li><a href="profile-settings">Verify Account</a></li>
     <li><a href="wallet">Wallet</a></li>
     <li class="current-menu-item"><a href="debit-card">ZANTEPAY Debit Card</a></li>
 @endsection
@@ -47,8 +46,8 @@
                         </div>
                         <div class="card-text-wrap">
                             <ul class="triangle-list">
-                                <li>Pre-order bonus: 500 ZNX</li>
-                                <li>20% cashback in ZNX</li>
+                                <li>Pre-order bonus: 500 ZPAY</li>
+                                <li>20% cashback in ZPAY</li>
                                 <li>FREE DEBIT CARD</li>
                                 <li>Exchange fee: BTC to EUR 1%, Altcoin to EUR 1,5%</li>
                             </ul>

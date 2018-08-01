@@ -67,7 +67,7 @@ class InvitesService
 
             $inviteStatus = Invite::INVITATION_STATUS_VERIFYING;
 
-            if (DocumentsService::verificationComplete($referral)) {
+            if (VerificationService::verificationComplete($referral->verification)) {
                 $inviteStatus = Invite::INVITATION_STATUS_COMPLETE;
             }
 
@@ -118,4 +118,31 @@ class InvitesService
         return self::$invitationStatuses[$invitationStatus] ?? '';
     }
 
+    /**
+     * Create invite
+     *
+     * @param User $user
+     * @param string $inviteEmail
+     *
+     * @return array
+     */
+    public static function createInvite($user, $inviteEmail) {
+        $invite = Invite::where('user_id', $user->id)->where('email', $inviteEmail)->first();
+
+        if (!$invite) {
+            $invite = Invite::create(
+                [
+                    'user_id' => $user->id,
+                    'email' => $inviteEmail
+                ]
+            );
+        }
+
+        MailService::sendInviteFriendEmail($inviteEmail, $user->uid);
+
+        return [
+            'email' => $invite['email'],
+            'status' => self::getInvitationStatus($invite['status'])
+        ];
+    }
 }

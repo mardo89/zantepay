@@ -22,12 +22,13 @@ class User extends Authenticatable
      */
     const USER_STATUS_INACTIVE = 0;
     const USER_STATUS_NOT_VERIFIED = 1;
-    const USER_STATUS_IDENTITY_VERIFIED = 2;
-    const USER_STATUS_ADDRESS_VERIFIED = 3;
+//    const USER_STATUS_IDENTITY_VERIFIED = 2;
+//    const USER_STATUS_ADDRESS_VERIFIED = 3;
     const USER_STATUS_VERIFIED = 4;
     const USER_STATUS_WITHDRAW_PENDING = 5;
     const USER_STATUS_PENDING = 6;
     const USER_STATUS_VERIFICATION_PENDING = 7;
+    const USER_STATUS_CLOSED = 8;
 
     /**
      * The attributes that are mass assignable.
@@ -36,7 +37,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'email', 'password', 'uid', 'status', 'referrer',
-        'first_name', 'last_name', 'phone_number','avatar'
+        'first_name', 'last_name', 'phone_number','avatar', 'affiliate'
     ];
 
     /**
@@ -47,95 +48,6 @@ class User extends Authenticatable
     protected $hidden = [
         'uid', 'password', 'remember_token', 'role'
     ];
-
-    /**
-     * Return status name
-     *
-     * @param int $status
-     *
-     * @return string
-     */
-    public static function getStatus($status) {
-        switch ($status) {
-            case self::USER_STATUS_INACTIVE:
-                return 'In-Active';
-
-            case self::USER_STATUS_NOT_VERIFIED:
-                return 'Not Verified';
-
-            case self::USER_STATUS_IDENTITY_VERIFIED:
-                return 'Identity Verified';
-
-            case self::USER_STATUS_ADDRESS_VERIFIED:
-                return 'Address Verified';
-
-            case self::USER_STATUS_VERIFIED:
-                return 'Verified';
-
-            case self::USER_STATUS_WITHDRAW_PENDING:
-                return 'Withdraw Pending';
-
-            case self::USER_STATUS_PENDING:
-                return 'T&C Pending';
-
-            case self::USER_STATUS_VERIFICATION_PENDING:
-                return 'Documents uploaded';
-
-            default:
-                return '';
-        }
-    }
-
-    /**
-     * Return role name
-     *
-     * @param int $role
-     *
-     * @return string
-     */
-    public static function getRole($role) {
-        switch ($role) {
-            case self::USER_ROLE_ADMIN:
-                return 'Admin';
-
-            case self::USER_ROLE_MANAGER:
-                return 'Manager';
-
-            case self::USER_ROLE_USER:
-                return 'User';
-
-            case self::USER_ROLE_SALES:
-                return 'Sales';
-
-            default:
-                return '';
-        }
-    }
-
-    /**
-     * Get list of available user roles
-     * @return array
-     */
-    public static function getRolesList() {
-        return [
-            [
-                'id' => self::USER_ROLE_ADMIN,
-                'name' => self::getRole(self::USER_ROLE_ADMIN)
-            ],
-            [
-                'id' => self::USER_ROLE_MANAGER,
-                'name' => self::getRole(self::USER_ROLE_MANAGER)
-            ],
-            [
-                'id' => self::USER_ROLE_SALES,
-                'name' => self::getRole(self::USER_ROLE_SALES)
-            ],
-            [
-                'id' => self::USER_ROLE_USER,
-                'name' => self::getRole(self::USER_ROLE_USER)
-            ]
-        ];
-    }
 
     /**
      * Get list of user referrals
@@ -189,37 +101,49 @@ class User extends Authenticatable
     }
 
     /**
-     * Generate password hash
+     * Check if user is deactivated
      *
-     * @param string $password
-     *
-     * @return string
+     * @return boolean
      */
-    public static function hashPassword($password) {
-        return bcrypt($password);
+    public function isClosed() {
+        return $this->status == self::USER_STATUS_CLOSED;
     }
 
     /**
-     * Check password with existing hash
+     * Check if user is verified
      *
-     * @param string $password
-     * @param string $hash
-     *
-     * @return bool
+     * @return boolean
      */
-    public static function checkPassword($password, $hash) {
-        return password_verify($password, $hash);
+    public function isVerified() {
+        return $this->status == self::USER_STATUS_VERIFIED;
     }
 
     /**
-     * Change user status
+     * Check if user is pending
      *
-     * @param int $userStatus
+     * @return boolean
      */
-    public function changeStatus($userStatus) {
-        $this->status = $userStatus;
+    public function isPending() {
+        return $this->status == self::USER_STATUS_PENDING;
+    }
 
-        $this->save();
+    /**
+     * Check if user is Admin
+     *
+     * @return boolean
+     */
+    public function isAdmin() {
+        return $this->role == self::USER_ROLE_ADMIN;
+    }
+
+    /**
+     * Automaticaly bcrypt password field
+     *
+     * @param $value
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
 }

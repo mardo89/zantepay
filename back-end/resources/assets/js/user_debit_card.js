@@ -2,6 +2,52 @@ require('./helpers');
 
 $(document).ready(function () {
 
+    $('#dc_country').on('submit', function (event) {
+        event.preventDefault();
+
+        const button = $('#dc_country').find('button[type="submit"]');
+        showSpinner(button);
+
+        const card = {
+            'country': $('select[name="card-country"]').val()
+        }
+
+        axios.post(
+            '/user/debit-card',
+            qs.stringify(card)
+        )
+            .then(
+                response => {
+                    hideSpinner(button);
+
+                    window.location = response.data.nextStep
+                }
+            )
+            .catch(
+                error => {
+                    hideSpinner(button);
+
+                    const {message, errors} = error.response.data;
+
+                    if (error.response.status == 422) {
+
+                        $.each(
+                            errors,
+                            (field, error) => {
+                                $('select[name="card-country"]').parent().addClass('form-error');
+                                $('select[name="card-country"]').after(
+                                    $('<div />').addClass('error-text').text(error)
+                                );
+                            }
+                        )
+
+                    } else {
+                        showError(message);
+                    }
+                }
+            )
+    });
+
     $('#dc_design').on('submit', function (event) {
         event.preventDefault();
 
@@ -20,7 +66,7 @@ $(document).ready(function () {
         }
 
         axios.post(
-            '/user/debit-card',
+            '/user/debit-card-design',
             qs.stringify(card)
         )
             .then(
