@@ -195,7 +195,7 @@
             
             <div class="p-t-60">
                 <h2 class="h4 mb-20">Change password:</h2>
-                <form id="change-password">
+                <form id="change_password_frm">
                     <div class="row dashboard-group-sm">
                         <div class="col-lg-3 col-sm-6">
                             <div class="form-group">
@@ -238,7 +238,7 @@
                                     I confirm that I am the owner of this account</label>
                             </div>
 
-                            <button type="submit" class="btn btn--shadowed-light btn--medium update-wallet">
+                            <button id="update-wallet" type="submit" class="btn btn--shadowed-light btn--medium">
                                 Change Address
                             </button>
                         </form>
@@ -276,6 +276,26 @@
         </div>
     </div>
 
+    <!-- Update Wallet Address confirmation -->
+    <div class="logon-modal mfp-hide" id="wallet-address-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">Changed!</h3>
+            <div class="logon-modal-text">
+                <p>Your Wallet address was successfully changed.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change user password confirmation -->
+    <div class="logon-modal mfp-hide" id="change-password-modal">
+        <div class="logon-modal-container">
+            <h3 class="h4">Changed!</h3>
+            <div class="logon-modal-text">
+                <p>Password successfully changed.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Close account confirmation -->
     <div class="logon-modal mfp-hide" id="close-account-modal">
         <div class="logon-modal-container">
@@ -285,6 +305,7 @@
             </div>
         </div>
     </div>
+
 
 @endsection
 
