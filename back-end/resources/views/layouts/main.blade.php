@@ -90,9 +90,9 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="{{$menuPrefix}}#ico">ICO</a>
-                            </li>
+                            {{--<li>--}}
+                                {{--<a href="{{$menuPrefix}}#ico">ICO</a>--}}
+                            {{--</li>--}}
 
                             {{--<li>--}}
                                 {{--<a href="/bounty">Bounty</a>--}}
