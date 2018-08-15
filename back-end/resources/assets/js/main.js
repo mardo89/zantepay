@@ -411,15 +411,17 @@ $(document).ready(function () {
                         }
                     },
                     "interactivity": {
-                        "detect_on": "canvas",
+                        detect_on: "window",
                         "events": {
                             "onhover": {
-                                "enable": false,
+                                "enable": true,
+                                "mode":"repulse",
                             },
                             "onclick": {
-                                "enable": false,
+                                "enable": true,
+                                "mode":"repulse"
                             },
-                            "resize": true
+                            "resize": false
                         },
                         "modes": {
                             "grab": {
