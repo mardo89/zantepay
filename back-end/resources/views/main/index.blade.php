@@ -96,10 +96,10 @@
                 </div>
                 <div class="row content-center">
                     <div class="col-md-4 mb-50">
-                        <a href="https://idex.market/eth/aura" target="_blank" rel="nofollow">
-                            <img src="images/idex.jpg" width="200" alt="idex.market">
+                        <a href="https://www.binance.com/" target="_blank" rel="nofollow">
+                            <img src="images/binance-logo.png" width="200" alt="binance">
                         </a>
-                        <h3 class="h5"><a href="https://idex.market/eth/aura" target="_blank" rel="nofollow">Decentralized Ethereum asset exchange</a></h3>
+                        <h3 class="h5"><a href="https://www.binance.com/" target="_blank" rel="nofollow">Application in progress</a></h3>
                     </div>
                     <div class="col-md-4 mb-50">
                         <a href="https://coinplace.pro/" target="_blank" rel="nofollow">
