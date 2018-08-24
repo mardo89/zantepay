@@ -117,7 +117,7 @@
                         <a href="https://goo.gl/2whc1v" target="_blank" rel="nofollow">
                             <img src="images/pexo-logo.jpg" width="200" alt="pexo.in">
                         </a>
-                        <h3 class="h5"><a href="https://goo.gl/2whc1v" target="_blank" rel="nofollow">Android based crypto trading platform in India</a></h3>
+                        <h3 class="h5"><a href="https://goo.gl/2whc1v" target="_blank" rel="nofollow">International cryptocurrency exchange</a></h3>
                     </div>
                     <div class="col-md-4 mb-50">
                         <a href="https://www.hotbit.io/" target="_blank" rel="nofollow">
@@ -385,7 +385,7 @@
                         <div class="col-md-7 content-center">
                             <img src="images/iPhone-debit.jpg" srcset="images/iPhone-debit@2x.jpg 2x" alt="ZanteWallet">
                             <div>
-                                <p class="mt-20">Providing a virtual currency wallet service. <br>Activity license <strong>FRK000189</strong></p>
+                                <p class="mt-20">Providing a virtual currency wallet service. <br>Operating license <strong>FRK000189</strong></p>
                                 <a target="_blank" href="https://www.teatmik.ee/en/personlegal/14374253-ZANTEPAY-O%C3%9C" rel="nofollow" class="btn btn--shadowed-light">Check license</a>
                             </div>
                         </div>
