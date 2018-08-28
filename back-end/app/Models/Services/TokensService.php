@@ -16,9 +16,9 @@ class TokensService
 	 * @var array Transaction Statuses
 	 */
 	public static $transactionStatuses = [
-		GrantCoinsTransaction::STATUS_IN_PROGRESS => 'In-Progress',
-		GrantCoinsTransaction::STATUS_COMPLETE => 'Success',
-		GrantCoinsTransaction::STATUS_FAILED => 'Failed'
+		GrantCoinsTransaction::STATUS_IN_PROGRESS => 'Not issued',
+		GrantCoinsTransaction::STATUS_COMPLETE => 'Issued',
+//		GrantCoinsTransaction::STATUS_FAILED => 'Failed'
 	];
 
 	/**
@@ -26,37 +26,14 @@ class TokensService
 	 *
 	 * @param string $address
 	 * @param int $amount
-	 * @param string $uid
 	 *
 	 * @throws \Exception
 	 */
-	public static function grantIcoTokens($address, $amount, $uid)
+	public static function grantIcoTokens($address, $amount)
 	{
-		$user = AccountsService::getUserByID($uid);
-
-		$userGrantAddress = $user->profile->eth_wallet;
-
-		$userZnxAmount = Transactions::searchTransactionsAmount(TransactionsService::getIcoTransactionTypes());
-
-		if (!$address) {
-			throw new GrantTokensException('Proxy Address can not be empty.');
-		}
-
-		if ($address != $userGrantAddress) {
-			throw new GrantTokensException('Incorrect Proxy Address.');
-		}
-
-		if ($amount != $userZnxAmount) {
-			throw new GrantTokensException('Incorrect Amount.');
-		}
-
-		$pool = (new Grant())->icoPool();
-
-		if ($pool->reachLimit($amount)) {
-			throw new GrantTokensException('Pool limit was reached.');
-		}
 
 		self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_ICO_TOKENS);
+
 	}
 
 	/**
@@ -64,40 +41,14 @@ class TokensService
 	 *
 	 * @param string $address
 	 * @param int $amount
-	 * @param string $uid
 	 *
 	 * @throws \Exception
 	 */
-	public static function grantMarketingTokens($address, $amount, $uid)
+	public static function grantMarketingTokens($address, $amount)
 	{
-		if ($uid) {
-
-			$user = AccountsService::getUserByID($uid);
-
-			$userGrantAddress = $user->profile->eth_wallet;
-			$userZnxAmount = Transactions::searchTransactionsAmount(TransactionsService::getMarketingTransactionTypes());
-
-			if (!$address) {
-				throw new GrantTokensException('Proxy Address can not be empty.');
-			}
-
-			if ($address != $userGrantAddress) {
-				throw new GrantTokensException('Incorrect Proxy Address.');
-			}
-
-			if ($amount != $userZnxAmount) {
-				throw new GrantTokensException('Incorrect Amount.');
-			}
-
-		}
-
-		$pool = (new Grant())->marketingPool();
-
-		if ($pool->reachLimit($amount)) {
-			throw new GrantTokensException('Pool limit was reached.');
-		}
 
 		self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_MARKETING_TOKENS);
+
 	}
 
 	/**
@@ -105,40 +56,14 @@ class TokensService
 	 *
 	 * @param string $address
 	 * @param int $amount
-	 * @param string $uid
 	 *
 	 * @throws \Exception
 	 */
-	public static function grantCompanyTokens($address, $amount, $uid)
+	public static function grantCompanyTokens($address, $amount)
 	{
-		if ($uid) {
-
-			$user = AccountsService::getUserByID($uid);
-
-			$userGrantAddress = $user->profile->eth_wallet;
-			$userZnxAmount = Transactions::searchTransactionsAmount(TransactionsService::getCompanyTransactionTypes());
-
-			if (!$address) {
-				throw new GrantTokensException('Proxy Address can not be empty.');
-			}
-
-			if ($address != $userGrantAddress) {
-				throw new GrantTokensException('Incorrect Proxy Address.');
-			}
-
-			if ($amount != $userZnxAmount) {
-				throw new GrantTokensException('Incorrect Amount.');
-			}
-
-		}
-
-		$pool = (new Grant())->companyPool();
-
-		if ($pool->reachLimit($amount)) {
-			throw new GrantTokensException('Pool limit was reached.');
-		}
 
 		self::grantTokens($address, $amount, GrantCoinsTransaction::GRANT_COMPANY_TOKENS);
+
 	}
 
 
@@ -153,42 +78,20 @@ class TokensService
 	 */
 	protected static function grantTokens($address, $amount, $type)
 	{
-		$transaction = GrantCoinsTransaction::create(
-			[
-				'address' => $address,
-				'amount' => $amount,
-				'type' => $type,
-			]
-		);
 
 		try {
 
-			$operationID = EtheriumApi::getCoinsOID($type, $amount, $address);
+			$transaction = GrantCoinsTransaction::create(
+				[
+					'address' => $address,
+					'amount' => $amount,
+					'type' => $type,
+					'status' => GrantCoinsTransaction::STATUS_COMPLETE
+				]
+			);
 
-			$transaction->operation_id = $operationID;
-			$transaction->save();
-
-			$transactionStatus = EtheriumApi::checkCoinsStatus($operationID);
-
-			switch ($transactionStatus) {
-				case 'success':
-					$transaction->status = GrantCoinsTransaction::STATUS_COMPLETE;
-					break;
-
-				case 'failure':
-					$transaction->status = GrantCoinsTransaction::STATUS_FAILED;
-					break;
-
-				default:
-					$transaction->status = GrantCoinsTransaction::STATUS_IN_PROGRESS;
-			}
-
-			$transaction->save();
 
 		} catch (\Exception $e) {
-
-			$transaction->status = GrantCoinsTransaction::STATUS_FAILED;
-			$transaction->save();
 
 			throw new \Exception('Error granting tokens');
 		}

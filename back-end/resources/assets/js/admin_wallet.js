@@ -67,7 +67,7 @@ const searchUser = (type, part, table, url, allowGrant) => {
 
                         if (allowGrant) {
                             transactionStatus = transaction.status === ''
-                                ? '<button class="btn btn--medium btn--shadowed-light grant_' + type + '_coins"  type="button">Issue Token</button>'
+                                ? '<button class="btn btn--medium btn--shadowed-light grant_' + type + '_coins"  type="button">Token issued</button>'
                                 : transaction.status;
                         }
 
@@ -146,7 +146,6 @@ $(document).ready(function () {
         const row = $(this).parents('tr');
 
         const grantInfo = {
-            'uid': row.data('uid'),
             'address': row.find('td:eq(1)').text().trim(),
             'amount': row.find('td:eq(2)').text().trim()
         }
@@ -168,6 +167,11 @@ $(document).ready(function () {
                             closeOnBgClick: true
                         }
                     );
+
+                    button.hide();
+                    button.before('Issued');
+                    button.remove();
+
                 }
             )
             .catch(
@@ -191,7 +195,6 @@ $(document).ready(function () {
         const row = $(this).parents('tr');
 
         const grantInfo = {
-            'uid': row.data('uid'),
             'address': row.find('td:eq(1)').text().trim(),
             'amount': row.find('td:eq(2)').text().trim()
         }
@@ -213,6 +216,11 @@ $(document).ready(function () {
                             closeOnBgClick: true
                         }
                     );
+
+                    button.hide();
+                    button.before('Issued');
+                    button.remove();
+
                 }
             )
             .catch(
@@ -236,7 +244,6 @@ $(document).ready(function () {
         const row = $(this).parents('tr');
 
         const grantInfo = {
-            'uid': row.data('uid'),
             'address': row.find('td:eq(1)').text().trim(),
             'amount': row.find('td:eq(2)').text().trim()
         }
@@ -258,6 +265,11 @@ $(document).ready(function () {
                             closeOnBgClick: true
                         }
                     );
+
+                    button.hide();
+                    button.before('Issued');
+                    button.remove();
+
                 }
             )
             .catch(
@@ -271,92 +283,6 @@ $(document).ready(function () {
             )
     });
 
-
-    // Grant Marketing Coins
-    $('#grant_marketing_coins').on('click', function (event) {
-        event.preventDefault();
-
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        const grantInfo = {
-            'address': $('#grant_marketing_address').val(),
-            'amount': $('#grant_marketing_amount').val()
-        }
-
-        axios.post(
-            '/admin/wallet/grant-marketing-coins',
-            qs.stringify(grantInfo)
-        )
-            .then(
-                () => {
-                    hideSpinner(button);
-
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#grant-coins-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
-                        }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {message} = error.response.data;
-
-                    showError(message)
-                }
-            )
-    });
-
-    // Grant Company Coins
-    $('#grant_company_coins').on('click', function (event) {
-        event.preventDefault();
-
-        const button = $(this);
-        showSpinner(button);
-        clearErrors();
-
-        const grantInfo = {
-            'address': $('#grant_company_address').val(),
-            'amount': $('#grant_company_amount').val()
-        }
-
-        axios.post(
-            '/admin/wallet/grant-company-coins',
-            qs.stringify(grantInfo)
-        )
-            .then(
-                () => {
-                    hideSpinner(button);
-
-                    $.magnificPopup.open(
-                        {
-                            items: {
-                                src: '#grant-coins-modal'
-                            },
-                            type: 'inline',
-                            closeOnBgClick: true
-                        }
-                    );
-                }
-            )
-            .catch(
-                error => {
-                    hideSpinner(button);
-
-                    const {message} = error.response.data;
-
-                    showError(message)
-                }
-            )
-    });
 
 
     // Run requests to search ico transactions

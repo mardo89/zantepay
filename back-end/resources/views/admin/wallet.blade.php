@@ -25,7 +25,9 @@
 			</div>
 
 			<div class="tabs-wrap">
+
 				<!-- tab ZanteCoin -->
+
 				<div class="tab-body is-active" id="admin-zantecoin">
 
 					<div class="dashboard-group">
@@ -45,7 +47,7 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<input class="input-field" type="text" id="new_zantecoin_owner_address"
-														 placeholder="Fill new owner address">
+											       placeholder="Fill new owner address">
 										</div>
 									</div>
 									<div class="col col-sm-auto">
@@ -66,27 +68,6 @@
 							</div>
 						</div>
 
-						<!-- TODO: this part is demo. Need to connect user wallet addresses database -->
-						<h2 class="h4 headline-mb">Issue ICO coins</h2>
-						<h3 class="h5 mb-10">Fill beneficiary address and amount in ZNX to grant marketing coins</h3>
-						<p>Curently available: <span id="ico_coins_available"></span> out of <span id="total_ico_coins_supply"></span> ZNX</p>
-						<div class="row row-middle mt-20">
-							<div class="col-md-4">
-								<div class="form-group">
-									<div class="text-regular mb-10"><label for="ico_coins_address">Beneficiary address</label></div>
-									<input class="input-field" type="text" id="ico_coins_address" placeholder="Set beneficiary address">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<div class="text-regular mb-10"><label for="ico_coins_amount">Number of ZNX to grant</label></div>
-									<input class="input-field" type="text" id="ico_coins_amount" placeholder="Set amount to issue">
-								</div>
-							</div>
-							<div class="col col-sm-auto">
-								<button class=" mt-10 btn btn--medium btn--shadowed-light" type="submit" id="issue_ico_coins">Issue Token</button>
-							</div>
-						</div>
 						<div class="table-responsive-500 table--left">
 							<table id="ico-participants" class="table table-black">
 								<thead>
@@ -112,20 +93,70 @@
 						</div>
 					</div>
 
-					<div class="row justify-content-end mb-10">
 
-						<div class="col-sm col-sm-auto">
-							<div class="checkbox">
-								<input type="checkbox" name="ico_status_filter" id="ico_check_pending" value="-1" checked>
-								<label for="ico_check_pending">Pending</label>
+					<!-- Transfer Zantecoin-->
+
+					<div class="dashboard-group">
+
+						<h2 class="h4 headline-mb">Transfer Tokens</h2>
+
+						<h3 class="h5 mb-10">Fill participant address and amount in ZNX to transfer coins</h3>
+
+						<div class="row row-middle mt-20">
+
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="text-regular mb-10"><label for="participants_address">Participant address</label></div>
+									<input class="input-field" type="text" id="participants_address"
+									       placeholder="Set participant address" required>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="text-regular mb-10"><label for="coins_amount">Number of ZPAY to grant</label></div>
+									<input class="input-field" type="text" id="coins_amount" placeholder="Set amount to transfer">
+								</div>
+							</div>
+
+							<div class="col col-sm-auto">
+								<button class=" mt-10 btn btn--medium btn--shadowed-light" type="submit" id="transfer_coins">
+									Transfer Coins
+								</button>
 							</div>
 						</div>
+
+					</div>
+
+
+					<!-- ICO Coins -->
+
+					<h2 class="h4 headline-mb">ICO coins</h2>
+
+					<div class="row justify-content-end mb-10">
+
+						{{--<div class="col-sm col-sm-auto">--}}
+							{{--<div class="checkbox">--}}
+								{{--<input type="checkbox" name="ico_status_filter" id="ico_check_0"--}}
+								       {{--value="0" checked>--}}
+								{{--<label for="ico_check_0">Not issued</label>--}}
+							{{--</div>--}}
+						{{--</div>--}}
+
+						{{--<div class="col-sm col-sm-auto">--}}
+							{{--<div class="checkbox">--}}
+								{{--<input type="checkbox" name="ico_status_filter" id="ico_check_1"--}}
+								       {{--value="1" checked>--}}
+								{{--<label for="ico_check_1">Issued</label>--}}
+							{{--</div>--}}
+						{{--</div>--}}
 
 						@foreach($transactionStatuses as $transactionStatus)
 
 							<div class="col-sm col-sm-auto">
 								<div class="checkbox">
-									<input type="checkbox" name="ico_status_filter" id="ico_check_{{ $transactionStatus['id'] }}" value="{{ $transactionStatus['id'] }}" checked>
+									<input type="checkbox" name="ico_status_filter" id="ico_check_{{ $transactionStatus['id'] }}"
+									       value="{{ $transactionStatus['id'] }}" checked>
 									<label for="ico_check_{{ $transactionStatus['id'] }}">{{ $transactionStatus['name'] }}</label>
 								</div>
 							</div>
@@ -135,9 +166,7 @@
 					</div>
 
 					<div class="dashboard-group">
-						<p>
-							<b>Click Issue Token button to send tokens to participant</b>
-						</p>
+
 						<div class="dashboard-top-panel-row dashboard-top-panel-row--sm tabs-head-wrap mb-10">
 							<ul id="ico_part_filter" class="tabs-head">
 								<li id="ICO_PART_ONE" class="is-active">
@@ -157,6 +186,7 @@
 								</li>
 							</ul>
 						</div>
+
 						<div class="tabs-wrap">
 
 							<!-- pre ico -->
@@ -276,51 +306,18 @@
 						</div>
 					</div>
 
-					<!-- Grant Marketing Coins -->
+					<!-- Marketing Coins -->
 
-					<div class="dashboard-group">
-						<h2 class="h4 headline-mb">Grant Marketing Coins. {{-- &nbsp; &nbsp; Total left: {{ $balance['marketing_balance'] }} --}}</h2>
-						<h3 class="h5 mb-10">Fill beneficiary address and amount in ZNX to grant marketing coins</h3>
-						<p>Curently available: <span id="grant_marketing_available"></span> out of <span id="total_grant_marketing_supply"></span> ZNX</p>
-						<div class="row row-middle mt-20">
-
-							<div class="col-md-4">
-								<div class="form-group">
-									<div class="text-regular mb-10"><label for="grant_marketing_address">Beneficiary addres</label></div>
-									<input class="input-field" type="text" id="grant_marketing_address"
-												 placeholder="Set beneficiary address">
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="form-group">
-									<div class="text-regular mb-10"><label for="grant_marketing_amount">Number of ZNX to grant</label></div>
-									<input class="input-field" type="text" id="grant_marketing_amount" placeholder="Set amount to grant">
-								</div>
-							</div>
-
-							<div class="col col-sm-auto">
-								<button class=" mt-10 btn btn--medium btn--shadowed-light" type="submit" id="grant_marketing_coins"> Grant
-									Coins
-								</button>
-							</div>
-						</div>
-					</div>
+					<h2 class="h4 headline-mb">Marketing Coins</h2>
 
 					<div class="row justify-content-end mb-10">
-
-						<div class="col-sm col-sm-auto">
-							<div class="checkbox">
-								<input type="checkbox" name="marketing_status_filter" id="marketing_check_pending" value="-1" checked>
-								<label for="marketing_check_pending">Pending</label>
-							</div>
-						</div>
 
 						@foreach($transactionStatuses as $transactionStatus)
 
 							<div class="col-sm col-sm-auto">
 								<div class="checkbox">
-									<input type="checkbox" name="marketing_status_filter" id="marketing_check_{{ $transactionStatus['id'] }}" value="{{ $transactionStatus['id'] }}" checked>
+									<input type="checkbox" name="marketing_status_filter" id="marketing_check_{{ $transactionStatus['id'] }}"
+									       value="{{ $transactionStatus['id'] }}" checked>
 									<label for="marketing_check_{{ $transactionStatus['id'] }}">{{ $transactionStatus['name'] }}</label>
 								</div>
 							</div>
@@ -330,9 +327,7 @@
 					</div>
 
 					<div class="dashboard-group">
-						<p>
-							<b>Click Issue Token button to send tokens to participant</b>
-						</p>
+
 						<div class="dashboard-top-panel-row dashboard-top-panel-row--sm tabs-head-wrap mb-10">
 							<ul id="marketing_part_filter" class="tabs-head">
 								<li id="ICO_PART_ONE" class="is-active">
@@ -352,6 +347,7 @@
 								</li>
 							</ul>
 						</div>
+
 						<div class="tabs-wrap">
 
 							<!-- pre ico -->
@@ -472,47 +468,18 @@
 						</div>
 					</div>
 
-					<!-- Grant Company coins -->
+					<!-- Company coins -->
 
-					<div>
-						<h2 class="h4 headline-mb">Grant Company Coins. {{-- &nbsp; &nbsp; Total left: {{ $balance['company_balance'] }} --}}</h2>
-						<h3 class="h5 mb-10">Fill beneficiary address and amount in ZNX to Grant Company coins</h3>
-						<p>Curently available: <span id="grant_company_available"></span> out of <span id="total_grant_company_supply"></span> ZNX</p>
-						<div class="row row-middle mt-20">
-							<div class="col-md-4">
-								<div class="form-group">
-									<div class="text-regular mb-10"><label for="grant_company_address">Beneficiary address</label></div>
-									<input class="input-field" type="text" id="grant_company_address" placeholder="Set beneficiary address">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<div class="text-regular mb-10"><label for="grant_company_amount">Number of ZNX to grant</label></div>
-									<input class="input-field" type="text" id="grant_company_amount" placeholder="Set amount to grant">
-								</div>
-							</div>
-							<div class="col col-sm-auto">
-								<button class=" mt-10 btn btn--medium btn--shadowed-light" type="submit" id="grant_company_coins"> Grant
-									Coins
-								</button>
-							</div>
-						</div>
-					</div>
+					<h2 class="h4 headline-mb">Grant Company Coins</h2>
 
 					<div class="row justify-content-end mb-10">
-
-						<div class="col-sm col-sm-auto">
-							<div class="checkbox">
-								<input type="checkbox" name="foundation_status_filter" id="company_check_pending" value="-1" checked>
-								<label for="company_check_pending">Pending</label>
-							</div>
-						</div>
 
 						@foreach($transactionStatuses as $transactionStatus)
 
 							<div class="col-sm col-sm-auto">
 								<div class="checkbox">
-									<input type="checkbox" name="foundation_status_filter" id="company_check_{{ $transactionStatus['id'] }}" value="{{ $transactionStatus['id'] }}" checked>
+									<input type="checkbox" name="foundation_status_filter" id="company_check_{{ $transactionStatus['id'] }}"
+									       value="{{ $transactionStatus['id'] }}" checked>
 									<label for="company_check_{{ $transactionStatus['id'] }}">{{ $transactionStatus['name'] }}</label>
 								</div>
 							</div>
@@ -522,9 +489,7 @@
 					</div>
 
 					<div class="dashboard-group">
-						<p>
-							<b>Click Issue Token button to send tokens to participant</b>
-						</p>
+
 						<div class="dashboard-top-panel-row dashboard-top-panel-row--sm tabs-head-wrap mb-10">
 							<ul id="company_part_filter" class="tabs-head">
 								<li id="ICO_PART_ONE" class="is-active">
@@ -544,6 +509,7 @@
 								</li>
 							</ul>
 						</div>
+
 						<div class="tabs-wrap">
 
 							<!-- pre ico -->
@@ -662,9 +628,11 @@
 							</div>
 
 						</div>
+
 					</div>
 
 				</div>
+
 				<!-- END tab ZanteCoin -->
 
 				<!-- tab Crowdsale -->
@@ -712,7 +680,7 @@
 									<div class="form-group">
 										<div class="mb-10 text-regular"><label for="new_wallet_address">Set new Wallet</label></div>
 										<input class="input-field" type="text" id="new_crowdsale_wallet_address"
-													 placeholder="Fill new wallet address">
+										       placeholder="Fill new wallet address">
 									</div>
 								</div>
 								<div class="col col-sm-auto">
@@ -753,9 +721,9 @@
 	<!-- Grant ZNX Coins -->
 	<div class="logon-modal mfp-hide" id="grant-coins-modal">
 		<div class="logon-modal-container">
-			<h3 class="h4">GRANTED!</h3>
+			<h3 class="h4">ISSUED!</h3>
 			<div class="logon-modal-text">
-				<p>ZNX Coins successfully granted.</p>
+				<p>ZNX Coins successfully issued.</p>
 			</div>
 		</div>
 	</div>

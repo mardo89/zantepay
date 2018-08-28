@@ -177,13 +177,11 @@ class AdminController extends Controller
 		$this->validate(
 			$request,
 			[
-				'uid' => 'required|string|bail',
-//				'address' => 'required|string|bail',
+				'address' => 'required|string|bail',
 				'amount' => 'required|integer|bail',
 			],
 			ValidationMessages::getList(
 				[
-					'uid' => 'User ID',
 					'address' => 'Wallet Address',
 					'amount' => 'Grant ZNX Amount',
 				]
@@ -192,7 +190,7 @@ class AdminController extends Controller
 
 		try {
 
-			TokensService::grantIcoTokens($request->address, $request->amount, $request->uid);
+			TokensService::grantIcoTokens($request->address, $request->amount);
 
 		} catch (\Exception $e) {
 
@@ -225,7 +223,7 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-//                'address' => 'required|string|bail',
+                'address' => 'required|string|bail',
                 'amount' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
@@ -238,7 +236,7 @@ class AdminController extends Controller
 
         try {
 
-            TokensService::grantMarketingTokens($request->address, $request->amount, $request->uid);
+            TokensService::grantMarketingTokens($request->address, $request->amount);
 
         } catch (\Exception $e) {
 
@@ -271,7 +269,7 @@ class AdminController extends Controller
         $this->validate(
             $request,
             [
-//                'address' => 'required|string|bail',
+                'address' => 'required|string|bail',
                 'amount' => 'required|integer|bail',
             ],
             ValidationMessages::getList(
@@ -284,7 +282,7 @@ class AdminController extends Controller
 
         try {
 
-            TokensService::grantCompanyTokens($request->address, $request->amount, $request->uid);
+            TokensService::grantCompanyTokens($request->address, $request->amount);
 
         } catch (\Exception $e) {
 
