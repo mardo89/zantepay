@@ -38,6 +38,8 @@ class UpdateEthRate extends Command
      */
     public function handle()
     {
+
+    	// ETH => EURO
         $rateJson = file_get_contents('https://api.coinmarketcap.com/v1/ticker/ethereum/?convert=EUR');
 
         if ($rateJson !== false) {
@@ -63,5 +65,8 @@ class UpdateEthRate extends Command
                 }
             }
         }
+
+        // ETH => ZPAY + USD
+
     }
 }

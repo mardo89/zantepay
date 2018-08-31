@@ -138,6 +138,9 @@ Route::group(['prefix' => 'service'], function () {
     Route::get('verification/search', 'ServiceController@searchVerificationInfo');
     Route::post('verification/reset', 'ServiceController@resetVerification');
 
+	Route::get('rates', 'ServiceController@rates');
+	Route::post('rates', 'ServiceController@updateRates');
+
 });
 
 //Route::get('/test-email', function () {

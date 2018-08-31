@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\DB\EthRate;
 use App\Models\Search\Events;
 use App\Models\Services\AccountsService;
 use App\Models\Services\MailService;
 use App\Models\Services\VerificationService;
+use App\Models\Services\ZpayRatesService;
 use App\Models\Validation\ValidationMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Psy\Util\Json;
+
 
 class ServiceController extends Controller
 {
@@ -272,5 +275,80 @@ class ServiceController extends Controller
             ]
         );
     }
+
+	/**
+	 * Rates
+	 *
+	 * @return View
+	 */
+	public function rates()
+	{
+				
+		return view(
+			'service.rates',
+			[
+				'ethRate' => optional(ZpayRatesService::ethRate())->rate ?? 0,
+				'usdRate' => optional(ZpayRatesService::usdRate())->rate ?? 0,
+				'euroRate' => optional(ZpayRatesService::euroRate())->rate ?? 0,
+			]
+		);
+
+	}
+
+	/**
+	 * Update Rates
+	 *
+	 * @param Request $request
+	 *
+	 * @return JSON
+	 */
+	public function updateRates(Request $request)
+	{
+
+		$this->validate(
+			$request,
+			[
+				'eth_rate' => 'required|numeric',
+				'usd_rate' => 'required|numeric',
+				'euro_rate' => 'required|numeric',
+			],
+			ValidationMessages::getList(
+				[
+					'eth_rate' => 'ETH rate',
+					'usd_rate' => 'USD rate',
+					'euro_rate' => 'EURO rate',
+				]
+			)
+		);
+
+		DB::beginTransaction();
+
+		try {
+
+			ZpayRatesService::updateEthRate($request->eth_rate);
+			ZpayRatesService::updateUsdRate($request->usd_rate);
+			ZpayRatesService::updateEuroRate($request->euro_rate);
+
+		} catch (\Exception $e) {
+
+			DB::rollback();
+
+			return response()->json(
+				[
+					'message' => 'Error updating ZPAY rates',
+					'errors' => []
+				],
+				500
+			);
+
+		}
+
+		DB::commit();
+
+		return response()->json(
+			[]
+		);
+
+	}
 
 }

@@ -47,9 +47,14 @@ class IcoService
 
         $icoPartEndDate = optional($activePart)->getEndDate() ?? '';
 
-        $icoPartEthRate = optional($activePart)->getEthRate() ?? 0;
-        $icoPartEuroRate = optional($activePart)->getEuroRate() ?? 0;
-	    $icoPartUsdRate = optional($activePart)->getUsdRate() ?? 0;
+//        $icoPartEthRate = optional($activePart)->getEthRate() ?? 0;
+//        $icoPartEuroRate = optional($activePart)->getEuroRate() ?? 0;
+//	    $icoPartUsdRate = optional($activePart)->getUsdRate() ?? 0;
+
+	    $icoPartEthRate = optional(ZpayRatesService::ethRate())->rate ?? 0;
+	    $icoPartUsdRate = optional(ZpayRatesService::usdRate())->rate ?? 0;;
+	    $icoPartEuroRate = optional(ZpayRatesService::euroRate())->rate ?? 0;;
+
         $icoPartZnxRate = RateCalculator::toZnx(1, $icoPartEthRate);
 
         $icoPartAmount = $prevPartAmount;
