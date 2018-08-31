@@ -3,7 +3,14 @@
 @section('header')
 
     <div id="particles-js"></div>
-
+    
+    <div class="r-soc-banner">
+        <ul>
+            <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
+            <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
+            <li><a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
+        </ul>
+    </div>
     <header class="header header-lp">
         @parent
 
