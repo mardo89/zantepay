@@ -3,6 +3,7 @@
 @section('main-menu')
     <li class="current-menu-item"><a href="mail-events">Mail Events</a></li>
     <li><a href="verification">Verification</a></li>
+    <li><a href="rates">Rates</a></li>
 @endsection
 
 @section('content')
