@@ -8,46 +8,12 @@
         <ul>
             <li><a target="_blank" href="http://telegram.me/zantepay"><i class="fa fa-telegram"></i></a></li>
             <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
-            <li><a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
+            <li><a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a></li>
+            <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
         </ul>
     </div>
     <header class="header header-lp">
         @parent
-
-        <div class="h-banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5 col-xl-6">
-                        The only official URL for Zantepay is <a href="https://zantepay.com">https://zantepay.com</a>. If you receive
-                        confirmation
-                        of your participation in the Token Sale, the only valid email is <a href="mailto:support@zantepay.com">support@zantepay.com</a>
-                    </div>
-                    <div class="col-lg-7 col-xl-6">
-                        <div class="row">
-                            <div class="col-lg">
-                                Official channels:
-                            </div>
-                            <div class="col-lg-10">
-                                <ul class="social-list">
-                                    <li><a target="_blank" href="https://www.facebook.com/ZANTEPAY/"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a target="_blank" href="https://twitter.com/zantepay"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="mailto:support@zantepay.com"><i class="fa fa-envelope"></i></a></li>
-                                    <li><a target="_blank" href="https://t.me/zantepay_ico"><i class="fa fa-telegram"></i></a></li>
-                                    <li><a target="_blank" href="https://www.reddit.com/user/ZANTEPAY"><i class="fa fa-reddit"></i></a></li>
-                                    <li><a target="_blank" href="https://www.instagram.com/zantepay"><i class="fa fa-instagram"></i></a>
-                                    </li>
-                                    <li><a target="_blank" href="https://medium.com/@zantepay"><i class="fa fa-medium"></i></a>
-                                    </li>
-                                    <li><a target="_blank" href="https://www.youtube.com/channel/UCP0ASZEKKM1DzFlhRu3FIpA"><i class="fa fa-youtube"></i></a></li>
-                                    <li><a target="_blank" href="https://www.linkedin.com/company/zantepay/"><i class="fa fa-linkedin"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="javascript:void(0)" class="fa fa-close js-close-banner" title="Close"></a>
-            </div>
-        </div>
 
         <div class="header__content white-content">
             <div class="container">
@@ -98,6 +64,35 @@
         <div class="hp-list-bt-section text-center">
             <div class="container">
                 <div class="headline-group">
+                    <h2 class="h2 headline">ZPAY is tradable at</h2>
+                </div>
+                <div class="table-responsive-500">
+                    <table class="table-black table-7-cols">
+                        <thead>
+                            <tr>
+                                <th>Exchange</th>
+                                <th>Domain</th>
+                                <th>Pair</th>
+                                <th>Price (USD)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="images/hotbit.jpg" width="200" alt="hotbit" style="margin:0;"></td>
+                                <td><a href="https://www.hotbit.io/" target="_blank" rel="nofollow">www.hotbit.io</a></td>
+                                <td>ZPAY/ETH</td>
+                                <td>0,015</td>
+                                <td><a href="https://www.hotbit.io/" target="_blank" rel="nofollow" class="btn btn--shadowed-light" style="white-space: nowrap;">Buy Now</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="hp-list-bt-section text-center">
+            <div class="container">
+                <div class="headline-group">
                     <h2 class="h2 headline">ZPAY official exchanges</h2>
                     <img src="images/shield.png" srcset="images/shield@2x.png 2x" alt="shield">
                 </div>
@@ -125,12 +120,6 @@
                             <img src="images/pexo-logo.jpg" width="200" alt="pexo.in">
                         </a>
                         <h3 class="h5"><a href="https://goo.gl/2whc1v" target="_blank" rel="nofollow">International cryptocurrency exchange</a></h3>
-                    </div>
-                    <div class="col-md-4 mb-50">
-                        <a href="https://www.hotbit.io/" target="_blank" rel="nofollow">
-                            <img src="images/hotbit.jpg" width="200" alt="hotbit">
-                        </a>
-                        <h3 class="h5"><a href="https://www.hotbit.io/" target="_blank" rel="nofollow">Cryptocurrency exchange with a global reach</a></h3>
                     </div>
                     <div class="col-md-4 mb-50">
                         <a href="https://www.wolowz.com/" target="_blank" rel="nofollow">
@@ -375,11 +364,6 @@
                     </div>
                     <div class="col-lg col-md-4 mb-20">
                         <a href="https://foundico.com/ico/zantepay.html" target="_blank" rel="nofollow" title="ZANTEPAY on Foundico.com"><img width="150" height="150" border="0" src="https://foundico.com/widget/?p=12067&f=s" alt="ZANTEPAY score on Foundico.com" /></a>
-                    </div>
-                </div>
-                <div class="row content-center">
-                    <div class="col-lg-4 col-md-4 mb-20">
-                        <a href="https://foxico.io/project/zantepay" target="_blank" title="ZANTEPAY on FoxICO"><img border="0" src="https://foxico.io/rating/zantepay" width="176px" height="72px" alt="ZANTEPAY ICO rating"/></a>
                     </div>
                 </div>
             </div>
