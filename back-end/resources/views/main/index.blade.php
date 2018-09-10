@@ -22,9 +22,8 @@
                     <div class="row">
                         <div class="col-md-4 lp-proj-wrap__left">
                             <div class="lp-proj-group">
-                                <h3 class="text-lg mb-20">Stable token = 1USD</h3>
-                                <img src="images/crypto-exchange-service.png" srcset="images/crypto-exchange-service@2x.png 2x" alt="Crypto exchange service">
-                                <div class="middle-row">Z TOKEN</div>
+                                <h3 class="text-lg mb-20">Stable token = always 1USD</h3>
+                                <img src="images/z-token.png" srcset="images/z-token@2x.png 2x" alt="Z Token">
                             </div>
                             <div class="lp-proj-group">
                                 <h3 class="text-lg mb-20">NFC contactless payment app</h3>
