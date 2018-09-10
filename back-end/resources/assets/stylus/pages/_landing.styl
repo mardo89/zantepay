@@ -959,12 +959,23 @@ a.lp-feed__col
 
 .lp-proj-group
   min-height 270px
+  position relative
   @media (max-width: 767px)
     margin-top 50px
   &:first-of-type
     margin-bottom 70px
     @media (max-width: 767px)
       margin 50px 0 0
+  .middle-row
+    position absolute
+    left 300px
+    white-space nowrap
+    top 50%
+    @media (max-width: 991px)
+      left 230px
+    @media (max-width: 767px)
+      position static
+      margin 20px 0 0 
 
 .lp-proj-coin
   display inline-block
