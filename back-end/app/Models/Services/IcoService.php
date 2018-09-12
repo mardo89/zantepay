@@ -52,8 +52,8 @@ class IcoService
 //	    $icoPartUsdRate = optional($activePart)->getUsdRate() ?? 0;
 
 	    $icoPartEthRate = optional(ZpayRatesService::ethRate())->rate ?? 0;
-	    $icoPartUsdRate = optional(ZpayRatesService::usdRate())->rate ?? 0;;
-	    $icoPartEuroRate = optional(ZpayRatesService::euroRate())->rate ?? 0;;
+	    $icoPartUsdRate = optional(ZpayRatesService::usdRate())->rate ?? 0;
+	    $icoPartEuroRate = optional(ZpayRatesService::euroRate())->rate ?? 0;
 
         $icoPartZnxRate = RateCalculator::toZnx(1, $icoPartEthRate);
 

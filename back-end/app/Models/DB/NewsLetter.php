@@ -22,4 +22,16 @@ class NewsLetter extends Model
      */
     protected $hidden = [];
 
+	/**
+	 * Get user info
+	 */
+	public function user() {
+		return $this->hasOne('App\Models\DB\User', 'email', 'email')->withDefault(
+			[
+				'first_name' => '',
+				'last_name' => ''
+			]
+		);
+	}
+
 }
