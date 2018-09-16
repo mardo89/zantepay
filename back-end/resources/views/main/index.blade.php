@@ -85,6 +85,13 @@
                                 <td>0,015</td>
                                 <td><a href="https://www.hotbit.io/" target="_blank" rel="nofollow" class="btn btn--shadowed-light" style="white-space: nowrap;">Buy Now</a></td>
                             </tr>
+                            <tr>
+                                <td><img src="images/coinplace.png" width="200" alt="coinplace" style="margin:0;"></td>
+                                <td><a href="https://www.coinplace.pro/" target="_blank" rel="nofollow">www.coinplace.pro</a></td>
+                                <td>ZPAY/BTC</td>
+                                <td>0,29</td>
+                                <td><a href="https://coinplace.pro/" target="_blank" rel="nofollow" class="btn btn--shadowed-light" style="white-space: nowrap;">Buy Now</a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -105,7 +112,7 @@
                     </div>
                     <div class="col-md-4 mb-50">
                         <a href="https://coinplace.pro/" target="_blank" rel="nofollow">
-                            <img src="images/coinplace.jpg" width="200" alt="coinplace.pro">
+                            <img src="images/coinplace.png" width="200" alt="coinplace.pro">
                         </a>
                         <h3 class="h5"><a href="https://coinplace.pro/" target="_blank" rel="nofollow">P2P token trading platform</a></h3>
                     </div>
