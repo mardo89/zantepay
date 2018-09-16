@@ -18,6 +18,7 @@
                     <thead>
                     <tr>
                         <th>Email</th>
+                        <th>Name</th>
                         <th>Joined</th>
                     </tr>
                     </thead>
@@ -25,6 +26,7 @@
                     @foreach($newsletters as $newsletter)
                         <tr>
                             <td>{{ $newsletter['email'] }}</td>
+                            <td>{{ $newsletter['name'] }}</td>
                             <td>{{ $newsletter['joined'] }}</td>
                         </tr>
                     @endforeach

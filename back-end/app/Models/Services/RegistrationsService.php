@@ -100,11 +100,12 @@ class RegistrationsService
     {
         $newsLetterInfo = [];
 
-        $newsletters = NewsLetter::orderBy('id', 'desc')->get();
+        $newsletters = NewsLetter::orderBy('id', 'desc')->with('user')->get();
 
         foreach ($newsletters as $newsletter) {
             $newsLetterInfo[] = [
                 'email' => $newsletter->email,
+	            'name' => $newsletter->user->first_name . ' ' . $newsletter->user->last_name,
                 'joined' => $newsletter->created_at->format('m/d/Y')
             ];
         }
