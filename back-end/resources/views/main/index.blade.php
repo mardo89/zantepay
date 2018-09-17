@@ -139,16 +139,16 @@
 
         <div class="hp-video-section text-center">
             <div class="container">
-                <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
+<!--                <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
                 <div>
                     <a href="https://www.youtube.com/watch?v=XBfX9SnnGXE" class="js-popup-video">
                         <i class="fa fa-youtube-play"></i>
                         <img src="images/mardo-zantepay.jpg" alt="What is ZANTEPAY">
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
-        
+
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">
