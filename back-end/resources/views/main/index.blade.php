@@ -25,28 +25,18 @@
                                 <h3 class="text-lg mb-20">Stable token = always 1USD</h3>
                                 <img src="images/z-token.png" srcset="images/z-token@2x.png 2x" alt="Z Token">
                             </div>
-                            <div class="lp-proj-group">
-                                <h3 class="text-lg mb-20">NFC contactless payment app</h3>
-                                <img src="images/nfc-payment-app.png" srcset="images/nfc-payment-app@2x.png 2x" alt="NFC contactless payment app">
-                            </div>
                         </div>
                         <div class="col-md-4 lp-proj-wrap__center">
                             <div class="lp-proj-coin">
                                 <div class="lp-coin-line lp-coin-line--t-left"></div>
-                                <div class="lp-coin-line lp-coin-line--b-left"></div>
                                 <div class="lp-coin-line lp-coin-line--t-right"></div>
-                                <div class="lp-coin-line lp-coin-line--b-right"></div>
-                                <img src="images/zpay-lg-white.png" alt="ZPAY">
+                                <img src="images/logo-vertical@2x.png" alt="ZPAY">
                             </div>
                         </div>
                         <div class="col-md-4 lp-proj-wrap__right">
                             <div class="lp-proj-group">
-                                <h3 class="text-lg mb-20">Multiwallet integrated <br> with debit card <br> (centralized system)</h3>
-                                <img src="images/wh-card-sm.png" srcset="images/wh-card-sm@2x.png 2x" width="267" alt="Multiwallet integrated with debit card">
-                            </div>
-                            <div class="lp-proj-group">
                                 <h3 class="text-lg mb-20">Decentralized multiwallet app</h3>
-                                <img src="images/iphone-wallets.png" srcset="images/iphone-wallets@2x.png 2x" width="148" alt="Decentralized multiwallet app">
+                                <img src="images/iphone-wallets2.png" srcset="images/iphone-wallets2@2x.png 2x" width="148" alt="Decentralized multiwallet app">
                             </div>
                         </div>
                     </div>
@@ -261,7 +251,6 @@
 
         <section class="lp-section-three" id="roadmap">
             <div class="container">
-                <div class="p-b-60 h2 text-center mb-30">Roadmap update coming soon</div>
                 <div class="row p-b-60">
                     <div class="offset-md-2 col-md-3 vertical-middle-col"><span class="h2 primary-color text-uppercase">Roadmap</span></div>
                     <div class="col-md-6">
@@ -270,7 +259,7 @@
                 </div>
 
                 <div class="hp-roadmap">
-                    <div class="row p-tb-40">
+                    {{-- <div class="row p-tb-40">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container">
                                 <img src="images/rocket-picture.jpg" srcset="images/rocket-picture@2x.jpg 2x" alt="Rocket Image">
@@ -282,9 +271,9 @@
                                 <p>Token distribution Debit Card pre-ordering start.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="row row-revert p-tb-40">
+                    {{-- <div class="row row-revert p-tb-40">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container3">
                                 <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" alt="ZPAY">
@@ -296,23 +285,23 @@
                                 </h3>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="row p-tb-40">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container">
-                                <img src="images/iPhone.jpg" srcset="images/iPhone@2x.jpg 2x" alt="ZANTEPAY wallet">
+                                <img src="images/iphone-wallets2.png" srcset="images/iphone-wallets2@2x.png 2x" width="270" alt="Decentralized multiwallet app">
                             </div>
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q3</span></h3>
+                                <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q4</span></h3>
                                 <p>Debit card launch. Bitcoin, Litecoin, Ethereum and ZPAY integration with Debit card and Wallet.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row row-revert p-tb-40">
+                    {{-- <div class="row row-revert p-tb-40">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container2">
                                 <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" width="480px"
@@ -325,9 +314,9 @@
                                 <p>Debit card launch. Bitcoin, Litecoin, Ethereum and ZPAY integration with Debit card and Wallet.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="row lp-row-1">
+                    <div class="row row-revert lp-row-1">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container">
                                 <img src="images/rocket-image.jpg" srcset="images/rocket-image@2x.jpg 2x" alt="Rocket Image">
@@ -381,31 +370,26 @@
                 <div class="container">
                     <div class="row row-revert">
                         <div class="col-md-7 content-center">
-                            <img src="images/iPhone-debit.jpg" srcset="images/iPhone-debit@2x.jpg 2x" alt="ZanteWallet">
+                            <img src="images/iphone-debit2.jpg" srcset="images/iphone-debit2@2x.jpg 2x" alt="Zantepay Wallet">
                             <div>
                                 <p class="mt-20">Providing a virtual currency wallet service. <br>Operating license <strong>FRK000189</strong></p>
                                 <a target="_blank" href="https://www.teatmik.ee/en/personlegal/14374253-ZANTEPAY-O%C3%9C" rel="nofollow" class="btn btn--shadowed-light">Check license</a>
                             </div>
                         </div>
                         <div class="col-md-5 vertical-middle-col">
-                            <h2 class="h2 headline">What is <span>ZANTEPAY wallet</span></h2>
-                            <ul class="styl-list">
-                                <li>The ZANTEPAY wallet application will let you purchase, sell, send, receive and exchange your ZPAYs
-                                    in the simplest and safest way possible.
-                                </li>
-                                <li>Its beauty and its ease of use.</li>
-                                <li>Your latest ZANTEPAY card transactions or your exchange history.</li>
-                                <li>You will also have the option to manage Bitcoin, Litecoin, Ethereum and ZPAY directly from your
-                                    ZANTEPAY wallet and assign your wallets to your ZANTEPAY card according to the selected preferences.
-                                </li>
-                                <li>Buy BTC and altcoins with SEPA payment or with debit/credit card.</li>
-                            </ul>
+                            <h2 class="h2 headline mb-40">What is <span>ZANTEPAY decentralized wallet</span></h2>
+                            <div class="text-lg">
+                                <p>Decentralized multi wallet app</p>
+                                <p>Buy BTC and ETH with debit/credit card. (soon)</p>
+                                <p>The ZANTEPAY wallet application will let you  send and receive BTC, BCH, ETH, ZPAYs in the simplest and safest way possible.</p>
+                                <p>Its beauty and its ease of use.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="lp-section-sixth">
+            {{-- <section class="lp-section-sixth">
                 <div class="container">
                     <div class="row lp-row-1">
                         <div class="col-lg-5 col-md-6 content-center">
@@ -446,7 +430,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
         </div>
 
         <section class="lp-section-seventh white-content">

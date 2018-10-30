@@ -558,13 +558,10 @@
     position absolute
     width 1px 
     background $primary-color
-    top 250px
-    bottom 250px
+    top 320px
+    bottom 210px
     left 50%
     transform translateX(-50%)
-    @media screen and (max-width 1400px)
-      top 210px
-      // bottom 210px
     @media screen and (max-width 991px)
       display none
   .row
@@ -957,15 +954,18 @@ a.lp-feed__col
     text-align left
     margin-bottom 70px
 
+.lp-proj-wrap
+  .row
+    align-items center
+
 .lp-proj-group
   min-height 270px
   position relative
+  margin-bottom 50px
+  @media (max-width: 1199px)
+    margin-bottom 20px
   @media (max-width: 767px)
-    margin-top 50px
-  &:first-of-type
-    margin-bottom 70px
-    @media (max-width: 767px)
-      margin 50px 0 0
+    margin 0
   .middle-row
     position absolute
     left 300px
@@ -983,31 +983,30 @@ a.lp-feed__col
   height 270px
   border-radius 50%
   background rgba($primary-color, .2)
-  padding 78px 10px
+  padding 60px 10px
   box-shadow 0 0 0 40px rgba($primary-color, .12)
-  margin-top 200px
+  // margin-top 70px
   position relative
   @media (max-width: 1199px)
     width 200px
     height 200px
     padding 58px 10px
     box-shadow 0 0 0 25px rgba($primary-color, .12)
-    margin-top 250px
   @media (max-width: 767px)
-    margin-top 100px
-    margin-bottom 50px
+    margin 70px 0 100px
 
 .lp-coin-line
-  width 150px
+  width 100px
   height 2px
   position relative
   background $primary-color
   position absolute
   @media (max-width: 1199px)
-    width 110px
-  @media (max-width: 991px)
-    width 70px
-  
+    width 85px
+  // @media (max-width: 1199px)
+  //   width 110px
+  // @media (max-width: 991px)
+  //   width 70px
   &:before
   &:after
     content ''
@@ -1022,42 +1021,62 @@ a.lp-feed__col
     left 0
   &:after
     right 0
-  &--b-left
+  // &--b-left
   &--t-left
     right 100%
-    margin-right -20px
+    margin-right 50px
+    width 55px
+    @media (max-width: 1199px)
+      width 45px
     @media (max-width: 767px)
-      transform-origin right
-      transform rotate(90deg) !important
-      right 50%
-      transform translateX(50%)
-      margin 0
-  &--b-left
-  &--b-right
-    bottom 10px
-    @media (max-width: 767px)
-      bottom -80px
-  &--t-left
-  &--t-right
-    top 10px
-    @media (max-width: 767px)
-      top -10px
-  &--b-right
+      bottom 100%
+      top auto !important
+      margin-bottom 90px !important
   &--t-right
     left 100%
-    margin-left -20px
+    margin-left 50px
     @media (max-width: 767px)
-      display none
+      top 100% !important
+      margin-top 30px !important
+  //   @media (max-width: 767px)
+  //     transform-origin right
+  //     transform rotate(90deg) !important
+  //     right 50%
+  //     transform translateX(50%)
+  //     margin 0
+  // &--b-left
+  // &--b-right
+  //   bottom 10px
+  //   @media (max-width: 767px)
+  //     bottom -80px
   &--t-left
-  &--b-right
-    transform rotate(30deg)
   &--t-right
-  &--b-left
-    transform rotate(-30deg)
-  &--t-right
-    width 130px
-    @media (max-width: 1199px)
-      width 70px
+    top 50%
+    transform translateY(-50%)
+    @media (max-width: 991px)
+      display none
+    @media (max-width: 767px)
+      display block
+      transform rotate(90deg)
+      transform-origin left center
+      left 50%
+      right auto
+      margin 0
+      width 60px !important
+  // &--b-right
+  
+    // @media (max-width: 767px)
+    //   display none
+  // &--t-left
+  // &--b-right
+  //   transform rotate(30deg)
+  // &--t-right
+  // &--b-left
+  //   transform rotate(-30deg)
+  // &--t-right
+  //   width 130px
+  //   @media (max-width: 1199px)
+  //     width 70px
 
 .lp-markets-list
   clearlist()
