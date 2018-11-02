@@ -55,44 +55,8 @@
 @section('main')
 
     <main class="main main-lp">
-        <div class="hp-list-bt-section text-center">
-            <div class="container">
-                <div class="headline-group">
-                    <h2 class="h2 headline">ZPAY is tradable at</h2>
-                </div>
-                <div class="table-responsive-500">
-                    <table class="table-black table-7-cols">
-                        <thead>
-                            <tr>
-                                <th>Exchange</th>
-                                <th>Domain</th>
-                                <th>Pair</th>
-                                <th>Price (USD)</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><img src="images/hotbit.jpg" width="200" alt="hotbit" style="margin:0;"></td>
-                                <td><a href="https://www.hotbit.io/" target="_blank" rel="nofollow">www.hotbit.io</a></td>
-                                <td>ZPAY/ETH</td>
-                                <td>0,015</td>
-                                <td><a href="https://www.hotbit.io/" target="_blank" rel="nofollow" class="btn btn--shadowed-light" style="white-space: nowrap;">Buy Now</a></td>
-                            </tr>
-                            <tr>
-                                <td><img src="images/coinplace.png" width="200" alt="coinplace" style="margin:0;"></td>
-                                <td><a href="https://www.coinplace.pro/" target="_blank" rel="nofollow">www.coinplace.pro</a></td>
-                                <td>ZPAY/BTC</td>
-                                <td>0,29</td>
-                                <td><a href="https://coinplace.pro/" target="_blank" rel="nofollow" class="btn btn--shadowed-light" style="white-space: nowrap;">Buy Now</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="hp-list-bt-section text-center">
-            <div class="container">
+        <div class="hp-list-bt-section text-center p-b-60">
+            <div class="container mb-20 p-b-60">
                 <div class="headline-group">
                     <h2 class="h2 headline">ZPAY official exchanges</h2>
                     <img src="images/shield.png" srcset="images/shield@2x.png 2x" alt="shield">
@@ -138,18 +102,6 @@
             </div>
         </div>
 
-        <div class="hp-video-section text-center">
-            <div class="container">
-<!--                <h2 class="h2 headline">What is <br> ZANTEPAY</h2>
-                <div>
-                    <a href="https://www.youtube.com/watch?v=XBfX9SnnGXE" class="js-popup-video">
-                        <i class="fa fa-youtube-play"></i>
-                        <img src="images/mardo-zantepay.jpg" alt="What is ZANTEPAY">
-                    </a>
-                </div> -->
-            </div>
-        </div>
-
         <section class="lp-section-one white-content" id="about-us">
             <div class="container">
                 <div class="text-center">
@@ -163,7 +115,6 @@
                         <ul class="styl-list">
                             <li>New mainstream currency</li>
                             <li>BTC, ETH, LTC free conversion to ZPAY</li>
-                            <!-- <li>Mastercard - accepted everywhere</li> -->
                             <li>Can be used to cover service fees in ZANTEPAY ecosystem</li>
                             <li>50% discount on all services in ZANTEPAY ecosystem when using ZPAY</li>
                             <li>ERC 20 token</li>
@@ -263,34 +214,6 @@
                 </div>
 
                 <div class="hp-roadmap">
-                    {{-- <div class="row p-tb-40">
-                        <div class="col-md-6 content-center">
-                            <div class="lp-image-container">
-                                <img src="images/rocket-picture.jpg" srcset="images/rocket-picture@2x.jpg 2x" alt="Rocket Image">
-                            </div>
-                        </div>
-                        <div class="col-md-6 vertical-middle-col content-center">
-                            <div class="lp-content-col">
-                                <h3 class="h2 headline">Beginning of the ZPAY pre-sale <span>March 15<sup>th</sup></span></h3>
-                                <p>Token distribution Debit Card pre-ordering start.</p>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    {{-- <div class="row row-revert p-tb-40">
-                        <div class="col-md-6 content-center">
-                            <div class="lp-image-container3">
-                                <img src="images/zantecoin.png" srcset="images/zantecoin@2x.png 2x" alt="ZPAY">
-                            </div>
-                        </div>
-                        <div class="col-md-6 vertical-middle-col content-center">
-                            <div class="lp-content-col">
-                                <h3 class="h2 headline">Pre-ICO - ICO III Part <span>March 15<sup>th</sup> - July 15<sup>th</sup></span>
-                                </h3>
-                            </div>
-                        </div>
-                    </div> --}}
-
                     <div class="row p-tb-40">
                         <div class="col-md-6 content-center">
                             <div class="lp-image-container">
@@ -304,21 +227,6 @@
                             </div>
                         </div>
                     </div>
-
-                    {{-- <div class="row row-revert p-tb-40">
-                        <div class="col-md-6 content-center">
-                            <div class="lp-image-container2">
-                                <img src="images/card.png" srcset="images/card@2x.png 2x" class="lp-visa-card" width="480px"
-                                     alt="ZANTEPAY Debit Card">
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-t-40 vertical-top-col pt-mob-0 content-center">
-                            <div class="lp-content-col">
-                                <h3 class="h2 headline">Debit card launch <span>2018 Q4</span></h3>
-                                <p>Debit card launch. Bitcoin, Litecoin, Ethereum and ZPAY integration with Debit card and Wallet.</p>
-                            </div>
-                        </div>
-                    </div> --}}
 
                     <div class="row row-revert lp-row-1">
                         <div class="col-md-6 content-center">
@@ -392,49 +300,6 @@
                     </div>
                 </div>
             </section>
-
-            {{-- <section class="lp-section-sixth">
-                <div class="container">
-                    <div class="row lp-row-1">
-                        <div class="col-lg-5 col-md-6 content-center">
-                            <div class="lp-image-container2">
-                                <img src="images/card.png" srcset="images/card@2x.png 2x" alt="Zantpay Debit Card">
-                            </div>
-                        </div>
-                        <div class="col-md-6 offset-lg-1">
-                            <h2 class="h2 headline">ZANTEPAY <span>debit card</span></h2>
-                            <ul class="styl-list">
-                                <li>Allows making purchases with Bitcoin, Litecoin, Ethereum or ZPAY everywhere in the world.</li>
-                                <li>Connected directly to your ZANTEPAY wallet.</li>
-                                <li>Provides automatic highest trading price from partner exchanges. 1%exchange fee. No hidden charges.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="lp-arch-group">
-                        <div class="text-center">
-                            <h2 class="h2 headline">ZANTEPAY <span>payment architecture</span></h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <img src="images/zantepay-payment-architecture.png" alt="ZANTEPAY payments architecture">
-                            </div>
-                            <div class="col-lg-6">
-                                <ol class="num-list">
-                                    <li>Bob swipes the card in the shop. </li>
-                                    <li>Card provider sends request to Zantepay backend;</li>
-                                    <li>Zantepay backend is connected with exchange through API to determine BTC market price;</li>
-                                    <li>Zantepay backend takes information from Bob ‘s wallet on his BTC balance and calculates how much Bob can spend with debit card;</li>
-                                    <li>Zantepay backend sends information to Card provider;</li>
-                                    <li>Card provider confirms transaction (in accordance with transaction limits);</li>
-                                    <li>Card provider confirms transaction;</li>
-                                    <li>Amount of BTC from Bob ‘s wallet will be deducted;</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> --}}
         </div>
 
         <section class="lp-section-seventh white-content">
