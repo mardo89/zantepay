@@ -109,15 +109,14 @@
                 </div>
                 <div class="row vertical-middle-col mt-40 p-t-30">
                     <div class="text-center col-lg-3 col-sm-4 offset-lg-1">
-                        <img src="images/zantecoin2.png" srcset="images/zantecoin2@2x.png 2x" alt="ZPAY">
+                        <img src="images/zpay-circle.png" srcset="images/zpay-circle@2x.png 2x" width="250" alt="ZPay">
                     </div>
                     <div class="col-lg-7 col-sm-8 offset-lg-1">
+                        <h4 class="mb-40 h3">Start accepting ZPAY tokens:</h4>
                         <ul class="styl-list">
-                            <li>New mainstream currency</li>
-                            <li>BTC, ETH, LTC free conversion to ZPAY</li>
-                            <li>Can be used to cover service fees in ZANTEPAY ecosystem</li>
-                            <li>50% discount on all services in ZANTEPAY ecosystem when using ZPAY</li>
-                            <li>ERC 20 token</li>
+                            <li style="word-wrap: break-word;">Contract addess: 0xeffea57067e02999fdcd0bb45c0f1071a29472d9</li>
+                            <li>Symbol: ZPAY</li>
+                            <li>Decimals: 18</li>
                         </ul>
                     </div>
                 </div>
