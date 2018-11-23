@@ -959,13 +959,13 @@ a.lp-feed__col
     align-items center
 
 .lp-proj-group
-  min-height 270px
+  // min-height 270px
   position relative
-  margin-bottom 50px
-  @media (max-width: 1199px)
-    margin-bottom 20px
-  @media (max-width: 767px)
-    margin 0
+  // margin-bottom 50px
+  // @media (max-width: 1199px)
+  //   margin-bottom 20px
+  // @media (max-width: 767px)
+  //   margin 0
   .middle-row
     position absolute
     left 300px
@@ -1029,7 +1029,7 @@ a.lp-feed__col
   &:after
     right 0
   // &--b-left
-  &--t-left,
+  // &--t-left,
   &--b-left
     right 100%
     margin-right 50px
@@ -1039,13 +1039,13 @@ a.lp-feed__col
       display none
     @media (max-width: 767px)
       display block
-  &--t-left
-    transform translateY(-50%) rotate(30deg)
-    @media (max-width: 767px)
-      transform rotate(90deg)
-      left 41%
-      top -148%
-      margin 0
+  // &--t-left
+  //   transform translateY(-50%) rotate(30deg)
+  //   @media (max-width: 767px)
+  //     transform rotate(90deg)
+  //     left 41%
+  //     top -148%
+  //     margin 0
   &--b-left
     transform translateY(-50%) rotate(-30deg)
     top 69%
@@ -1054,7 +1054,8 @@ a.lp-feed__col
       left 41%
       top -24%
       margin 0
-  &--t-right
+  &--t-right,
+  &--t-left
     left 100%
     margin-left 50px
     top 50%
@@ -1073,6 +1074,23 @@ a.lp-feed__col
       left 50%
       right auto
       width 60px !important
+  &--t-left
+    left auto
+    right 100%
+    margin-right 60px
+    margin-left 0
+    @media (max-width: 1199px)
+      margin-right 40px
+    @media (max-width: 767px)
+      top auto !important
+      bottom 100% !important
+      margin 0 0 65px !important
+      display block
+      transform rotate(90deg)
+      transform-origin left center
+      left 50%
+      right auto
+      width 35px !important
   //   @media (max-width: 767px)
   //     transform-origin right
   //     transform rotate(90deg) !important

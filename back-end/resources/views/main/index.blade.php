@@ -22,17 +22,12 @@
                     <div class="row">
                         <div class="col-md-4 lp-proj-wrap__left">
                             <div class="lp-proj-group">
-                                <h3 class="text-lg mb-20">Stable token = always 1USD</h3>
-                                <img src="images/z-token.png" srcset="images/z-token@2x.png 2x" width="250" alt="Z Token">
-                            </div>
-                            <div class="lp-proj-group">
                                 <img src="images/zpay-circle.png" srcset="images/zpay-circle@2x.png 2x" width="250" alt="ZPay">
                             </div>
                         </div>
                         <div class="col-md-4 lp-proj-wrap__center">
                             <div class="lp-proj-coin">
                                 <div class="lp-coin-line lp-coin-line--t-left"></div>
-                                <div class="lp-coin-line lp-coin-line--b-left"></div>
                                 <div class="lp-coin-line lp-coin-line--t-right"></div>
                                 <img src="images/logo-vertical@2x.png" alt="ZPAY">
                             </div>
@@ -129,7 +124,6 @@
                     <h2 class="h2 headline">ZPAY <br> ecosystem projects</h2>
                     <img src="images/map.svg" width="945" alt="ZPAY ecosystem projects">
                     <ul class="lp-markets-list">
-                        <li><i class="mark-circle mark-circle--white"></i> Debit Card</li>
                         <li><i class="mark-circle mark-circle--red"></i> Decentralized App</li>
                     </ul>
                 </div>
@@ -340,28 +334,6 @@
                             technology and telecom branch for the brands like HP and Nokia. Then she moved on to online-based consulting
                             business and recently into the fin tech branch. Lena believes that her corporate experience, leadership and
                             passion for the technology make her a valuable asset for the team.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <img src="images/daniel.jpg" srcset="images/daniel@2x.jpg 2x" alt="Daniel Raissar">
-                        <h3 class="h4">Daniel Raissar <span>CTO</span> <a target="_blank" href="https://www.linkedin.com/in/daniel-raissar-58684848/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
-                        <p>Daniel is an early adaptor of cryptocurrencies. BScIT from IT College. One of the founding members of Estonian Cryptocurrency Association. Has the experience of trading cryptocurrencies successfully for over 5 years.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <img src="images/ron.jpg" srcset="images/ron@2x.jpg 2x" alt="Ron Luvistsuk">
-                        <h3 class="h4">Ron Luvistsuk <span>CFO</span> <a target="_blank"
-                                                                         href="https://www.linkedin.com/in/ron-luvistsuk-a1065714/"
-                                                                         class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
-                        <p>Ron is bringing his experience from SEB Corporate banking. He has more than 20 years of experience in finance,
-                            deep understanding of risk, compliance and payment architecture in the EU. Ex CFO at Lukoil Baltic. As an
-                            independent financial advisor Ron has led over 600 projects, totaling in over $60m.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <img src="images/kristi.jpg" srcset="images/kristi@2x.jpg 2x" alt="Kristi Sild">
-                        <h3 class="h4">Kristi Sild <span>Legal <br> Attorney at Law/ Partner, LEXTAL</span> <a target="_blank" href="https://www.linkedin.com/in/kristi-sild-16745093/" class="soc-icon"><i class="fa fa-linkedin-square"></i></a></h3>
-                        <p>Kristi is an experienced attorney and leads the legal team of Zantepay project. Kristi is a partner in Lawfirm
-                            LEXTAL, one of the biggest lawfirms in Estonia, having also offices in Latvia and Lithuania. Kristi has wide
-                            legal experience in fintech field, including regulatory matters and other legal questions related to innovative
-                            financing and financial services. Her expertise also covers services related to crypto currencies and ICOs.</p>
                     </div>
                     <div class="col-lg-4">
                         <img src="images/dev-team.png" srcset="images/dev-team@2x.png 2x" alt="ZANTEPAY Development Team">
