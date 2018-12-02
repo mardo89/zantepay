@@ -215,8 +215,8 @@
                         </div>
                         <div class="col-md-6 vertical-middle-col content-center">
                             <div class="lp-content-col">
-                                <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2018 Q4</span></h3>
-                                <p>Debit card launch. Bitcoin, Litecoin, Ethereum and ZPAY integration with Debit card and Wallet.</p>
+                                <h3 class="h2 headline">Launch of ZANTEPAY wallet <span>2019 Q1</span></h3>
+                                <p>Decentralized app launch. Bitcoin, Litecoin, Ethereum and ZPAY integration with decentralized app and Wallet.</p>
                             </div>
                         </div>
                     </div>

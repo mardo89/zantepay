@@ -13,13 +13,13 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:title" content="ZANTEPAY"/>
     <meta name="twitter:description"
-          content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
+          content="Zantepay decentralised wallet is simple and easy to use wallet to buy, hold, send and receive BTC, BCH, ETH and ZPAY"/>
     <meta name="twitter:image" content="{{ asset('images/fb_share.jpg') }}"/>
 
     <meta property="og:url" content="{{ asset('/') }}"/>
     <meta property="og:title" content="ZANTEPAY"/>
     <meta property="og:description"
-          content="ZANTEPAY multi wallet and debit card - bringing crypto currencies into the mainstream!"/>
+          content="Zantepay decentralised wallet is simple and easy to use wallet to buy, hold, send and receive BTC, BCH, ETH and ZPAY"/>
     <meta property="og:image" content="{{ asset('images/fb_share.jpg') }}"/>
     <!-- End Open Graph -->
 
