@@ -238,38 +238,6 @@
             </div>
         </section>
 
-        <div class="lp-section-reviews">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="h2 headline text-left">Expert reviews</h2>
-                </div>
-                <div class="row p-t-60 mt-20 lp-rate text-center">
-                    <div class="col-lg col-md-4 mb-20">
-                        <a href="https://www.trackico.io/ico/zantepay/" target="_blank" rel="nofollow" title="ZANTEPAY on TrackICO">
-                            <img border="0" src="https://www.trackico.io/widget/square/zantepay/400.png" width="150px" height="150px" alt="ZANTEPAY TrackICO rating">
-                        </a>
-                    </div>
-                    <div class="col-lg col-md-4 mb-20">
-                        <div>
-                            <img src="images/icobench.png" width="200" alt="ICObench Logo">
-                        </div>
-                        <a href="https://icobench.com/ico/zantepay" target="_blank" rel="nofollow" title="Zantepay on ICObench"><img border="0" src="https://icobench.com/rated/zantepay?shape=horizontal&size=m" width="200" alt="Zantepay ICO rating"/></a>
-                    </div>
-                    <div class="col-lg col-md-4 mb-20">
-                        <a href="https://icomarks.com/ico/zantepay" target="_blank" rel="nofollow" title="Zantepay (PreICO)"><img border="0" src="https://icomarks.com/widget/z/zantepay/square.svg" width="150px" height="150px" alt="Zantepay (PreICO) ICO rating"/></a>
-                    </div>
-                    <div class="col-lg col-md-4 mb-20">
-                        <a href="https://www.coinschedule.com/ico/zantecoin" target="_blank" rel="nofollow" title="Zantepay Coinschedule">
-                            <img border="0" src="images/coinschedule.jpg" srcset="images/coinschedule@2x.jpg 2x" alt="Zantepay Coinschedule" style="border:1px solid #ccc;"/>
-                        </a>
-                    </div>
-                    <div class="col-lg col-md-4 mb-20">
-                        <a href="https://foundico.com/ico/zantepay.html" target="_blank" rel="nofollow" title="ZANTEPAY on Foundico.com"><img width="150" height="150" border="0" src="https://foundico.com/widget/?p=12067&f=s" alt="ZANTEPAY score on Foundico.com" /></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="lp-bg-1">
             <section class="lp-section-five">
                 <div class="container">
@@ -431,48 +399,6 @@
 
     <footer class="footer white-content">
         <div class="container">
-            <div class="footer-partners" id="partners">
-                <div class="text-center">
-                    <h2 class="h2 headline text-left">Partners</h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="http://www.kryptoraha.ee">
-                            <img src="images/estonian-crypto-association.png" srcset="images/estonian-crypto-association@2x.png 2x" alt="estonian crypto association">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="https://startupwiseguys.com/">
-                            <img src="images/swg.png" srcset="images/swg@2x.png 2x" alt="StartupWiseGuys">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="https://www.home.neustar/">
-                            <img src="images/neustar.svg" width="220" alt="neustar">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="https://aws.amazon.com">
-                            <img src="images/aws.png" alt="neustar">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="https://veriff.me/">
-                            <img src="images/veriff.svg" alt="veriff">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="https://www.mongodb.com/">
-                            <img src="images/mongodb-logo-white.png"  srcset="images/mongodb-logo-white@2x.png 2x" alt="mongoDB">
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a target="_blank" rel="nofollow" href="https://allcoinwiki.com/">
-                            <img src="images/allcoinwiki.png"  srcset="images/allcoinwiki@2x.png 2x" alt="allcoinwiki">
-                        </a>
-                    </div>
-                </div>
-            </div>
             <div class="footer-chanels" id="channels">
                 <div class="text-center">
                     <h2 class="h2 headline text-left">Our Channels</h2>
