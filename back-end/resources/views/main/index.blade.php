@@ -202,7 +202,7 @@
                 <div class="row p-b-60">
                     <div class="offset-md-2 col-md-3 vertical-middle-col"><span class="h2 primary-color text-uppercase">Roadmap</span></div>
                     <div class="col-md-6">
-                        <h2 class="headline h2">More than 1 million people to use ZANTEPAY debit card by 2020</h2>
+                        <h2 class="headline h2">More than 1 million people to use ZANTEPAY by 2020</h2>
                     </div>
                 </div>
 
